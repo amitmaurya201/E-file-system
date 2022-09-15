@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "modules\\jet-process\\jet-porcess-web"
+        ]
+    }
+}
