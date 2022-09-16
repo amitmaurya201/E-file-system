@@ -1,5 +1,0 @@
-Bundle-Name: jet-porcess-web
-Bundle-SymbolicName: io.jetprocess
-Bundle-Version: 1.0.0
-Export-Package: io.jetprocess.constants
-Web-ContextPath: /jet-porcess-web
