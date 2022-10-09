@@ -172,12 +172,12 @@
 						<div class="personal-menu-dropdown" id="qtgo_personal_menu_dropdown">
 							<div class="dropdown">
 								<button class="dropdown-toggle btn btn-unstyled" type="button" aria-label="Personal Menu" id="personal-menu-user-icon">
-									<span class="sticker sticker-lg">
-										<span class="sticker user-icon-color-5 sticker-circle sticker-lg">
-											<span class="sticker-overlay">
+									<span>
+										<span>
+											<span>
 												<#assign profilePic = user.getPortraitURL(themeDisplay)/>
 												<#if profilePic??>
-													<img src="${profilePic}"/>
+													<@liferay.user_personal_bar /> 
 												<#else>
 													<svg class="lexicon-icon lexicon-icon-user" role="presentation"><use xlink:href="${themeDisplay.getPortalURL()}/o/admin-theme-blue/images/clay/icons.svg#user"></use></svg>
 												</#if>
@@ -185,7 +185,7 @@
 										</span>
 									</span>
 								</button>
-								<div class="dropdown-menu dropdown-menu-personal-menu dropdown-menu-indicator-end" id="dropdown-menu-personal-menu-employee" style="min-width:200px; left:-160px">
+								<#--<div class="dropdown-menu dropdown-menu-personal-menu dropdown-menu-indicator-end" id="dropdown-menu-personal-menu-employee" style="min-width:200px; left:-160px">
 									<ul class="list-unstyled">
 										<li class="dropdown-subheader" role="presentation">${user.getFirstName()} ${user.getLastName()}</li>
 										<ul class="list-unstyled">
@@ -194,7 +194,7 @@
 											<li aria-selected="false"><a class="dropdown-item" href="/c/portal/logout">Sign Out</a></li>
 										</ul>
 									</ul>
-								</div>
+								</div>-->
 							</div>
 						</div>
 					</span>
@@ -205,12 +205,12 @@
 	<!-- /Header Menu -->
 	
 	<!-- Mobile Menu -->
-	<div class="dropdown mobile-user-menu">
+	<#--<div class="dropdown mobile-user-menu">
 		<@liferay.user_personal_bar /> 
 		<#if themeDisplay.isSignedIn()>
 			<span> Welcome ${user.getFirstName()} ${user.getLastName()} </span>
 		</#if>
-	</div>
+	</div>-->
 	<!-- /Mobile Menu -->
 	
 </div>
