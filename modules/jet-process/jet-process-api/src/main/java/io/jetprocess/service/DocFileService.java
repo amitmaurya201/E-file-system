@@ -55,8 +55,8 @@ public interface DocFileService extends BaseService {
 	 */
 	public DocFile addDocFile(
 			long groupId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference, ServiceContext serviceContext)
+			String category, String subCategory, String remarks,
+			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
 	public DocFile deleteDocFile(long docFileId) throws PortalException;

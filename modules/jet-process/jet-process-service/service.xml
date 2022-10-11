@@ -63,8 +63,7 @@
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
 	</entity>
 	
-
-	<!-- Receipt Entity  -->
+	
 	<entity name="Receipt" local-service="true" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
@@ -82,6 +81,8 @@
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
+
+		<column name="createdOn" type="Date" />
 		<column name="type" type="String" />
 		<column name="deliveryMode" type="String" />
 		<column name="receivedOn" type="Date" />
@@ -94,18 +95,10 @@
 		<column name="subject" type="String" />
 		<column name="remarks" type="String" />
 		<column name="document" type="String" />
-		<column name="minDeptOth" type="String" />
-		<column name="name" type="String" />
-		<column name="designation" type="String" />
-		<column name="mobile" type="String" />
-		<column name="email" type="String" />
-		<column name="address" type="String" />
-		<column name="country" type="String" />
-		<column name="state" type="String" />
-		<column name="district" type="String" />
-		<column name="pinCode" type="String" />
-		<column name="receiptNumber" type="String" />
 		
+	<!-- 	Foreign Key contact details -->
+		<column name="senderId" type="long" />
+
 		<!-- Order -->
 
 		<order by="asc">
@@ -125,6 +118,60 @@
 		</finder>
 		
 	   <!-- 	Group Reference  -->
+	   <reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- References -->
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+	</entity>
+	
+	<entity name="ContactDetail" local-service="true" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="contactDetailId" primary="true" type="long" />
+
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="minDeptOth" type="String" />
+		<column name="name" type="String" />
+		<column name="designation" type="String" />
+		<column name="mobile" type="String" />
+		<column name="email" type="String" />
+		<column name="address" type="String" />
+		<column name="country" type="String" />
+		<column name="state" type="String" />
+		<column name="district" type="String" />
+		<column name="pinCode" type="String" />
+		
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="ContactDetailId" return-type="ContactDetail">
+			<finder-column name="contactDetailId" />
+		</finder>
+		
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		
+	   <!--- Group Reference  -->
 	   <reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->

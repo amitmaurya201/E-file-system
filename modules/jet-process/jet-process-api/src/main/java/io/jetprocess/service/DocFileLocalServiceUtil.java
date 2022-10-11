@@ -61,15 +61,15 @@ public class DocFileLocalServiceUtil {
 	}
 
 	public static DocFile addDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, String catagory, String subCategory, String remarks,
+			long groupId, String nature, String type, String subject,
+			String category, String subCategory, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addDocFile(
-			groupId, nature, type, fileNumber, subject, catagory, subCategory,
-			remarks, reference, serviceContext);
+			groupId, nature, type, subject, category, subCategory, remarks,
+			reference, serviceContext);
 	}
 
 	/**
@@ -333,6 +333,10 @@ public class DocFileLocalServiceUtil {
 		return getService().getExportActionableDynamicQuery(portletDataContext);
 	}
 
+	public static String getGenerateFileNumber(DocFile docfile) {
+		return getService().getGenerateFileNumber(docfile);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -374,14 +378,14 @@ public class DocFileLocalServiceUtil {
 
 	public static DocFile updateDocFile(
 			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
+			String category, String subCategory, String remarks,
+			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().updateDocFile(
-			docFileId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
+			docFileId, nature, type, subject, category, subCategory, remarks,
+			reference, serviceContext);
 	}
 
 	public static DocFileLocalService getService() {

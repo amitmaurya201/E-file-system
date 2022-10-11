@@ -80,8 +80,8 @@ public interface DocFileLocalService
 	public DocFile addDocFile(DocFile docFile);
 
 	public DocFile addDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, String catagory, String subCategory, String remarks,
+			long groupId, String nature, String type, String subject,
+			String category, String subCategory, String remarks,
 			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -300,6 +300,9 @@ public interface DocFileLocalService
 		PortletDataContext portletDataContext);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public String getGenerateFileNumber(DocFile docfile);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -332,8 +335,8 @@ public interface DocFileLocalService
 
 	public DocFile updateDocFile(
 			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference, ServiceContext serviceContext)
+			String category, String subCategory, String remarks,
+			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
 }
