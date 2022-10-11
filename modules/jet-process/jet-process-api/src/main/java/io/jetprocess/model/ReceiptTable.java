@@ -48,8 +48,6 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, Date> createdOn = createColumn(
-		"createdOn", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> type = createColumn(
 		"type_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> deliveryMode = createColumn(
@@ -74,8 +72,28 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> document = createColumn(
 		"document", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, Long> senderId = createColumn(
-		"senderId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> minDeptOth = createColumn(
+		"minDeptOth", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> name = createColumn(
+		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> designation = createColumn(
+		"designation", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> mobile = createColumn(
+		"mobile", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> email = createColumn(
+		"email", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> address = createColumn(
+		"address", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> country = createColumn(
+		"country", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> state = createColumn(
+		"state_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> district = createColumn(
+		"district", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> pinCode = createColumn(
+		"pinCode", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> receiptNumber = createColumn(
+		"receiptNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private ReceiptTable() {
 		super("JET_PROCESS_Receipt", ReceiptTable::new);

@@ -47,7 +47,6 @@ create table JET_PROCESS_Receipt (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	createdOn DATE null,
 	type_ VARCHAR(75) null,
 	deliveryMode VARCHAR(75) null,
 	receivedOn DATE null,
@@ -60,5 +59,15 @@ create table JET_PROCESS_Receipt (
 	subject VARCHAR(75) null,
 	remarks VARCHAR(75) null,
 	document VARCHAR(75) null,
-	senderId LONG
+	minDeptOth VARCHAR(75) null,
+	name VARCHAR(75) null,
+	designation VARCHAR(75) null,
+	mobile VARCHAR(75) null,
+	email VARCHAR(75) null,
+	address VARCHAR(75) null,
+	country VARCHAR(75) null,
+	state_ VARCHAR(75) null,
+	district VARCHAR(75) null,
+	pinCode VARCHAR(75) null,
+	receiptNumber VARCHAR(75) null
 );

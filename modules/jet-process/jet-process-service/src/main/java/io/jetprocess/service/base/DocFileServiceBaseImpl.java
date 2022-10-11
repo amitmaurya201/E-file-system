@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileService;
 import io.jetprocess.service.DocFileServiceUtil;
-import io.jetprocess.service.persistence.ContactDetailPersistence;
 import io.jetprocess.service.persistence.DocFilePersistence;
 import io.jetprocess.service.persistence.ReceiptPersistence;
 
@@ -131,9 +130,6 @@ public abstract class DocFileServiceBaseImpl
 			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
-
-	@Reference
-	protected ContactDetailPersistence contactDetailPersistence;
 
 	@Reference
 	protected io.jetprocess.service.DocFileLocalService docFileLocalService;

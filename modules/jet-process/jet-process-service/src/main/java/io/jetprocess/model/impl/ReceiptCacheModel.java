@@ -61,7 +61,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(63);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -79,8 +79,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", createdOn=");
-		sb.append(createdOn);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", deliveryMode=");
@@ -105,8 +103,28 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(remarks);
 		sb.append(", document=");
 		sb.append(document);
-		sb.append(", senderId=");
-		sb.append(senderId);
+		sb.append(", minDeptOth=");
+		sb.append(minDeptOth);
+		sb.append(", name=");
+		sb.append(name);
+		sb.append(", designation=");
+		sb.append(designation);
+		sb.append(", mobile=");
+		sb.append(mobile);
+		sb.append(", email=");
+		sb.append(email);
+		sb.append(", address=");
+		sb.append(address);
+		sb.append(", country=");
+		sb.append(country);
+		sb.append(", state=");
+		sb.append(state);
+		sb.append(", district=");
+		sb.append(district);
+		sb.append(", pinCode=");
+		sb.append(pinCode);
+		sb.append(", receiptNumber=");
+		sb.append(receiptNumber);
 		sb.append("}");
 
 		return sb.toString();
@@ -147,13 +165,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		}
 		else {
 			receiptImpl.setModifiedDate(new Date(modifiedDate));
-		}
-
-		if (createdOn == Long.MIN_VALUE) {
-			receiptImpl.setCreatedOn(null);
-		}
-		else {
-			receiptImpl.setCreatedOn(new Date(createdOn));
 		}
 
 		if (type == null) {
@@ -240,7 +251,82 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 			receiptImpl.setDocument(document);
 		}
 
-		receiptImpl.setSenderId(senderId);
+		if (minDeptOth == null) {
+			receiptImpl.setMinDeptOth("");
+		}
+		else {
+			receiptImpl.setMinDeptOth(minDeptOth);
+		}
+
+		if (name == null) {
+			receiptImpl.setName("");
+		}
+		else {
+			receiptImpl.setName(name);
+		}
+
+		if (designation == null) {
+			receiptImpl.setDesignation("");
+		}
+		else {
+			receiptImpl.setDesignation(designation);
+		}
+
+		if (mobile == null) {
+			receiptImpl.setMobile("");
+		}
+		else {
+			receiptImpl.setMobile(mobile);
+		}
+
+		if (email == null) {
+			receiptImpl.setEmail("");
+		}
+		else {
+			receiptImpl.setEmail(email);
+		}
+
+		if (address == null) {
+			receiptImpl.setAddress("");
+		}
+		else {
+			receiptImpl.setAddress(address);
+		}
+
+		if (country == null) {
+			receiptImpl.setCountry("");
+		}
+		else {
+			receiptImpl.setCountry(country);
+		}
+
+		if (state == null) {
+			receiptImpl.setState("");
+		}
+		else {
+			receiptImpl.setState(state);
+		}
+
+		if (district == null) {
+			receiptImpl.setDistrict("");
+		}
+		else {
+			receiptImpl.setDistrict(district);
+		}
+
+		if (pinCode == null) {
+			receiptImpl.setPinCode("");
+		}
+		else {
+			receiptImpl.setPinCode(pinCode);
+		}
+
+		if (receiptNumber == null) {
+			receiptImpl.setReceiptNumber("");
+		}
+		else {
+			receiptImpl.setReceiptNumber(receiptNumber);
+		}
 
 		receiptImpl.resetOriginalValues();
 
@@ -261,7 +347,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		createdOn = objectInput.readLong();
 		type = objectInput.readUTF();
 		deliveryMode = objectInput.readUTF();
 		receivedOn = objectInput.readLong();
@@ -274,8 +359,17 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		subject = objectInput.readUTF();
 		remarks = objectInput.readUTF();
 		document = objectInput.readUTF();
-
-		senderId = objectInput.readLong();
+		minDeptOth = objectInput.readUTF();
+		name = objectInput.readUTF();
+		designation = objectInput.readUTF();
+		mobile = objectInput.readUTF();
+		email = objectInput.readUTF();
+		address = objectInput.readUTF();
+		country = objectInput.readUTF();
+		state = objectInput.readUTF();
+		district = objectInput.readUTF();
+		pinCode = objectInput.readUTF();
+		receiptNumber = objectInput.readUTF();
 	}
 
 	@Override
@@ -304,7 +398,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeLong(createdOn);
 
 		if (type == null) {
 			objectOutput.writeUTF("");
@@ -379,7 +472,82 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 			objectOutput.writeUTF(document);
 		}
 
-		objectOutput.writeLong(senderId);
+		if (minDeptOth == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(minDeptOth);
+		}
+
+		if (name == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(name);
+		}
+
+		if (designation == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(designation);
+		}
+
+		if (mobile == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(mobile);
+		}
+
+		if (email == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(email);
+		}
+
+		if (address == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(address);
+		}
+
+		if (country == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(country);
+		}
+
+		if (state == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(state);
+		}
+
+		if (district == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(district);
+		}
+
+		if (pinCode == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(pinCode);
+		}
+
+		if (receiptNumber == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(receiptNumber);
+		}
 	}
 
 	public String uuid;
@@ -390,7 +558,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public long createdOn;
 	public String type;
 	public String deliveryMode;
 	public long receivedOn;
@@ -403,6 +570,16 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public String subject;
 	public String remarks;
 	public String document;
-	public long senderId;
+	public String minDeptOth;
+	public String name;
+	public String designation;
+	public String mobile;
+	public String email;
+	public String address;
+	public String country;
+	public String state;
+	public String district;
+	public String pinCode;
+	public String receiptNumber;
 
 }

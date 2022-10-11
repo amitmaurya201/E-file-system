@@ -204,20 +204,6 @@ public interface ReceiptModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the created on of this receipt.
-	 *
-	 * @return the created on of this receipt
-	 */
-	public Date getCreatedOn();
-
-	/**
-	 * Sets the created on of this receipt.
-	 *
-	 * @param createdOn the created on of this receipt
-	 */
-	public void setCreatedOn(Date createdOn);
-
-	/**
 	 * Returns the type of this receipt.
 	 *
 	 * @return the type of this receipt
@@ -396,18 +382,169 @@ public interface ReceiptModel
 	public void setDocument(String document);
 
 	/**
-	 * Returns the sender ID of this receipt.
+	 * Returns the min dept oth of this receipt.
 	 *
-	 * @return the sender ID of this receipt
+	 * @return the min dept oth of this receipt
 	 */
-	public long getSenderId();
+	@AutoEscape
+	public String getMinDeptOth();
 
 	/**
-	 * Sets the sender ID of this receipt.
+	 * Sets the min dept oth of this receipt.
 	 *
-	 * @param senderId the sender ID of this receipt
+	 * @param minDeptOth the min dept oth of this receipt
 	 */
-	public void setSenderId(long senderId);
+	public void setMinDeptOth(String minDeptOth);
+
+	/**
+	 * Returns the name of this receipt.
+	 *
+	 * @return the name of this receipt
+	 */
+	@AutoEscape
+	public String getName();
+
+	/**
+	 * Sets the name of this receipt.
+	 *
+	 * @param name the name of this receipt
+	 */
+	public void setName(String name);
+
+	/**
+	 * Returns the designation of this receipt.
+	 *
+	 * @return the designation of this receipt
+	 */
+	@AutoEscape
+	public String getDesignation();
+
+	/**
+	 * Sets the designation of this receipt.
+	 *
+	 * @param designation the designation of this receipt
+	 */
+	public void setDesignation(String designation);
+
+	/**
+	 * Returns the mobile of this receipt.
+	 *
+	 * @return the mobile of this receipt
+	 */
+	@AutoEscape
+	public String getMobile();
+
+	/**
+	 * Sets the mobile of this receipt.
+	 *
+	 * @param mobile the mobile of this receipt
+	 */
+	public void setMobile(String mobile);
+
+	/**
+	 * Returns the email of this receipt.
+	 *
+	 * @return the email of this receipt
+	 */
+	@AutoEscape
+	public String getEmail();
+
+	/**
+	 * Sets the email of this receipt.
+	 *
+	 * @param email the email of this receipt
+	 */
+	public void setEmail(String email);
+
+	/**
+	 * Returns the address of this receipt.
+	 *
+	 * @return the address of this receipt
+	 */
+	@AutoEscape
+	public String getAddress();
+
+	/**
+	 * Sets the address of this receipt.
+	 *
+	 * @param address the address of this receipt
+	 */
+	public void setAddress(String address);
+
+	/**
+	 * Returns the country of this receipt.
+	 *
+	 * @return the country of this receipt
+	 */
+	@AutoEscape
+	public String getCountry();
+
+	/**
+	 * Sets the country of this receipt.
+	 *
+	 * @param country the country of this receipt
+	 */
+	public void setCountry(String country);
+
+	/**
+	 * Returns the state of this receipt.
+	 *
+	 * @return the state of this receipt
+	 */
+	@AutoEscape
+	public String getState();
+
+	/**
+	 * Sets the state of this receipt.
+	 *
+	 * @param state the state of this receipt
+	 */
+	public void setState(String state);
+
+	/**
+	 * Returns the district of this receipt.
+	 *
+	 * @return the district of this receipt
+	 */
+	@AutoEscape
+	public String getDistrict();
+
+	/**
+	 * Sets the district of this receipt.
+	 *
+	 * @param district the district of this receipt
+	 */
+	public void setDistrict(String district);
+
+	/**
+	 * Returns the pin code of this receipt.
+	 *
+	 * @return the pin code of this receipt
+	 */
+	@AutoEscape
+	public String getPinCode();
+
+	/**
+	 * Sets the pin code of this receipt.
+	 *
+	 * @param pinCode the pin code of this receipt
+	 */
+	public void setPinCode(String pinCode);
+
+	/**
+	 * Returns the receipt number of this receipt.
+	 *
+	 * @return the receipt number of this receipt
+	 */
+	@AutoEscape
+	public String getReceiptNumber();
+
+	/**
+	 * Sets the receipt number of this receipt.
+	 *
+	 * @param receiptNumber the receipt number of this receipt
+	 */
+	public void setReceiptNumber(String receiptNumber);
 
 	@Override
 	public Receipt cloneWithOriginalValues();

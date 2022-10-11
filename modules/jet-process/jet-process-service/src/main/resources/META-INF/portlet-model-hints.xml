@@ -1,26 +1,6 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="io.jetprocess.model.ContactDetail">
-		<field name="uuid" type="String" />
-		<field name="contactDetailId" type="long" />
-		<field name="groupId" type="long" />
-		<field name="companyId" type="long" />
-		<field name="userId" type="long" />
-		<field name="userName" type="String" />
-		<field name="createDate" type="Date" />
-		<field name="modifiedDate" type="Date" />
-		<field name="minDeptOth" type="String" />
-		<field name="name" type="String" />
-		<field name="designation" type="String" />
-		<field name="mobile" type="String" />
-		<field name="email" type="String" />
-		<field name="address" type="String" />
-		<field name="country" type="String" />
-		<field name="state" type="String" />
-		<field name="district" type="String" />
-		<field name="pinCode" type="String" />
-	</model>
 	<model name="io.jetprocess.model.DocFile">
 		<field name="uuid" type="String" />
 		<field name="docFileId" type="long" />
@@ -48,7 +28,6 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="createdOn" type="Date" />
 		<field name="type" type="String" />
 		<field name="deliveryMode" type="String" />
 		<field name="receivedOn" type="Date" />
@@ -61,6 +40,16 @@
 		<field name="subject" type="String" />
 		<field name="remarks" type="String" />
 		<field name="document" type="String" />
-		<field name="senderId" type="long" />
+		<field name="minDeptOth" type="String" />
+		<field name="name" type="String" />
+		<field name="designation" type="String" />
+		<field name="mobile" type="String" />
+		<field name="email" type="String" />
+		<field name="address" type="String" />
+		<field name="country" type="String" />
+		<field name="state" type="String" />
+		<field name="district" type="String" />
+		<field name="pinCode" type="String" />
+		<field name="receiptNumber" type="String" />
 	</model>
 </model-hints>

@@ -51,7 +51,6 @@ public class ReceiptWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("createdOn", getCreatedOn());
 		attributes.put("type", getType());
 		attributes.put("deliveryMode", getDeliveryMode());
 		attributes.put("receivedOn", getReceivedOn());
@@ -64,7 +63,17 @@ public class ReceiptWrapper
 		attributes.put("subject", getSubject());
 		attributes.put("remarks", getRemarks());
 		attributes.put("document", getDocument());
-		attributes.put("senderId", getSenderId());
+		attributes.put("minDeptOth", getMinDeptOth());
+		attributes.put("name", getName());
+		attributes.put("designation", getDesignation());
+		attributes.put("mobile", getMobile());
+		attributes.put("email", getEmail());
+		attributes.put("address", getAddress());
+		attributes.put("country", getCountry());
+		attributes.put("state", getState());
+		attributes.put("district", getDistrict());
+		attributes.put("pinCode", getPinCode());
+		attributes.put("receiptNumber", getReceiptNumber());
 
 		return attributes;
 	}
@@ -117,12 +126,6 @@ public class ReceiptWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
-		}
-
-		Date createdOn = (Date)attributes.get("createdOn");
-
-		if (createdOn != null) {
-			setCreatedOn(createdOn);
 		}
 
 		String type = (String)attributes.get("type");
@@ -197,16 +200,86 @@ public class ReceiptWrapper
 			setDocument(document);
 		}
 
-		Long senderId = (Long)attributes.get("senderId");
+		String minDeptOth = (String)attributes.get("minDeptOth");
 
-		if (senderId != null) {
-			setSenderId(senderId);
+		if (minDeptOth != null) {
+			setMinDeptOth(minDeptOth);
+		}
+
+		String name = (String)attributes.get("name");
+
+		if (name != null) {
+			setName(name);
+		}
+
+		String designation = (String)attributes.get("designation");
+
+		if (designation != null) {
+			setDesignation(designation);
+		}
+
+		String mobile = (String)attributes.get("mobile");
+
+		if (mobile != null) {
+			setMobile(mobile);
+		}
+
+		String email = (String)attributes.get("email");
+
+		if (email != null) {
+			setEmail(email);
+		}
+
+		String address = (String)attributes.get("address");
+
+		if (address != null) {
+			setAddress(address);
+		}
+
+		String country = (String)attributes.get("country");
+
+		if (country != null) {
+			setCountry(country);
+		}
+
+		String state = (String)attributes.get("state");
+
+		if (state != null) {
+			setState(state);
+		}
+
+		String district = (String)attributes.get("district");
+
+		if (district != null) {
+			setDistrict(district);
+		}
+
+		String pinCode = (String)attributes.get("pinCode");
+
+		if (pinCode != null) {
+			setPinCode(pinCode);
+		}
+
+		String receiptNumber = (String)attributes.get("receiptNumber");
+
+		if (receiptNumber != null) {
+			setReceiptNumber(receiptNumber);
 		}
 	}
 
 	@Override
 	public Receipt cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the address of this receipt.
+	 *
+	 * @return the address of this receipt
+	 */
+	@Override
+	public String getAddress() {
+		return model.getAddress();
 	}
 
 	/**
@@ -230,6 +303,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Returns the country of this receipt.
+	 *
+	 * @return the country of this receipt
+	 */
+	@Override
+	public String getCountry() {
+		return model.getCountry();
+	}
+
+	/**
 	 * Returns the create date of this receipt.
 	 *
 	 * @return the create date of this receipt
@@ -237,16 +320,6 @@ public class ReceiptWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
-	}
-
-	/**
-	 * Returns the created on of this receipt.
-	 *
-	 * @return the created on of this receipt
-	 */
-	@Override
-	public Date getCreatedOn() {
-		return model.getCreatedOn();
 	}
 
 	/**
@@ -260,6 +333,26 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Returns the designation of this receipt.
+	 *
+	 * @return the designation of this receipt
+	 */
+	@Override
+	public String getDesignation() {
+		return model.getDesignation();
+	}
+
+	/**
+	 * Returns the district of this receipt.
+	 *
+	 * @return the district of this receipt
+	 */
+	@Override
+	public String getDistrict() {
+		return model.getDistrict();
+	}
+
+	/**
 	 * Returns the document of this receipt.
 	 *
 	 * @return the document of this receipt
@@ -267,6 +360,16 @@ public class ReceiptWrapper
 	@Override
 	public String getDocument() {
 		return model.getDocument();
+	}
+
+	/**
+	 * Returns the email of this receipt.
+	 *
+	 * @return the email of this receipt
+	 */
+	@Override
+	public String getEmail() {
+		return model.getEmail();
 	}
 
 	/**
@@ -290,6 +393,26 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Returns the min dept oth of this receipt.
+	 *
+	 * @return the min dept oth of this receipt
+	 */
+	@Override
+	public String getMinDeptOth() {
+		return model.getMinDeptOth();
+	}
+
+	/**
+	 * Returns the mobile of this receipt.
+	 *
+	 * @return the mobile of this receipt
+	 */
+	@Override
+	public String getMobile() {
+		return model.getMobile();
+	}
+
+	/**
 	 * Returns the mode number of this receipt.
 	 *
 	 * @return the mode number of this receipt
@@ -310,6 +433,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Returns the name of this receipt.
+	 *
+	 * @return the name of this receipt
+	 */
+	@Override
+	public String getName() {
+		return model.getName();
+	}
+
+	/**
 	 * Returns the organisation of this receipt.
 	 *
 	 * @return the organisation of this receipt
@@ -317,6 +450,16 @@ public class ReceiptWrapper
 	@Override
 	public String getOrganisation() {
 		return model.getOrganisation();
+	}
+
+	/**
+	 * Returns the pin code of this receipt.
+	 *
+	 * @return the pin code of this receipt
+	 */
+	@Override
+	public String getPinCode() {
+		return model.getPinCode();
 	}
 
 	/**
@@ -337,6 +480,16 @@ public class ReceiptWrapper
 	@Override
 	public long getReceiptId() {
 		return model.getReceiptId();
+	}
+
+	/**
+	 * Returns the receipt number of this receipt.
+	 *
+	 * @return the receipt number of this receipt
+	 */
+	@Override
+	public String getReceiptNumber() {
+		return model.getReceiptNumber();
 	}
 
 	/**
@@ -370,13 +523,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the sender ID of this receipt.
+	 * Returns the state of this receipt.
 	 *
-	 * @return the sender ID of this receipt
+	 * @return the state of this receipt
 	 */
 	@Override
-	public long getSenderId() {
-		return model.getSenderId();
+	public String getState() {
+		return model.getState();
 	}
 
 	/**
@@ -455,6 +608,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the address of this receipt.
+	 *
+	 * @param address the address of this receipt
+	 */
+	@Override
+	public void setAddress(String address) {
+		model.setAddress(address);
+	}
+
+	/**
 	 * Sets the category of this receipt.
 	 *
 	 * @param category the category of this receipt
@@ -475,6 +638,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the country of this receipt.
+	 *
+	 * @param country the country of this receipt
+	 */
+	@Override
+	public void setCountry(String country) {
+		model.setCountry(country);
+	}
+
+	/**
 	 * Sets the create date of this receipt.
 	 *
 	 * @param createDate the create date of this receipt
@@ -482,16 +655,6 @@ public class ReceiptWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
-	}
-
-	/**
-	 * Sets the created on of this receipt.
-	 *
-	 * @param createdOn the created on of this receipt
-	 */
-	@Override
-	public void setCreatedOn(Date createdOn) {
-		model.setCreatedOn(createdOn);
 	}
 
 	/**
@@ -505,6 +668,26 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the designation of this receipt.
+	 *
+	 * @param designation the designation of this receipt
+	 */
+	@Override
+	public void setDesignation(String designation) {
+		model.setDesignation(designation);
+	}
+
+	/**
+	 * Sets the district of this receipt.
+	 *
+	 * @param district the district of this receipt
+	 */
+	@Override
+	public void setDistrict(String district) {
+		model.setDistrict(district);
+	}
+
+	/**
 	 * Sets the document of this receipt.
 	 *
 	 * @param document the document of this receipt
@@ -512,6 +695,16 @@ public class ReceiptWrapper
 	@Override
 	public void setDocument(String document) {
 		model.setDocument(document);
+	}
+
+	/**
+	 * Sets the email of this receipt.
+	 *
+	 * @param email the email of this receipt
+	 */
+	@Override
+	public void setEmail(String email) {
+		model.setEmail(email);
 	}
 
 	/**
@@ -535,6 +728,26 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the min dept oth of this receipt.
+	 *
+	 * @param minDeptOth the min dept oth of this receipt
+	 */
+	@Override
+	public void setMinDeptOth(String minDeptOth) {
+		model.setMinDeptOth(minDeptOth);
+	}
+
+	/**
+	 * Sets the mobile of this receipt.
+	 *
+	 * @param mobile the mobile of this receipt
+	 */
+	@Override
+	public void setMobile(String mobile) {
+		model.setMobile(mobile);
+	}
+
+	/**
 	 * Sets the mode number of this receipt.
 	 *
 	 * @param modeNumber the mode number of this receipt
@@ -555,6 +768,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the name of this receipt.
+	 *
+	 * @param name the name of this receipt
+	 */
+	@Override
+	public void setName(String name) {
+		model.setName(name);
+	}
+
+	/**
 	 * Sets the organisation of this receipt.
 	 *
 	 * @param organisation the organisation of this receipt
@@ -562,6 +785,16 @@ public class ReceiptWrapper
 	@Override
 	public void setOrganisation(String organisation) {
 		model.setOrganisation(organisation);
+	}
+
+	/**
+	 * Sets the pin code of this receipt.
+	 *
+	 * @param pinCode the pin code of this receipt
+	 */
+	@Override
+	public void setPinCode(String pinCode) {
+		model.setPinCode(pinCode);
 	}
 
 	/**
@@ -582,6 +815,16 @@ public class ReceiptWrapper
 	@Override
 	public void setReceiptId(long receiptId) {
 		model.setReceiptId(receiptId);
+	}
+
+	/**
+	 * Sets the receipt number of this receipt.
+	 *
+	 * @param receiptNumber the receipt number of this receipt
+	 */
+	@Override
+	public void setReceiptNumber(String receiptNumber) {
+		model.setReceiptNumber(receiptNumber);
 	}
 
 	/**
@@ -615,13 +858,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the sender ID of this receipt.
+	 * Sets the state of this receipt.
 	 *
-	 * @param senderId the sender ID of this receipt
+	 * @param state the state of this receipt
 	 */
 	@Override
-	public void setSenderId(long senderId) {
-		model.setSenderId(senderId);
+	public void setState(String state) {
+		model.setState(state);
 	}
 
 	/**

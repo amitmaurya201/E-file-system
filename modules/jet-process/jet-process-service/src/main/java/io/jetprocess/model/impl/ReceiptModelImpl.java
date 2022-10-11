@@ -78,13 +78,18 @@ public class ReceiptModelImpl
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"createdOn", Types.TIMESTAMP}, {"type_", Types.VARCHAR},
-		{"deliveryMode", Types.VARCHAR}, {"receivedOn", Types.TIMESTAMP},
-		{"letterDate", Types.TIMESTAMP}, {"referenceNumber", Types.VARCHAR},
-		{"modeNumber", Types.VARCHAR}, {"organisation", Types.VARCHAR},
-		{"category", Types.VARCHAR}, {"subCategory", Types.VARCHAR},
-		{"subject", Types.VARCHAR}, {"remarks", Types.VARCHAR},
-		{"document", Types.VARCHAR}, {"senderId", Types.BIGINT}
+		{"type_", Types.VARCHAR}, {"deliveryMode", Types.VARCHAR},
+		{"receivedOn", Types.TIMESTAMP}, {"letterDate", Types.TIMESTAMP},
+		{"referenceNumber", Types.VARCHAR}, {"modeNumber", Types.VARCHAR},
+		{"organisation", Types.VARCHAR}, {"category", Types.VARCHAR},
+		{"subCategory", Types.VARCHAR}, {"subject", Types.VARCHAR},
+		{"remarks", Types.VARCHAR}, {"document", Types.VARCHAR},
+		{"minDeptOth", Types.VARCHAR}, {"name", Types.VARCHAR},
+		{"designation", Types.VARCHAR}, {"mobile", Types.VARCHAR},
+		{"email", Types.VARCHAR}, {"address", Types.VARCHAR},
+		{"country", Types.VARCHAR}, {"state_", Types.VARCHAR},
+		{"district", Types.VARCHAR}, {"pinCode", Types.VARCHAR},
+		{"receiptNumber", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -99,7 +104,6 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("createdOn", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("deliveryMode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.TIMESTAMP);
@@ -112,11 +116,21 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("document", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("senderId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("minDeptOth", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("designation", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("mobile", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("email", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("country", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("state_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("district", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("pinCode", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("receiptNumber", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,createdOn DATE null,type_ VARCHAR(75) null,deliveryMode VARCHAR(75) null,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,organisation VARCHAR(75) null,category VARCHAR(75) null,subCategory VARCHAR(75) null,subject VARCHAR(75) null,remarks VARCHAR(75) null,document VARCHAR(75) null,senderId LONG)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,type_ VARCHAR(75) null,deliveryMode VARCHAR(75) null,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,organisation VARCHAR(75) null,category VARCHAR(75) null,subCategory VARCHAR(75) null,subject VARCHAR(75) null,remarks VARCHAR(75) null,document VARCHAR(75) null,minDeptOth VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,country VARCHAR(75) null,state_ VARCHAR(75) null,district VARCHAR(75) null,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
@@ -297,9 +311,6 @@ public class ReceiptModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<Receipt, Date>)Receipt::setModifiedDate);
-		attributeGetterFunctions.put("createdOn", Receipt::getCreatedOn);
-		attributeSetterBiConsumers.put(
-			"createdOn", (BiConsumer<Receipt, Date>)Receipt::setCreatedOn);
 		attributeGetterFunctions.put("type", Receipt::getType);
 		attributeSetterBiConsumers.put(
 			"type", (BiConsumer<Receipt, String>)Receipt::setType);
@@ -341,9 +352,42 @@ public class ReceiptModelImpl
 		attributeGetterFunctions.put("document", Receipt::getDocument);
 		attributeSetterBiConsumers.put(
 			"document", (BiConsumer<Receipt, String>)Receipt::setDocument);
-		attributeGetterFunctions.put("senderId", Receipt::getSenderId);
+		attributeGetterFunctions.put("minDeptOth", Receipt::getMinDeptOth);
 		attributeSetterBiConsumers.put(
-			"senderId", (BiConsumer<Receipt, Long>)Receipt::setSenderId);
+			"minDeptOth", (BiConsumer<Receipt, String>)Receipt::setMinDeptOth);
+		attributeGetterFunctions.put("name", Receipt::getName);
+		attributeSetterBiConsumers.put(
+			"name", (BiConsumer<Receipt, String>)Receipt::setName);
+		attributeGetterFunctions.put("designation", Receipt::getDesignation);
+		attributeSetterBiConsumers.put(
+			"designation",
+			(BiConsumer<Receipt, String>)Receipt::setDesignation);
+		attributeGetterFunctions.put("mobile", Receipt::getMobile);
+		attributeSetterBiConsumers.put(
+			"mobile", (BiConsumer<Receipt, String>)Receipt::setMobile);
+		attributeGetterFunctions.put("email", Receipt::getEmail);
+		attributeSetterBiConsumers.put(
+			"email", (BiConsumer<Receipt, String>)Receipt::setEmail);
+		attributeGetterFunctions.put("address", Receipt::getAddress);
+		attributeSetterBiConsumers.put(
+			"address", (BiConsumer<Receipt, String>)Receipt::setAddress);
+		attributeGetterFunctions.put("country", Receipt::getCountry);
+		attributeSetterBiConsumers.put(
+			"country", (BiConsumer<Receipt, String>)Receipt::setCountry);
+		attributeGetterFunctions.put("state", Receipt::getState);
+		attributeSetterBiConsumers.put(
+			"state", (BiConsumer<Receipt, String>)Receipt::setState);
+		attributeGetterFunctions.put("district", Receipt::getDistrict);
+		attributeSetterBiConsumers.put(
+			"district", (BiConsumer<Receipt, String>)Receipt::setDistrict);
+		attributeGetterFunctions.put("pinCode", Receipt::getPinCode);
+		attributeSetterBiConsumers.put(
+			"pinCode", (BiConsumer<Receipt, String>)Receipt::setPinCode);
+		attributeGetterFunctions.put(
+			"receiptNumber", Receipt::getReceiptNumber);
+		attributeSetterBiConsumers.put(
+			"receiptNumber",
+			(BiConsumer<Receipt, String>)Receipt::setReceiptNumber);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -539,21 +583,6 @@ public class ReceiptModelImpl
 		}
 
 		_modifiedDate = modifiedDate;
-	}
-
-	@JSON
-	@Override
-	public Date getCreatedOn() {
-		return _createdOn;
-	}
-
-	@Override
-	public void setCreatedOn(Date createdOn) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_createdOn = createdOn;
 	}
 
 	@JSON
@@ -788,17 +817,222 @@ public class ReceiptModelImpl
 
 	@JSON
 	@Override
-	public long getSenderId() {
-		return _senderId;
+	public String getMinDeptOth() {
+		if (_minDeptOth == null) {
+			return "";
+		}
+		else {
+			return _minDeptOth;
+		}
 	}
 
 	@Override
-	public void setSenderId(long senderId) {
+	public void setMinDeptOth(String minDeptOth) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_senderId = senderId;
+		_minDeptOth = minDeptOth;
+	}
+
+	@JSON
+	@Override
+	public String getName() {
+		if (_name == null) {
+			return "";
+		}
+		else {
+			return _name;
+		}
+	}
+
+	@Override
+	public void setName(String name) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_name = name;
+	}
+
+	@JSON
+	@Override
+	public String getDesignation() {
+		if (_designation == null) {
+			return "";
+		}
+		else {
+			return _designation;
+		}
+	}
+
+	@Override
+	public void setDesignation(String designation) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_designation = designation;
+	}
+
+	@JSON
+	@Override
+	public String getMobile() {
+		if (_mobile == null) {
+			return "";
+		}
+		else {
+			return _mobile;
+		}
+	}
+
+	@Override
+	public void setMobile(String mobile) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_mobile = mobile;
+	}
+
+	@JSON
+	@Override
+	public String getEmail() {
+		if (_email == null) {
+			return "";
+		}
+		else {
+			return _email;
+		}
+	}
+
+	@Override
+	public void setEmail(String email) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_email = email;
+	}
+
+	@JSON
+	@Override
+	public String getAddress() {
+		if (_address == null) {
+			return "";
+		}
+		else {
+			return _address;
+		}
+	}
+
+	@Override
+	public void setAddress(String address) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_address = address;
+	}
+
+	@JSON
+	@Override
+	public String getCountry() {
+		if (_country == null) {
+			return "";
+		}
+		else {
+			return _country;
+		}
+	}
+
+	@Override
+	public void setCountry(String country) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_country = country;
+	}
+
+	@JSON
+	@Override
+	public String getState() {
+		if (_state == null) {
+			return "";
+		}
+		else {
+			return _state;
+		}
+	}
+
+	@Override
+	public void setState(String state) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_state = state;
+	}
+
+	@JSON
+	@Override
+	public String getDistrict() {
+		if (_district == null) {
+			return "";
+		}
+		else {
+			return _district;
+		}
+	}
+
+	@Override
+	public void setDistrict(String district) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_district = district;
+	}
+
+	@JSON
+	@Override
+	public String getPinCode() {
+		if (_pinCode == null) {
+			return "";
+		}
+		else {
+			return _pinCode;
+		}
+	}
+
+	@Override
+	public void setPinCode(String pinCode) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_pinCode = pinCode;
+	}
+
+	@JSON
+	@Override
+	public String getReceiptNumber() {
+		if (_receiptNumber == null) {
+			return "";
+		}
+		else {
+			return _receiptNumber;
+		}
+	}
+
+	@Override
+	public void setReceiptNumber(String receiptNumber) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_receiptNumber = receiptNumber;
 	}
 
 	@Override
@@ -871,7 +1105,6 @@ public class ReceiptModelImpl
 		receiptImpl.setUserName(getUserName());
 		receiptImpl.setCreateDate(getCreateDate());
 		receiptImpl.setModifiedDate(getModifiedDate());
-		receiptImpl.setCreatedOn(getCreatedOn());
 		receiptImpl.setType(getType());
 		receiptImpl.setDeliveryMode(getDeliveryMode());
 		receiptImpl.setReceivedOn(getReceivedOn());
@@ -884,7 +1117,17 @@ public class ReceiptModelImpl
 		receiptImpl.setSubject(getSubject());
 		receiptImpl.setRemarks(getRemarks());
 		receiptImpl.setDocument(getDocument());
-		receiptImpl.setSenderId(getSenderId());
+		receiptImpl.setMinDeptOth(getMinDeptOth());
+		receiptImpl.setName(getName());
+		receiptImpl.setDesignation(getDesignation());
+		receiptImpl.setMobile(getMobile());
+		receiptImpl.setEmail(getEmail());
+		receiptImpl.setAddress(getAddress());
+		receiptImpl.setCountry(getCountry());
+		receiptImpl.setState(getState());
+		receiptImpl.setDistrict(getDistrict());
+		receiptImpl.setPinCode(getPinCode());
+		receiptImpl.setReceiptNumber(getReceiptNumber());
 
 		receiptImpl.resetOriginalValues();
 
@@ -908,8 +1151,6 @@ public class ReceiptModelImpl
 			this.<Date>getColumnOriginalValue("createDate"));
 		receiptImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
-		receiptImpl.setCreatedOn(
-			this.<Date>getColumnOriginalValue("createdOn"));
 		receiptImpl.setType(this.<String>getColumnOriginalValue("type_"));
 		receiptImpl.setDeliveryMode(
 			this.<String>getColumnOriginalValue("deliveryMode"));
@@ -931,7 +1172,21 @@ public class ReceiptModelImpl
 		receiptImpl.setRemarks(this.<String>getColumnOriginalValue("remarks"));
 		receiptImpl.setDocument(
 			this.<String>getColumnOriginalValue("document"));
-		receiptImpl.setSenderId(this.<Long>getColumnOriginalValue("senderId"));
+		receiptImpl.setMinDeptOth(
+			this.<String>getColumnOriginalValue("minDeptOth"));
+		receiptImpl.setName(this.<String>getColumnOriginalValue("name"));
+		receiptImpl.setDesignation(
+			this.<String>getColumnOriginalValue("designation"));
+		receiptImpl.setMobile(this.<String>getColumnOriginalValue("mobile"));
+		receiptImpl.setEmail(this.<String>getColumnOriginalValue("email"));
+		receiptImpl.setAddress(this.<String>getColumnOriginalValue("address"));
+		receiptImpl.setCountry(this.<String>getColumnOriginalValue("country"));
+		receiptImpl.setState(this.<String>getColumnOriginalValue("state_"));
+		receiptImpl.setDistrict(
+			this.<String>getColumnOriginalValue("district"));
+		receiptImpl.setPinCode(this.<String>getColumnOriginalValue("pinCode"));
+		receiptImpl.setReceiptNumber(
+			this.<String>getColumnOriginalValue("receiptNumber"));
 
 		return receiptImpl;
 	}
@@ -1049,15 +1304,6 @@ public class ReceiptModelImpl
 			receiptCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		Date createdOn = getCreatedOn();
-
-		if (createdOn != null) {
-			receiptCacheModel.createdOn = createdOn.getTime();
-		}
-		else {
-			receiptCacheModel.createdOn = Long.MIN_VALUE;
-		}
-
 		receiptCacheModel.type = getType();
 
 		String type = receiptCacheModel.type;
@@ -1156,7 +1402,93 @@ public class ReceiptModelImpl
 			receiptCacheModel.document = null;
 		}
 
-		receiptCacheModel.senderId = getSenderId();
+		receiptCacheModel.minDeptOth = getMinDeptOth();
+
+		String minDeptOth = receiptCacheModel.minDeptOth;
+
+		if ((minDeptOth != null) && (minDeptOth.length() == 0)) {
+			receiptCacheModel.minDeptOth = null;
+		}
+
+		receiptCacheModel.name = getName();
+
+		String name = receiptCacheModel.name;
+
+		if ((name != null) && (name.length() == 0)) {
+			receiptCacheModel.name = null;
+		}
+
+		receiptCacheModel.designation = getDesignation();
+
+		String designation = receiptCacheModel.designation;
+
+		if ((designation != null) && (designation.length() == 0)) {
+			receiptCacheModel.designation = null;
+		}
+
+		receiptCacheModel.mobile = getMobile();
+
+		String mobile = receiptCacheModel.mobile;
+
+		if ((mobile != null) && (mobile.length() == 0)) {
+			receiptCacheModel.mobile = null;
+		}
+
+		receiptCacheModel.email = getEmail();
+
+		String email = receiptCacheModel.email;
+
+		if ((email != null) && (email.length() == 0)) {
+			receiptCacheModel.email = null;
+		}
+
+		receiptCacheModel.address = getAddress();
+
+		String address = receiptCacheModel.address;
+
+		if ((address != null) && (address.length() == 0)) {
+			receiptCacheModel.address = null;
+		}
+
+		receiptCacheModel.country = getCountry();
+
+		String country = receiptCacheModel.country;
+
+		if ((country != null) && (country.length() == 0)) {
+			receiptCacheModel.country = null;
+		}
+
+		receiptCacheModel.state = getState();
+
+		String state = receiptCacheModel.state;
+
+		if ((state != null) && (state.length() == 0)) {
+			receiptCacheModel.state = null;
+		}
+
+		receiptCacheModel.district = getDistrict();
+
+		String district = receiptCacheModel.district;
+
+		if ((district != null) && (district.length() == 0)) {
+			receiptCacheModel.district = null;
+		}
+
+		receiptCacheModel.pinCode = getPinCode();
+
+		String pinCode = receiptCacheModel.pinCode;
+
+		if ((pinCode != null) && (pinCode.length() == 0)) {
+			receiptCacheModel.pinCode = null;
+		}
+
+		receiptCacheModel.receiptNumber = getReceiptNumber();
+
+		String receiptNumber = receiptCacheModel.receiptNumber;
+
+		if ((receiptNumber != null) && (receiptNumber.length() == 0)) {
+			receiptCacheModel.receiptNumber = null;
+		}
 
 		return receiptCacheModel;
 	}
@@ -1259,7 +1591,6 @@ public class ReceiptModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private Date _createdOn;
 	private String _type;
 	private String _deliveryMode;
 	private Date _receivedOn;
@@ -1272,7 +1603,17 @@ public class ReceiptModelImpl
 	private String _subject;
 	private String _remarks;
 	private String _document;
-	private long _senderId;
+	private String _minDeptOth;
+	private String _name;
+	private String _designation;
+	private String _mobile;
+	private String _email;
+	private String _address;
+	private String _country;
+	private String _state;
+	private String _district;
+	private String _pinCode;
+	private String _receiptNumber;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1311,7 +1652,6 @@ public class ReceiptModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
-		_columnOriginalValues.put("createdOn", _createdOn);
 		_columnOriginalValues.put("type_", _type);
 		_columnOriginalValues.put("deliveryMode", _deliveryMode);
 		_columnOriginalValues.put("receivedOn", _receivedOn);
@@ -1324,7 +1664,17 @@ public class ReceiptModelImpl
 		_columnOriginalValues.put("subject", _subject);
 		_columnOriginalValues.put("remarks", _remarks);
 		_columnOriginalValues.put("document", _document);
-		_columnOriginalValues.put("senderId", _senderId);
+		_columnOriginalValues.put("minDeptOth", _minDeptOth);
+		_columnOriginalValues.put("name", _name);
+		_columnOriginalValues.put("designation", _designation);
+		_columnOriginalValues.put("mobile", _mobile);
+		_columnOriginalValues.put("email", _email);
+		_columnOriginalValues.put("address", _address);
+		_columnOriginalValues.put("country", _country);
+		_columnOriginalValues.put("state_", _state);
+		_columnOriginalValues.put("district", _district);
+		_columnOriginalValues.put("pinCode", _pinCode);
+		_columnOriginalValues.put("receiptNumber", _receiptNumber);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1334,6 +1684,7 @@ public class ReceiptModelImpl
 
 		attributeNames.put("uuid_", "uuid");
 		attributeNames.put("type_", "type");
+		attributeNames.put("state_", "state");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1365,33 +1716,51 @@ public class ReceiptModelImpl
 
 		columnBitmasks.put("modifiedDate", 128L);
 
-		columnBitmasks.put("createdOn", 256L);
+		columnBitmasks.put("type_", 256L);
 
-		columnBitmasks.put("type_", 512L);
+		columnBitmasks.put("deliveryMode", 512L);
 
-		columnBitmasks.put("deliveryMode", 1024L);
+		columnBitmasks.put("receivedOn", 1024L);
 
-		columnBitmasks.put("receivedOn", 2048L);
+		columnBitmasks.put("letterDate", 2048L);
 
-		columnBitmasks.put("letterDate", 4096L);
+		columnBitmasks.put("referenceNumber", 4096L);
 
-		columnBitmasks.put("referenceNumber", 8192L);
+		columnBitmasks.put("modeNumber", 8192L);
 
-		columnBitmasks.put("modeNumber", 16384L);
+		columnBitmasks.put("organisation", 16384L);
 
-		columnBitmasks.put("organisation", 32768L);
+		columnBitmasks.put("category", 32768L);
 
-		columnBitmasks.put("category", 65536L);
+		columnBitmasks.put("subCategory", 65536L);
 
-		columnBitmasks.put("subCategory", 131072L);
+		columnBitmasks.put("subject", 131072L);
 
-		columnBitmasks.put("subject", 262144L);
+		columnBitmasks.put("remarks", 262144L);
 
-		columnBitmasks.put("remarks", 524288L);
+		columnBitmasks.put("document", 524288L);
 
-		columnBitmasks.put("document", 1048576L);
+		columnBitmasks.put("minDeptOth", 1048576L);
 
-		columnBitmasks.put("senderId", 2097152L);
+		columnBitmasks.put("name", 2097152L);
+
+		columnBitmasks.put("designation", 4194304L);
+
+		columnBitmasks.put("mobile", 8388608L);
+
+		columnBitmasks.put("email", 16777216L);
+
+		columnBitmasks.put("address", 33554432L);
+
+		columnBitmasks.put("country", 67108864L);
+
+		columnBitmasks.put("state_", 134217728L);
+
+		columnBitmasks.put("district", 268435456L);
+
+		columnBitmasks.put("pinCode", 536870912L);
+
+		columnBitmasks.put("receiptNumber", 1073741824L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

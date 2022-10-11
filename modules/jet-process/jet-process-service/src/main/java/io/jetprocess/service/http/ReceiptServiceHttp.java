@@ -52,12 +52,14 @@ import io.jetprocess.service.ReceiptServiceUtil;
 public class ReceiptServiceHttp {
 
 	public static io.jetprocess.model.Receipt addReceipt(
-			HttpPrincipal httpPrincipal, long groupId, java.util.Date createdOn,
-			String type, String deliveryMode, java.util.Date receivedOn,
+			HttpPrincipal httpPrincipal, long groupId, String type,
+			String deliveryMode, java.util.Date receivedOn,
 			java.util.Date letterDate, String referenceNumber,
 			String organisation, String modeNumber, String category,
 			String subCategory, String subject, String remarks, String document,
-			long senderId,
+			String minDeptOth, String name, String designation, String mobile,
+			String email, String address, String country, String state,
+			String district, String pinCode,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -67,10 +69,11 @@ public class ReceiptServiceHttp {
 				_addReceiptParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, createdOn, type, deliveryMode, receivedOn,
-				letterDate, referenceNumber, organisation, modeNumber, category,
-				subCategory, subject, remarks, document, senderId,
-				serviceContext);
+				methodKey, groupId, type, deliveryMode, receivedOn, letterDate,
+				referenceNumber, organisation, modeNumber, category,
+				subCategory, subject, remarks, document, minDeptOth, name,
+				designation, mobile, email, address, country, state, district,
+				pinCode, serviceContext);
 
 			Object returnObj = null;
 
@@ -176,10 +179,11 @@ public class ReceiptServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(ReceiptServiceHttp.class);
 
 	private static final Class<?>[] _addReceiptParameterTypes0 = new Class[] {
-		long.class, java.util.Date.class, String.class, String.class,
-		java.util.Date.class, java.util.Date.class, String.class, String.class,
+		long.class, String.class, String.class, java.util.Date.class,
+		java.util.Date.class, String.class, String.class, String.class,
 		String.class, String.class, String.class, String.class, String.class,
-		String.class, long.class,
+		String.class, String.class, String.class, String.class, String.class,
+		String.class, String.class, String.class, String.class, String.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 	private static final Class<?>[] _deleteReceiptParameterTypes1 =

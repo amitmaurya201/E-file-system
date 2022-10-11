@@ -36,19 +36,21 @@ public class ReceiptServiceWrapper
 
 	@Override
 	public io.jetprocess.model.Receipt addReceipt(
-			long groupId, java.util.Date createdOn, String type,
-			String deliveryMode, java.util.Date receivedOn,
-			java.util.Date letterDate, String referenceNumber,
-			String organisation, String modeNumber, String category,
-			String subCategory, String subject, String remarks, String document,
-			long senderId,
+			long groupId, String type, String deliveryMode,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String organisation, String modeNumber,
+			String category, String subCategory, String subject, String remarks,
+			String document, String minDeptOth, String name, String designation,
+			String mobile, String email, String address, String country,
+			String state, String district, String pinCode,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _receiptService.addReceipt(
-			groupId, createdOn, type, deliveryMode, receivedOn, letterDate,
+			groupId, type, deliveryMode, receivedOn, letterDate,
 			referenceNumber, organisation, modeNumber, category, subCategory,
-			subject, remarks, document, senderId, serviceContext);
+			subject, remarks, document, minDeptOth, name, designation, mobile,
+			email, address, country, state, district, pinCode, serviceContext);
 	}
 
 	@Override
