@@ -64,6 +64,19 @@ public class DocFileLocalServiceWrapper
 			reference, serviceContext);
 	}
 
+	@Override
+	public io.jetprocess.model.DocFile addDocFile(
+			long groupId, String nature, String type, String fileNumber,
+			String subject, String catagory, String subCategory, String remarks,
+			String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileLocalService.addDocFile(
+			groupId, nature, type, fileNumber, subject, catagory, subCategory,
+			remarks, reference, serviceContext);
+	}
+
 	/**
 	 * Creates a new doc file with the primary key. Does not add the doc file to the database.
 	 *
@@ -423,14 +436,14 @@ public class DocFileLocalServiceWrapper
 	@Override
 	public io.jetprocess.model.DocFile updateDocFile(
 			long docFileId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
-			String reference,
+			String fileNumber, String category, String subCategory,
+			String remarks, String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileLocalService.updateDocFile(
-			docFileId, nature, type, subject, category, subCategory, remarks,
-			reference, serviceContext);
+			docFileId, nature, type, subject, fileNumber, category, subCategory,
+			remarks, reference, serviceContext);
 	}
 
 	@Override

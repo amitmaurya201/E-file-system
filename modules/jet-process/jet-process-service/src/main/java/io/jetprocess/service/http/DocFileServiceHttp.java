@@ -212,6 +212,50 @@ public class DocFileServiceHttp {
 		}
 	}
 
+	public static io.jetprocess.model.DocFile addDocFile(
+			HttpPrincipal httpPrincipal, long groupId, String nature,
+			String type, String subject, String fileNumber, String category,
+			String subCategory, String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DocFileServiceUtil.class, "addDocFile",
+				_addDocFileParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, nature, type, subject, fileNumber, category,
+				subCategory, remarks, reference, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.DocFile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DocFileServiceHttp.class);
 
 	private static final Class<?>[] _addDocFileParameterTypes0 = new Class[] {
@@ -229,5 +273,10 @@ public class DocFileServiceHttp {
 			String.class, String.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
+	private static final Class<?>[] _addDocFileParameterTypes4 = new Class[] {
+		long.class, String.class, String.class, String.class, String.class,
+		String.class, String.class, String.class, String.class,
+		com.liferay.portal.kernel.service.ServiceContext.class
+	};
 
 }

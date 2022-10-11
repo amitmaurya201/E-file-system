@@ -85,6 +85,12 @@ public interface DocFileLocalService
 			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
+	public DocFile addDocFile(
+			long groupId, String nature, String type, String fileNumber,
+			String subject, String catagory, String subCategory, String remarks,
+			String reference, ServiceContext serviceContext)
+		throws PortalException;
+
 	/**
 	 * Creates a new doc file with the primary key. Does not add the doc file to the database.
 	 *
@@ -335,8 +341,8 @@ public interface DocFileLocalService
 
 	public DocFile updateDocFile(
 			long docFileId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
-			String reference, ServiceContext serviceContext)
+			String fileNumber, String category, String subCategory,
+			String remarks, String reference, ServiceContext serviceContext)
 		throws PortalException;
 
 }

@@ -20,47 +20,51 @@ import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.util.List;
 
+import org.osgi.service.component.annotations.Component;
+
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.base.DocFileServiceBaseImpl;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = {
-		"json.web.service.context.name=jet_process",
-		"json.web.service.context.path=DocFile"
-	},
-	service = AopService.class
-)
+@Component(property = { "json.web.service.context.name=jet_process",
+		"json.web.service.context.path=DocFile" }, service = AopService.class)
 public class DocFileServiceImpl extends DocFileServiceBaseImpl {
 
 	
 	// add method 
-	public DocFile addDocFile(long groupId, String nature, String type, String subject, String category,
-			String subCategory, String remarks, String reference, ServiceContext serviceContext) throws PortalException {
-		System.out.println("impl service method called..");
-		return docFileLocalService.addDocFile(groupId, nature, type, subject, category, subCategory, remarks, reference, serviceContext);
-	}
- 
-	// delete method 
+		public DocFile addDocFile(long groupId, String nature, String type, String subject, String category,
+				String subCategory, String remarks, String reference, ServiceContext serviceContext) throws PortalException {
+			System.out.println("impl service method called..");
+			return docFileLocalService.addDocFile(groupId, nature, type, subject, category, subCategory, remarks, reference, serviceContext);
+		}
+
 	public DocFile deleteDocFile(long docFileId) throws PortalException {
-	DocFile docFile =docFileLocalService.getDocFile(docFileId);
-	return docFileLocalService.deleteDocFile(docFile);	
+		DocFile docFile = docFileLocalService.getDocFile(docFileId);
+		return docFileLocalService.deleteDocFile(docFile);
 	}
-	
-	// To get list of docFile 
-	public List<DocFile> getDocFileByGroupId(long groupId,int start,int end) {
+
+	public List<DocFile> getDocFileByGroupId(long groupId, int start, int end) {
 		return docFileLocalService.getDocFileByGroupId(groupId, start, end);
-		
+
 	}
-	
-	// update method 
-	public DocFile updateDocFile(long docFileId,String nature,String type,String subject,String fileNumber,String category,String subCategory,String remarks,String reference,ServiceContext serviceContext) throws PortalException{
-		return docFileLocalService.updateDocFile(docFileId, nature, type, subject, category, subCategory, remarks, reference, serviceContext);
+
+	public DocFile updateDocFile(long docFileId, String nature, String type, String subject, String fileNumber,
+			String category, String subCategory, String remarks, String reference, ServiceContext serviceContext)
+			throws PortalException {
+		return docFileLocalService.updateDocFile(docFileId, nature, type, subject, fileNumber, category, subCategory,
+				remarks, reference, serviceContext);
 	}
-	
-	
+
+
+
+	@Override
+	public DocFile addDocFile(long groupId, String nature, String type, String subject, String fileNumber,
+			String category, String subCategory, String remarks, String reference, ServiceContext serviceContext)
+			throws PortalException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

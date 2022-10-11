@@ -48,6 +48,19 @@ public class DocFileServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.model.DocFile addDocFile(
+			long groupId, String nature, String type, String subject,
+			String fileNumber, String category, String subCategory,
+			String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileService.addDocFile(
+			groupId, nature, type, subject, fileNumber, category, subCategory,
+			remarks, reference, serviceContext);
+	}
+
+	@Override
 	public io.jetprocess.model.DocFile deleteDocFile(long docFileId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
