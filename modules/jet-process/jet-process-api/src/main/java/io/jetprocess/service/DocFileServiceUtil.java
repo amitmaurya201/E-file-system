@@ -41,14 +41,14 @@ public class DocFileServiceUtil {
 	 */
 	public static DocFile addDocFile(
 			long groupId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
+			String category, String subCategory, String remarks,
+			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addDocFile(
-			groupId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
+			groupId, nature, type, subject, category, subCategory, remarks,
+			reference, serviceContext);
 	}
 
 	public static DocFile deleteDocFile(long docFileId) throws PortalException {

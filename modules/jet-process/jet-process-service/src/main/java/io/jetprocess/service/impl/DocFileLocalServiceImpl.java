@@ -23,10 +23,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import java.util.Date;
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.base.DocFileLocalServiceBaseImpl;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
@@ -36,71 +36,86 @@ import io.jetprocess.service.base.DocFileLocalServiceBaseImpl;
 	service = AopService.class
 )
 public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
-
-public DocFile addDocFile(long groupId, String nature,String type,String fileNumber,String subject,String catagory,String subCategory,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
-		
-		// get group 
-		
-    Group group = groupLocalService.getGroup(groupId);
-	System.out.println("Group "+group);
 	
-	long userId = serviceContext.getUserId();
-    User user =userLocalService.getUser(userId);
-	System.out.println("user"+user);
+	//add method 
 	
-	// generate the primary key 
+	public DocFile addDocFile(long groupId,String nature,String type,String subject,String category,String subCategory,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
 		
-		long docFileId = counterLocalService.increment(DocFile.class.getName());
-	
-		DocFile docFile = createDocFile(docFileId);
+		System.out.println("Local Service method called ....");
+		// get group from the groupId
+		Group group = groupLocalService.getGroup(groupId);
+		
+		// get userId from the ServiceContext 
+	   long userId = serviceContext.getUserId();
+		// get user from the userId
+	   User user =  userLocalService.getUser(userId);		
+		
+	   // Generate the new primary key 
+	  long docFileId  =  counterLocalService.increment(DocFile.class.getName());
+	  
+	  // get docFile object from the docFileId
+      DocFile docFile =  createDocFile(docFileId);	  
+      // calling method getGeneratedFileNumber(docFile)
+      String fileNumber =  docFileLocalService.getGenerateFileNumber(docFile);     
+      // set the all values of docFile into the docFile object 
+      docFile.setNature(nature);
+      docFile.setType(type);
+      docFile.setSubject(subject);
+      docFile.setFileNumber(fileNumber);
+      docFile.setCategory(category);
+      docFile.setSubCategory(subCategory);
+      docFile.setRemarks(remarks);
+      docFile.setReference(reference);
+      
+      // set the audit fields 
 
-		docFile.setNature(nature);
-		docFile.setType(type);
-		docFile.setFileNumber(fileNumber);
-		docFile.setSubject(subject);
-		docFile.setSubCategory(subCategory);
-		docFile.setRemarks(remarks);
-		docFile.setReference(reference);
+      docFile.setGroupId(groupId);
+      docFile.setCompanyId(group.getCompanyId());
+      docFile.setCreateDate(serviceContext.getCreateDate(new Date()));
+      docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+      docFile.setUserId(userId);
+      docFile.setUserName(user.getScreenName());
+      
+     docFile =  super.addDocFile(docFile);
+      
+		return docFile;	
 		
-		// set audit fields 
-		docFile.setGroupId(groupId);
-		docFile.setCompanyId(group.getCompanyId());
-		docFile.setCreateDate(serviceContext.getCreateDate(new Date()));
-		docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
-		docFile.setUserId(userId);
-		docFile.setUserName(user.getScreenName());
-
-		
-		docFile = super.addDocFile(docFile);
-		
-		return docFile;		
 	}
-
-public DocFile deleteDocFile(DocFile docFile) {
-	 return super.deleteDocFile(docFile);
-  }
-
-public DocFile updateDocFile(long docFileId, String nature,String type,String subject,String fileNumber,String category,String subCategory,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
+	
+	
+	public DocFile deleteDocFile(DocFile docFile) {
+		return super.deleteDocFile(docFile);
+		
+	}
+	
+	public DocFile updateDocFile(long docFileId,String nature,String type,String subject,String category,String subCategory,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
+	
 	DocFile docFile = getDocFile(docFileId);
+	
 	docFile.setNature(nature);
 	docFile.setType(type);
 	docFile.setSubject(subject);
-	docFile.setFileNumber(fileNumber);
 	docFile.setCategory(category);
 	docFile.setSubCategory(subCategory);
 	docFile.setRemarks(remarks);
 	docFile.setReference(reference);
 	docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
     docFile = super.updateDocFile(docFile);
-	return docFile;
+    return docFile;	
+	}
 	
+	public List<DocFile> getDocFileByGroupId(long groupId,int start,int end){
+		return docFilePersistence.findBygroupId(groupId, start, end);
+	}	
+
+  // for generating the fileNumber .
+    public String getGenerateFileNumber(DocFile docfile) {		
+		  long fileNumber1 = docfile.getDocFileId(); 
+		  String number =String.valueOf(fileNumber1); 
+		  String filenumber = 'F'+number;
+	       return filenumber;	 
 }
- 
-public List<DocFile> getDocFileByGroupId(long groupId,int start,int end){
-	return docFilePersistence.findBygroupId(groupId, start, end);
+
 	
 	
-}	
-
-
 }

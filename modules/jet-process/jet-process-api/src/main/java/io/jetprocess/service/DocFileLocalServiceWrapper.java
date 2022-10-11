@@ -53,15 +53,15 @@ public class DocFileLocalServiceWrapper
 
 	@Override
 	public io.jetprocess.model.DocFile addDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, String catagory, String subCategory, String remarks,
+			long groupId, String nature, String type, String subject,
+			String category, String subCategory, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileLocalService.addDocFile(
-			groupId, nature, type, fileNumber, subject, catagory, subCategory,
-			remarks, reference, serviceContext);
+			groupId, nature, type, subject, category, subCategory, remarks,
+			reference, serviceContext);
 	}
 
 	/**
@@ -371,6 +371,11 @@ public class DocFileLocalServiceWrapper
 	}
 
 	@Override
+	public String getGenerateFileNumber(io.jetprocess.model.DocFile docfile) {
+		return _docFileLocalService.getGenerateFileNumber(docfile);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -418,14 +423,14 @@ public class DocFileLocalServiceWrapper
 	@Override
 	public io.jetprocess.model.DocFile updateDocFile(
 			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
+			String category, String subCategory, String remarks,
+			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileLocalService.updateDocFile(
-			docFileId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
+			docFileId, nature, type, subject, category, subCategory, remarks,
+			reference, serviceContext);
 	}
 
 	@Override

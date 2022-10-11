@@ -53,8 +53,8 @@ public class DocFileServiceHttp {
 
 	public static io.jetprocess.model.DocFile addDocFile(
 			HttpPrincipal httpPrincipal, long groupId, String nature,
-			String type, String subject, String fileNumber, String category,
-			String subCategory, String remarks, String reference,
+			String type, String subject, String category, String subCategory,
+			String remarks, String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -64,7 +64,7 @@ public class DocFileServiceHttp {
 				_addDocFileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, nature, type, subject, fileNumber, category,
+				methodKey, groupId, nature, type, subject, category,
 				subCategory, remarks, reference, serviceContext);
 
 			Object returnObj = null;
@@ -216,7 +216,7 @@ public class DocFileServiceHttp {
 
 	private static final Class<?>[] _addDocFileParameterTypes0 = new Class[] {
 		long.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, String.class,
+		String.class, String.class, String.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 	private static final Class<?>[] _deleteDocFileParameterTypes1 =
