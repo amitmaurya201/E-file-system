@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptService;
 import io.jetprocess.service.ReceiptServiceUtil;
-import io.jetprocess.service.persistence.ContactDetailPersistence;
 import io.jetprocess.service.persistence.DocFilePersistence;
 import io.jetprocess.service.persistence.ReceiptPersistence;
 
@@ -131,9 +130,6 @@ public abstract class ReceiptServiceBaseImpl
 			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
-
-	@Reference
-	protected ContactDetailPersistence contactDetailPersistence;
 
 	@Reference
 	protected DocFilePersistence docFilePersistence;

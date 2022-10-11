@@ -67,11 +67,23 @@ public interface ReceiptLocalService
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the receipt local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ReceiptLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public Receipt addReceipt(
-			long groupId, Date createdOn, String type, String deliveryMode,
-			Date receivedOn, Date letterDate, String referenceNumber,
-			String organisation, String modeNumber, String category,
-			String subCategory, String subject, String remarks, String document,
-			long senderId, ServiceContext serviceContext)
+			long groupId, String type, String deliveryMode, Date receivedOn,
+			Date letterDate, String referenceNumber, String organisation,
+			String modeNumber, String category, String subCategory,
+			String subject, String remarks, String document, String minDeptOth,
+			String name, String designation, String mobile, String email,
+			String address, String country, String state, String district,
+			String pinCode, ServiceContext serviceContext)
+		throws PortalException;
+
+	public Receipt addReceipt(
+			long groupId, String type, String deliveryMode, Date receivedOn,
+			Date letterDate, String referenceNumber, String organisation,
+			String modeNumber, String category, String subCategory,
+			String subject, String remarks, String document, String minDeptOth,
+			String name, String designation, String mobile, String email,
+			String address, String country, String state, String district,
+			String pinCode, String receiptNumber, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -220,6 +232,8 @@ public interface ReceiptLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt fetchReceiptByUuidAndGroupId(String uuid, long groupId);
+
+	public String generataeReceiptNumber(long receiptId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

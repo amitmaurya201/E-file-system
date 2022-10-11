@@ -23,40 +23,39 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import java.util.Date;
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
 import io.jetprocess.model.Receipt;
-import io.jetprocess.service.ContactDetailLocalService;
+import io.jetprocess.service.ReceiptLocalServiceUtil;
 import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.model.Receipt",
-	service = AopService.class
-)
+@Component(property = "model.class.name=io.jetprocess.model.Receipt", service = AopService.class)
 public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
-
-	
-	public Receipt addReceipt(long groupId, Date createdOn, String type, String deliveryMode, Date receivedOn, Date letterDate, String referenceNumber, String organisation,String modeNumber, String category, String subCategory, String subject, String remarks, String document, long senderId, ServiceContext serviceContext) throws PortalException {
+	@Override
+	public Receipt addReceipt(long groupId, String type, String deliveryMode, Date receivedOn, Date letterDate,
+			String referenceNumber, String organisation, String modeNumber, String category, String subCategory,
+			String subject, String remarks, String document, String minDeptOth, String name, String designation,
+			String mobile, String email, String address, String country, String state, String district, String pinCode,
+			ServiceContext serviceContext) throws PortalException {
 		
-		//Get Group(Site) and user Information
-		Group group =groupLocalService.getGroup(groupId);
+		// Get Group(Site) and user Information
+		Group group = groupLocalService.getGroup(groupId);
 		System.out.println(group);
-		long userId=serviceContext.getUserId();
+		long userId = serviceContext.getUserId();
 		System.out.println(userId);
-		User user=userLocalService.getUser(userId);
+		User user = userLocalService.getUser(userId);
 		System.out.println(user);
-		
-		//Generate A New Primary Key For The ContactDetails
-		long receiptId=counterLocalService.increment(Receipt.class.getName());
+		String number = null;
+		// Generate A New Primary Key For The ContactDetails
+		long receiptId = counterLocalService.increment(Receipt.class.getName());
+		// number=generateReceiptNumber(receiptId);
 		System.out.println(receiptId);
 		Receipt receipt = createReceipt(receiptId);
-		
-		//1.Update Actual Fields
-		receipt.setCreatedOn(createdOn);
+
+		// 1.Update Actual Fields
 		receipt.setType(type);
 		receipt.setDeliveryMode(deliveryMode);
 		receipt.setReceivedOn(receivedOn);
@@ -69,30 +68,51 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setSubCategory(subCategory);
 		receipt.setSubject(subject);
 		receipt.setRemarks(remarks);
-		//long contactDetailId = counterLocalService.increment(ContactDetail.class.getName());
-		receipt.setSenderId(senderId);
-		
-		//2.Update Audit and Other Generic Fields
+		receipt.setName(name);
+		receipt.setAddress(address);
+		receipt.setDesignation(designation);
+		receipt.setEmail(email);
+		receipt.setMobile(mobile);
+		receipt.setCountry(country);
+		receipt.setState(state);
+		receipt.setDistrict(district);
+		receipt.setPinCode(pinCode);
+		// 2.Update Audit and Other Generic Fields
 		receipt.setGroupId(groupId);
 		receipt.setCompanyId(group.getCompanyId());
 		receipt.setUserName(user.getScreenName());
 		receipt.setUserId(userId);
 		receipt.setCreateDate(serviceContext.getCreateDate(new Date()));
 		receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+		number= ReceiptLocalServiceUtil.generataeReceiptNumber(receiptId);
+		receipt.setReceiptNumber(number);
 		receipt = super.addReceipt(receipt);
+
 		return receipt;
 	}
 	
 	public Receipt deleteReceipt(Receipt receipt) {
 		return super.deleteReceipt(receipt);
 	}
-	
-	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end){
-		return receiptPersistence.findBygroupId(groupId, start, end);
-		
-	}
-	@Reference
-	private ContactDetailLocalService contactDetailLocalService;
 
+	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end) {
+		return receiptPersistence.findBygroupId(groupId, start, end);
+
+	}
+
+	public String generataeReceiptNumber(long receiptId) {
+		String receiptNumber = "R"+ receiptId;
+		return receiptNumber;
+
+	}
+
+	public Receipt addReceipt(long groupId, String type, String deliveryMode, Date receivedOn, Date letterDate,
+			String referenceNumber, String organisation, String modeNumber, String category, String subCategory,
+			String subject, String remarks, String document, String minDeptOth, String name, String designation,
+			String mobile, String email, String address, String country, String state, String district, String pinCode,
+			String receiptNumber, ServiceContext serviceContext) throws PortalException {
+		
+		return null;
+	}
 
 }

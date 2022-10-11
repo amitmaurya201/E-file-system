@@ -21,37 +21,36 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import java.util.Date;
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.base.ReceiptServiceBaseImpl;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = {
-		"json.web.service.context.name=jet_process",
-		"json.web.service.context.path=Receipt"
-	},
-	service = AopService.class
-)
+@Component(property = { "json.web.service.context.name=jet_process",
+		"json.web.service.context.path=Receipt" }, service = AopService.class)
 public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
-	
-public Receipt addReceipt(long groupId, Date createdOn, String type, String deliveryMode, Date receivedOn, Date letterDate, String referenceNumber, String organisation,String modeNumber, String category, String subCategory, String subject, String remarks, String document, long senderId, ServiceContext serviceContext) throws PortalException {
-		
-		return receiptLocalService.addReceipt(groupId, createdOn, type, deliveryMode, receivedOn, letterDate, referenceNumber, organisation, modeNumber, category, subCategory, subject, remarks, document, senderId, serviceContext);
-}
-	
+
+	public Receipt addReceipt(long groupId, String type, String deliveryMode, Date receivedOn, Date letterDate,
+			String referenceNumber, String organisation, String modeNumber, String category, String subCategory,
+			String subject, String remarks, String document, String minDeptOth, String name, String designation,
+			String mobile, String email, String address, String country, String state, String district, String pinCode,
+			ServiceContext serviceContext) throws PortalException {
+
+		return receiptLocalService.addReceipt(groupId, type, deliveryMode, receivedOn, letterDate, referenceNumber, organisation, modeNumber, category, subCategory, subject, remarks, document, minDeptOth, name, designation, mobile, email, address, country, state, district, pinCode, serviceContext);
+	}
+
 	public Receipt deleteReceipt(long receiptId) throws PortalException {
-		Receipt receipt= receiptLocalService.getReceipt(receiptId);
+		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		return receiptLocalService.deleteReceipt(receipt);
-		
+
 	}
-	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end){
+
+	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end) {
 		return receiptLocalService.getReceiptByGroupId(groupId, start, end);
-		
+
 	}
-	
 
 }
