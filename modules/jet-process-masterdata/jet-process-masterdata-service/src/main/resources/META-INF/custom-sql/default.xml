@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+<sql id="getCategories">
+<![CDATA[
+SELECT  categoryid as masterdataid ,'C-'||categoryid as referenceid, value as value
+	FROM category;
+]]>
+
+</sql>
+<sql id="getSubCategories">
+<![CDATA[
+SELECT  subid as masterdataid , subcategoryvalue as value , 'SC-'||subid as referenceid 
+	FROM subcategory  where categoryid = ? ;
+]]>
+
+</sql>
+
+<sql id="getType">
+<![CDATA[
+
+SELECT typeid as masterdataid ,'C-'||typeid as referenceid, typevalue as value
+	FROM type;
+
+]]>
+
+</sql>
+
+<sql id="getDeliveryMode">
+<![CDATA[
+
+SELECT modeid as masterdataid ,  'C-'||modeid as referenceid, modevalue as value
+	FROM deliverymode;
+
+]]>
+
+</sql>
+<sql id="getFileCode">
+<![CDATA[
+
+SELECT filecodeid as masterdataid ,  'C-'||filecodeid as referenceid,  filecodevalue as value
+	FROM filecode;
+
+]]>
+
+</sql>
+<sql id="getBasicHeads">
+<![CDATA[
+
+SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basicheadvalue as value
+	FROM basichead;
+
+]]>
+
+</sql>
+<sql id="getPrimaryHeads">
+<![CDATA[
+
+SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value
+	FROM primaryhead where basicheadid = ?;
+
+]]>
+
+</sql>
+<sql id="getSecondaryHeads">
+<![CDATA[
+
+SELECT secondaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , secondaryheadvalue as value
+	FROM secondaryhead where primaryheadid = ?;
+
+]]>
+
+</sql>
+<sql id="getTeritaryHeads">
+<![CDATA[
+
+SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , teritaryheadvalue as value
+	FROM teritaryhead where secondaryheadid = ?;
+
+]]>
+
+</sql>
+<sql id="getOrganizations">
+<![CDATA[
+
+SELECT organizationid as masterdataid ,  'C-'||organizationid as referenceid , organizationvalue as value
+	FROM organization ;
+
+]]>
+
+</sql>
+<sql id="getSubOrganizations">
+<![CDATA[
+
+SELECT  suborganizationid as masterdataid ,  'C-'||suborganizationid as referenceid , suborganizationvalue as value
+	FROM suborganization where organizationid = ?;
+
+]]>
+
+</sql>
+<sql id="getReceiptCategory">
+<![CDATA[
+
+SELECT  receiptid as masterdataid ,  'C-'||receiptid as referenceid , receiptvalue as value
+	FROM receiptcategory;
+
+]]>
+
+</sql>
+<sql id="getReceiptSubCategory">
+<![CDATA[
+
+SELECT  receiptsubcategoryid as masterdataid ,  'C-'||receiptsubcategoryid as referenceid , receiptsubcategoryvalue as value
+	FROM receiptsubcategory where receiptcategoryid = ?;
+
+]]>
+
+</sql>
+
+</custom-sql>

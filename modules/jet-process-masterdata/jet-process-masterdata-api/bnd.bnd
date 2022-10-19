@@ -1,0 +1,10 @@
+Bundle-Name: jet-process-masterdata-api
+Bundle-SymbolicName: io.jetprocess.masterdata.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	io.jetprocess.masterdata.exception,\
+	io.jetprocess.masterdata.model,\
+	io.jetprocess.masterdata.service,\
+	io.jetprocess.masterdata.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../jet-process-masterdata-service/service.xml

@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:jet-process-masterdata:jet-process-masterdata-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../jet-process-masterdata-api/src/main/java"
+}
+
+group = "io.jetprocess.masterdata"
