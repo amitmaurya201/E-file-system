@@ -1,0 +1,5 @@
+Bundle-Name: jet-process-docs-test
+Bundle-SymbolicName: io.jetprocess.docs.test
+Bundle-Version: 1.0.0
+-includeresource: io.jetprocess.docs.client.jar=../jet-process-docs-client/build/libs/io.jetprocess.docs.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}

@@ -1,0 +1,87 @@
+info:
+    description: "JetProcessDocstore REST API"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "JetProcessDocstore"
+    version: v1.0
+openapi: 3.0.1
+servers:
+  - url: 'http://localhost:8080/o//jet-process-docstore/v1.0/'
+    description: fileupload
+components:
+  schemas:
+    DOCStore:
+      description: Contains all files for the receipt.
+      properties:
+        id:
+          description: The DOCStore id
+          format: int64
+          readOnly: true
+          type: integer
+        folderName:
+          type: string
+        description:
+          type: string 
+        groupId:
+          type: string
+        fileName:
+          type: string
+        documentStream:
+          type: string
+        fileId:
+          type: number
+      type: object
+paths:
+  /tempFileUpload:
+      post:
+        operationId: tempFileUpload
+        requestBody:
+            content:
+                multipart/form-data:
+                  schema:
+                    properties:
+                        document:
+                            $ref: "#/components/schemas/DOCStore"
+                        file:
+                            format: binary
+                            type: string 
+                    type: object
+        responses:
+            200:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DOCStore"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DOCStore"
+                description: ""
+        tags: ["DOCStore"]  
+  /uploadFile:
+      post:
+        operationId: uploadFile
+        requestBody:
+            content:
+                multipart/form-data:
+                  schema:
+                    properties:
+                        document:
+                            $ref: "#/components/schemas/DOCStore"
+                        file:
+                            format: binary
+                            type: string    
+                    type: object
+        responses:
+            200:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DOCStore"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DOCStore"
+                description: ""
+        tags: ["DOCStore"]      
+        
+  

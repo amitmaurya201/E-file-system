@@ -1,0 +1,7 @@
+Bundle-Name: jet-process-docs-api
+Bundle-SymbolicName: io.jetprocess.docs.api
+Bundle-Version: 1.0.0
+Export-Package: \
+	io.jetprocess.docs.dto.v1_0,\
+	io.jetprocess.docs.resource.v1_0,\
+	io.jetprocess.docstore

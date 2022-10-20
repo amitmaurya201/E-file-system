@@ -1,0 +1,9 @@
+apiDir: "../jet-process-docs-api/src/main/java"
+apiPackagePath: "io.jetprocess.docs"
+application:
+    baseURI: "/jet-process-docs"
+    className: "JetProcessDocsApplication"
+    name: "JetProcessDocs"
+author: "Admin"
+clientDir: "../jet-process-docs-client/src/main/java"
+testDir: "../jet-process-docs-test/src/testIntegration/java"
