@@ -63,6 +63,18 @@ public class Mutation {
 			docStoreResource -> docStoreResource.uploadFile(multipartBody));
 	}
 
+	@GraphQLField
+	@GraphQLName(description = "null", value = "fetchFilesMultipartBody")
+	public DOCStore fetchFiles(
+			@GraphQLName("multipartBody") MultipartBody multipartBody)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_docStoreResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			docStoreResource -> docStoreResource.fetchFiles(multipartBody));
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,

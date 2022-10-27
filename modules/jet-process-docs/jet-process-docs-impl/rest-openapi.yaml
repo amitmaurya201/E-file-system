@@ -82,6 +82,31 @@ paths:
                         schema:
                             $ref: "#/components/schemas/DOCStore"
                 description: ""
-        tags: ["DOCStore"]      
+        tags: ["DOCStore"]   
+  /fetchFiles:
+      post:
+        operationId: fetchFiles
+        requestBody:
+            content:
+                multipart/form-data:
+                  schema:
+                    properties:
+                        document:
+                            $ref: "#/components/schemas/DOCStore"
+                        file:
+                            format: binary
+                            type: string 
+                    type: object
+        responses:
+            200:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DOCStore"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DOCStore"
+                description: ""
+        tags: ["DOCStore"]        
         
   

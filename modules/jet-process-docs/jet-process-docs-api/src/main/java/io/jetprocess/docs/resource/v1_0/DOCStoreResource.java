@@ -47,6 +47,8 @@ public interface DOCStoreResource {
 
 	public DOCStore uploadFile(MultipartBody multipartBody) throws Exception;
 
+	public DOCStore fetchFiles(MultipartBody multipartBody) throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

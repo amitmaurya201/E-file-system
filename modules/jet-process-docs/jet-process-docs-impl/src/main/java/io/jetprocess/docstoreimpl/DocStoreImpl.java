@@ -2,19 +2,27 @@ package io.jetprocess.docstoreimpl;
 
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.document.library.kernel.service.DLAppServiceUtil;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.PortalUtil;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
-
 import io.jetprocess.docstore.DocStore;
 
 @Component(immediate = true, service = DocStore.class)
@@ -138,6 +146,7 @@ public class DocStoreImpl implements DocStore {
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setUserId(userId);
 		serviceContext.setScopeGroupId(groupId);
+		
 		Date date = new Date();
 		int year = date.getYear();
 		int currentYear = year + 1900;
@@ -165,29 +174,33 @@ public class DocStoreImpl implements DocStore {
 
 		}
 	}
-
-	/*
-	 * public void getAllFileLink(String groupId,String folderName){ long siteId =
-	 * Long.parseLong(groupId); long userId = PrincipalThreadLocal.getUserId(); Long
-	 * parentFolderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
-	 * 
-	 * try { List<Folder> mainFolders = DLAppServiceUtil.getFolders(siteId,
-	 * parentFolderId); for (Folder subFolderList : mainFolders) {
-	 * 
-	 * long mainFolderId = subFolderList.getFolderId(); List<DLFileEntry> ls =
-	 * DLFileEntryLocalServiceUtil.getDLFileEntries(-1,-1);
-	 * 
-	 * FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
-	 * InputStream inputStream = DLFileEntryLocalServiceUtil.getFileAsStream(
-	 * fileEntry.getPrimaryKey(), fileEntry.getVersion()); Photo photo =
-	 * photoservice.getPhoto(id); String s =
-	 * Base64.getEncoder().encodeToString(photo.getImage().getData()); byte[] decode
-	 * = Base64.getDecoder().decode(s);
-	 * 
-	 * 
-	 * } } }catch (Exception e) { e.printStackTrace(); }
-	 */
-
-	// }
-
+@Override
+	public String getFile(String groupId,long fileEntryId) throws PortalException, IOException {
+		//long siteId = Long.parseLong(groupId);
+		long siteId= Long.parseLong(groupId);
+		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
+		/*
+		 * InputStream inputStream =
+		 * DLFileEntryLocalServiceUtil.getFileAsStream(fileEntry.getPrimaryKey(),
+		 * fileEntry.getVersion()); byte[] targetArray = new
+		 * byte[inputStream.available()]; String fileContent =
+		 * Base64.getEncoder().encodeToString(targetArray);
+		 * System.out.println(fileContent);
+		 */
+	
+		Group group = GroupLocalServiceUtil.getGroup(siteId);
+		Company company = CompanyLocalServiceUtil.getCompany(group.getCompanyId());
+		System.out.println(company.getVirtualHostname());
+		System.out.println(PortalUtil.getPortalLocalPort(false));
+		
+		String portalURL = PortalUtil.getPortalURL(company.getVirtualHostname(), PortalUtil.getPortalLocalPort(false), false);
+		String url = portalURL + "/c/document_library/get_file?uuid=" + fileEntry.getUuid() + "&amp;groupId=" + fileEntry.getGroupId();
+		
+		System.out.println(url);
+		//byte[] decode = Base64.getDecoder().decode(fileContent);
+		return url;
+	}
+	
 }
+	
+	  

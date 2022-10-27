@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -29,18 +28,9 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
-import io.jetprocess.docs.client.dto.v1_0.DOCStore;
-import io.jetprocess.docs.client.http.HttpInvoker;
-import io.jetprocess.docs.client.pagination.Page;
-import io.jetprocess.docs.client.resource.v1_0.DOCStoreResource;
-import io.jetprocess.docs.client.serdes.v1_0.DOCStoreSerDes;
-
 import java.io.File;
-
 import java.lang.reflect.Method;
-
 import java.text.DateFormat;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -54,7 +44,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Generated;
-
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
@@ -64,6 +53,12 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+
+import io.jetprocess.docs.client.dto.v1_0.DOCStore;
+import io.jetprocess.docs.client.http.HttpInvoker;
+import io.jetprocess.docs.client.pagination.Page;
+import io.jetprocess.docs.client.resource.v1_0.DOCStoreResource;
+import io.jetprocess.docs.client.serdes.v1_0.DOCStoreSerDes;
 
 /**
  * @author Admin
@@ -225,6 +220,29 @@ public abstract class BaseDOCStoreResourceTestCase {
 	}
 
 	protected DOCStore testUploadFile_addDOCStore(
+			DOCStore docStore, Map<String, File> multipartFiles)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testFetchFiles() throws Exception {
+		DOCStore randomDOCStore = randomDOCStore();
+
+		Map<String, File> multipartFiles = getMultipartFiles();
+
+		DOCStore postDOCStore = testFetchFiles_addDOCStore(
+			randomDOCStore, multipartFiles);
+
+		assertEquals(randomDOCStore, postDOCStore);
+		assertValid(postDOCStore);
+
+		assertValid(postDOCStore, multipartFiles);
+	}
+
+	protected DOCStore testFetchFiles_addDOCStore(
 			DOCStore docStore, Map<String, File> multipartFiles)
 		throws Exception {
 
