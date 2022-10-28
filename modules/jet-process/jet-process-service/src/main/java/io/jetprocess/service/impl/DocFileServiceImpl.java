@@ -57,5 +57,17 @@ public class DocFileServiceImpl extends DocFileServiceBaseImpl {
 				return docFileLocalService.getDocFileList();
 				
 			}
+			
+		// add nonsfsdocfile 
+			
+			public JSONObject AddNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+		long subCategoryId, String remarks, String reference, ServiceContext serviceContext)  throws PortalException {
+				System.out.println("nonsfs method call ho rha hai");
+				return docFileLocalService.AddNonSfsDocFile(groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject, categoryId, subCategoryId, remarks, reference, serviceContext);		
+				
+			}
+			
+		
+			
 
 }

@@ -40,7 +40,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 	
-
+	
+	
+	
+	
+	
 	public JSONObject AddSfsDocFile(long groupId, String nature, String type, String subject, long categoryId,
 		long subCategoryId, String remarks, String reference, ServiceContext serviceContext)
 			throws PortalException {
@@ -134,4 +138,87 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		}
 
+		public JSONObject AddNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+		long subCategoryId, String remarks, String reference, ServiceContext serviceContext) throws PortalException {
+			
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+		
+			Group group = groupLocalService.getGroup(groupId);
+			
+			// get userId from the ServiceContext
+			long userId = serviceContext.getUserId();
+			// get user from the userId
+			User user = userLocalService.getUser(userId);
+
+			// Generate the new primary key
+			long docFileId = counterLocalService.increment(DocFile.class.getName());
+
+			// get docFile object from the docFileId
+			DocFile docFile = createDocFile(docFileId);
+   
+	   	String fileNumber = getGenerateFileNumber(docFile);
+			
+			docFile.setNature(nature);
+			docFile.setType(type);
+			docFile.setSubject(subject);
+			docFile.setFileNumber(fileNumber);
+			docFile.setBasicHeadId(basicHeadId);
+			docFile.setPrimaryHeadId(primaryHeadId);
+			docFile.setTertiaryHeadId(tertiaryHeadId);
+			docFile.setYear(year);
+			docFile.setFileCodeId(fileCodeId);
+			docFile.setCategoryId(categoryId);
+			docFile.setSubCategoryId(subCategoryId);
+			docFile.setRemarks(remarks);
+			docFile.setReference(reference);
+
+			// set the audit fields
+
+			docFile.setGroupId(groupId);
+			docFile.setCompanyId(group.getCompanyId());
+			docFile.setCreateDate(serviceContext.getCreateDate(new Date()));
+			System.out.println("createDate is .... " + docFile.getCreateDate());
+
+			docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+			docFile.setUserId(userId);
+			docFile.setUserName(user.getScreenName());
+			
+			docFile = super.addDocFile(docFile);
+
+			jsonObject.put("nature", docFile.getNature());
+			jsonObject.put("type", docFile.getType());
+			jsonObject.put("subject", docFile.getSubject());
+			
+			jsonObject.put("basicHeadId", docFile.getBasicHeadId());
+			jsonObject.put("primaryHeadId", docFile.getPrimaryHeadId());
+			jsonObject.put("secondaryHeadId", docFile.getSecondaryHeadId());
+			
+			
+			jsonObject.put("tertiaryHeadId", docFile.getTertiaryHeadId());
+			jsonObject.put("year", docFile.getYear());
+			jsonObject.put("fileCodeId", docFile.getFileCodeId());
+			
+			jsonObject.put("categoryId", docFile.getCategoryId());
+			jsonObject.put("fileNumber", docFile.getFileNumber());
+			jsonObject.put("subCategoryId", docFile.getSubCategoryId());
+			jsonObject.put("remarks", docFile.getRemarks());
+			jsonObject.put("reference", docFile.getReference());
+			jsonObject.put("groupId", docFile.getGroupId());
+			jsonObject.put("companyId", docFile.getCompanyId());
+			jsonObject.put("createdDate", docFile.getCreateDate());
+			jsonObject.put("modifiedDate", docFile.getModifiedDate());
+			jsonObject.put("userId", docFile.getUserId());
+			jsonObject.put("userName", docFile.getUserName());
+
+			
+			return jsonObject;
+			
+			
+			
+		}
+		
+		
+		
+		
+		
 }
