@@ -104,6 +104,10 @@ public class MasterdataServiceUtil {
 		return getService().getSecondaryHeadMasterdata(primaryHeadId);
 	}
 
+	public static List<Masterdata> getStatesMasterdata(long countryId) {
+		return getService().getStatesMasterdata(countryId);
+	}
+
 	public static List<Masterdata> getSubCategoryMasterdata(long categoryId) {
 		return getService().getSubCategoryMasterdata(categoryId);
 	}

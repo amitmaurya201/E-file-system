@@ -100,6 +100,9 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getSecondaryHeadMasterdata(long primaryHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Masterdata> getStatesMasterdata(long countryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSubCategoryMasterdata(long categoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

@@ -99,6 +99,9 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 
 		return masterdataLocalService.getCountry();
 	}
+	public List<Masterdata> getStatesMasterdata(long countryId) {
+		return masterdataLocalService.getStates(countryId);
+	}
 
 	public Masterdata getBasicHeadByIdMasterdata(long basicHeadId) {
 

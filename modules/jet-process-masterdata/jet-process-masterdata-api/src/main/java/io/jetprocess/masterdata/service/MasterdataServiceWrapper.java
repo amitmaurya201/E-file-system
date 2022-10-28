@@ -139,6 +139,13 @@ public class MasterdataServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getStatesMasterdata(long countryId) {
+
+		return _masterdataService.getStatesMasterdata(countryId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getSubCategoryMasterdata(long categoryId) {
 
 		return _masterdataService.getSubCategoryMasterdata(categoryId);

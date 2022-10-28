@@ -510,6 +510,39 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getStatesMasterdata(HttpPrincipal httpPrincipal, long countryId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getStatesMasterdata",
+				_getStatesMasterdataParameterTypes14);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, countryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<io.jetprocess.masterdata.model.Masterdata>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static io.jetprocess.masterdata.model.Masterdata
 		getBasicHeadByIdMasterdata(
 			HttpPrincipal httpPrincipal, long basicHeadId) {
@@ -517,7 +550,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getBasicHeadByIdMasterdata",
-				_getBasicHeadByIdMasterdataParameterTypes14);
+				_getBasicHeadByIdMasterdataParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, basicHeadId);
@@ -550,7 +583,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getPrimaryHeadByIdMasterdata",
-				_getPrimaryHeadByIdMasterdataParameterTypes15);
+				_getPrimaryHeadByIdMasterdataParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, primaryHeadId);
@@ -583,7 +616,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getSecondaryHeadByIdMasterdata",
-				_getSecondaryHeadByIdMasterdataParameterTypes16);
+				_getSecondaryHeadByIdMasterdataParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, secondaryHeadId);
@@ -616,7 +649,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getTertiaryByIdMasterdata",
-				_getTertiaryByIdMasterdataParameterTypes17);
+				_getTertiaryByIdMasterdataParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, tertiaryHeadId);
@@ -677,17 +710,19 @@ public class MasterdataServiceHttp {
 		};
 	private static final Class<?>[] _getCountriesMasterdataParameterTypes13 =
 		new Class[] {};
+	private static final Class<?>[] _getStatesMasterdataParameterTypes14 =
+		new Class[] {long.class};
 	private static final Class<?>[]
-		_getBasicHeadByIdMasterdataParameterTypes14 = new Class[] {long.class};
+		_getBasicHeadByIdMasterdataParameterTypes15 = new Class[] {long.class};
 	private static final Class<?>[]
-		_getPrimaryHeadByIdMasterdataParameterTypes15 = new Class[] {
+		_getPrimaryHeadByIdMasterdataParameterTypes16 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getSecondaryHeadByIdMasterdataParameterTypes16 = new Class[] {
+		_getSecondaryHeadByIdMasterdataParameterTypes17 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes17 =
+	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes18 =
 		new Class[] {long.class};
 
 }
