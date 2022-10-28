@@ -131,7 +131,8 @@ public class ReceiptModelArgumentsResolver implements ArgumentsResolver {
 	static {
 		long orderByColumnsBitmask = 0;
 
-		orderByColumnsBitmask |= ReceiptModelImpl.getColumnBitmask("category");
+		orderByColumnsBitmask |= ReceiptModelImpl.getColumnBitmask(
+			"receiptCategoryId");
 
 		_ORDER_BY_COLUMNS_BITMASK = orderByColumnsBitmask;
 	}

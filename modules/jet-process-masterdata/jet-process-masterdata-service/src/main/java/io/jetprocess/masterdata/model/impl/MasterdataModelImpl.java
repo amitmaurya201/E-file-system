@@ -66,7 +66,7 @@ public class MasterdataModelImpl
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"masterdataId", Types.VARCHAR}, {"referenceId", Types.VARCHAR},
-		{"value", Types.VARCHAR}
+		{"value", Types.VARCHAR}, {"code_", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -76,10 +76,11 @@ public class MasterdataModelImpl
 		TABLE_COLUMNS_MAP.put("masterdataId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("referenceId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("value", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("code_", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Masterdata_Masterdata (masterdataId VARCHAR(75) not null primary key,referenceId VARCHAR(75) null,value VARCHAR(75) null)";
+		"create table Masterdata_Masterdata (masterdataId VARCHAR(75) not null primary key,referenceId VARCHAR(75) null,value VARCHAR(75) null,code_ VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Masterdata_Masterdata";
@@ -224,6 +225,9 @@ public class MasterdataModelImpl
 		attributeGetterFunctions.put("value", Masterdata::getValue);
 		attributeSetterBiConsumers.put(
 			"value", (BiConsumer<Masterdata, String>)Masterdata::setValue);
+		attributeGetterFunctions.put("code", Masterdata::getCode);
+		attributeSetterBiConsumers.put(
+			"code", (BiConsumer<Masterdata, String>)Masterdata::setCode);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -291,6 +295,26 @@ public class MasterdataModelImpl
 		_value = value;
 	}
 
+	@JSON
+	@Override
+	public String getCode() {
+		if (_code == null) {
+			return "";
+		}
+		else {
+			return _code;
+		}
+	}
+
+	@Override
+	public void setCode(String code) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_code = code;
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -337,6 +361,7 @@ public class MasterdataModelImpl
 		masterdataImpl.setMasterdataId(getMasterdataId());
 		masterdataImpl.setReferenceId(getReferenceId());
 		masterdataImpl.setValue(getValue());
+		masterdataImpl.setCode(getCode());
 
 		masterdataImpl.resetOriginalValues();
 
@@ -352,6 +377,7 @@ public class MasterdataModelImpl
 		masterdataImpl.setReferenceId(
 			this.<String>getColumnOriginalValue("referenceId"));
 		masterdataImpl.setValue(this.<String>getColumnOriginalValue("value"));
+		masterdataImpl.setCode(this.<String>getColumnOriginalValue("code_"));
 
 		return masterdataImpl;
 	}
@@ -441,6 +467,14 @@ public class MasterdataModelImpl
 
 		if ((value != null) && (value.length() == 0)) {
 			masterdataCacheModel.value = null;
+		}
+
+		masterdataCacheModel.code = getCode();
+
+		String code = masterdataCacheModel.code;
+
+		if ((code != null) && (code.length() == 0)) {
+			masterdataCacheModel.code = null;
 		}
 
 		return masterdataCacheModel;
@@ -538,8 +572,11 @@ public class MasterdataModelImpl
 	private String _masterdataId;
 	private String _referenceId;
 	private String _value;
+	private String _code;
 
 	public <T> T getColumnValue(String columnName) {
+		columnName = _attributeNames.getOrDefault(columnName, columnName);
+
 		Function<Masterdata, Object> function = _attributeGetterFunctions.get(
 			columnName);
 
@@ -569,6 +606,17 @@ public class MasterdataModelImpl
 		_columnOriginalValues.put("masterdataId", _masterdataId);
 		_columnOriginalValues.put("referenceId", _referenceId);
 		_columnOriginalValues.put("value", _value);
+		_columnOriginalValues.put("code_", _code);
+	}
+
+	private static final Map<String, String> _attributeNames;
+
+	static {
+		Map<String, String> attributeNames = new HashMap<>();
+
+		attributeNames.put("code_", "code");
+
+		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -587,6 +635,8 @@ public class MasterdataModelImpl
 		columnBitmasks.put("referenceId", 2L);
 
 		columnBitmasks.put("value", 4L);
+
+		columnBitmasks.put("code_", 8L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

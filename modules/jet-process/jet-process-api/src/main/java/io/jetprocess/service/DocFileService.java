@@ -16,6 +16,7 @@ package io.jetprocess.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
@@ -53,22 +54,16 @@ public interface DocFileService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.DocFileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the doc file remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link DocFileServiceUtil} if injection and service tracking are not available.
 	 */
-	public DocFile addDocFile(
+	public JSONObject AddSfsDocFile(
 			long groupId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
+			long categoryId, long subCategoryId, String remarks,
 			String reference, ServiceContext serviceContext)
-		throws PortalException;
-
-	public DocFile addDocFile(
-			long groupId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference, ServiceContext serviceContext)
 		throws PortalException;
 
 	public DocFile deleteDocFile(long docFileId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<DocFile> getDocFileByGroupId(long groupId, int start, int end);
+	public List<DocFile> getDocFileList();
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -76,11 +71,5 @@ public interface DocFileService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
-
-	public DocFile updateDocFile(
-			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference, ServiceContext serviceContext)
-		throws PortalException;
 
 }

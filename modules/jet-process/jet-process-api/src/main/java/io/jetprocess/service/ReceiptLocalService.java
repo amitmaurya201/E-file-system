@@ -66,25 +66,6 @@ public interface ReceiptLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the receipt local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ReceiptLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public Receipt addReceipt(
-			long groupId, String type, String deliveryMode, Date receivedOn,
-			Date letterDate, String referenceNumber, String organisation,
-			String modeNumber, String category, String subCategory,
-			String subject, String remarks, String document, String minDeptOth,
-			String name, String designation, String mobile, String email,
-			String address, String country, String state, String district,
-			String pinCode, ServiceContext serviceContext)
-		throws PortalException;
-
-	public Receipt addReceipt(
-			long groupId, String type, String deliveryMode, Date receivedOn,
-			Date letterDate, String referenceNumber, String organisation,
-			String modeNumber, String category, String subCategory,
-			String subject, String remarks, String document, String minDeptOth,
-			String name, String designation, String mobile, String email,
-			String address, String country, String state, String district,
-			String pinCode, String receiptNumber, ServiceContext serviceContext)
-		throws PortalException;
 
 	/**
 	 * Adds the receipt to the database. Also notifies the appropriate model listeners.
@@ -113,6 +94,16 @@ public interface ReceiptLocalService
 	 */
 	@Transactional(enabled = false)
 	public Receipt createReceipt(long receiptId);
+
+	public Receipt createReceipt(
+			long groupId, long typeId, long deliveryModeId, Date receivedOn,
+			Date letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String document, String name, String designation,
+			String mobile, String email, String address, long countryId,
+			long stateId, String pinCode, long organizationId,
+			long subOrganizationId, String city, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException
@@ -233,10 +224,11 @@ public interface ReceiptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt fetchReceiptByUuidAndGroupId(String uuid, long groupId);
 
-	public String generataeReceiptNumber(long receiptId);
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Receipt> getAllReceipt();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
@@ -269,9 +261,6 @@ public interface ReceiptLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceipt(long receiptId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end);
 
 	/**
 	 * Returns the receipt matching the UUID and group.
@@ -332,6 +321,17 @@ public interface ReceiptLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getReceiptsCount();
+
+	public Receipt updateReceipt(
+			long receiptId, long groupId, long typeId, long deliveryModeId,
+			Date receivedOn, Date letterDate, String referenceNumber,
+			String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the receipt in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

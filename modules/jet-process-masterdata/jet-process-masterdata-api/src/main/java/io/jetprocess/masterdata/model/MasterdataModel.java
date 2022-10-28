@@ -98,6 +98,21 @@ public interface MasterdataModel extends BaseModel<Masterdata> {
 	 */
 	public void setValue(String value);
 
+	/**
+	 * Returns the code of this masterdata.
+	 *
+	 * @return the code of this masterdata
+	 */
+	@AutoEscape
+	public String getCode();
+
+	/**
+	 * Sets the code of this masterdata.
+	 *
+	 * @param code the code of this masterdata
+	 */
+	public void setCode(String code);
+
 	@Override
 	public Masterdata cloneWithOriginalValues();
 

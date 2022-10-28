@@ -234,6 +234,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata getBasic(
+		long basicHeadId) {
+
+		return _masterdataLocalService.getBasic(basicHeadId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getBasicHead() {
 
@@ -245,6 +252,13 @@ public class MasterdataLocalServiceWrapper
 		getCategory() {
 
 		return _masterdataLocalService.getCategory();
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getCountry() {
+
+		return _masterdataLocalService.getCountry();
 	}
 
 	@Override
@@ -331,6 +345,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata getPrimary(
+		long primaryHeadId) {
+
+		return _masterdataLocalService.getPrimary(primaryHeadId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getPrimaryHead(long basicHeadId) {
 
@@ -352,10 +373,24 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata getSecondary(
+		long secondaryHeadId) {
+
+		return _masterdataLocalService.getSecondary(secondaryHeadId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getSecondaryHead(long primaryHeadId) {
 
 		return _masterdataLocalService.getSecondaryHead(primaryHeadId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata> getStates(
+		long countryId) {
+
+		return _masterdataLocalService.getStates(countryId);
 	}
 
 	@Override
@@ -377,6 +412,13 @@ public class MasterdataLocalServiceWrapper
 		getTeritaryHead(long seondaryHeadId) {
 
 		return _masterdataLocalService.getTeritaryHead(seondaryHeadId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata getTertiary(
+		long tertiaryHeadId) {
+
+		return _masterdataLocalService.getTertiary(tertiaryHeadId);
 	}
 
 	@Override

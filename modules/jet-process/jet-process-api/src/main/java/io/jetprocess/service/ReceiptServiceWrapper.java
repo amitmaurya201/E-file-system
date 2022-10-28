@@ -35,22 +35,24 @@ public class ReceiptServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Receipt addReceipt(
-			long groupId, String type, String deliveryMode,
+	public io.jetprocess.model.Receipt createReceipt(
+			long groupId, long typeId, long deliveryModeId,
 			java.util.Date receivedOn, java.util.Date letterDate,
-			String referenceNumber, String organisation, String modeNumber,
-			String category, String subCategory, String subject, String remarks,
-			String document, String minDeptOth, String name, String designation,
-			String mobile, String email, String address, String country,
-			String state, String district, String pinCode,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _receiptService.addReceipt(
-			groupId, type, deliveryMode, receivedOn, letterDate,
-			referenceNumber, organisation, modeNumber, category, subCategory,
-			subject, remarks, document, minDeptOth, name, designation, mobile,
-			email, address, country, state, district, pinCode, serviceContext);
+		return _receiptService.createReceipt(
+			groupId, typeId, deliveryModeId, receivedOn, letterDate,
+			referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, document, name, designation,
+			mobile, email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, serviceContext);
 	}
 
 	@Override
@@ -58,6 +60,11 @@ public class ReceiptServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _receiptService.deleteReceipt(receiptId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.model.Receipt> getAllReceipt() {
+		return _receiptService.getAllReceipt();
 	}
 
 	/**
@@ -71,10 +78,24 @@ public class ReceiptServiceWrapper
 	}
 
 	@Override
-	public java.util.List<io.jetprocess.model.Receipt> getReceiptByGroupId(
-		long groupId, int start, int end) {
+	public io.jetprocess.model.Receipt updateReceipt(
+			long receiptId, long groupId, long typeId, long deliveryModeId,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _receiptService.getReceiptByGroupId(groupId, start, end);
+		return _receiptService.updateReceipt(
+			receiptId, groupId, typeId, deliveryModeId, receivedOn, letterDate,
+			referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, document, name, designation,
+			mobile, email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, serviceContext);
 	}
 
 	@Override

@@ -210,12 +210,20 @@ public class MasterdataLocalServiceUtil {
 		return getService().fetchMasterdata(masterdataId);
 	}
 
+	public static Masterdata getBasic(long basicHeadId) {
+		return getService().getBasic(basicHeadId);
+	}
+
 	public static List<Masterdata> getBasicHead() {
 		return getService().getBasicHead();
 	}
 
 	public static List<Masterdata> getCategory() {
 		return getService().getCategory();
+	}
+
+	public static List<Masterdata> getCountry() {
+		return getService().getCountry();
 	}
 
 	public static List<Masterdata> getDeliveryModes() {
@@ -285,6 +293,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static Masterdata getPrimary(long primaryHeadId) {
+		return getService().getPrimary(primaryHeadId);
+	}
+
 	public static List<Masterdata> getPrimaryHead(long basicHeadId) {
 		return getService().getPrimaryHead(basicHeadId);
 	}
@@ -299,8 +311,16 @@ public class MasterdataLocalServiceUtil {
 		return getService().getReceiptSubCategory(receiptCategoryId);
 	}
 
+	public static Masterdata getSecondary(long secondaryHeadId) {
+		return getService().getSecondary(secondaryHeadId);
+	}
+
 	public static List<Masterdata> getSecondaryHead(long primaryHeadId) {
 		return getService().getSecondaryHead(primaryHeadId);
+	}
+
+	public static List<Masterdata> getStates(long countryId) {
+		return getService().getStates(countryId);
 	}
 
 	public static List<Masterdata> getSubcategories(long categoryId) {
@@ -313,6 +333,10 @@ public class MasterdataLocalServiceUtil {
 
 	public static List<Masterdata> getTeritaryHead(long seondaryHeadId) {
 		return getService().getTeritaryHead(seondaryHeadId);
+	}
+
+	public static Masterdata getTertiary(long tertiaryHeadId) {
+		return getService().getTertiary(tertiaryHeadId);
 	}
 
 	public static List<Masterdata> getTypes() {

@@ -36,6 +36,8 @@ public class MasterdataTable extends BaseTable<MasterdataTable> {
 		"referenceId", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<MasterdataTable, String> value = createColumn(
 		"value", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<MasterdataTable, String> code = createColumn(
+		"code_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private MasterdataTable() {
 		super("Masterdata_Masterdata", MasterdataTable::new);

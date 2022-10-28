@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -79,15 +80,9 @@ public interface DocFileLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public DocFile addDocFile(DocFile docFile);
 
-	public DocFile addDocFile(
+	public JSONObject AddSfsDocFile(
 			long groupId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
-			String reference, ServiceContext serviceContext)
-		throws PortalException;
-
-	public DocFile addDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, String catagory, String subCategory, String remarks,
+			long categoryId, long subCategoryId, String remarks,
 			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -238,9 +233,6 @@ public interface DocFileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DocFile getDocFile(long docFileId) throws PortalException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<DocFile> getDocFileByGroupId(long groupId, int start, int end);
-
 	/**
 	 * Returns the doc file matching the UUID and group.
 	 *
@@ -252,6 +244,9 @@ public interface DocFileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DocFile getDocFileByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<DocFile> getDocFileList();
 
 	/**
 	 * Returns a range of all the doc files.
@@ -338,11 +333,5 @@ public interface DocFileLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public DocFile updateDocFile(DocFile docFile);
-
-	public DocFile updateDocFile(
-			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference, ServiceContext serviceContext)
-		throws PortalException;
 
 }

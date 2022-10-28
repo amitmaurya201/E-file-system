@@ -204,34 +204,32 @@ public interface ReceiptModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the type of this receipt.
+	 * Returns the type ID of this receipt.
 	 *
-	 * @return the type of this receipt
+	 * @return the type ID of this receipt
 	 */
-	@AutoEscape
-	public String getType();
+	public long getTypeId();
 
 	/**
-	 * Sets the type of this receipt.
+	 * Sets the type ID of this receipt.
 	 *
-	 * @param type the type of this receipt
+	 * @param typeId the type ID of this receipt
 	 */
-	public void setType(String type);
+	public void setTypeId(long typeId);
 
 	/**
-	 * Returns the delivery mode of this receipt.
+	 * Returns the delivery mode ID of this receipt.
 	 *
-	 * @return the delivery mode of this receipt
+	 * @return the delivery mode ID of this receipt
 	 */
-	@AutoEscape
-	public String getDeliveryMode();
+	public long getDeliveryModeId();
 
 	/**
-	 * Sets the delivery mode of this receipt.
+	 * Sets the delivery mode ID of this receipt.
 	 *
-	 * @param deliveryMode the delivery mode of this receipt
+	 * @param deliveryModeId the delivery mode ID of this receipt
 	 */
-	public void setDeliveryMode(String deliveryMode);
+	public void setDeliveryModeId(long deliveryModeId);
 
 	/**
 	 * Returns the received on of this receipt.
@@ -292,49 +290,32 @@ public interface ReceiptModel
 	public void setModeNumber(String modeNumber);
 
 	/**
-	 * Returns the organisation of this receipt.
+	 * Returns the receipt category ID of this receipt.
 	 *
-	 * @return the organisation of this receipt
+	 * @return the receipt category ID of this receipt
 	 */
-	@AutoEscape
-	public String getOrganisation();
+	public long getReceiptCategoryId();
 
 	/**
-	 * Sets the organisation of this receipt.
+	 * Sets the receipt category ID of this receipt.
 	 *
-	 * @param organisation the organisation of this receipt
+	 * @param receiptCategoryId the receipt category ID of this receipt
 	 */
-	public void setOrganisation(String organisation);
+	public void setReceiptCategoryId(long receiptCategoryId);
 
 	/**
-	 * Returns the category of this receipt.
+	 * Returns the receipt sub category ID of this receipt.
 	 *
-	 * @return the category of this receipt
+	 * @return the receipt sub category ID of this receipt
 	 */
-	@AutoEscape
-	public String getCategory();
+	public long getReceiptSubCategoryId();
 
 	/**
-	 * Sets the category of this receipt.
+	 * Sets the receipt sub category ID of this receipt.
 	 *
-	 * @param category the category of this receipt
+	 * @param receiptSubCategoryId the receipt sub category ID of this receipt
 	 */
-	public void setCategory(String category);
-
-	/**
-	 * Returns the sub category of this receipt.
-	 *
-	 * @return the sub category of this receipt
-	 */
-	@AutoEscape
-	public String getSubCategory();
-
-	/**
-	 * Sets the sub category of this receipt.
-	 *
-	 * @param subCategory the sub category of this receipt
-	 */
-	public void setSubCategory(String subCategory);
+	public void setReceiptSubCategoryId(long receiptSubCategoryId);
 
 	/**
 	 * Returns the subject of this receipt.
@@ -380,21 +361,6 @@ public interface ReceiptModel
 	 * @param document the document of this receipt
 	 */
 	public void setDocument(String document);
-
-	/**
-	 * Returns the min dept oth of this receipt.
-	 *
-	 * @return the min dept oth of this receipt
-	 */
-	@AutoEscape
-	public String getMinDeptOth();
-
-	/**
-	 * Sets the min dept oth of this receipt.
-	 *
-	 * @param minDeptOth the min dept oth of this receipt
-	 */
-	public void setMinDeptOth(String minDeptOth);
 
 	/**
 	 * Returns the name of this receipt.
@@ -472,49 +438,32 @@ public interface ReceiptModel
 	public void setAddress(String address);
 
 	/**
-	 * Returns the country of this receipt.
+	 * Returns the country ID of this receipt.
 	 *
-	 * @return the country of this receipt
+	 * @return the country ID of this receipt
 	 */
-	@AutoEscape
-	public String getCountry();
+	public long getCountryId();
 
 	/**
-	 * Sets the country of this receipt.
+	 * Sets the country ID of this receipt.
 	 *
-	 * @param country the country of this receipt
+	 * @param countryId the country ID of this receipt
 	 */
-	public void setCountry(String country);
+	public void setCountryId(long countryId);
 
 	/**
-	 * Returns the state of this receipt.
+	 * Returns the state ID of this receipt.
 	 *
-	 * @return the state of this receipt
+	 * @return the state ID of this receipt
 	 */
-	@AutoEscape
-	public String getState();
+	public long getStateId();
 
 	/**
-	 * Sets the state of this receipt.
+	 * Sets the state ID of this receipt.
 	 *
-	 * @param state the state of this receipt
+	 * @param stateId the state ID of this receipt
 	 */
-	public void setState(String state);
-
-	/**
-	 * Returns the district of this receipt.
-	 *
-	 * @return the district of this receipt
-	 */
-	@AutoEscape
-	public String getDistrict();
-
-	/**
-	 * Sets the district of this receipt.
-	 *
-	 * @param district the district of this receipt
-	 */
-	public void setDistrict(String district);
+	public void setStateId(long stateId);
 
 	/**
 	 * Returns the pin code of this receipt.
@@ -545,6 +494,49 @@ public interface ReceiptModel
 	 * @param receiptNumber the receipt number of this receipt
 	 */
 	public void setReceiptNumber(String receiptNumber);
+
+	/**
+	 * Returns the organization ID of this receipt.
+	 *
+	 * @return the organization ID of this receipt
+	 */
+	public long getOrganizationId();
+
+	/**
+	 * Sets the organization ID of this receipt.
+	 *
+	 * @param organizationId the organization ID of this receipt
+	 */
+	public void setOrganizationId(long organizationId);
+
+	/**
+	 * Returns the city of this receipt.
+	 *
+	 * @return the city of this receipt
+	 */
+	@AutoEscape
+	public String getCity();
+
+	/**
+	 * Sets the city of this receipt.
+	 *
+	 * @param city the city of this receipt
+	 */
+	public void setCity(String city);
+
+	/**
+	 * Returns the sub organization ID of this receipt.
+	 *
+	 * @return the sub organization ID of this receipt
+	 */
+	public long getSubOrganizationId();
+
+	/**
+	 * Sets the sub organization ID of this receipt.
+	 *
+	 * @param subOrganizationId the sub organization ID of this receipt
+	 */
+	public void setSubOrganizationId(long subOrganizationId);
 
 	@Override
 	public Receipt cloneWithOriginalValues();

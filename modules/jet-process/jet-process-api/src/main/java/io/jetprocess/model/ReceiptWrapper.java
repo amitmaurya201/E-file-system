@@ -51,29 +51,29 @@ public class ReceiptWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("type", getType());
-		attributes.put("deliveryMode", getDeliveryMode());
+		attributes.put("typeId", getTypeId());
+		attributes.put("deliveryModeId", getDeliveryModeId());
 		attributes.put("receivedOn", getReceivedOn());
 		attributes.put("letterDate", getLetterDate());
 		attributes.put("referenceNumber", getReferenceNumber());
 		attributes.put("modeNumber", getModeNumber());
-		attributes.put("organisation", getOrganisation());
-		attributes.put("category", getCategory());
-		attributes.put("subCategory", getSubCategory());
+		attributes.put("receiptCategoryId", getReceiptCategoryId());
+		attributes.put("receiptSubCategoryId", getReceiptSubCategoryId());
 		attributes.put("subject", getSubject());
 		attributes.put("remarks", getRemarks());
 		attributes.put("document", getDocument());
-		attributes.put("minDeptOth", getMinDeptOth());
 		attributes.put("name", getName());
 		attributes.put("designation", getDesignation());
 		attributes.put("mobile", getMobile());
 		attributes.put("email", getEmail());
 		attributes.put("address", getAddress());
-		attributes.put("country", getCountry());
-		attributes.put("state", getState());
-		attributes.put("district", getDistrict());
+		attributes.put("countryId", getCountryId());
+		attributes.put("stateId", getStateId());
 		attributes.put("pinCode", getPinCode());
 		attributes.put("receiptNumber", getReceiptNumber());
+		attributes.put("organizationId", getOrganizationId());
+		attributes.put("city", getCity());
+		attributes.put("subOrganizationId", getSubOrganizationId());
 
 		return attributes;
 	}
@@ -128,16 +128,16 @@ public class ReceiptWrapper
 			setModifiedDate(modifiedDate);
 		}
 
-		String type = (String)attributes.get("type");
+		Long typeId = (Long)attributes.get("typeId");
 
-		if (type != null) {
-			setType(type);
+		if (typeId != null) {
+			setTypeId(typeId);
 		}
 
-		String deliveryMode = (String)attributes.get("deliveryMode");
+		Long deliveryModeId = (Long)attributes.get("deliveryModeId");
 
-		if (deliveryMode != null) {
-			setDeliveryMode(deliveryMode);
+		if (deliveryModeId != null) {
+			setDeliveryModeId(deliveryModeId);
 		}
 
 		Date receivedOn = (Date)attributes.get("receivedOn");
@@ -164,22 +164,17 @@ public class ReceiptWrapper
 			setModeNumber(modeNumber);
 		}
 
-		String organisation = (String)attributes.get("organisation");
+		Long receiptCategoryId = (Long)attributes.get("receiptCategoryId");
 
-		if (organisation != null) {
-			setOrganisation(organisation);
+		if (receiptCategoryId != null) {
+			setReceiptCategoryId(receiptCategoryId);
 		}
 
-		String category = (String)attributes.get("category");
+		Long receiptSubCategoryId = (Long)attributes.get(
+			"receiptSubCategoryId");
 
-		if (category != null) {
-			setCategory(category);
-		}
-
-		String subCategory = (String)attributes.get("subCategory");
-
-		if (subCategory != null) {
-			setSubCategory(subCategory);
+		if (receiptSubCategoryId != null) {
+			setReceiptSubCategoryId(receiptSubCategoryId);
 		}
 
 		String subject = (String)attributes.get("subject");
@@ -198,12 +193,6 @@ public class ReceiptWrapper
 
 		if (document != null) {
 			setDocument(document);
-		}
-
-		String minDeptOth = (String)attributes.get("minDeptOth");
-
-		if (minDeptOth != null) {
-			setMinDeptOth(minDeptOth);
 		}
 
 		String name = (String)attributes.get("name");
@@ -236,22 +225,16 @@ public class ReceiptWrapper
 			setAddress(address);
 		}
 
-		String country = (String)attributes.get("country");
+		Long countryId = (Long)attributes.get("countryId");
 
-		if (country != null) {
-			setCountry(country);
+		if (countryId != null) {
+			setCountryId(countryId);
 		}
 
-		String state = (String)attributes.get("state");
+		Long stateId = (Long)attributes.get("stateId");
 
-		if (state != null) {
-			setState(state);
-		}
-
-		String district = (String)attributes.get("district");
-
-		if (district != null) {
-			setDistrict(district);
+		if (stateId != null) {
+			setStateId(stateId);
 		}
 
 		String pinCode = (String)attributes.get("pinCode");
@@ -264,6 +247,24 @@ public class ReceiptWrapper
 
 		if (receiptNumber != null) {
 			setReceiptNumber(receiptNumber);
+		}
+
+		Long organizationId = (Long)attributes.get("organizationId");
+
+		if (organizationId != null) {
+			setOrganizationId(organizationId);
+		}
+
+		String city = (String)attributes.get("city");
+
+		if (city != null) {
+			setCity(city);
+		}
+
+		Long subOrganizationId = (Long)attributes.get("subOrganizationId");
+
+		if (subOrganizationId != null) {
+			setSubOrganizationId(subOrganizationId);
 		}
 	}
 
@@ -283,13 +284,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the category of this receipt.
+	 * Returns the city of this receipt.
 	 *
-	 * @return the category of this receipt
+	 * @return the city of this receipt
 	 */
 	@Override
-	public String getCategory() {
-		return model.getCategory();
+	public String getCity() {
+		return model.getCity();
 	}
 
 	/**
@@ -303,13 +304,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the country of this receipt.
+	 * Returns the country ID of this receipt.
 	 *
-	 * @return the country of this receipt
+	 * @return the country ID of this receipt
 	 */
 	@Override
-	public String getCountry() {
-		return model.getCountry();
+	public long getCountryId() {
+		return model.getCountryId();
 	}
 
 	/**
@@ -323,13 +324,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the delivery mode of this receipt.
+	 * Returns the delivery mode ID of this receipt.
 	 *
-	 * @return the delivery mode of this receipt
+	 * @return the delivery mode ID of this receipt
 	 */
 	@Override
-	public String getDeliveryMode() {
-		return model.getDeliveryMode();
+	public long getDeliveryModeId() {
+		return model.getDeliveryModeId();
 	}
 
 	/**
@@ -340,16 +341,6 @@ public class ReceiptWrapper
 	@Override
 	public String getDesignation() {
 		return model.getDesignation();
-	}
-
-	/**
-	 * Returns the district of this receipt.
-	 *
-	 * @return the district of this receipt
-	 */
-	@Override
-	public String getDistrict() {
-		return model.getDistrict();
 	}
 
 	/**
@@ -393,16 +384,6 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the min dept oth of this receipt.
-	 *
-	 * @return the min dept oth of this receipt
-	 */
-	@Override
-	public String getMinDeptOth() {
-		return model.getMinDeptOth();
-	}
-
-	/**
 	 * Returns the mobile of this receipt.
 	 *
 	 * @return the mobile of this receipt
@@ -443,13 +424,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the organisation of this receipt.
+	 * Returns the organization ID of this receipt.
 	 *
-	 * @return the organisation of this receipt
+	 * @return the organization ID of this receipt
 	 */
 	@Override
-	public String getOrganisation() {
-		return model.getOrganisation();
+	public long getOrganizationId() {
+		return model.getOrganizationId();
 	}
 
 	/**
@@ -473,6 +454,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Returns the receipt category ID of this receipt.
+	 *
+	 * @return the receipt category ID of this receipt
+	 */
+	@Override
+	public long getReceiptCategoryId() {
+		return model.getReceiptCategoryId();
+	}
+
+	/**
 	 * Returns the receipt ID of this receipt.
 	 *
 	 * @return the receipt ID of this receipt
@@ -490,6 +481,16 @@ public class ReceiptWrapper
 	@Override
 	public String getReceiptNumber() {
 		return model.getReceiptNumber();
+	}
+
+	/**
+	 * Returns the receipt sub category ID of this receipt.
+	 *
+	 * @return the receipt sub category ID of this receipt
+	 */
+	@Override
+	public long getReceiptSubCategoryId() {
+		return model.getReceiptSubCategoryId();
 	}
 
 	/**
@@ -523,23 +524,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the state of this receipt.
+	 * Returns the state ID of this receipt.
 	 *
-	 * @return the state of this receipt
+	 * @return the state ID of this receipt
 	 */
 	@Override
-	public String getState() {
-		return model.getState();
-	}
-
-	/**
-	 * Returns the sub category of this receipt.
-	 *
-	 * @return the sub category of this receipt
-	 */
-	@Override
-	public String getSubCategory() {
-		return model.getSubCategory();
+	public long getStateId() {
+		return model.getStateId();
 	}
 
 	/**
@@ -553,13 +544,23 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the type of this receipt.
+	 * Returns the sub organization ID of this receipt.
 	 *
-	 * @return the type of this receipt
+	 * @return the sub organization ID of this receipt
 	 */
 	@Override
-	public String getType() {
-		return model.getType();
+	public long getSubOrganizationId() {
+		return model.getSubOrganizationId();
+	}
+
+	/**
+	 * Returns the type ID of this receipt.
+	 *
+	 * @return the type ID of this receipt
+	 */
+	@Override
+	public long getTypeId() {
+		return model.getTypeId();
 	}
 
 	/**
@@ -618,13 +619,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the category of this receipt.
+	 * Sets the city of this receipt.
 	 *
-	 * @param category the category of this receipt
+	 * @param city the city of this receipt
 	 */
 	@Override
-	public void setCategory(String category) {
-		model.setCategory(category);
+	public void setCity(String city) {
+		model.setCity(city);
 	}
 
 	/**
@@ -638,13 +639,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the country of this receipt.
+	 * Sets the country ID of this receipt.
 	 *
-	 * @param country the country of this receipt
+	 * @param countryId the country ID of this receipt
 	 */
 	@Override
-	public void setCountry(String country) {
-		model.setCountry(country);
+	public void setCountryId(long countryId) {
+		model.setCountryId(countryId);
 	}
 
 	/**
@@ -658,13 +659,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the delivery mode of this receipt.
+	 * Sets the delivery mode ID of this receipt.
 	 *
-	 * @param deliveryMode the delivery mode of this receipt
+	 * @param deliveryModeId the delivery mode ID of this receipt
 	 */
 	@Override
-	public void setDeliveryMode(String deliveryMode) {
-		model.setDeliveryMode(deliveryMode);
+	public void setDeliveryModeId(long deliveryModeId) {
+		model.setDeliveryModeId(deliveryModeId);
 	}
 
 	/**
@@ -675,16 +676,6 @@ public class ReceiptWrapper
 	@Override
 	public void setDesignation(String designation) {
 		model.setDesignation(designation);
-	}
-
-	/**
-	 * Sets the district of this receipt.
-	 *
-	 * @param district the district of this receipt
-	 */
-	@Override
-	public void setDistrict(String district) {
-		model.setDistrict(district);
 	}
 
 	/**
@@ -728,16 +719,6 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the min dept oth of this receipt.
-	 *
-	 * @param minDeptOth the min dept oth of this receipt
-	 */
-	@Override
-	public void setMinDeptOth(String minDeptOth) {
-		model.setMinDeptOth(minDeptOth);
-	}
-
-	/**
 	 * Sets the mobile of this receipt.
 	 *
 	 * @param mobile the mobile of this receipt
@@ -778,13 +759,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the organisation of this receipt.
+	 * Sets the organization ID of this receipt.
 	 *
-	 * @param organisation the organisation of this receipt
+	 * @param organizationId the organization ID of this receipt
 	 */
 	@Override
-	public void setOrganisation(String organisation) {
-		model.setOrganisation(organisation);
+	public void setOrganizationId(long organizationId) {
+		model.setOrganizationId(organizationId);
 	}
 
 	/**
@@ -808,6 +789,16 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the receipt category ID of this receipt.
+	 *
+	 * @param receiptCategoryId the receipt category ID of this receipt
+	 */
+	@Override
+	public void setReceiptCategoryId(long receiptCategoryId) {
+		model.setReceiptCategoryId(receiptCategoryId);
+	}
+
+	/**
 	 * Sets the receipt ID of this receipt.
 	 *
 	 * @param receiptId the receipt ID of this receipt
@@ -825,6 +816,16 @@ public class ReceiptWrapper
 	@Override
 	public void setReceiptNumber(String receiptNumber) {
 		model.setReceiptNumber(receiptNumber);
+	}
+
+	/**
+	 * Sets the receipt sub category ID of this receipt.
+	 *
+	 * @param receiptSubCategoryId the receipt sub category ID of this receipt
+	 */
+	@Override
+	public void setReceiptSubCategoryId(long receiptSubCategoryId) {
+		model.setReceiptSubCategoryId(receiptSubCategoryId);
 	}
 
 	/**
@@ -858,23 +859,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the state of this receipt.
+	 * Sets the state ID of this receipt.
 	 *
-	 * @param state the state of this receipt
+	 * @param stateId the state ID of this receipt
 	 */
 	@Override
-	public void setState(String state) {
-		model.setState(state);
-	}
-
-	/**
-	 * Sets the sub category of this receipt.
-	 *
-	 * @param subCategory the sub category of this receipt
-	 */
-	@Override
-	public void setSubCategory(String subCategory) {
-		model.setSubCategory(subCategory);
+	public void setStateId(long stateId) {
+		model.setStateId(stateId);
 	}
 
 	/**
@@ -888,13 +879,23 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the type of this receipt.
+	 * Sets the sub organization ID of this receipt.
 	 *
-	 * @param type the type of this receipt
+	 * @param subOrganizationId the sub organization ID of this receipt
 	 */
 	@Override
-	public void setType(String type) {
-		model.setType(type);
+	public void setSubOrganizationId(long subOrganizationId) {
+		model.setSubOrganizationId(subOrganizationId);
+	}
+
+	/**
+	 * Sets the type ID of this receipt.
+	 *
+	 * @param typeId the type ID of this receipt
+	 */
+	@Override
+	public void setTypeId(long typeId) {
+		model.setTypeId(typeId);
 	}
 
 	/**

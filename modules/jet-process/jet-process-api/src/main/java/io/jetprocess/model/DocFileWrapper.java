@@ -53,10 +53,15 @@ public class DocFileWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("nature", getNature());
 		attributes.put("type", getType());
+		attributes.put("basicHeadId", getBasicHeadId());
+		attributes.put("primaryHeadId", getPrimaryHeadId());
+		attributes.put("secondaryHeadId", getSecondaryHeadId());
+		attributes.put("tertiaryHeadId", getTertiaryHeadId());
+		attributes.put("fileCodeId", getFileCodeId());
 		attributes.put("subject", getSubject());
 		attributes.put("fileNumber", getFileNumber());
-		attributes.put("category", getCategory());
-		attributes.put("subCategory", getSubCategory());
+		attributes.put("categoryId", getCategoryId());
+		attributes.put("subCategoryId", getSubCategoryId());
 		attributes.put("remarks", getRemarks());
 		attributes.put("reference", getReference());
 
@@ -125,6 +130,36 @@ public class DocFileWrapper
 			setType(type);
 		}
 
+		Long basicHeadId = (Long)attributes.get("basicHeadId");
+
+		if (basicHeadId != null) {
+			setBasicHeadId(basicHeadId);
+		}
+
+		Long primaryHeadId = (Long)attributes.get("primaryHeadId");
+
+		if (primaryHeadId != null) {
+			setPrimaryHeadId(primaryHeadId);
+		}
+
+		Long secondaryHeadId = (Long)attributes.get("secondaryHeadId");
+
+		if (secondaryHeadId != null) {
+			setSecondaryHeadId(secondaryHeadId);
+		}
+
+		Long tertiaryHeadId = (Long)attributes.get("tertiaryHeadId");
+
+		if (tertiaryHeadId != null) {
+			setTertiaryHeadId(tertiaryHeadId);
+		}
+
+		Long fileCodeId = (Long)attributes.get("fileCodeId");
+
+		if (fileCodeId != null) {
+			setFileCodeId(fileCodeId);
+		}
+
 		String subject = (String)attributes.get("subject");
 
 		if (subject != null) {
@@ -137,16 +172,16 @@ public class DocFileWrapper
 			setFileNumber(fileNumber);
 		}
 
-		String category = (String)attributes.get("category");
+		Long categoryId = (Long)attributes.get("categoryId");
 
-		if (category != null) {
-			setCategory(category);
+		if (categoryId != null) {
+			setCategoryId(categoryId);
 		}
 
-		String subCategory = (String)attributes.get("subCategory");
+		Long subCategoryId = (Long)attributes.get("subCategoryId");
 
-		if (subCategory != null) {
-			setSubCategory(subCategory);
+		if (subCategoryId != null) {
+			setSubCategoryId(subCategoryId);
 		}
 
 		String remarks = (String)attributes.get("remarks");
@@ -168,13 +203,23 @@ public class DocFileWrapper
 	}
 
 	/**
-	 * Returns the category of this doc file.
+	 * Returns the basic head ID of this doc file.
 	 *
-	 * @return the category of this doc file
+	 * @return the basic head ID of this doc file
 	 */
 	@Override
-	public String getCategory() {
-		return model.getCategory();
+	public long getBasicHeadId() {
+		return model.getBasicHeadId();
+	}
+
+	/**
+	 * Returns the category ID of this doc file.
+	 *
+	 * @return the category ID of this doc file
+	 */
+	@Override
+	public long getCategoryId() {
+		return model.getCategoryId();
 	}
 
 	/**
@@ -205,6 +250,16 @@ public class DocFileWrapper
 	@Override
 	public long getDocFileId() {
 		return model.getDocFileId();
+	}
+
+	/**
+	 * Returns the file code ID of this doc file.
+	 *
+	 * @return the file code ID of this doc file
+	 */
+	@Override
+	public long getFileCodeId() {
+		return model.getFileCodeId();
 	}
 
 	/**
@@ -248,6 +303,16 @@ public class DocFileWrapper
 	}
 
 	/**
+	 * Returns the primary head ID of this doc file.
+	 *
+	 * @return the primary head ID of this doc file
+	 */
+	@Override
+	public long getPrimaryHeadId() {
+		return model.getPrimaryHeadId();
+	}
+
+	/**
 	 * Returns the primary key of this doc file.
 	 *
 	 * @return the primary key of this doc file
@@ -278,13 +343,23 @@ public class DocFileWrapper
 	}
 
 	/**
-	 * Returns the sub category of this doc file.
+	 * Returns the secondary head ID of this doc file.
 	 *
-	 * @return the sub category of this doc file
+	 * @return the secondary head ID of this doc file
 	 */
 	@Override
-	public String getSubCategory() {
-		return model.getSubCategory();
+	public long getSecondaryHeadId() {
+		return model.getSecondaryHeadId();
+	}
+
+	/**
+	 * Returns the sub category ID of this doc file.
+	 *
+	 * @return the sub category ID of this doc file
+	 */
+	@Override
+	public long getSubCategoryId() {
+		return model.getSubCategoryId();
 	}
 
 	/**
@@ -295,6 +370,16 @@ public class DocFileWrapper
 	@Override
 	public String getSubject() {
 		return model.getSubject();
+	}
+
+	/**
+	 * Returns the tertiary head ID of this doc file.
+	 *
+	 * @return the tertiary head ID of this doc file
+	 */
+	@Override
+	public long getTertiaryHeadId() {
+		return model.getTertiaryHeadId();
 	}
 
 	/**
@@ -353,13 +438,23 @@ public class DocFileWrapper
 	}
 
 	/**
-	 * Sets the category of this doc file.
+	 * Sets the basic head ID of this doc file.
 	 *
-	 * @param category the category of this doc file
+	 * @param basicHeadId the basic head ID of this doc file
 	 */
 	@Override
-	public void setCategory(String category) {
-		model.setCategory(category);
+	public void setBasicHeadId(long basicHeadId) {
+		model.setBasicHeadId(basicHeadId);
+	}
+
+	/**
+	 * Sets the category ID of this doc file.
+	 *
+	 * @param categoryId the category ID of this doc file
+	 */
+	@Override
+	public void setCategoryId(long categoryId) {
+		model.setCategoryId(categoryId);
 	}
 
 	/**
@@ -390,6 +485,16 @@ public class DocFileWrapper
 	@Override
 	public void setDocFileId(long docFileId) {
 		model.setDocFileId(docFileId);
+	}
+
+	/**
+	 * Sets the file code ID of this doc file.
+	 *
+	 * @param fileCodeId the file code ID of this doc file
+	 */
+	@Override
+	public void setFileCodeId(long fileCodeId) {
+		model.setFileCodeId(fileCodeId);
 	}
 
 	/**
@@ -433,6 +538,16 @@ public class DocFileWrapper
 	}
 
 	/**
+	 * Sets the primary head ID of this doc file.
+	 *
+	 * @param primaryHeadId the primary head ID of this doc file
+	 */
+	@Override
+	public void setPrimaryHeadId(long primaryHeadId) {
+		model.setPrimaryHeadId(primaryHeadId);
+	}
+
+	/**
 	 * Sets the primary key of this doc file.
 	 *
 	 * @param primaryKey the primary key of this doc file
@@ -463,13 +578,23 @@ public class DocFileWrapper
 	}
 
 	/**
-	 * Sets the sub category of this doc file.
+	 * Sets the secondary head ID of this doc file.
 	 *
-	 * @param subCategory the sub category of this doc file
+	 * @param secondaryHeadId the secondary head ID of this doc file
 	 */
 	@Override
-	public void setSubCategory(String subCategory) {
-		model.setSubCategory(subCategory);
+	public void setSecondaryHeadId(long secondaryHeadId) {
+		model.setSecondaryHeadId(secondaryHeadId);
+	}
+
+	/**
+	 * Sets the sub category ID of this doc file.
+	 *
+	 * @param subCategoryId the sub category ID of this doc file
+	 */
+	@Override
+	public void setSubCategoryId(long subCategoryId) {
+		model.setSubCategoryId(subCategoryId);
 	}
 
 	/**
@@ -480,6 +605,16 @@ public class DocFileWrapper
 	@Override
 	public void setSubject(String subject) {
 		model.setSubject(subject);
+	}
+
+	/**
+	 * Sets the tertiary head ID of this doc file.
+	 *
+	 * @param tertiaryHeadId the tertiary head ID of this doc file
+	 */
+	@Override
+	public void setTertiaryHeadId(long tertiaryHeadId) {
+		model.setTertiaryHeadId(tertiaryHeadId);
 	}
 
 	/**

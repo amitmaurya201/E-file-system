@@ -2,7 +2,7 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "modules\\jet-process\\jet-porcess-web"
+            "modules\\jet-process\\jet-process-react"
         ]
     }
 }

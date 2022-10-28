@@ -37,12 +37,20 @@ public class MasterdataServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.masterdata.service.impl.MasterdataServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Masterdata getBasicHeadByIdMasterdata(long basicHeadId) {
+		return getService().getBasicHeadByIdMasterdata(basicHeadId);
+	}
+
 	public static List<Masterdata> getBasicHeadMasterdata() {
 		return getService().getBasicHeadMasterdata();
 	}
 
 	public static List<Masterdata> getCategoryMasterdata() {
 		return getService().getCategoryMasterdata();
+	}
+
+	public static List<Masterdata> getCountriesMasterdata() {
+		return getService().getCountriesMasterdata();
 	}
 
 	public static List<Masterdata> getDeliveryModeMasterdata() {
@@ -66,6 +74,10 @@ public class MasterdataServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static Masterdata getPrimaryHeadByIdMasterdata(long primaryHeadId) {
+		return getService().getPrimaryHeadByIdMasterdata(primaryHeadId);
+	}
+
 	public static List<Masterdata> getPrimaryHeadMasterdata(long basicHeadId) {
 		return getService().getPrimaryHeadMasterdata(basicHeadId);
 	}
@@ -78,6 +90,12 @@ public class MasterdataServiceUtil {
 		long receiptCategoryId) {
 
 		return getService().getReceiptSubCategoryMasterdata(receiptCategoryId);
+	}
+
+	public static Masterdata getSecondaryHeadByIdMasterdata(
+		long secondaryHeadId) {
+
+		return getService().getSecondaryHeadByIdMasterdata(secondaryHeadId);
 	}
 
 	public static List<Masterdata> getSecondaryHeadMasterdata(
@@ -100,6 +118,10 @@ public class MasterdataServiceUtil {
 		long secondaryHeadId) {
 
 		return getService().getTeritaryHeadMasterdata(secondaryHeadId);
+	}
+
+	public static Masterdata getTertiaryByIdMasterdata(long tertiaryHeadId) {
+		return getService().getTertiaryByIdMasterdata(tertiaryHeadId);
 	}
 
 	public static List<Masterdata> getTypeMasterdata() {

@@ -36,6 +36,7 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 				inputStream, contentType);
 		DOCStore docStore = new DOCStore();
 		docStore.setId(fileEntry.getFileEntryId());
+		
 		return docStore;
 
 	}
@@ -52,32 +53,21 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 		InputStream inputStream = binaryFile.getInputStream();
 		String changeLog = "docStore";
 		long fileId = documentStore.uploadFile(siteId, inputStream, fileName, contentType, changeLog, 0l, description);
+		//String fileDisplayUrl = documentStore.viewFile(groupId, 51211);
+		//System.out.println(fileDisplayUrl);
 		DOCStore docstore = new DOCStore();
 		docstore.setId(fileId);
 		return docstore;
 	}
-	@Override
-	public DOCStore fetchFiles(MultipartBody multipartBody) throws Exception {
-		String groupId = multipartBody.getValueAsString("groupId");
-		//long siteId = Long.parseLong(groupId);
-		long fileId = Long.parseLong(multipartBody.getValueAsString("fileId"));
-		/*
-		 * System.out.println("test"); FileEntry fileEntry =
-		 * DLAppLocalServiceUtil.getFileEntry(50717); InputStream inputStream =
-		 * DLFileEntryLocalServiceUtil.getFileAsStream(fileEntry.getPrimaryKey(),
-		 * fileEntry.getVersion()); byte[] targetArray = new
-		 * byte[inputStream.available()]; String fileContent =
-		 * Base64.getEncoder().encodeToString(targetArray);
-		 * System.out.println(fileContent); //byte[] decode =
-		 * Base64.getDecoder().decode(fileContent); //OutputStream out = new
-		 * OutputStream();
-		 * 
-		 * DOCStore docStore = new DOCStore(); docStore.setDocumentStream(fileContent);
-		 */
-		documentStore.getFile(groupId, fileId);
-		return new DOCStore(); 
-	}
 
+	/*
+	 * @Override public Receipt fetchFiles(MultipartBody multipartBody) throws
+	 * Exception { String fileEntryId1 = multipartBody.getValueAsString("fileName");
+	 * System.out.println(fileEntryId1); long fileEntryId =
+	 * Long.parseLong(fileEntryId1); String siteId=
+	 * multipartBody.getValueAsString("groupId"); docStore.getFile(siteId,
+	 * fileEntryId); return new Receipt(); }
+	 */
 	@Reference
 	private DocStore documentStore;
 

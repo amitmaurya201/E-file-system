@@ -13,6 +13,7 @@
 
 		<column name="groupId" type="long" />
 
+
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
@@ -25,10 +26,15 @@
 
 		<column name="nature" type="String" />
 		<column name="type" type="String" />
+		<column name="basicHeadId" type="long" />
+		<column name="primaryHeadId" type="long"/>
+		<column name="secondaryHeadId" type="long"/>
+		<column name="tertiaryHeadId" type="long" />
+		<column name="fileCodeId" type="long" />
 		<column name="subject" type="String" />
-		<column  name="fileNumber" type="String"/>
-		<column name="category" type="String" />
-		<column name="subCategory" type="String" />
+		<column name="fileNumber" type="String"/>
+		<column name="categoryId" type="long" />
+		<column name="subCategoryId" type="long" />
     	<column name="remarks" type="String" />
     	<column name="reference" type="String" />
 
@@ -82,34 +88,34 @@
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
-		<column name="type" type="String" />
-		<column name="deliveryMode" type="String" />
+		<column name="typeId" type="long" />
+		<column name="deliveryModeId" type="long" />
 		<column name="receivedOn" type="Date" />
 		<column name="letterDate" type="Date" />
 		<column name="referenceNumber" type="String" />
 		<column name="modeNumber" type="String" />
-		<column name="organisation" type="String" />
-		<column name="category" type="String" />
-		<column name="subCategory" type="String" />
+		<column name="receiptCategoryId" type="long" />
+		<column name="receiptSubCategoryId" type="long" />
 		<column name="subject" type="String" />
 		<column name="remarks" type="String" />
 		<column name="document" type="String" />
-		<column name="minDeptOth" type="String" />
 		<column name="name" type="String" />
 		<column name="designation" type="String" />
 		<column name="mobile" type="String" />
 		<column name="email" type="String" />
 		<column name="address" type="String" />
-		<column name="country" type="String" />
-		<column name="state" type="String" />
-		<column name="district" type="String" />
+		<column name="countryId" type="long" />
+		<column name="stateId" type="long" />
 		<column name="pinCode" type="String" />
 		<column name="receiptNumber" type="String" />
-		
+		<column name="organizationId" type="long" />
+		<column name="city" type="String" />
+		<column name="subOrganizationId" type="long" />
+			
 		<!-- Order -->
 
 		<order by="asc">
-			<order-column name="category" />
+			<order-column name="receiptCategoryId" />
 		</order>
 
 		<!-- Finder methods -->

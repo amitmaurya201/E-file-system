@@ -13,5 +13,6 @@
 		<column name="referenceId" type="String"></column>
 
 		<column name="value" type="String" />
+		<column  name="code" type="String"></column>
 	</entity>
 </service-builder>

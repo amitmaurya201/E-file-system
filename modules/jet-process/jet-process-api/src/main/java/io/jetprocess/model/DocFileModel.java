@@ -234,6 +234,76 @@ public interface DocFileModel
 	public void setType(String type);
 
 	/**
+	 * Returns the basic head ID of this doc file.
+	 *
+	 * @return the basic head ID of this doc file
+	 */
+	public long getBasicHeadId();
+
+	/**
+	 * Sets the basic head ID of this doc file.
+	 *
+	 * @param basicHeadId the basic head ID of this doc file
+	 */
+	public void setBasicHeadId(long basicHeadId);
+
+	/**
+	 * Returns the primary head ID of this doc file.
+	 *
+	 * @return the primary head ID of this doc file
+	 */
+	public long getPrimaryHeadId();
+
+	/**
+	 * Sets the primary head ID of this doc file.
+	 *
+	 * @param primaryHeadId the primary head ID of this doc file
+	 */
+	public void setPrimaryHeadId(long primaryHeadId);
+
+	/**
+	 * Returns the secondary head ID of this doc file.
+	 *
+	 * @return the secondary head ID of this doc file
+	 */
+	public long getSecondaryHeadId();
+
+	/**
+	 * Sets the secondary head ID of this doc file.
+	 *
+	 * @param secondaryHeadId the secondary head ID of this doc file
+	 */
+	public void setSecondaryHeadId(long secondaryHeadId);
+
+	/**
+	 * Returns the tertiary head ID of this doc file.
+	 *
+	 * @return the tertiary head ID of this doc file
+	 */
+	public long getTertiaryHeadId();
+
+	/**
+	 * Sets the tertiary head ID of this doc file.
+	 *
+	 * @param tertiaryHeadId the tertiary head ID of this doc file
+	 */
+	public void setTertiaryHeadId(long tertiaryHeadId);
+
+	/**
+	 * Returns the file code ID of this doc file.
+	 *
+	 * @return the file code ID of this doc file
+	 */
+	public long getFileCodeId();
+
+	/**
+	 * Sets the file code ID of this doc file.
+	 *
+	 * @param fileCodeId the file code ID of this doc file
+	 */
+	public void setFileCodeId(long fileCodeId);
+
+	/**
 	 * Returns the subject of this doc file.
 	 *
 	 * @return the subject of this doc file
@@ -264,34 +334,32 @@ public interface DocFileModel
 	public void setFileNumber(String fileNumber);
 
 	/**
-	 * Returns the category of this doc file.
+	 * Returns the category ID of this doc file.
 	 *
-	 * @return the category of this doc file
+	 * @return the category ID of this doc file
 	 */
-	@AutoEscape
-	public String getCategory();
+	public long getCategoryId();
 
 	/**
-	 * Sets the category of this doc file.
+	 * Sets the category ID of this doc file.
 	 *
-	 * @param category the category of this doc file
+	 * @param categoryId the category ID of this doc file
 	 */
-	public void setCategory(String category);
+	public void setCategoryId(long categoryId);
 
 	/**
-	 * Returns the sub category of this doc file.
+	 * Returns the sub category ID of this doc file.
 	 *
-	 * @return the sub category of this doc file
+	 * @return the sub category ID of this doc file
 	 */
-	@AutoEscape
-	public String getSubCategory();
+	public long getSubCategoryId();
 
 	/**
-	 * Sets the sub category of this doc file.
+	 * Sets the sub category ID of this doc file.
 	 *
-	 * @param subCategory the sub category of this doc file
+	 * @param subCategoryId the sub category ID of this doc file
 	 */
-	public void setSubCategory(String subCategory);
+	public void setSubCategoryId(long subCategoryId);
 
 	/**
 	 * Returns the remarks of this doc file.

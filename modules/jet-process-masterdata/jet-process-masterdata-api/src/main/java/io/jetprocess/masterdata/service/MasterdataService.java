@@ -53,10 +53,16 @@ public interface MasterdataService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.masterdata.service.impl.MasterdataServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the masterdata remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link MasterdataServiceUtil} if injection and service tracking are not available.
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getBasicHeadByIdMasterdata(long basicHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getBasicHeadMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getCategoryMasterdata();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Masterdata> getCountriesMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModeMasterdata();
@@ -75,6 +81,9 @@ public interface MasterdataService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getPrimaryHeadByIdMasterdata(long primaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getPrimaryHeadMasterdata(long basicHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -83,6 +92,9 @@ public interface MasterdataService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategoryMasterdata(
 		long receiptCategoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getSecondaryHeadByIdMasterdata(long secondaryHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSecondaryHeadMasterdata(long primaryHeadId);
@@ -95,6 +107,9 @@ public interface MasterdataService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getTeritaryHeadMasterdata(long secondaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getTertiaryByIdMasterdata(long tertiaryHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getTypeMasterdata();

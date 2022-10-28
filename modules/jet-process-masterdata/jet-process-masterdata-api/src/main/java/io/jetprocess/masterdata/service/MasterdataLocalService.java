@@ -200,10 +200,16 @@ public interface MasterdataLocalService
 	public Masterdata fetchMasterdata(String masterdataId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getBasic(long basicHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getBasicHead();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getCategory();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Masterdata> getCountry();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModes();
@@ -262,6 +268,9 @@ public interface MasterdataLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getPrimary(long primaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getPrimaryHead(long basicHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -271,7 +280,13 @@ public interface MasterdataLocalService
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getSecondary(long secondaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSecondaryHead(long primaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Masterdata> getStates(long countryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSubcategories(long categoryId);
@@ -281,6 +296,9 @@ public interface MasterdataLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getTeritaryHead(long seondaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getTertiary(long tertiaryHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getTypes();

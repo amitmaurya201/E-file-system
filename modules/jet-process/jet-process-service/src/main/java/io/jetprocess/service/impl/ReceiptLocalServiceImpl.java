@@ -15,6 +15,7 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -24,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 
 import io.jetprocess.model.Receipt;
-import io.jetprocess.service.ReceiptLocalServiceUtil;
 import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -32,22 +32,21 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(property = "model.class.name=io.jetprocess.model.Receipt", service = AopService.class)
+@Component(
+	property = "model.class.name=io.jetprocess.model.Receipt",
+	service = AopService.class
+)
 public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
-	@Override
-	public Receipt addReceipt(long groupId, String type, String deliveryMode, Date receivedOn, Date letterDate,
-			String referenceNumber, String organisation, String modeNumber, String category, String subCategory,
-			String subject, String remarks, String document, String minDeptOth, String name, String designation,
-			String mobile, String email, String address, String country, String state, String district, String pinCode,
-			ServiceContext serviceContext) throws PortalException {
-		
+	
+	public Receipt createReceipt(long groupId,long typeId,long deliveryModeId, Date receivedOn, Date letterDate,
+			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
+			String subject, String remarks, String document, String name, String designation,
+			String mobile, String email, String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
 		// Get Group(Site) and user Information
 		Group group = groupLocalService.getGroup(groupId);
-		System.out.println(group);
 		long userId = serviceContext.getUserId();
-		System.out.println(userId);
 		User user = userLocalService.getUser(userId);
-		System.out.println(user);
 		String number = null;
 		// Generate A New Primary Key For The ContactDetails
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
@@ -56,16 +55,16 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		Receipt receipt = createReceipt(receiptId);
 
 		// 1.Update Actual Fields
-		receipt.setType(type);
-		receipt.setDeliveryMode(deliveryMode);
+		receipt.setTypeId(typeId);
+		receipt.setDeliveryModeId(deliveryModeId);
 		receipt.setReceivedOn(receivedOn);
 		receipt.setLetterDate(letterDate);
 		receipt.setReferenceNumber(referenceNumber);
 		receipt.setModeNumber(modeNumber);
-		receipt.setOrganisation(organisation);
-		receipt.setCategory(category);
+		receipt.setOrganizationId(organizationId);
+		receipt.setReceiptCategoryId(receiptCategoryId);
 		receipt.setDocument(document);
-		receipt.setSubCategory(subCategory);
+		receipt.setReceiptSubCategoryId(receiptSubCategoryId);
 		receipt.setSubject(subject);
 		receipt.setRemarks(remarks);
 		receipt.setName(name);
@@ -73,9 +72,10 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setDesignation(designation);
 		receipt.setEmail(email);
 		receipt.setMobile(mobile);
-		receipt.setCountry(country);
-		receipt.setState(state);
-		receipt.setDistrict(district);
+		receipt.setCountryId(countryId);
+		receipt.setStateId(stateId);
+		receipt.setCity(city);	
+		receipt.setSubOrganizationId(subOrganizationId);
 		receipt.setPinCode(pinCode);
 		// 2.Update Audit and Other Generic Fields
 		receipt.setGroupId(groupId);
@@ -84,35 +84,70 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setUserId(userId);
 		receipt.setCreateDate(serviceContext.getCreateDate(new Date()));
 		receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
-		number= ReceiptLocalServiceUtil.generataeReceiptNumber(receiptId);
+		number=generateReceiptNumber(receiptId);
 		receipt.setReceiptNumber(number);
 		receipt = super.addReceipt(receipt);
-
+		
 		return receipt;
 	}
+	
+	public Receipt updateReceipt(long receiptId,long groupId, long typeId,long deliveryModeId, Date receivedOn, Date letterDate,
+			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
+			String subject, String remarks, String document, String name, String designation,
+			String mobile, String email, String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
+	       Receipt receipt = getReceipt(receiptId);
+	       Group group = groupLocalService.getGroup(groupId);
+			long userId = serviceContext.getUserId();
+			User user = userLocalService.getUser(userId);
+	    // 1.Update Actual Fields
+			receipt.setTypeId(typeId);
+			receipt.setDeliveryModeId(deliveryModeId);
+			receipt.setReceivedOn(receivedOn);
+			receipt.setLetterDate(letterDate);
+			receipt.setReferenceNumber(referenceNumber);
+			receipt.setModeNumber(modeNumber);
+			receipt.setOrganizationId(organizationId);
+			receipt.setReceiptCategoryId(receiptCategoryId);
+			receipt.setDocument(document);
+			receipt.setReceiptSubCategoryId(receiptSubCategoryId);
+			receipt.setSubject(subject);
+			receipt.setRemarks(remarks);
+			receipt.setName(name);
+			receipt.setAddress(address);
+			receipt.setDesignation(designation);
+			receipt.setEmail(email);
+			receipt.setMobile(mobile);
+			receipt.setCountryId(countryId);
+			receipt.setStateId(stateId);
+			receipt.setCity(city);	
+			receipt.setSubOrganizationId(subOrganizationId);
+			receipt.setPinCode(pinCode);
+			// 2.Update Audit and Other Generic Fields
+			receipt.setGroupId(groupId);
+			receipt.setCompanyId(group.getCompanyId());
+			receipt.setUserName(user.getScreenName());
+			receipt.setUserId(userId);
+
+			// 2.Update Audit and Other Generic Fields
+			
+			receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+			receipt = super.updateReceipt(receipt);
+	        return receipt;
+	  
+	  }
 	
 	public Receipt deleteReceipt(Receipt receipt) {
 		return super.deleteReceipt(receipt);
 	}
 
-	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end) {
-		return receiptPersistence.findBygroupId(groupId, start, end);
-
+	public List<Receipt> getAllReceipt(){
+		return super.getReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS );
 	}
 
-	public String generataeReceiptNumber(long receiptId) {
+    private String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R"+ receiptId;
 		return receiptNumber;
 
-	}
-
-	public Receipt addReceipt(long groupId, String type, String deliveryMode, Date receivedOn, Date letterDate,
-			String referenceNumber, String organisation, String modeNumber, String category, String subCategory,
-			String subject, String remarks, String document, String minDeptOth, String name, String designation,
-			String mobile, String email, String address, String country, String state, String district, String pinCode,
-			String receiptNumber, ServiceContext serviceContext) throws PortalException {
-		
-		return null;
-	}
-
+	 }
 }

@@ -52,14 +52,24 @@ public class DocFileTable extends BaseTable<DocFileTable> {
 		"nature", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, String> type = createColumn(
 		"type_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> basicHeadId = createColumn(
+		"basicHeadId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> primaryHeadId = createColumn(
+		"primaryHeadId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> secondaryHeadId = createColumn(
+		"secondaryHeadId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> tertiaryHeadId = createColumn(
+		"tertiaryHeadId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> fileCodeId = createColumn(
+		"fileCodeId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, String> subject = createColumn(
 		"subject", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, String> fileNumber = createColumn(
 		"fileNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<DocFileTable, String> category = createColumn(
-		"category", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<DocFileTable, String> subCategory = createColumn(
-		"subCategory", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> categoryId = createColumn(
+		"categoryId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> subCategoryId = createColumn(
+		"subCategoryId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, String> remarks = createColumn(
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, String> reference = createColumn(

@@ -5,5 +5,6 @@
 		<field name="masterdataId" type="String" />
 		<field name="referenceId" type="String" />
 		<field name="value" type="String" />
+		<field name="code" type="String" />
 	</model>
 </model-hints>

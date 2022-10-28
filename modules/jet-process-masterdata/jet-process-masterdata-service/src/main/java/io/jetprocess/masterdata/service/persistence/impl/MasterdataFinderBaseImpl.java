@@ -16,11 +16,17 @@ package io.jetprocess.masterdata.service.persistence.impl;
 
 import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.service.persistence.MasterdataPersistence;
 import io.jetprocess.masterdata.service.persistence.impl.constants.MasterdataPersistenceConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -35,6 +41,17 @@ public abstract class MasterdataFinderBaseImpl
 
 	public MasterdataFinderBaseImpl() {
 		setModelClass(Masterdata.class);
+
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("code", "code_");
+
+		setDBColumnNames(dbColumnNames);
+	}
+
+	@Override
+	public Set<String> getBadColumnNames() {
+		return masterdataPersistence.getBadColumnNames();
 	}
 
 	@Override
@@ -65,5 +82,8 @@ public abstract class MasterdataFinderBaseImpl
 
 	@Reference
 	protected MasterdataPersistence masterdataPersistence;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		MasterdataFinderBaseImpl.class);
 
 }

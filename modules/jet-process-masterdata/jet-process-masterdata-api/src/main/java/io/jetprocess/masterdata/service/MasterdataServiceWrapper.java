@@ -35,6 +35,13 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata getBasicHeadByIdMasterdata(
+		long basicHeadId) {
+
+		return _masterdataService.getBasicHeadByIdMasterdata(basicHeadId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getBasicHeadMasterdata() {
 
@@ -46,6 +53,13 @@ public class MasterdataServiceWrapper
 		getCategoryMasterdata() {
 
 		return _masterdataService.getCategoryMasterdata();
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getCountriesMasterdata() {
+
+		return _masterdataService.getCountriesMasterdata();
 	}
 
 	@Override
@@ -80,6 +94,13 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getPrimaryHeadByIdMasterdata(long primaryHeadId) {
+
+		return _masterdataService.getPrimaryHeadByIdMasterdata(primaryHeadId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getPrimaryHeadMasterdata(long basicHeadId) {
 
@@ -99,6 +120,14 @@ public class MasterdataServiceWrapper
 
 		return _masterdataService.getReceiptSubCategoryMasterdata(
 			receiptCategoryId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getSecondaryHeadByIdMasterdata(long secondaryHeadId) {
+
+		return _masterdataService.getSecondaryHeadByIdMasterdata(
+			secondaryHeadId);
 	}
 
 	@Override
@@ -127,6 +156,13 @@ public class MasterdataServiceWrapper
 		getTeritaryHeadMasterdata(long secondaryHeadId) {
 
 		return _masterdataService.getTeritaryHeadMasterdata(secondaryHeadId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata getTertiaryByIdMasterdata(
+		long tertiaryHeadId) {
+
+		return _masterdataService.getTertiaryByIdMasterdata(tertiaryHeadId);
 	}
 
 	@Override

@@ -478,6 +478,170 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getCountriesMasterdata(HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getCountriesMasterdata",
+				_getCountriesMasterdataParameterTypes13);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<io.jetprocess.masterdata.model.Masterdata>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getBasicHeadByIdMasterdata(
+			HttpPrincipal httpPrincipal, long basicHeadId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getBasicHeadByIdMasterdata",
+				_getBasicHeadByIdMasterdataParameterTypes14);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, basicHeadId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getPrimaryHeadByIdMasterdata(
+			HttpPrincipal httpPrincipal, long primaryHeadId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getPrimaryHeadByIdMasterdata",
+				_getPrimaryHeadByIdMasterdataParameterTypes15);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, primaryHeadId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getSecondaryHeadByIdMasterdata(
+			HttpPrincipal httpPrincipal, long secondaryHeadId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getSecondaryHeadByIdMasterdata",
+				_getSecondaryHeadByIdMasterdataParameterTypes16);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, secondaryHeadId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getTertiaryByIdMasterdata(
+			HttpPrincipal httpPrincipal, long tertiaryHeadId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getTertiaryByIdMasterdata",
+				_getTertiaryByIdMasterdataParameterTypes17);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, tertiaryHeadId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		MasterdataServiceHttp.class);
 
@@ -511,5 +675,19 @@ public class MasterdataServiceHttp {
 		_getReceiptSubCategoryMasterdataParameterTypes12 = new Class[] {
 			long.class
 		};
+	private static final Class<?>[] _getCountriesMasterdataParameterTypes13 =
+		new Class[] {};
+	private static final Class<?>[]
+		_getBasicHeadByIdMasterdataParameterTypes14 = new Class[] {long.class};
+	private static final Class<?>[]
+		_getPrimaryHeadByIdMasterdataParameterTypes15 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getSecondaryHeadByIdMasterdataParameterTypes16 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes17 =
+		new Class[] {long.class};
 
 }

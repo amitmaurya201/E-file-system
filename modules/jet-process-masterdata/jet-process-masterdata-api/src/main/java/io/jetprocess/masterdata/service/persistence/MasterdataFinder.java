@@ -61,4 +61,22 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getReceiptSubCategory(long receiptCategoryId);
 
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getCountries();
+
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata> getStates(
+		long countryId);
+
+	public io.jetprocess.masterdata.model.Masterdata getBasicHeadById(
+		long basicHeadId);
+
+	public io.jetprocess.masterdata.model.Masterdata getPrimaryHeadById(
+		long primaryHeadId);
+
+	public io.jetprocess.masterdata.model.Masterdata getSecondaryHeadById(
+		long secondaryHeadId);
+
+	public io.jetprocess.masterdata.model.Masterdata getTertiaryHeadById(
+		long tertiaryHeadId);
+
 }

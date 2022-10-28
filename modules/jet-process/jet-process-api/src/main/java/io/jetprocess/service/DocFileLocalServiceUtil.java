@@ -60,28 +60,16 @@ public class DocFileLocalServiceUtil {
 		return getService().addDocFile(docFile);
 	}
 
-	public static DocFile addDocFile(
+	public static com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
 			long groupId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
+			long categoryId, long subCategoryId, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
-		return getService().addDocFile(
-			groupId, nature, type, subject, category, subCategory, remarks,
+		return getService().AddSfsDocFile(
+			groupId, nature, type, subject, categoryId, subCategoryId, remarks,
 			reference, serviceContext);
-	}
-
-	public static DocFile addDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, String catagory, String subCategory, String remarks,
-			String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().addDocFile(
-			groupId, nature, type, fileNumber, subject, catagory, subCategory,
-			remarks, reference, serviceContext);
 	}
 
 	/**
@@ -262,12 +250,6 @@ public class DocFileLocalServiceUtil {
 		return getService().getDocFile(docFileId);
 	}
 
-	public static List<DocFile> getDocFileByGroupId(
-		long groupId, int start, int end) {
-
-		return getService().getDocFileByGroupId(groupId, start, end);
-	}
-
 	/**
 	 * Returns the doc file matching the UUID and group.
 	 *
@@ -280,6 +262,10 @@ public class DocFileLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getDocFileByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static List<DocFile> getDocFileList() {
+		return getService().getDocFileList();
 	}
 
 	/**
@@ -386,18 +372,6 @@ public class DocFileLocalServiceUtil {
 	 */
 	public static DocFile updateDocFile(DocFile docFile) {
 		return getService().updateDocFile(docFile);
-	}
-
-	public static DocFile updateDocFile(
-			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().updateDocFile(
-			docFileId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
 	}
 
 	public static DocFileLocalService getService() {

@@ -52,29 +52,16 @@ public class DocFileLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.DocFile addDocFile(
+	public com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
 			long groupId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
+			long categoryId, long subCategoryId, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _docFileLocalService.addDocFile(
-			groupId, nature, type, subject, category, subCategory, remarks,
+		return _docFileLocalService.AddSfsDocFile(
+			groupId, nature, type, subject, categoryId, subCategoryId, remarks,
 			reference, serviceContext);
-	}
-
-	@Override
-	public io.jetprocess.model.DocFile addDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, String catagory, String subCategory, String remarks,
-			String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _docFileLocalService.addDocFile(
-			groupId, nature, type, fileNumber, subject, catagory, subCategory,
-			remarks, reference, serviceContext);
 	}
 
 	/**
@@ -286,13 +273,6 @@ public class DocFileLocalServiceWrapper
 		return _docFileLocalService.getDocFile(docFileId);
 	}
 
-	@Override
-	public java.util.List<io.jetprocess.model.DocFile> getDocFileByGroupId(
-		long groupId, int start, int end) {
-
-		return _docFileLocalService.getDocFileByGroupId(groupId, start, end);
-	}
-
 	/**
 	 * Returns the doc file matching the UUID and group.
 	 *
@@ -307,6 +287,11 @@ public class DocFileLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileLocalService.getDocFileByUuidAndGroupId(uuid, groupId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.model.DocFile> getDocFileList() {
+		return _docFileLocalService.getDocFileList();
 	}
 
 	/**
@@ -431,19 +416,6 @@ public class DocFileLocalServiceWrapper
 		io.jetprocess.model.DocFile docFile) {
 
 		return _docFileLocalService.updateDocFile(docFile);
-	}
-
-	@Override
-	public io.jetprocess.model.DocFile updateDocFile(
-			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _docFileLocalService.updateDocFile(
-			docFileId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
 	}
 
 	@Override

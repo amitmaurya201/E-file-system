@@ -61,7 +61,7 @@ public class MasterdataCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("{masterdataId=");
 		sb.append(masterdataId);
@@ -69,6 +69,8 @@ public class MasterdataCacheModel
 		sb.append(referenceId);
 		sb.append(", value=");
 		sb.append(value);
+		sb.append(", code=");
+		sb.append(code);
 		sb.append("}");
 
 		return sb.toString();
@@ -99,6 +101,13 @@ public class MasterdataCacheModel
 			masterdataImpl.setValue(value);
 		}
 
+		if (code == null) {
+			masterdataImpl.setCode("");
+		}
+		else {
+			masterdataImpl.setCode(code);
+		}
+
 		masterdataImpl.resetOriginalValues();
 
 		return masterdataImpl;
@@ -109,6 +118,7 @@ public class MasterdataCacheModel
 		masterdataId = objectInput.readUTF();
 		referenceId = objectInput.readUTF();
 		value = objectInput.readUTF();
+		code = objectInput.readUTF();
 	}
 
 	@Override
@@ -133,10 +143,18 @@ public class MasterdataCacheModel
 		else {
 			objectOutput.writeUTF(value);
 		}
+
+		if (code == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(code);
+		}
 	}
 
 	public String masterdataId;
 	public String referenceId;
 	public String value;
+	public String code;
 
 }

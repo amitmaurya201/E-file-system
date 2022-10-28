@@ -61,7 +61,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -83,14 +83,24 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		sb.append(nature);
 		sb.append(", type=");
 		sb.append(type);
+		sb.append(", basicHeadId=");
+		sb.append(basicHeadId);
+		sb.append(", primaryHeadId=");
+		sb.append(primaryHeadId);
+		sb.append(", secondaryHeadId=");
+		sb.append(secondaryHeadId);
+		sb.append(", tertiaryHeadId=");
+		sb.append(tertiaryHeadId);
+		sb.append(", fileCodeId=");
+		sb.append(fileCodeId);
 		sb.append(", subject=");
 		sb.append(subject);
 		sb.append(", fileNumber=");
 		sb.append(fileNumber);
-		sb.append(", category=");
-		sb.append(category);
-		sb.append(", subCategory=");
-		sb.append(subCategory);
+		sb.append(", categoryId=");
+		sb.append(categoryId);
+		sb.append(", subCategoryId=");
+		sb.append(subCategoryId);
 		sb.append(", remarks=");
 		sb.append(remarks);
 		sb.append(", reference=");
@@ -151,6 +161,12 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 			docFileImpl.setType(type);
 		}
 
+		docFileImpl.setBasicHeadId(basicHeadId);
+		docFileImpl.setPrimaryHeadId(primaryHeadId);
+		docFileImpl.setSecondaryHeadId(secondaryHeadId);
+		docFileImpl.setTertiaryHeadId(tertiaryHeadId);
+		docFileImpl.setFileCodeId(fileCodeId);
+
 		if (subject == null) {
 			docFileImpl.setSubject("");
 		}
@@ -165,19 +181,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 			docFileImpl.setFileNumber(fileNumber);
 		}
 
-		if (category == null) {
-			docFileImpl.setCategory("");
-		}
-		else {
-			docFileImpl.setCategory(category);
-		}
-
-		if (subCategory == null) {
-			docFileImpl.setSubCategory("");
-		}
-		else {
-			docFileImpl.setSubCategory(subCategory);
-		}
+		docFileImpl.setCategoryId(categoryId);
+		docFileImpl.setSubCategoryId(subCategoryId);
 
 		if (remarks == null) {
 			docFileImpl.setRemarks("");
@@ -214,10 +219,22 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		modifiedDate = objectInput.readLong();
 		nature = objectInput.readUTF();
 		type = objectInput.readUTF();
+
+		basicHeadId = objectInput.readLong();
+
+		primaryHeadId = objectInput.readLong();
+
+		secondaryHeadId = objectInput.readLong();
+
+		tertiaryHeadId = objectInput.readLong();
+
+		fileCodeId = objectInput.readLong();
 		subject = objectInput.readUTF();
 		fileNumber = objectInput.readUTF();
-		category = objectInput.readUTF();
-		subCategory = objectInput.readUTF();
+
+		categoryId = objectInput.readLong();
+
+		subCategoryId = objectInput.readLong();
 		remarks = objectInput.readUTF();
 		reference = objectInput.readUTF();
 	}
@@ -263,6 +280,16 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 			objectOutput.writeUTF(type);
 		}
 
+		objectOutput.writeLong(basicHeadId);
+
+		objectOutput.writeLong(primaryHeadId);
+
+		objectOutput.writeLong(secondaryHeadId);
+
+		objectOutput.writeLong(tertiaryHeadId);
+
+		objectOutput.writeLong(fileCodeId);
+
 		if (subject == null) {
 			objectOutput.writeUTF("");
 		}
@@ -277,19 +304,9 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 			objectOutput.writeUTF(fileNumber);
 		}
 
-		if (category == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(category);
-		}
+		objectOutput.writeLong(categoryId);
 
-		if (subCategory == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(subCategory);
-		}
+		objectOutput.writeLong(subCategoryId);
 
 		if (remarks == null) {
 			objectOutput.writeUTF("");
@@ -316,10 +333,15 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 	public long modifiedDate;
 	public String nature;
 	public String type;
+	public long basicHeadId;
+	public long primaryHeadId;
+	public long secondaryHeadId;
+	public long tertiaryHeadId;
+	public long fileCodeId;
 	public String subject;
 	public String fileNumber;
-	public String category;
-	public String subCategory;
+	public long categoryId;
+	public long subCategoryId;
 	public String remarks;
 	public String reference;
 

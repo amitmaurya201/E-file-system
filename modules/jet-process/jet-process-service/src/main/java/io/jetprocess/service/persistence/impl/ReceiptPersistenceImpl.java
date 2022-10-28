@@ -2319,8 +2319,6 @@ public class ReceiptPersistenceImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
-		dbColumnNames.put("type", "type_");
-		dbColumnNames.put("state", "state_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -3049,7 +3047,7 @@ public class ReceiptPersistenceImpl
 		ReceiptPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "type", "state"});
+		new String[] {"uuid"});
 
 	@Override
 	protected FinderCache getFinderCache() {

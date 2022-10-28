@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
+
+/*  import 'react-toastify/dist/ReactToastify.css'; 
+ // import Tostify from './Tostify';  */
+ import CreateFile from './file/CreateFile'; 
+ import CreatedFileList from './file/CreatedFileList';
+ import CreateReceipt from './receipt/CreateReceipt';
+
+ //import { BrowserRouter, Routes, Route } from 'react-router-dom';
+ 
 export default class extends React.Component {
 	render() {
 		return (
-            <div>
-				<div>
-        	        <span className="tag">{Liferay.Language.get('portlet-namespace')}:</span> 
-					<span className="value">{this.props.portletNamespace}</span>
-				</div>
-				<div>
-    	            <span className="tag">{Liferay.Language.get('context-path')}:</span>
-					<span className="value">{this.props.contextPath}</span>
-				</div>
-				<div>
-	                <span className="tag">{Liferay.Language.get('portlet-element-id')}:</span>
-					<span className="value">{this.props.portletElementId}</span>
-				</div>
-				<div>
-					<span className="tag">{Liferay.Language.get('configuration')}:</span>
-					<span className="value pre">{JSON.stringify(this.props.configuration, null, 2)}</span>
-				</div>
-				
+			<div>
+			{/* 	<h1>Hello....</h1>
+			 <Tostify/> 
+			 */}
+			 
+			<CreateFile/>
+			<CreatedFileList/> 
+			<CreateReceipt/>
+
 			</div>
 		);
-	}	
+	}
 }

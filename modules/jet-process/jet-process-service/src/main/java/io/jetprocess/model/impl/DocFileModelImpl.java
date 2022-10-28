@@ -79,9 +79,12 @@ public class DocFileModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"nature", Types.VARCHAR}, {"type_", Types.VARCHAR},
-		{"subject", Types.VARCHAR}, {"fileNumber", Types.VARCHAR},
-		{"category", Types.VARCHAR}, {"subCategory", Types.VARCHAR},
-		{"remarks", Types.VARCHAR}, {"reference", Types.VARCHAR}
+		{"basicHeadId", Types.BIGINT}, {"primaryHeadId", Types.BIGINT},
+		{"secondaryHeadId", Types.BIGINT}, {"tertiaryHeadId", Types.BIGINT},
+		{"fileCodeId", Types.BIGINT}, {"subject", Types.VARCHAR},
+		{"fileNumber", Types.VARCHAR}, {"categoryId", Types.BIGINT},
+		{"subCategoryId", Types.BIGINT}, {"remarks", Types.VARCHAR},
+		{"reference", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,16 +101,21 @@ public class DocFileModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("nature", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("basicHeadId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("primaryHeadId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("secondaryHeadId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("tertiaryHeadId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("fileCodeId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileNumber", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("category", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("subCategory", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("categoryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("subCategoryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("reference", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,category VARCHAR(75) null,subCategory VARCHAR(75) null,remarks VARCHAR(75) null,reference VARCHAR(75) null)";
+		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(75) null,reference VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocFile";
@@ -294,19 +302,41 @@ public class DocFileModelImpl
 		attributeGetterFunctions.put("type", DocFile::getType);
 		attributeSetterBiConsumers.put(
 			"type", (BiConsumer<DocFile, String>)DocFile::setType);
+		attributeGetterFunctions.put("basicHeadId", DocFile::getBasicHeadId);
+		attributeSetterBiConsumers.put(
+			"basicHeadId", (BiConsumer<DocFile, Long>)DocFile::setBasicHeadId);
+		attributeGetterFunctions.put(
+			"primaryHeadId", DocFile::getPrimaryHeadId);
+		attributeSetterBiConsumers.put(
+			"primaryHeadId",
+			(BiConsumer<DocFile, Long>)DocFile::setPrimaryHeadId);
+		attributeGetterFunctions.put(
+			"secondaryHeadId", DocFile::getSecondaryHeadId);
+		attributeSetterBiConsumers.put(
+			"secondaryHeadId",
+			(BiConsumer<DocFile, Long>)DocFile::setSecondaryHeadId);
+		attributeGetterFunctions.put(
+			"tertiaryHeadId", DocFile::getTertiaryHeadId);
+		attributeSetterBiConsumers.put(
+			"tertiaryHeadId",
+			(BiConsumer<DocFile, Long>)DocFile::setTertiaryHeadId);
+		attributeGetterFunctions.put("fileCodeId", DocFile::getFileCodeId);
+		attributeSetterBiConsumers.put(
+			"fileCodeId", (BiConsumer<DocFile, Long>)DocFile::setFileCodeId);
 		attributeGetterFunctions.put("subject", DocFile::getSubject);
 		attributeSetterBiConsumers.put(
 			"subject", (BiConsumer<DocFile, String>)DocFile::setSubject);
 		attributeGetterFunctions.put("fileNumber", DocFile::getFileNumber);
 		attributeSetterBiConsumers.put(
 			"fileNumber", (BiConsumer<DocFile, String>)DocFile::setFileNumber);
-		attributeGetterFunctions.put("category", DocFile::getCategory);
+		attributeGetterFunctions.put("categoryId", DocFile::getCategoryId);
 		attributeSetterBiConsumers.put(
-			"category", (BiConsumer<DocFile, String>)DocFile::setCategory);
-		attributeGetterFunctions.put("subCategory", DocFile::getSubCategory);
+			"categoryId", (BiConsumer<DocFile, Long>)DocFile::setCategoryId);
+		attributeGetterFunctions.put(
+			"subCategoryId", DocFile::getSubCategoryId);
 		attributeSetterBiConsumers.put(
-			"subCategory",
-			(BiConsumer<DocFile, String>)DocFile::setSubCategory);
+			"subCategoryId",
+			(BiConsumer<DocFile, Long>)DocFile::setSubCategoryId);
 		attributeGetterFunctions.put("remarks", DocFile::getRemarks);
 		attributeSetterBiConsumers.put(
 			"remarks", (BiConsumer<DocFile, String>)DocFile::setRemarks);
@@ -561,6 +591,81 @@ public class DocFileModelImpl
 
 	@JSON
 	@Override
+	public long getBasicHeadId() {
+		return _basicHeadId;
+	}
+
+	@Override
+	public void setBasicHeadId(long basicHeadId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_basicHeadId = basicHeadId;
+	}
+
+	@JSON
+	@Override
+	public long getPrimaryHeadId() {
+		return _primaryHeadId;
+	}
+
+	@Override
+	public void setPrimaryHeadId(long primaryHeadId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_primaryHeadId = primaryHeadId;
+	}
+
+	@JSON
+	@Override
+	public long getSecondaryHeadId() {
+		return _secondaryHeadId;
+	}
+
+	@Override
+	public void setSecondaryHeadId(long secondaryHeadId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_secondaryHeadId = secondaryHeadId;
+	}
+
+	@JSON
+	@Override
+	public long getTertiaryHeadId() {
+		return _tertiaryHeadId;
+	}
+
+	@Override
+	public void setTertiaryHeadId(long tertiaryHeadId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_tertiaryHeadId = tertiaryHeadId;
+	}
+
+	@JSON
+	@Override
+	public long getFileCodeId() {
+		return _fileCodeId;
+	}
+
+	@Override
+	public void setFileCodeId(long fileCodeId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_fileCodeId = fileCodeId;
+	}
+
+	@JSON
+	@Override
 	public String getSubject() {
 		if (_subject == null) {
 			return "";
@@ -601,42 +706,32 @@ public class DocFileModelImpl
 
 	@JSON
 	@Override
-	public String getCategory() {
-		if (_category == null) {
-			return "";
-		}
-		else {
-			return _category;
-		}
+	public long getCategoryId() {
+		return _categoryId;
 	}
 
 	@Override
-	public void setCategory(String category) {
+	public void setCategoryId(long categoryId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_category = category;
+		_categoryId = categoryId;
 	}
 
 	@JSON
 	@Override
-	public String getSubCategory() {
-		if (_subCategory == null) {
-			return "";
-		}
-		else {
-			return _subCategory;
-		}
+	public long getSubCategoryId() {
+		return _subCategoryId;
 	}
 
 	@Override
-	public void setSubCategory(String subCategory) {
+	public void setSubCategoryId(long subCategoryId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_subCategory = subCategory;
+		_subCategoryId = subCategoryId;
 	}
 
 	@JSON
@@ -751,10 +846,15 @@ public class DocFileModelImpl
 		docFileImpl.setModifiedDate(getModifiedDate());
 		docFileImpl.setNature(getNature());
 		docFileImpl.setType(getType());
+		docFileImpl.setBasicHeadId(getBasicHeadId());
+		docFileImpl.setPrimaryHeadId(getPrimaryHeadId());
+		docFileImpl.setSecondaryHeadId(getSecondaryHeadId());
+		docFileImpl.setTertiaryHeadId(getTertiaryHeadId());
+		docFileImpl.setFileCodeId(getFileCodeId());
 		docFileImpl.setSubject(getSubject());
 		docFileImpl.setFileNumber(getFileNumber());
-		docFileImpl.setCategory(getCategory());
-		docFileImpl.setSubCategory(getSubCategory());
+		docFileImpl.setCategoryId(getCategoryId());
+		docFileImpl.setSubCategoryId(getSubCategoryId());
 		docFileImpl.setRemarks(getRemarks());
 		docFileImpl.setReference(getReference());
 
@@ -782,13 +882,23 @@ public class DocFileModelImpl
 			this.<Date>getColumnOriginalValue("modifiedDate"));
 		docFileImpl.setNature(this.<String>getColumnOriginalValue("nature"));
 		docFileImpl.setType(this.<String>getColumnOriginalValue("type_"));
+		docFileImpl.setBasicHeadId(
+			this.<Long>getColumnOriginalValue("basicHeadId"));
+		docFileImpl.setPrimaryHeadId(
+			this.<Long>getColumnOriginalValue("primaryHeadId"));
+		docFileImpl.setSecondaryHeadId(
+			this.<Long>getColumnOriginalValue("secondaryHeadId"));
+		docFileImpl.setTertiaryHeadId(
+			this.<Long>getColumnOriginalValue("tertiaryHeadId"));
+		docFileImpl.setFileCodeId(
+			this.<Long>getColumnOriginalValue("fileCodeId"));
 		docFileImpl.setSubject(this.<String>getColumnOriginalValue("subject"));
 		docFileImpl.setFileNumber(
 			this.<String>getColumnOriginalValue("fileNumber"));
-		docFileImpl.setCategory(
-			this.<String>getColumnOriginalValue("category"));
-		docFileImpl.setSubCategory(
-			this.<String>getColumnOriginalValue("subCategory"));
+		docFileImpl.setCategoryId(
+			this.<Long>getColumnOriginalValue("categoryId"));
+		docFileImpl.setSubCategoryId(
+			this.<Long>getColumnOriginalValue("subCategoryId"));
 		docFileImpl.setRemarks(this.<String>getColumnOriginalValue("remarks"));
 		docFileImpl.setReference(
 			this.<String>getColumnOriginalValue("reference"));
@@ -933,6 +1043,16 @@ public class DocFileModelImpl
 			docFileCacheModel.type = null;
 		}
 
+		docFileCacheModel.basicHeadId = getBasicHeadId();
+
+		docFileCacheModel.primaryHeadId = getPrimaryHeadId();
+
+		docFileCacheModel.secondaryHeadId = getSecondaryHeadId();
+
+		docFileCacheModel.tertiaryHeadId = getTertiaryHeadId();
+
+		docFileCacheModel.fileCodeId = getFileCodeId();
+
 		docFileCacheModel.subject = getSubject();
 
 		String subject = docFileCacheModel.subject;
@@ -949,21 +1069,9 @@ public class DocFileModelImpl
 			docFileCacheModel.fileNumber = null;
 		}
 
-		docFileCacheModel.category = getCategory();
+		docFileCacheModel.categoryId = getCategoryId();
 
-		String category = docFileCacheModel.category;
-
-		if ((category != null) && (category.length() == 0)) {
-			docFileCacheModel.category = null;
-		}
-
-		docFileCacheModel.subCategory = getSubCategory();
-
-		String subCategory = docFileCacheModel.subCategory;
-
-		if ((subCategory != null) && (subCategory.length() == 0)) {
-			docFileCacheModel.subCategory = null;
-		}
+		docFileCacheModel.subCategoryId = getSubCategoryId();
 
 		docFileCacheModel.remarks = getRemarks();
 
@@ -1084,10 +1192,15 @@ public class DocFileModelImpl
 	private boolean _setModifiedDate;
 	private String _nature;
 	private String _type;
+	private long _basicHeadId;
+	private long _primaryHeadId;
+	private long _secondaryHeadId;
+	private long _tertiaryHeadId;
+	private long _fileCodeId;
 	private String _subject;
 	private String _fileNumber;
-	private String _category;
-	private String _subCategory;
+	private long _categoryId;
+	private long _subCategoryId;
 	private String _remarks;
 	private String _reference;
 
@@ -1130,10 +1243,15 @@ public class DocFileModelImpl
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("nature", _nature);
 		_columnOriginalValues.put("type_", _type);
+		_columnOriginalValues.put("basicHeadId", _basicHeadId);
+		_columnOriginalValues.put("primaryHeadId", _primaryHeadId);
+		_columnOriginalValues.put("secondaryHeadId", _secondaryHeadId);
+		_columnOriginalValues.put("tertiaryHeadId", _tertiaryHeadId);
+		_columnOriginalValues.put("fileCodeId", _fileCodeId);
 		_columnOriginalValues.put("subject", _subject);
 		_columnOriginalValues.put("fileNumber", _fileNumber);
-		_columnOriginalValues.put("category", _category);
-		_columnOriginalValues.put("subCategory", _subCategory);
+		_columnOriginalValues.put("categoryId", _categoryId);
+		_columnOriginalValues.put("subCategoryId", _subCategoryId);
 		_columnOriginalValues.put("remarks", _remarks);
 		_columnOriginalValues.put("reference", _reference);
 	}
@@ -1180,17 +1298,27 @@ public class DocFileModelImpl
 
 		columnBitmasks.put("type_", 512L);
 
-		columnBitmasks.put("subject", 1024L);
+		columnBitmasks.put("basicHeadId", 1024L);
 
-		columnBitmasks.put("fileNumber", 2048L);
+		columnBitmasks.put("primaryHeadId", 2048L);
 
-		columnBitmasks.put("category", 4096L);
+		columnBitmasks.put("secondaryHeadId", 4096L);
 
-		columnBitmasks.put("subCategory", 8192L);
+		columnBitmasks.put("tertiaryHeadId", 8192L);
 
-		columnBitmasks.put("remarks", 16384L);
+		columnBitmasks.put("fileCodeId", 16384L);
 
-		columnBitmasks.put("reference", 32768L);
+		columnBitmasks.put("subject", 32768L);
+
+		columnBitmasks.put("fileNumber", 65536L);
+
+		columnBitmasks.put("categoryId", 131072L);
+
+		columnBitmasks.put("subCategoryId", 262144L);
+
+		columnBitmasks.put("remarks", 524288L);
+
+		columnBitmasks.put("reference", 1048576L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

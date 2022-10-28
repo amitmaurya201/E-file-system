@@ -29,28 +29,34 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(property = { "json.web.service.context.name=jet_process",
-		"json.web.service.context.path=Receipt" }, service = AopService.class)
+@Component(
+	property = {
+		"json.web.service.context.name=jet_process",
+		"json.web.service.context.path=Receipt"
+	},
+	service = AopService.class
+)
 public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
+	public Receipt createReceipt(long groupId,long typeId,long deliveryModeId, Date receivedOn, Date letterDate,
+			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
+			String subject, String remarks, String document, String name, String designation,
+			String mobile, String email, String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
+		return receiptLocalService.createReceipt(groupId, typeId, deliveryModeId, receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks, document, name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId, subOrganizationId, city, serviceContext);
+}
+	public Receipt updateReceipt(long receiptId,long groupId, long typeId,long deliveryModeId, Date receivedOn, Date letterDate,
+			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
+			String subject, String remarks, String document, String name, String designation,
+			String mobile, String email, String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
+	      return receiptLocalService.updateReceipt(receiptId, groupId, typeId, deliveryModeId, receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks, document, name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId, subOrganizationId, city, serviceContext);
 
-	public Receipt addReceipt(long groupId, String type, String deliveryMode, Date receivedOn, Date letterDate,
-			String referenceNumber, String organisation, String modeNumber, String category, String subCategory,
-			String subject, String remarks, String document, String minDeptOth, String name, String designation,
-			String mobile, String email, String address, String country, String state, String district, String pinCode,
-			ServiceContext serviceContext) throws PortalException {
-
-		return receiptLocalService.addReceipt(groupId, type, deliveryMode, receivedOn, letterDate, referenceNumber, organisation, modeNumber, category, subCategory, subject, remarks, document, minDeptOth, name, designation, mobile, email, address, country, state, district, pinCode, serviceContext);
-	}
-
-	public Receipt deleteReceipt(long receiptId) throws PortalException {
+}
+	public Receipt deleteReceipt(long receiptId)throws PortalException {
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		return receiptLocalService.deleteReceipt(receipt);
-
 	}
-
-	public List<Receipt> getReceiptByGroupId(long groupId, int start, int end) {
-		return receiptLocalService.getReceiptByGroupId(groupId, start, end);
-
+	public List<Receipt> getAllReceipt(){
+		return receiptLocalService.getAllReceipt();
 	}
-
 }

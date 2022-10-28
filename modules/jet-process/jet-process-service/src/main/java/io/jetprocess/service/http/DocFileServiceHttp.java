@@ -51,21 +51,21 @@ import io.jetprocess.service.DocFileServiceUtil;
  */
 public class DocFileServiceHttp {
 
-	public static io.jetprocess.model.DocFile addDocFile(
+	public static com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
 			HttpPrincipal httpPrincipal, long groupId, String nature,
-			String type, String subject, String category, String subCategory,
+			String type, String subject, long categoryId, long subCategoryId,
 			String remarks, String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				DocFileServiceUtil.class, "addDocFile",
-				_addDocFileParameterTypes0);
+				DocFileServiceUtil.class, "AddSfsDocFile",
+				_AddSfsDocFileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, nature, type, subject, category,
-				subCategory, remarks, reference, serviceContext);
+				methodKey, groupId, nature, type, subject, categoryId,
+				subCategoryId, remarks, reference, serviceContext);
 
 			Object returnObj = null;
 
@@ -84,7 +84,7 @@ public class DocFileServiceHttp {
 					exception);
 			}
 
-			return (io.jetprocess.model.DocFile)returnObj;
+			return (com.liferay.portal.kernel.json.JSONObject)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -135,17 +135,15 @@ public class DocFileServiceHttp {
 		}
 	}
 
-	public static java.util.List<io.jetprocess.model.DocFile>
-		getDocFileByGroupId(
-			HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+	public static java.util.List<io.jetprocess.model.DocFile> getDocFileList(
+		HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				DocFileServiceUtil.class, "getDocFileByGroupId",
-				_getDocFileByGroupIdParameterTypes2);
+				DocFileServiceUtil.class, "getDocFileList",
+				_getDocFileListParameterTypes2);
 
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, start, end);
+			MethodHandler methodHandler = new MethodHandler(methodKey);
 
 			Object returnObj = null;
 
@@ -168,115 +166,17 @@ public class DocFileServiceHttp {
 		}
 	}
 
-	public static io.jetprocess.model.DocFile updateDocFile(
-			HttpPrincipal httpPrincipal, long docFileId, String nature,
-			String type, String subject, String fileNumber, String category,
-			String subCategory, String remarks, String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				DocFileServiceUtil.class, "updateDocFile",
-				_updateDocFileParameterTypes3);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, docFileId, nature, type, subject, fileNumber,
-				category, subCategory, remarks, reference, serviceContext);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (io.jetprocess.model.DocFile)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static io.jetprocess.model.DocFile addDocFile(
-			HttpPrincipal httpPrincipal, long groupId, String nature,
-			String type, String subject, String fileNumber, String category,
-			String subCategory, String remarks, String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				DocFileServiceUtil.class, "addDocFile",
-				_addDocFileParameterTypes4);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, nature, type, subject, fileNumber, category,
-				subCategory, remarks, reference, serviceContext);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (io.jetprocess.model.DocFile)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(DocFileServiceHttp.class);
 
-	private static final Class<?>[] _addDocFileParameterTypes0 = new Class[] {
-		long.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class,
-		com.liferay.portal.kernel.service.ServiceContext.class
-	};
-	private static final Class<?>[] _deleteDocFileParameterTypes1 =
-		new Class[] {long.class};
-	private static final Class<?>[] _getDocFileByGroupIdParameterTypes2 =
-		new Class[] {long.class, int.class, int.class};
-	private static final Class<?>[] _updateDocFileParameterTypes3 =
+	private static final Class<?>[] _AddSfsDocFileParameterTypes0 =
 		new Class[] {
-			long.class, String.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, String.class,
+			long.class, String.class, String.class, String.class, long.class,
+			long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _addDocFileParameterTypes4 = new Class[] {
-		long.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, String.class,
-		com.liferay.portal.kernel.service.ServiceContext.class
-	};
+	private static final Class<?>[] _deleteDocFileParameterTypes1 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getDocFileListParameterTypes2 =
+		new Class[] {};
 
 }

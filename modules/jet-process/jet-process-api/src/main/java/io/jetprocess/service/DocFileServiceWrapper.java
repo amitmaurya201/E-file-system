@@ -35,29 +35,16 @@ public class DocFileServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.DocFile addDocFile(
+	public com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
 			long groupId, String nature, String type, String subject,
-			String category, String subCategory, String remarks,
+			long categoryId, long subCategoryId, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _docFileService.addDocFile(
-			groupId, nature, type, subject, category, subCategory, remarks,
+		return _docFileService.AddSfsDocFile(
+			groupId, nature, type, subject, categoryId, subCategoryId, remarks,
 			reference, serviceContext);
-	}
-
-	@Override
-	public io.jetprocess.model.DocFile addDocFile(
-			long groupId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _docFileService.addDocFile(
-			groupId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
 	}
 
 	@Override
@@ -68,10 +55,8 @@ public class DocFileServiceWrapper
 	}
 
 	@Override
-	public java.util.List<io.jetprocess.model.DocFile> getDocFileByGroupId(
-		long groupId, int start, int end) {
-
-		return _docFileService.getDocFileByGroupId(groupId, start, end);
+	public java.util.List<io.jetprocess.model.DocFile> getDocFileList() {
+		return _docFileService.getDocFileList();
 	}
 
 	/**
@@ -82,19 +67,6 @@ public class DocFileServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _docFileService.getOSGiServiceIdentifier();
-	}
-
-	@Override
-	public io.jetprocess.model.DocFile updateDocFile(
-			long docFileId, String nature, String type, String subject,
-			String fileNumber, String category, String subCategory,
-			String remarks, String reference,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _docFileService.updateDocFile(
-			docFileId, nature, type, subject, fileNumber, category, subCategory,
-			remarks, reference, serviceContext);
 	}
 
 	@Override

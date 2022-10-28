@@ -45,42 +45,6 @@ public class ReceiptLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static Receipt addReceipt(
-			long groupId, String type, String deliveryMode,
-			java.util.Date receivedOn, java.util.Date letterDate,
-			String referenceNumber, String organisation, String modeNumber,
-			String category, String subCategory, String subject, String remarks,
-			String document, String minDeptOth, String name, String designation,
-			String mobile, String email, String address, String country,
-			String state, String district, String pinCode,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().addReceipt(
-			groupId, type, deliveryMode, receivedOn, letterDate,
-			referenceNumber, organisation, modeNumber, category, subCategory,
-			subject, remarks, document, minDeptOth, name, designation, mobile,
-			email, address, country, state, district, pinCode, serviceContext);
-	}
-
-	public static Receipt addReceipt(
-			long groupId, String type, String deliveryMode,
-			java.util.Date receivedOn, java.util.Date letterDate,
-			String referenceNumber, String organisation, String modeNumber,
-			String category, String subCategory, String subject, String remarks,
-			String document, String minDeptOth, String name, String designation,
-			String mobile, String email, String address, String country,
-			String state, String district, String pinCode, String receiptNumber,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().addReceipt(
-			groupId, type, deliveryMode, receivedOn, letterDate,
-			referenceNumber, organisation, modeNumber, category, subCategory,
-			subject, remarks, document, minDeptOth, name, designation, mobile,
-			email, address, country, state, district, pinCode, receiptNumber,
-			serviceContext);
-	}
 
 	/**
 	 * Adds the receipt to the database. Also notifies the appropriate model listeners.
@@ -114,6 +78,26 @@ public class ReceiptLocalServiceUtil {
 	 */
 	public static Receipt createReceipt(long receiptId) {
 		return getService().createReceipt(receiptId);
+	}
+
+	public static Receipt createReceipt(
+			long groupId, long typeId, long deliveryModeId,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().createReceipt(
+			groupId, typeId, deliveryModeId, receivedOn, letterDate,
+			referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, document, name, designation,
+			mobile, email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, serviceContext);
 	}
 
 	/**
@@ -257,14 +241,14 @@ public class ReceiptLocalServiceUtil {
 		return getService().fetchReceiptByUuidAndGroupId(uuid, groupId);
 	}
 
-	public static String generataeReceiptNumber(long receiptId) {
-		return getService().generataeReceiptNumber(receiptId);
-	}
-
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static List<Receipt> getAllReceipt() {
+		return getService().getAllReceipt();
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -309,12 +293,6 @@ public class ReceiptLocalServiceUtil {
 	 */
 	public static Receipt getReceipt(long receiptId) throws PortalException {
 		return getService().getReceipt(receiptId);
-	}
-
-	public static List<Receipt> getReceiptByGroupId(
-		long groupId, int start, int end) {
-
-		return getService().getReceiptByGroupId(groupId, start, end);
 	}
 
 	/**
@@ -384,6 +362,26 @@ public class ReceiptLocalServiceUtil {
 	 */
 	public static int getReceiptsCount() {
 		return getService().getReceiptsCount();
+	}
+
+	public static Receipt updateReceipt(
+			long receiptId, long groupId, long typeId, long deliveryModeId,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateReceipt(
+			receiptId, groupId, typeId, deliveryModeId, receivedOn, letterDate,
+			referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, document, name, designation,
+			mobile, email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, serviceContext);
 	}
 
 	/**

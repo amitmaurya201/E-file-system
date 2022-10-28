@@ -26,13 +26,9 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.masterdata.model.Masterdata",
-	service = AopService.class
-)
+@Component(property = "model.class.name=io.jetprocess.masterdata.model.Masterdata", service = AopService.class)
 public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
-	
-	
+
 	public List<Masterdata> getCategory() {
 
 		return masterdataFinder.getCategories();
@@ -79,22 +75,56 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 		return masterdataFinder.getTeritaryHeads(seondaryHeadId);
 	}
+
 	public List<Masterdata> getOrgranizations() {
 
 		return masterdataFinder.getOrganization();
 	}
+
 	public List<Masterdata> getSubOrgranizations(long organizationId) {
 
 		return masterdataFinder.getSubOrganization(organizationId);
 	}
-	
+
 	public List<Masterdata> getReceiptCategory() {
 
 		return masterdataFinder.getReceiptCategory();
 	}
+
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId) {
 
 		return masterdataFinder.getReceiptSubCategory(receiptCategoryId);
 	}
-	
+
+	public List<Masterdata> getCountry() {
+
+		return masterdataFinder.getCountries();
+	}
+
+	public List<Masterdata> getStates(long countryId) {
+
+		return masterdataFinder.getStates(countryId);
+	}
+
+	public Masterdata getBasic(long basicHeadId) {
+
+		return masterdataFinder.getBasicHeadById(basicHeadId);
+	}
+
+	public Masterdata getPrimary(long primaryHeadId) {
+
+		return masterdataFinder.getPrimaryHeadById(primaryHeadId);
+	}
+
+	public Masterdata getSecondary(long secondaryHeadId) {
+
+		return masterdataFinder.getSecondaryHeadById(secondaryHeadId);
+
+	}
+
+	public Masterdata getTertiary(long tertiaryHeadId) {
+
+		return masterdataFinder.getTertiaryHeadById(tertiaryHeadId);
+	}
+
 }

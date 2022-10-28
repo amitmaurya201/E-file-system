@@ -51,29 +51,85 @@ import io.jetprocess.service.ReceiptServiceUtil;
  */
 public class ReceiptServiceHttp {
 
-	public static io.jetprocess.model.Receipt addReceipt(
-			HttpPrincipal httpPrincipal, long groupId, String type,
-			String deliveryMode, java.util.Date receivedOn,
+	public static io.jetprocess.model.Receipt createReceipt(
+			HttpPrincipal httpPrincipal, long groupId, long typeId,
+			long deliveryModeId, java.util.Date receivedOn,
 			java.util.Date letterDate, String referenceNumber,
-			String organisation, String modeNumber, String category,
-			String subCategory, String subject, String remarks, String document,
-			String minDeptOth, String name, String designation, String mobile,
-			String email, String address, String country, String state,
-			String district, String pinCode,
+			String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				ReceiptServiceUtil.class, "addReceipt",
-				_addReceiptParameterTypes0);
+				ReceiptServiceUtil.class, "createReceipt",
+				_createReceiptParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, type, deliveryMode, receivedOn, letterDate,
-				referenceNumber, organisation, modeNumber, category,
-				subCategory, subject, remarks, document, minDeptOth, name,
-				designation, mobile, email, address, country, state, district,
-				pinCode, serviceContext);
+				methodKey, groupId, typeId, deliveryModeId, receivedOn,
+				letterDate, referenceNumber, modeNumber, receiptCategoryId,
+				receiptSubCategoryId, subject, remarks, document, name,
+				designation, mobile, email, address, countryId, stateId,
+				pinCode, organizationId, subOrganizationId, city,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.Receipt)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.model.Receipt updateReceipt(
+			HttpPrincipal httpPrincipal, long receiptId, long groupId,
+			long typeId, long deliveryModeId, java.util.Date receivedOn,
+			java.util.Date letterDate, String referenceNumber,
+			String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String document, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ReceiptServiceUtil.class, "updateReceipt",
+				_updateReceiptParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, receiptId, groupId, typeId, deliveryModeId,
+				receivedOn, letterDate, referenceNumber, modeNumber,
+				receiptCategoryId, receiptSubCategoryId, subject, remarks,
+				document, name, designation, mobile, email, address, countryId,
+				stateId, pinCode, organizationId, subOrganizationId, city,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -110,7 +166,7 @@ public class ReceiptServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				ReceiptServiceUtil.class, "deleteReceipt",
-				_deleteReceiptParameterTypes1);
+				_deleteReceiptParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, receiptId);
@@ -143,17 +199,15 @@ public class ReceiptServiceHttp {
 		}
 	}
 
-	public static java.util.List<io.jetprocess.model.Receipt>
-		getReceiptByGroupId(
-			HttpPrincipal httpPrincipal, long groupId, int start, int end) {
+	public static java.util.List<io.jetprocess.model.Receipt> getAllReceipt(
+		HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				ReceiptServiceUtil.class, "getReceiptByGroupId",
-				_getReceiptByGroupIdParameterTypes2);
+				ReceiptServiceUtil.class, "getAllReceipt",
+				_getAllReceiptParameterTypes3);
 
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, start, end);
+			MethodHandler methodHandler = new MethodHandler(methodKey);
 
 			Object returnObj = null;
 
@@ -178,17 +232,28 @@ public class ReceiptServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(ReceiptServiceHttp.class);
 
-	private static final Class<?>[] _addReceiptParameterTypes0 = new Class[] {
-		long.class, String.class, String.class, java.util.Date.class,
-		java.util.Date.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, String.class, String.class,
-		String.class, String.class, String.class, String.class, String.class,
-		com.liferay.portal.kernel.service.ServiceContext.class
-	};
-	private static final Class<?>[] _deleteReceiptParameterTypes1 =
+	private static final Class<?>[] _createReceiptParameterTypes0 =
+		new Class[] {
+			long.class, long.class, long.class, java.util.Date.class,
+			java.util.Date.class, String.class, String.class, long.class,
+			long.class, String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, String.class, long.class,
+			long.class, String.class, long.class, long.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateReceiptParameterTypes1 =
+		new Class[] {
+			long.class, long.class, long.class, long.class,
+			java.util.Date.class, java.util.Date.class, String.class,
+			String.class, long.class, long.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
+			String.class, String.class, long.class, long.class, String.class,
+			long.class, long.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteReceiptParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getReceiptByGroupIdParameterTypes2 =
-		new Class[] {long.class, int.class, int.class};
+	private static final Class<?>[] _getAllReceiptParameterTypes3 =
+		new Class[] {};
 
 }

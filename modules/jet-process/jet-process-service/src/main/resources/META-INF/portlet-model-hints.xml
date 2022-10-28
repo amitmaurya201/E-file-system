@@ -12,10 +12,15 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="nature" type="String" />
 		<field name="type" type="String" />
+		<field name="basicHeadId" type="long" />
+		<field name="primaryHeadId" type="long" />
+		<field name="secondaryHeadId" type="long" />
+		<field name="tertiaryHeadId" type="long" />
+		<field name="fileCodeId" type="long" />
 		<field name="subject" type="String" />
 		<field name="fileNumber" type="String" />
-		<field name="category" type="String" />
-		<field name="subCategory" type="String" />
+		<field name="categoryId" type="long" />
+		<field name="subCategoryId" type="long" />
 		<field name="remarks" type="String" />
 		<field name="reference" type="String" />
 	</model>
@@ -28,28 +33,28 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="type" type="String" />
-		<field name="deliveryMode" type="String" />
+		<field name="typeId" type="long" />
+		<field name="deliveryModeId" type="long" />
 		<field name="receivedOn" type="Date" />
 		<field name="letterDate" type="Date" />
 		<field name="referenceNumber" type="String" />
 		<field name="modeNumber" type="String" />
-		<field name="organisation" type="String" />
-		<field name="category" type="String" />
-		<field name="subCategory" type="String" />
+		<field name="receiptCategoryId" type="long" />
+		<field name="receiptSubCategoryId" type="long" />
 		<field name="subject" type="String" />
 		<field name="remarks" type="String" />
 		<field name="document" type="String" />
-		<field name="minDeptOth" type="String" />
 		<field name="name" type="String" />
 		<field name="designation" type="String" />
 		<field name="mobile" type="String" />
 		<field name="email" type="String" />
 		<field name="address" type="String" />
-		<field name="country" type="String" />
-		<field name="state" type="String" />
-		<field name="district" type="String" />
+		<field name="countryId" type="long" />
+		<field name="stateId" type="long" />
 		<field name="pinCode" type="String" />
 		<field name="receiptNumber" type="String" />
+		<field name="organizationId" type="long" />
+		<field name="city" type="String" />
+		<field name="subOrganizationId" type="long" />
 	</model>
 </model-hints>

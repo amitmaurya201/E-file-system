@@ -1,0 +1,60 @@
+.receipt .scroll{
+  height:90vh;
+  overflow: scroll;
+}
+.receipt .textOnInput {
+  position: relative;
+  background-color: #fff;
+}
+.receipt .textOnInput label {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  padding: 2px;
+  z-index: 1;
+}
+.receipt .textOnInput label:after {
+  content: " ";
+  background-color: #fff;
+  width: 100%;
+  height: 13px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.receipt label {
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+.receipt .form-control {
+  box-shadow: none !important;
+  background-color: #fff;
+}
+.receipt .pdf-container{
+  width: 100%;
+  height:90vh;
+  overflow: scroll;
+  background-color: #e4e4e4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.receipt .form-select {
+  font-size: 1rem;
+  width: 100%;
+  padding: .75rem 2.25rem .75rem .75rem;
+  color: #212529;
+  background-color: #fff;
+  background-size: 16px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+} 
+.receipt .fullTextFields{
+  margin :0px -11px;
+}
+.receipt h3{
+  margin:2px;
+}

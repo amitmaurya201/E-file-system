@@ -48,10 +48,10 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> type = createColumn(
-		"type_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> deliveryMode = createColumn(
-		"deliveryMode", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> typeId = createColumn(
+		"typeId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> deliveryModeId = createColumn(
+		"deliveryModeId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Date> receivedOn = createColumn(
 		"receivedOn", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Date> letterDate = createColumn(
@@ -60,20 +60,16 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"referenceNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> modeNumber = createColumn(
 		"modeNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> organisation = createColumn(
-		"organisation", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> category = createColumn(
-		"category", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> subCategory = createColumn(
-		"subCategory", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> receiptCategoryId = createColumn(
+		"receiptCategoryId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> receiptSubCategoryId = createColumn(
+		"receiptSubCategoryId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> subject = createColumn(
 		"subject", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> remarks = createColumn(
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> document = createColumn(
 		"document", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> minDeptOth = createColumn(
-		"minDeptOth", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> designation = createColumn(
@@ -84,16 +80,20 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"email", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> address = createColumn(
 		"address", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> country = createColumn(
-		"country", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> state = createColumn(
-		"state_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> district = createColumn(
-		"district", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> countryId = createColumn(
+		"countryId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> stateId = createColumn(
+		"stateId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> pinCode = createColumn(
 		"pinCode", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> receiptNumber = createColumn(
 		"receiptNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> organizationId = createColumn(
+		"organizationId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> city = createColumn(
+		"city", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> subOrganizationId = createColumn(
+		"subOrganizationId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private ReceiptTable() {
 		super("JET_PROCESS_Receipt", ReceiptTable::new);

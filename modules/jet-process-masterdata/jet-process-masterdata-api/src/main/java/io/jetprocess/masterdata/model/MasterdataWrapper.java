@@ -44,6 +44,7 @@ public class MasterdataWrapper
 		attributes.put("masterdataId", getMasterdataId());
 		attributes.put("referenceId", getReferenceId());
 		attributes.put("value", getValue());
+		attributes.put("code", getCode());
 
 		return attributes;
 	}
@@ -67,11 +68,27 @@ public class MasterdataWrapper
 		if (value != null) {
 			setValue(value);
 		}
+
+		String code = (String)attributes.get("code");
+
+		if (code != null) {
+			setCode(code);
+		}
 	}
 
 	@Override
 	public Masterdata cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the code of this masterdata.
+	 *
+	 * @return the code of this masterdata
+	 */
+	@Override
+	public String getCode() {
+		return model.getCode();
 	}
 
 	/**
@@ -117,6 +134,16 @@ public class MasterdataWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the code of this masterdata.
+	 *
+	 * @param code the code of this masterdata
+	 */
+	@Override
+	public void setCode(String code) {
+		model.setCode(code);
 	}
 
 	/**
