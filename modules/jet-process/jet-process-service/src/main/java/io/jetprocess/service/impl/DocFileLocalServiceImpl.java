@@ -45,7 +45,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 	
 	
 	
-	public JSONObject AddSfsDocFile(long groupId, String nature, String type, String subject, long categoryId,
+	public JSONObject addSfsDocFile(long groupId, String nature, String type, String subject, long categoryId,
 		long subCategoryId, String remarks, String reference, ServiceContext serviceContext)
 			throws PortalException {
 
@@ -138,7 +138,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		}
 
-		public JSONObject AddNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+		public JSONObject addNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
 		long subCategoryId, String remarks, String reference, ServiceContext serviceContext) throws PortalException {
 			
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
@@ -218,6 +218,102 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		}
 		
 		
+		
+		
+	/*	public DocFile addDocFile1(long groupId, String nature,String type, long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject,long categoryId,
+				long subCategoryId , String remarks, String reference, ServiceContext serviceContext)
+				throws PortalException {
+
+			System.out.println("Local Service method called ....");
+			// get group from the groupId
+			Group group = groupLocalService.getGroup(groupId);
+
+			// get userId from the ServiceContext
+			long userId = serviceContext.getUserId();
+			// get user from the userId
+			User user = userLocalService.getUser(userId);
+
+			// Generate the new primary key
+			long docFileId = counterLocalService.increment(DocFile.class.getName());
+
+			// get docFile object from the docFileId
+			DocFile docFile = createDocFile(docFileId);
+			// calling method getGeneratedFileNumber(docFile)
+			String fileNumber = getGenerateFileNumber(docFile);
+			// set the all values of docFile into the docFile object
+			
+			docFile.setNature(nature);
+			docFile.setType(type);
+			docFile.setSubject(subject);
+			docFile.setFileNumber(fileNumber);
+			docFile.setBasicHeadId(basicHeadId);
+			docFile.setPrimaryHeadId(primaryHeadId);
+			docFile.setTertiaryHeadId(tertiaryHeadId);
+			docFile.setYear(year);
+			docFile.setFileCodeId(fileCodeId);
+			docFile.setCategoryId(categoryId);
+			docFile.setSubCategoryId(subCategoryId);
+			docFile.setRemarks(remarks);
+			docFile.setReference(reference);
+
+			// set the audit fields
+
+			docFile.setGroupId(groupId);
+			docFile.setCompanyId(group.getCompanyId());
+			docFile.setCreateDate(serviceContext.getCreateDate(new Date()));
+			System.out.println("createDate is .... " + docFile.getCreateDate());
+
+			docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+			docFile.setUserId(userId);
+			docFile.setUserName(user.getScreenName());
+			
+			docFile = super.addDocFile(docFile);
+
+			return docFile;
+
+		}
+*/        
+		// Update method for SfsDocFile 
+		public DocFile updateSfsDocFile(long docFileId, String nature, String type, String subject, long categoryId,
+				long subCategoryId,String fileNumber, String remarks, String reference, ServiceContext serviceContext)
+				throws PortalException {
+			DocFile docFile = getDocFile(docFileId);
+			docFile.setNature(nature);
+			docFile.setType(type);
+			docFile.setSubject(subject);
+			docFile.setFileNumber(fileNumber);
+			docFile.setCategoryId(categoryId);
+			docFile.setSubCategoryId(subCategoryId);
+			docFile.setRemarks(remarks);
+			docFile.setReference(reference);
+			docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+			docFile = super.updateDocFile(docFile);
+			return docFile;
+		}
+    
+		// Update Method for NonSfsDocFile 
+		public DocFile updateNonSfsDocFile(long docFileId,String nature ,String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId, long year, long fileCodeId,String subject,String fileNumber,long categoryId,long subCategoryId,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
+			
+		DocFile docFile = getDocFile(docFileId);
+        docFile.setNature(nature);
+        docFile.setType(type);
+        docFile.setBasicHeadId(basicHeadId);
+        docFile.setPrimaryHeadId(primaryHeadId);
+        docFile.setTertiaryHeadId(tertiaryHeadId);
+        docFile.setYear(year);
+        docFile.setFileCodeId(fileCodeId);
+		docFile.setSubject(subject);
+		docFile.setFileNumber(fileNumber);
+		docFile.setCategoryId(categoryId);
+		docFile.setSubCategoryId(subCategoryId);
+		docFile.setRemarks(remarks);
+		docFile.setReference(reference);
+		docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));	
+		docFile = super.updateDocFile(docFile);	
+			return docFile;
+			
+		}
+
 		
 		
 		

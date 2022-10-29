@@ -38,11 +38,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class DocFileServiceImpl extends DocFileServiceBaseImpl {
 	 // add sfsdocfile
-		public JSONObject AddSfsDocFile(long groupId, String nature, String type, String subject, long categoryId,
+		public JSONObject addSfsDocFile(long groupId, String nature, String type, String subject, long categoryId,
 				long subCategoryId, String remarks, String reference, ServiceContext serviceContext) throws PortalException{
 			System.out.println("impl service method called..");	
 		
-			return docFileLocalService.AddSfsDocFile(groupId, nature, type, subject, categoryId, subCategoryId, remarks, reference, serviceContext);
+			return docFileLocalService.addSfsDocFile(groupId, nature, type, subject, categoryId, subCategoryId, remarks, reference, serviceContext);
 				
 	}
 		// delete doc file
@@ -60,14 +60,27 @@ public class DocFileServiceImpl extends DocFileServiceBaseImpl {
 			
 		// add nonsfsdocfile 
 			
-			public JSONObject AddNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+			public JSONObject addNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
 		long subCategoryId, String remarks, String reference, ServiceContext serviceContext)  throws PortalException {
 				System.out.println("nonsfs method call ho rha hai");
-				return docFileLocalService.AddNonSfsDocFile(groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject, categoryId, subCategoryId, remarks, reference, serviceContext);		
+				return docFileLocalService.addNonSfsDocFile(groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject, categoryId, subCategoryId, remarks, reference, serviceContext);		
 				
 			}
 			
-		
-			
-
+	
+      // update SfsDocFile 
+       public DocFile updateSfsDocFile(long docFileId, String nature, String type, String subject, long categoryId,
+		long subCategoryId,String fileNumber, String remarks, String reference, ServiceContext serviceContext)
+		throws PortalException {
+			return docFileLocalService.updateSfsDocFile(docFileId, nature, type, subject, categoryId, subCategoryId, fileNumber, remarks, reference, serviceContext);
+       }	
+     
+      // update NonSfsDocFile 
+       
+       public DocFile updateNonSfsDocFile(long docFileId,String nature ,String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId, long year, long fileCodeId,String subject,String fileNumber,long categoryId,long subCategoryId,String remarks,String reference,ServiceContext serviceContext) throws PortalException{
+		return docFileLocalService.updateNonSfsDocFile(docFileId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject, fileNumber, categoryId, subCategoryId, remarks, reference, serviceContext);
+ 
+       }
+       
+       
 }
