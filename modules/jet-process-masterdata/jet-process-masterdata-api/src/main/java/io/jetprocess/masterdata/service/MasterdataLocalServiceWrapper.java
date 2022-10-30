@@ -262,6 +262,11 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileDto> getData() {
+		return _masterdataLocalService.getData();
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getDeliveryModes() {
 

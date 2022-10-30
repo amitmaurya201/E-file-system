@@ -226,6 +226,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getCountry();
 	}
 
+	public static List<io.jetprocess.masterdata.model.FileDto> getData() {
+		return getService().getData();
+	}
+
 	public static List<Masterdata> getDeliveryModes() {
 		return getService().getDeliveryModes();
 	}

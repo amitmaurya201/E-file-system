@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import io.jetprocess.masterdata.model.FileDto;
 import io.jetprocess.masterdata.model.Masterdata;
 
 import java.util.List;
@@ -69,6 +70,9 @@ public interface MasterdataService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getFileCodeMasterdata();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileDto> getFileMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getOrganizationMasterdata();

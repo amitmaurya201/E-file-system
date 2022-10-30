@@ -77,6 +77,13 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileDto>
+		getFileMasterdata() {
+
+		return _masterdataService.getFileMasterdata();
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getOrganizationMasterdata() {
 

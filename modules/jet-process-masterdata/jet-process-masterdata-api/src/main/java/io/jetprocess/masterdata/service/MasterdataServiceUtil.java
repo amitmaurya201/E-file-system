@@ -61,6 +61,12 @@ public class MasterdataServiceUtil {
 		return getService().getFileCodeMasterdata();
 	}
 
+	public static List<io.jetprocess.masterdata.model.FileDto>
+		getFileMasterdata() {
+
+		return getService().getFileMasterdata();
+	}
+
 	public static List<Masterdata> getOrganizationMasterdata() {
 		return getService().getOrganizationMasterdata();
 	}

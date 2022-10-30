@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.masterdata.model.FileDto;
 import io.jetprocess.masterdata.model.Masterdata;
 
 import java.io.Serializable;
@@ -210,6 +211,9 @@ public interface MasterdataLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getCountry();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileDto> getData();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModes();

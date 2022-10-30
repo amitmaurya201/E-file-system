@@ -539,4 +539,30 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return (Masterdata) obj;
 	}
 
+	public List<Masterdata> getFileData() {
+
+		List<Masterdata> fileDataList = Collections.EMPTY_LIST;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getFileData");
+			System.out.println("countries table --" + sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+
+			fileDataList = (List<Masterdata>) sqlQuery.list();
+			return fileDataList;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return fileDataList;
+	}
 }

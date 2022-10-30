@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 
 import java.util.List;
 
+import io.jetprocess.masterdata.model.FileDto;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.service.base.MasterdataServiceBaseImpl;
 
@@ -99,6 +100,7 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 
 		return masterdataLocalService.getCountry();
 	}
+
 	public List<Masterdata> getStatesMasterdata(long countryId) {
 		return masterdataLocalService.getStates(countryId);
 	}
@@ -121,5 +123,9 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 	public Masterdata getTertiaryByIdMasterdata(long tertiaryHeadId) {
 
 		return masterdataLocalService.getTertiary(tertiaryHeadId);
+	}
+
+	public List<FileDto> getFileMasterdata() {
+		return masterdataLocalService.getData();
 	}
 }
