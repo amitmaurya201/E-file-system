@@ -11,6 +11,8 @@ return (
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
+    <a class="nav-link" href="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/home"><b>Home</b></a>
+
       <a class="nav-link" href="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/create-file"><b>Create File</b></a>
       <a class="nav-link" href="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/view-file"><b>View File</b></a>
       <a class="nav-link" href="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/create-receipt"><b>Create Receipt</b></a>

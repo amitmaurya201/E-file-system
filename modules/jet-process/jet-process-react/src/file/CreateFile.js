@@ -8,7 +8,7 @@ const CreateFile = () => {
     // ------------------  VARIABLE -----------------
 
     const currentDate = new Date();
-    const curretnYear = currentDate.getFullYear();
+    const currentYear = currentDate.getFullYear();
     let resposeFail = false;
 
     // --------------------- USE STATE ----------------
@@ -27,16 +27,16 @@ const CreateFile = () => {
     const [formValue, setFormValue] = useState({
         nature: "Electronic",
         type: "NON-SFS",
-        basicHead: "",
-        primaryHead: "",
-        secondaryHead: "",
-        tertiaryHead: "",
-        year: "" + curretnYear + "",
-        fileCode: "",
-        fileNumber: "",
+        basicHead: 0,
+        primaryHead: 0,
+        secondaryHead: 0,
+        tertiaryHead: 0,
+        year:  currentYear ,
+        fileCode: 0,
+        fileNumber: 0,
         subject: "",
-        category: "",
-        subCategory: "",
+        category: 0,
+        subCategory: 0,
         remark: "",
         reference: ""
     });
@@ -79,29 +79,34 @@ const CreateFile = () => {
     const onType = (e) => {
 
         if (e.target.value === 'SFS') {
-            setType(false)
+            console.log("type is here"+e.target.value);
+            setType(false);
         } else {
-            setType(true)
+            setType(true);
         }
     }
-    const onSubmitHandle = (event) => {
-        console.log("on form Submit Handle ......." + formValue.type + " : Nature :- " + formValue.nature);
-        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/subject/${formValue.subject}/category/${formValue.category}/sub-category/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}?p_auth=${Liferay.authToken}`)
+   const onSubmitHandle = (event) => {
+        console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId()+"nature :"+formValue.nature +"type :"+formValue.type+"basic-head-id  :"+formValue.basicHead+"primary-head-id  :"+formValue.primaryHead+"secondary-head-id  :"+formValue.secondaryHead+"tertiary-head-id  :"+formValue.tertiaryHead+"year  :"+formValue.year+"fileCode  :"+formValue.fileCode+"subject  :"+formValue.subject+"categoryId  :"+formValue.category+"subCategoyId  :"+formValue.subCategory+"remarks  :"+formValue.remark+"reference  :"+formValue.reference);
+alert(event.data);
+        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-sfs-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/file-number/${formValue.fileNumber}/subject/${formValue.subject}/category-id/${formValue.category}/sub-category-id/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}?p_auth=${Liferay.authToken}`)
             .then((response) => {
-                console.log("response.data.message", response.data)
-                swal(
+                alert(response);
+                console.log("response.data.message", response.data.errorList);
+                
+                 swal(
                     {
-                        title: "successfull !",
+                         title: "successfull !",
                         text: `You Have successfully created Your File! And Your File Number is ${response.data.fileNumber} `,
                         icon: "success",
-                        button: "ok"
-                    }
-                )
-            }).catch(error => {
-                resposeFail = true;
-                onFail();
-                console.log(error)
+                       button: "ok"
+                     }
+                 )
             })
+             .catch(error => {
+              /*    resposeFail = true;
+                 onFail(); */
+                 console.log(error)
+             })
         reset();
 
     }
@@ -116,8 +121,8 @@ const CreateFile = () => {
                 setCategory(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+           /*  resposeFail = true;
+            onFail(); */
             console.log(error)
         }
         );
@@ -131,8 +136,8 @@ const CreateFile = () => {
                 setBasicHeadData(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+           /*  resposeFail = true;
+            onFail(); */
             console.log(error)
         }
         );
@@ -147,8 +152,8 @@ const CreateFile = () => {
                 setFileCodeData(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+          /*   resposeFail = true;
+            onFail(); */
             console.log("Hello......" + error)
         }
         );
@@ -166,8 +171,8 @@ const CreateFile = () => {
                 setPrimaryHeadData(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+          /*   resposeFail = true;
+            onFail(); */
             console.log(error)
         }
         );
@@ -185,8 +190,8 @@ const CreateFile = () => {
             }
 
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+           /*  resposeFail = true;
+            onFail(); */
             console.log(error)
         }
         );
@@ -203,9 +208,9 @@ const CreateFile = () => {
                 setTertiaryHeadData(array);
             }
         }).catch(error => {
-            resposeFail = true;
+           /*  resposeFail = true;
             onFail();
-
+ */
             console.log(error)
         }
         );
@@ -225,15 +230,15 @@ const CreateFile = () => {
 
         }).catch(error => {
 
-            resposeFail = true;
-            onFail();
+           /*  resposeFail = true;
+            onFail(); */
             console.log(error)
         }
         );
     }
     // ---------------------  Request Fail Message ----------------- 
 
-    const onFail = () => {
+   /*  const onFail = () => {
         if (resposeFail) {
             console.log("Something went wrong ! We are Unable to load data..")
             swal(
@@ -246,7 +251,7 @@ const CreateFile = () => {
             )
             resposeFail = false;
         }
-    }
+    } */
 
     return (
         <Fragment>
@@ -360,7 +365,7 @@ const CreateFile = () => {
                                                                                         {errors.tertiaryHead && <small className="errors">{errors.tertiaryHead.message}</small>}
                                                                                     </div>
                                                                                     <div className="col-md-2 col-sm-6 mt-2">
-                                                                                        <input type="text" className="form-control" id="year" name="year" readOnly value={curretnYear}
+                                                                                        <input type="text" className="form-control" id="year" name="year" readOnly value={currentYear}
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'Year is required' } })} ></input>
                                                                                     </div>
                                                                                     <div className="col-md-2 col-sm-6 mt-2">
@@ -442,7 +447,7 @@ const CreateFile = () => {
                                                         {
                                                             subCategory.map((data, i) => (
                                                                 <Fragment key={i}>
-                                                                    <option value={data.id}>{data.value}</option>
+                                                                    <option value={data.masterdataId}>{data.value}</option>
                                                                 </Fragment>
                                                             ))
                                                         }
@@ -468,8 +473,8 @@ const CreateFile = () => {
                                             <fieldset className="child-scheduler-border col-md-12">
                                                 <legend className="child-scheduler-border" >Reference</legend>
                                                 <input className="form-control col-md-12 " type="text" name="reference"
-                                                    id="reference" onChange={onchange} ref={register({ required: 'Reference is Required', maxLength: { value: 250, message: "Reference cann't be more than 250 letter" } })} />
-                                                {errors.reference && <span className="errors">{errors.reference.message}</span>}
+                                                    id="reference" /* onChange={onchange} ref={register({ required: 'Reference is Required', maxLength: { value: 250, message: "Reference cann't be more than 250 letter" } })} */ />
+                                               {/*  {errors.reference && <span className="errors">{errors.reference.message}</span>} */}
                                             </fieldset>
                                         </div>
                                     </fieldset>
@@ -486,3 +491,6 @@ const CreateFile = () => {
     );
 }
 export default CreateFile;
+
+
+

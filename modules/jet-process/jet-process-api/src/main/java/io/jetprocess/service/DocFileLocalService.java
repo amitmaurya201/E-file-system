@@ -89,8 +89,8 @@ public interface DocFileLocalService
 		throws PortalException;
 
 	public JSONObject addSfsDocFile(
-			long groupId, String nature, String type, String subject,
-			long categoryId, long subCategoryId, String remarks,
+			long groupId, String nature, String type, String fileNumber,
+			String subject, long categoryId, long subCategoryId, String remarks,
 			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -351,9 +351,9 @@ public interface DocFileLocalService
 		throws PortalException;
 
 	public DocFile updateSfsDocFile(
-			long docFileId, String nature, String type, String subject,
-			long categoryId, long subCategoryId, String fileNumber,
-			String remarks, String reference, ServiceContext serviceContext)
+			long docFileId, String nature, String type, String fileNumber,
+			String subject, long categoryId, long subCategoryId, String remarks,
+			String reference, ServiceContext serviceContext)
 		throws PortalException;
 
 }

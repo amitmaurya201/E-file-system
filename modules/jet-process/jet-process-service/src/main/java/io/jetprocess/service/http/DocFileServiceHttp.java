@@ -53,8 +53,8 @@ public class DocFileServiceHttp {
 
 	public static com.liferay.portal.kernel.json.JSONObject addSfsDocFile(
 			HttpPrincipal httpPrincipal, long groupId, String nature,
-			String type, String subject, long categoryId, long subCategoryId,
-			String remarks, String reference,
+			String type, String fileNumber, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -64,8 +64,8 @@ public class DocFileServiceHttp {
 				_addSfsDocFileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, nature, type, subject, categoryId,
-				subCategoryId, remarks, reference, serviceContext);
+				methodKey, groupId, nature, type, fileNumber, subject,
+				categoryId, subCategoryId, remarks, reference, serviceContext);
 
 			Object returnObj = null;
 
@@ -215,8 +215,8 @@ public class DocFileServiceHttp {
 
 	public static io.jetprocess.model.DocFile updateSfsDocFile(
 			HttpPrincipal httpPrincipal, long docFileId, String nature,
-			String type, String subject, long categoryId, long subCategoryId,
-			String fileNumber, String remarks, String reference,
+			String type, String fileNumber, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -226,8 +226,8 @@ public class DocFileServiceHttp {
 				_updateSfsDocFileParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, docFileId, nature, type, subject, categoryId,
-				subCategoryId, fileNumber, remarks, reference, serviceContext);
+				methodKey, docFileId, nature, type, fileNumber, subject,
+				categoryId, subCategoryId, remarks, reference, serviceContext);
 
 			Object returnObj = null;
 
@@ -309,8 +309,8 @@ public class DocFileServiceHttp {
 
 	private static final Class<?>[] _addSfsDocFileParameterTypes0 =
 		new Class[] {
-			long.class, String.class, String.class, String.class, long.class,
-			long.class, String.class, String.class,
+			long.class, String.class, String.class, String.class, String.class,
+			long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteDocFileParameterTypes1 =
@@ -326,8 +326,8 @@ public class DocFileServiceHttp {
 		};
 	private static final Class<?>[] _updateSfsDocFileParameterTypes4 =
 		new Class[] {
-			long.class, String.class, String.class, String.class, long.class,
-			long.class, String.class, String.class, String.class,
+			long.class, String.class, String.class, String.class, String.class,
+			long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateNonSfsDocFileParameterTypes5 =
