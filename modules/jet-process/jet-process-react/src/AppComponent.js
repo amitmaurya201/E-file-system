@@ -4,6 +4,7 @@ import CreatedFileList from './file/CreatedFileList';
 import Navbar from './receipt/Navbar';
 import ReceiptView from './receipt/ReceiptView';
 import CreateReceipt from './receipt/CreateReceipt';
+import Home from './Home';
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 
 function AppComponent() {
@@ -13,7 +14,10 @@ function AppComponent() {
    <Router>
   <div className="App">	
   <Navbar/>
+  
   <Routes>
+
+  <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/home" element={<Home />}></Route>
 
     <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/create-file" element={<CreateFile />}></Route>
     <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/view-file" element={<CreatedFileList />}></Route>

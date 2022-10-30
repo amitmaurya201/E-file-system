@@ -67,7 +67,7 @@ const CreatedFileList = () => {
 	return (
 		<div>
 			
-
+            <h1 class=" text-center">File View Details</h1>
 			<table className="table">
 				<thead >
 					<tr className='table-blue'>
@@ -93,7 +93,7 @@ const CreatedFileList = () => {
 						return (
 							
 								<tr>
-									<td>{index + 1}</td>
+									
 								<td>{docFileList1.subcategory}</td>
 								</tr>
 								
