@@ -37,6 +37,7 @@
 		<column name="subCategoryId" type="long" />
     	<column name="remarks" type="String" />
     	<column name="reference" type="String" />
+    	<column name="year" type="long"/>
 
 		<!-- Order -->
 
