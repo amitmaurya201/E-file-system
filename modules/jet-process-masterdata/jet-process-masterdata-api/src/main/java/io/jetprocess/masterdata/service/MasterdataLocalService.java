@@ -216,6 +216,9 @@ public interface MasterdataLocalService
 	public List<FileDto> getData();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileDto> getData1();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModes();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

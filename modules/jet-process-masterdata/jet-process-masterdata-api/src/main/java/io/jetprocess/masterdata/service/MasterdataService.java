@@ -75,6 +75,9 @@ public interface MasterdataService extends BaseService {
 	public List<FileDto> getFileMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileDto> getFileMasterdata1();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getOrganizationMasterdata();
 
 	/**

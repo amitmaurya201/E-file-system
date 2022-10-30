@@ -82,4 +82,7 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getFileData();
 
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getFileData1();
+
 }

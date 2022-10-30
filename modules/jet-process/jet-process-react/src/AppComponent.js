@@ -1,28 +1,28 @@
-import React, { Fragment } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import CreateFile from './file/CreateFile';
+import CreatedFileList from './file/CreatedFileList';
+import Navbar from './receipt/Navbar';
+import ReceiptView from './receipt/ReceiptView';
+import CreateReceipt from './receipt/CreateReceipt';
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 
+function AppComponent() {
+	
+	
+  return (
+   <Router>
+  <div className="App">	
+  <Navbar/>
+  <Routes>
 
-/*  import 'react-toastify/dist/ReactToastify.css'; 
- // import Tostify from './Tostify';  */
- import CreateFile from './file/CreateFile'; 
- import CreatedFileList from './file/CreatedFileList';
- import CreateReceipt from './receipt/CreateReceipt';
-
- //import { BrowserRouter, Routes, Route } from 'react-router-dom';
- 
-export default class extends React.Component {
-	render() {
-		return (
-			<div>
-			{/* 	<h1>Hello....</h1>
-			 <Tostify/> 
-			 */}
-			 
-			<CreateFile/>
-			<CreatedFileList/> 
-			<CreateReceipt/>
-
-			</div>
-		);
-	}
+    <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/create-file" element={<CreateFile />}></Route>
+    <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/view-file" element={<CreatedFileList />}></Route>
+    <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/create-receipt" element={<CreateReceipt />}></Route>
+    <Route exact path="/web/guest/file/-/jetprocessreact_INSTANCE_TvrAY0BwgfGP/view-receipt" element={<ReceiptView />}></Route>
+    </Routes>
+  </div>
+  </Router>
+  );
 }
+
+export default AppComponent;

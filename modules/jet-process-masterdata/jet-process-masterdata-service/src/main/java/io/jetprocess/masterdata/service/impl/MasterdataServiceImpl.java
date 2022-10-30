@@ -128,4 +128,8 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 	public List<FileDto> getFileMasterdata() {
 		return masterdataLocalService.getData();
 	}
+	public List<FileDto> getFileMasterdata1(){
+		
+		return masterdataLocalService.getData1();
+	}
 }

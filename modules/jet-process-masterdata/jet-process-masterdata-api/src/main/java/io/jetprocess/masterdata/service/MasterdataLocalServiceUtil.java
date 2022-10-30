@@ -230,6 +230,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getData();
 	}
 
+	public static List<io.jetprocess.masterdata.model.FileDto> getData1() {
+		return getService().getData1();
+	}
+
 	public static List<Masterdata> getDeliveryModes() {
 		return getService().getDeliveryModes();
 	}

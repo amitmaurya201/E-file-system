@@ -9,7 +9,7 @@ SELECT  categorydataid as masterdataid ,'C-'||categorydataid as referenceid, cat
 </sql>
 <sql id="getSubCategories">
 <![CDATA[
-SELECT  subcategoryid as masterdataid , subcategoryvalue as value , 'SC-'||subcategoryvalue as code_ , 'SC-'||subcategoryid as referenceid 
+SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||subcategoryvalue as code_ , 'SC-'||subcategorydataid as referenceid 
 	FROM subcategory  where categoryid = ? ;
 ]]>
 
@@ -173,12 +173,22 @@ SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , t
 
 </sql>
 
-<sql id="getFileData">
+<sql id="getFileDataCategory">
 <![CDATA[
 
 
 SELECT categoryid as masterdataid ,  'C-'||categoryid as referenceid , categoryvalue as value , categoryvalue as code_
 	FROM jet_process_docfile INNER JOIN category  ON categorydataid = categoryid
+]]>
+
+</sql>
+<sql id="getFileDataSubCategory">
+<![CDATA[
+
+
+SELECT subcategorydataid as masterdataid ,  'C-'||subcategorydataid as referenceid , subcategoryvalue as value , subcategoryvalue as code_
+	FROM jet_process_docfile INNER JOIN 
+	subcategory  ON subcategorydataid = subcategoryid
 ]]>
 
 </sql>

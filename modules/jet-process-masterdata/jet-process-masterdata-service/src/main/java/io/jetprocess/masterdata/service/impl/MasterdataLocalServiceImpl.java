@@ -138,6 +138,19 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		for (Masterdata masterdata : list) {
 			FileDto fileDtoObj = new FileDto();
 			fileDtoObj.setCategory(masterdata.getValue());
+			System.out.println("------------"+masterdata.getValue());
+			fileDto.add(fileDtoObj);
+		}
+		
+
+		return fileDto;
+	}
+	public List<FileDto> getData1() {
+		List<FileDto> fileDto = new ArrayList();
+		List<Masterdata> list = masterdataFinder.getFileData1();
+		for (Masterdata masterdata : list) {
+			FileDto fileDtoObj = new FileDto();
+			fileDtoObj.setSubcategory(masterdata.getValue());
 			fileDto.add(fileDtoObj);
 		}
 		
