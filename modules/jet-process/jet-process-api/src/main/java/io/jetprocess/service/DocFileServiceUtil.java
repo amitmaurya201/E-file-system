@@ -39,14 +39,28 @@ public class DocFileServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.DocFileServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
+	public static com.liferay.portal.kernel.json.JSONObject addNonSfsDocFile(
+			long groupId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addNonSfsDocFile(
+			groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId,
+			tertiaryHeadId, year, fileCodeId, subject, categoryId,
+			subCategoryId, remarks, reference, serviceContext);
+	}
+
+	public static com.liferay.portal.kernel.json.JSONObject addSfsDocFile(
 			long groupId, String nature, String type, String subject,
 			long categoryId, long subCategoryId, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
-		return getService().AddSfsDocFile(
+		return getService().addSfsDocFile(
 			groupId, nature, type, subject, categoryId, subCategoryId, remarks,
 			reference, serviceContext);
 	}
@@ -66,6 +80,34 @@ public class DocFileServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static DocFile updateNonSfsDocFile(
+			long docFileId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
+			String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateNonSfsDocFile(
+			docFileId, nature, type, basicHeadId, primaryHeadId,
+			secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
+			fileNumber, categoryId, subCategoryId, remarks, reference,
+			serviceContext);
+	}
+
+	public static DocFile updateSfsDocFile(
+			long docFileId, String nature, String type, String subject,
+			long categoryId, long subCategoryId, String fileNumber,
+			String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateSfsDocFile(
+			docFileId, nature, type, subject, categoryId, subCategoryId,
+			fileNumber, remarks, reference, serviceContext);
 	}
 
 	public static DocFileService getService() {

@@ -52,14 +52,29 @@ public class DocFileLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
+	public com.liferay.portal.kernel.json.JSONObject addNonSfsDocFile(
+			long groupId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileLocalService.addNonSfsDocFile(
+			groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId,
+			tertiaryHeadId, year, fileCodeId, subject, categoryId,
+			subCategoryId, remarks, reference, serviceContext);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.json.JSONObject addSfsDocFile(
 			long groupId, String nature, String type, String subject,
 			long categoryId, long subCategoryId, String remarks,
 			String reference,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _docFileLocalService.AddSfsDocFile(
+		return _docFileLocalService.addSfsDocFile(
 			groupId, nature, type, subject, categoryId, subCategoryId, remarks,
 			reference, serviceContext);
 	}
@@ -416,6 +431,36 @@ public class DocFileLocalServiceWrapper
 		io.jetprocess.model.DocFile docFile) {
 
 		return _docFileLocalService.updateDocFile(docFile);
+	}
+
+	@Override
+	public io.jetprocess.model.DocFile updateNonSfsDocFile(
+			long docFileId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
+			String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileLocalService.updateNonSfsDocFile(
+			docFileId, nature, type, basicHeadId, primaryHeadId,
+			secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
+			fileNumber, categoryId, subCategoryId, remarks, reference,
+			serviceContext);
+	}
+
+	@Override
+	public io.jetprocess.model.DocFile updateSfsDocFile(
+			long docFileId, String nature, String type, String subject,
+			long categoryId, long subCategoryId, String fileNumber,
+			String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileLocalService.updateSfsDocFile(
+			docFileId, nature, type, subject, categoryId, subCategoryId,
+			fileNumber, remarks, reference, serviceContext);
 	}
 
 	@Override

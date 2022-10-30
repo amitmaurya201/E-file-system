@@ -391,6 +391,20 @@ public interface DocFileModel
 	 */
 	public void setReference(String reference);
 
+	/**
+	 * Returns the year of this doc file.
+	 *
+	 * @return the year of this doc file
+	 */
+	public long getYear();
+
+	/**
+	 * Sets the year of this doc file.
+	 *
+	 * @param year the year of this doc file
+	 */
+	public void setYear(long year);
+
 	@Override
 	public DocFile cloneWithOriginalValues();
 

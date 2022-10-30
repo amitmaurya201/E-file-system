@@ -51,7 +51,7 @@ import io.jetprocess.service.DocFileServiceUtil;
  */
 public class DocFileServiceHttp {
 
-	public static com.liferay.portal.kernel.json.JSONObject AddSfsDocFile(
+	public static com.liferay.portal.kernel.json.JSONObject addSfsDocFile(
 			HttpPrincipal httpPrincipal, long groupId, String nature,
 			String type, String subject, long categoryId, long subCategoryId,
 			String remarks, String reference,
@@ -60,8 +60,8 @@ public class DocFileServiceHttp {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				DocFileServiceUtil.class, "AddSfsDocFile",
-				_AddSfsDocFileParameterTypes0);
+				DocFileServiceUtil.class, "addSfsDocFile",
+				_addSfsDocFileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, nature, type, subject, categoryId,
@@ -166,9 +166,148 @@ public class DocFileServiceHttp {
 		}
 	}
 
+	public static com.liferay.portal.kernel.json.JSONObject addNonSfsDocFile(
+			HttpPrincipal httpPrincipal, long groupId, String nature,
+			String type, long basicHeadId, long primaryHeadId,
+			long secondaryHeadId, long tertiaryHeadId, long year,
+			long fileCodeId, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DocFileServiceUtil.class, "addNonSfsDocFile",
+				_addNonSfsDocFileParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, groupId, nature, type, basicHeadId, primaryHeadId,
+				secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
+				categoryId, subCategoryId, remarks, reference, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.portal.kernel.json.JSONObject)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.model.DocFile updateSfsDocFile(
+			HttpPrincipal httpPrincipal, long docFileId, String nature,
+			String type, String subject, long categoryId, long subCategoryId,
+			String fileNumber, String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DocFileServiceUtil.class, "updateSfsDocFile",
+				_updateSfsDocFileParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, docFileId, nature, type, subject, categoryId,
+				subCategoryId, fileNumber, remarks, reference, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.DocFile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.model.DocFile updateNonSfsDocFile(
+			HttpPrincipal httpPrincipal, long docFileId, String nature,
+			String type, long basicHeadId, long primaryHeadId,
+			long secondaryHeadId, long tertiaryHeadId, long year,
+			long fileCodeId, String subject, String fileNumber, long categoryId,
+			long subCategoryId, String remarks, String reference,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DocFileServiceUtil.class, "updateNonSfsDocFile",
+				_updateNonSfsDocFileParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, docFileId, nature, type, basicHeadId, primaryHeadId,
+				secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
+				fileNumber, categoryId, subCategoryId, remarks, reference,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.DocFile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DocFileServiceHttp.class);
 
-	private static final Class<?>[] _AddSfsDocFileParameterTypes0 =
+	private static final Class<?>[] _addSfsDocFileParameterTypes0 =
 		new Class[] {
 			long.class, String.class, String.class, String.class, long.class,
 			long.class, String.class, String.class,
@@ -178,5 +317,25 @@ public class DocFileServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getDocFileListParameterTypes2 =
 		new Class[] {};
+	private static final Class<?>[] _addNonSfsDocFileParameterTypes3 =
+		new Class[] {
+			long.class, String.class, String.class, long.class, long.class,
+			long.class, long.class, long.class, long.class, String.class,
+			long.class, long.class, String.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateSfsDocFileParameterTypes4 =
+		new Class[] {
+			long.class, String.class, String.class, String.class, long.class,
+			long.class, String.class, String.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateNonSfsDocFileParameterTypes5 =
+		new Class[] {
+			long.class, String.class, String.class, long.class, long.class,
+			long.class, long.class, long.class, long.class, String.class,
+			String.class, long.class, long.class, String.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
 
 }

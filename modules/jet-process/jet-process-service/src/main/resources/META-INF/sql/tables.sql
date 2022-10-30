@@ -19,7 +19,8 @@ create table JET_PROCESS_DocFile (
 	categoryId LONG,
 	subCategoryId LONG,
 	remarks VARCHAR(75) null,
-	reference VARCHAR(75) null
+	reference VARCHAR(75) null,
+	year LONG
 );
 
 create table JET_PROCESS_Receipt (

@@ -80,7 +80,15 @@ public interface DocFileLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public DocFile addDocFile(DocFile docFile);
 
-	public JSONObject AddSfsDocFile(
+	public JSONObject addNonSfsDocFile(
+			long groupId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public JSONObject addSfsDocFile(
 			long groupId, String nature, String type, String subject,
 			long categoryId, long subCategoryId, String remarks,
 			String reference, ServiceContext serviceContext)
@@ -333,5 +341,19 @@ public interface DocFileLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public DocFile updateDocFile(DocFile docFile);
+
+	public DocFile updateNonSfsDocFile(
+			long docFileId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
+			String reference, ServiceContext serviceContext)
+		throws PortalException;
+
+	public DocFile updateSfsDocFile(
+			long docFileId, String nature, String type, String subject,
+			long categoryId, long subCategoryId, String fileNumber,
+			String remarks, String reference, ServiceContext serviceContext)
+		throws PortalException;
 
 }

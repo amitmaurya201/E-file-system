@@ -54,7 +54,15 @@ public interface DocFileService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.DocFileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the doc file remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link DocFileServiceUtil} if injection and service tracking are not available.
 	 */
-	public JSONObject AddSfsDocFile(
+	public JSONObject addNonSfsDocFile(
+			long groupId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, long categoryId,
+			long subCategoryId, String remarks, String reference,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public JSONObject addSfsDocFile(
 			long groupId, String nature, String type, String subject,
 			long categoryId, long subCategoryId, String remarks,
 			String reference, ServiceContext serviceContext)
@@ -71,5 +79,19 @@ public interface DocFileService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	public DocFile updateNonSfsDocFile(
+			long docFileId, String nature, String type, long basicHeadId,
+			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
+			String reference, ServiceContext serviceContext)
+		throws PortalException;
+
+	public DocFile updateSfsDocFile(
+			long docFileId, String nature, String type, String subject,
+			long categoryId, long subCategoryId, String fileNumber,
+			String remarks, String reference, ServiceContext serviceContext)
+		throws PortalException;
 
 }

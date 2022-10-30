@@ -74,6 +74,8 @@ public class DocFileTable extends BaseTable<DocFileTable> {
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, String> reference = createColumn(
 		"reference", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> year = createColumn(
+		"year", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private DocFileTable() {
 		super("JET_PROCESS_DocFile", DocFileTable::new);

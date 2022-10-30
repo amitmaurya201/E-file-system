@@ -64,6 +64,7 @@ public class DocFileWrapper
 		attributes.put("subCategoryId", getSubCategoryId());
 		attributes.put("remarks", getRemarks());
 		attributes.put("reference", getReference());
+		attributes.put("year", getYear());
 
 		return attributes;
 	}
@@ -194,6 +195,12 @@ public class DocFileWrapper
 
 		if (reference != null) {
 			setReference(reference);
+		}
+
+		Long year = (Long)attributes.get("year");
+
+		if (year != null) {
+			setYear(year);
 		}
 	}
 
@@ -432,6 +439,16 @@ public class DocFileWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * Returns the year of this doc file.
+	 *
+	 * @return the year of this doc file
+	 */
+	@Override
+	public long getYear() {
+		return model.getYear();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -665,6 +682,16 @@ public class DocFileWrapper
 	@Override
 	public void setUuid(String uuid) {
 		model.setUuid(uuid);
+	}
+
+	/**
+	 * Sets the year of this doc file.
+	 *
+	 * @param year the year of this doc file
+	 */
+	@Override
+	public void setYear(long year) {
+		model.setYear(year);
 	}
 
 	@Override

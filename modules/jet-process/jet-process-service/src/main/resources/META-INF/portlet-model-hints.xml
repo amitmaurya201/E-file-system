@@ -23,6 +23,7 @@
 		<field name="subCategoryId" type="long" />
 		<field name="remarks" type="String" />
 		<field name="reference" type="String" />
+		<field name="year" type="long" />
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />
