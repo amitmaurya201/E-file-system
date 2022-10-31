@@ -32,31 +32,27 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 		String contentType = binaryFile.getContentType();
 		String fileName = binaryFile.getFileName();
 		String folderName = "JetProcessDocStore";
-		FileEntry fileEntry = DLAppServiceUtil.addTempFileEntry(siteId, parentFolderId, folderName, fileName,
-				inputStream, contentType);
+		FileEntry fileEntry = DLAppServiceUtil.addTempFileEntry(siteId, parentFolderId, folderName, fileName,inputStream, contentType);
 		DOCStore docStore = new DOCStore();
 		docStore.setId(fileEntry.getFileEntryId());
-		
 		return docStore;
-
-	}
+}
 
 	@Override
 	public DOCStore uploadFile(MultipartBody multipartBody) throws Exception {
 		BinaryFile binaryFile = multipartBody.getBinaryFile("document");
 		String groupId = multipartBody.getValueAsString("groupId");
 		long siteId = Long.parseLong(groupId);
-		String description = multipartBody.getValueAsString("description");
-
 		String fileName = binaryFile.getFileName();
 		String contentType = binaryFile.getContentType();
 		InputStream inputStream = binaryFile.getInputStream();
 		String changeLog = "docStore";
-		long fileId = documentStore.uploadFile(siteId, inputStream, fileName, contentType, changeLog, 0l, description);
-		//String fileDisplayUrl = documentStore.viewFile(groupId, 51211);
+		long fileId = documentStore.uploadFile(siteId, inputStream, fileName , contentType, changeLog, 0l, "");
+		String fileDisplayUrl = documentStore.viewFile(groupId, 51211);
 		//System.out.println(fileDisplayUrl);
 		DOCStore docstore = new DOCStore();
 		docstore.setId(fileId);
+		docstore.setDescription(fileDisplayUrl);
 		return docstore;
 	}
 
