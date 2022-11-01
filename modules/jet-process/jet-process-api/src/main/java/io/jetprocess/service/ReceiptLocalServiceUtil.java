@@ -295,6 +295,12 @@ public class ReceiptLocalServiceUtil {
 		return getService().getReceipt(receiptId);
 	}
 
+	public static Receipt getReceiptByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return getService().getReceiptByReceiptId(receiptId);
+	}
+
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *

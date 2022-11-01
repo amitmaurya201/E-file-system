@@ -4,9 +4,11 @@ import { FaFileContract, FaEnvelope, FaUpload, FaWindowClose, FaFileAlt } from '
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-const CreateReceipt = (props) => {
-   
 
+const CreateReceipt = () => {
+
+
+   
     //for all diary fields
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
@@ -197,6 +199,8 @@ const CreateReceipt = (props) => {
     //---------------------use effect for first load of get masterdata ----------------------
     useEffect(() => {
 
+        getId();
+
         //getReceipt();
 
         getMasterDataType();
@@ -226,7 +230,7 @@ const CreateReceipt = (props) => {
             receivedOn + letterDate + referenceNumber + modeNumber + organization + subOrganization +
             name + designation + mobile + email + address +
             country + state + city + pinCode + category + subCategory +
-            subject + remarks + document);
+            subject + remarks );
 
         try {
             axios.post(`http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/type-id/${type}/delivery-mode-id/${deliveryMode}/received-on/${receivedOn}/letter-date/${letterDate}/reference-number/${referenceNumber}/mode-number/${modeNumber}/receipt-category-id/${category}/receipt-sub-category-id/${subCategory}/subject/${subject}/remarks/${remarks}/document/${document}/name/${name}/designation/${designation}/mobile/${mobile}/email/${email}/address/${address}/country-id/${country}/state-id/${state}/pin-code/${pinCode}/organization-id/${organization}/sub-organization-id/${subOrganization}/city/${city}/?p_auth=` + Liferay.authToken)
@@ -239,7 +243,6 @@ const CreateReceipt = (props) => {
 
     }
 
-  
 
 
     return (
@@ -251,7 +254,9 @@ const CreateReceipt = (props) => {
                             <FaUpload style={{ fontSize: '23px', padding: "4px", borderRadius: "3px", color: "white", backgroundColor: "blue" }} />
                             <input type="file" id='document' name="document" hidden accept=".pdf" onChange={onFileSelect} />
                         </label>
+
                         <button onClick={handleSubmission}></button>
+
                         {/* <FaWindowClose style={{ fontSize: '26px', marginLeft: "10px", color: "blue" }}  /> */}
                         <div className="pdf-container">
                             <br />
@@ -508,7 +513,9 @@ const CreateReceipt = (props) => {
                                             {
                                                 countryMData.map((setCountryData, i) => {
                                                     return (
-                                                        <option key={i} value={setCountryData.masterdataId}>{setCountryData.value}</option>
+
+
+                                                        <option key={i} value={setCountryData.masterdataId}>{setCountryData.code}</option>
                                                     )
                                                 })
                                             }

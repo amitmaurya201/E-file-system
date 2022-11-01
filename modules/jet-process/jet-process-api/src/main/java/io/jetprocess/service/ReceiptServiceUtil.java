@@ -76,6 +76,12 @@ public class ReceiptServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static Receipt getReceiptByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return getService().getReceiptByReceiptId(receiptId);
+	}
+
 	public static Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long deliveryModeId,
 			java.util.Date receivedOn, java.util.Date letterDate,

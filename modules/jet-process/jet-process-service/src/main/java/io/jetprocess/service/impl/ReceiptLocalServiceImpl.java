@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import java.util.Date;
 import java.util.List;
 
+import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
 
@@ -150,4 +151,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		return receiptNumber;
 
 	 }
+    public Receipt getReceiptByReceiptId(long receiptId) throws NoSuchReceiptException {
+		return  receiptPersistence.findByPrimaryKey(receiptId);
+	}
 }

@@ -324,6 +324,13 @@ public class ReceiptLocalServiceWrapper
 		return _receiptLocalService.getReceipt(receiptId);
 	}
 
+	@Override
+	public io.jetprocess.model.Receipt getReceiptByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return _receiptLocalService.getReceiptByReceiptId(receiptId);
+	}
+
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *

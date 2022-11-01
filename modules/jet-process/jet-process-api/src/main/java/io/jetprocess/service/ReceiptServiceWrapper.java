@@ -78,6 +78,13 @@ public class ReceiptServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.model.Receipt getReceiptByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return _receiptService.getReceiptByReceiptId(receiptId);
+	}
+
+	@Override
 	public io.jetprocess.model.Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long deliveryModeId,
 			java.util.Date receivedOn, java.util.Date letterDate,

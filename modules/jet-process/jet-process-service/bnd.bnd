@@ -5,6 +5,8 @@ Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
 -dsannotations-options: inherit
 
-Export-Package: \
-	io.jetprocess.validator,\
+
+Export-Package: 
+	io.jetprocess.validator,
 	io.jetprocess.exception
+
