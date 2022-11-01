@@ -230,6 +230,46 @@ public class ReceiptServiceHttp {
 		}
 	}
 
+	public static io.jetprocess.model.Receipt getReceiptByReceiptId(
+			HttpPrincipal httpPrincipal, long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ReceiptServiceUtil.class, "getReceiptByReceiptId",
+				_getReceiptByReceiptIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, receiptId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						io.jetprocess.exception.NoSuchReceiptException) {
+
+					throw (io.jetprocess.exception.NoSuchReceiptException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.Receipt)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(ReceiptServiceHttp.class);
 
 	private static final Class<?>[] _createReceiptParameterTypes0 =
@@ -255,5 +295,7 @@ public class ReceiptServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getAllReceiptParameterTypes3 =
 		new Class[] {};
+	private static final Class<?>[] _getReceiptByReceiptIdParameterTypes4 =
+		new Class[] {long.class};
 
 }

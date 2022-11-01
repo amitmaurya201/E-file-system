@@ -58,3 +58,6 @@
 .receipt h3{
   margin:2px;
 }
+.receipt .errors{
+  color: red;
+}
