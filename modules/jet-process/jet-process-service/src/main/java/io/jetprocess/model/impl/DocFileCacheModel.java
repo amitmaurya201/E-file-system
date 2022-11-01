@@ -61,7 +61,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(45);
+		StringBundler sb = new StringBundler(47);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -107,6 +107,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		sb.append(reference);
 		sb.append(", year=");
 		sb.append(year);
+		sb.append(", userPostId=");
+		sb.append(userPostId);
 		sb.append("}");
 
 		return sb.toString();
@@ -201,6 +203,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		}
 
 		docFileImpl.setYear(year);
+		docFileImpl.setUserPostId(userPostId);
 
 		docFileImpl.resetOriginalValues();
 
@@ -243,6 +246,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		reference = objectInput.readUTF();
 
 		year = objectInput.readLong();
+
+		userPostId = objectInput.readLong();
 	}
 
 	@Override
@@ -329,6 +334,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		}
 
 		objectOutput.writeLong(year);
+
+		objectOutput.writeLong(userPostId);
 	}
 
 	public String uuid;
@@ -353,5 +360,6 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 	public String remarks;
 	public String reference;
 	public long year;
+	public long userPostId;
 
 }

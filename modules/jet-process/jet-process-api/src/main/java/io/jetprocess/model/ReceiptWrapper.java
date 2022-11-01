@@ -74,6 +74,7 @@ public class ReceiptWrapper
 		attributes.put("organizationId", getOrganizationId());
 		attributes.put("city", getCity());
 		attributes.put("subOrganizationId", getSubOrganizationId());
+		attributes.put("userPostId", getUserPostId());
 
 		return attributes;
 	}
@@ -265,6 +266,12 @@ public class ReceiptWrapper
 
 		if (subOrganizationId != null) {
 			setSubOrganizationId(subOrganizationId);
+		}
+
+		Long userPostId = (Long)attributes.get("userPostId");
+
+		if (userPostId != null) {
+			setUserPostId(userPostId);
 		}
 	}
 
@@ -581,6 +588,16 @@ public class ReceiptWrapper
 	@Override
 	public String getUserName() {
 		return model.getUserName();
+	}
+
+	/**
+	 * Returns the user post ID of this receipt.
+	 *
+	 * @return the user post ID of this receipt
+	 */
+	@Override
+	public long getUserPostId() {
+		return model.getUserPostId();
 	}
 
 	/**
@@ -916,6 +933,16 @@ public class ReceiptWrapper
 	@Override
 	public void setUserName(String userName) {
 		model.setUserName(userName);
+	}
+
+	/**
+	 * Sets the user post ID of this receipt.
+	 *
+	 * @param userPostId the user post ID of this receipt
+	 */
+	@Override
+	public void setUserPostId(long userPostId) {
+		model.setUserPostId(userPostId);
 	}
 
 	/**

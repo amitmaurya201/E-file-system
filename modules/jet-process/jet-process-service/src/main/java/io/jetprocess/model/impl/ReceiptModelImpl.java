@@ -89,7 +89,8 @@ public class ReceiptModelImpl
 		{"address", Types.VARCHAR}, {"countryId", Types.BIGINT},
 		{"stateId", Types.BIGINT}, {"pinCode", Types.VARCHAR},
 		{"receiptNumber", Types.VARCHAR}, {"organizationId", Types.BIGINT},
-		{"city", Types.VARCHAR}, {"subOrganizationId", Types.BIGINT}
+		{"city", Types.VARCHAR}, {"subOrganizationId", Types.BIGINT},
+		{"userPostId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -127,10 +128,11 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("organizationId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("city", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("subOrganizationId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(75) null,remarks VARCHAR(75) null,document VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(75) null,remarks VARCHAR(75) null,document VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
@@ -396,6 +398,9 @@ public class ReceiptModelImpl
 		attributeSetterBiConsumers.put(
 			"subOrganizationId",
 			(BiConsumer<Receipt, Long>)Receipt::setSubOrganizationId);
+		attributeGetterFunctions.put("userPostId", Receipt::getUserPostId);
+		attributeSetterBiConsumers.put(
+			"userPostId", (BiConsumer<Receipt, Long>)Receipt::setUserPostId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -1003,6 +1008,21 @@ public class ReceiptModelImpl
 		_subOrganizationId = subOrganizationId;
 	}
 
+	@JSON
+	@Override
+	public long getUserPostId() {
+		return _userPostId;
+	}
+
+	@Override
+	public void setUserPostId(long userPostId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userPostId = userPostId;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -1096,6 +1116,7 @@ public class ReceiptModelImpl
 		receiptImpl.setOrganizationId(getOrganizationId());
 		receiptImpl.setCity(getCity());
 		receiptImpl.setSubOrganizationId(getSubOrganizationId());
+		receiptImpl.setUserPostId(getUserPostId());
 
 		receiptImpl.resetOriginalValues();
 
@@ -1155,6 +1176,8 @@ public class ReceiptModelImpl
 		receiptImpl.setCity(this.<String>getColumnOriginalValue("city"));
 		receiptImpl.setSubOrganizationId(
 			this.<Long>getColumnOriginalValue("subOrganizationId"));
+		receiptImpl.setUserPostId(
+			this.<Long>getColumnOriginalValue("userPostId"));
 
 		return receiptImpl;
 	}
@@ -1418,6 +1441,8 @@ public class ReceiptModelImpl
 
 		receiptCacheModel.subOrganizationId = getSubOrganizationId();
 
+		receiptCacheModel.userPostId = getUserPostId();
+
 		return receiptCacheModel;
 	}
 
@@ -1542,6 +1567,7 @@ public class ReceiptModelImpl
 	private long _organizationId;
 	private String _city;
 	private long _subOrganizationId;
+	private long _userPostId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1604,6 +1630,7 @@ public class ReceiptModelImpl
 		_columnOriginalValues.put("organizationId", _organizationId);
 		_columnOriginalValues.put("city", _city);
 		_columnOriginalValues.put("subOrganizationId", _subOrganizationId);
+		_columnOriginalValues.put("userPostId", _userPostId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1688,6 +1715,8 @@ public class ReceiptModelImpl
 		columnBitmasks.put("city", 536870912L);
 
 		columnBitmasks.put("subOrganizationId", 1073741824L);
+
+		columnBitmasks.put("userPostId", 2147483648L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

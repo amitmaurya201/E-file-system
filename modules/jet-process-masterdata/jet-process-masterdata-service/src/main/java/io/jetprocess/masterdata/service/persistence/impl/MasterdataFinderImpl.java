@@ -12,7 +12,10 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.masterdata.model.FileListViewDto;
+import io.jetprocess.masterdata.model.GenericModelMapper;
 import io.jetprocess.masterdata.model.Masterdata;
+import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.impl.MasterdataImpl;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;
 
@@ -539,20 +542,16 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return (Masterdata) obj;
 	}
 
-	public List<Masterdata> getFileData() {
+	public List<FileListViewDto> getFileCreatedList() {
 
-		List<Masterdata> fileDataList = Collections.EMPTY_LIST;
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = customSQL.get(getClass(), "getFileDataCategory");
-			System.out.println("countries table --" + sql);
+			String sql = customSQL.get(getClass(), "fileCreatedListQuery");
+			System.out.println("DocFile Table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
-			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
-
-			fileDataList = (List<Masterdata>) sqlQuery.list();
-			return fileDataList;
+			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
@@ -563,22 +562,19 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		} finally {
 			closeSession(session);
 		}
-		return fileDataList;
+		return null;
 	}
-	public List<Masterdata> getFileData1() {
+	public List<ReceiptListViewDto> getReceiptCreatedList() {
 
-		List<Masterdata> fileDataList = Collections.EMPTY_LIST;
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = customSQL.get(getClass(), "getFileDataSubCategory");
-			System.out.println("countries table --" + sql);
+			String sql = customSQL.get(getClass(), "receiptCreatedListQuery");
+			System.out.println("Receipt Table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
-			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
-
-			fileDataList = (List<Masterdata>) sqlQuery.list();
-			return fileDataList;
+			
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
@@ -589,6 +585,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		} finally {
 			closeSession(session);
 		}
-		return fileDataList;
+		return null;
 	}
+
 }

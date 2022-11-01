@@ -61,7 +61,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(63);
+		StringBundler sb = new StringBundler(65);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -125,6 +125,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(city);
 		sb.append(", subOrganizationId=");
 		sb.append(subOrganizationId);
+		sb.append(", userPostId=");
+		sb.append(userPostId);
 		sb.append("}");
 
 		return sb.toString();
@@ -284,6 +286,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		}
 
 		receiptImpl.setSubOrganizationId(subOrganizationId);
+		receiptImpl.setUserPostId(userPostId);
 
 		receiptImpl.resetOriginalValues();
 
@@ -335,6 +338,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		city = objectInput.readUTF();
 
 		subOrganizationId = objectInput.readLong();
+
+		userPostId = objectInput.readLong();
 	}
 
 	@Override
@@ -472,6 +477,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		}
 
 		objectOutput.writeLong(subOrganizationId);
+
+		objectOutput.writeLong(userPostId);
 	}
 
 	public String uuid;
@@ -505,5 +512,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public long organizationId;
 	public String city;
 	public long subOrganizationId;
+	public long userPostId;
 
 }

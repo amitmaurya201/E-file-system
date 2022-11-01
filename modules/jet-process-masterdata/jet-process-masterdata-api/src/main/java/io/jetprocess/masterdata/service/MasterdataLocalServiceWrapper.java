@@ -262,16 +262,6 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileDto> getData() {
-		return _masterdataLocalService.getData();
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileDto> getData1() {
-		return _masterdataLocalService.getData1();
-	}
-
-	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getDeliveryModes() {
 
@@ -281,6 +271,13 @@ public class MasterdataLocalServiceWrapper
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata> getFile() {
 		return _masterdataLocalService.getFile();
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileList() {
+
+		return _masterdataLocalService.getFileList();
 	}
 
 	/**
@@ -373,6 +370,13 @@ public class MasterdataLocalServiceWrapper
 		getReceiptCategory() {
 
 		return _masterdataLocalService.getReceiptCategory();
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptList() {
+
+		return _masterdataLocalService.getReceiptList();
 	}
 
 	@Override

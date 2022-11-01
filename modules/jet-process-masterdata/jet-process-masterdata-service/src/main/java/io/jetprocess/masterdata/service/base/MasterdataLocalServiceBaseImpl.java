@@ -41,6 +41,7 @@ import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;
 import io.jetprocess.masterdata.service.persistence.MasterdataPersistence;
+import io.jetprocess.masterdata.service.persistence.UserPostPersistence;
 
 import java.io.Serializable;
 
@@ -420,6 +421,9 @@ public abstract class MasterdataLocalServiceBaseImpl
 
 	@Reference
 	protected MasterdataFinder masterdataFinder;
+
+	@Reference
+	protected UserPostPersistence userPostPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

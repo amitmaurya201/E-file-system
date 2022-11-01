@@ -675,13 +675,13 @@ public class MasterdataServiceHttp {
 		}
 	}
 
-	public static java.util.List<io.jetprocess.masterdata.model.FileDto>
-		getFileMasterdata(HttpPrincipal httpPrincipal) {
+	public static java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListMasterdata(HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				MasterdataServiceUtil.class, "getFileMasterdata",
-				_getFileMasterdataParameterTypes19);
+				MasterdataServiceUtil.class, "getFileCreatedListMasterdata",
+				_getFileCreatedListMasterdataParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -695,8 +695,8 @@ public class MasterdataServiceHttp {
 					exception);
 			}
 
-			return (java.util.List<io.jetprocess.masterdata.model.FileDto>)
-				returnObj;
+			return (java.util.List
+				<io.jetprocess.masterdata.model.FileListViewDto>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -707,13 +707,14 @@ public class MasterdataServiceHttp {
 		}
 	}
 
-	public static java.util.List<io.jetprocess.masterdata.model.FileDto>
-		getFileMasterdata1(HttpPrincipal httpPrincipal) {
+	public static java.util.List
+		<io.jetprocess.masterdata.model.ReceiptListViewDto>
+			getReceiptListMasterdata(HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				MasterdataServiceUtil.class, "getFileMasterdata1",
-				_getFileMasterdata1ParameterTypes20);
+				MasterdataServiceUtil.class, "getReceiptListMasterdata",
+				_getReceiptListMasterdataParameterTypes20);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -727,8 +728,8 @@ public class MasterdataServiceHttp {
 					exception);
 			}
 
-			return (java.util.List<io.jetprocess.masterdata.model.FileDto>)
-				returnObj;
+			return (java.util.List
+				<io.jetprocess.masterdata.model.ReceiptListViewDto>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -788,9 +789,9 @@ public class MasterdataServiceHttp {
 		};
 	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes18 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getFileMasterdataParameterTypes19 =
-		new Class[] {};
-	private static final Class<?>[] _getFileMasterdata1ParameterTypes20 =
+	private static final Class<?>[]
+		_getFileCreatedListMasterdataParameterTypes19 = new Class[] {};
+	private static final Class<?>[] _getReceiptListMasterdataParameterTypes20 =
 		new Class[] {};
 
 }

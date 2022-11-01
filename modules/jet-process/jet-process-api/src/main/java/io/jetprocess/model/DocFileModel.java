@@ -405,6 +405,20 @@ public interface DocFileModel
 	 */
 	public void setYear(long year);
 
+	/**
+	 * Returns the user post ID of this doc file.
+	 *
+	 * @return the user post ID of this doc file
+	 */
+	public long getUserPostId();
+
+	/**
+	 * Sets the user post ID of this doc file.
+	 *
+	 * @param userPostId the user post ID of this doc file
+	 */
+	public void setUserPostId(long userPostId);
+
 	@Override
 	public DocFile cloneWithOriginalValues();
 

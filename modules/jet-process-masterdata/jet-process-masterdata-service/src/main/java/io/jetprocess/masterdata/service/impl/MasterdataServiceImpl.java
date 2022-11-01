@@ -18,11 +18,12 @@ import com.liferay.portal.aop.AopService;
 
 import java.util.List;
 
-import io.jetprocess.masterdata.model.FileDto;
-import io.jetprocess.masterdata.model.Masterdata;
-import io.jetprocess.masterdata.service.base.MasterdataServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
+
+import io.jetprocess.masterdata.model.FileListViewDto;
+import io.jetprocess.masterdata.model.Masterdata;
+import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.masterdata.service.base.MasterdataServiceBaseImpl;
 
 /**
  * @author Brian Wing Shun Chan
@@ -125,11 +126,13 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 		return masterdataLocalService.getTertiary(tertiaryHeadId);
 	}
 
-	public List<FileDto> getFileMasterdata() {
-		return masterdataLocalService.getData();
+	public List<FileListViewDto> getFileCreatedListMasterdata() {
+
+		return masterdataLocalService.getFileList();
 	}
-	public List<FileDto> getFileMasterdata1(){
-		
-		return masterdataLocalService.getData1();
+
+	public List<ReceiptListViewDto> getReceiptListMasterdata() {
+
+		return masterdataLocalService.getReceiptList();
 	}
 }

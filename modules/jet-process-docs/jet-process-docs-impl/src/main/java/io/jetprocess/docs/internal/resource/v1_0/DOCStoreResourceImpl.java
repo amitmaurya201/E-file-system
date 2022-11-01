@@ -40,6 +40,7 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 
 	@Override
 	public DOCStore uploadFile(MultipartBody multipartBody) throws Exception {
+		System.out.println("test");
 		BinaryFile binaryFile = multipartBody.getBinaryFile("document");
 		String groupId = multipartBody.getValueAsString("groupId");
 		long siteId = Long.parseLong(groupId);
@@ -48,11 +49,11 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 		InputStream inputStream = binaryFile.getInputStream();
 		String changeLog = "docStore";
 		long fileId = documentStore.uploadFile(siteId, inputStream, fileName , contentType, changeLog, 0l, "");
-		String fileDisplayUrl = documentStore.viewFile(groupId, 51211);
+		//String fileDisplayUrl = documentStore.viewFile(groupId, 51211);
 		//System.out.println(fileDisplayUrl);
 		DOCStore docstore = new DOCStore();
 		docstore.setId(fileId);
-		docstore.setDescription(fileDisplayUrl);
+		//docstore.setDescription(fileDisplayUrl);
 		return docstore;
 	}
 

@@ -94,6 +94,8 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"city", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Long> subOrganizationId = createColumn(
 		"subOrganizationId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> userPostId = createColumn(
+		"userPostId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private ReceiptTable() {
 		super("JET_PROCESS_Receipt", ReceiptTable::new);

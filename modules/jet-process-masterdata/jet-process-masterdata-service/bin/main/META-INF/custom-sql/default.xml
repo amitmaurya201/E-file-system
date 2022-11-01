@@ -3,14 +3,14 @@
 <sql id="getCategories">
 <![CDATA[
 SELECT  categorydataid as masterdataid ,'C-'||categorydataid as referenceid, categoryvalue as value , 'C-'||categoryvalue as code_
-	FROM category;
+	FROM master_schema.category;
 ]]>
 
 </sql>
 <sql id="getSubCategories">
 <![CDATA[
 SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||subcategoryvalue as code_ , 'SC-'||subcategorydataid as referenceid 
-	FROM subcategory  where categoryid = ? ;
+	FROM master_schema.subcategory  where categoryid = ? ;
 ]]>
 
 </sql>
@@ -19,7 +19,7 @@ SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||s
 <![CDATA[
 
 SELECT typeid as masterdataid ,'C-'||typeid as referenceid, 'C-'||typevalue as code_, typevalue as value
-	FROM type;
+	FROM master_schema.type;
 
 ]]>
 
@@ -29,7 +29,7 @@ SELECT typeid as masterdataid ,'C-'||typeid as referenceid, 'C-'||typevalue as c
 <![CDATA[
 
 SELECT deliverymodeid as masterdataid ,  'C-'||deliverymodeid as referenceid, 'C-'||deliverymodevalue as code_, deliverymodevalue as value
-	FROM deliverymode;
+	FROM master_schema.deliverymode;
 
 ]]>
 
@@ -38,7 +38,7 @@ SELECT deliverymodeid as masterdataid ,  'C-'||deliverymodeid as referenceid, 'C
 <![CDATA[
 
 SELECT filecodeid as masterdataid ,  'C-'||filecodeid as referenceid, 'C-'||filecodevalue as code_,  filecodevalue as value
-	FROM filecode;
+	FROM master_schema.filecode;
 
 ]]>
 
@@ -178,17 +178,26 @@ SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , t
 
 
 SELECT categoryid as masterdataid ,  'C-'||categoryid as referenceid , categoryvalue as value , categoryvalue as code_
-	FROM jet_process_docfile INNER JOIN category  ON categorydataid = categoryid
+	FROM jet_process_docfile INNER JOIN master_schema.category  ON categorydataid = categoryid
 ]]>
 
 </sql>
-<sql id="getFileDataSubCategory">
+
+<sql id="fileCreatedListQuery">
+<![CDATA[
+SELECT filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
+	FROM jet_process_docfile  INNER JOIN 
+	master_schema.category  ON categorydataid = categoryid
+]]>
+
+</sql>
+<sql id="receiptCreatedListQuery">
 <![CDATA[
 
 
-SELECT subcategorydataid as masterdataid ,  'C-'||subcategorydataid as referenceid , subcategoryvalue as value , subcategoryvalue as code_
-	FROM jet_process_docfile INNER JOIN 
-	subcategory  ON subcategorydataid = subcategoryid
+SELECT receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
+	FROM jet_process_receipt INNER JOIN 
+	master_schema.category  ON categorydataid = receiptcategoryid
 ]]>
 
 </sql>

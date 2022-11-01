@@ -226,20 +226,18 @@ public class MasterdataLocalServiceUtil {
 		return getService().getCountry();
 	}
 
-	public static List<io.jetprocess.masterdata.model.FileDto> getData() {
-		return getService().getData();
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileDto> getData1() {
-		return getService().getData1();
-	}
-
 	public static List<Masterdata> getDeliveryModes() {
 		return getService().getDeliveryModes();
 	}
 
 	public static List<Masterdata> getFile() {
 		return getService().getFile();
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileList() {
+
+		return getService().getFileList();
 	}
 
 	/**
@@ -311,6 +309,12 @@ public class MasterdataLocalServiceUtil {
 
 	public static List<Masterdata> getReceiptCategory() {
 		return getService().getReceiptCategory();
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptList() {
+
+		return getService().getReceiptList();
 	}
 
 	public static List<Masterdata> getReceiptSubCategory(

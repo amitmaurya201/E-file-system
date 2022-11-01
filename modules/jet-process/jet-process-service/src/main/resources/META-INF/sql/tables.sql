@@ -20,7 +20,8 @@ create table JET_PROCESS_DocFile (
 	subCategoryId LONG,
 	remarks VARCHAR(75) null,
 	reference VARCHAR(75) null,
-	year LONG
+	year LONG,
+	userPostId LONG
 );
 
 create table JET_PROCESS_Receipt (
@@ -54,5 +55,6 @@ create table JET_PROCESS_Receipt (
 	receiptNumber VARCHAR(75) null,
 	organizationId LONG,
 	city VARCHAR(75) null,
-	subOrganizationId LONG
+	subOrganizationId LONG,
+	userPostId LONG
 );

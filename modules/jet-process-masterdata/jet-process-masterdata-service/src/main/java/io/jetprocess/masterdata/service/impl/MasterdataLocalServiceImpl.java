@@ -17,13 +17,14 @@ package io.jetprocess.masterdata.service.impl;
 import com.liferay.portal.aop.AopService;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
-import io.jetprocess.masterdata.model.FileDto;
+import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
+import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.base.MasterdataLocalServiceBaseImpl;
 
 /**
@@ -31,8 +32,6 @@ import io.jetprocess.masterdata.service.base.MasterdataLocalServiceBaseImpl;
  */
 @Component(property = "model.class.name=io.jetprocess.masterdata.model.Masterdata", service = AopService.class)
 public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
-
-	
 
 	public List<Masterdata> getCategory() {
 
@@ -132,29 +131,16 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getTertiaryHeadById(tertiaryHeadId);
 	}
 
-	public List<FileDto> getData() {
-		List<FileDto> fileDto = new ArrayList();
-		List<Masterdata> list = masterdataFinder.getFileData();
-		for (Masterdata masterdata : list) {
-			FileDto fileDtoObj = new FileDto();
-			fileDtoObj.setCategory(masterdata.getValue());
-			System.out.println("------------"+masterdata.getValue());
-			fileDto.add(fileDtoObj);
-		}
+	public List<FileListViewDto> getFileList(){
 		
-
-		return fileDto;
+		return masterdataFinder.getFileCreatedList();
 	}
-	public List<FileDto> getData1() {
-		List<FileDto> fileDto = new ArrayList();
-		List<Masterdata> list = masterdataFinder.getFileData1();
-		for (Masterdata masterdata : list) {
-			FileDto fileDtoObj = new FileDto();
-			fileDtoObj.setSubcategory(masterdata.getValue());
-			fileDto.add(fileDtoObj);
-		}
+
+
+	public List<ReceiptListViewDto> getReceiptList() {
+
 		
-
-		return fileDto;
+		return masterdataFinder.getReceiptCreatedList() ;
 	}
+
 }

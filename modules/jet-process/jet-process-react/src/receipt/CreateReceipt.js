@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaFileContract, FaEnvelope, FaUpload, FaWindowClose, FaFileAlt } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CreateReceipt = (props) => {
+   
 
     //for all diary fields
     const current = new Date();
@@ -38,51 +39,48 @@ const CreateReceipt = (props) => {
     //for file fields
     const [document, setdocument] = useState();
     const [pdfFile, setPdfFile] = useState();
-    const [fileData, setFileData] =useState();
-    
+    const [fileData, setFileData] = useState();
 
     //for redirect the page
-    // const navigate=useNavigate();
-
+    const navigate=useNavigate();
 
     //-----------hook validation--------------
     const { register, handleSubmit, errors } = useForm();
 
-   
 
     //for handling file change
-    const groupId =Liferay.ThemeDisplay.getScopeGroupId();
-    console.log(groupId);
+    const groupId = Liferay.ThemeDisplay.getScopeGroupId();
     const onFileSelect = async (event) => {
-        setFileData( event.target.files[0]);
-      const file = event.target.files[0];
-      if (file) {
-        var filereader = new FileReader();
-        filereader.readAsDataURL(file);
-        filereader.onload =  (evt)=> {
-          var  base64 = evt.target.result;
-            setPdfFile(base64);
-            return base64
-          }
-      }
+        setFileData(event.target.files[0]);
+        const file = event.target.files[0];
+        if (file) {
+            var filereader = new FileReader();
+            filereader.readAsDataURL(file);
+            filereader.onload = (evt) => {
+                var base64 = evt.target.result;
+                setPdfFile(base64);
+                return base64
+            }
+        }
     };
 
     const handleSubmission = (e) => {
         console.log(fileData);
         e.preventDefault();
         const formData = new FormData();
-		formData.append('document', fileData);
-        formData.append('groupId', groupId); 
-        axios.post(`http://localhost:8080/o/jet-process-docs/v1.0/uploadFile?p_auth=` + Liferay.authToken, formData, {headers:{"Content-Type" : "application/json"}
-    })
-       .then((result) => {
-        console.log('Success:', result.data);
-        setdocument(result.data.description);
-    }).catch((error) => {
+        formData.append('document', fileData);
+        formData.append('groupId', groupId);
+        axios.post(`http://localhost:8080/o/jet-process-docs/v1.0/uploadFile?p_auth=` + Liferay.authToken, formData, {
+            headers: { "Content-Type": "application/json" }
+        })
+            .then((result) => {
+                console.log('Success:', result.data);
+                setdocument(result.data.description);
+            }).catch((error) => {
                 console.log("error happened");
-				console.error('Error:', error);
-			});
-	};
+                console.error('Error:', error);
+            });
+    };
     //------------- Master Data fields--------------
     const [typeMData, setTypeMData] = useState([]);
     const [deliveryModeMData, setDeliveryModeMData] = useState([]);
@@ -129,7 +127,7 @@ const CreateReceipt = (props) => {
     //--------------------get masterdata-----------------------
     const getMasterDataType = () => {
         axios.get(
-           // `http://localhost:8080/api/jsonws/masterdata.masterdata/get-type-masterdata?p_auth=` + Liferay.authToken
+             `http://localhost:8080/api/jsonws/masterdata.masterdata/get-type-masterdata?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setTypeMData(res.data);
@@ -139,7 +137,7 @@ const CreateReceipt = (props) => {
 
     const getMasterDataDeliveryMode = () => {
         axios.get(
-           // `http://localhost:8080/api/jsonws/masterdata.masterdata/get-delivery-mode-masterdata?p_auth=` + Liferay.authToken
+             `http://localhost:8080/api/jsonws/masterdata.masterdata/get-delivery-mode-masterdata?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setDeliveryModeMData(res.data);
@@ -147,7 +145,7 @@ const CreateReceipt = (props) => {
     }
     const getMasterDataOrganization = () => {
         axios.get(
-         //   `http://localhost:8080/api/jsonws/masterdata.masterdata/get-organization-masterdata?p_auth=` + Liferay.authToken
+              `http://localhost:8080/api/jsonws/masterdata.masterdata/get-organization-masterdata?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setOrganizationMData(res.data);
@@ -155,7 +153,7 @@ const CreateReceipt = (props) => {
     }
     const getMasterDataSubOrganization = () => {
         axios.get(
-           // `http://localhost:8080/api/jsonws/masterdata.masterdata/get-sub-organization-masterdata/organization-id/${organization}/?p_auth=` + Liferay.authToken
+             `http://localhost:8080/api/jsonws/masterdata.masterdata/get-sub-organization-masterdata/organization-id/${organization}/?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setsubOrganizationMData(res.data);
@@ -164,7 +162,7 @@ const CreateReceipt = (props) => {
     }
     const getMasterDataCategory = () => {
         axios.get(
-           // `http://localhost:8080/api/jsonws/masterdata.masterdata/get-receipt-category-masterdata?p_auth=` + Liferay.authToken
+             `http://localhost:8080/api/jsonws/masterdata.masterdata/get-receipt-category-masterdata?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setCategoryMData(res.data);
@@ -172,7 +170,7 @@ const CreateReceipt = (props) => {
     }
     const getMasterDataSubCategory = () => {
         axios.get(
-          //  `http://localhost:8080/api/jsonws/masterdata.masterdata/get-receipt-sub-category-masterdata/receipt-category-id/${category}/?p_auth=` + Liferay.authToken
+              `http://localhost:8080/api/jsonws/masterdata.masterdata/get-receipt-sub-category-masterdata/receipt-category-id/${category}/?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setSubCategoryMData(res.data);
@@ -180,7 +178,7 @@ const CreateReceipt = (props) => {
     }
     const getMasterDataCountry = () => {
         axios.get(
-            //`http://localhost:8080/api/jsonws/masterdata.masterdata/get-countries-masterdata/?p_auth=` + Liferay.authToken
+            `http://localhost:8080/api/jsonws/masterdata.masterdata/get-countries-masterdata/?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setConutryMData(res.data);
@@ -188,7 +186,7 @@ const CreateReceipt = (props) => {
     }
     const getMasterDataState = () => {
         axios.get(
-          //  `http://localhost:8080/api/jsonws/masterdata.masterdata/get-states-masterdata/country-id/${country}/?p_auth=` + Liferay.authToken
+              `http://localhost:8080/api/jsonws/masterdata.masterdata/get-states-masterdata/country-id/${country}/?p_auth=` + Liferay.authToken
         )
             .then((res) => {
                 setStateMData(res.data);
@@ -198,6 +196,7 @@ const CreateReceipt = (props) => {
 
     //---------------------use effect for first load of get masterdata ----------------------
     useEffect(() => {
+
         //getReceipt();
 
         getMasterDataType();
@@ -218,16 +217,10 @@ const CreateReceipt = (props) => {
         getMasterDataState();
     }, [organization, category, country])
 
-
-    // const groupId = () => {
-    //     let one = "abca22";
-    //     setdocument(one);
-    // }
-
     //submit function   
     const onSubmit = (e) => {
-        
-        // navigate("/web/jet-process/8fbbe737-5dca-5154-f69b-7bab24f2e8b6/-/jetprocessreact_INSTANCE_tgul/receipt-view");
+
+        navigate("/web/jet-process/8fbbe737-5dca-5154-f69b-7bab24f2e8b6/-/jetprocessreact_INSTANCE_ssvp/view-receipt");
 
         console.log("fields ----   " + date + type + deliveryMode +
             receivedOn + letterDate + referenceNumber + modeNumber + organization + subOrganization +
@@ -236,7 +229,7 @@ const CreateReceipt = (props) => {
             subject + remarks + document);
 
         try {
-            axios.post(`http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/type-id/${1}/delivery-mode-id/${1}/received-on/${receivedOn}/letter-date/${letterDate}/reference-number/${referenceNumber}/mode-number/${modeNumber}/receipt-category-id/${1}/receipt-sub-category-id/${1}/subject/${subject}/remarks/${remarks}/document/${document}/name/${name}/designation/${designation}/mobile/${mobile}/email/${email}/address/${address}/country-id/${1}/state-id/${1}/pin-code/${pinCode}/organization-id/${1}/sub-organization-id/${1}/city/${city}/?p_auth=` + Liferay.authToken)
+            axios.post(`http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/type-id/${type}/delivery-mode-id/${deliveryMode}/received-on/${receivedOn}/letter-date/${letterDate}/reference-number/${referenceNumber}/mode-number/${modeNumber}/receipt-category-id/${category}/receipt-sub-category-id/${subCategory}/subject/${subject}/remarks/${remarks}/document/${document}/name/${name}/designation/${designation}/mobile/${mobile}/email/${email}/address/${address}/country-id/${country}/state-id/${state}/pin-code/${pinCode}/organization-id/${organization}/sub-organization-id/${subOrganization}/city/${city}/?p_auth=` + Liferay.authToken)
                 .then((res) => {
                     console.log("res" + res.data);
                 })
@@ -245,7 +238,10 @@ const CreateReceipt = (props) => {
         }
 
     }
-   
+
+  
+
+
     return (
         <div className="receipt">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -255,13 +251,13 @@ const CreateReceipt = (props) => {
                             <FaUpload style={{ fontSize: '23px', padding: "4px", borderRadius: "3px", color: "white", backgroundColor: "blue" }} />
                             <input type="file" id='document' name="document" hidden accept=".pdf" onChange={onFileSelect} />
                         </label>
-                        <FaWindowClose style={{ fontSize: '26px', marginLeft: "10px", color: "blue" }}  />
-            {/*<button onClick={handleSubmission}>Submit</button>*/}
+                        <button onClick={handleSubmission}></button>
+                        {/* <FaWindowClose style={{ fontSize: '26px', marginLeft: "10px", color: "blue" }}  /> */}
                         <div className="pdf-container">
-                        <br/>
+                            <br />
                             {/* Show pdf conditionally (if we have one) */}
-                            {pdfFile ? <embed src={`${pdfFile}`}  style={{alignContent:'center'}} width="400" height="400" /> :<span width="400" height="400" style={{border:'1px solid black'}} ></span>}
-                           
+                            {pdfFile ? <embed src={`${pdfFile}`} style={{ alignContent: 'center' }} width="400" height="400" /> : <span width="400" height="400" style={{ border: '1px solid black' }} ></span>}
+
                         </div>
                     </div>
                     <div className="col-6 border ">
@@ -287,10 +283,10 @@ const CreateReceipt = (props) => {
                                                     required: "Type is required",
                                                 })}>
                                                 <option value="">Type</option>
-                                               
                                                 {typeMData.map((typeData, i) => {
-
-                                                    <option key={i} value={typeData.masterdataId} defaultValue={typeData.masterdataId}>{typeData.value}</option>
+                                                    return (
+                                                        <option key={i} value={typeData.masterdataId} defaultValue={typeData.masterdataId}>{typeData.value}</option>
+                                                    )
                                                 })}
                                             </select>
                                             {errors.type && (
@@ -306,14 +302,15 @@ const CreateReceipt = (props) => {
                                                     required: "Delivery Mode is required",
                                                 })}>
                                                 <option value="">Delivery Mode</option>
-                                                <option value="1">Type</option>
                                                 {deliveryModeMData.map((deliveryModeData, i) => {
-                                                    <option key={i} value={deliveryModeData.masterdataId}> {deliveryModeData.value}</option>
+                                                    return (
+                                                        <option key={i} value={deliveryModeData.masterdataId}> {deliveryModeData.value}</option>
+                                                    )
                                                 })}
-                                                </select>
-                                                {errors.deliveryMode && (
-                                                    <small className="errors">{errors.deliveryMode.message}</small>
-                                                )}
+                                            </select>
+                                            {errors.deliveryMode && (
+                                                <small className="errors">{errors.deliveryMode.message}</small>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -323,10 +320,7 @@ const CreateReceipt = (props) => {
                                             <label >Received on<span className='text-danger'>*</span></label>
                                             <input className="form-control" type="date" name='receivedOn' onChange={(e) => { setReceivedOn(e.target.value) }}
                                                 ref={register({
-                                                    required:"This field is required",
-                                                    // validate:{
-                                                    //     todayDate : v => new Date(v) > date,
-                                                    // }
+                                                    required: "This field is required",
                                                 })}
                                             />
                                             {errors.receivedOn && (
@@ -392,9 +386,10 @@ const CreateReceipt = (props) => {
                                                     required: "Organization is required",
                                                 })}>
                                                 <option value="">Organization</option>
-                                              
                                                 {organizationMData.map((organizationData, i) => {
-                                                    <option key={i} value={organizationData.masterdataId}>{organizationData.value}</option>
+                                                    return (
+                                                        <option key={i} value={organizationData.masterdataId}>{organizationData.value}</option>
+                                                    )
                                                 })}
                                             </select>
                                             {errors.organization && (
@@ -408,7 +403,9 @@ const CreateReceipt = (props) => {
                                             <select className="form-select" name='subOrganization' onChange={getMasterDataValue}  >
                                                 <option value="">SubOrganization</option>
                                                 {subOrganizationMData.map((subOrganizationData, i) => {
-                                                    <option key={i} value={subOrganizationData.masterdataId}>{subOrganizationData.value}</option>
+                                                    return (
+                                                        <option key={i} value={subOrganizationData.masterdataId}>{subOrganizationData.value}</option>
+                                                    )
                                                 })}
                                             </select>
                                         </div>
@@ -488,7 +485,7 @@ const CreateReceipt = (props) => {
                             <div className="col mt-3">
                                 <div className="textOnInput fullTextFields">
                                     <label >Address</label>
-                                    <textarea className="form-control" name='address'value={address} onChange={(e) => { setAddress(e.target.value) }}
+                                    <textarea className="form-control" name='address' value={address} onChange={(e) => { setAddress(e.target.value) }}
                                         ref={register({
                                             required: "Address is required",
                                             maxLength: {
@@ -508,9 +505,13 @@ const CreateReceipt = (props) => {
                                         <label>Country</label>
                                         <select className="form-select" name='country' onChange={getMasterDataValue}  >
                                             <option value="">Country</option>
-                                            {countryMData.map((setCountryData, i) => {
-                                                <option key={i} value={setCountryData.masterdataId}>{setCountryData.code}</option>
-                                            })}
+                                            {
+                                                countryMData.map((setCountryData, i) => {
+                                                    return (
+                                                        <option key={i} value={setCountryData.masterdataId}>{setCountryData.value}</option>
+                                                    )
+                                                })
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -520,7 +521,9 @@ const CreateReceipt = (props) => {
                                         <select className="form-select" name='state' onChange={getMasterDataValue}  >
                                             <option value="">State</option>
                                             {stateMData.map((setStateData, i) => {
-                                                <option key={i} value={setStateData.masterdataId}>{setStateData.value}</option>
+                                                return (
+                                                    <option key={i} value={setStateData.masterdataId}>{setStateData.value}</option>
+                                                )
                                             })}
                                         </select>
                                     </div>
@@ -577,9 +580,10 @@ const CreateReceipt = (props) => {
                                                     required: "Category is required"
                                                 })}>
                                                 <option value="">Category</option>
-                                              
                                                 {categoryMData.map((categoryData, i) => {
-                                                    <option key={i} value={categoryData.masterdataId}>{categoryData.value}</option>
+                                                    return (
+                                                        <option key={i} value={categoryData.masterdataId}>{categoryData.value}</option>
+                                                    )
                                                 })}
                                             </select>
                                             {errors.category && (
@@ -593,7 +597,9 @@ const CreateReceipt = (props) => {
                                             <select className="form-select" name='subCategory' onChange={getMasterDataValue} >
                                                 <option value="">SubCategory</option>
                                                 {subCategoryMData.map((subCategoryData, i) => {
-                                                    <option key={i} value={subCategoryData.masterdataId}>{subCategoryData.value}</option>
+                                                    return (
+                                                        <option key={i} value={subCategoryData.masterdataId}>{subCategoryData.value}</option>
+                                                    )
                                                 })}
                                             </select>
                                         </div>
@@ -635,7 +641,7 @@ const CreateReceipt = (props) => {
                             </div>
                         </div>
                         <div >
-                            <button type='submit'  onClick={handleSubmission} className='btn btn-primary' style={{ margin: 'auto 40%' }}>Generate</button>
+                            <button type='submit' onClick={handleSubmission} className='btn btn-primary' style={{ margin: 'auto 40%' }}>Generate</button>
                         </div>
                     </div>
                 </div>

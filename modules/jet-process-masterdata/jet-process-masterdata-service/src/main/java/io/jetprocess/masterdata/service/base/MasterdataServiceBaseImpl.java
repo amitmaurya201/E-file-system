@@ -29,6 +29,7 @@ import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.masterdata.service.MasterdataServiceUtil;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;
 import io.jetprocess.masterdata.service.persistence.MasterdataPersistence;
+import io.jetprocess.masterdata.service.persistence.UserPostPersistence;
 
 import java.lang.reflect.Field;
 
@@ -143,6 +144,9 @@ public abstract class MasterdataServiceBaseImpl
 
 	@Reference
 	protected MasterdataFinder masterdataFinder;
+
+	@Reference
+	protected UserPostPersistence userPostPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

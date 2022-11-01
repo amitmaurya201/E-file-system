@@ -29,8 +29,9 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import io.jetprocess.masterdata.model.FileDto;
+import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
+import io.jetprocess.masterdata.model.ReceiptListViewDto;
 
 import java.io.Serializable;
 
@@ -213,16 +214,13 @@ public interface MasterdataLocalService
 	public List<Masterdata> getCountry();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileDto> getData();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileDto> getData1();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModes();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getFile();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileListViewDto> getFileList();
 
 	/**
 	 * Returns the masterdata with the primary key.
@@ -282,6 +280,9 @@ public interface MasterdataLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptCategory();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptListViewDto> getReceiptList();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);

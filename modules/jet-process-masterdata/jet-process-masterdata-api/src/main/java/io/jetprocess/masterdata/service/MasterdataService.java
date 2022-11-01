@@ -23,8 +23,9 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
-import io.jetprocess.masterdata.model.FileDto;
+import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
+import io.jetprocess.masterdata.model.ReceiptListViewDto;
 
 import java.util.List;
 
@@ -72,10 +73,7 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getFileCodeMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileDto> getFileMasterdata();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileDto> getFileMasterdata1();
+	public List<FileListViewDto> getFileCreatedListMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getOrganizationMasterdata();
@@ -95,6 +93,9 @@ public interface MasterdataService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptCategoryMasterdata();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptListViewDto> getReceiptListMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategoryMasterdata(

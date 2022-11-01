@@ -77,17 +77,10 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileDto>
-		getFileMasterdata() {
+	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListMasterdata() {
 
-		return _masterdataService.getFileMasterdata();
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileDto>
-		getFileMasterdata1() {
-
-		return _masterdataService.getFileMasterdata1();
+		return _masterdataService.getFileCreatedListMasterdata();
 	}
 
 	@Override
@@ -126,6 +119,13 @@ public class MasterdataServiceWrapper
 		getReceiptCategoryMasterdata() {
 
 		return _masterdataService.getReceiptCategoryMasterdata();
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptListMasterdata() {
+
+		return _masterdataService.getReceiptListMasterdata();
 	}
 
 	@Override

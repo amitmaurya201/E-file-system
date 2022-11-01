@@ -84,7 +84,8 @@ public class DocFileModelImpl
 		{"fileCodeId", Types.BIGINT}, {"subject", Types.VARCHAR},
 		{"fileNumber", Types.VARCHAR}, {"categoryId", Types.BIGINT},
 		{"subCategoryId", Types.BIGINT}, {"remarks", Types.VARCHAR},
-		{"reference", Types.VARCHAR}, {"year", Types.BIGINT}
+		{"reference", Types.VARCHAR}, {"year", Types.BIGINT},
+		{"userPostId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -113,10 +114,11 @@ public class DocFileModelImpl
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("reference", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("year", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(75) null,reference VARCHAR(75) null,year LONG)";
+		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(75) null,reference VARCHAR(75) null,year LONG,userPostId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocFile";
@@ -347,6 +349,9 @@ public class DocFileModelImpl
 		attributeGetterFunctions.put("year", DocFile::getYear);
 		attributeSetterBiConsumers.put(
 			"year", (BiConsumer<DocFile, Long>)DocFile::setYear);
+		attributeGetterFunctions.put("userPostId", DocFile::getUserPostId);
+		attributeSetterBiConsumers.put(
+			"userPostId", (BiConsumer<DocFile, Long>)DocFile::setUserPostId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -793,6 +798,21 @@ public class DocFileModelImpl
 		_year = year;
 	}
 
+	@JSON
+	@Override
+	public long getUserPostId() {
+		return _userPostId;
+	}
+
+	@Override
+	public void setUserPostId(long userPostId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userPostId = userPostId;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -877,6 +897,7 @@ public class DocFileModelImpl
 		docFileImpl.setRemarks(getRemarks());
 		docFileImpl.setReference(getReference());
 		docFileImpl.setYear(getYear());
+		docFileImpl.setUserPostId(getUserPostId());
 
 		docFileImpl.resetOriginalValues();
 
@@ -923,6 +944,8 @@ public class DocFileModelImpl
 		docFileImpl.setReference(
 			this.<String>getColumnOriginalValue("reference"));
 		docFileImpl.setYear(this.<Long>getColumnOriginalValue("year"));
+		docFileImpl.setUserPostId(
+			this.<Long>getColumnOriginalValue("userPostId"));
 
 		return docFileImpl;
 	}
@@ -1112,6 +1135,8 @@ public class DocFileModelImpl
 
 		docFileCacheModel.year = getYear();
 
+		docFileCacheModel.userPostId = getUserPostId();
+
 		return docFileCacheModel;
 	}
 
@@ -1227,6 +1252,7 @@ public class DocFileModelImpl
 	private String _remarks;
 	private String _reference;
 	private long _year;
+	private long _userPostId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1279,6 +1305,7 @@ public class DocFileModelImpl
 		_columnOriginalValues.put("remarks", _remarks);
 		_columnOriginalValues.put("reference", _reference);
 		_columnOriginalValues.put("year", _year);
+		_columnOriginalValues.put("userPostId", _userPostId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1346,6 +1373,8 @@ public class DocFileModelImpl
 		columnBitmasks.put("reference", 1048576L);
 
 		columnBitmasks.put("year", 2097152L);
+
+		columnBitmasks.put("userPostId", 4194304L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

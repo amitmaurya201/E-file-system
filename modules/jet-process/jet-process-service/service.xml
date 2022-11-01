@@ -38,7 +38,7 @@
     	<column name="remarks" type="String" />
     	<column name="reference" type="String" />
     	<column name="year" type="long"/>
-
+        <column name="userPostId" type="long"/>
 		<!-- Order -->
 
 		<order by="asc">
@@ -112,6 +112,8 @@
 		<column name="organizationId" type="long" />
 		<column name="city" type="String" />
 		<column name="subOrganizationId" type="long" />
+        <column name="userPostId" type="long" />
+        		
 			
 		<!-- Order -->
 

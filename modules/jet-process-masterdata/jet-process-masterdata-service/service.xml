@@ -4,15 +4,27 @@
 <service-builder dependency-injector="ds"
 	package-path="io.jetprocess.masterdata">
 	<namespace>Masterdata</namespace>
-		<entity local-service="true" name="Masterdata"
+	<entity local-service="true" name="Masterdata"
 		remote-service="true">
 
 		<!-- PK fields -->
 		<column name="masterdataId" primary="true" type="String" />
 
 		<column name="referenceId" type="String"></column>
-
 		<column name="value" type="String" />
-		<column  name="code" type="String"></column>
+		<column name="code" type="String"></column>
+		
+	</entity>
+	
+	<entity local-service="true" name="UserPost"
+		remote-service="true" uuid="true" >
+
+		<!-- PK fields -->
+		<column name="userPostId" primary="true" type="String" />
+		<column name="groupId" type="long"></column>
+		<column name="postId" type="long"></column>
+		<column name="sectionId" type="long"></column>
+		<column name="description" type="long"></column>
+	
 	</entity>
 </service-builder>

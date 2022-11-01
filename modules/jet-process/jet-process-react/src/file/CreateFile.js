@@ -31,7 +31,7 @@ const CreateFile = () => {
         primaryHead: 0,
         secondaryHead: 0,
         tertiaryHead: 0,
-        year:  currentYear ,
+        year: currentYear,
         fileCode: 0,
         fileNumber: 0,
         subject: "",
@@ -72,6 +72,9 @@ const CreateFile = () => {
         if (e.target.name == "category") {
             getSubCategory(e.target.value);
         }
+        if (e.target.name == "reference") {
+            console.log(`Hello reference ${reference} Hello reference ${formValue.reference} `);
+        }
 
 
     }
@@ -79,36 +82,34 @@ const CreateFile = () => {
     const onType = (e) => {
 
         if (e.target.value === 'SFS') {
-            console.log("type is here"+e.target.value);
+            console.log("type is here" + e.target.value);
             setType(false);
         } else {
             setType(true);
         }
     }
-   const onSubmitHandle = (event) => {
-        console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId()+"nature :"+formValue.nature +"type :"+formValue.type+"basic-head-id  :"+formValue.basicHead+"primary-head-id  :"+formValue.primaryHead+"secondary-head-id  :"+formValue.secondaryHead+"tertiary-head-id  :"+formValue.tertiaryHead+"year  :"+formValue.year+"fileCode  :"+formValue.fileCode+"subject  :"+formValue.subject+"categoryId  :"+formValue.category+"subCategoyId  :"+formValue.subCategory+"remarks  :"+formValue.remark+"reference  :"+formValue.reference);
-alert(event.data);
-        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-sfs-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/file-number/${formValue.fileNumber}/subject/${formValue.subject}/category-id/${formValue.category}/sub-category-id/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}?p_auth=${Liferay.authToken}`)
+   
+    const onSubmitHandle = (event) => {
+        console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId() + "nature :" + formValue.nature + "type :" + formValue.type + "basic-head-id  :" + formValue.basicHead + "primary-head-id  :" + formValue.primaryHead + "secondary-head-id  :" + formValue.secondaryHead + "tertiary-head-id  :" + formValue.tertiaryHead + "year  :" + formValue.year + "fileCode  :" + formValue.fileCode + "subject  :" + formValue.subject + "categoryId  :" + formValue.category + "subCategoyId  :" + formValue.subCategory + "remarks  :" + formValue.remark + "reference  :" + formValue.reference);
+        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-non-sfs-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/basic-head-id/${formValue.basicHead}/primary-head-id/${formValue.primaryHead}/secondary-head-id/${formValue.secondaryHead}/tertiary-head-id/${formValue.tertiaryHead}/year/${formValue.year}/file-code-id/${formValue.fileCode}/subject/${formValue.subject}/category-id/${formValue.category}/sub-category-id/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}?p_auth=${Liferay.authToken}`)
             .then((response) => {
-                alert(response);
-                console.log("response.data.message", response.data.errorList);
-                
-                 swal(
+                console.log("response  .....", response);
+
+                swal(
                     {
-                         title: "successfull !",
+                        title: "successfull !",
                         text: `You Have successfully created Your File! And Your File Number is ${response.data.fileNumber} `,
                         icon: "success",
-                       button: "ok"
-                     }
-                 )
+                        button: "ok"
+                    }
+                )
             })
-             .catch(error => {
-              /*    resposeFail = true;
-                 onFail(); */
-                 console.log(error)
-             })
+            .catch(error => {
+                resposeFail = true;
+                onFail();
+                console.log(error)
+            })
         reset();
-
     }
     useEffect(() => {
         Axios.get(categoryUrl).then((response) => {
@@ -121,8 +122,8 @@ alert(event.data);
                 setCategory(array);
             }
         }).catch(error => {
-           /*  resposeFail = true;
-            onFail(); */
+            resposeFail = true;
+            onFail(); 
             console.log(error)
         }
         );
@@ -136,8 +137,8 @@ alert(event.data);
                 setBasicHeadData(array);
             }
         }).catch(error => {
-           /*  resposeFail = true;
-            onFail(); */
+            resposeFail = true;
+            onFail();
             console.log(error)
         }
         );
@@ -152,8 +153,8 @@ alert(event.data);
                 setFileCodeData(array);
             }
         }).catch(error => {
-          /*   resposeFail = true;
-            onFail(); */
+            resposeFail = true;
+            onFail();
             console.log("Hello......" + error)
         }
         );
@@ -171,8 +172,8 @@ alert(event.data);
                 setPrimaryHeadData(array);
             }
         }).catch(error => {
-          /*   resposeFail = true;
-            onFail(); */
+            resposeFail = true;
+            onFail();
             console.log(error)
         }
         );
@@ -190,8 +191,8 @@ alert(event.data);
             }
 
         }).catch(error => {
-           /*  resposeFail = true;
-            onFail(); */
+            resposeFail = true;
+            onFail();
             console.log(error)
         }
         );
@@ -208,9 +209,9 @@ alert(event.data);
                 setTertiaryHeadData(array);
             }
         }).catch(error => {
-           /*  resposeFail = true;
-            onFail();
- */
+             resposeFail = true;
+             onFail();
+  
             console.log(error)
         }
         );
@@ -230,28 +231,28 @@ alert(event.data);
 
         }).catch(error => {
 
-           /*  resposeFail = true;
-            onFail(); */
+             resposeFail = true;
+             onFail(); 
             console.log(error)
         }
         );
     }
     // ---------------------  Request Fail Message ----------------- 
 
-   /*  const onFail = () => {
-        if (resposeFail) {
-            console.log("Something went wrong ! We are Unable to load data..")
-            swal(
-                {
-                    title: "Opps Something Went Wrong !",
-                    text: "We Are Unable to load data !",
-                    icon: "error",
-                    button: "ok",
-                }
-            )
-            resposeFail = false;
-        }
-    } */
+      const onFail = () => {
+         if (resposeFail) {
+             console.log("Something went wrong ! We are Unable to load data..")
+             swal(
+                 {
+                     title: "Opps Something Went Wrong !",
+                     text: "We Are Unable to load data !",
+                     icon: "error",
+                     button: "ok",
+                 }
+             )
+             resposeFail = false;
+         }
+     } 
 
     return (
         <Fragment>
@@ -473,8 +474,8 @@ alert(event.data);
                                             <fieldset className="child-scheduler-border col-md-12">
                                                 <legend className="child-scheduler-border" >Reference</legend>
                                                 <input className="form-control col-md-12 " type="text" name="reference"
-                                                    id="reference" /* onChange={onchange} ref={register({ required: 'Reference is Required', maxLength: { value: 250, message: "Reference cann't be more than 250 letter" } })} */ />
-                                               {/*  {errors.reference && <span className="errors">{errors.reference.message}</span>} */}
+                                                    id="reference" onChange={onchange} ref={register({ required: 'Reference is Required', maxLength: { value: 250, message: "Reference cann't be more than 250 letter" } })} />
+                                                {errors.reference && <span className="errors">{errors.reference.message}</span>}
                                             </fieldset>
                                         </div>
                                     </fieldset>
@@ -491,6 +492,3 @@ alert(event.data);
     );
 }
 export default CreateFile;
-
-
-

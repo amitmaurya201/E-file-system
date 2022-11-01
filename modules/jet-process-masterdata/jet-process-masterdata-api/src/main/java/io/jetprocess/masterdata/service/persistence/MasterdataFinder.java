@@ -79,10 +79,10 @@ public interface MasterdataFinder {
 	public io.jetprocess.masterdata.model.Masterdata getTertiaryHeadById(
 		long tertiaryHeadId);
 
-	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
-		getFileData();
+	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedList();
 
-	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
-		getFileData1();
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptCreatedList();
 
 }

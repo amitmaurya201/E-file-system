@@ -61,16 +61,10 @@ public class MasterdataServiceUtil {
 		return getService().getFileCodeMasterdata();
 	}
 
-	public static List<io.jetprocess.masterdata.model.FileDto>
-		getFileMasterdata() {
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListMasterdata() {
 
-		return getService().getFileMasterdata();
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileDto>
-		getFileMasterdata1() {
-
-		return getService().getFileMasterdata1();
+		return getService().getFileCreatedListMasterdata();
 	}
 
 	public static List<Masterdata> getOrganizationMasterdata() {
@@ -96,6 +90,12 @@ public class MasterdataServiceUtil {
 
 	public static List<Masterdata> getReceiptCategoryMasterdata() {
 		return getService().getReceiptCategoryMasterdata();
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptListMasterdata() {
+
+		return getService().getReceiptListMasterdata();
 	}
 
 	public static List<Masterdata> getReceiptSubCategoryMasterdata(

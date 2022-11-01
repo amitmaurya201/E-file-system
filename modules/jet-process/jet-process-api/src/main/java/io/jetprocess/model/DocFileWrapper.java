@@ -65,6 +65,7 @@ public class DocFileWrapper
 		attributes.put("remarks", getRemarks());
 		attributes.put("reference", getReference());
 		attributes.put("year", getYear());
+		attributes.put("userPostId", getUserPostId());
 
 		return attributes;
 	}
@@ -201,6 +202,12 @@ public class DocFileWrapper
 
 		if (year != null) {
 			setYear(year);
+		}
+
+		Long userPostId = (Long)attributes.get("userPostId");
+
+		if (userPostId != null) {
+			setUserPostId(userPostId);
 		}
 	}
 
@@ -417,6 +424,16 @@ public class DocFileWrapper
 	@Override
 	public String getUserName() {
 		return model.getUserName();
+	}
+
+	/**
+	 * Returns the user post ID of this doc file.
+	 *
+	 * @return the user post ID of this doc file
+	 */
+	@Override
+	public long getUserPostId() {
+		return model.getUserPostId();
 	}
 
 	/**
@@ -662,6 +679,16 @@ public class DocFileWrapper
 	@Override
 	public void setUserName(String userName) {
 		model.setUserName(userName);
+	}
+
+	/**
+	 * Sets the user post ID of this doc file.
+	 *
+	 * @param userPostId the user post ID of this doc file
+	 */
+	@Override
+	public void setUserPostId(long userPostId) {
+		model.setUserPostId(userPostId);
 	}
 
 	/**

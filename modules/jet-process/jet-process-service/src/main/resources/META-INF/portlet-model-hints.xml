@@ -24,6 +24,7 @@
 		<field name="remarks" type="String" />
 		<field name="reference" type="String" />
 		<field name="year" type="long" />
+		<field name="userPostId" type="long" />
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />
@@ -57,5 +58,6 @@
 		<field name="organizationId" type="long" />
 		<field name="city" type="String" />
 		<field name="subOrganizationId" type="long" />
+		<field name="userPostId" type="long" />
 	</model>
 </model-hints>

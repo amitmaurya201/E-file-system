@@ -538,6 +538,20 @@ public interface ReceiptModel
 	 */
 	public void setSubOrganizationId(long subOrganizationId);
 
+	/**
+	 * Returns the user post ID of this receipt.
+	 *
+	 * @return the user post ID of this receipt
+	 */
+	public long getUserPostId();
+
+	/**
+	 * Sets the user post ID of this receipt.
+	 *
+	 * @param userPostId the user post ID of this receipt
+	 */
+	public void setUserPostId(long userPostId);
+
 	@Override
 	public Receipt cloneWithOriginalValues();
 

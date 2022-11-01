@@ -7,4 +7,12 @@
 		<field name="value" type="String" />
 		<field name="code" type="String" />
 	</model>
+	<model name="io.jetprocess.masterdata.model.UserPost">
+		<field name="uuid" type="String" />
+		<field name="userPostId" type="String" />
+		<field name="groupId" type="long" />
+		<field name="postId" type="long" />
+		<field name="sectionId" type="long" />
+		<field name="description" type="long" />
+	</model>
 </model-hints>
