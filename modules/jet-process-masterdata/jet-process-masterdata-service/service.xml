@@ -20,7 +20,7 @@
 		remote-service="true" uuid="true" >
 
 		<!-- PK fields -->
-		<column name="userPostId" primary="true" type="String" />
+		<column name="userPostId" primary="true" type="long" />
 		<column name="groupId" type="long"></column>
 		<column name="postId" type="long"></column>
 		<column name="sectionId" type="long"></column>
