@@ -139,6 +139,36 @@ public interface UserPostModel extends BaseModel<UserPost> {
 	 */
 	public void setDescription(long description);
 
+	/**
+	 * Returns the user name of this user post.
+	 *
+	 * @return the user name of this user post
+	 */
+	@AutoEscape
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this user post.
+	 *
+	 * @param userName the user name of this user post
+	 */
+	public void setUserName(String userName);
+
+	/**
+	 * Returns the short name of this user post.
+	 *
+	 * @return the short name of this user post
+	 */
+	@AutoEscape
+	public String getShortName();
+
+	/**
+	 * Sets the short name of this user post.
+	 *
+	 * @param shortName the short name of this user post
+	 */
+	public void setShortName(String shortName);
+
 	@Override
 	public UserPost cloneWithOriginalValues();
 

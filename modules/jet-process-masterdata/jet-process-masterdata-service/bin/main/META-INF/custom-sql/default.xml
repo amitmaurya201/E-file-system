@@ -3,14 +3,14 @@
 <sql id="getCategories">
 <![CDATA[
 SELECT  categorydataid as masterdataid ,'C-'||categorydataid as referenceid, categoryvalue as value , 'C-'||categoryvalue as code_
-	FROM master_schema.category;
+	FROM jetprocess_schema.category;
 ]]>
 
 </sql>
 <sql id="getSubCategories">
 <![CDATA[
 SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||subcategoryvalue as code_ , 'SC-'||subcategorydataid as referenceid 
-	FROM master_schema.subcategory  where categoryid = ? ;
+	FROM jetprocess_schema.subcategory  where categoryid = ? ;
 ]]>
 
 </sql>
@@ -19,7 +19,7 @@ SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||s
 <![CDATA[
 
 SELECT typeid as masterdataid ,'C-'||typeid as referenceid, 'C-'||typevalue as code_, typevalue as value
-	FROM master_schema.type;
+	FROM jetprocess_schema.type;
 
 ]]>
 
@@ -29,7 +29,7 @@ SELECT typeid as masterdataid ,'C-'||typeid as referenceid, 'C-'||typevalue as c
 <![CDATA[
 
 SELECT deliverymodeid as masterdataid ,  'C-'||deliverymodeid as referenceid, 'C-'||deliverymodevalue as code_, deliverymodevalue as value
-	FROM master_schema.deliverymode;
+	FROM jetprocess_schema.deliverymode;
 
 ]]>
 
@@ -38,7 +38,7 @@ SELECT deliverymodeid as masterdataid ,  'C-'||deliverymodeid as referenceid, 'C
 <![CDATA[
 
 SELECT filecodeid as masterdataid ,  'C-'||filecodeid as referenceid, 'C-'||filecodevalue as code_,  filecodevalue as value
-	FROM master_schema.filecode;
+	FROM jetprocess_schema.filecode;
 
 ]]>
 
@@ -46,8 +46,8 @@ SELECT filecodeid as masterdataid ,  'C-'||filecodeid as referenceid, 'C-'||file
 <sql id="getBasicHeads">
 <![CDATA[
 
-SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basicheadvalue as value , basicheadcode as code_
-	FROM basichead;
+SELECT basicheaddataid as masterdataid , 'C-'||basicheaddataid as referenceid , basicheadvalue as value , basicheadcode as code_
+	FROM jetprocess_schema.basichead;
 
 ]]>
 
@@ -55,8 +55,8 @@ SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basichea
 <sql id="getPrimaryHeads">
 <![CDATA[
 
-SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value , primaryheadcode as code_
-	FROM primaryhead where basicheadid = ?;
+SELECT primaryheaddataid as masterdataid ,  'C-'||primaryheaddataid as referenceid , primaryheadvalue as value , primaryheadcode as code_
+	FROM jetprocess_schema.primaryhead where basicheaddataid = ?;
 
 ]]>
 
@@ -64,8 +64,8 @@ SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , pri
 <sql id="getSecondaryHeads">
 <![CDATA[
 
-SELECT secondaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
-	FROM secondaryhead where primaryheadid = ?;
+SELECT secondaryheaddataid as masterdataid ,  'C-'||secondaryheaddataid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
+	FROM jetprocess_schema.secondaryhead where primaryheaddataid = ?;
 
 ]]>
 
@@ -73,8 +73,8 @@ SELECT secondaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , s
 <sql id="getTeritaryHeads">
 <![CDATA[
 
-SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
-	FROM tertiaryhead where secondaryheadid = ?;
+SELECT teritaryheaddataid as masterdataid ,  'C-'||teritaryheaddataid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
+	FROM jetprocess_schema.tertiaryhead where secondaryheaddataid = ?;
 
 ]]>
 
@@ -82,8 +82,8 @@ SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , t
 <sql id="getOrganizations">
 <![CDATA[
 
-SELECT organizationid as masterdataid ,  'C-'||organizationid as referenceid , organizationvalue as value , organizationcode as code_
-	FROM organization ;
+SELECT organizationdataid as masterdataid ,  'C-'||organizationdataid as referenceid , organizationvalue as value , organizationcode as code_
+	FROM jetprocess_schema.organization ;
 
 ]]>
 
@@ -91,8 +91,8 @@ SELECT organizationid as masterdataid ,  'C-'||organizationid as referenceid , o
 <sql id="getSubOrganizations">
 <![CDATA[
 
-SELECT  suborganizationid as masterdataid ,  'C-'||suborganizationid as referenceid ,'C-'||suborganizationvalue as code_ , suborganizationvalue as value
-	FROM suborganization where organizationid = ?;
+SELECT  suborganizationdataid as masterdataid ,  'C-'||suborganizationdataid as referenceid ,'C-'||suborganizationvalue as code_ , suborganizationvalue as value
+	FROM jetprocess_schema.suborganization where organizationdataid = ?;
 
 ]]>
 
@@ -100,8 +100,8 @@ SELECT  suborganizationid as masterdataid ,  'C-'||suborganizationid as referenc
 <sql id="getReceiptCategory">
 <![CDATA[
 
-SELECT  receiptcategoryid as masterdataid ,  'C-'||receiptcategoryid as referenceid , 'C-'||receiptcategoryvalue as code_ , receiptcategoryvalue as value
-	FROM receiptcategory;
+SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as referenceid , 'C-'||receiptcategoryvalue as code_ , receiptcategoryvalue as value
+	FROM jetprocess_schema.receiptcategory;
 
 ]]>
 
@@ -109,8 +109,8 @@ SELECT  receiptcategoryid as masterdataid ,  'C-'||receiptcategoryid as referenc
 <sql id="getReceiptSubCategory">
 <![CDATA[
 
-SELECT  receiptsubcategoryid as masterdataid ,  'C-'||receiptsubcategoryid as referenceid , 'C-'||receiptsubcategoryvalue as code_ , receiptsubcategoryvalue as value
-	FROM receiptsubcategory where receiptcategoryid = ?;
+SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as referenceid , 'C-'||receiptsubcategoryvalue as code_ , receiptsubcategoryvalue as value
+	FROM jetprocess_schema.receiptsubcategory where receiptcategorydataid = ?;
 
 ]]>
 
@@ -119,8 +119,8 @@ SELECT  receiptsubcategoryid as masterdataid ,  'C-'||receiptsubcategoryid as re
 <sql id="getCountries">
 <![CDATA[
 
-SELECT  countryid as masterdataid ,  'C-'||countryid as referenceid , countryvalue as value ,  countrycode as code_
-	FROM masterdatacountry ;
+SELECT  countrydataid as masterdataid ,  'C-'||countrydataid as referenceid , countryvalue as value ,  countrycode as code_
+	FROM jetprocess_schema.country ;
 
 ]]>
 
@@ -130,8 +130,8 @@ SELECT  countryid as masterdataid ,  'C-'||countryid as referenceid , countryval
 <![CDATA[
 
 
-SELECT  stateid as masterdataid ,  'C-'||stateid as referenceid , statecode as code_ ,statevalue as value
-	FROM masterdatastate where countryid = ?;
+SELECT  statedataid as masterdataid ,  'C-'||statedataid as referenceid , statecode as code_ ,statevalue as value
+	FROM jetprocess_schema.state where countrydataid = ?;
 
 ]]>
 
@@ -140,8 +140,8 @@ SELECT  stateid as masterdataid ,  'C-'||stateid as referenceid , statecode as c
 <sql id="getBasicHeadById">
 <![CDATA[
 
-SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basicheadvalue as value , basicheadcode as code_
-	FROM basichead where basicheadid = ? ;
+SELECT basicheaddataid as masterdataid , 'C-'||basicheaddataid as referenceid , basicheadvalue as value , basicheadcode as code_
+	FROM jetprocess_schema.basichead where basicheaddataid = ? ;
 
 ]]>
 
@@ -150,8 +150,8 @@ SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basichea
 <![CDATA[
 
 
-SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value , primaryheadcode as code_
-	FROM primaryhead where primaryheadid = ?;
+SELECT primaryheaddataid as masterdataid ,  'C-'||primaryheaddataid as referenceid , primaryheadvalue as value , primaryheadcode as code_
+	FROM jetprocess_schema.primaryhead where primaryheaddataid = ?;
 
 
 ]]>
@@ -160,34 +160,25 @@ SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , pri
 <sql id="getSecondaryHeadById">
 <![CDATA[
 
-SELECT secondaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
-	FROM secondaryhead where secondaryheadid = ?;
+SELECT secondaryheaddataid as masterdataid ,  'C-'||secondaryheaddataid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
+	FROM jetprocess_schema.secondaryhead where secondaryheaddataid = ?;
 ]]>
 
 </sql>
 <sql id="getTertiaryHeadById">
 <![CDATA[
-SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
-	FROM tertiaryhead where teritaryheadid = ?;
+SELECT tertiaryheaddataid as masterdataid ,  'C-'||tertiaryheaddataid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
+	FROM jetprocess_schema.tertiaryhead where tertiaryheaddataid = ?;
 ]]>
 
 </sql>
 
-<sql id="getFileDataCategory">
-<![CDATA[
-
-
-SELECT categoryid as masterdataid ,  'C-'||categoryid as referenceid , categoryvalue as value , categoryvalue as code_
-	FROM jet_process_docfile INNER JOIN master_schema.category  ON categorydataid = categoryid
-]]>
-
-</sql>
 
 <sql id="fileCreatedListQuery">
 <![CDATA[
 SELECT filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
 	FROM jet_process_docfile  INNER JOIN 
-	master_schema.category  ON categorydataid = categoryid
+	jetprocess_schema.category  ON categorydataid = categoryid
 ]]>
 
 </sql>
@@ -197,7 +188,7 @@ SELECT filenumber as filenumber , subject as subject , categoryvalue as category
 
 SELECT receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
 	FROM jet_process_receipt INNER JOIN 
-	master_schema.category  ON categorydataid = receiptcategoryid
+	jetprocess_schema.category  ON categorydataid = receiptcategoryid
 ]]>
 
 </sql>

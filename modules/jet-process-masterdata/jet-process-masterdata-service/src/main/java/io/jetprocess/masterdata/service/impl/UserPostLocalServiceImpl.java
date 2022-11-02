@@ -16,6 +16,9 @@ package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import java.util.List;
+
+import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.base.UserPostLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -23,9 +26,17 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.masterdata.model.UserPost",
-	service = AopService.class
-)
+@Component(property = "model.class.name=io.jetprocess.masterdata.model.UserPost", service = AopService.class)
 public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
+
+	public List<UserPost> getUserPostList(long userId) {
+
+		return null;
+	}
+
+	public UserPost getUserPostById(long userPostId) {
+
+		return null;
+	}
+
 }

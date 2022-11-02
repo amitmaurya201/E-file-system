@@ -14,5 +14,7 @@
 		<field name="postId" type="long" />
 		<field name="sectionId" type="long" />
 		<field name="description" type="long" />
+		<field name="userName" type="String" />
+		<field name="shortName" type="String" />
 	</model>
 </model-hints>

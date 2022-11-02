@@ -254,6 +254,10 @@ public class UserPostLocalServiceUtil {
 		return getService().getUserPost(userPostId);
 	}
 
+	public static UserPost getUserPostById(long userPostId) {
+		return getService().getUserPostById(userPostId);
+	}
+
 	/**
 	 * Returns the user post matching the UUID and group.
 	 *
@@ -267,6 +271,10 @@ public class UserPostLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getUserPostByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static List<UserPost> getUserPostList(long userId) {
+		return getService().getUserPostList(userId);
 	}
 
 	/**

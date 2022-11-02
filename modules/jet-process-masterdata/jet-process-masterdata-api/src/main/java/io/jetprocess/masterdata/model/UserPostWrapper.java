@@ -47,6 +47,8 @@ public class UserPostWrapper
 		attributes.put("postId", getPostId());
 		attributes.put("sectionId", getSectionId());
 		attributes.put("description", getDescription());
+		attributes.put("userName", getUserName());
+		attributes.put("shortName", getShortName());
 
 		return attributes;
 	}
@@ -87,6 +89,18 @@ public class UserPostWrapper
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		String shortName = (String)attributes.get("shortName");
+
+		if (shortName != null) {
+			setShortName(shortName);
 		}
 	}
 
@@ -143,6 +157,26 @@ public class UserPostWrapper
 	@Override
 	public long getSectionId() {
 		return model.getSectionId();
+	}
+
+	/**
+	 * Returns the short name of this user post.
+	 *
+	 * @return the short name of this user post
+	 */
+	@Override
+	public String getShortName() {
+		return model.getShortName();
+	}
+
+	/**
+	 * Returns the user name of this user post.
+	 *
+	 * @return the user name of this user post
+	 */
+	@Override
+	public String getUserName() {
+		return model.getUserName();
 	}
 
 	/**
@@ -218,6 +252,26 @@ public class UserPostWrapper
 	@Override
 	public void setSectionId(long sectionId) {
 		model.setSectionId(sectionId);
+	}
+
+	/**
+	 * Sets the short name of this user post.
+	 *
+	 * @param shortName the short name of this user post
+	 */
+	@Override
+	public void setShortName(String shortName) {
+		model.setShortName(shortName);
+	}
+
+	/**
+	 * Sets the user name of this user post.
+	 *
+	 * @param userName the user name of this user post
+	 */
+	@Override
+	public void setUserName(String userName) {
+		model.setUserName(userName);
 	}
 
 	/**

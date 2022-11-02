@@ -60,7 +60,7 @@ public class UserPostCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -74,6 +74,10 @@ public class UserPostCacheModel
 		sb.append(sectionId);
 		sb.append(", description=");
 		sb.append(description);
+		sb.append(", userName=");
+		sb.append(userName);
+		sb.append(", shortName=");
+		sb.append(shortName);
 		sb.append("}");
 
 		return sb.toString();
@@ -102,6 +106,20 @@ public class UserPostCacheModel
 		userPostImpl.setSectionId(sectionId);
 		userPostImpl.setDescription(description);
 
+		if (userName == null) {
+			userPostImpl.setUserName("");
+		}
+		else {
+			userPostImpl.setUserName(userName);
+		}
+
+		if (shortName == null) {
+			userPostImpl.setShortName("");
+		}
+		else {
+			userPostImpl.setShortName(shortName);
+		}
+
 		userPostImpl.resetOriginalValues();
 
 		return userPostImpl;
@@ -119,6 +137,8 @@ public class UserPostCacheModel
 		sectionId = objectInput.readLong();
 
 		description = objectInput.readLong();
+		userName = objectInput.readUTF();
+		shortName = objectInput.readUTF();
 	}
 
 	@Override
@@ -144,6 +164,20 @@ public class UserPostCacheModel
 		objectOutput.writeLong(sectionId);
 
 		objectOutput.writeLong(description);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		if (shortName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(shortName);
+		}
 	}
 
 	public String uuid;
@@ -152,5 +186,7 @@ public class UserPostCacheModel
 	public long postId;
 	public long sectionId;
 	public long description;
+	public String userName;
+	public String shortName;
 
 }

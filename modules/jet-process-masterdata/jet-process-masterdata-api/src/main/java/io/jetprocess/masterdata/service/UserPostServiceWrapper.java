@@ -45,6 +45,20 @@ public class UserPostServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.UserPost getUserPostById(
+		long userPostId) {
+
+		return _userPostService.getUserPostById(userPostId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.UserPost>
+		getUserPostList(long userId) {
+
+		return _userPostService.getUserPostList(userId);
+	}
+
+	@Override
 	public UserPostService getWrappedService() {
 		return _userPostService;
 	}

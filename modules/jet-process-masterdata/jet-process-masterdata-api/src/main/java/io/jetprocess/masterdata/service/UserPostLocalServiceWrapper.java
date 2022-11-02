@@ -284,6 +284,13 @@ public class UserPostLocalServiceWrapper
 		return _userPostLocalService.getUserPost(userPostId);
 	}
 
+	@Override
+	public io.jetprocess.masterdata.model.UserPost getUserPostById(
+		long userPostId) {
+
+		return _userPostLocalService.getUserPostById(userPostId);
+	}
+
 	/**
 	 * Returns the user post matching the UUID and group.
 	 *
@@ -298,6 +305,13 @@ public class UserPostLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userPostLocalService.getUserPostByUuidAndGroupId(uuid, groupId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.UserPost>
+		getUserPostList(long userId) {
+
+		return _userPostLocalService.getUserPostList(userId);
 	}
 
 	/**

@@ -14,6 +14,10 @@
 
 package io.jetprocess.masterdata.service;
 
+import io.jetprocess.masterdata.model.UserPost;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for UserPost. This utility wraps
  * <code>io.jetprocess.masterdata.service.impl.UserPostServiceImpl</code> and is an
@@ -39,8 +43,16 @@ public class UserPostServiceUtil {
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static UserPost getUserPostById(long userPostId) {
+		return getService().getUserPostById(userPostId);
+	}
+
+	public static List<UserPost> getUserPostList(long userId) {
+		return getService().getUserPostList(userId);
 	}
 
 	public static UserPostService getService() {

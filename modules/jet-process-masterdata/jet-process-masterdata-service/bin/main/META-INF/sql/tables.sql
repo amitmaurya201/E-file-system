@@ -11,5 +11,7 @@ create table Masterdata_UserPost (
 	groupId LONG,
 	postId LONG,
 	sectionId LONG,
-	description LONG
+	description LONG,
+	userName VARCHAR(75) null,
+	shortName VARCHAR(75) null
 );

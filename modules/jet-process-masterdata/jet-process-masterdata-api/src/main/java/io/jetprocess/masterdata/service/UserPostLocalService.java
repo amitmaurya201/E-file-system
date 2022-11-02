@@ -233,6 +233,9 @@ public interface UserPostLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserPost getUserPost(String userPostId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public UserPost getUserPostById(long userPostId);
+
 	/**
 	 * Returns the user post matching the UUID and group.
 	 *
@@ -244,6 +247,9 @@ public interface UserPostLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserPost getUserPostByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserPost> getUserPostList(long userId);
 
 	/**
 	 * Returns a range of all the user posts.

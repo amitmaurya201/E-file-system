@@ -68,7 +68,8 @@ public class UserPostModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"userPostId", Types.VARCHAR},
 		{"groupId", Types.BIGINT}, {"postId", Types.BIGINT},
-		{"sectionId", Types.BIGINT}, {"description", Types.BIGINT}
+		{"sectionId", Types.BIGINT}, {"description", Types.BIGINT},
+		{"userName", Types.VARCHAR}, {"shortName", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -81,10 +82,12 @@ public class UserPostModelImpl
 		TABLE_COLUMNS_MAP.put("postId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("sectionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("description", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("shortName", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Masterdata_UserPost (uuid_ VARCHAR(75) null,userPostId VARCHAR(75) not null primary key,groupId LONG,postId LONG,sectionId LONG,description LONG)";
+		"create table Masterdata_UserPost (uuid_ VARCHAR(75) null,userPostId VARCHAR(75) not null primary key,groupId LONG,postId LONG,sectionId LONG,description LONG,userName VARCHAR(75) null,shortName VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Masterdata_UserPost";
@@ -249,6 +252,12 @@ public class UserPostModelImpl
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<UserPost, Long>)UserPost::setDescription);
+		attributeGetterFunctions.put("userName", UserPost::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName", (BiConsumer<UserPost, String>)UserPost::setUserName);
+		attributeGetterFunctions.put("shortName", UserPost::getShortName);
+		attributeSetterBiConsumers.put(
+			"shortName", (BiConsumer<UserPost, String>)UserPost::setShortName);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -374,6 +383,46 @@ public class UserPostModelImpl
 		_description = description;
 	}
 
+	@JSON
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@JSON
+	@Override
+	public String getShortName() {
+		if (_shortName == null) {
+			return "";
+		}
+		else {
+			return _shortName;
+		}
+	}
+
+	@Override
+	public void setShortName(String shortName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_shortName = shortName;
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -423,6 +472,8 @@ public class UserPostModelImpl
 		userPostImpl.setPostId(getPostId());
 		userPostImpl.setSectionId(getSectionId());
 		userPostImpl.setDescription(getDescription());
+		userPostImpl.setUserName(getUserName());
+		userPostImpl.setShortName(getShortName());
 
 		userPostImpl.resetOriginalValues();
 
@@ -442,6 +493,10 @@ public class UserPostModelImpl
 			this.<Long>getColumnOriginalValue("sectionId"));
 		userPostImpl.setDescription(
 			this.<Long>getColumnOriginalValue("description"));
+		userPostImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		userPostImpl.setShortName(
+			this.<String>getColumnOriginalValue("shortName"));
 
 		return userPostImpl;
 	}
@@ -532,6 +587,22 @@ public class UserPostModelImpl
 		userPostCacheModel.sectionId = getSectionId();
 
 		userPostCacheModel.description = getDescription();
+
+		userPostCacheModel.userName = getUserName();
+
+		String userName = userPostCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			userPostCacheModel.userName = null;
+		}
+
+		userPostCacheModel.shortName = getShortName();
+
+		String shortName = userPostCacheModel.shortName;
+
+		if ((shortName != null) && (shortName.length() == 0)) {
+			userPostCacheModel.shortName = null;
+		}
 
 		return userPostCacheModel;
 	}
@@ -631,6 +702,8 @@ public class UserPostModelImpl
 	private long _postId;
 	private long _sectionId;
 	private long _description;
+	private String _userName;
+	private String _shortName;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -667,6 +740,8 @@ public class UserPostModelImpl
 		_columnOriginalValues.put("postId", _postId);
 		_columnOriginalValues.put("sectionId", _sectionId);
 		_columnOriginalValues.put("description", _description);
+		_columnOriginalValues.put("userName", _userName);
+		_columnOriginalValues.put("shortName", _shortName);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -701,6 +776,10 @@ public class UserPostModelImpl
 		columnBitmasks.put("sectionId", 16L);
 
 		columnBitmasks.put("description", 32L);
+
+		columnBitmasks.put("userName", 64L);
+
+		columnBitmasks.put("shortName", 128L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
