@@ -30,13 +30,18 @@ import org.osgi.service.component.annotations.Component;
 public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 
 	public List<UserPost> getUserPostList(long userId) {
-
-		return null;
+           List<UserPost> userPostlist = userPostLocalService.getUserPostList(72606);
+           for (UserPost userPost : userPostlist) {
+			System.out.println("data"  +userPost );
+		}
+		return userPostlist;
 	}
 
 	public UserPost getUserPostById(long userPostId) {
+		UserPost userPost = userPostLocalService.getUserPostById(1);
+		
 
-		return null;
+		return userPost;
 	}
 
 }

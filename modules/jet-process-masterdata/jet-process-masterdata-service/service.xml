@@ -24,9 +24,10 @@
 		<column name="groupId" type="long"></column>
 		<column name="postId" type="long"></column>
 		<column name="sectionId" type="long"></column>
-		<column name="description" type="long"></column>
+		<column name="description" type="String"></column>
 		<column name="userName" type="String"></column>
 		<column name="shortName" type="String"></column>
+		<column name="userId" type="long"></column>
 	
 	</entity>
 </service-builder>

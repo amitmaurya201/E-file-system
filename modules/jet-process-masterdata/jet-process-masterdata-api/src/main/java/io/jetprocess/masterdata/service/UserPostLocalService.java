@@ -15,7 +15,9 @@
 package io.jetprocess.masterdata.service;
 
 import com.liferay.petra.sql.dsl.query.DSLQuery;
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -87,7 +89,7 @@ public interface UserPostLocalService
 	 * @return the new user post
 	 */
 	@Transactional(enabled = false)
-	public UserPost createUserPost(String userPostId);
+	public UserPost createUserPost(long userPostId);
 
 	/**
 	 * @throws PortalException
@@ -108,7 +110,7 @@ public interface UserPostLocalService
 	 * @throws PortalException if a user post with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public UserPost deleteUserPost(String userPostId) throws PortalException;
+	public UserPost deleteUserPost(long userPostId) throws PortalException;
 
 	/**
 	 * Deletes the user post from the database. Also notifies the appropriate model listeners.
@@ -196,7 +198,7 @@ public interface UserPostLocalService
 		DynamicQuery dynamicQuery, Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public UserPost fetchUserPost(String userPostId);
+	public UserPost fetchUserPost(long userPostId);
 
 	/**
 	 * Returns the user post matching the UUID and group.
@@ -207,6 +209,12 @@ public interface UserPostLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserPost fetchUserPostByUuidAndGroupId(String uuid, long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -231,7 +239,7 @@ public interface UserPostLocalService
 	 * @throws PortalException if a user post with the primary key could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public UserPost getUserPost(String userPostId) throws PortalException;
+	public UserPost getUserPost(long userPostId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserPost getUserPostById(long userPostId);
