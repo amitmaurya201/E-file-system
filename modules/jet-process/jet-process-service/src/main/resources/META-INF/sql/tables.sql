@@ -43,7 +43,6 @@ create table JET_PROCESS_Receipt (
 	receiptSubCategoryId LONG,
 	subject VARCHAR(75) null,
 	remarks VARCHAR(75) null,
-	document VARCHAR(75) null,
 	name VARCHAR(75) null,
 	designation VARCHAR(75) null,
 	mobile VARCHAR(75) null,
@@ -56,5 +55,7 @@ create table JET_PROCESS_Receipt (
 	organizationId LONG,
 	city VARCHAR(75) null,
 	subOrganizationId LONG,
-	userPostId LONG
+	userPostId LONG,
+	viewPdfUrl VARCHAR(75) null,
+	dmFileId LONG
 );

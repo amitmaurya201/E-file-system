@@ -32,10 +32,11 @@ import io.jetprocess.docstore.DocStore;
 
 @Component(immediate = true, service = DocStore.class)
 public class DocStoreImpl implements DocStore {
+	
 	@Override
-	public long uploadFile(long groupId, InputStream is, String title, String mimeType, String changeLog,long totalSpace, String description) throws PortalException {
+	public long documentAndMediaFileUpload(long groupId, long fileEntryId, InputStream is, String title,String mimeType, String changeLog, long totalSpace, String description)throws PortalException, IOException {	
 		long folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
-		long fileId = 0l;
+		long documentAndMediaFileId = 0l;
 		long userId = PrincipalThreadLocal.getUserId();
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setUserId(userId);
@@ -43,14 +44,74 @@ public class DocStoreImpl implements DocStore {
 		if(!isFolderExist(groupId, folderId)) {
 			createFolder(groupId, folderId, description);
 			long subFolderId = subFolderId(groupId);
-			 FileEntry fileEntry = DLAppServiceUtil.addFileEntry("", groupId, subFolderId, title, mimeType,title, description, "", changeLog, is, 0l, null, null, serviceContext);
-			 fileId = fileEntry.getFileEntryId();
-			}
+			FileEntry fileEntry = DLAppServiceUtil.addFileEntry("", groupId, subFolderId, title, mimeType,title, description, "", changeLog, is, 0l, null, null, serviceContext);
+			 documentAndMediaFileId = fileEntry.getFileEntryId();
+		}
 		long subFolderId = subFolderId(groupId);
 		FileEntry fileEntry = DLAppServiceUtil.addFileEntry("", groupId, subFolderId, title, mimeType,title, description, "", changeLog, is, 0l, null, null, serviceContext);
-		fileId = fileEntry.getFileEntryId();
-		return fileId;
+		 documentAndMediaFileId = fileEntry.getFileEntryId();
+		return documentAndMediaFileId;
 	}
+
+
+	@Override
+	public String downloadDocumentAndMediaFile(String groupId,long fileEntryId) throws PortalException, IOException {
+		long siteId= Long.parseLong(groupId);
+		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
+		Group group = GroupLocalServiceUtil.getGroup(siteId);
+		Company company = CompanyLocalServiceUtil.getCompany(group.getCompanyId());
+		String portalURL = PortalUtil.getPortalURL(company.getVirtualHostname(), PortalUtil.getPortalLocalPort(false), false);
+		String url = portalURL + "/c/document_library/get_file?uuid=" + fileEntry.getUuid() + "&amp;groupId=" + fileEntry.getGroupId();	
+		return url;
+	}
+	@Override
+	public String ViewDocumentAndMediaFile(long fileEntryId) throws PortalException, IOException {
+		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
+		StringBundler sb = new StringBundler();
+		try { 
+			sb.append("http://localhost:8080/documents/");
+			sb.append(fileEntry.getGroupId());
+			sb.append(StringPool.SLASH);
+			sb.append(fileEntry.getFolderId());
+			sb.append(StringPool.SLASH);
+			sb.append(URLCodec.encodeURL(HtmlUtil.unescape(fileEntry.getTitle()), true));
+			sb.append("?version=");
+			sb.append(fileEntry.getFileVersion().getVersion());
+			sb.append("&amp;t="); 
+			Date modifiedDate = fileEntry.getFileVersion().getModifiedDate();
+			sb.append(modifiedDate.getTime());	 
+	
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+		return sb.toString();
+}
+
+
+	@Override
+	public void deleteTempFile(long fileEntryId) throws PortalException {
+		FileEntry fileEntry = DLAppServiceUtil.getFileEntry(fileEntryId);
+		long groupId =fileEntry.getGroupId();
+		long folderId=fileEntry.getFolderId();
+		String fileName = fileEntry.getFileName();
+	    String folderName = "JetProcessDocStore";
+		DLAppServiceUtil.deleteTempFileEntry(groupId, folderId, folderName, fileName);
+		
+	}
+
+	@Override
+	public FileEntry getTempFile(long fileEntryId) throws PortalException {
+		FileEntry fileEntry = DLAppServiceUtil.getFileEntry(fileEntryId);
+		return fileEntry;
+	}
+
+	@Override
+	public long tempFileUpload(long siteId, long parentFolderId, String folderName, String fileName, InputStream inputStream, String contentType) throws PortalException {
+		FileEntry fileEntry = DLAppServiceUtil.addTempFileEntry(siteId, parentFolderId, folderName, fileName,inputStream, contentType);
+		long tempFileId = fileEntry.getFileEntryId();
+		return tempFileId;
+	}
+
 
 	private boolean isFolderExist(long groupId, long folderId) {
 		boolean folderExist = false;
@@ -116,40 +177,6 @@ public class DocStoreImpl implements DocStore {
 
 		}
 	}
-	@Override
-	public String getFile(String groupId,long fileEntryId) throws PortalException, IOException {
-		long siteId= Long.parseLong(groupId);
-		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
-		Group group = GroupLocalServiceUtil.getGroup(siteId);
-		Company company = CompanyLocalServiceUtil.getCompany(group.getCompanyId());
-		System.out.println(company.getVirtualHostname());
-		System.out.println(PortalUtil.getPortalLocalPort(false));	
-		String portalURL = PortalUtil.getPortalURL(company.getVirtualHostname(), PortalUtil.getPortalLocalPort(false), false);
-		String url = portalURL + "/c/document_library/get_file?uuid=" + fileEntry.getUuid() + "&amp;groupId=" + fileEntry.getGroupId();	
-		return url;
-	}
-	@Override
-	public String viewFile(String groupId,long fileEntryId) throws PortalException, IOException {
-		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
-		StringBundler sb = new StringBundler();
-		try { 
-			sb.append("/documents/");
-			sb.append(fileEntry.getGroupId());
-			sb.append(StringPool.SLASH);
-			sb.append(fileEntry.getFolderId());
-			sb.append(StringPool.SLASH);
-			sb.append(URLCodec.encodeURL(HtmlUtil.unescape(fileEntry.getTitle()), true));
-			sb.append("?version=");
-			sb.append(fileEntry.getFileVersion().getVersion());
-			sb.append("&amp;t="); 
-			Date modifiedDate = fileEntry.getFileVersion().getModifiedDate();
-			sb.append(modifiedDate.getTime());	 
-	
-	}catch (Exception e) {
-		e.printStackTrace();
-	}
-		return sb.toString();
-}
 }
 	
 	  

@@ -19,16 +19,20 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
-import io.jetprocess.exception.NoSuchReceiptException;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import io.jetprocess.docstore.DocStore;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
@@ -39,9 +43,9 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 	
-	public Receipt createReceipt(long groupId,long typeId,long deliveryModeId, Date receivedOn, Date letterDate,
+	public Receipt createReceipt(long groupId,long typeId,long tempfileEntryId,long deliveryModeId, Date receivedOn, Date letterDate,
 			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
-			String subject, String remarks, String document, String name, String designation,
+			String subject, String remarks, String name, String designation,
 			String mobile, String email, String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
 		// Get Group(Site) and user Information
@@ -49,14 +53,36 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		long userId = serviceContext.getUserId();
 		User user = userLocalService.getUser(userId);
 		String number = null;
+		String changeLog = "docStore";
+		FileEntry fileEntry =docstore.getTempFile(tempfileEntryId);
+	
+		String title = fileEntry.getFileName();
+		
+		InputStream is = fileEntry.getContentStream();
+		String mimeType=fileEntry.getMimeType();
+		String viewFileUrl = null;
+		try {
+			 viewFileUrl = docstore.ViewDocumentAndMediaFile(tempfileEntryId);
+		} catch (IOException e1) {
+		
+			e1.printStackTrace();
+		}
+		long documentAndMediaFileId = 0l;
+		try {
+			documentAndMediaFileId =docstore.documentAndMediaFileUpload(groupId, tempfileEntryId, is, title, mimeType, changeLog, 0l, "");
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		docstore.deleteTempFile(tempfileEntryId);
 		// Generate A New Primary Key For The ContactDetails
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
 		// number=generateReceiptNumber(receiptId);
-		System.out.println(receiptId);
 		Receipt receipt = createReceipt(receiptId);
 
 		// 1.Update Actual Fields
 		receipt.setTypeId(typeId);
+		receipt.setDmFileId(documentAndMediaFileId);
 		receipt.setDeliveryModeId(deliveryModeId);
 		receipt.setReceivedOn(receivedOn);
 		receipt.setLetterDate(letterDate);
@@ -64,7 +90,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setModeNumber(modeNumber);
 		receipt.setOrganizationId(organizationId);
 		receipt.setReceiptCategoryId(receiptCategoryId);
-		receipt.setDocument(document);
+		receipt.setViewPdfUrl(viewFileUrl);
 		receipt.setReceiptSubCategoryId(receiptSubCategoryId);
 		receipt.setSubject(subject);
 		receipt.setRemarks(remarks);
@@ -88,11 +114,10 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		number=generateReceiptNumber(receiptId);
 		receipt.setReceiptNumber(number);
 		receipt = super.addReceipt(receipt);
-		
 		return receipt;
 	}
 	
-	public Receipt updateReceipt(long receiptId,long groupId, long typeId,long deliveryModeId, Date receivedOn, Date letterDate,
+	public Receipt updateReceipt(long receiptId,long groupId, long typeId,long tempfileEntryId,long deliveryModeId, Date receivedOn, Date letterDate,
 			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
 			String subject, String remarks, String document, String name, String designation,
 			String mobile, String email, String address, long countryId, long stateId, String pinCode,
@@ -101,8 +126,32 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 	       Group group = groupLocalService.getGroup(groupId);
 			long userId = serviceContext.getUserId();
 			User user = userLocalService.getUser(userId);
+			//file fields
+			String changeLog = "docStore";
+			FileEntry fileEntry =docstore.getTempFile(tempfileEntryId);
+		
+			String title = fileEntry.getFileName();
+			
+			InputStream is = fileEntry.getContentStream();
+			String mimeType=fileEntry.getMimeType();
+			String viewFileUrl = null;
+			try {
+				 viewFileUrl = docstore.ViewDocumentAndMediaFile(tempfileEntryId);
+			} catch (IOException e1) {
+			
+				e1.printStackTrace();
+			}
+			long documentAndMediaFileId = 0l;
+			try {
+				documentAndMediaFileId =docstore.documentAndMediaFileUpload(groupId, tempfileEntryId, is, title, mimeType, changeLog, 0l, "");
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			docstore.deleteTempFile(tempfileEntryId);
 	    // 1.Update Actual Fields
 			receipt.setTypeId(typeId);
+			receipt.setDmFileId(documentAndMediaFileId);
 			receipt.setDeliveryModeId(deliveryModeId);
 			receipt.setReceivedOn(receivedOn);
 			receipt.setLetterDate(letterDate);
@@ -110,7 +159,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			receipt.setModeNumber(modeNumber);
 			receipt.setOrganizationId(organizationId);
 			receipt.setReceiptCategoryId(receiptCategoryId);
-			receipt.setDocument(document);
+			receipt.setViewPdfUrl(viewFileUrl);
 			receipt.setReceiptSubCategoryId(receiptSubCategoryId);
 			receipt.setSubject(subject);
 			receipt.setRemarks(remarks);
@@ -151,7 +200,12 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		return receiptNumber;
 
 	 }
-    public Receipt getReceiptByReceiptId(long receiptId) throws NoSuchReceiptException {
-		return  receiptPersistence.findByPrimaryKey(receiptId);
-	}
+
+	/*
+	 * public Receipt getReceiptByReceiptId(long receiptId) throws
+	 * NoSuchReceiptException { return
+	 * receiptPersistence.findByPrimaryKey(receiptId); }
+	 */
+	@Reference
+	private DocStore docstore;
 }

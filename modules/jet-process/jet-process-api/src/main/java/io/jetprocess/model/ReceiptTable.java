@@ -68,8 +68,6 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"subject", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> remarks = createColumn(
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, String> document = createColumn(
-		"document", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> designation = createColumn(
@@ -96,6 +94,10 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"subOrganizationId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Long> userPostId = createColumn(
 		"userPostId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> viewPdfUrl = createColumn(
+		"viewPdfUrl", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> dmFileId = createColumn(
+		"dmFileId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private ReceiptTable() {
 		super("JET_PROCESS_Receipt", ReceiptTable::new);

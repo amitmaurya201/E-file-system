@@ -83,14 +83,14 @@ public class ReceiptModelImpl
 		{"referenceNumber", Types.VARCHAR}, {"modeNumber", Types.VARCHAR},
 		{"receiptCategoryId", Types.BIGINT},
 		{"receiptSubCategoryId", Types.BIGINT}, {"subject", Types.VARCHAR},
-		{"remarks", Types.VARCHAR}, {"document", Types.VARCHAR},
-		{"name", Types.VARCHAR}, {"designation", Types.VARCHAR},
-		{"mobile", Types.VARCHAR}, {"email", Types.VARCHAR},
-		{"address", Types.VARCHAR}, {"countryId", Types.BIGINT},
-		{"stateId", Types.BIGINT}, {"pinCode", Types.VARCHAR},
-		{"receiptNumber", Types.VARCHAR}, {"organizationId", Types.BIGINT},
-		{"city", Types.VARCHAR}, {"subOrganizationId", Types.BIGINT},
-		{"userPostId", Types.BIGINT}
+		{"remarks", Types.VARCHAR}, {"name", Types.VARCHAR},
+		{"designation", Types.VARCHAR}, {"mobile", Types.VARCHAR},
+		{"email", Types.VARCHAR}, {"address", Types.VARCHAR},
+		{"countryId", Types.BIGINT}, {"stateId", Types.BIGINT},
+		{"pinCode", Types.VARCHAR}, {"receiptNumber", Types.VARCHAR},
+		{"organizationId", Types.BIGINT}, {"city", Types.VARCHAR},
+		{"subOrganizationId", Types.BIGINT}, {"userPostId", Types.BIGINT},
+		{"viewPdfUrl", Types.VARCHAR}, {"dmFileId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -115,7 +115,6 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("receiptSubCategoryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("document", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("designation", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("mobile", Types.VARCHAR);
@@ -129,10 +128,12 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("city", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("subOrganizationId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("viewPdfUrl", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("dmFileId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(75) null,remarks VARCHAR(75) null,document VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(75) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(75) null,dmFileId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
@@ -352,9 +353,6 @@ public class ReceiptModelImpl
 		attributeGetterFunctions.put("remarks", Receipt::getRemarks);
 		attributeSetterBiConsumers.put(
 			"remarks", (BiConsumer<Receipt, String>)Receipt::setRemarks);
-		attributeGetterFunctions.put("document", Receipt::getDocument);
-		attributeSetterBiConsumers.put(
-			"document", (BiConsumer<Receipt, String>)Receipt::setDocument);
 		attributeGetterFunctions.put("name", Receipt::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Receipt, String>)Receipt::setName);
@@ -401,6 +399,12 @@ public class ReceiptModelImpl
 		attributeGetterFunctions.put("userPostId", Receipt::getUserPostId);
 		attributeSetterBiConsumers.put(
 			"userPostId", (BiConsumer<Receipt, Long>)Receipt::setUserPostId);
+		attributeGetterFunctions.put("viewPdfUrl", Receipt::getViewPdfUrl);
+		attributeSetterBiConsumers.put(
+			"viewPdfUrl", (BiConsumer<Receipt, String>)Receipt::setViewPdfUrl);
+		attributeGetterFunctions.put("dmFileId", Receipt::getDmFileId);
+		attributeSetterBiConsumers.put(
+			"dmFileId", (BiConsumer<Receipt, Long>)Receipt::setDmFileId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -770,26 +774,6 @@ public class ReceiptModelImpl
 
 	@JSON
 	@Override
-	public String getDocument() {
-		if (_document == null) {
-			return "";
-		}
-		else {
-			return _document;
-		}
-	}
-
-	@Override
-	public void setDocument(String document) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_document = document;
-	}
-
-	@JSON
-	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -1023,6 +1007,41 @@ public class ReceiptModelImpl
 		_userPostId = userPostId;
 	}
 
+	@JSON
+	@Override
+	public String getViewPdfUrl() {
+		if (_viewPdfUrl == null) {
+			return "";
+		}
+		else {
+			return _viewPdfUrl;
+		}
+	}
+
+	@Override
+	public void setViewPdfUrl(String viewPdfUrl) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_viewPdfUrl = viewPdfUrl;
+	}
+
+	@JSON
+	@Override
+	public long getDmFileId() {
+		return _dmFileId;
+	}
+
+	@Override
+	public void setDmFileId(long dmFileId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_dmFileId = dmFileId;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -1103,7 +1122,6 @@ public class ReceiptModelImpl
 		receiptImpl.setReceiptSubCategoryId(getReceiptSubCategoryId());
 		receiptImpl.setSubject(getSubject());
 		receiptImpl.setRemarks(getRemarks());
-		receiptImpl.setDocument(getDocument());
 		receiptImpl.setName(getName());
 		receiptImpl.setDesignation(getDesignation());
 		receiptImpl.setMobile(getMobile());
@@ -1117,6 +1135,8 @@ public class ReceiptModelImpl
 		receiptImpl.setCity(getCity());
 		receiptImpl.setSubOrganizationId(getSubOrganizationId());
 		receiptImpl.setUserPostId(getUserPostId());
+		receiptImpl.setViewPdfUrl(getViewPdfUrl());
+		receiptImpl.setDmFileId(getDmFileId());
 
 		receiptImpl.resetOriginalValues();
 
@@ -1157,8 +1177,6 @@ public class ReceiptModelImpl
 			this.<Long>getColumnOriginalValue("receiptSubCategoryId"));
 		receiptImpl.setSubject(this.<String>getColumnOriginalValue("subject"));
 		receiptImpl.setRemarks(this.<String>getColumnOriginalValue("remarks"));
-		receiptImpl.setDocument(
-			this.<String>getColumnOriginalValue("document"));
 		receiptImpl.setName(this.<String>getColumnOriginalValue("name"));
 		receiptImpl.setDesignation(
 			this.<String>getColumnOriginalValue("designation"));
@@ -1178,6 +1196,9 @@ public class ReceiptModelImpl
 			this.<Long>getColumnOriginalValue("subOrganizationId"));
 		receiptImpl.setUserPostId(
 			this.<Long>getColumnOriginalValue("userPostId"));
+		receiptImpl.setViewPdfUrl(
+			this.<String>getColumnOriginalValue("viewPdfUrl"));
+		receiptImpl.setDmFileId(this.<Long>getColumnOriginalValue("dmFileId"));
 
 		return receiptImpl;
 	}
@@ -1361,14 +1382,6 @@ public class ReceiptModelImpl
 			receiptCacheModel.remarks = null;
 		}
 
-		receiptCacheModel.document = getDocument();
-
-		String document = receiptCacheModel.document;
-
-		if ((document != null) && (document.length() == 0)) {
-			receiptCacheModel.document = null;
-		}
-
 		receiptCacheModel.name = getName();
 
 		String name = receiptCacheModel.name;
@@ -1442,6 +1455,16 @@ public class ReceiptModelImpl
 		receiptCacheModel.subOrganizationId = getSubOrganizationId();
 
 		receiptCacheModel.userPostId = getUserPostId();
+
+		receiptCacheModel.viewPdfUrl = getViewPdfUrl();
+
+		String viewPdfUrl = receiptCacheModel.viewPdfUrl;
+
+		if ((viewPdfUrl != null) && (viewPdfUrl.length() == 0)) {
+			receiptCacheModel.viewPdfUrl = null;
+		}
+
+		receiptCacheModel.dmFileId = getDmFileId();
 
 		return receiptCacheModel;
 	}
@@ -1554,7 +1577,6 @@ public class ReceiptModelImpl
 	private long _receiptSubCategoryId;
 	private String _subject;
 	private String _remarks;
-	private String _document;
 	private String _name;
 	private String _designation;
 	private String _mobile;
@@ -1568,6 +1590,8 @@ public class ReceiptModelImpl
 	private String _city;
 	private long _subOrganizationId;
 	private long _userPostId;
+	private String _viewPdfUrl;
+	private long _dmFileId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1617,7 +1641,6 @@ public class ReceiptModelImpl
 			"receiptSubCategoryId", _receiptSubCategoryId);
 		_columnOriginalValues.put("subject", _subject);
 		_columnOriginalValues.put("remarks", _remarks);
-		_columnOriginalValues.put("document", _document);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("designation", _designation);
 		_columnOriginalValues.put("mobile", _mobile);
@@ -1631,6 +1654,8 @@ public class ReceiptModelImpl
 		_columnOriginalValues.put("city", _city);
 		_columnOriginalValues.put("subOrganizationId", _subOrganizationId);
 		_columnOriginalValues.put("userPostId", _userPostId);
+		_columnOriginalValues.put("viewPdfUrl", _viewPdfUrl);
+		_columnOriginalValues.put("dmFileId", _dmFileId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1690,33 +1715,35 @@ public class ReceiptModelImpl
 
 		columnBitmasks.put("remarks", 131072L);
 
-		columnBitmasks.put("document", 262144L);
+		columnBitmasks.put("name", 262144L);
 
-		columnBitmasks.put("name", 524288L);
+		columnBitmasks.put("designation", 524288L);
 
-		columnBitmasks.put("designation", 1048576L);
+		columnBitmasks.put("mobile", 1048576L);
 
-		columnBitmasks.put("mobile", 2097152L);
+		columnBitmasks.put("email", 2097152L);
 
-		columnBitmasks.put("email", 4194304L);
+		columnBitmasks.put("address", 4194304L);
 
-		columnBitmasks.put("address", 8388608L);
+		columnBitmasks.put("countryId", 8388608L);
 
-		columnBitmasks.put("countryId", 16777216L);
+		columnBitmasks.put("stateId", 16777216L);
 
-		columnBitmasks.put("stateId", 33554432L);
+		columnBitmasks.put("pinCode", 33554432L);
 
-		columnBitmasks.put("pinCode", 67108864L);
+		columnBitmasks.put("receiptNumber", 67108864L);
 
-		columnBitmasks.put("receiptNumber", 134217728L);
+		columnBitmasks.put("organizationId", 134217728L);
 
-		columnBitmasks.put("organizationId", 268435456L);
+		columnBitmasks.put("city", 268435456L);
 
-		columnBitmasks.put("city", 536870912L);
+		columnBitmasks.put("subOrganizationId", 536870912L);
 
-		columnBitmasks.put("subOrganizationId", 1073741824L);
+		columnBitmasks.put("userPostId", 1073741824L);
 
-		columnBitmasks.put("userPostId", 2147483648L);
+		columnBitmasks.put("viewPdfUrl", 2147483648L);
+
+		columnBitmasks.put("dmFileId", 4294967296L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

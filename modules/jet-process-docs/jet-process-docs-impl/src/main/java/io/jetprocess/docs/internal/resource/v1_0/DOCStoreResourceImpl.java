@@ -1,8 +1,6 @@
 package io.jetprocess.docs.internal.resource.v1_0;
 
 import com.liferay.document.library.kernel.model.DLFolderConstants;
-import com.liferay.document.library.kernel.service.DLAppServiceUtil;
-import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.vulcan.multipart.BinaryFile;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 
@@ -27,44 +25,19 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 		BinaryFile binaryFile = multipartBody.getBinaryFile("document");
 		String groupId = multipartBody.getValueAsString("groupId");
 		long siteId = Long.parseLong(groupId);
-		long parentFolderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
 		InputStream inputStream = binaryFile.getInputStream();
 		String contentType = binaryFile.getContentType();
 		String fileName = binaryFile.getFileName();
 		String folderName = "JetProcessDocStore";
-		FileEntry fileEntry = DLAppServiceUtil.addTempFileEntry(siteId, parentFolderId, folderName, fileName,inputStream, contentType);
+		long tempFileId = documentStore.tempFileUpload(siteId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, folderName, fileName, inputStream, contentType);
+		String fileUrl=	documentStore.ViewDocumentAndMediaFile(tempFileId);
 		DOCStore docStore = new DOCStore();
-		docStore.setId(fileEntry.getFileEntryId());
+		docStore.setId(tempFileId);
+		docStore.setDescription(fileUrl);
 		return docStore;
-}
 
-	@Override
-	public DOCStore uploadFile(MultipartBody multipartBody) throws Exception {
-		System.out.println("test");
-		BinaryFile binaryFile = multipartBody.getBinaryFile("document");
-		String groupId = multipartBody.getValueAsString("groupId");
-		long siteId = Long.parseLong(groupId);
-		String fileName = binaryFile.getFileName();
-		String contentType = binaryFile.getContentType();
-		InputStream inputStream = binaryFile.getInputStream();
-		String changeLog = "docStore";
-		long fileId = documentStore.uploadFile(siteId, inputStream, fileName , contentType, changeLog, 0l, "");
-		//String fileDisplayUrl = documentStore.viewFile(groupId, 51211);
-		//System.out.println(fileDisplayUrl);
-		DOCStore docstore = new DOCStore();
-		docstore.setId(fileId);
-		//docstore.setDescription(fileDisplayUrl);
-		return docstore;
 	}
 
-	/*
-	 * @Override public Receipt fetchFiles(MultipartBody multipartBody) throws
-	 * Exception { String fileEntryId1 = multipartBody.getValueAsString("fileName");
-	 * System.out.println(fileEntryId1); long fileEntryId =
-	 * Long.parseLong(fileEntryId1); String siteId=
-	 * multipartBody.getValueAsString("groupId"); docStore.getFile(siteId,
-	 * fileEntryId); return new Receipt(); }
-	 */
 	@Reference
 	private DocStore documentStore;
 

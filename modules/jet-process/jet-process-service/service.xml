@@ -99,7 +99,6 @@
 		<column name="receiptSubCategoryId" type="long" />
 		<column name="subject" type="String" />
 		<column name="remarks" type="String" />
-		<column name="document" type="String" />
 		<column name="name" type="String" />
 		<column name="designation" type="String" />
 		<column name="mobile" type="String" />
@@ -113,6 +112,9 @@
 		<column name="city" type="String" />
 		<column name="subOrganizationId" type="long" />
         <column name="userPostId" type="long" />
+         <column name="viewPdfUrl" type="String" />
+           <column name="dmFileId" type="long" />
+          
         		
 			
 		<!-- Order -->

@@ -45,7 +45,6 @@
 		<field name="receiptSubCategoryId" type="long" />
 		<field name="subject" type="String" />
 		<field name="remarks" type="String" />
-		<field name="document" type="String" />
 		<field name="name" type="String" />
 		<field name="designation" type="String" />
 		<field name="mobile" type="String" />
@@ -59,5 +58,7 @@
 		<field name="city" type="String" />
 		<field name="subOrganizationId" type="long" />
 		<field name="userPostId" type="long" />
+		<field name="viewPdfUrl" type="String" />
+		<field name="dmFileId" type="long" />
 	</model>
 </model-hints>

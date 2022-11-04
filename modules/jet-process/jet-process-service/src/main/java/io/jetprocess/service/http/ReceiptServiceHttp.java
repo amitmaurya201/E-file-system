@@ -53,14 +53,13 @@ public class ReceiptServiceHttp {
 
 	public static io.jetprocess.model.Receipt createReceipt(
 			HttpPrincipal httpPrincipal, long groupId, long typeId,
-			long deliveryModeId, java.util.Date receivedOn,
-			java.util.Date letterDate, String referenceNumber,
-			String modeNumber, long receiptCategoryId,
+			long tempfileEntryId, long deliveryModeId,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city,
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -70,9 +69,9 @@ public class ReceiptServiceHttp {
 				_createReceiptParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, groupId, typeId, deliveryModeId, receivedOn,
-				letterDate, referenceNumber, modeNumber, receiptCategoryId,
-				receiptSubCategoryId, subject, remarks, document, name,
+				methodKey, groupId, typeId, tempfileEntryId, deliveryModeId,
+				receivedOn, letterDate, referenceNumber, modeNumber,
+				receiptCategoryId, receiptSubCategoryId, subject, remarks, name,
 				designation, mobile, email, address, countryId, stateId,
 				pinCode, organizationId, subOrganizationId, city,
 				serviceContext);
@@ -107,9 +106,9 @@ public class ReceiptServiceHttp {
 
 	public static io.jetprocess.model.Receipt updateReceipt(
 			HttpPrincipal httpPrincipal, long receiptId, long groupId,
-			long typeId, long deliveryModeId, java.util.Date receivedOn,
-			java.util.Date letterDate, String referenceNumber,
-			String modeNumber, long receiptCategoryId,
+			long typeId, long tempfileEntryId, long deliveryModeId,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
@@ -124,12 +123,12 @@ public class ReceiptServiceHttp {
 				_updateReceiptParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, receiptId, groupId, typeId, deliveryModeId,
-				receivedOn, letterDate, referenceNumber, modeNumber,
-				receiptCategoryId, receiptSubCategoryId, subject, remarks,
-				document, name, designation, mobile, email, address, countryId,
-				stateId, pinCode, organizationId, subOrganizationId, city,
-				serviceContext);
+				methodKey, receiptId, groupId, typeId, tempfileEntryId,
+				deliveryModeId, receivedOn, letterDate, referenceNumber,
+				modeNumber, receiptCategoryId, receiptSubCategoryId, subject,
+				remarks, document, name, designation, mobile, email, address,
+				countryId, stateId, pinCode, organizationId, subOrganizationId,
+				city, serviceContext);
 
 			Object returnObj = null;
 
@@ -230,60 +229,21 @@ public class ReceiptServiceHttp {
 		}
 	}
 
-	public static io.jetprocess.model.Receipt getReceiptByReceiptId(
-			HttpPrincipal httpPrincipal, long receiptId)
-		throws io.jetprocess.exception.NoSuchReceiptException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ReceiptServiceUtil.class, "getReceiptByReceiptId",
-				_getReceiptByReceiptIdParameterTypes4);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, receiptId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						io.jetprocess.exception.NoSuchReceiptException) {
-
-					throw (io.jetprocess.exception.NoSuchReceiptException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (io.jetprocess.model.Receipt)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(ReceiptServiceHttp.class);
 
 	private static final Class<?>[] _createReceiptParameterTypes0 =
 		new Class[] {
-			long.class, long.class, long.class, java.util.Date.class,
-			java.util.Date.class, String.class, String.class, long.class,
-			long.class, String.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, String.class, long.class,
-			long.class, String.class, long.class, long.class, String.class,
+			long.class, long.class, long.class, long.class,
+			java.util.Date.class, java.util.Date.class, String.class,
+			String.class, long.class, long.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
+			String.class, long.class, long.class, String.class, long.class,
+			long.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateReceiptParameterTypes1 =
 		new Class[] {
-			long.class, long.class, long.class, long.class,
+			long.class, long.class, long.class, long.class, long.class,
 			java.util.Date.class, java.util.Date.class, String.class,
 			String.class, long.class, long.class, String.class, String.class,
 			String.class, String.class, String.class, String.class,
@@ -295,7 +255,5 @@ public class ReceiptServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getAllReceiptParameterTypes3 =
 		new Class[] {};
-	private static final Class<?>[] _getReceiptByReceiptIdParameterTypes4 =
-		new Class[] {long.class};
 
 }

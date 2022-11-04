@@ -1,10 +1,11 @@
 Bundle-Name: jet-process-api
 Bundle-SymbolicName: io.jetprocess.api
 Bundle-Version: 1.0.0
-Export-Package:\
+Export-Package: \
 	io.jetprocess.exception,\
 	io.jetprocess.model,\
 	io.jetprocess.service,\
-	io.jetprocess.service.persistence
+	io.jetprocess.service.persistence,\
+	io.jetprocess.validator
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../jet-process-service/service.xml

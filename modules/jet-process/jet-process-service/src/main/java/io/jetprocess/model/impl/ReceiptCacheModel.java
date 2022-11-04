@@ -61,7 +61,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(65);
+		StringBundler sb = new StringBundler(67);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -99,8 +99,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(subject);
 		sb.append(", remarks=");
 		sb.append(remarks);
-		sb.append(", document=");
-		sb.append(document);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", designation=");
@@ -127,6 +125,10 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(subOrganizationId);
 		sb.append(", userPostId=");
 		sb.append(userPostId);
+		sb.append(", viewPdfUrl=");
+		sb.append(viewPdfUrl);
+		sb.append(", dmFileId=");
+		sb.append(dmFileId);
 		sb.append("}");
 
 		return sb.toString();
@@ -217,13 +219,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 			receiptImpl.setRemarks(remarks);
 		}
 
-		if (document == null) {
-			receiptImpl.setDocument("");
-		}
-		else {
-			receiptImpl.setDocument(document);
-		}
-
 		if (name == null) {
 			receiptImpl.setName("");
 		}
@@ -288,6 +283,15 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		receiptImpl.setSubOrganizationId(subOrganizationId);
 		receiptImpl.setUserPostId(userPostId);
 
+		if (viewPdfUrl == null) {
+			receiptImpl.setViewPdfUrl("");
+		}
+		else {
+			receiptImpl.setViewPdfUrl(viewPdfUrl);
+		}
+
+		receiptImpl.setDmFileId(dmFileId);
+
 		receiptImpl.resetOriginalValues();
 
 		return receiptImpl;
@@ -321,7 +325,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		receiptSubCategoryId = objectInput.readLong();
 		subject = objectInput.readUTF();
 		remarks = objectInput.readUTF();
-		document = objectInput.readUTF();
 		name = objectInput.readUTF();
 		designation = objectInput.readUTF();
 		mobile = objectInput.readUTF();
@@ -340,6 +343,9 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		subOrganizationId = objectInput.readLong();
 
 		userPostId = objectInput.readLong();
+		viewPdfUrl = objectInput.readUTF();
+
+		dmFileId = objectInput.readLong();
 	}
 
 	@Override
@@ -407,13 +413,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 			objectOutput.writeUTF(remarks);
 		}
 
-		if (document == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(document);
-		}
-
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -479,6 +478,15 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		objectOutput.writeLong(subOrganizationId);
 
 		objectOutput.writeLong(userPostId);
+
+		if (viewPdfUrl == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(viewPdfUrl);
+		}
+
+		objectOutput.writeLong(dmFileId);
 	}
 
 	public String uuid;
@@ -499,7 +507,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public long receiptSubCategoryId;
 	public String subject;
 	public String remarks;
-	public String document;
 	public String name;
 	public String designation;
 	public String mobile;
@@ -513,5 +520,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public String city;
 	public long subOrganizationId;
 	public long userPostId;
+	public String viewPdfUrl;
+	public long dmFileId;
 
 }

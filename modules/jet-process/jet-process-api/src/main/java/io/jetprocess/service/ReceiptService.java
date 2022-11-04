@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
-import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 
 import java.util.Date;
@@ -56,13 +55,14 @@ public interface ReceiptService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the receipt remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ReceiptServiceUtil} if injection and service tracking are not available.
 	 */
 	public Receipt createReceipt(
-			long groupId, long typeId, long deliveryModeId, Date receivedOn,
-			Date letterDate, String referenceNumber, String modeNumber,
-			long receiptCategoryId, long receiptSubCategoryId, String subject,
-			String remarks, String document, String name, String designation,
-			String mobile, String email, String address, long countryId,
-			long stateId, String pinCode, long organizationId,
-			long subOrganizationId, String city, ServiceContext serviceContext)
+			long groupId, long typeId, long tempfileEntryId,
+			long deliveryModeId, Date receivedOn, Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	public Receipt deleteReceipt(long receiptId) throws PortalException;
@@ -77,14 +77,10 @@ public interface ReceiptService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptByReceiptId(long receiptId)
-		throws NoSuchReceiptException;
-
 	public Receipt updateReceipt(
-			long receiptId, long groupId, long typeId, long deliveryModeId,
-			Date receivedOn, Date letterDate, String referenceNumber,
-			String modeNumber, long receiptCategoryId,
+			long receiptId, long groupId, long typeId, long tempfileEntryId,
+			long deliveryModeId, Date receivedOn, Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,

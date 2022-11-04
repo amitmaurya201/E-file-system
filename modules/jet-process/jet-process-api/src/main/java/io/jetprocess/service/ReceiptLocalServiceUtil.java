@@ -81,22 +81,22 @@ public class ReceiptLocalServiceUtil {
 	}
 
 	public static Receipt createReceipt(
-			long groupId, long typeId, long deliveryModeId,
-			java.util.Date receivedOn, java.util.Date letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long groupId, long typeId, long tempfileEntryId,
+			long deliveryModeId, java.util.Date receivedOn,
+			java.util.Date letterDate, String referenceNumber,
+			String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city,
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().createReceipt(
-			groupId, typeId, deliveryModeId, receivedOn, letterDate,
-			referenceNumber, modeNumber, receiptCategoryId,
-			receiptSubCategoryId, subject, remarks, document, name, designation,
-			mobile, email, address, countryId, stateId, pinCode, organizationId,
+			groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
+			letterDate, referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, name, designation, mobile,
+			email, address, countryId, stateId, pinCode, organizationId,
 			subOrganizationId, city, serviceContext);
 	}
 
@@ -295,12 +295,6 @@ public class ReceiptLocalServiceUtil {
 		return getService().getReceipt(receiptId);
 	}
 
-	public static Receipt getReceiptByReceiptId(long receiptId)
-		throws io.jetprocess.exception.NoSuchReceiptException {
-
-		return getService().getReceiptByReceiptId(receiptId);
-	}
-
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *
@@ -371,9 +365,10 @@ public class ReceiptLocalServiceUtil {
 	}
 
 	public static Receipt updateReceipt(
-			long receiptId, long groupId, long typeId, long deliveryModeId,
-			java.util.Date receivedOn, java.util.Date letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptId, long groupId, long typeId, long tempfileEntryId,
+			long deliveryModeId, java.util.Date receivedOn,
+			java.util.Date letterDate, String referenceNumber,
+			String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
@@ -383,11 +378,11 @@ public class ReceiptLocalServiceUtil {
 		throws PortalException {
 
 		return getService().updateReceipt(
-			receiptId, groupId, typeId, deliveryModeId, receivedOn, letterDate,
-			referenceNumber, modeNumber, receiptCategoryId,
-			receiptSubCategoryId, subject, remarks, document, name, designation,
-			mobile, email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, serviceContext);
+			receiptId, groupId, typeId, tempfileEntryId, deliveryModeId,
+			receivedOn, letterDate, referenceNumber, modeNumber,
+			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
+			name, designation, mobile, email, address, countryId, stateId,
+			pinCode, organizationId, subOrganizationId, city, serviceContext);
 	}
 
 	/**

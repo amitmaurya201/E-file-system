@@ -61,7 +61,6 @@ public class ReceiptWrapper
 		attributes.put("receiptSubCategoryId", getReceiptSubCategoryId());
 		attributes.put("subject", getSubject());
 		attributes.put("remarks", getRemarks());
-		attributes.put("document", getDocument());
 		attributes.put("name", getName());
 		attributes.put("designation", getDesignation());
 		attributes.put("mobile", getMobile());
@@ -75,6 +74,8 @@ public class ReceiptWrapper
 		attributes.put("city", getCity());
 		attributes.put("subOrganizationId", getSubOrganizationId());
 		attributes.put("userPostId", getUserPostId());
+		attributes.put("viewPdfUrl", getViewPdfUrl());
+		attributes.put("dmFileId", getDmFileId());
 
 		return attributes;
 	}
@@ -190,12 +191,6 @@ public class ReceiptWrapper
 			setRemarks(remarks);
 		}
 
-		String document = (String)attributes.get("document");
-
-		if (document != null) {
-			setDocument(document);
-		}
-
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
@@ -272,6 +267,18 @@ public class ReceiptWrapper
 
 		if (userPostId != null) {
 			setUserPostId(userPostId);
+		}
+
+		String viewPdfUrl = (String)attributes.get("viewPdfUrl");
+
+		if (viewPdfUrl != null) {
+			setViewPdfUrl(viewPdfUrl);
+		}
+
+		Long dmFileId = (Long)attributes.get("dmFileId");
+
+		if (dmFileId != null) {
+			setDmFileId(dmFileId);
 		}
 	}
 
@@ -351,13 +358,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Returns the document of this receipt.
+	 * Returns the dm file ID of this receipt.
 	 *
-	 * @return the document of this receipt
+	 * @return the dm file ID of this receipt
 	 */
 	@Override
-	public String getDocument() {
-		return model.getDocument();
+	public long getDmFileId() {
+		return model.getDmFileId();
 	}
 
 	/**
@@ -620,6 +627,16 @@ public class ReceiptWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * Returns the view pdf url of this receipt.
+	 *
+	 * @return the view pdf url of this receipt
+	 */
+	@Override
+	public String getViewPdfUrl() {
+		return model.getViewPdfUrl();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -696,13 +713,13 @@ public class ReceiptWrapper
 	}
 
 	/**
-	 * Sets the document of this receipt.
+	 * Sets the dm file ID of this receipt.
 	 *
-	 * @param document the document of this receipt
+	 * @param dmFileId the dm file ID of this receipt
 	 */
 	@Override
-	public void setDocument(String document) {
-		model.setDocument(document);
+	public void setDmFileId(long dmFileId) {
+		model.setDmFileId(dmFileId);
 	}
 
 	/**
@@ -963,6 +980,16 @@ public class ReceiptWrapper
 	@Override
 	public void setUuid(String uuid) {
 		model.setUuid(uuid);
+	}
+
+	/**
+	 * Sets the view pdf url of this receipt.
+	 *
+	 * @param viewPdfUrl the view pdf url of this receipt
+	 */
+	@Override
+	public void setViewPdfUrl(String viewPdfUrl) {
+		model.setViewPdfUrl(viewPdfUrl);
 	}
 
 	@Override

@@ -348,21 +348,6 @@ public interface ReceiptModel
 	public void setRemarks(String remarks);
 
 	/**
-	 * Returns the document of this receipt.
-	 *
-	 * @return the document of this receipt
-	 */
-	@AutoEscape
-	public String getDocument();
-
-	/**
-	 * Sets the document of this receipt.
-	 *
-	 * @param document the document of this receipt
-	 */
-	public void setDocument(String document);
-
-	/**
 	 * Returns the name of this receipt.
 	 *
 	 * @return the name of this receipt
@@ -551,6 +536,35 @@ public interface ReceiptModel
 	 * @param userPostId the user post ID of this receipt
 	 */
 	public void setUserPostId(long userPostId);
+
+	/**
+	 * Returns the view pdf url of this receipt.
+	 *
+	 * @return the view pdf url of this receipt
+	 */
+	@AutoEscape
+	public String getViewPdfUrl();
+
+	/**
+	 * Sets the view pdf url of this receipt.
+	 *
+	 * @param viewPdfUrl the view pdf url of this receipt
+	 */
+	public void setViewPdfUrl(String viewPdfUrl);
+
+	/**
+	 * Returns the dm file ID of this receipt.
+	 *
+	 * @return the dm file ID of this receipt
+	 */
+	public long getDmFileId();
+
+	/**
+	 * Sets the dm file ID of this receipt.
+	 *
+	 * @param dmFileId the dm file ID of this receipt
+	 */
+	public void setDmFileId(long dmFileId);
 
 	@Override
 	public Receipt cloneWithOriginalValues();
