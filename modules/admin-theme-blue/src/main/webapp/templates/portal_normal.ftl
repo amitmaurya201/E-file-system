@@ -57,12 +57,30 @@
 <#if isAdmin>
 	<@liferay_util["include"] page=body_top_include />
 </#if> 
+
+
+
+
 <div id="content" class="row">
 	<div id="left-panel" class="float-left p-0" style="width:17%; transition: all 1s ease-in-out;"><#include "${full_templates_path}/left_navigation.ftl" /></div>
 	<div id="portlet-area" class="float-left pl-4 pr-4" style="width:83%; transition: all 1s ease-in-out;">
 		<section class="${portal_content_css_class}" >
 			<h2 class="sr-only" role="heading" aria-level="1">${the_title}</h2>
+  <br><br>
+ <#assign  userPostService = serviceLocator.findService("io.jetprocess.masterdata.service.UserPostLocalService")/> 
+	        		         
+              <#assign userPostList =userPostService.getUserPostList(user.getUserId())/>
+		        	  <label for="cars">Select Post:</label>
+                          <select name="post" id="p">
+		        	
+		        	  	   <#list userPostList as userpost>
+		        	  	  <option value="userpost.getDescription()">${userpost.getDescription()}</option>
+                               </#list>
+                           </select>
 
+                     <br><br>
+                 <input type="submit" value="Submit">
+             <br><br>
 			<#if selectable>
 				<@liferay_util["include"] page=content_include />
 			<#else>

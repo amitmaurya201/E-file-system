@@ -32,20 +32,22 @@ public class UserPostTable extends BaseTable<UserPostTable> {
 
 	public final Column<UserPostTable, String> uuid = createColumn(
 		"uuid_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<UserPostTable, String> userPostId = createColumn(
-		"userPostId", String.class, Types.VARCHAR, Column.FLAG_PRIMARY);
+	public final Column<UserPostTable, Long> userPostId = createColumn(
+		"userPostId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
 	public final Column<UserPostTable, Long> groupId = createColumn(
 		"groupId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<UserPostTable, Long> postId = createColumn(
 		"postId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<UserPostTable, Long> sectionId = createColumn(
 		"sectionId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<UserPostTable, Long> description = createColumn(
-		"description", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, String> description = createColumn(
+		"description", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<UserPostTable, String> userName = createColumn(
 		"userName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<UserPostTable, String> shortName = createColumn(
 		"shortName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, Long> userId = createColumn(
+		"userId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private UserPostTable() {
 		super("Masterdata_UserPost", UserPostTable::new);

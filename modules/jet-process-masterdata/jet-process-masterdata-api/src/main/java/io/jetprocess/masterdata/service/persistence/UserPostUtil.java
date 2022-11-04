@@ -254,7 +254,7 @@ public class UserPostUtil {
 	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
 	 */
 	public static UserPost[] findByUuid_PrevAndNext(
-			String userPostId, String uuid,
+			long userPostId, String uuid,
 			OrderByComparator<UserPost> orderByComparator)
 		throws io.jetprocess.masterdata.exception.NoSuchUserPostException {
 
@@ -345,6 +345,168 @@ public class UserPostUtil {
 	}
 
 	/**
+	 * Returns all the user posts where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the matching user posts
+	 */
+	public static List<UserPost> findByuserId(long userId) {
+		return getPersistence().findByuserId(userId);
+	}
+
+	/**
+	 * Returns a range of all the user posts where userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserPostModelImpl</code>.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of user posts
+	 * @param end the upper bound of the range of user posts (not inclusive)
+	 * @return the range of matching user posts
+	 */
+	public static List<UserPost> findByuserId(long userId, int start, int end) {
+		return getPersistence().findByuserId(userId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the user posts where userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserPostModelImpl</code>.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of user posts
+	 * @param end the upper bound of the range of user posts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching user posts
+	 */
+	public static List<UserPost> findByuserId(
+		long userId, int start, int end,
+		OrderByComparator<UserPost> orderByComparator) {
+
+		return getPersistence().findByuserId(
+			userId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the user posts where userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserPostModelImpl</code>.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of user posts
+	 * @param end the upper bound of the range of user posts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching user posts
+	 */
+	public static List<UserPost> findByuserId(
+		long userId, int start, int end,
+		OrderByComparator<UserPost> orderByComparator, boolean useFinderCache) {
+
+		return getPersistence().findByuserId(
+			userId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user post
+	 * @throws NoSuchUserPostException if a matching user post could not be found
+	 */
+	public static UserPost findByuserId_First(
+			long userId, OrderByComparator<UserPost> orderByComparator)
+		throws io.jetprocess.masterdata.exception.NoSuchUserPostException {
+
+		return getPersistence().findByuserId_First(userId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user post, or <code>null</code> if a matching user post could not be found
+	 */
+	public static UserPost fetchByuserId_First(
+		long userId, OrderByComparator<UserPost> orderByComparator) {
+
+		return getPersistence().fetchByuserId_First(userId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user post
+	 * @throws NoSuchUserPostException if a matching user post could not be found
+	 */
+	public static UserPost findByuserId_Last(
+			long userId, OrderByComparator<UserPost> orderByComparator)
+		throws io.jetprocess.masterdata.exception.NoSuchUserPostException {
+
+		return getPersistence().findByuserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user post, or <code>null</code> if a matching user post could not be found
+	 */
+	public static UserPost fetchByuserId_Last(
+		long userId, OrderByComparator<UserPost> orderByComparator) {
+
+		return getPersistence().fetchByuserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	 * Returns the user posts before and after the current user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userPostId the primary key of the current user post
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next user post
+	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
+	 */
+	public static UserPost[] findByuserId_PrevAndNext(
+			long userPostId, long userId,
+			OrderByComparator<UserPost> orderByComparator)
+		throws io.jetprocess.masterdata.exception.NoSuchUserPostException {
+
+		return getPersistence().findByuserId_PrevAndNext(
+			userPostId, userId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the user posts where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 */
+	public static void removeByuserId(long userId) {
+		getPersistence().removeByuserId(userId);
+	}
+
+	/**
+	 * Returns the number of user posts where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching user posts
+	 */
+	public static int countByuserId(long userId) {
+		return getPersistence().countByuserId(userId);
+	}
+
+	/**
 	 * Caches the user post in the entity cache if it is enabled.
 	 *
 	 * @param userPost the user post
@@ -368,7 +530,7 @@ public class UserPostUtil {
 	 * @param userPostId the primary key for the new user post
 	 * @return the new user post
 	 */
-	public static UserPost create(String userPostId) {
+	public static UserPost create(long userPostId) {
 		return getPersistence().create(userPostId);
 	}
 
@@ -379,7 +541,7 @@ public class UserPostUtil {
 	 * @return the user post that was removed
 	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
 	 */
-	public static UserPost remove(String userPostId)
+	public static UserPost remove(long userPostId)
 		throws io.jetprocess.masterdata.exception.NoSuchUserPostException {
 
 		return getPersistence().remove(userPostId);
@@ -396,7 +558,7 @@ public class UserPostUtil {
 	 * @return the user post
 	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
 	 */
-	public static UserPost findByPrimaryKey(String userPostId)
+	public static UserPost findByPrimaryKey(long userPostId)
 		throws io.jetprocess.masterdata.exception.NoSuchUserPostException {
 
 		return getPersistence().findByPrimaryKey(userPostId);
@@ -408,7 +570,7 @@ public class UserPostUtil {
 	 * @param userPostId the primary key of the user post
 	 * @return the user post, or <code>null</code> if a user post with the primary key could not be found
 	 */
-	public static UserPost fetchByPrimaryKey(String userPostId) {
+	public static UserPost fetchByPrimaryKey(long userPostId) {
 		return getPersistence().fetchByPrimaryKey(userPostId);
 	}
 

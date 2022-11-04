@@ -49,6 +49,7 @@ public class UserPostWrapper
 		attributes.put("description", getDescription());
 		attributes.put("userName", getUserName());
 		attributes.put("shortName", getShortName());
+		attributes.put("userId", getUserId());
 
 		return attributes;
 	}
@@ -61,7 +62,7 @@ public class UserPostWrapper
 			setUuid(uuid);
 		}
 
-		String userPostId = (String)attributes.get("userPostId");
+		Long userPostId = (Long)attributes.get("userPostId");
 
 		if (userPostId != null) {
 			setUserPostId(userPostId);
@@ -85,7 +86,7 @@ public class UserPostWrapper
 			setSectionId(sectionId);
 		}
 
-		Long description = (Long)attributes.get("description");
+		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
@@ -102,6 +103,12 @@ public class UserPostWrapper
 		if (shortName != null) {
 			setShortName(shortName);
 		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
 	}
 
 	@Override
@@ -115,7 +122,7 @@ public class UserPostWrapper
 	 * @return the description of this user post
 	 */
 	@Override
-	public long getDescription() {
+	public String getDescription() {
 		return model.getDescription();
 	}
 
@@ -145,7 +152,7 @@ public class UserPostWrapper
 	 * @return the primary key of this user post
 	 */
 	@Override
-	public String getPrimaryKey() {
+	public long getPrimaryKey() {
 		return model.getPrimaryKey();
 	}
 
@@ -170,6 +177,16 @@ public class UserPostWrapper
 	}
 
 	/**
+	 * Returns the user ID of this user post.
+	 *
+	 * @return the user ID of this user post
+	 */
+	@Override
+	public long getUserId() {
+		return model.getUserId();
+	}
+
+	/**
 	 * Returns the user name of this user post.
 	 *
 	 * @return the user name of this user post
@@ -185,8 +202,18 @@ public class UserPostWrapper
 	 * @return the user post ID of this user post
 	 */
 	@Override
-	public String getUserPostId() {
+	public long getUserPostId() {
 		return model.getUserPostId();
+	}
+
+	/**
+	 * Returns the user uuid of this user post.
+	 *
+	 * @return the user uuid of this user post
+	 */
+	@Override
+	public String getUserUuid() {
+		return model.getUserUuid();
 	}
 
 	/**
@@ -210,7 +237,7 @@ public class UserPostWrapper
 	 * @param description the description of this user post
 	 */
 	@Override
-	public void setDescription(long description) {
+	public void setDescription(String description) {
 		model.setDescription(description);
 	}
 
@@ -240,7 +267,7 @@ public class UserPostWrapper
 	 * @param primaryKey the primary key of this user post
 	 */
 	@Override
-	public void setPrimaryKey(String primaryKey) {
+	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
 	}
 
@@ -265,6 +292,16 @@ public class UserPostWrapper
 	}
 
 	/**
+	 * Sets the user ID of this user post.
+	 *
+	 * @param userId the user ID of this user post
+	 */
+	@Override
+	public void setUserId(long userId) {
+		model.setUserId(userId);
+	}
+
+	/**
 	 * Sets the user name of this user post.
 	 *
 	 * @param userName the user name of this user post
@@ -280,8 +317,18 @@ public class UserPostWrapper
 	 * @param userPostId the user post ID of this user post
 	 */
 	@Override
-	public void setUserPostId(String userPostId) {
+	public void setUserPostId(long userPostId) {
 		model.setUserPostId(userPostId);
+	}
+
+	/**
+	 * Sets the user uuid of this user post.
+	 *
+	 * @param userUuid the user uuid of this user post
+	 */
+	@Override
+	public void setUserUuid(String userUuid) {
+		model.setUserUuid(userUuid);
 	}
 
 	/**

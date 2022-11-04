@@ -15,10 +15,12 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 
 import java.util.List;
 
 import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostLocalServiceUtil;
 import io.jetprocess.masterdata.service.base.UserPostLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -29,12 +31,10 @@ import org.osgi.service.component.annotations.Component;
 @Component(property = "model.class.name=io.jetprocess.masterdata.model.UserPost", service = AopService.class)
 public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 
-	public List<UserPost> getUserPostList(long userId) {
-           List<UserPost> userPostlist = userPostLocalService.getUserPostList(72606);
-           for (UserPost userPost : userPostlist) {
-			System.out.println("data"  +userPost );
-		}
-		return userPostlist;
+	public List<UserPost> getUserPostList(long userId ) {
+       //    List<UserPost> userPostlist = userPostLocalService.getUserPosts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+         List<UserPost> list  = userPostPersistence.findByuserId(userId);
+		return list;
 	}
 
 	public UserPost getUserPostById(long userPostId) {

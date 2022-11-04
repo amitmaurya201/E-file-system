@@ -29,5 +29,12 @@
 		<column name="shortName" type="String"></column>
 		<column name="userId" type="long"></column>
 	
+	<finder name="userId" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		
+	
+	
+	
 	</entity>
 </service-builder>

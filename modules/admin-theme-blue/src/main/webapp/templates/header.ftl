@@ -1,7 +1,6 @@
 <!-- Header -->
 
-
- <div class="theme-header row">
+  <div class="theme-header row">
 	<!-- Logo -->
 	<div class="col-md-8">
 	    <div class="header-left">
@@ -163,7 +162,22 @@
 	
 			<li class="nav-item dropdown main-drop d-flex align-items-center text-white">
 	        	<#if themeDisplay.isSignedIn()>
-					<span style="margin-right: 10px"> Welcome ${user.getFirstName()} ${user.getLastName()} </span>
+	        	 <#assign  userPostService = serviceLocator.findService("io.jetprocess.masterdata.service.UserPostLocalService")/> 
+	        		         
+              <#assign userPostList =userPostService.getUserPostList(user.getUserId())/>
+		        	  <label for="cars">Select Post:</label>
+                          <select name="post" id="p">
+		        	
+		        	  	   <#list userPostList as userpost>
+		        	  	  <option value="userpost.getDescription()">${userpost.getDescription()}</option>
+                               </#list>
+                           </select>
+
+                     <br><br>
+               
+             <br><br>
+	        	
+					<span style="margin-right: 10px" class="text-danger">    </span>
 		        </#if>
 				<#if themeDisplay.getPermissionChecker().isOmniadmin()>
 					<@liferay.user_personal_bar /> 

@@ -36,17 +36,17 @@ public interface UserPost extends PersistedModel, UserPostModel {
 	 *
 	 * Never modify this interface directly. Add methods to <code>io.jetprocess.masterdata.model.impl.UserPostImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<UserPost, String> USER_POST_ID_ACCESSOR =
-		new Accessor<UserPost, String>() {
+	public static final Accessor<UserPost, Long> USER_POST_ID_ACCESSOR =
+		new Accessor<UserPost, Long>() {
 
 			@Override
-			public String get(UserPost userPost) {
+			public Long get(UserPost userPost) {
 				return userPost.getUserPostId();
 			}
 
 			@Override
-			public Class<String> getAttributeClass() {
-				return String.class;
+			public Class<Long> getAttributeClass() {
+				return Long.class;
 			}
 
 			@Override

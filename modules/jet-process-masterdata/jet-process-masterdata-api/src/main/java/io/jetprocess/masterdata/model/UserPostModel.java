@@ -44,14 +44,14 @@ public interface UserPostModel extends BaseModel<UserPost> {
 	 *
 	 * @return the primary key of this user post
 	 */
-	public String getPrimaryKey();
+	public long getPrimaryKey();
 
 	/**
 	 * Sets the primary key of this user post.
 	 *
 	 * @param primaryKey the primary key of this user post
 	 */
-	public void setPrimaryKey(String primaryKey);
+	public void setPrimaryKey(long primaryKey);
 
 	/**
 	 * Returns the uuid of this user post.
@@ -73,15 +73,14 @@ public interface UserPostModel extends BaseModel<UserPost> {
 	 *
 	 * @return the user post ID of this user post
 	 */
-	@AutoEscape
-	public String getUserPostId();
+	public long getUserPostId();
 
 	/**
 	 * Sets the user post ID of this user post.
 	 *
 	 * @param userPostId the user post ID of this user post
 	 */
-	public void setUserPostId(String userPostId);
+	public void setUserPostId(long userPostId);
 
 	/**
 	 * Returns the group ID of this user post.
@@ -130,14 +129,15 @@ public interface UserPostModel extends BaseModel<UserPost> {
 	 *
 	 * @return the description of this user post
 	 */
-	public long getDescription();
+	@AutoEscape
+	public String getDescription();
 
 	/**
 	 * Sets the description of this user post.
 	 *
 	 * @param description the description of this user post
 	 */
-	public void setDescription(long description);
+	public void setDescription(String description);
 
 	/**
 	 * Returns the user name of this user post.
@@ -168,6 +168,34 @@ public interface UserPostModel extends BaseModel<UserPost> {
 	 * @param shortName the short name of this user post
 	 */
 	public void setShortName(String shortName);
+
+	/**
+	 * Returns the user ID of this user post.
+	 *
+	 * @return the user ID of this user post
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this user post.
+	 *
+	 * @param userId the user ID of this user post
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this user post.
+	 *
+	 * @return the user uuid of this user post
+	 */
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this user post.
+	 *
+	 * @param userUuid the user uuid of this user post
+	 */
+	public void setUserUuid(String userUuid);
 
 	@Override
 	public UserPost cloneWithOriginalValues();

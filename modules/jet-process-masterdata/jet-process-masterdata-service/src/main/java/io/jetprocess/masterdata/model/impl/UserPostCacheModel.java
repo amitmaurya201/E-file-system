@@ -46,7 +46,7 @@ public class UserPostCacheModel
 
 		UserPostCacheModel userPostCacheModel = (UserPostCacheModel)object;
 
-		if (userPostId.equals(userPostCacheModel.userPostId)) {
+		if (userPostId == userPostCacheModel.userPostId) {
 			return true;
 		}
 
@@ -60,7 +60,7 @@ public class UserPostCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -78,6 +78,8 @@ public class UserPostCacheModel
 		sb.append(userName);
 		sb.append(", shortName=");
 		sb.append(shortName);
+		sb.append(", userId=");
+		sb.append(userId);
 		sb.append("}");
 
 		return sb.toString();
@@ -94,17 +96,17 @@ public class UserPostCacheModel
 			userPostImpl.setUuid(uuid);
 		}
 
-		if (userPostId == null) {
-			userPostImpl.setUserPostId("");
-		}
-		else {
-			userPostImpl.setUserPostId(userPostId);
-		}
-
+		userPostImpl.setUserPostId(userPostId);
 		userPostImpl.setGroupId(groupId);
 		userPostImpl.setPostId(postId);
 		userPostImpl.setSectionId(sectionId);
-		userPostImpl.setDescription(description);
+
+		if (description == null) {
+			userPostImpl.setDescription("");
+		}
+		else {
+			userPostImpl.setDescription(description);
+		}
 
 		if (userName == null) {
 			userPostImpl.setUserName("");
@@ -120,6 +122,8 @@ public class UserPostCacheModel
 			userPostImpl.setShortName(shortName);
 		}
 
+		userPostImpl.setUserId(userId);
+
 		userPostImpl.resetOriginalValues();
 
 		return userPostImpl;
@@ -128,17 +132,19 @@ public class UserPostCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
-		userPostId = objectInput.readUTF();
+
+		userPostId = objectInput.readLong();
 
 		groupId = objectInput.readLong();
 
 		postId = objectInput.readLong();
 
 		sectionId = objectInput.readLong();
-
-		description = objectInput.readLong();
+		description = objectInput.readUTF();
 		userName = objectInput.readUTF();
 		shortName = objectInput.readUTF();
+
+		userId = objectInput.readLong();
 	}
 
 	@Override
@@ -150,12 +156,7 @@ public class UserPostCacheModel
 			objectOutput.writeUTF(uuid);
 		}
 
-		if (userPostId == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(userPostId);
-		}
+		objectOutput.writeLong(userPostId);
 
 		objectOutput.writeLong(groupId);
 
@@ -163,7 +164,12 @@ public class UserPostCacheModel
 
 		objectOutput.writeLong(sectionId);
 
-		objectOutput.writeLong(description);
+		if (description == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
 
 		if (userName == null) {
 			objectOutput.writeUTF("");
@@ -178,15 +184,18 @@ public class UserPostCacheModel
 		else {
 			objectOutput.writeUTF(shortName);
 		}
+
+		objectOutput.writeLong(userId);
 	}
 
 	public String uuid;
-	public String userPostId;
+	public long userPostId;
 	public long groupId;
 	public long postId;
 	public long sectionId;
-	public long description;
+	public String description;
 	public String userName;
 	public String shortName;
+	public long userId;
 
 }

@@ -76,7 +76,7 @@ public class UserPostLocalServiceUtil {
 	 * @param userPostId the primary key for the new user post
 	 * @return the new user post
 	 */
-	public static UserPost createUserPost(String userPostId) {
+	public static UserPost createUserPost(long userPostId) {
 		return getService().createUserPost(userPostId);
 	}
 
@@ -101,7 +101,7 @@ public class UserPostLocalServiceUtil {
 	 * @return the user post that was removed
 	 * @throws PortalException if a user post with the primary key could not be found
 	 */
-	public static UserPost deleteUserPost(String userPostId)
+	public static UserPost deleteUserPost(long userPostId)
 		throws PortalException {
 
 		return getService().deleteUserPost(userPostId);
@@ -206,7 +206,7 @@ public class UserPostLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static UserPost fetchUserPost(String userPostId) {
+	public static UserPost fetchUserPost(long userPostId) {
 		return getService().fetchUserPost(userPostId);
 	}
 
@@ -221,6 +221,19 @@ public class UserPostLocalServiceUtil {
 		String uuid, long groupId) {
 
 		return getService().fetchUserPostByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
+		getActionableDynamicQuery() {
+
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static
+		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
+			getIndexableActionableDynamicQuery() {
+
+		return getService().getIndexableActionableDynamicQuery();
 	}
 
 	/**
@@ -248,9 +261,7 @@ public class UserPostLocalServiceUtil {
 	 * @return the user post
 	 * @throws PortalException if a user post with the primary key could not be found
 	 */
-	public static UserPost getUserPost(String userPostId)
-		throws PortalException {
-
+	public static UserPost getUserPost(long userPostId) throws PortalException {
 		return getService().getUserPost(userPostId);
 	}
 

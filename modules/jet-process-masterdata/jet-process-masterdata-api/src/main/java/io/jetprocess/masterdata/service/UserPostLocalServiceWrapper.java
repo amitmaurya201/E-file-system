@@ -72,7 +72,7 @@ public class UserPostLocalServiceWrapper
 	 */
 	@Override
 	public io.jetprocess.masterdata.model.UserPost createUserPost(
-		String userPostId) {
+		long userPostId) {
 
 		return _userPostLocalService.createUserPost(userPostId);
 	}
@@ -101,7 +101,7 @@ public class UserPostLocalServiceWrapper
 	 */
 	@Override
 	public io.jetprocess.masterdata.model.UserPost deleteUserPost(
-			String userPostId)
+			long userPostId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userPostLocalService.deleteUserPost(userPostId);
@@ -228,7 +228,7 @@ public class UserPostLocalServiceWrapper
 
 	@Override
 	public io.jetprocess.masterdata.model.UserPost fetchUserPost(
-		String userPostId) {
+		long userPostId) {
 
 		return _userPostLocalService.fetchUserPost(userPostId);
 	}
@@ -246,6 +246,20 @@ public class UserPostLocalServiceWrapper
 
 		return _userPostLocalService.fetchUserPostByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
+		getActionableDynamicQuery() {
+
+		return _userPostLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
+
+		return _userPostLocalService.getIndexableActionableDynamicQuery();
 	}
 
 	/**
@@ -277,8 +291,7 @@ public class UserPostLocalServiceWrapper
 	 * @throws PortalException if a user post with the primary key could not be found
 	 */
 	@Override
-	public io.jetprocess.masterdata.model.UserPost getUserPost(
-			String userPostId)
+	public io.jetprocess.masterdata.model.UserPost getUserPost(long userPostId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userPostLocalService.getUserPost(userPostId);

@@ -20,8 +20,11 @@ import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DefaultActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -101,7 +104,7 @@ public abstract class UserPostLocalServiceBaseImpl
 	 */
 	@Override
 	@Transactional(enabled = false)
-	public UserPost createUserPost(String userPostId) {
+	public UserPost createUserPost(long userPostId) {
 		return userPostPersistence.create(userPostId);
 	}
 
@@ -118,7 +121,7 @@ public abstract class UserPostLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public UserPost deleteUserPost(String userPostId) throws PortalException {
+	public UserPost deleteUserPost(long userPostId) throws PortalException {
 		return userPostPersistence.remove(userPostId);
 	}
 
@@ -238,7 +241,7 @@ public abstract class UserPostLocalServiceBaseImpl
 	}
 
 	@Override
-	public UserPost fetchUserPost(String userPostId) {
+	public UserPost fetchUserPost(long userPostId) {
 		return userPostPersistence.fetchByPrimaryKey(userPostId);
 	}
 
@@ -262,8 +265,49 @@ public abstract class UserPostLocalServiceBaseImpl
 	 * @throws PortalException if a user post with the primary key could not be found
 	 */
 	@Override
-	public UserPost getUserPost(String userPostId) throws PortalException {
+	public UserPost getUserPost(long userPostId) throws PortalException {
 		return userPostPersistence.findByPrimaryKey(userPostId);
+	}
+
+	@Override
+	public ActionableDynamicQuery getActionableDynamicQuery() {
+		ActionableDynamicQuery actionableDynamicQuery =
+			new DefaultActionableDynamicQuery();
+
+		actionableDynamicQuery.setBaseLocalService(userPostLocalService);
+		actionableDynamicQuery.setClassLoader(getClassLoader());
+		actionableDynamicQuery.setModelClass(UserPost.class);
+
+		actionableDynamicQuery.setPrimaryKeyPropertyName("userPostId");
+
+		return actionableDynamicQuery;
+	}
+
+	@Override
+	public IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
+
+		IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			new IndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setBaseLocalService(
+			userPostLocalService);
+		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
+		indexableActionableDynamicQuery.setModelClass(UserPost.class);
+
+		indexableActionableDynamicQuery.setPrimaryKeyPropertyName("userPostId");
+
+		return indexableActionableDynamicQuery;
+	}
+
+	protected void initActionableDynamicQuery(
+		ActionableDynamicQuery actionableDynamicQuery) {
+
+		actionableDynamicQuery.setBaseLocalService(userPostLocalService);
+		actionableDynamicQuery.setClassLoader(getClassLoader());
+		actionableDynamicQuery.setModelClass(UserPost.class);
+
+		actionableDynamicQuery.setPrimaryKeyPropertyName("userPostId");
 	}
 
 	/**
@@ -273,7 +317,7 @@ public abstract class UserPostLocalServiceBaseImpl
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
 
-		return userPostPersistence.create((String)primaryKeyObj);
+		return userPostPersistence.create(((Long)primaryKeyObj).longValue());
 	}
 
 	/**

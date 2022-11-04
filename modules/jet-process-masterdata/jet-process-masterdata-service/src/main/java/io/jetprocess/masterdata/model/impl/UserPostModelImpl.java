@@ -14,12 +14,18 @@
 
 package io.jetprocess.masterdata.model.impl;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -66,10 +72,11 @@ public class UserPostModelImpl
 	public static final String TABLE_NAME = "Masterdata_UserPost";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"userPostId", Types.VARCHAR},
+		{"uuid_", Types.VARCHAR}, {"userPostId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"postId", Types.BIGINT},
-		{"sectionId", Types.BIGINT}, {"description", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"shortName", Types.VARCHAR}
+		{"sectionId", Types.BIGINT}, {"description", Types.VARCHAR},
+		{"userName", Types.VARCHAR}, {"shortName", Types.VARCHAR},
+		{"userId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -77,17 +84,18 @@ public class UserPostModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("userPostId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("postId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("sectionId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("description", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("shortName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Masterdata_UserPost (uuid_ VARCHAR(75) null,userPostId VARCHAR(75) not null primary key,groupId LONG,postId LONG,sectionId LONG,description LONG,userName VARCHAR(75) null,shortName VARCHAR(75) null)";
+		"create table Masterdata_UserPost (uuid_ VARCHAR(75) null,userPostId LONG not null primary key,groupId LONG,postId LONG,sectionId LONG,description VARCHAR(75) null,userName VARCHAR(75) null,shortName VARCHAR(75) null,userId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Masterdata_UserPost";
@@ -114,14 +122,20 @@ public class UserPostModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 2L;
+	public static final long USERID_COLUMN_BITMASK = 2L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long USERPOSTID_COLUMN_BITMASK = 4L;
+	public static final long USERPOSTID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -141,12 +155,12 @@ public class UserPostModelImpl
 	}
 
 	@Override
-	public String getPrimaryKey() {
+	public long getPrimaryKey() {
 		return _userPostId;
 	}
 
 	@Override
-	public void setPrimaryKey(String primaryKey) {
+	public void setPrimaryKey(long primaryKey) {
 		setUserPostId(primaryKey);
 	}
 
@@ -157,7 +171,7 @@ public class UserPostModelImpl
 
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey((String)primaryKeyObj);
+		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	@Override
@@ -237,8 +251,7 @@ public class UserPostModelImpl
 			"uuid", (BiConsumer<UserPost, String>)UserPost::setUuid);
 		attributeGetterFunctions.put("userPostId", UserPost::getUserPostId);
 		attributeSetterBiConsumers.put(
-			"userPostId",
-			(BiConsumer<UserPost, String>)UserPost::setUserPostId);
+			"userPostId", (BiConsumer<UserPost, Long>)UserPost::setUserPostId);
 		attributeGetterFunctions.put("groupId", UserPost::getGroupId);
 		attributeSetterBiConsumers.put(
 			"groupId", (BiConsumer<UserPost, Long>)UserPost::setGroupId);
@@ -251,13 +264,16 @@ public class UserPostModelImpl
 		attributeGetterFunctions.put("description", UserPost::getDescription);
 		attributeSetterBiConsumers.put(
 			"description",
-			(BiConsumer<UserPost, Long>)UserPost::setDescription);
+			(BiConsumer<UserPost, String>)UserPost::setDescription);
 		attributeGetterFunctions.put("userName", UserPost::getUserName);
 		attributeSetterBiConsumers.put(
 			"userName", (BiConsumer<UserPost, String>)UserPost::setUserName);
 		attributeGetterFunctions.put("shortName", UserPost::getShortName);
 		attributeSetterBiConsumers.put(
 			"shortName", (BiConsumer<UserPost, String>)UserPost::setShortName);
+		attributeGetterFunctions.put("userId", UserPost::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId", (BiConsumer<UserPost, Long>)UserPost::setUserId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -296,17 +312,12 @@ public class UserPostModelImpl
 
 	@JSON
 	@Override
-	public String getUserPostId() {
-		if (_userPostId == null) {
-			return "";
-		}
-		else {
-			return _userPostId;
-		}
+	public long getUserPostId() {
+		return _userPostId;
 	}
 
 	@Override
-	public void setUserPostId(String userPostId) {
+	public void setUserPostId(long userPostId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -370,12 +381,17 @@ public class UserPostModelImpl
 
 	@JSON
 	@Override
-	public long getDescription() {
-		return _description;
+	public String getDescription() {
+		if (_description == null) {
+			return "";
+		}
+		else {
+			return _description;
+		}
 	}
 
 	@Override
-	public void setDescription(long description) {
+	public void setDescription(String description) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -423,6 +439,46 @@ public class UserPostModelImpl
 		_shortName = shortName;
 	}
 
+	@JSON
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException portalException) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalUserId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("userId"));
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -445,6 +501,19 @@ public class UserPostModelImpl
 		}
 
 		return _columnBitmask;
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(
+			0, UserPost.class.getName(), getPrimaryKey());
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
+		ExpandoBridge expandoBridge = getExpandoBridge();
+
+		expandoBridge.setAttributes(serviceContext);
 	}
 
 	@Override
@@ -474,6 +543,7 @@ public class UserPostModelImpl
 		userPostImpl.setDescription(getDescription());
 		userPostImpl.setUserName(getUserName());
 		userPostImpl.setShortName(getShortName());
+		userPostImpl.setUserId(getUserId());
 
 		userPostImpl.resetOriginalValues();
 
@@ -486,26 +556,35 @@ public class UserPostModelImpl
 
 		userPostImpl.setUuid(this.<String>getColumnOriginalValue("uuid_"));
 		userPostImpl.setUserPostId(
-			this.<String>getColumnOriginalValue("userPostId"));
+			this.<Long>getColumnOriginalValue("userPostId"));
 		userPostImpl.setGroupId(this.<Long>getColumnOriginalValue("groupId"));
 		userPostImpl.setPostId(this.<Long>getColumnOriginalValue("postId"));
 		userPostImpl.setSectionId(
 			this.<Long>getColumnOriginalValue("sectionId"));
 		userPostImpl.setDescription(
-			this.<Long>getColumnOriginalValue("description"));
+			this.<String>getColumnOriginalValue("description"));
 		userPostImpl.setUserName(
 			this.<String>getColumnOriginalValue("userName"));
 		userPostImpl.setShortName(
 			this.<String>getColumnOriginalValue("shortName"));
+		userPostImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
 
 		return userPostImpl;
 	}
 
 	@Override
 	public int compareTo(UserPost userPost) {
-		String primaryKey = userPost.getPrimaryKey();
+		long primaryKey = userPost.getPrimaryKey();
 
-		return getPrimaryKey().compareTo(primaryKey);
+		if (getPrimaryKey() < primaryKey) {
+			return -1;
+		}
+		else if (getPrimaryKey() > primaryKey) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 
 	@Override
@@ -520,9 +599,9 @@ public class UserPostModelImpl
 
 		UserPost userPost = (UserPost)object;
 
-		String primaryKey = userPost.getPrimaryKey();
+		long primaryKey = userPost.getPrimaryKey();
 
-		if (getPrimaryKey().equals(primaryKey)) {
+		if (getPrimaryKey() == primaryKey) {
 			return true;
 		}
 		else {
@@ -532,7 +611,7 @@ public class UserPostModelImpl
 
 	@Override
 	public int hashCode() {
-		return getPrimaryKey().hashCode();
+		return (int)getPrimaryKey();
 	}
 
 	/**
@@ -574,12 +653,6 @@ public class UserPostModelImpl
 
 		userPostCacheModel.userPostId = getUserPostId();
 
-		String userPostId = userPostCacheModel.userPostId;
-
-		if ((userPostId != null) && (userPostId.length() == 0)) {
-			userPostCacheModel.userPostId = null;
-		}
-
 		userPostCacheModel.groupId = getGroupId();
 
 		userPostCacheModel.postId = getPostId();
@@ -587,6 +660,12 @@ public class UserPostModelImpl
 		userPostCacheModel.sectionId = getSectionId();
 
 		userPostCacheModel.description = getDescription();
+
+		String description = userPostCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			userPostCacheModel.description = null;
+		}
 
 		userPostCacheModel.userName = getUserName();
 
@@ -603,6 +682,8 @@ public class UserPostModelImpl
 		if ((shortName != null) && (shortName.length() == 0)) {
 			userPostCacheModel.shortName = null;
 		}
+
+		userPostCacheModel.userId = getUserId();
 
 		return userPostCacheModel;
 	}
@@ -697,13 +778,14 @@ public class UserPostModelImpl
 	}
 
 	private String _uuid;
-	private String _userPostId;
+	private long _userPostId;
 	private long _groupId;
 	private long _postId;
 	private long _sectionId;
-	private long _description;
+	private String _description;
 	private String _userName;
 	private String _shortName;
+	private long _userId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -742,6 +824,7 @@ public class UserPostModelImpl
 		_columnOriginalValues.put("description", _description);
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("shortName", _shortName);
+		_columnOriginalValues.put("userId", _userId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -780,6 +863,8 @@ public class UserPostModelImpl
 		columnBitmasks.put("userName", 64L);
 
 		columnBitmasks.put("shortName", 128L);
+
+		columnBitmasks.put("userId", 256L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

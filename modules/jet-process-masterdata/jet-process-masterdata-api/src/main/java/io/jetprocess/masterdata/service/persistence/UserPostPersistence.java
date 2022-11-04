@@ -163,7 +163,7 @@ public interface UserPostPersistence extends BasePersistence<UserPost> {
 	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
 	 */
 	public UserPost[] findByUuid_PrevAndNext(
-			String userPostId, String uuid,
+			long userPostId, String uuid,
 			com.liferay.portal.kernel.util.OrderByComparator<UserPost>
 				orderByComparator)
 		throws NoSuchUserPostException;
@@ -234,6 +234,149 @@ public interface UserPostPersistence extends BasePersistence<UserPost> {
 	public int countByUUID_G(String uuid, long groupId);
 
 	/**
+	 * Returns all the user posts where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the matching user posts
+	 */
+	public java.util.List<UserPost> findByuserId(long userId);
+
+	/**
+	 * Returns a range of all the user posts where userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserPostModelImpl</code>.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of user posts
+	 * @param end the upper bound of the range of user posts (not inclusive)
+	 * @return the range of matching user posts
+	 */
+	public java.util.List<UserPost> findByuserId(
+		long userId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the user posts where userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserPostModelImpl</code>.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of user posts
+	 * @param end the upper bound of the range of user posts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching user posts
+	 */
+	public java.util.List<UserPost> findByuserId(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the user posts where userId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>UserPostModelImpl</code>.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of user posts
+	 * @param end the upper bound of the range of user posts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching user posts
+	 */
+	public java.util.List<UserPost> findByuserId(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user post
+	 * @throws NoSuchUserPostException if a matching user post could not be found
+	 */
+	public UserPost findByuserId_First(
+			long userId,
+			com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+				orderByComparator)
+		throws NoSuchUserPostException;
+
+	/**
+	 * Returns the first user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user post, or <code>null</code> if a matching user post could not be found
+	 */
+	public UserPost fetchByuserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+			orderByComparator);
+
+	/**
+	 * Returns the last user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user post
+	 * @throws NoSuchUserPostException if a matching user post could not be found
+	 */
+	public UserPost findByuserId_Last(
+			long userId,
+			com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+				orderByComparator)
+		throws NoSuchUserPostException;
+
+	/**
+	 * Returns the last user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user post, or <code>null</code> if a matching user post could not be found
+	 */
+	public UserPost fetchByuserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+			orderByComparator);
+
+	/**
+	 * Returns the user posts before and after the current user post in the ordered set where userId = &#63;.
+	 *
+	 * @param userPostId the primary key of the current user post
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next user post
+	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
+	 */
+	public UserPost[] findByuserId_PrevAndNext(
+			long userPostId, long userId,
+			com.liferay.portal.kernel.util.OrderByComparator<UserPost>
+				orderByComparator)
+		throws NoSuchUserPostException;
+
+	/**
+	 * Removes all the user posts where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 */
+	public void removeByuserId(long userId);
+
+	/**
+	 * Returns the number of user posts where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching user posts
+	 */
+	public int countByuserId(long userId);
+
+	/**
 	 * Caches the user post in the entity cache if it is enabled.
 	 *
 	 * @param userPost the user post
@@ -253,7 +396,7 @@ public interface UserPostPersistence extends BasePersistence<UserPost> {
 	 * @param userPostId the primary key for the new user post
 	 * @return the new user post
 	 */
-	public UserPost create(String userPostId);
+	public UserPost create(long userPostId);
 
 	/**
 	 * Removes the user post with the primary key from the database. Also notifies the appropriate model listeners.
@@ -262,7 +405,7 @@ public interface UserPostPersistence extends BasePersistence<UserPost> {
 	 * @return the user post that was removed
 	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
 	 */
-	public UserPost remove(String userPostId) throws NoSuchUserPostException;
+	public UserPost remove(long userPostId) throws NoSuchUserPostException;
 
 	public UserPost updateImpl(UserPost userPost);
 
@@ -273,7 +416,7 @@ public interface UserPostPersistence extends BasePersistence<UserPost> {
 	 * @return the user post
 	 * @throws NoSuchUserPostException if a user post with the primary key could not be found
 	 */
-	public UserPost findByPrimaryKey(String userPostId)
+	public UserPost findByPrimaryKey(long userPostId)
 		throws NoSuchUserPostException;
 
 	/**
@@ -282,7 +425,7 @@ public interface UserPostPersistence extends BasePersistence<UserPost> {
 	 * @param userPostId the primary key of the user post
 	 * @return the user post, or <code>null</code> if a user post with the primary key could not be found
 	 */
-	public UserPost fetchByPrimaryKey(String userPostId);
+	public UserPost fetchByPrimaryKey(long userPostId);
 
 	/**
 	 * Returns all the user posts.
