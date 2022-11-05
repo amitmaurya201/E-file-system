@@ -58,7 +58,9 @@
 		<field name="city" type="String" />
 		<field name="subOrganizationId" type="long" />
 		<field name="userPostId" type="long" />
-		<field name="viewPdfUrl" type="String" />
+		<field name="viewPdfUrl" type="String">
+			<hint name="max-length">1024</hint>
+		</field>
 		<field name="dmFileId" type="long" />
 	</model>
 </model-hints>

@@ -133,7 +133,7 @@ public class ReceiptModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(75) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(75) null,dmFileId LONG)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn DATE null,letterDate DATE null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(75) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
