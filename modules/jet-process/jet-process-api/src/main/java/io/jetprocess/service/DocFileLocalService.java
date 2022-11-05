@@ -80,18 +80,12 @@ public interface DocFileLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public DocFile addDocFile(DocFile docFile);
 
-	public JSONObject addNonSfsDocFile(
+	public JSONObject addDocFile(
 			long groupId, String nature, String type, long basicHeadId,
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
 			long year, long fileCodeId, String subject, long categoryId,
 			long subCategoryId, String remarks, String reference,
-			ServiceContext serviceContext)
-		throws PortalException;
-
-	public JSONObject addSfsDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference, ServiceContext serviceContext)
+			long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -342,18 +336,10 @@ public interface DocFileLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public DocFile updateDocFile(DocFile docFile);
 
-	public DocFile updateNonSfsDocFile(
-			long docFileId, String nature, String type, long basicHeadId,
-			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
-			long year, long fileCodeId, String subject, String fileNumber,
-			long categoryId, long subCategoryId, String remarks,
-			String reference, ServiceContext serviceContext)
-		throws PortalException;
-
-	public DocFile updateSfsDocFile(
-			long docFileId, String nature, String type, String fileNumber,
-			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference, ServiceContext serviceContext)
+	public DocFile updateDocFile(
+			long docFileId, String subject, long categoryId, long subCategoryId,
+			String remarks, String reference, long userPostId,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 }

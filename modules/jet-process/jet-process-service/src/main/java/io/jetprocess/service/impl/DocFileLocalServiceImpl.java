@@ -46,92 +46,6 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 	@Reference
 	private FileValidator fileValidator;
 	
-	
-	
-	public JSONObject addSfsDocFile(long groupId, String nature, String type, String fileNumber,String subject, long categoryId,
-		long subCategoryId, String remarks, String reference, ServiceContext serviceContext)
-			throws PortalException {
-   
-      List<String> errors =fileValidator.validate(subject, remarks, reference);
-		
-	     System.out.println("list of Errors "+errors);
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-		if (errors.size() > 0) {
-			jsonObject.put("errorList", errors);
-			System.out.println("error list of json" + jsonObject.getString("errorList").toCharArray().toString());
-			return jsonObject;
-		}
-
-	//	System.out.println("Errors ......" + jsonObject.toString());
-
-		System.out.println("Local Service method called ....");
-		// get group from the groupId
-		Group group = groupLocalService.getGroup(groupId);
-
-		// get userId from the ServiceContext
-		long userId = serviceContext.getUserId();
-		// get user from the userId
-		User user = userLocalService.getUser(userId);
-
-		// Generate the new primary key
-		long docFileId = counterLocalService.increment(DocFile.class.getName());
-
-		// get docFile object from the docFileId
-		DocFile docFile = createDocFile(docFileId);
-		// calling method getGeneratedFileNumber(docFile)
-
-		// if(docFile.getNature()== "Electronic" && docFile.getType()== "SFS") {
-
-		//String fileNumber = getGenerateFileNumber(docFile);
-		// set the all values of docFile into the docFile object
-		docFile.setNature(nature);
-		docFile.setType(type);
-		docFile.setSubject(subject);
-		docFile.setFileNumber(fileNumber);
-		docFile.setCategoryId(categoryId);
-		docFile.setSubCategoryId(subCategoryId);
-		docFile.setRemarks(remarks);
-		docFile.setReference(reference);
-
-		// set the audit fields
-
-		docFile.setGroupId(groupId);
-		docFile.setCompanyId(group.getCompanyId());
-		docFile.setCreateDate(serviceContext.getCreateDate(new Date()));
-		System.out.println("createDate is .... " + docFile.getCreateDate());
-
-		docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
-		docFile.setUserId(userId);
-		docFile.setUserName(user.getScreenName());
-
-		docFile = super.addDocFile(docFile);
-
-		jsonObject.put("nature", docFile.getNature());
-		jsonObject.put("type", docFile.getType());
-		jsonObject.put("subject", docFile.getSubject());
-		jsonObject.put("category", docFile.getCategoryId());
-		jsonObject.put("fileNumber", docFile.getFileNumber());
-		jsonObject.put("subCategory", docFile.getSubCategoryId());
-		jsonObject.put("remarks", docFile.getRemarks());
-		jsonObject.put("reference", docFile.getReference());
-		jsonObject.put("groupId", docFile.getGroupId());
-		jsonObject.put("companyId", docFile.getCompanyId());
-		jsonObject.put("createdDate", docFile.getCreateDate());
-		jsonObject.put("modifiedDate", docFile.getModifiedDate());
-		jsonObject.put("userId", docFile.getUserId());
-		jsonObject.put("userName", docFile.getUserName());
-
-		return jsonObject; 
-		}
-
-	// for generating the fileNumber .
-		public String getGenerateFileNumber(DocFile docfile) {
-			long fileNumber1 = docfile.getDocFileId();
-			String number = String.valueOf(fileNumber1);
-			String filenumber = 'F' + number;
-			return filenumber;
-		}
-
 		// delete
 		public DocFile deleteDocFile(DocFile docFile) {
 			return super.deleteDocFile(docFile);
@@ -143,11 +57,19 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		}
 
-		public JSONObject addNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
-		long subCategoryId, String remarks, String reference, ServiceContext serviceContext) throws PortalException {
+		public JSONObject addDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+		long subCategoryId, String remarks, String reference, long userPostId, ServiceContext serviceContext) throws PortalException {
 			
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-		
+			List<String> errors =fileValidator.validate(subject, remarks, reference);
+	
+			     System.out.println("list of Errors "+errors);
+				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+				if (errors.size() > 0) {
+					jsonObject.put("errorList", errors);
+					System.out.println("error list of json" + jsonObject.getString("errorList").toCharArray().toString());
+					return jsonObject;
+				}
+
 			Group group = groupLocalService.getGroup(groupId);
 			
 			// get userId from the ServiceContext
@@ -169,6 +91,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			docFile.setFileNumber(fileNumber);
 			docFile.setBasicHeadId(basicHeadId);
 			docFile.setPrimaryHeadId(primaryHeadId);
+			docFile.setSecondaryHeadId(secondaryHeadId);
 			docFile.setTertiaryHeadId(tertiaryHeadId);
 			docFile.setYear(year);
 			docFile.setFileCodeId(fileCodeId);
@@ -176,7 +99,8 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			docFile.setSubCategoryId(subCategoryId);
 			docFile.setRemarks(remarks);
 			docFile.setReference(reference);
-
+            docFile.setUserPostId(userPostId);
+           
 			// set the audit fields
 
 			docFile.setGroupId(groupId);
@@ -214,60 +138,36 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			jsonObject.put("modifiedDate", docFile.getModifiedDate());
 			jsonObject.put("userId", docFile.getUserId());
 			jsonObject.put("userName", docFile.getUserName());
-
+            jsonObject.put("userPostId", docFile.getUserPostId());
 			
 			return jsonObject;
 			
-			
-			
 		}
 		
 		
-		
-		
-		// Update method for SfsDocFile 
-		public DocFile updateSfsDocFile(long docFileId, String nature, String type,String fileNumber, String subject, long categoryId,
-				long subCategoryId, String remarks, String reference, ServiceContext serviceContext)
-				throws PortalException {
-			DocFile docFile = getDocFile(docFileId);
-			docFile.setNature(nature);
-			docFile.setType(type);
-			docFile.setSubject(subject);
-			docFile.setFileNumber(fileNumber);
-			docFile.setCategoryId(categoryId);
-			docFile.setSubCategoryId(subCategoryId);
-			docFile.setRemarks(remarks);
-			docFile.setReference(reference);
-			docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
-			docFile = super.updateDocFile(docFile);
-			return docFile;
-		}
-    
-		// Update Method for NonSfsDocFile 
-		public DocFile updateNonSfsDocFile(long docFileId,String nature ,String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId, long year, long fileCodeId,String subject,String fileNumber,long categoryId,long subCategoryId,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
-			
+		// Update Method for DocFile 
+		public DocFile updateDocFile(long docFileId ,String subject,long categoryId,long subCategoryId,String remarks,String reference,long userPostId, ServiceContext serviceContext) throws PortalException {
 		DocFile docFile = getDocFile(docFileId);
-        docFile.setNature(nature);
-        docFile.setType(type);
-        docFile.setBasicHeadId(basicHeadId);
-        docFile.setPrimaryHeadId(primaryHeadId);
-        docFile.setTertiaryHeadId(tertiaryHeadId);
-        docFile.setYear(year);
-        docFile.setFileCodeId(fileCodeId);
 		docFile.setSubject(subject);
-		docFile.setFileNumber(fileNumber);
 		docFile.setCategoryId(categoryId);
 		docFile.setSubCategoryId(subCategoryId);
 		docFile.setRemarks(remarks);
 		docFile.setReference(reference);
+		docFile.setUserPostId(userPostId);
 		docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));	
 		docFile = super.updateDocFile(docFile);	
 			return docFile;
 			
 		}
 
-		
-		
-		
-}
 
+		// for generating the fileNumber .
+			public String getGenerateFileNumber(DocFile docfile) {
+				long fileNumber1 = docfile.getDocFileId();
+				String number = String.valueOf(fileNumber1);
+				String filenumber = 'F' + number;
+				return filenumber;
+			}
+		
+
+}
