@@ -24,21 +24,25 @@ const CreateFile = () => {
     const [fileCodeData, setFileCodeData] = useState([]);
 
     const { register, handleSubmit, errors, reset } = useForm();
+    //const userPostId1 = document.getElementById("p");
     const [formValue, setFormValue] = useState({
         nature: "Electronic",
         type: "NON-SFS",
-        basicHead: 0,
-        primaryHead: 0,
-        secondaryHead: 0,
-        tertiaryHead: 0,
+        basicHeadId: 0,
+        primaryHeadId: 0,
+        secondaryHeadId: 0,
+        tertiaryHeadId: 0,
         year: currentYear,
-        fileCode: 0,
+        fileCodeId: 0,
         fileNumber: 0,
         subject: "",
-        category: 0,
-        subCategory: 0,
-        remark: "",
-        reference: ""
+        categoryId: 0,
+        subCategoryId: 0,
+        remarks: "",
+        reference: "",
+        groupId: Liferay.ThemeDisplay.getScopeGroupId(),
+        userPostId: 0
+
     });
 
     //  ----------------------- URL -----------------
@@ -60,57 +64,117 @@ const CreateFile = () => {
     const onchange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
         console.log("Hello......" + formValue);
-        if (e.target.name == "basicHead") {
+        if (e.target.name === "basicHeadId") {
             getPrimaryHead(e.target.value);
         }
-        if (e.target.name == "primaryHead") {
+        if (e.target.name === "primaryHeadId") {
             getSecondaryHead(e.target.value);
         }
-        if (e.target.name == "secondaryHead") {
+        if (e.target.name === "secondaryHeadId") {
             getTertiaryHead(e.target.value);
         }
-        if (e.target.name == "category") {
+        if (e.target.name === "categoryId") {
             getSubCategory(e.target.value);
         }
-        if (e.target.name == "reference") {
+        if (e.target.name === "reference") {
             console.log(`Hello reference ${reference} Hello reference ${formValue.reference} `);
         }
+        if (e.target.name === "type") {
+            if (e.target.value === "SFS") {
+                console.log("type ->>>>>>>>" + e.target.value);
+                setType(false);
+            } else {
+
+                setType(true);
+            }
 
 
-    }
-
-    const onType = (e) => {
-
-        if (e.target.value === 'SFS') {
-            console.log("type is here" + e.target.value);
-            setType(false);
-        } else {
-            setType(true);
         }
-    }
-   
-    const onSubmitHandle = (event) => {
-        console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId() + "nature :" + formValue.nature + "type :" + formValue.type + "basic-head-id  :" + formValue.basicHead + "primary-head-id  :" + formValue.primaryHead + "secondary-head-id  :" + formValue.secondaryHead + "tertiary-head-id  :" + formValue.tertiaryHead + "year  :" + formValue.year + "fileCode  :" + formValue.fileCode + "subject  :" + formValue.subject + "categoryId  :" + formValue.category + "subCategoyId  :" + formValue.subCategory + "remarks  :" + formValue.remark + "reference  :" + formValue.reference);
-        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-non-sfs-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/basic-head-id/${formValue.basicHead}/primary-head-id/${formValue.primaryHead}/secondary-head-id/${formValue.secondaryHead}/tertiary-head-id/${formValue.tertiaryHead}/year/${formValue.year}/file-code-id/${formValue.fileCode}/subject/${formValue.subject}/category-id/${formValue.category}/sub-category-id/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}?p_auth=${Liferay.authToken}`)
-            .then((response) => {
-                console.log("response  .....", response);
 
-                swal(
-                    {
-                        title: "successfull !",
-                        text: `You Have successfully created Your File! And Your File Number is ${response.data.fileNumber} `,
-                        icon: "success",
-                        button: "ok"
-                    }
-                )
-            })
-            .catch(error => {
-                resposeFail = true;
-                onFail();
-                console.log(error)
-            })
+    }
+
+    //   const onType = (e) => {
+ 
+    //      if (e.target.value === 'SFS') {
+    //          console.log("type is here" + e.target.value);
+    //          setType(false);
+    //      } else {
+    //          setType(true);
+    //      }
+    //  }
+
+
+
+    const onSubmitHandle = async () => {
+         
+         const FileFormData = new FormData();
+         console.log("Type is here" + formValue.type);
+         FileFormData.append("type", formValue.type)
+         FileFormData.append("basicHeadId", formValue.basicHeadId)
+         console.log("basicHeadId"+formValue.basicHeadId);
+         FileFormData.append("primaryHeadId", formValue.primaryHeadId)
+         FileFormData.append("secondaryHeadId", formValue.secondaryHeadId)
+         FileFormData.append("tertiaryHeadId", formValue.tertiaryHeadId)
+         FileFormData.append("year", formValue.year)
+         FileFormData.append("fileCodeId", formValue.fileCodeId)
+         FileFormData.append("fileNumber", formValue.fileNumber)
+         FileFormData.append("subject", formValue.subject)
+         FileFormData.append("categoryId", formValue.categoryId)
+         FileFormData.append("subCategoryId", formValue.subCategoryId)
+         FileFormData.append("remarks", formValue.remarks)
+         FileFormData.append("reference", formValue.reference)
+         FileFormData.append("groupId", formValue.groupId)
+         FileFormData.append("userPostId", formValue.userPostId)
+         FileFormData.append("nature", formValue.nature)
+
+        try {
+            // make axios post request
+            const response = await Axios({
+                method: 'post',
+                url: `http://localhost:8080/api/jsonws/jet_process.docfile/add-doc-file?p_auth=` + Liferay.authToken,
+                data: FileFormData,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            swal(
+                {
+                    title: "successfull !",
+                    text: `You Have successfully created Your File! And Your File Number is ${response.data.fileNumber} `,
+                    icon: "success",
+                    button: "ok"
+                }
+            )
+        }
+
+        catch (error) {
+            console.log(error)
+        }
         reset();
     }
+
+
+    /*    console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId() + "nature :" + formValue.nature + "type :" + formValue.type + "basic-head-id  :" + formValue.basicHeadId + "primary-head-id  :" + formValue.primaryHeadId + "secondary-head-id  :" + formValue.secondaryHeadId + "tertiary-head-id  :" + formValue.tertiaryHeadId + "year  :" + formValue.year + "fileCode  :" + formValue.fileCodeId + "subject  :" + formValue.subject + "categoryId  :" + formValue.categoryId + "subCategoyId  :" + formValue.subCategoryId + "remarks  :" + formValue.remarks + "reference  :" + formValue.reference + "userPostId :" + formValue.userPostId);
+       Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-non-sfs-doc-file?p_auth=${Liferay.authToken}`, formValue, { headers: { 'content-type': 'application/json' } })
+           .then((response) => {
+               console.log("response  .....", response);
+
+               swal(
+                   {
+                       title: "successfull !",
+                       text: `You Have successfully created Your File! And Your File Number is ${response.data.fileNumber} `,
+                       icon: "success",
+                       button: "ok"
+                   }
+               )
+           })
+           .catch(error => {
+               // resposeFail = true;
+               // onFail();
+               console.log(error)
+           })
+       reset();
+   } */
+
     useEffect(() => {
         Axios.get(categoryUrl).then((response) => {
             if (response) {
@@ -122,8 +186,8 @@ const CreateFile = () => {
                 setCategory(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail(); 
+            // resposeFail = true;
+            // onFail(); 
             console.log(error)
         }
         );
@@ -137,8 +201,8 @@ const CreateFile = () => {
                 setBasicHeadData(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+            // resposeFail = true;
+            // onFail();
             console.log(error)
         }
         );
@@ -153,8 +217,8 @@ const CreateFile = () => {
                 setFileCodeData(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+            // resposeFail = true;
+            // onFail();
             console.log("Hello......" + error)
         }
         );
@@ -172,8 +236,8 @@ const CreateFile = () => {
                 setPrimaryHeadData(array);
             }
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+            // resposeFail = true;
+            // onFail();
             console.log(error)
         }
         );
@@ -191,8 +255,8 @@ const CreateFile = () => {
             }
 
         }).catch(error => {
-            resposeFail = true;
-            onFail();
+            // resposeFail = true;
+            // onFail();
             console.log(error)
         }
         );
@@ -209,9 +273,9 @@ const CreateFile = () => {
                 setTertiaryHeadData(array);
             }
         }).catch(error => {
-             resposeFail = true;
-             onFail();
-  
+            //  resposeFail = true;
+            //  onFail();
+
             console.log(error)
         }
         );
@@ -231,28 +295,28 @@ const CreateFile = () => {
 
         }).catch(error => {
 
-             resposeFail = true;
-             onFail(); 
+            //  resposeFail = true;
+            //  onFail(); 
             console.log(error)
         }
         );
     }
     // ---------------------  Request Fail Message ----------------- 
 
-      const onFail = () => {
-         if (resposeFail) {
-             console.log("Something went wrong ! We are Unable to load data..")
-             swal(
-                 {
-                     title: "Opps Something Went Wrong !",
-                     text: "We Are Unable to load data !",
-                     icon: "error",
-                     button: "ok",
-                 }
-             )
-             resposeFail = false;
-         }
-     } 
+    const onFail = () => {
+        if (resposeFail) {
+            console.log("Something went wrong ! We are Unable to load data..")
+            swal(
+                {
+                    title: "Opps Something Went Wrong !",
+                    text: "We Are Unable to load data !",
+                    icon: "error",
+                    button: "ok",
+                }
+            )
+            resposeFail = false;
+        }
+    }
 
     return (
         <Fragment>
@@ -288,7 +352,7 @@ const CreateFile = () => {
                                                                         <label><b>Type</b></label>
                                                                     </div>
                                                                     <div className="col-auto">
-                                                                        <select className="form-select form-control" id="type" name="type" onChange={onType}>
+                                                                        <select className="form-select form-control" id="type" name="type" onChange={onchange}>
                                                                             <option value="NON-SFS">NON SFS</option>
                                                                             <option value="SFS">SFS</option>
                                                                         </select>
@@ -309,9 +373,9 @@ const CreateFile = () => {
                                                                                 <legend className="child-scheduler-border">File No.</legend>
                                                                                 <div className="row">
                                                                                     <div className="col-md-2 col-sm-6 mt-2"  >
-                                                                                        <select className="form-select form-control" id="basicHead" name="basicHead"
+                                                                                        <select className="form-select form-control" id="basicHead" name="basicHeadId"
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'basic Head is required' } })} >
-                                                                                            <option value=''>BASIC Head</option>
+                                                                                            <option value=''>Basic Head</option>
                                                                                             {
                                                                                                 basicHeadData.map((data, i) => (
                                                                                                     <Fragment key={i}>
@@ -323,9 +387,10 @@ const CreateFile = () => {
                                                                                         {errors.basicHead && <small className="errors">{errors.basicHead.message}</small>}
                                                                                     </div>
                                                                                     <div className="col-md-2 col-sm-6 mt-2" >
-                                                                                        <select className="form-select form-control" id="primaryHead" name="primaryHead"
+                                                                                        <select className="form-select form-control" id="primaryHead" name="primaryHeadId"
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'Primary Head is required' } })} >
                                                                                             <option value=''>Primary Head Code</option>
+                                        
                                                                                             {
                                                                                                 primaryHeadData.map((data, i) => (
                                                                                                     <Fragment key={i}>
@@ -338,9 +403,10 @@ const CreateFile = () => {
                                                                                         {errors.primaryHead && <small className="errors">{errors.primaryHead.message}</small>}
                                                                                     </div>
                                                                                     <div className="col-md-2 col-sm-6 mt-2">
-                                                                                        <select className="form-select form-control" id="secondaryHead" name="secondaryHead"
+                                                                                        <select className="form-select form-control" id="secondaryHead" name="secondaryHeadId"
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'Secondary Head is required' } })} >
                                                                                             <option value=''>Secondary Head Code</option>
+                                                                                        
                                                                                             {
                                                                                                 secondaryHeadDat.map((data, i) => (
                                                                                                     <Fragment key={i}>
@@ -352,9 +418,10 @@ const CreateFile = () => {
                                                                                         {errors.secondaryHead && <small className="errors">{errors.secondaryHead.message}</small>}
                                                                                     </div>
                                                                                     <div className="col-md-2 col-sm-6 mt-2"  >
-                                                                                        <select className="form-select form-control" id="tertiaryHead" name="tertiaryHead"
+                                                                                        <select className="form-select form-control" id="tertiaryHead" name="tertiaryHeadId"
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'Tertiary Head is required' } })} >
                                                                                             <option value=''>Tertiary Head Code</option>
+                                                                                            
                                                                                             {
                                                                                                 tertiaryHeadData.map((data, i) => (
                                                                                                     <Fragment key={i}>
@@ -370,9 +437,10 @@ const CreateFile = () => {
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'Year is required' } })} ></input>
                                                                                     </div>
                                                                                     <div className="col-md-2 col-sm-6 mt-2">
-                                                                                        <select className="form-select form-control" id="fileCode" name="fileCode"
+                                                                                        <select className="form-select form-control" id="fileCode" name="fileCodeId"
                                                                                             onChange={onchange} ref={register({ required: { value: true, message: 'File code is required' } })} >
                                                                                             <option value="">File-Code </option>
+                                                                                            
                                                                                             {
                                                                                                 fileCodeData.map((data, i) => (
                                                                                                     <Fragment key={i}>
@@ -426,9 +494,10 @@ const CreateFile = () => {
                                             <fieldset className="child-scheduler-border col-md-6">
                                                 <legend className="child-scheduler-border">Category</legend>
                                                 <div className="input-group">
-                                                    <select className="form-select form-control" id="category" name="category"
+                                                    <select className="form-select form-control" id="category" name="categoryId"
                                                         onChange={onchange} ref={register({ required: 'category is required' })} >
                                                         <option value='' >Choose...</option>
+                                                        
                                                         {
                                                             category.map((data, i) => (
                                                                 <Fragment key={i}>
@@ -443,8 +512,9 @@ const CreateFile = () => {
                                             <fieldset className="child-scheduler-border col-md-6">
                                                 <legend className="child-scheduler-border">Sub Category</legend>
                                                 <div className="input-group">
-                                                    <select className="form-select form-control" id="subCategory" name="subCategory" onChange={onchange} ref={register({ required: true })} >
+                                                    <select className="form-select form-control" id="subCategory" name="subCategoryId" onChange={onchange} ref={register({ required: true })} >
                                                         <option value='' >Choose...</option>
+                                                        
                                                         {
                                                             subCategory.map((data, i) => (
                                                                 <Fragment key={i}>
@@ -464,7 +534,7 @@ const CreateFile = () => {
                                         <div className="row">
                                             <fieldset className="col-md-12 child-scheduler-border">
                                                 <legend className="child-scheduler-border">Remark</legend>
-                                                <textarea className="form-control col-md-12" rows="3" type="text" name="remark"
+                                                <textarea className="form-control col-md-12" rows="3" type="text" name="remarks"
                                                     id="remark" onChange={onchange}
                                                     ref={register({ required: "Remark is required", maxLength: { value: 1000, message: "Remark cann't be more than 1000 letter" } })} ></textarea>
                                                 {errors.remark && <span className="errors">{errors.remark.message}</span>}

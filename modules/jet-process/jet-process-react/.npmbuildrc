@@ -1,7 +1,7 @@
 {
 	"translatorTextKey": "",
 	"supportedLocales": [],
-	"liferayDir": "D:\\Jet_Process\\Server\\liferay-dxp-7.4.13.u36",
+	"liferayDir": "liferay.workspace.home.dir= C:\\Users\\abhis\\Desktop\\jetprocess\\Server\\liferay-dxp-7.4.13.u36",
 	"webpack": {
 		"rules": [
 			{
