@@ -126,7 +126,7 @@ public class DocFileServiceHttp {
 			HttpPrincipal httpPrincipal, long groupId, String nature,
 			String type, long basicHeadId, long primaryHeadId,
 			long secondaryHeadId, long tertiaryHeadId, long year,
-			long fileCodeId, String subject, long categoryId,
+			long fileCodeId, String subject, String fileNumber, long categoryId,
 			long subCategoryId, String remarks, String reference,
 			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -140,8 +140,8 @@ public class DocFileServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, nature, type, basicHeadId, primaryHeadId,
 				secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
-				categoryId, subCategoryId, remarks, reference, userPostId,
-				serviceContext);
+				fileNumber, categoryId, subCategoryId, remarks, reference,
+				userPostId, serviceContext);
 
 			Object returnObj = null;
 
@@ -224,8 +224,8 @@ public class DocFileServiceHttp {
 	private static final Class<?>[] _addDocFileParameterTypes2 = new Class[] {
 		long.class, String.class, String.class, long.class, long.class,
 		long.class, long.class, long.class, long.class, String.class,
-		long.class, long.class, String.class, String.class, long.class,
-		com.liferay.portal.kernel.service.ServiceContext.class
+		String.class, long.class, long.class, String.class, String.class,
+		long.class, com.liferay.portal.kernel.service.ServiceContext.class
 	};
 	private static final Class<?>[] _updateDocFileParameterTypes3 =
 		new Class[] {

@@ -34,7 +34,7 @@ const CreateFile = () => {
         tertiaryHeadId: 0,
         year: currentYear,
         fileCodeId: 0,
-        fileNumber: 0,
+        fileNumber: "",
         subject: "",
         categoryId: 0,
         subCategoryId: 0,

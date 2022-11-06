@@ -57,7 +57,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		}
 
-		public JSONObject addDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+		public JSONObject addDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject,String fileNumber, long categoryId,
 		long subCategoryId, String remarks, String reference, long userPostId, ServiceContext serviceContext) throws PortalException {
 			
 			List<String> errors =fileValidator.validate(subject, remarks, reference);
@@ -83,12 +83,22 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			// get docFile object from the docFileId
 			DocFile docFile = createDocFile(docFileId);
    
-	   	String fileNumber = getGenerateFileNumber(docFile);
+			if(!fileNumber.isEmpty()) {
+				docFile.setFileNumber(fileNumber);
+				
+			}else {
+				
+				fileNumber = getGenerateFileNumber(docFile);
+				docFile.setFileNumber(fileNumber);
+				
+			}
+			
+	//   	String fileNumber = getGenerateFileNumber(docFile);
 			
 			docFile.setNature(nature);
 			docFile.setType(type);
 			docFile.setSubject(subject);
-			docFile.setFileNumber(fileNumber);
+			//docFile.setFileNumber(fileNumber);
 			docFile.setBasicHeadId(basicHeadId);
 			docFile.setPrimaryHeadId(primaryHeadId);
 			docFile.setSecondaryHeadId(secondaryHeadId);

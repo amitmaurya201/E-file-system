@@ -42,15 +42,15 @@ public class DocFileServiceUtil {
 	public static com.liferay.portal.kernel.json.JSONObject addDocFile(
 			long groupId, String nature, String type, long basicHeadId,
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
-			long year, long fileCodeId, String subject, long categoryId,
-			long subCategoryId, String remarks, String reference,
-			long userPostId,
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
+			String reference, long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().addDocFile(
 			groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId,
-			tertiaryHeadId, year, fileCodeId, subject, categoryId,
+			tertiaryHeadId, year, fileCodeId, subject, fileNumber, categoryId,
 			subCategoryId, remarks, reference, userPostId, serviceContext);
 	}
 

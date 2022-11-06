@@ -83,9 +83,9 @@ public interface DocFileLocalService
 	public JSONObject addDocFile(
 			long groupId, String nature, String type, long basicHeadId,
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
-			long year, long fileCodeId, String subject, long categoryId,
-			long subCategoryId, String remarks, String reference,
-			long userPostId, ServiceContext serviceContext)
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
+			String reference, long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**

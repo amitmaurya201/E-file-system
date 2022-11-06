@@ -53,9 +53,9 @@ import org.osgi.service.component.annotations.Component;
 			
 		  // add nonsfsdocfile 
 			
-			public JSONObject addDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
+			public JSONObject addDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject,String fileNumber, long categoryId,
 		long subCategoryId, String remarks, String reference,long userPostId, ServiceContext serviceContext)  throws PortalException {
-				return docFileLocalService.addDocFile(groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject, categoryId, subCategoryId, remarks, reference, userPostId, serviceContext);
+				return docFileLocalService.addDocFile(groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject, fileNumber, categoryId, subCategoryId, remarks, reference, userPostId, serviceContext);
 			}
 			
 	
