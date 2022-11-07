@@ -114,7 +114,7 @@ public class DocStoreImpl implements DocStore {
 	public long tempFileUpload(long siteId, long parentFolderId, String folderName, String fileName, InputStream inputStream, String contentType) throws PortalException {
 		FileEntry fileEntry = DLAppServiceUtil.addTempFileEntry(siteId, parentFolderId, folderName, fileName,inputStream, contentType);
 		long tempFileId = fileEntry.getFileEntryId();
-		System.out.println("tempFileId");
+	
 		return tempFileId;
 	}
 
@@ -129,7 +129,7 @@ public class DocStoreImpl implements DocStore {
 				List<Folder> subFoldersList = DLAppServiceUtil.getFolders(groupId, subFolder);
 				for (Folder subFolders : subFoldersList) {
 					long subFolderId = subFolders.getFolderId();
-					System.out.println("isFolderExistMethod"+subFolderId);
+					
 					folderExist = true;
 				}
 			}
@@ -147,11 +147,11 @@ public class DocStoreImpl implements DocStore {
 			List<Folder> subFoldersList = DLAppServiceUtil.getFolders(groupId, subFolder);
 			for (Folder subFolders : subFoldersList) {
 				long subFolderId = subFolders.getFolderId();
-				System.out.println("subFolderId method" +subFolderId);
+			
 				List<Folder> lastFoldersList = DLAppServiceUtil.getFolders(groupId, subFolderId);
 				for (Folder subSubFolders : lastFoldersList) {
 					 reqFolderId = subSubFolders.getFolderId();
-					System.out.println("test method" +reqFolderId);
+
 				}
 			}
 		}
@@ -166,13 +166,7 @@ public class DocStoreImpl implements DocStore {
 		 Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH) + 1;
         int year = cal.get(Calendar.YEAR);
-        System.out.println("Month: " + month);
-        System.out.println("Year: " + year);
-		//Date date = new Date();
-		/*
-		 * int year = date.getYear(); int currentYear = year + 1900;
-		 * 
-		 */
+		
         String folderName= "Jet_Process";
         Folder folder1 = null;
         try {
@@ -193,15 +187,12 @@ public class DocStoreImpl implements DocStore {
 		}
 		if (folder2.getName().equals(yearFolderName)) {
 			long secondFolderId = folder2.getFolderId();
-		System.out.println("year folderID" + secondFolderId);
-	
-			//int month = date.getMonth() + 1;
 			String monthFolderName = String.valueOf(month);
 			
 			try {
 				folder1 = DLAppServiceUtil.addFolder(groupId, secondFolderId, monthFolderName, description,
 						serviceContext);
-				System.out.println("month folder" + folder1);
+				
 			} catch (PortalException e) {	
 				e.printStackTrace();
 			}
