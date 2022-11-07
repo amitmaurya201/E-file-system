@@ -5,6 +5,9 @@ import com.liferay.portal.vulcan.multipart.BinaryFile;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -27,8 +30,10 @@ public class DOCStoreResourceImpl extends BaseDOCStoreResourceImpl {
 		long siteId = Long.parseLong(groupId);
 		InputStream inputStream = binaryFile.getInputStream();
 		String contentType = binaryFile.getContentType();
-		String fileName = binaryFile.getFileName();
+		long milliSeconds= Clock.systemDefaultZone().millis();
+		String splitFileName[] = binaryFile.getFileName().split("[.]");
 		String folderName = "JetProcessDocStore";
+		String fileName = splitFileName[0]+milliSeconds+ "." +splitFileName[1];
 		long tempFileId = documentStore.tempFileUpload(siteId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, folderName, fileName, inputStream, contentType);
 		String fileUrl=	documentStore.ViewDocumentAndMediaFile(tempFileId);
 		DOCStore docStore = new DOCStore();

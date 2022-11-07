@@ -24,7 +24,9 @@ import com.liferay.portal.kernel.util.URLCodec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -46,10 +48,13 @@ public class DocStoreImpl implements DocStore {
 			long subFolderId = subFolderId(groupId);
 			FileEntry fileEntry = DLAppServiceUtil.addFileEntry("", groupId, subFolderId, title, mimeType,title, description, "", changeLog, is, 0l, null, null, serviceContext);
 			 documentAndMediaFileId = fileEntry.getFileEntryId();
+		
 		}
+		else {
+			
 		long subFolderId = subFolderId(groupId);
 		FileEntry fileEntry = DLAppServiceUtil.addFileEntry("", groupId, subFolderId, title, mimeType,title, description, "", changeLog, is, 0l, null, null, serviceContext);
-		 documentAndMediaFileId = fileEntry.getFileEntryId();
+		 documentAndMediaFileId = fileEntry.getFileEntryId();}
 		return documentAndMediaFileId;
 	}
 
@@ -69,7 +74,7 @@ public class DocStoreImpl implements DocStore {
 		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
 		StringBundler sb = new StringBundler();
 		try { 
-			sb.append("http://localhost:8080/documents/");
+			sb.append("/documents/");
 			sb.append(fileEntry.getGroupId());
 			sb.append(StringPool.SLASH);
 			sb.append(fileEntry.getFolderId());
@@ -84,7 +89,7 @@ public class DocStoreImpl implements DocStore {
 	}catch (Exception e) {
 		e.printStackTrace();
 	}
-		return sb.toString();
+		return "http://localhost:8080"+sb.toString();
 }
 
 
@@ -109,6 +114,7 @@ public class DocStoreImpl implements DocStore {
 	public long tempFileUpload(long siteId, long parentFolderId, String folderName, String fileName, InputStream inputStream, String contentType) throws PortalException {
 		FileEntry fileEntry = DLAppServiceUtil.addTempFileEntry(siteId, parentFolderId, folderName, fileName,inputStream, contentType);
 		long tempFileId = fileEntry.getFileEntryId();
+		System.out.println("tempFileId");
 		return tempFileId;
 	}
 
@@ -123,6 +129,7 @@ public class DocStoreImpl implements DocStore {
 				List<Folder> subFoldersList = DLAppServiceUtil.getFolders(groupId, subFolder);
 				for (Folder subFolders : subFoldersList) {
 					long subFolderId = subFolders.getFolderId();
+					System.out.println("isFolderExistMethod"+subFolderId);
 					folderExist = true;
 				}
 			}
@@ -133,17 +140,22 @@ public class DocStoreImpl implements DocStore {
 	}
 
 	private long subFolderId(long groupId) throws PortalException {
-		long folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
-		long subFolderId = 0l;
-		List<Folder> mainFolders = DLAppServiceUtil.getFolders(groupId, folderId);
+		long reqFolderId=0l;
+		List<Folder> mainFolders = DLAppServiceUtil.getFolders(groupId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
 		for (Folder subFolderList : mainFolders) {
 			long subFolder = subFolderList.getFolderId();
 			List<Folder> subFoldersList = DLAppServiceUtil.getFolders(groupId, subFolder);
 			for (Folder subFolders : subFoldersList) {
-				subFolderId = subFolders.getFolderId();
+				long subFolderId = subFolders.getFolderId();
+				System.out.println("subFolderId method" +subFolderId);
+				List<Folder> lastFoldersList = DLAppServiceUtil.getFolders(groupId, subFolderId);
+				for (Folder subSubFolders : lastFoldersList) {
+					 reqFolderId = subSubFolders.getFolderId();
+					System.out.println("test method" +reqFolderId);
+				}
 			}
 		}
-		return subFolderId;
+		return reqFolderId;
 	}
 
 	private void createFolder(long groupId, long folderId, String description) {
@@ -151,31 +163,51 @@ public class DocStoreImpl implements DocStore {
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setUserId(userId);
 		serviceContext.setScopeGroupId(groupId);
-		
-		Date date = new Date();
-		int year = date.getYear();
-		int currentYear = year + 1900;
-		String parentFolderName = String.valueOf(currentYear);
-		Folder folder = null;
-		try {
-			folder = DLAppServiceUtil.addFolder(groupId, folderId, parentFolderName, description, serviceContext);
+		 Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH) + 1;
+        int year = cal.get(Calendar.YEAR);
+        System.out.println("Month: " + month);
+        System.out.println("Year: " + year);
+		//Date date = new Date();
+		/*
+		 * int year = date.getYear(); int currentYear = year + 1900;
+		 * 
+		 */
+        String folderName= "Jet_Process";
+        Folder folder1 = null;
+        try {
+        	folder1 = DLAppServiceUtil.addFolder(groupId, folderId,folderName, description, serviceContext);
+			
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
-		if (folder.getName().equalsIgnoreCase(parentFolderName)) {
-			long parentfolderId = folder.getFolderId();
-
-			int month = date.getMonth() + 1;
-			String subFolderName = String.valueOf(month);
-			Folder folder1 = null;
+		if (folder1.getName().equals(folderName)) {
+			long firstFolderId = folder1.getFolderId();
+		  String yearFolderName = String.valueOf(year);
+		  Folder folder2 = null;
+		try {
+			folder2 = DLAppServiceUtil.addFolder(groupId, firstFolderId, yearFolderName, description, serviceContext);
+			
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		if (folder2.getName().equals(yearFolderName)) {
+			long secondFolderId = folder2.getFolderId();
+		System.out.println("year folderID" + secondFolderId);
+	
+			//int month = date.getMonth() + 1;
+			String monthFolderName = String.valueOf(month);
+			
 			try {
-				folder1 = DLAppServiceUtil.addFolder(groupId, parentfolderId, subFolderName, description,
+				folder1 = DLAppServiceUtil.addFolder(groupId, secondFolderId, monthFolderName, description,
 						serviceContext);
+				System.out.println("month folder" + folder1);
 			} catch (PortalException e) {	
 				e.printStackTrace();
 			}
 
 		}
+	}
 	}
 }
 	
