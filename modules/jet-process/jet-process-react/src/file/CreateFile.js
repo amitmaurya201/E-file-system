@@ -6,7 +6,7 @@ import Axios from "axios";
 const CreateFile = () => {
 
     // ------------------  VARIABLE -----------------
-
+    var $ = require( "jquery" );
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     let resposeFail = false;
@@ -38,7 +38,8 @@ const CreateFile = () => {
         category: 0,
         subCategory: 0,
         remark: "",
-        reference: ""
+        reference: "",
+        userPostId: 1
     });
 
     //  ----------------------- URL -----------------
@@ -90,8 +91,8 @@ const CreateFile = () => {
     }
    
     const onSubmitHandle = (event) => {
-        console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId() + "nature :" + formValue.nature + "type :" + formValue.type + "basic-head-id  :" + formValue.basicHead + "primary-head-id  :" + formValue.primaryHead + "secondary-head-id  :" + formValue.secondaryHead + "tertiary-head-id  :" + formValue.tertiaryHead + "year  :" + formValue.year + "fileCode  :" + formValue.fileCode + "subject  :" + formValue.subject + "categoryId  :" + formValue.category + "subCategoyId  :" + formValue.subCategory + "remarks  :" + formValue.remark + "reference  :" + formValue.reference);
-        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-non-sfs-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/basic-head-id/${formValue.basicHead}/primary-head-id/${formValue.primaryHead}/secondary-head-id/${formValue.secondaryHead}/tertiary-head-id/${formValue.tertiaryHead}/year/${formValue.year}/file-code-id/${formValue.fileCode}/subject/${formValue.subject}/category-id/${formValue.category}/sub-category-id/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}?p_auth=${Liferay.authToken}`)
+        console.log("on form Submit Handle ......." + Liferay.ThemeDisplay.getScopeGroupId() + "nature :" + formValue.nature + "type :" + formValue.type + "basic-head-id  :" + formValue.basicHead + "primary-head-id  :" + formValue.primaryHead + "secondary-head-id  :" + formValue.secondaryHead + "tertiary-head-id  :" + formValue.tertiaryHead + "year  :" + formValue.year + "fileCode  :" + formValue.fileCode + "subject  :" + formValue.subject + "categoryId  :" + formValue.category + "subCategoyId  :" + formValue.subCategory + "remarks  :" + formValue.remark + "reference  :" + formValue.reference + " UserPostId :"+formValue.userPostId);
+        Axios.post(`http://localhost:8080/api/jsonws/jet_process.docfile/add-non-sfs-doc-file/group-id/${Liferay.ThemeDisplay.getScopeGroupId()}/nature/${formValue.nature}/type/${formValue.type}/basic-head-id/${formValue.basicHead}/primary-head-id/${formValue.primaryHead}/secondary-head-id/${formValue.secondaryHead}/tertiary-head-id/${formValue.tertiaryHead}/year/${formValue.year}/file-code-id/${formValue.fileCode}/subject/${formValue.subject}/category-id/${formValue.category}/sub-category-id/${formValue.subCategory}/remarks/${formValue.remark}/reference/${formValue.reference}/user-post-id/${formValue.userPostId}?p_auth=${Liferay.authToken}`)
             .then((response) => {
                 console.log("response  .....", response);
 
@@ -160,6 +161,11 @@ const CreateFile = () => {
         );
     }, []);
 
+    $("#value").change(function(e){
+        console.log("Jquery ......"+$("#value").val());
+        formValue.userPostId = $("#value").val();
+     });
+  
     const getPrimaryHead = (basicHeadId) => {
         Axios.get(`${primaryHeadUrl}/${basicHeadId}?p_auth=` + Liferay.authToken).then((response) => {
             console.log("primary head :- " + basicHeadId);
@@ -254,6 +260,7 @@ const CreateFile = () => {
          }
      } 
 
+    
     return (
         <Fragment>
             <div className="container m-3">
