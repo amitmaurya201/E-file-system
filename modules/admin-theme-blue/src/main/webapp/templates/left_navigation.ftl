@@ -1,17 +1,76 @@
-<div id="sidebar" >
-	<div class="slimScrollDiv" >
-		<div class="sidebar-inner slimscroll">
-			<div id="sidebar-menu" class="sidebar-menu-left">
-				<#if has_navigation && is_setup_complete>
-					<button aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right" data-target="#navigationCollapse" data-toggle="liferay-collapse" type="button">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-				
-					<#assign preferences = freeMarkerPortletPreferences.getPreferences({"portletSetupPortletDecoratorId": "barebone", "destination": "/search"}) />
-				    <@liferay.navigation_menu default_preferences="${preferences}" />
-				</#if>
-			</div>
-		</div>
-	</div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 400px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/web/guest/file/-/jetprocessreact_INSTANCE_T0WZ813qllA3/home">Home</a>
+  <a href="/web/guest/file/-/jetprocessreact_INSTANCE_T0WZ813qllA3/create-file">Create File</a>
+  <a href="/web/guest/file/-/jetprocessreact_INSTANCE_T0WZ813qllA3/view-file">View File</a>
+  <a href="/web/guest/file/-/jetprocessreact_INSTANCE_T0WZ813qllA3/create-receipt">Create Receipt</a>
+  <a href="/web/guest/file/-/jetprocessreact_INSTANCE_T0WZ813qllA3/view-receipt">View Receipt</a>
 </div>
 
+
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+   
+</body>
+</html> 
