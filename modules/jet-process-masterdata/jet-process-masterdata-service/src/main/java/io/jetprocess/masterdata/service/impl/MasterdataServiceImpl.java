@@ -126,13 +126,13 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 		return masterdataLocalService.getTertiary(tertiaryHeadId);
 	}
 
-	public List<FileListViewDto> getFileCreatedListMasterdata() {
+	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId) {
 
-		return masterdataLocalService.getFileList();
+		return masterdataLocalService.getFileList(userPostId);
 	}
 
-	public List<ReceiptListViewDto> getReceiptListMasterdata() {
+	public List<ReceiptListViewDto> getReceiptListMasterdata(long userPostId) {
 
-		return masterdataLocalService.getReceiptList();
+		return masterdataLocalService.getReceiptList(userPostId);
 	}
 }

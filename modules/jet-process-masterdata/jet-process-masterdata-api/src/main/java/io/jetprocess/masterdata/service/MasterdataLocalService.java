@@ -220,7 +220,7 @@ public interface MasterdataLocalService
 	public List<Masterdata> getFile();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileList();
+	public List<FileListViewDto> getFileList(long userPostId);
 
 	/**
 	 * Returns the masterdata with the primary key.
@@ -282,7 +282,7 @@ public interface MasterdataLocalService
 	public List<Masterdata> getReceiptCategory();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getReceiptList();
+	public List<ReceiptListViewDto> getReceiptList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);

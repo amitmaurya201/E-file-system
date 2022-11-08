@@ -275,9 +275,9 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileList() {
+		getFileList(long userPostId) {
 
-		return _masterdataLocalService.getFileList();
+		return _masterdataLocalService.getFileList(userPostId);
 	}
 
 	/**
@@ -374,9 +374,9 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptList() {
+		getReceiptList(long userPostId) {
 
-		return _masterdataLocalService.getReceiptList();
+		return _masterdataLocalService.getReceiptList(userPostId);
 	}
 
 	@Override

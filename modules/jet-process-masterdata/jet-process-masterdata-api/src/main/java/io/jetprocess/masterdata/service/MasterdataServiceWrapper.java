@@ -78,9 +78,9 @@ public class MasterdataServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListMasterdata() {
+		getFileCreatedListMasterdata(long userPostId) {
 
-		return _masterdataService.getFileCreatedListMasterdata();
+		return _masterdataService.getFileCreatedListMasterdata(userPostId);
 	}
 
 	@Override
@@ -123,9 +123,9 @@ public class MasterdataServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptListMasterdata() {
+		getReceiptListMasterdata(long userPostId) {
 
-		return _masterdataService.getReceiptListMasterdata();
+		return _masterdataService.getReceiptListMasterdata(userPostId);
 	}
 
 	@Override

@@ -676,14 +676,16 @@ public class MasterdataServiceHttp {
 	}
 
 	public static java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListMasterdata(HttpPrincipal httpPrincipal) {
+		getFileCreatedListMasterdata(
+			HttpPrincipal httpPrincipal, long userPostId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getFileCreatedListMasterdata",
 				_getFileCreatedListMasterdataParameterTypes19);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
 
 			Object returnObj = null;
 
@@ -709,14 +711,16 @@ public class MasterdataServiceHttp {
 
 	public static java.util.List
 		<io.jetprocess.masterdata.model.ReceiptListViewDto>
-			getReceiptListMasterdata(HttpPrincipal httpPrincipal) {
+			getReceiptListMasterdata(
+				HttpPrincipal httpPrincipal, long userPostId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getReceiptListMasterdata",
 				_getReceiptListMasterdataParameterTypes20);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
 
 			Object returnObj = null;
 
@@ -790,8 +794,10 @@ public class MasterdataServiceHttp {
 	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes18 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getFileCreatedListMasterdataParameterTypes19 = new Class[] {};
+		_getFileCreatedListMasterdataParameterTypes19 = new Class[] {
+			long.class
+		};
 	private static final Class<?>[] _getReceiptListMasterdataParameterTypes20 =
-		new Class[] {};
+		new Class[] {long.class};
 
 }

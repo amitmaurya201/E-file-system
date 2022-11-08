@@ -73,7 +73,7 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getFileCodeMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileCreatedListMasterdata();
+	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getOrganizationMasterdata();
@@ -95,7 +95,7 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getReceiptCategoryMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getReceiptListMasterdata();
+	public List<ReceiptListViewDto> getReceiptListMasterdata(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategoryMasterdata(

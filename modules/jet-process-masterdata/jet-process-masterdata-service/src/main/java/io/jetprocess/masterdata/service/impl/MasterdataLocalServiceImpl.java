@@ -131,16 +131,16 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getTertiaryHeadById(tertiaryHeadId);
 	}
 
-	public List<FileListViewDto> getFileList(){
+	public List<FileListViewDto> getFileList(long userPostId){
 		
-		return masterdataFinder.getFileCreatedList();
+		return masterdataFinder.getFileCreatedList(userPostId);
 	}
 
 
-	public List<ReceiptListViewDto> getReceiptList() {
+	public List<ReceiptListViewDto> getReceiptList(long userPostId) {
 
 		
-		return masterdataFinder.getReceiptCreatedList() ;
+		return masterdataFinder.getReceiptCreatedList(userPostId) ;
 	}
 
 }

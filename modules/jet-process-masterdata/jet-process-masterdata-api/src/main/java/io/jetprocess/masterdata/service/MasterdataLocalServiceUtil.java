@@ -235,9 +235,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileList() {
+		getFileList(long userPostId) {
 
-		return getService().getFileList();
+		return getService().getFileList(userPostId);
 	}
 
 	/**
@@ -312,9 +312,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptList() {
+		getReceiptList(long userPostId) {
 
-		return getService().getReceiptList();
+		return getService().getReceiptList(userPostId);
 	}
 
 	public static List<Masterdata> getReceiptSubCategory(

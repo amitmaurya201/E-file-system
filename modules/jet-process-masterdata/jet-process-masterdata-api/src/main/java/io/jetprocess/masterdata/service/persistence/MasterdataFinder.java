@@ -80,9 +80,9 @@ public interface MasterdataFinder {
 		long tertiaryHeadId);
 
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedList();
+		getFileCreatedList(long userPostId);
 
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptCreatedList();
+		getReceiptCreatedList(long userPostId);
 
 }

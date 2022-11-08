@@ -62,9 +62,9 @@ public class MasterdataServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListMasterdata() {
+		getFileCreatedListMasterdata(long userPostId) {
 
-		return getService().getFileCreatedListMasterdata();
+		return getService().getFileCreatedListMasterdata(userPostId);
 	}
 
 	public static List<Masterdata> getOrganizationMasterdata() {
@@ -93,9 +93,9 @@ public class MasterdataServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptListMasterdata() {
+		getReceiptListMasterdata(long userPostId) {
 
-		return getService().getReceiptListMasterdata();
+		return getService().getReceiptListMasterdata(userPostId);
 	}
 
 	public static List<Masterdata> getReceiptSubCategoryMasterdata(

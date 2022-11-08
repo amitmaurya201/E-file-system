@@ -31,7 +31,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getCategories");
-			//System.out.println("category table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 
 			sqlQuery.setCacheable(false);
@@ -60,7 +59,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getSubCategories");
-			//System.out.println("subcategory table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -89,7 +87,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getType");
-			//System.out.println("type table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -116,7 +113,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getDeliveryMode");
-			//System.out.println("deliverymode table  --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -142,7 +138,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getFileCode");
-			//System.out.println("filecode table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -167,7 +162,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getBasicHeads");
-			//System.out.println("basic head table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -192,7 +186,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getPrimaryHeads");
-			//System.out.println("primary head table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -222,7 +215,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getSecondaryHeads");
-			//System.out.println("secondary head table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -250,7 +242,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getTeritaryHeads");
-			//System.out.println("teritary head table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -278,7 +269,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getOrganizations");
-			//System.out.println("organization table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -304,7 +294,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getSubOrganizations");
-			//System.out.println("suborganization table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -332,7 +321,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptCategory");
-			//System.out.println("suborganization table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -358,7 +346,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptSubCategory");
-			//System.out.println("suborganization table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -386,7 +373,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getCountries");
-			//System.out.println("countries table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -413,7 +399,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getStates");
-			//System.out.println("states table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -440,7 +425,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getBasicHeadById");
-			//System.out.println("getBasicHeadById  table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -467,7 +451,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getPrimaryHeadById");
-			//System.out.println("getPrimaryHeadById table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -494,7 +477,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getSecondaryHeadById");
-			//System.out.println("getSecondaryHeadById  table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -521,7 +503,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getTertiaryHeadById");
-			//System.out.println(" getTertiaryHeadById table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
@@ -542,15 +523,16 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return (Masterdata) obj;
 	}
 
-	public List<FileListViewDto> getFileCreatedList() {
+	public List<FileListViewDto> getFileCreatedList(long userPostId) {
 
 		Session session = null;
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "fileCreatedListQuery");
-			System.out.println("DocFile Table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
 			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
@@ -564,16 +546,16 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
-	public List<ReceiptListViewDto> getReceiptCreatedList() {
+	public List<ReceiptListViewDto> getReceiptCreatedList(long userPostId) {
 
 		Session session = null;
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "receiptCreatedListQuery");
-			System.out.println("Receipt Table --" + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
-			
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
 			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
