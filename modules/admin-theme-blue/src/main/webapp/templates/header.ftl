@@ -166,10 +166,10 @@
 	        		         
               <#assign userPostList =userPostService.getUserPostList(user.getUserId())/>
 		        	  <label for="cars">Select Post:</label>
-                          <select name="post" id="p">
+                          <select name="post" id="value">
 		        	
 		        	  	   <#list userPostList as userpost>
-		        	  	  <option value="userpost.getDescription()">${userpost.getDescription()}</option>
+		        	  	  <option value=${userpost.getUserPostId()}>${userpost.getDescription()}</option>
                                </#list>
                            </select>
 
