@@ -178,7 +178,7 @@ SELECT tertiaryheaddataid as masterdataid ,  'C-'||tertiaryheaddataid as referen
 <![CDATA[
 SELECT filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
 	FROM jet_process_docfile  INNER JOIN 
-	category  ON categorydataid = categoryid
+	category  ON categorydataid = categoryid where userpostid = ? ;
 ]]>
 
 </sql>
@@ -188,7 +188,7 @@ SELECT filenumber as filenumber , subject as subject , categoryvalue as category
 
 SELECT receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
 	FROM jet_process_receipt INNER JOIN 
-	category  ON categorydataid = receiptcategoryid
+	category  ON categorydataid = receiptcategoryid where userpostid = ? ;
 ]]>
 
 </sql>
