@@ -54,21 +54,18 @@ public interface DocFileService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.DocFileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the doc file remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link DocFileServiceUtil} if injection and service tracking are not available.
 	 */
-	public JSONObject addNonSfsDocFile(
+	public JSONObject addDocFile(
 			long groupId, String nature, String type, long basicHeadId,
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
-			long year, long fileCodeId, String subject, long categoryId,
-			long subCategoryId, String remarks, String reference,
-			long userPostId, ServiceContext serviceContext)
-		throws PortalException;
-
-	public JSONObject addSfsDocFile(
-			long groupId, String nature, String type, String fileNumber,
-			String subject, long categoryId, long subCategoryId, String remarks,
+			long year, long fileCodeId, String subject, String fileNumber,
+			long categoryId, long subCategoryId, String remarks,
 			String reference, long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public DocFile deleteDocFile(long docFileId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DocFile getDocFileByDocFileId(long docFileId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DocFile> getDocFileList();
@@ -80,18 +77,10 @@ public interface DocFileService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public DocFile updateNonSfsDocFile(
-			long docFileId, String nature, String type, long basicHeadId,
-			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
-			long year, long fileCodeId, String subject, String fileNumber,
-			long categoryId, long subCategoryId, String remarks,
-			String reference, long userPostId, ServiceContext serviceContext)
-		throws PortalException;
-
-	public DocFile updateSfsDocFile(
-			long docFileId, String nature, String type, String fileNumber,
-			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference, long userPostId, ServiceContext serviceContext)
+	public DocFile updateDocFile(
+			long docFileId, String subject, long categoryId, long subCategoryId,
+			String remarks, String reference, long userPostId,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 }
