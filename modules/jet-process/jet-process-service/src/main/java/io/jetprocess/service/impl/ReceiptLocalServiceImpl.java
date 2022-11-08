@@ -47,7 +47,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
 			String subject, String remarks, String name, String designation,
 			String mobile, String email, String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
+			long organizationId, long subOrganizationId, String city,long userPostId , ServiceContext serviceContext) throws PortalException {
 		// Get Group(Site) and user Information
 		Group group = groupLocalService.getGroup(groupId);
 		long userId = serviceContext.getUserId();
@@ -113,6 +113,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		number=generateReceiptNumber(receiptId);
 		receipt.setReceiptNumber(number);
+		receipt.setUserPostId(userPostId);
 		receipt = super.addReceipt(receipt);
 		return receipt;
 	}
@@ -121,7 +122,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
 			String subject, String remarks, String document, String name, String designation,
 			String mobile, String email, String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
+			long organizationId, long subOrganizationId, String city,long userPostId , ServiceContext serviceContext) throws PortalException {
 	       Receipt receipt = getReceipt(receiptId);
 	       Group group = groupLocalService.getGroup(groupId);
 			long userId = serviceContext.getUserId();
@@ -182,6 +183,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			// 2.Update Audit and Other Generic Fields
 			
 			receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+			receipt.setUserPostId(userPostId);
 			receipt = super.updateReceipt(receipt);
 	        return receipt;
 	  

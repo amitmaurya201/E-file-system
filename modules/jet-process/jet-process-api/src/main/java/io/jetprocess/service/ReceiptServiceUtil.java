@@ -48,6 +48,7 @@ public class ReceiptServiceUtil {
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
@@ -56,7 +57,7 @@ public class ReceiptServiceUtil {
 			letterDate, referenceNumber, modeNumber, receiptCategoryId,
 			receiptSubCategoryId, subject, remarks, name, designation, mobile,
 			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, serviceContext);
+			subOrganizationId, city, userPostId, serviceContext);
 	}
 
 	public static Receipt deleteReceipt(long receiptId) throws PortalException {
@@ -85,7 +86,7 @@ public class ReceiptServiceUtil {
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
 			String pinCode, long organizationId, long subOrganizationId,
-			String city,
+			String city, long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
@@ -94,7 +95,8 @@ public class ReceiptServiceUtil {
 			receivedOn, letterDate, referenceNumber, modeNumber,
 			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
 			name, designation, mobile, email, address, countryId, stateId,
-			pinCode, organizationId, subOrganizationId, city, serviceContext);
+			pinCode, organizationId, subOrganizationId, city, userPostId,
+			serviceContext);
 	}
 
 	public static ReceiptService getService() {

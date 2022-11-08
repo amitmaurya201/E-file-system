@@ -59,13 +59,13 @@ public interface DocFileService extends BaseService {
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
 			long year, long fileCodeId, String subject, long categoryId,
 			long subCategoryId, String remarks, String reference,
-			ServiceContext serviceContext)
+			long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public JSONObject addSfsDocFile(
 			long groupId, String nature, String type, String fileNumber,
 			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference, ServiceContext serviceContext)
+			String reference, long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public DocFile deleteDocFile(long docFileId) throws PortalException;
@@ -85,13 +85,13 @@ public interface DocFileService extends BaseService {
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
 			long year, long fileCodeId, String subject, String fileNumber,
 			long categoryId, long subCategoryId, String remarks,
-			String reference, ServiceContext serviceContext)
+			String reference, long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public DocFile updateSfsDocFile(
 			long docFileId, String nature, String type, String fileNumber,
 			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference, ServiceContext serviceContext)
+			String reference, long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 }

@@ -41,15 +41,15 @@ public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
 			String subject, String remarks, String name, String designation,
 			String mobile, String email, String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
-		return receiptLocalService.createReceipt(groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks, name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId, subOrganizationId, city, serviceContext);
+			long organizationId, long subOrganizationId, String city, long userPostId , ServiceContext serviceContext) throws PortalException {
+		return receiptLocalService.createReceipt(groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks, name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId, subOrganizationId, city, userPostId,  serviceContext);
 }
 	public Receipt updateReceipt(long receiptId,long groupId, long typeId,long tempfileEntryId,long deliveryModeId, Date receivedOn, Date letterDate,
 			String referenceNumber,String modeNumber, long receiptCategoryId, long receiptSubCategoryId,
 			String subject, String remarks, String document, String name, String designation,
 			String mobile, String email, String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,ServiceContext serviceContext) throws PortalException {
-	      return receiptLocalService.updateReceipt(receiptId, groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks, document, name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId, subOrganizationId, city, serviceContext);
+			long organizationId, long subOrganizationId, String city, long userPostId , ServiceContext serviceContext) throws PortalException {
+	      return receiptLocalService.updateReceipt(receiptId, groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks, document, name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId, subOrganizationId, city, userPostId,serviceContext);
 }
 	public Receipt deleteReceipt(long receiptId)throws PortalException {
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);

@@ -49,7 +49,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 	
 	
 	public JSONObject addSfsDocFile(long groupId, String nature, String type, String fileNumber,String subject, long categoryId,
-		long subCategoryId, String remarks, String reference, ServiceContext serviceContext)
+		long subCategoryId, String remarks, String reference,long userPostId, ServiceContext serviceContext)
 			throws PortalException {
    
       List<String> errors =fileValidator.validate(subject, remarks, reference);
@@ -92,7 +92,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		docFile.setSubCategoryId(subCategoryId);
 		docFile.setRemarks(remarks);
 		docFile.setReference(reference);
-
+        docFile.setUserPostId(userPostId);
 		// set the audit fields
 
 		docFile.setGroupId(groupId);
@@ -144,7 +144,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		}
 
 		public JSONObject addNonSfsDocFile(long groupId, String nature, String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId,long year,long fileCodeId, String subject, long categoryId,
-		long subCategoryId, String remarks, String reference, ServiceContext serviceContext) throws PortalException {
+		long subCategoryId, String remarks, String reference,long userPostId ,  ServiceContext serviceContext) throws PortalException {
 			
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 		
@@ -176,7 +176,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			docFile.setSubCategoryId(subCategoryId);
 			docFile.setRemarks(remarks);
 			docFile.setReference(reference);
-
+            docFile.setUserPostId(userPostId);
 			// set the audit fields
 
 			docFile.setGroupId(groupId);
@@ -227,7 +227,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		
 		// Update method for SfsDocFile 
 		public DocFile updateSfsDocFile(long docFileId, String nature, String type,String fileNumber, String subject, long categoryId,
-				long subCategoryId, String remarks, String reference, ServiceContext serviceContext)
+				long subCategoryId, String remarks, String reference, long userPostId ,  ServiceContext serviceContext)
 				throws PortalException {
 			DocFile docFile = getDocFile(docFileId);
 			docFile.setNature(nature);
@@ -239,12 +239,13 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			docFile.setRemarks(remarks);
 			docFile.setReference(reference);
 			docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+			docFile.setUserPostId(userPostId);
 			docFile = super.updateDocFile(docFile);
 			return docFile;
 		}
     
 		// Update Method for NonSfsDocFile 
-		public DocFile updateNonSfsDocFile(long docFileId,String nature ,String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId, long year, long fileCodeId,String subject,String fileNumber,long categoryId,long subCategoryId,String remarks,String reference,ServiceContext serviceContext) throws PortalException {
+		public DocFile updateNonSfsDocFile(long docFileId,String nature ,String type,long basicHeadId,long primaryHeadId,long secondaryHeadId,long tertiaryHeadId, long year, long fileCodeId,String subject,String fileNumber,long categoryId,long subCategoryId,String remarks,String reference,long userPostId , ServiceContext serviceContext) throws PortalException {
 			
 		DocFile docFile = getDocFile(docFileId);
         docFile.setNature(nature);
@@ -260,7 +261,8 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		docFile.setSubCategoryId(subCategoryId);
 		docFile.setRemarks(remarks);
 		docFile.setReference(reference);
-		docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));	
+		docFile.setModifiedDate(serviceContext.getModifiedDate(new Date()));
+		docFile.setUserPostId(userPostId);
 		docFile = super.updateDocFile(docFile);	
 			return docFile;
 			

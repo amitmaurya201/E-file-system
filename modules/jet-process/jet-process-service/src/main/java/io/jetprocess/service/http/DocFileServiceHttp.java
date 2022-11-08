@@ -55,6 +55,7 @@ public class DocFileServiceHttp {
 			HttpPrincipal httpPrincipal, long groupId, String nature,
 			String type, String fileNumber, String subject, long categoryId,
 			long subCategoryId, String remarks, String reference,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -65,7 +66,8 @@ public class DocFileServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, nature, type, fileNumber, subject,
-				categoryId, subCategoryId, remarks, reference, serviceContext);
+				categoryId, subCategoryId, remarks, reference, userPostId,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -172,6 +174,7 @@ public class DocFileServiceHttp {
 			long secondaryHeadId, long tertiaryHeadId, long year,
 			long fileCodeId, String subject, long categoryId,
 			long subCategoryId, String remarks, String reference,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -183,7 +186,8 @@ public class DocFileServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, nature, type, basicHeadId, primaryHeadId,
 				secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
-				categoryId, subCategoryId, remarks, reference, serviceContext);
+				categoryId, subCategoryId, remarks, reference, userPostId,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -217,6 +221,7 @@ public class DocFileServiceHttp {
 			HttpPrincipal httpPrincipal, long docFileId, String nature,
 			String type, String fileNumber, String subject, long categoryId,
 			long subCategoryId, String remarks, String reference,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -227,7 +232,8 @@ public class DocFileServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, docFileId, nature, type, fileNumber, subject,
-				categoryId, subCategoryId, remarks, reference, serviceContext);
+				categoryId, subCategoryId, remarks, reference, userPostId,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -263,6 +269,7 @@ public class DocFileServiceHttp {
 			long secondaryHeadId, long tertiaryHeadId, long year,
 			long fileCodeId, String subject, String fileNumber, long categoryId,
 			long subCategoryId, String remarks, String reference,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -275,7 +282,7 @@ public class DocFileServiceHttp {
 				methodKey, docFileId, nature, type, basicHeadId, primaryHeadId,
 				secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
 				fileNumber, categoryId, subCategoryId, remarks, reference,
-				serviceContext);
+				userPostId, serviceContext);
 
 			Object returnObj = null;
 
@@ -310,7 +317,7 @@ public class DocFileServiceHttp {
 	private static final Class<?>[] _addSfsDocFileParameterTypes0 =
 		new Class[] {
 			long.class, String.class, String.class, String.class, String.class,
-			long.class, long.class, String.class, String.class,
+			long.class, long.class, String.class, String.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteDocFileParameterTypes1 =
@@ -321,13 +328,13 @@ public class DocFileServiceHttp {
 		new Class[] {
 			long.class, String.class, String.class, long.class, long.class,
 			long.class, long.class, long.class, long.class, String.class,
-			long.class, long.class, String.class, String.class,
+			long.class, long.class, String.class, String.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateSfsDocFileParameterTypes4 =
 		new Class[] {
 			long.class, String.class, String.class, String.class, String.class,
-			long.class, long.class, String.class, String.class,
+			long.class, long.class, String.class, String.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateNonSfsDocFileParameterTypes5 =
@@ -335,7 +342,7 @@ public class DocFileServiceHttp {
 			long.class, String.class, String.class, long.class, long.class,
 			long.class, long.class, long.class, long.class, String.class,
 			String.class, long.class, long.class, String.class, String.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
+			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 
 }

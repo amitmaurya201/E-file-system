@@ -40,26 +40,27 @@ public class DocFileServiceWrapper
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
 			long year, long fileCodeId, String subject, long categoryId,
 			long subCategoryId, String remarks, String reference,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileService.addNonSfsDocFile(
 			groupId, nature, type, basicHeadId, primaryHeadId, secondaryHeadId,
 			tertiaryHeadId, year, fileCodeId, subject, categoryId,
-			subCategoryId, remarks, reference, serviceContext);
+			subCategoryId, remarks, reference, userPostId, serviceContext);
 	}
 
 	@Override
 	public com.liferay.portal.kernel.json.JSONObject addSfsDocFile(
 			long groupId, String nature, String type, String fileNumber,
 			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference,
+			String reference, long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileService.addSfsDocFile(
 			groupId, nature, type, fileNumber, subject, categoryId,
-			subCategoryId, remarks, reference, serviceContext);
+			subCategoryId, remarks, reference, userPostId, serviceContext);
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class DocFileServiceWrapper
 			long primaryHeadId, long secondaryHeadId, long tertiaryHeadId,
 			long year, long fileCodeId, String subject, String fileNumber,
 			long categoryId, long subCategoryId, String remarks,
-			String reference,
+			String reference, long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -98,20 +99,20 @@ public class DocFileServiceWrapper
 			docFileId, nature, type, basicHeadId, primaryHeadId,
 			secondaryHeadId, tertiaryHeadId, year, fileCodeId, subject,
 			fileNumber, categoryId, subCategoryId, remarks, reference,
-			serviceContext);
+			userPostId, serviceContext);
 	}
 
 	@Override
 	public io.jetprocess.model.DocFile updateSfsDocFile(
 			long docFileId, String nature, String type, String fileNumber,
 			String subject, long categoryId, long subCategoryId, String remarks,
-			String reference,
+			String reference, long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _docFileService.updateSfsDocFile(
 			docFileId, nature, type, fileNumber, subject, categoryId,
-			subCategoryId, remarks, reference, serviceContext);
+			subCategoryId, remarks, reference, userPostId, serviceContext);
 	}
 
 	@Override

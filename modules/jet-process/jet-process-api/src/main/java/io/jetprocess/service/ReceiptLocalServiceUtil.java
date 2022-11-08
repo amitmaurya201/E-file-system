@@ -89,6 +89,7 @@ public class ReceiptLocalServiceUtil {
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,
+			long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
@@ -97,7 +98,7 @@ public class ReceiptLocalServiceUtil {
 			letterDate, referenceNumber, modeNumber, receiptCategoryId,
 			receiptSubCategoryId, subject, remarks, name, designation, mobile,
 			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, serviceContext);
+			subOrganizationId, city, userPostId, serviceContext);
 	}
 
 	/**
@@ -373,7 +374,7 @@ public class ReceiptLocalServiceUtil {
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
 			String pinCode, long organizationId, long subOrganizationId,
-			String city,
+			String city, long userPostId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
@@ -382,7 +383,8 @@ public class ReceiptLocalServiceUtil {
 			receivedOn, letterDate, referenceNumber, modeNumber,
 			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
 			name, designation, mobile, email, address, countryId, stateId,
-			pinCode, organizationId, subOrganizationId, city, serviceContext);
+			pinCode, organizationId, subOrganizationId, city, userPostId,
+			serviceContext);
 	}
 
 	/**

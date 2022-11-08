@@ -62,7 +62,7 @@ public interface ReceiptService extends BaseService {
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,
-			ServiceContext serviceContext)
+			long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public Receipt deleteReceipt(long receiptId) throws PortalException;
@@ -85,7 +85,7 @@ public interface ReceiptService extends BaseService {
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
 			String pinCode, long organizationId, long subOrganizationId,
-			String city, ServiceContext serviceContext)
+			String city, long userPostId, ServiceContext serviceContext)
 		throws PortalException;
 
 }
