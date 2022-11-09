@@ -48,6 +48,22 @@ Thumbs.db
 *.mov
 *.wmv
 
+**/*.iml
+**/.ivy
+**/.classpath
+**/.project
+**/.sass-cache
+**/.settings
+**/bin
+**/build
+**/build_gradle
+**/node_modules
+**/test-coverage
+**/tmp
+**/.web_bundle_build
+
+
 /.gradle/
 /build/
 /.metadata/
+modules/jet-process-masterdata/jet-process-masterdata-api/bin/.gitignore
