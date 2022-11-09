@@ -24,9 +24,9 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 
-import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -56,7 +56,7 @@ public interface ReceiptService extends BaseService {
 	 */
 	public Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, Date receivedOn, Date letterDate,
+			long deliveryModeId, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String name, String designation, String mobile, String email,
@@ -77,9 +77,13 @@ public interface ReceiptService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Receipt getReceiptByReceiptId(long receiptId)
+		throws NoSuchReceiptException;
+
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, Date receivedOn, Date letterDate,
+			long deliveryModeId, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String document, String name, String designation, String mobile,

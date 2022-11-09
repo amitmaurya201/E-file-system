@@ -34,11 +34,11 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 
 import java.io.Serializable;
 
-import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -97,7 +97,7 @@ public interface ReceiptLocalService
 
 	public Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, Date receivedOn, Date letterDate,
+			long deliveryModeId, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String name, String designation, String mobile, String email,
@@ -263,6 +263,10 @@ public interface ReceiptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceipt(long receiptId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Receipt getReceiptByReceiptId(long receiptId)
+		throws NoSuchReceiptException;
+
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *
@@ -325,7 +329,7 @@ public interface ReceiptLocalService
 
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, Date receivedOn, Date letterDate,
+			long deliveryModeId, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String document, String name, String designation, String mobile,

@@ -37,9 +37,8 @@ public class ReceiptServiceWrapper
 	@Override
 	public io.jetprocess.model.Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, java.util.Date receivedOn,
-			java.util.Date letterDate, String referenceNumber,
-			String modeNumber, long receiptCategoryId,
+			long deliveryModeId, String receivedOn, String letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
@@ -79,11 +78,17 @@ public class ReceiptServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.model.Receipt getReceiptByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return _receiptService.getReceiptByReceiptId(receiptId);
+	}
+
+	@Override
 	public io.jetprocess.model.Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, java.util.Date receivedOn,
-			java.util.Date letterDate, String referenceNumber,
-			String modeNumber, long receiptCategoryId,
+			long deliveryModeId, String receivedOn, String letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String document, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,

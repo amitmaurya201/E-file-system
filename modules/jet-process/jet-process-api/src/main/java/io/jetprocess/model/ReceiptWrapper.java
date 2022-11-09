@@ -142,13 +142,13 @@ public class ReceiptWrapper
 			setDeliveryModeId(deliveryModeId);
 		}
 
-		Date receivedOn = (Date)attributes.get("receivedOn");
+		String receivedOn = (String)attributes.get("receivedOn");
 
 		if (receivedOn != null) {
 			setReceivedOn(receivedOn);
 		}
 
-		Date letterDate = (Date)attributes.get("letterDate");
+		String letterDate = (String)attributes.get("letterDate");
 
 		if (letterDate != null) {
 			setLetterDate(letterDate);
@@ -393,7 +393,7 @@ public class ReceiptWrapper
 	 * @return the letter date of this receipt
 	 */
 	@Override
-	public Date getLetterDate() {
+	public String getLetterDate() {
 		return model.getLetterDate();
 	}
 
@@ -513,7 +513,7 @@ public class ReceiptWrapper
 	 * @return the received on of this receipt
 	 */
 	@Override
-	public Date getReceivedOn() {
+	public String getReceivedOn() {
 		return model.getReceivedOn();
 	}
 
@@ -748,7 +748,7 @@ public class ReceiptWrapper
 	 * @param letterDate the letter date of this receipt
 	 */
 	@Override
-	public void setLetterDate(Date letterDate) {
+	public void setLetterDate(String letterDate) {
 		model.setLetterDate(letterDate);
 	}
 
@@ -868,7 +868,7 @@ public class ReceiptWrapper
 	 * @param receivedOn the received on of this receipt
 	 */
 	@Override
-	public void setReceivedOn(Date receivedOn) {
+	public void setReceivedOn(String receivedOn) {
 		model.setReceivedOn(receivedOn);
 	}
 

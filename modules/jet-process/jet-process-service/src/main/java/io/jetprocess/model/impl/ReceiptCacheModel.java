@@ -174,18 +174,18 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		receiptImpl.setTypeId(typeId);
 		receiptImpl.setDeliveryModeId(deliveryModeId);
 
-		if (receivedOn == Long.MIN_VALUE) {
-			receiptImpl.setReceivedOn(null);
+		if (receivedOn == null) {
+			receiptImpl.setReceivedOn("");
 		}
 		else {
-			receiptImpl.setReceivedOn(new Date(receivedOn));
+			receiptImpl.setReceivedOn(receivedOn);
 		}
 
-		if (letterDate == Long.MIN_VALUE) {
-			receiptImpl.setLetterDate(null);
+		if (letterDate == null) {
+			receiptImpl.setLetterDate("");
 		}
 		else {
-			receiptImpl.setLetterDate(new Date(letterDate));
+			receiptImpl.setLetterDate(letterDate);
 		}
 
 		if (referenceNumber == null) {
@@ -315,8 +315,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		typeId = objectInput.readLong();
 
 		deliveryModeId = objectInput.readLong();
-		receivedOn = objectInput.readLong();
-		letterDate = objectInput.readLong();
+		receivedOn = objectInput.readUTF();
+		letterDate = objectInput.readUTF();
 		referenceNumber = objectInput.readUTF();
 		modeNumber = objectInput.readUTF();
 
@@ -378,8 +378,20 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		objectOutput.writeLong(typeId);
 
 		objectOutput.writeLong(deliveryModeId);
-		objectOutput.writeLong(receivedOn);
-		objectOutput.writeLong(letterDate);
+
+		if (receivedOn == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(receivedOn);
+		}
+
+		if (letterDate == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(letterDate);
+		}
 
 		if (referenceNumber == null) {
 			objectOutput.writeUTF("");
@@ -499,8 +511,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public long modifiedDate;
 	public long typeId;
 	public long deliveryModeId;
-	public long receivedOn;
-	public long letterDate;
+	public String receivedOn;
+	public String letterDate;
 	public String referenceNumber;
 	public String modeNumber;
 	public long receiptCategoryId;

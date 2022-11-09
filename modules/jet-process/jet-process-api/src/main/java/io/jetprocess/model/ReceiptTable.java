@@ -52,10 +52,10 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"typeId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Long> deliveryModeId = createColumn(
 		"deliveryModeId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, Date> receivedOn = createColumn(
-		"receivedOn", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, Date> letterDate = createColumn(
-		"letterDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> receivedOn = createColumn(
+		"receivedOn", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> letterDate = createColumn(
+		"letterDate", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> referenceNumber = createColumn(
 		"referenceNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> modeNumber = createColumn(
