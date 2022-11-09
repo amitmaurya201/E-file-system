@@ -5,9 +5,12 @@ import { format } from 'date-fns';
 
 const CreatedFileList = () => {
 
-
+	var $ = require("jquery");
 	const [docFile, setDocFile] = useState([]);
+	const [formValue, setFormValue] = useState({
 
+		userPostId: 0
+	});
 	const handleClickPage = (data) => {
 
 		console.log(data.selected);
@@ -21,7 +24,7 @@ const CreatedFileList = () => {
 	const getCreatedFileList = () => {
 		Axios({
 			method: 'get',
-			url: 'http://localhost:8080/api/jsonws/masterdata.masterdata/get-file-created-list-masterdata/?p_auth=' + Liferay.authToken
+			url: `http://localhost:8080/api/jsonws/masterdata.masterdata/get-file-created-list-masterdata/user-post-id/${formValue.userPostId}?p_auth=` + Liferay.authToken
 		})
 			.then((result) => {
 				console.log(result.data);
@@ -32,17 +35,27 @@ const CreatedFileList = () => {
 				console.log(error);
 			})
 	}
-	
-	useEffect(() => {
 
+	// useEffect(() => {
+		
+	// }, []);
+	useEffect(() => {
+		let val = document.getElementById("value").value;
+		formValue.userPostId = val;
 		getCreatedFileList();
-	
-	}, []);
+
+	}, [	]);
+	$("#value").change(function (e) {
+		console.log("Jquery ......" + $("#value").val());
+		formValue.userPostId = $("#value").val();
+		getCreatedFileList();
+	});
+
 
 	return (
 		<div>
 
-			<h1 class=" text-center">File View Details</h1>
+			<h1 class=" text-center">File Created List</h1>
 			<table className="table">
 				<thead >
 					<tr className='table-blue'>
@@ -51,7 +64,7 @@ const CreatedFileList = () => {
 						<th>Subject</th>
 						<th>Category</th>
 						<th>Created On</th>
-                        <th>Remark</th>
+						<th>Remark</th>
 
 					</tr>
 				</thead>
@@ -63,9 +76,9 @@ const CreatedFileList = () => {
 								<td style={{ color: "blue" }}>{docFileList.fileNumber}</td>
 								<td>{docFileList.subject}</td>
 								<td>{docFileList.category}</td>
-                                <td>{format(docFileList.createDate, 'dd/mm/yyyy')}</td>
+								<td>{format(docFileList.createDate, 'yyyy/MM/dd kk:mm')}</td>
 								<td>{docFileList.remark}</td>
-								
+
 
 							</tr>)
 
