@@ -2,23 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { BsExclude } from "react-icons/bs";
 import Axios from 'axios';
 import { format } from 'date-fns';
-
+import { useNavigate } from 'react-router-dom';
 
 const CreatedFileList = () => {
-
+	const navigate = useNavigate();
 
 	const [docFile, setDocFile] = useState([]);
 
-	const handleClickPage = (data) => {
-
-		console.log(data.selected);
-
+	const handleClick = (e) => {
+		console.log(e.selected);
+		const receiptId = e.target.value;
+		console.log(receiptId);
+		navigate("/web/jet-process/8fbbe737-5dca-5154-f69b-7bab24f2e8b6/-/jetprocessreact_INSTANCE_ssvp/create-receipt/" + receiptId);
 	}
-
-
-
-
-
 	const getCreatedFileList = () => {
 		Axios({
 			method: 'get',
@@ -33,11 +29,10 @@ const CreatedFileList = () => {
 				console.log(error);
 			})
 	}
-	
 	useEffect(() => {
 
 		getCreatedFileList();
-	
+
 	}, []);
 
 	return (
@@ -52,8 +47,8 @@ const CreatedFileList = () => {
 						<th>Subject</th>
 						<th>Category</th>
 						<th>Created On</th>
-                        <th>Remark</th>
-
+						<th>Remark</th>
+						<th>Operation</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,23 +61,12 @@ const CreatedFileList = () => {
 								<td>{docFileList.category}</td>
 								<td>{format(docFileList.createDate, 'dd/mm/yyyy')}</td>
 								<td>{docFileList.remark}</td>
-								
-
+								<td><button className='btn btn-success' value={docFileList.receiptId} onClick={handleClick}>Update</button></td>
 							</tr>)
-
 					})}
-
-
-
 				</tbody>
 			</table>
-
-
 		</div>
 	);
-
-
-
-
 }
 export default CreatedFileList;
