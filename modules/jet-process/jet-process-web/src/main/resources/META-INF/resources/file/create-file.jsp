@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+	<%@ include file="/navigation.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,10 @@
 <title>Create File</title>
 </head>
 <body>
+<%
+boolean type = true;
+
+%>
 	<div class="container m-3">
 		<div class="card">
 			<aui:form>
@@ -58,7 +63,8 @@
 												<div class="row">
 
 													<div class="col-md-12">
-							
+							                        <% if(type ==true) {     %> 
+                                                                 
 														<div class="row mt-3 ">
 															<aui:fieldset class="col-md-12 p-0 child-scheduler-border">
 																<legend class="child-scheduler-border">File No.</legend>
@@ -73,7 +79,7 @@
 																		<select class="form-select form-control"
 																			 name="primaryHeadId" id="primaryHead">
 																			<option value=''>Primary Head Code</option>
-																			</select>																	</div>
+																			</select></div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<select class="form-select form-control"
 																			 name="secondaryHeadId" id="secondaryHead">
@@ -103,6 +109,17 @@
 
 															</aui:fieldset>
 														</div>
+														<%
+														}else{
+														%>
+														 <div className="row">
+                                                                            <fieldset className="col-md-12 child-scheduler-border">
+                                                                                <legend className="child-scheduler-border">File No.</legend>
+                                                                                <input className="form-control" type="text" name="fileNumber" id="fileNumber" onChange={onchange} ref={register({ required: { value: true, message: 'File number is required' } })} value={docFile.fileNumber} />
+                                                                                {errors.fileNumber && <span className="errors">{errors.fileNumber.message}</span>}
+                                                                            </fieldset>
+                                                                        </div>
+														<% } %>
 													</div>
 												</div>
 											</div>
@@ -112,6 +129,8 @@
 							</div>
 						</div>
 					</div>
+					
+				
 					<div class="row">
 						<div class="container">
 							<aui:fieldset cssClass="scheduler-border col-md-12">
@@ -153,8 +172,7 @@
 									<aui:fieldset cssClass="col-md-12 child-scheduler-border">
 										<!-- <legend class="child-scheduler-border">
 											Remark<span class='text-danger'>*</span>
-										</legend>
- -->
+										</legend>-->
 										<aui:input cssClass="form-control col-md-12" rows="3" type="textarea"
 											name="remarks" id="remark" ></aui:input>
 									</aui:fieldset>
