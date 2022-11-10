@@ -1,4 +1,5 @@
 <%@ include file="../init.jsp"%>
+<%@include file="/navigation.jsp" %>
 
 <div class="container">
 	<h1>Create Receipt</h1>
@@ -81,3 +82,4 @@
 	</div> 
 
 </div>
+
