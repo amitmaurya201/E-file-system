@@ -6,7 +6,7 @@
 	<aui:form name="receiptForm">
 		<div class="row">
 			<div class="col-6 border">
-				<h1>PDF VIEW</h1>
+			 <aui:input id = "file" name="file" type="file"   />
 			</div>
 		 	<div class="col-6 border ">
 				<aui:fieldset-group markupView="lexicon">
@@ -82,13 +82,29 @@
 		</div> 
 	</aui:form>
 	</div>
+	<!-- file upload  -->
+	<aui:script use="aui-base">
+
+AUI().use('aui-base', 'io', 'aui-io-request', function(A){
+
+	 var btnUploadFile = A.one("#<portlet:namespace />file");
+	btnUploadFile.on("change", uploadFile);
+	function uploadFile(event){
+            event.preventDefault();
+            
+            
+           console.log("--------"+event.target.files);
+        }
+        });
+</aui:script>
+<!-- 	receipt generate  -->
 	<aui:script use="aui-base">
 	AUI().use('aui-base', 'io', 'aui-io-request', function(A){
 		var btngenerate = A.one("#<portlet:namespace />generate");
 		btngenerate.on("click", onSubmitGenerate);
 		function onSubmitGenerate(event){
 	            event.preventDefault();
-				var myForm = A.one("#<portlet:namespace />myForm");
+				var myForm = A.one("#<portlet:namespace />receiptForm");
 	  		 	var ajaxURL = ("http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt?p_auth=` + Liferay.authToken");
 	 			var configs = {
 	                method:'POST',
