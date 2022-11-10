@@ -1,0 +1,4 @@
+Bundle-Name: jet-process-web
+Bundle-SymbolicName: io.jetprocess.web
+Bundle-Version: 1.0.0
+Export-Package: io.jetprocess.web.constants
