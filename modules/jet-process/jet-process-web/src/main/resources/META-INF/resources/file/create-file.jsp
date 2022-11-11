@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+	
+	<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="row">
+<div class="col-2">
 	<%@ include file="/navigation.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Create File</title>
-</head>
-<body>
+</div>
+<div class="col mr-5">
+
 <%
 boolean type = true;
 
@@ -196,5 +198,5 @@ boolean type = true;
 			</aui:form>
 		</div>
 	</div>
-</body>
-</html>
+	</div>
+</div>
