@@ -1,6 +1,10 @@
 <%@ include file="../init.jsp"%>
-<%@include file="/navigation.jsp"%>
 
+<div class="row">
+<div class="col-2">
+	<%@ include file="/navigation.jsp" %>
+</div>
+<div class="col mr-5">
 <aui:container fluid="1250">
 	<h1>Create Receipt</h1>
 	<aui:form name="receiptForm">
@@ -147,6 +151,9 @@
 		</aui:row>
 	</aui:form>
 </aui:container>
+</div>
+</div>
+
 <!-- file upload  -->
 
 <aui:script use="aui-base">
