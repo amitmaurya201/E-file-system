@@ -1,3 +1,3 @@
 <%@ include file="/init.jsp" %>
 
-<%@ include file="file/create-file.jsp"%>
+<%@ include file="navigation.jsp"%>
