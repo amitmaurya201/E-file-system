@@ -170,33 +170,52 @@ AUI().use('aui-base', 'io', 'aui-io-request', function(A){
         });
 </aui:script>
 <!-- 	receipt generate  -->
-<aui:script use="aui-base">
-	AUI().use('aui-base', 'io', 'aui-io-request', function(A){
-		var btngenerate = A.one("#<portlet:namespace />generate");
-		btngenerate.on("click", onSubmitGenerate);
-		function onSubmitGenerate(event){
-	            event.preventDefault();
-				var myForm = A.one("#<portlet:namespace />receiptForm");
-	  		 	var ajaxURL = ("http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt?p_auth=" + Liferay.authToken);
-	 			var configs = {
-	                method:'POST',
-	                dataType: 'json',
-	               	form: {
-	                    id:myForm,
-	                   upload:true
-	                },
-	                on:{
-							complete:function(){
-							alert("Uploaded successfully !");
-							}
-					}
-	            };
-	            
-	            A.io.request(ajaxURL, configs);    
-	        }
-		});
-	
-	
-	
-	
-	</aui:script>
+
+<script type="text/javascript">
+	function receiptGenerate() {
+		console.log('h');
+		var groupId = Liferay.ThemeDisplay.getScopeGroupId();
+		console.log(groupId);
+
+		var receiptFormData = new FormData();
+		   receiptFormData.append('groupId', groupId);
+		   receiptFormData.append('typeId',  $("#<portlet:namespace />typeId"));
+		   receiptFormData.append('tempfileEntryId', $("#<portlet:namespace />doucment") );
+		   receiptFormData.append('deliveryModeId',  $("#<portlet:namespace />deliveryModeId"));
+		   receiptFormData.append('receivedOn', $("#<portlet:namespace />receivedOn") );
+		   receiptFormData.append('letterDate',$("#<portlet:namespace />letterDate") );
+		   receiptFormData.append('referenceNumber',$("#<portlet:namespace />referenceNumber") );
+		   receiptFormData.append('modeNumber',$("#<portlet:namespace />modeNumber") );
+		   receiptFormData.append('receiptCategoryId ', $("#<portlet:namespace />receiptCategoryId"));
+		   receiptFormData.append('receiptSubCategoryId ', $("#<portlet:namespace />receiptSubCategoryId"));
+		   receiptFormData.append('subject', $("#<portlet:namespace />subject"));
+		   receiptFormData.append('remarks',$("#<portlet:namespace />remarks") );
+		   receiptFormData.append('name',$("#<portlet:namespace />name") );
+		   receiptFormData.append('designation', $("#<portlet:namespace />designation"));
+		   receiptFormData.append('mobile', $("#<portlet:namespace />mobile"));
+		   receiptFormData.append('email', $("#<portlet:namespace />email"));
+		   receiptFormData.append('address',$("#<portlet:namespace />address") );
+		   receiptFormData.append('countryId',$("#<portlet:namespace />countryId") );
+		   receiptFormData.append('stateId',$("#<portlet:namespace />stateId") );
+		   receiptFormData.append('pinCode',$("#<portlet:namespace />pinCode") );
+		   receiptFormData.append('organizationId',$("#<portlet:namespace />organizationId") );
+		   receiptFormData.append('subOrganizationId',$("#<portlet:namespace />subOrganizationId") );
+		   receiptFormData.append('city', $("#<portlet:namespace />city")); 
+		   receiptFormData.append('userPostId',$("#<portlet:namespace />userPostId") ); 
+		 	var url ="http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt?p_auth=" + Liferay.authToken;
+		   
+		 	 $.ajax({
+				    type: "POST",
+				    url: "http://localhost:8080/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
+				    data: formData,
+				    cache : false,
+				    processData: false,
+				    dataType: "json",
+				    headers: { "Content-Type":"application/json"}
+				  }).done(function() {
+					  alert('success')
+				  }).fail(function() {
+				     alert('An error occurred! Please try again later.')
+				  });
+	}
+</script>
