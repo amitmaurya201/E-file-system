@@ -8,6 +8,7 @@
 <aui:container fluid="1250">
 	<h1>Create Receipt</h1>
 	<aui:form name="receiptForm">
+	<aui:input name="userPostId" id="userPostId" value="1" />
 		<aui:row>
 			<aui:col lg="6" cssClass="border">
 				<div class="pdf-container">
@@ -144,7 +145,7 @@
 				</aui:row>
 				<%--	Action Buttons--%>
 				<aui:button-row >
-					<aui:button cssClass="btn btn-primary" type="submit" 
+					<aui:button cssClass="btn btn-primary" type="submit" onClick="receiptGenerate()" 
 						name="generate" value="Generate" />
 				</aui:button-row>
 			</aui:col>
@@ -202,20 +203,17 @@ AUI().use('aui-base', 'io', 'aui-io-request', function(A){
 		   receiptFormData.append('subOrganizationId',$("#<portlet:namespace />subOrganizationId") );
 		   receiptFormData.append('city', $("#<portlet:namespace />city")); 
 		   receiptFormData.append('userPostId',$("#<portlet:namespace />userPostId") ); 
-		 	var url ="http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt?p_auth=" + Liferay.authToken;
-		   
 		 	 $.ajax({
 				    type: "POST",
-				    url: "http://localhost:8080/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
-				    data: formData,
+				    url: "http://localhost:8080/api/jsonws/jet_process.receipt/create-receipt?p_auth=" + Liferay.authToken,
+				    data: receiptFormData,
 				    cache : false,
 				    processData: false,
-				    dataType: "json",
-				    headers: { "Content-Type":"application/json"}
+				    contentType: false,
 				  }).done(function() {
 					  alert('success')
 				  }).fail(function() {
 				     alert('An error occurred! Please try again later.')
-				  });
+				  }); 
 	}
 </script>
