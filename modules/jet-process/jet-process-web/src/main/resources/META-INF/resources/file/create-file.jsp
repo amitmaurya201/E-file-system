@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-	<%@ include file="/navigation.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Create File</title>
-</head>
-<body>
-<%
-boolean type = true;
+	
+	<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-%>
+<div class="row">
+<div class="col-2">
+	<%@ include file="/navigation.jsp" %>
+</div>
+<div class="col mr-5">
+
+
 	<div class="container m-3">
 		<div class="card">
 			<aui:form>
@@ -48,8 +47,8 @@ boolean type = true;
 																<!-- <label><b>Type</b></label> -->
 															</div>
 															<div class="col-auto">
-																<aui:select cssClass="form-select form-control" id="type"
-																	name="type" label="Type" >
+																<aui:select class="form-select form-control" id="type"
+																	name="type"  >
 																	<option value="NON-SFS">NON SFS</option>
 																	<option value="SFS">SFS</option>
 																</aui:select>
@@ -60,12 +59,12 @@ boolean type = true;
 												</div>
 											</div>
 											<div class="container">
-												<div class="row">
+												<div class="row" >
 
 													<div class="col-md-12">
-							                        <% if(type ==true) {     %> 
+							                        
                                                                  
-														<div class="row mt-3 ">
+														<div class="row mt-3 " id="non-sfs">
 															<aui:fieldset class="col-md-12 p-0 child-scheduler-border">
 																<legend class="child-scheduler-border">File No.</legend>
 																<div class="row">
@@ -109,17 +108,15 @@ boolean type = true;
 
 															</aui:fieldset>
 														</div>
-														<%
-														}else{
-														%>
-														 <div className="row">
-                                                                            <fieldset className="col-md-12 child-scheduler-border">
-                                                                                <legend className="child-scheduler-border">File No.</legend>
-                                                                                <input className="form-control" type="text" name="fileNumber" id="fileNumber" onChange={onchange} ref={register({ required: { value: true, message: 'File number is required' } })} value={docFile.fileNumber} />
-                                                                                {errors.fileNumber && <span className="errors">{errors.fileNumber.message}</span>}
-                                                                            </fieldset>
+														
+														 <div class="row" id="sfs" style="display:none" >
+                                                                            <aui:fieldset cssClass="col-md-12 child-scheduler-border">
+                                                                                <legend cssClass="child-scheduler-border">File No.</legend>
+                                                                                <aui:input class="form-control" type="text" name="fileNumber" id="fileNumber"  />
+                                                                                
+                                                                            </aui:fieldset>
                                                                         </div>
-														<% } %>
+														
 													</div>
 												</div>
 											</div>
@@ -196,5 +193,21 @@ boolean type = true;
 			</aui:form>
 		</div>
 	</div>
-</body>
-</html>
+	</div>
+</div>
+
+
+<aui:script>
+
+$('#<portlet:namespace />type').change(function(){
+	console.log("--------------");
+  let value =  $('#<portlet:namespace />type').val();
+	if(value === "NON-SFS"){
+	$('#non-sfs').show();
+	$('#sfs').hide();
+	}else{
+	$('#non-sfs').hide();
+	$('#sfs').show();
+	}
+	});
+</aui:script>
