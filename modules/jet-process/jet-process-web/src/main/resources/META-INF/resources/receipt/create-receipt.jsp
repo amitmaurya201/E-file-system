@@ -6,7 +6,8 @@
 	<aui:form name="receiptForm">
 		<div class="row">
 			<div class="col-6 border">
-			 <aui:input id = "file" name="file" type="file"   />
+			 <aui:input id = "document" name="document" type="file" onChange= "myFunction()" />
+			 <p id="demo"></p>
 			</div>
 		 	<div class="col-6 border ">
 				<aui:fieldset-group markupView="lexicon">
@@ -83,22 +84,36 @@
 	</aui:form>
 	</div>
 	<!-- file upload  -->
-	<aui:script use="aui-base">
 
-AUI().use('aui-base', 'io', 'aui-io-request', function(A){
-
-	 var btnUploadFile = A.one("#<portlet:namespace />file");
-	btnUploadFile.on("change", uploadFile);
-	function uploadFile(event){
-            event.preventDefault();
-            
-            
-           console.log("--------"+event.target.files);
-        }
-        });
-</aui:script>
+<script>
+function myFunction() {
+	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
+	 var dmFileId=0;
+	 console.log(myFile);
+     var groupId = Liferay.ThemeDisplay.getScopeGroupId();
+     console.log(groupId);
+     var formData = new FormData();
+   	 formData.append('document', myFile);
+	 formData.append('groupId', groupId);
+	 $.ajax({
+		    type: "POST",
+		    url: "http://localhost:8080/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
+		    data: formData,
+		    cache : false,
+		    processData: false,
+	        contentType : false,
+		  }).done(function(response) {
+			  
+			console.log("successfully saved"+response);
+			
+		  }).fail(function(e) {
+		     console.log(e);
+		  }); 
+	
+}
+</script>
 <!-- 	receipt generate  -->
-	<aui:script use="aui-base">
+	<%-- <aui:script use="aui-base">
 	AUI().use('aui-base', 'io', 'aui-io-request', function(A){
 		var btngenerate = A.one("#<portlet:namespace />generate");
 		btngenerate.on("click", onSubmitGenerate);
@@ -126,4 +141,4 @@ AUI().use('aui-base', 'io', 'aui-io-request', function(A){
 	
 	
 	
-	</aui:script>
+	</aui:script> --%>
