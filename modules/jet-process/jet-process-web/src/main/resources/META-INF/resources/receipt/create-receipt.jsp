@@ -12,7 +12,7 @@
 		<aui:row>
 			<aui:col lg="6" cssClass="border">
 				<div class="pdf-container">
-					<aui:input id="file" name="file" type="file" />
+				 <aui:input id = "document" name="document" type="file" onChange= "myFunction()" />
 				</div>
 			</aui:col>
 			<aui:col lg="6" cssClass="border">
@@ -20,6 +20,7 @@
 				<h4>Diary Details</h4>
 				<aui:row>
 					<aui:col md="4" cssClass="mt-3">
+
 						<aui:input label="Created On" name="createdOn" id="createdOn" />
 					</aui:col>
 					<aui:col md="4" cssClass="mt-3">
@@ -154,22 +155,37 @@
 </aui:container>
 </div>
 </div>
+	</div>
+	<!-- file upload  -->
 
-<!-- file upload  -->
+<script>
+function myFunction() {
+	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
+	 var dmFileId=0;
+	 console.log(myFile);
+     var groupId = Liferay.ThemeDisplay.getScopeGroupId();
+     console.log(groupId);
+     var formData = new FormData();
+   	 formData.append('document', myFile);
+	 formData.append('groupId', groupId);
+	 $.ajax({
+		    type: "POST",
+		    url: "http://localhost:8080/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
+		    data: formData,
+		    cache : false,
+		    processData: false,
+	        contentType : false,
+		  }).done(function(response) {
+			  
+			console.log("successfully saved"+response);
+			
+		  }).fail(function(e) {
+		     console.log(e);
+		  }); 
+	
+}
+</script>
 
-<aui:script use="aui-base">
-AUI().use('aui-base', 'io', 'aui-io-request', function(A){
-
-	 var btnUploadFile = A.one("#<portlet:namespace />file");
-	btnUploadFile.on("change", uploadFile);
-	function uploadFile(event){
-            event.preventDefault();
-            
-            
-           console.log("--------"+event.target.files);
-        }
-        });
-</aui:script>
 <!-- 	receipt generate  -->
 
 <script type="text/javascript">
@@ -217,3 +233,4 @@ AUI().use('aui-base', 'io', 'aui-io-request', function(A){
 				  }); 
 	}
 </script>
+
