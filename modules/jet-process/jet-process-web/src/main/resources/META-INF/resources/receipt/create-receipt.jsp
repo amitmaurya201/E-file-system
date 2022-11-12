@@ -1,5 +1,4 @@
 <%@ include file="../init.jsp"%>
-
 <div class="row">
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
@@ -156,6 +155,7 @@
 </div>
 </div>
 	</div>
+	<
 	<!-- file upload  -->
 
 <script>

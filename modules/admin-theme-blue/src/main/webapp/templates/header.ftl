@@ -165,17 +165,14 @@
 	        	 <#assign  userPostService = serviceLocator.findService("io.jetprocess.masterdata.service.UserPostLocalService")/> 
 	        		         
               <#assign userPostList =userPostService.getUserPostList(user.getUserId())/>
-                <#list userPostList as userpost>
-            
+                          
 		        	  <label for="cars">Select Post:</label>
                           <select name="post" id="value">
+		        <#list userPostList as userpost>
 		        	  	  <option value=${userpost.getUserPostId()}>${userpost.getDescription()}</option>
-                 
-                           </select>
-		             <#else>
-		           <label for="cars">This user has not assigned any post.</label>
-		           
-		              </#list>
+                   </#list>
+                           </select>		          
+		            
 	        	
 					<span style="margin-right: 10px" class="text-danger">    </span>
 		        </#if>
