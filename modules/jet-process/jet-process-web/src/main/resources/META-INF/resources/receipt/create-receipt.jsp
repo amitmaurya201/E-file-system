@@ -34,13 +34,13 @@
 					</aui:col>
 					<aui:col md="4" cssClass="mt-3">
 						<aui:select label="Type" name="typeId" id="typeId">
-							
+							<aui:option value="0">Type</aui:option>
 						</aui:select>
 					</aui:col>
 					<aui:col md="4" cssClass="mt-3">
 						<aui:select label="Delivery Mode" name="deliveryModeId"
 							id="deliveryModeId">
-							<aui:option value="1">Delivery Mode</aui:option>
+							<aui:option value="0">Delivery Mode</aui:option>
 						</aui:select>
 					</aui:col>
 				</aui:row>
@@ -132,13 +132,13 @@
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Category" name="receiptCategoryId"
 							id="receiptCategoryId">
-						
+						<aui:option value="0">Category</aui:option>
 						</aui:select>
 					</aui:col>
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Sub Category" name="receiptSubCategoryId"
 							id="receiptSubCategoryId" >
-							
+							<aui:option value="0">Subcategory</aui:option>
 						</aui:select>
 					</aui:col>
 				</aui:row>
