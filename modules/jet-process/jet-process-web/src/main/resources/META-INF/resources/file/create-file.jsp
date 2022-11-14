@@ -77,18 +77,18 @@
 																<div class="row">
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<select class="form-select form-control"
-																			 name="basicHeadId" id="basicHead">
+																			 name="basicHeadId" id="basicHead" onchange="getPrimaryHead()">
 																			<option value=''>Basic Head</option> 
 																			</select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<select class="form-select form-control"
-																			 name="primaryHeadId" id="primaryHead">
+																			 name="primaryHeadId" id="primaryHead" onchange="getSecondaryHead()">
 																			<option value=''>Primary Head Code</option>
 																			</select></div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<select class="form-select form-control"
-																			 name="secondaryHeadId" id="secondaryHead">
+																			 name="secondaryHeadId" id="secondaryHead" onchange="getTertiaryHead()">
 																			
 																			<option value=''>Secondary Head Code</option>
 																			</select>
@@ -153,7 +153,7 @@
 									<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 										<div cssClass="input-group">
 											<aui:select cssClass="form-select form-control" id="category"
-												name="category" >
+												name="category" onchange="getSubcategory()" >
 												<option value=''>Choose...</option> 
 											</aui:select>
 										</div>
@@ -234,11 +234,121 @@ $('#<portlet:namespace />type').change(function(){
             basicheadText = value.value;
             basicheadValue = value.masterdataId;
             $("#basicHead").append(new Option(basicheadText,basicheadValue));
-            });
-               
-               
+            });          
      })
 	            });
+
+<!--  get primaryhead data using basicheadId -->	            
+	            
+	        function getPrimaryHead(){
+	       var basicheadId = document.getElementById("basicHead").value;
+	       AUI().use('aui-base', function(A){
+	       Liferay.Service(
+	        		`/masterdata.masterdata/get-primary-head-masterdata`,
+	        		{
+	        		 basicHeadId: basicheadId
+	        		},
+                function(obj) {
+                alert(obj);
+               console.log(obj);
+            $.each(obj,function(key,value){
+            primaryHeadText = value.value;
+            primaryHeadValue = value.masterdataId;
+            $("#primaryHead").append(new Option( primaryHeadText, primaryHeadValue));
+            });          
+     })
+	            });   
+	        }
+	            
+	            
+	           <!-- get secondarydata using primaryheadId --> 
+	           
+	       function getSecondaryHead(){
+	       var primaryheadId = document.getElementById("primaryHead").value;
+	      AUI().use('aui-base', function(A){
+	       Liferay.Service(
+	        		`/masterdata.masterdata/get-secondary-head-masterdata`,
+	        		{
+	        		 primaryHeadId: primaryheadId
+	        		},
+                function(obj) {
+                alert(obj);
+               console.log(obj);
+            $.each(obj,function(key,value){
+           secondaryHeadText = value.value;
+           secondaryHeadValue = value.masterdataId;
+            $("#secondaryHead").append(new Option( secondaryHeadText ,  secondaryHeadValue));
+            });          
+     })
+	            });   
+	       
+	       
+	       }    
+	           
+	       <!-- get tertiaryhead data  using  secondaryhead  -->
+	       
+	       
+	       function getTertiaryHead(){
+	       
+	       var secondaryheadId = document.getElementById("secondaryHead").value;
+	   
+	      AUI().use('aui-base', function(A){
+	       Liferay.Service(
+	        		`/masterdata.masterdata/get-teritary-head-masterdata`,
+	        		{
+	        		 secondaryHeadId: secondaryheadId
+	        		},
+                function(obj) {
+                alert(obj);
+               console.log(obj);
+            $.each(obj,function(key,value){
+           secondaryHeadText = value.value;
+           secondaryHeadValue = value.masterdataId;
+            $("#tertiaryHead").append(new Option( secondaryHeadText ,  secondaryHeadValue));
+            });          
+     })
+	            });   
+	      
+	       }
+	     <!--  get category masterdata  --> 
+	      AUI().use('aui-base', function(A){
+	        Liferay.Service(
+	        		`/masterdata.masterdata/get-category-masterdata`,
+                function(obj) {
+                alert(obj);
+               console.log(obj);
+            $.each(obj,function(key,value){
+           categoryText = value.value;
+           categoryValue = value.masterdataId;
+            $("#<portlet:namespace />category").append(new Option(categoryText,categoryValue));
+            });          
+     })
+	            });
+	            
+	        <!-- get Subcategory using categoryId  -->
+	        
+	            function getSubcategory(){
+	              var categoryId = document.getElementById("category").value;
+	             AUI().use('aui-base', function(A){
+	       Liferay.Service(
+	        		``,
+	        		{
+	        		 basicHeadId: basicheadId
+	        		},
+                function(obj) {
+                alert(obj);
+               console.log(obj);
+            $.each(obj,function(key,value){
+            primaryHeadText = value.value;
+            primaryHeadValue = value.masterdataId;
+            $("#primaryHead").append(new Option( primaryHeadText, primaryHeadValue));
+            });          
+     })
+	            });   
+	        }
+	   
+	        
+	        
 </aui:script>
 
 
