@@ -1,8 +1,16 @@
 <%@ include file="../init.jsp"%>
+<%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
+<%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+
 <div class="row">
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
 </div>
+<% ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		String setURl = serviceContext.getPortalURL();
+	
+	%>
+
 <div class="col mr-5">
 <aui:container fluid="1250">
 	<h1>Create Receipt</h1>
@@ -11,7 +19,9 @@
 		<aui:row>
 			<aui:col lg="6" cssClass="border">
 				<div class="pdf-container">
-				 <aui:input id = "document" name="document" type="file" onChange= "myFunction()" />
+				 <aui:input id = "document" name="document" type="file"  />
+				  <aui:input id = "tempFileId" name="tempFileId"  type="hidden"/>
+				 
 				</div>
 			</aui:col>
 			<aui:col lg="6" cssClass="border">
@@ -122,13 +132,13 @@
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Category" name="receiptCategoryId"
 							id="receiptCategoryId">
-							<aui:option value="1">Category</aui:option>
+						
 						</aui:select>
 					</aui:col>
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Sub Category" name="receiptSubCategoryId"
-							id="receiptSubCategoryId">
-							<aui:option value="1">Sub Category</aui:option>
+							id="receiptSubCategoryId" >
+							
 						</aui:select>
 					</aui:col>
 				</aui:row>
@@ -154,12 +164,57 @@
 </aui:container>
 </div>
 </div>
-	</div>
-	<
-	<!-- file upload  -->
+<!-- 	masterdata call -->
+	<aui:script>
+         $.ajax({
+            type : "GET",
+			url : "${setURl}/api/jsonws/masterdata.masterdata/get-receipt-category-masterdata?p_auth="+ Liferay.authToken,
+			cache : false,
+			processData : false,
+			contentType : false,
+		}).done(
+		function(response) {
+			console.log(response);
+			$.each(response, function(key, value) {
+				optionText = value.value;
+				optionValue = value.masterdataId;
+				$("#<portlet:namespace />receiptCategoryId").append(new Option(optionText,optionValue));
 
-<script>
-function myFunction() {
+			});
+
+		}).fail(function(e) {
+	console.log(e);
+});
+</aui:script>
+<aui:script>
+$("#<portlet:namespace />receiptSubCategoryId").on('click', function(){
+	alert("receiptsubcategory");
+	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
+		console.log(receiptCategoryId);
+		$.ajax({
+				 type : "GET",
+				 url : "${setURL}/api/jsonws/masterdata.masterdata/get-receipt-sub-category-masterdata/receipt-category-id/"+receiptCategoryId+"?p_auth="+ Liferay.authToken,
+				cache : false,
+				processData : false,
+				contentType : false,
+			}).done(function(response) {
+				$.each(response, function(key, value) {
+					optionText = value.value;
+					optionValue = value.masterdataId;
+					$("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
+
+					});
+				}).fail(function(e) {
+							alert(" ReceiptSubCategoryList is not available for this receiptCategory!!");
+						});
+
+	});
+</aui:script>	
+	<!-- file upload  -->
+<aui:script>
+$("#<portlet:namespace />document").on('change', function(){
+
+	alert("calling onchange event");
 	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
 	 var dmFileId=0;
 	 console.log(myFile);
@@ -176,15 +231,16 @@ function myFunction() {
 		    processData: false,
 	        contentType : false,
 		  }).done(function(response) {
-			  
-			console.log("successfully saved"+response);
+			  console.log(response.id);
+             $("#<portlet:namespace />tempFileId").val(response.id);
 			
 		  }).fail(function(e) {
 		     console.log(e);
 		  }); 
 	
-}
-</script>
+});
+</aui:script>
+
 
 <!-- 	receipt generate  -->
 
@@ -233,4 +289,14 @@ function myFunction() {
 				  }); 
 	}
 </script>
+
+<aui:script>
+
+$("#<portlet:namespace />click").on('change', function(){
+
+	alert("calling onchange event");
+});
+
+</aui:script>
+
 
