@@ -1,3 +1,5 @@
+<%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
+<%@page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
@@ -9,6 +11,11 @@
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
 </div>
+
+<% ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		String setURl = serviceContext.getPortalURL();
+	
+	%>
 <div class="col mr-5">
 
 
@@ -211,3 +218,27 @@ $('#<portlet:namespace />type').change(function(){
 	}
 	});
 </aui:script>
+
+
+
+
+<aui:script>
+<!-- get Basichead values -->
+	 AUI().use('aui-base', function(A){
+	        Liferay.Service(
+	        		`/masterdata.masterdata/get-basic-head-masterdata`,
+                function(obj) {
+                alert(obj);
+               console.log(obj);
+            $.each(obj,function(key,value){
+            basicheadText = value.value;
+            basicheadValue = value.masterdataId;
+            $("#basicHead").append(new Option(basicheadText,basicheadValue));
+            });
+               
+               
+     })
+	            });
+</aui:script>
+
+
