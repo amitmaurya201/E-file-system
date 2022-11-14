@@ -1,7 +1,7 @@
 <%@ include file="../init.jsp"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-
+<%@ include file = "/js/receipt.js" %>
 <div class="row">
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
@@ -20,7 +20,7 @@
 			<aui:col lg="6" cssClass="border">
 				<div class="pdf-container">
 				 <aui:input id = "document" name="document" type="file"  />
-				  <aui:input id = "tempFileId" name="tempFileId"  type="hidden"/>
+				  <aui:input id = "tempFileId" name="tempFileId" type = "hidden"/>
 				 
 				</div>
 			</aui:col>
@@ -164,82 +164,6 @@
 </aui:container>
 </div>
 </div>
-<!-- 	masterdata call -->
-	<aui:script>
-         $.ajax({
-            type : "GET",
-			url : "${setURl}/api/jsonws/masterdata.masterdata/get-receipt-category-masterdata?p_auth="+ Liferay.authToken,
-			cache : false,
-			processData : false,
-			contentType : false,
-		}).done(
-		function(response) {
-			console.log(response);
-			$.each(response, function(key, value) {
-				optionText = value.value;
-				optionValue = value.masterdataId;
-				$("#<portlet:namespace />receiptCategoryId").append(new Option(optionText,optionValue));
-
-			});
-
-		}).fail(function(e) {
-	console.log(e);
-});
-</aui:script>
-<aui:script>
-$("#<portlet:namespace />receiptSubCategoryId").on('click', function(){
-	alert("receiptsubcategory");
-	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
-		console.log(receiptCategoryId);
-		$.ajax({
-				 type : "GET",
-				 url : "${setURL}/api/jsonws/masterdata.masterdata/get-receipt-sub-category-masterdata/receipt-category-id/"+receiptCategoryId+"?p_auth="+ Liferay.authToken,
-				cache : false,
-				processData : false,
-				contentType : false,
-			}).done(function(response) {
-				$.each(response, function(key, value) {
-					optionText = value.value;
-					optionValue = value.masterdataId;
-					$("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
-
-					});
-				}).fail(function(e) {
-							alert(" ReceiptSubCategoryList is not available for this receiptCategory!!");
-						});
-
-	});
-</aui:script>	
-	<!-- file upload  -->
-<aui:script>
-$("#<portlet:namespace />document").on('change', function(){
-
-	alert("calling onchange event");
-	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
-	 var dmFileId=0;
-	 console.log(myFile);
-     var groupId = Liferay.ThemeDisplay.getScopeGroupId();
-     console.log(groupId);
-     var formData = new FormData();
-   	 formData.append('document', myFile);
-	 formData.append('groupId', groupId);
-	 $.ajax({
-		    type: "POST",
-		    url: "http://localhost:8080/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
-		    data: formData,
-		    cache : false,
-		    processData: false,
-	        contentType : false,
-		  }).done(function(response) {
-			  console.log(response.id);
-             $("#<portlet:namespace />tempFileId").val(response.id);
-			
-		  }).fail(function(e) {
-		     console.log(e);
-		  }); 
-	
-});
-</aui:script>
 
 
 <!-- 	receipt generate  -->
