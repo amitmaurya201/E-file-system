@@ -34,7 +34,7 @@
 					</aui:col>
 					<aui:col md="4" cssClass="mt-3">
 						<aui:select label="Type" name="typeId" id="typeId">
-							<aui:option value="1">Type</aui:option>
+							
 						</aui:select>
 					</aui:col>
 					<aui:col md="4" cssClass="mt-3">
@@ -71,13 +71,13 @@
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Organization" name="organizationId"
 							id="organizationId">
-							<aui:option value="1">Organization</aui:option>
+							<aui:option value="0">Organization</aui:option>
 						</aui:select>
 					</aui:col>
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Sub Organization" name="subOrganizationId"
 							id="subOrganizationId">
-							<aui:option value="1">Sub Organization</aui:option>
+							<aui:option value="0">Sub Organization</aui:option>
 						</aui:select>
 					</aui:col>
 				</aui:row>
@@ -106,12 +106,12 @@
 				<aui:row>
 				<aui:col md="6" cssClass="mt-3">
 					<aui:select label="Country" name="countryId" id="countryId">
-							<aui:option value="1">Country</aui:option>
+							<aui:option value="0">Country</aui:option>
 						</aui:select>
 						</aui:col>
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="State" name="stateId" id="stateId">
-							<aui:option value="1">State</aui:option>
+							<aui:option value="0">State</aui:option>
 						</aui:select>
 					</aui:col>
 				</aui:row>
