@@ -5,6 +5,8 @@
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
+<link rel="stylesheet" 
+  href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <div class="row">
 	<div class="col-2">
 		<%@ include file="/navigation.jsp"%>
