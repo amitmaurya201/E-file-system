@@ -190,8 +190,7 @@ $("#<portlet:namespace />document").on('change', function(){
              var embed = $('<embed id="pdfurl" type="application/pdf" width="600" height="600">');
              embed.attr('src',pdfurl);
              $('#targetDiv').append(embed);
-             
-             
+               
 		  }).fail(function(e) {
 		     console.log(e);
 		  }); 
