@@ -1,11 +1,13 @@
-.receipt .scroll{
-  height:90vh;
+.receipt .scroll {
+  height: 90vh;
   overflow: scroll;
 }
+
 .receipt .textOnInput {
   position: relative;
   background-color: #fff;
 }
+
 .receipt .textOnInput label {
   position: absolute;
   top: -15px;
@@ -13,6 +15,7 @@
   padding: 2px;
   z-index: 1;
 }
+
 .receipt .textOnInput label:after {
   content: " ";
   background-color: #fff;
@@ -23,6 +26,7 @@
   bottom: 0;
   z-index: -1;
 }
+
 .receipt label {
   font-size: 16px;
   font-weight: 500;
@@ -30,16 +34,16 @@
   margin-bottom: .5rem;
 }
 
-.receipt .heading{
- background-color: gainsboro;
- padding-left: 5px;
- padding-top: 7px;
+.receipt .heading {
+  background-color: gainsboro;
+  padding-left: 5px;
+  padding-top: 7px;
 }
 
-.receipt .border .heading .icon{
-margin-right:-20px;
+.receipt .border .heading .icon {
+  margin-right: -20px;
 }
 
-.receipt .button{
-margin: auto 40%;
+.receipt .button {
+  margin: auto 40%;
 }
