@@ -26,7 +26,7 @@
 			</aui:col>
 			<aui:col lg="6" cssClass="border">
 
-				<h4>Diary Details</h4>
+				<h4><aui:icon cssClass="fas fa-file-alt" />Diary Details</h4>
 				<aui:row>
 					<aui:col md="4" cssClass="mt-3">
 
@@ -66,7 +66,7 @@
 
 				<hr>
 
-				<h4>Sender Details</h4>
+				<h4><aui:icon cssClass="fas fa-envelope"/>Sender Details</h4>
 				<aui:row>
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Organization" name="organizationId"
@@ -127,7 +127,7 @@
 				
 				<hr>
 				
-					<h4>Receipt Details</h4>
+					<h4><aui:icon cssClass="fas fa-receipt" />Receipt Details</h4>
 					<aui:row>
 					<aui:col md="6" cssClass="mt-3">
 						<aui:select label="Category" name="receiptCategoryId"
