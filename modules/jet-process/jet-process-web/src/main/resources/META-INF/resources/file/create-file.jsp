@@ -1,27 +1,23 @@
-<%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-	
-	<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../init.jsp"%>
+<%@ page import="java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+
+<%@ include file="/js/file.js" %>
 
 <div class="row">
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
+	
 </div>
 
-<% ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-		String setURl = serviceContext.getPortalURL();
-	
-	%>
+
 <div class="col mr-5">
 
 
 	<div class="container m-3">
 		<div class="card">
-			<aui:form>
+			<aui:form name="myForm" action="" method="post">
 	             <div class="card-body">
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
@@ -72,55 +68,64 @@
 							                        
                                                                  
 														<div class="row mt-3 " id="non-sfs">
-															<aui:fieldset class="col-md-12 p-0 child-scheduler-border">
+															
 																<legend class="child-scheduler-border">File No.</legend>
+																
 																<div class="row">
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="basicHeadId" id="basicHead">
-																			<option value=''>Basic Head</option> 
-																			</select>
+																		<aui:select cssClass="form-select form-control"
+																			 name="" id="basicHead" >
+																			<option value="">Basic Head</option> 
+																			 <aui:validator name="required" />
+																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="primaryHeadId" id="primaryHead">
-																			<option value=''>Primary Head Code</option>
-																			</select></div>
+																		<aui:select cssClass="form-select form-control"
+																			 name="" id="primaryHead">
+																			<option value="">Primary Head Code</option>
+																			<aui:validator name="required" />
+																			</aui:select></div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="secondaryHeadId" id="secondaryHead">
-																			
+																		<aui:select cssClass="form-select form-control"
+																			 name="" id="secondaryHead" >
+																		
 																			<option value=''>Secondary Head Code</option>
-																			</select>
+																			<aui:validator name="required" />
+																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="tertiaryHeadId" id="tertiaryHead">
+																		<aui:select cssClass="form-select form-control"
+																			 name="" id="tertiaryHead">
 																			
 																			<option value=''>Tertiary Head Code</option> 
-																	</select>
+																			
+																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<input type="text" class="form-control" 
-																			name="year"></input>
+																		<aui:input type="text" cssClass="form-control" id="year"
+																			name="" value="">
+																			
+																			</aui:input>
 																			
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control" 
-																			name="fileCodeId" id="fileCode">
+																		<aui:select cssClass="form-select form-control" 
+																			name="" id="fileCode">
 																			<option value="">File-Code</option> 
-																			</select>
+																			
+																			</aui:select>
 																	</div>
 																</div>
-
-															</aui:fieldset>
+                                                               
+														
 														</div>
 														
 														 <div class="row" id="sfs" style="display:none" >
                                                                             <aui:fieldset cssClass="col-md-12 child-scheduler-border">
                                                                                 <legend cssClass="child-scheduler-border">File No.</legend>
-                                                                                <aui:input class="form-control" type="text" name="fileNumber" id="fileNumber"  />
-                                                                                
+                                                                                <aui:input class="form-control" type="text" name="" id="fileNumber" >
+                                                                                <aui:validator name="required" />
+                                                                                </aui:input>
                                                                             </aui:fieldset>
                                                                         </div>
 														
@@ -144,8 +149,11 @@
 											Subject<span class='text-danger'>*</span>
 										</legend> -->
 										<aui:input cssClass="form-control" type="text" name="subject"
-											id="subject" />
-
+											id="subject">
+											<aui:validator name="required"/>
+										<aui:validator name="alpha" errorMessage="alphabet-characters" />
+											</aui:input>
+                                           
 									</aui:fieldset>
 								</div>
 								<div class="row">
@@ -155,6 +163,7 @@
 											<aui:select cssClass="form-select form-control" id="category"
 												name="category" >
 												<option value=''>Choose...</option> 
+												<aui:validator name="required" />
 											</aui:select>
 										</div>
 									</aui:fieldset>
@@ -163,7 +172,8 @@
 										<div cssClass="input-group">
 											<aui:select cssClass="form-select form-control" id="subCategory"
 												name="subCategory" >
-												<option value=''>Choose...</option> 
+												<option value=''>Choose...</option>
+												<aui:validator name="required" /> 
 											</aui:select>
 										</div>
 									</aui:fieldset>
@@ -178,7 +188,10 @@
 											Remark<span class='text-danger'>*</span>
 										</legend>-->
 										<aui:input cssClass="form-control col-md-12" rows="3" type="textarea"
-											name="remarks" id="remark" ></aui:input>
+											name="remarks" id="remark" >
+											<aui:validator name="required"/>
+											<aui:validator name="maxLength">1000</aui:validator>
+											</aui:input>
 									</aui:fieldset>
 								</div>
 								<div class="row">
@@ -187,7 +200,10 @@
 											Reference<span class='text-danger'>*</span>
 										</legend> -->
 										<aui:input  cssClass="form-control col-md-12 " type="text"
-											name="reference" id="reference"  />
+											name="reference" id="reference"  >
+											<aui:validator name="required" />
+											<aui:validator name="maxLength">250</aui:validator>
+											</aui:input>
 									</aui:fieldset>
 								</div>
 							</aui:fieldset>
@@ -215,6 +231,7 @@ $('#<portlet:namespace />type').change(function(){
 	}else{
 	$('#non-sfs').hide();
 	$('#sfs').show();
+	
 	}
 	});
 </aui:script>
@@ -222,23 +239,5 @@ $('#<portlet:namespace />type').change(function(){
 
 
 
-<aui:script>
-<!-- get Basichead values -->
-	 AUI().use('aui-base', function(A){
-	        Liferay.Service(
-	        		`/masterdata.masterdata/get-basic-head-masterdata`,
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-            basicheadText = value.value;
-            basicheadValue = value.masterdataId;
-            $("#basicHead").append(new Option(basicheadText,basicheadValue));
-            });
-               
-               
-     })
-	            });
-</aui:script>
 
 
