@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
 <%@ include file="../init.jsp"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
 <%@ page
@@ -11,6 +13,11 @@
 		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 		String setURl = serviceContext.getPortalURL();
 	%>
+
+	<%
+		DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+	%>
+
 	<div class="col mr-2 receipt">
 		<aui:container fluid="1200">
 			<aui:form name="receiptForm">
@@ -34,7 +41,8 @@
 							<aui:col md="4" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Created On</label>
-									<aui:input label="" name="createdOn" id="createdOn" disabled="disabled" />
+									<aui:input label="" name="createdOn" id="createdOn"
+										value="<%=currentDate.format(new Date())%>" disabled="true" />
 								</div>
 							</aui:col>
 							<aui:col md="4" cssClass="mt-3">
@@ -177,9 +185,9 @@
 								</div>
 							</aui:col>
 						</aui:row>
-						<div class="border heading" >
+						<div class="border heading">
 							<h4>
-							<aui:icon cssClass="fas fa-receipt icon"  />
+								<aui:icon cssClass="fas fa-receipt icon" />
 								Receipt Details
 							</h4>
 						</div>
@@ -222,7 +230,7 @@
 						<%--	Action Buttons--%>
 						<aui:button-row>
 							<aui:button cssClass="btn btn-primary button" type="submit"
-								 name="generate" value="Generate" />
+								name="generate" value="Generate" />
 						</aui:button-row>
 					</aui:col>
 				</aui:row>
