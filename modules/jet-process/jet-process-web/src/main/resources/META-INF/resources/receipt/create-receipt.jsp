@@ -2,8 +2,7 @@
 <%@page import="java.text.DateFormat"%>
 <%@ include file="../init.jsp"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+<%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
 <div class="row">
 	<div class="col-2">
@@ -12,19 +11,15 @@
 	<%
 		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 		String setURl = serviceContext.getPortalURL();
-	%>
-
-	<%
 		DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
 	%>
-
 	<div class="col mr-2 receipt">
 		<aui:container fluid="1200">
 			<aui:form name="receiptForm">
 				<aui:input name="userPostId" id="userPostId" value="1" />
 				<aui:row>
 					<aui:col lg="6" cssClass="border">
-						<div>
+						<div id= "targetDiv">
 							<aui:input id="document" name="document" type="file" />
 							<aui:input id="tempFileId" name="tempFileId" type="hidden" />
 

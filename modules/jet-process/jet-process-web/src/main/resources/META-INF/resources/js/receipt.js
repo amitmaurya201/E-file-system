@@ -72,8 +72,7 @@ AUI().use('aui-base', function(A){
 						$("#<portlet:namespace />deliveryModeId").append(new Option(optionText,optionValue));
 
 					});
-
-			 }
+			     }
 			 );
 });
 
@@ -89,8 +88,7 @@ AUI().use('aui-base', function(A){
 						$("#<portlet:namespace />countryId").append(new Option(optionText,optionValue));
 
 					});
-
-			 }
+			     }
 			 );
 });
 
@@ -162,9 +160,8 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 					     }
 
 					     })
-		 })
-
-	});
+					 })
+		 	});
 });
 /*	<!-- file upload  -->*/
 	
@@ -185,9 +182,16 @@ $("#<portlet:namespace />document").on('change', function(){
 		    processData: false,
 	        contentType : false,
 		  }).done(function(response) {
+			  pdfurl = response.description;
 			  console.log(response.id);
+			  console.log(response.description);
              $("#<portlet:namespace />tempFileId").val(response.id);
-			
+           
+             var embed = $('<embed id="pdfurl" type="application/pdf" width="600" height="600">');
+             embed.attr('src',pdfurl);
+             $('#targetDiv').append(embed);
+             
+             
 		  }).fail(function(e) {
 		     console.log(e);
 		  }); 
