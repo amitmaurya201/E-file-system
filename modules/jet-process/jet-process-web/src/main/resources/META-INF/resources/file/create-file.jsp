@@ -1,21 +1,17 @@
-<%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-	
-	<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../init.jsp"%>
+<%@ page import="java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+
+<%@ include file="/js/file.js" %>
 
 <div class="row">
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
+	
 </div>
 
-<% ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-		String setURl = serviceContext.getPortalURL();
-	
-	%>
+
 <div class="col mr-5">
 
 
@@ -76,40 +72,40 @@
 																<legend class="child-scheduler-border">File No.</legend>
 																<div class="row">
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="basicHeadId" id="basicHead" onchange="getPrimaryHead()">
+																		<aui:select class="form-select form-control"
+																			 name="" id="basicHead" >
 																			<option value=''>Basic Head</option> 
-																			</select>
+																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="primaryHeadId" id="primaryHead" onchange="getSecondaryHead()">
+																		<aui:select class="form-select form-control"
+																			 name="" id="primaryHead">
 																			<option value=''>Primary Head Code</option>
-																			</select></div>
+																			</aui:select></div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="secondaryHeadId" id="secondaryHead" onchange="getTertiaryHead()">
+																		<aui:select class="form-select form-control"
+																			 name="" id="secondaryHead" >
 																			
 																			<option value=''>Secondary Head Code</option>
-																			</select>
+																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control"
-																			 name="tertiaryHeadId" id="tertiaryHead">
+																		<aui:select class="form-select form-control"
+																			 name="" id="tertiaryHead">
 																			
 																			<option value=''>Tertiary Head Code</option> 
-																	</select>
+																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<input type="text" class="form-control" 
-																			name="year"></input>
+																		<aui:input type="text" cssClass="form-control" id="year"
+																			name="" value=""></aui:input>
 																			
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<select class="form-select form-control" 
-																			name="fileCodeId" id="fileCode">
+																		<aui:select class="form-select form-control" 
+																			name="" id="fileCode">
 																			<option value="">File-Code</option> 
-																			</select>
+																			</aui:select>
 																	</div>
 																</div>
 
@@ -119,7 +115,7 @@
 														 <div class="row" id="sfs" style="display:none" >
                                                                             <aui:fieldset cssClass="col-md-12 child-scheduler-border">
                                                                                 <legend cssClass="child-scheduler-border">File No.</legend>
-                                                                                <aui:input class="form-control" type="text" name="fileNumber" id="fileNumber"  />
+                                                                                <aui:input class="form-control" type="text" name="" id="fileNumber"  />
                                                                                 
                                                                             </aui:fieldset>
                                                                         </div>
@@ -153,7 +149,7 @@
 									<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 										<div cssClass="input-group">
 											<aui:select cssClass="form-select form-control" id="category"
-												name="category" onchange="getSubcategory()" >
+												name="category" >
 												<option value=''>Choose...</option> 
 											</aui:select>
 										</div>
@@ -215,6 +211,7 @@ $('#<portlet:namespace />type').change(function(){
 	}else{
 	$('#non-sfs').hide();
 	$('#sfs').show();
+	
 	}
 	});
 </aui:script>
@@ -222,133 +219,5 @@ $('#<portlet:namespace />type').change(function(){
 
 
 
-<aui:script>
-<!-- get Basichead values -->
-	 AUI().use('aui-base', function(A){
-	        Liferay.Service(
-	        		`/masterdata.masterdata/get-basic-head-masterdata`,
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-            basicheadText = value.value;
-            basicheadValue = value.masterdataId;
-            $("#basicHead").append(new Option(basicheadText,basicheadValue));
-            });          
-     })
-	            });
-
-<!--  get primaryhead data using basicheadId -->	            
-	            
-	        function getPrimaryHead(){
-	       var basicheadId = document.getElementById("basicHead").value;
-	       AUI().use('aui-base', function(A){
-	       Liferay.Service(
-	        		`/masterdata.masterdata/get-primary-head-masterdata`,
-	        		{
-	        		 basicHeadId: basicheadId
-	        		},
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-            primaryHeadText = value.value;
-            primaryHeadValue = value.masterdataId;
-            $("#primaryHead").append(new Option( primaryHeadText, primaryHeadValue));
-            });          
-     })
-	            });   
-	        }
-	            
-	            
-	           <!-- get secondarydata using primaryheadId --> 
-	           
-	       function getSecondaryHead(){
-	       var primaryheadId = document.getElementById("primaryHead").value;
-	      AUI().use('aui-base', function(A){
-	       Liferay.Service(
-	        		`/masterdata.masterdata/get-secondary-head-masterdata`,
-	        		{
-	        		 primaryHeadId: primaryheadId
-	        		},
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-           secondaryHeadText = value.value;
-           secondaryHeadValue = value.masterdataId;
-            $("#secondaryHead").append(new Option( secondaryHeadText ,  secondaryHeadValue));
-            });          
-     })
-	            });   
-	       
-	       
-	       }    
-	           
-	       <!-- get tertiaryhead data  using  secondaryhead  -->
-	       
-	       
-	       function getTertiaryHead(){
-	       
-	       var secondaryheadId = document.getElementById("secondaryHead").value;
-	   
-	      AUI().use('aui-base', function(A){
-	       Liferay.Service(
-	        		`/masterdata.masterdata/get-teritary-head-masterdata`,
-	        		{
-	        		 secondaryHeadId: secondaryheadId
-	        		},
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-           secondaryHeadText = value.value;
-           secondaryHeadValue = value.masterdataId;
-            $("#tertiaryHead").append(new Option( secondaryHeadText ,  secondaryHeadValue));
-            });          
-     })
-	            });   
-	      
-	       }
-	     <!--  get category masterdata  --> 
-	      AUI().use('aui-base', function(A){
-	        Liferay.Service(
-	        		`/masterdata.masterdata/get-category-masterdata`,
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-           categoryText = value.value;
-           categoryValue = value.masterdataId;
-            $("#<portlet:namespace />category").append(new Option(categoryText,categoryValue));
-            });          
-     })
-	            });
-	            
-	        <!-- get Subcategory using categoryId  -->
-	        
-	            function getSubcategory(){
-	              var categoryId = document.getElementById("category").value;
-	             AUI().use('aui-base', function(A){
-	       Liferay.Service(
-	        		``,
-	        		{
-	        		 basicHeadId: basicheadId
-	        		},
-                function(obj) {
-                alert(obj);
-               console.log(obj);
-            $.each(obj,function(key,value){
-            primaryHeadText = value.value;
-            primaryHeadValue = value.masterdataId;
-            $("#primaryHead").append(new Option( primaryHeadText, primaryHeadValue));
-            });          
-     })
-	            });   
-	        }
-	   
-	        
-	        
-</aui:script>
 
 
