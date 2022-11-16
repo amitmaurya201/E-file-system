@@ -1,4 +1,3 @@
-
 <aui:script use= "aui-base">
        /* get current year */
 	    var currentTime = new Date();
