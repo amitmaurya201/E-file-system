@@ -48,6 +48,10 @@
 					<portlet:param name="mvcRenderCommandName" value="/createReceipt" />
 					<portlet:param name="receiptId" value="1801" />
 				</portlet:renderURL>
+				<portlet:renderURL var="createReceiptUrl">
+					<portlet:param name="mvcRenderCommandName" value="/createReceipt" />
+					<portlet:param name="receiptId" value="1801" />
+				</portlet:renderURL>
 				<tbody>
 					<tr>
 						<td><aui:button href="${createReceiptUrl }"
