@@ -168,19 +168,12 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 $("#<portlet:namespace />document").on('change', function(){
 	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
 	 var dmFileId=0;
-	 console.log("----   "+myFile);
-	 
+	 console.log(myFile);
      var groupId = Liferay.ThemeDisplay.getScopeGroupId();
      console.log(groupId);
      var formData = new FormData();
    	 formData.append('document', myFile);
 	 formData.append('groupId', groupId);
-	 
-	 
-	 var extension = $("#<portlet:namespace />document").val().split('.').pop().toLowerCase();
-	 console.log("---- extension  "+extension);
-	 
-	 if(myFile.size > 26,214,400 && extension == 'pdf'){ 
 	 $.ajax({
 		    type: "POST",
 		    url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
@@ -201,32 +194,6 @@ $("#<portlet:namespace />document").on('change', function(){
 		  }).fail(function(e) {
 		     console.log(e);
 		  }); 
-		
-	 }
+	
 });
-
-
-/* getByReceiptId/ */
-var receiptId = $("#<portlet:namespace />receiptId").val();
-console.log('receiptId'+receiptId);
-AUI().use('aui-base', function(A){
-Liferay.Service(
-		'/jet_process.receipt/get-receipt-by-receipt-id',
-		{
-		    receiptId: receiptId
-		},
-		function(obj) {
-		    console.log(obj);
-		}
-		);
-});
-
-
-
-/* for date validation  */
-
-
-
-
 </aui:script>
-
