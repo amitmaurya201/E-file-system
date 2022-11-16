@@ -66,9 +66,32 @@ public class Mutation {
 			});
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "It stores receipt details")
 	public java.util.Collection<ReceiptRsModel> createReceipt(
-			@GraphQLName("receiptRsModel") ReceiptRsModel receiptRsModel)
+			@GraphQLName("groupId") Integer groupId,
+			@GraphQLName("typeId") Integer typeId,
+			@GraphQLName("tempfileEntryId") Integer tempfileEntryId,
+			@GraphQLName("deliveryModeId") Integer deliveryModeId,
+			@GraphQLName("receivedOn") String receivedOn,
+			@GraphQLName("letterDate") String letterDate,
+			@GraphQLName("referenceNumber") String referenceNumber,
+			@GraphQLName("modeNumber") String modeNumber,
+			@GraphQLName("receiptCategoryId") Integer receiptCategoryId,
+			@GraphQLName("receiptSubCategoryId") Integer receiptSubCategoryId,
+			@GraphQLName("subject") String subject,
+			@GraphQLName("remarks") String remarks,
+			@GraphQLName("name") String name,
+			@GraphQLName("designation") String designation,
+			@GraphQLName("mobile") String mobile,
+			@GraphQLName("email") String email,
+			@GraphQLName("address") String address,
+			@GraphQLName("countryId") Integer countryId,
+			@GraphQLName("stateId") Integer stateId,
+			@GraphQLName("pinCode") String pinCode,
+			@GraphQLName("organizationId") Integer organizationId,
+			@GraphQLName("subOrganizationId") Integer subOrganizationId,
+			@GraphQLName("city") String city,
+			@GraphQLName("userPostId") Integer userPostId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -76,7 +99,12 @@ public class Mutation {
 			this::_populateResourceContext,
 			receiptRsModelResource -> {
 				Page paginationPage = receiptRsModelResource.createReceipt(
-					receiptRsModel);
+					groupId, typeId, tempfileEntryId, deliveryModeId,
+					receivedOn, letterDate, referenceNumber, modeNumber,
+					receiptCategoryId, receiptSubCategoryId, subject, remarks,
+					name, designation, mobile, email, address, countryId,
+					stateId, pinCode, organizationId, subOrganizationId, city,
+					userPostId);
 
 				return paginationPage.getItems();
 			});

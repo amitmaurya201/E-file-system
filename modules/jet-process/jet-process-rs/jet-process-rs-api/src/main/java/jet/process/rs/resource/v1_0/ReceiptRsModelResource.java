@@ -43,7 +43,15 @@ public interface ReceiptRsModelResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<ReceiptRsModel> createReceipt(ReceiptRsModel receiptRsModel)
+	public Page<ReceiptRsModel> createReceipt(
+			Integer groupId, Integer typeId, Integer tempfileEntryId,
+			Integer deliveryModeId, String receivedOn, String letterDate,
+			String referenceNumber, String modeNumber,
+			Integer receiptCategoryId, Integer receiptSubCategoryId,
+			String subject, String remarks, String name, String designation,
+			String mobile, String email, String address, Integer countryId,
+			Integer stateId, String pinCode, Integer organizationId,
+			Integer subOrganizationId, String city, Integer userPostId)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
