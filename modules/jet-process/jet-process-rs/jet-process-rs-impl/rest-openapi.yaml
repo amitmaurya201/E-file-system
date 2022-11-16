@@ -1,0 +1,258 @@
+info:
+    description: "JetProcessRS REST API"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "JetProcessRS"
+    version: v1.0
+openapi: 3.0.1
+components:
+  schemas:
+    ReceiptRsModel:
+      description: Contains all the data for receipt creation.
+      properties:
+        id:
+          format: int64
+          type: integer
+        typeId:
+          format: int64
+          type: integer
+        tempfileId:
+          format: int64
+          type: integer 
+        groupId:
+          format: int64
+          type: integer
+        deliveryModeId:
+          format: int64
+          type: integer
+        receiptCategoryId:
+          format: int64
+          type: integer
+        receiptSubCategoryId:
+          format: int64
+          type: integer
+        countryId:
+          format: int64
+          type: integer
+        stateId:
+          format: int64
+          type: integer
+        organizationId:
+          format: int64
+          type: integer
+        subOrganizationId:
+          format: int64
+          type: integer
+        userPostId:
+          format: int64
+          type: integer
+        receivedOn:
+          type: string
+        letterDate:
+          type: string
+        referenceNumber:
+          type: string
+        modeNumber:
+          type: string
+        subject:
+          type: string
+        remarks:
+          type: string
+        name:
+          type: string
+        designation:
+          type: string
+        mobile:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        pinCode:
+          type: string
+        city:
+          type: string
+      type: object
+    FileRsModel:
+      description: Contains all the data for file creation.
+      properties:
+        id:
+          format: int64
+          type: integer
+        nature:
+          type: string
+        type:
+          type: string 
+        groupId:
+          format: int64
+          type: integer
+        basicHeadId:
+          format: int64
+          type: integer
+        primaryHeadId:
+          format: int64
+          type: integer
+        secondaryHeadId:
+          format: int64
+          type: integer
+        tertiaryHeadId:
+          format: int64
+          type: integer
+        year:
+          format: int64
+          type: integer
+        fileCodeId:
+          format: int64
+          type: integer
+        subject:
+          type: string
+        fileNumber:
+          type: string
+      type: object    
+paths:
+  /createFile:
+    post:
+      operationId: createFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FileRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/FileRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FileRsModel'
+                type: object
+            application/xml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FileRsModel'
+                type: object
+          description: ''
+      tags: ["FileRsModel"]
+  /createReceipt:
+    post:
+      description: It stores receipt details
+      operationId: createReceipt
+      parameters:
+        - in: query
+          name: groupId
+          schema:
+            type: integer
+        - in: query
+          name: typeId
+          schema:
+            type: integer
+        - in: query
+          name: tempfileEntryId
+          schema:
+            type: integer
+        - in: query
+          name: deliveryModeId
+          schema:
+            type: integer
+        - in: query
+          name: receivedOn
+          schema:
+            type: string
+        - in: query
+          name: letterDate
+          schema:
+            type: string
+        - in: query
+          name: referenceNumber
+          schema:
+            type: string
+        - in: query
+          name: modeNumber
+          schema:
+            type: string
+        - in: query
+          name: receiptCategoryId
+          schema:
+            type: integer
+        - in: query
+          name: receiptSubCategoryId
+          schema:
+            type: integer
+        - in: query
+          name: subject
+          schema:
+            type: string
+        - in: query
+          name: remarks
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: designation
+          schema:
+            type: string 
+        - in: query
+          name: mobile
+          schema:
+            type: string 
+        - in: query
+          name: email
+          schema:
+            type: string 
+        - in: query
+          name: address
+          schema:
+            type: string 
+        - in: query
+          name: countryId
+          schema:
+            type: integer 
+        - in: query
+          name: stateId
+          schema:
+            type: integer 
+        - in: query
+          name: pinCode
+          schema:
+            type: string
+        - in: query
+          name: organizationId
+          schema:
+            type: integer
+        - in: query
+          name: subOrganizationId
+          schema:
+            type: integer
+        - in: query
+          name: city
+          schema:
+            type: string
+        - in: query
+          name: userPostId
+          schema:
+            type: integer
+       
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReceiptRsModel'
+                type: object
+            application/xml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReceiptRsModel'
+                type: object
+          description: ''
+      tags: ["ReceiptRsModel"]     
+      
+  
