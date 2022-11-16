@@ -10,7 +10,3 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
-
-<link rel="stylesheet" 
-  href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  
