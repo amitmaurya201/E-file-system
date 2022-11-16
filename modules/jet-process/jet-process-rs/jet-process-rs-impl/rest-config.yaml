@@ -1,0 +1,9 @@
+apiDir: "../jet-process-rs-api/src/main/java"
+apiPackagePath: "jet.process.rs"
+application:
+    baseURI: "/jet-process-rs"
+    className: "JetProcessRsApplication"
+    name: "JetProcessRs"
+author: "Admin"
+clientDir: "../jet-process-rs-client/src/main/java"
+testDir: "../jet-process-rs-test/src/testIntegration/java"
