@@ -17,7 +17,7 @@
 
 	<div class="container m-3">
 		<div class="card">
-			<aui:form name="myForm" action="" method="post">
+			<aui:form >
 	             <div class="card-body">
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
@@ -61,62 +61,58 @@
 													</div>
 												</div>
 											</div>
-											<div class="container">
-												<div class="row" >
+											<aui:container>
+												<aui:row>
 
-													<div class="col-md-12">
+													<aui:col md="12">
 							                        
                                                                  
 														<div class="row mt-3 " id="non-sfs">
 															
 																<legend class="child-scheduler-border">File No.</legend>
-																
-																<div class="row">
+																<aui:fieldset cssClass="col-md-12 p-0 child-scheduler-border">
+																<aui:row>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="" id="basicHead" >
-																			<option value="">Basic Head</option> 
-																			 <aui:validator name="required" />
+																			 <option value="">Basic Head</option>
+																			 
 																			</aui:select>
+																			
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="" id="primaryHead">
 																			<option value="">Primary Head Code</option>
-																			<aui:validator name="required" />
-																			</aui:select></div>
+																			
+																			</aui:select>
+																			
+																			</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
-																			 name="" id="secondaryHead" >
-																		
+																			 name="" id="secondaryHead">
 																			<option value=''>Secondary Head Code</option>
-																			<aui:validator name="required" />
 																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="" id="tertiaryHead">
-																			
 																			<option value=''>Tertiary Head Code</option> 
-																			
 																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:input type="text" cssClass="form-control" id="year"
 																			name="" value="">
-																			
 																			</aui:input>
-																			
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control" 
-																			name="" id="fileCode">
+																			name="" id="fileCode" >
 																			<option value="">File-Code</option> 
-																			
-																			</aui:select>
+																		</aui:select>
 																	</div>
-																</div>
-                                                               
+															</aui:row>
+                                                               </aui:fieldset>
 														
 														</div>
 														
@@ -124,14 +120,15 @@
                                                                             <aui:fieldset cssClass="col-md-12 child-scheduler-border">
                                                                                 <legend cssClass="child-scheduler-border">File No.</legend>
                                                                                 <aui:input class="form-control" type="text" name="" id="fileNumber" >
-                                                                                <aui:validator name="required" />
                                                                                 </aui:input>
                                                                             </aui:fieldset>
                                                                         </div>
 														
-													</div>
-												</div>
-											</div>
+													
+											</aui:col>
+										
+										</aui:row>
+										</aui:container>
 										</div>
 									</div>
 								</div>
@@ -234,6 +231,14 @@ $('#<portlet:namespace />type').change(function(){
 	
 	}
 	});
+	
+	
+   $("#<portlet:namespace/>basicHead").attr('required','');
+   $("#<portlet:namespace />primaryHead").attr('required', ''); 
+   $("#<portlet:namespace />secondaryHead").attr('required', ''); 
+   $("#<portlet:namespace />tertiaryHead").attr('required', ''); 
+   $("#<portlet:namespace />fileCode").attr('required', ''); 
+	
 </aui:script>
 
 
