@@ -139,106 +139,15 @@ paths:
       tags: ["FileRsModel"]
   /createReceipt:
     post:
-      description: It stores receipt details
       operationId: createReceipt
-      parameters:
-        - in: query
-          name: groupId
-          schema:
-            type: integer
-        - in: query
-          name: typeId
-          schema:
-            type: integer
-        - in: query
-          name: tempfileEntryId
-          schema:
-            type: integer
-        - in: query
-          name: deliveryModeId
-          schema:
-            type: integer
-        - in: query
-          name: receivedOn
-          schema:
-            type: string
-        - in: query
-          name: letterDate
-          schema:
-            type: string
-        - in: query
-          name: referenceNumber
-          schema:
-            type: string
-        - in: query
-          name: modeNumber
-          schema:
-            type: string
-        - in: query
-          name: receiptCategoryId
-          schema:
-            type: integer
-        - in: query
-          name: receiptSubCategoryId
-          schema:
-            type: integer
-        - in: query
-          name: subject
-          schema:
-            type: string
-        - in: query
-          name: remarks
-          schema:
-            type: string
-        - in: query
-          name: name
-          schema:
-            type: string
-        - in: query
-          name: designation
-          schema:
-            type: string 
-        - in: query
-          name: mobile
-          schema:
-            type: string 
-        - in: query
-          name: email
-          schema:
-            type: string 
-        - in: query
-          name: address
-          schema:
-            type: string 
-        - in: query
-          name: countryId
-          schema:
-            type: integer 
-        - in: query
-          name: stateId
-          schema:
-            type: integer 
-        - in: query
-          name: pinCode
-          schema:
-            type: string
-        - in: query
-          name: organizationId
-          schema:
-            type: integer
-        - in: query
-          name: subOrganizationId
-          schema:
-            type: integer
-        - in: query
-          name: city
-          schema:
-            type: string
-        - in: query
-          name: userPostId
-          schema:
-            type: integer
-       
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReceiptRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/ReceiptRsModel"
       responses:
         '200':
           content:
@@ -253,6 +162,6 @@ paths:
                   $ref: '#/components/schemas/ReceiptRsModel'
                 type: object
           description: ''
-      tags: ["ReceiptRsModel"]     
+      tags: ["ReceiptRsModel"]
       
   
