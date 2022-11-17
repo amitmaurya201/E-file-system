@@ -1,4 +1,4 @@
-<!-- 	masterdata call -->
+/*	masterdata call */
 	<aui:script use= "aui-base">
 	
 	 AUI().use('aui-base', function(A){
@@ -16,7 +16,7 @@
 				 }
 			 );
 	 });
-	 	/*	receipt subcategory masterdata*/
+	 	/* receipt subcategory masterdata */
 
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	
@@ -43,7 +43,7 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 
 	});
 });
-		/*	type masterdata*/
+		/* type masterdata */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-type-masterdata',
@@ -60,7 +60,7 @@ AUI().use('aui-base', function(A){
 			 );
 });
 
-		/*delivery mode masterdata*/
+		/* delivery mode masterdata */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-delivery-mode-masterdata',
@@ -76,7 +76,7 @@ AUI().use('aui-base', function(A){
 			 );
 });
 
- 	/*	Country Masterdata*/
+ 	/ Country Masterdata /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-countries-masterdata',
@@ -92,7 +92,7 @@ AUI().use('aui-base', function(A){
 			 );
 });
 
-	/*	State Masterdata*/
+	/* State Masterdata */
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
 		console.log(countryId);
@@ -118,7 +118,7 @@ $("#<portlet:namespace />countryId").on('change', function(){
 	});
 });
 
- 	/*Organization Masterdata*/
+ 	/* Organization Masterdata* /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-organization-masterdata',
@@ -135,7 +135,7 @@ AUI().use('aui-base', function(A){
 			 );
 });
 
- 		/*Suborganization Masterdata*/
+ 		/ Suborganization Masterdata /
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
 		console.log(organizationId);
@@ -163,7 +163,7 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 					 })
 		 	});
 });
-/*	<!-- file upload  -->*/
+/ *<!-- file upload -->* /
 	
 $("#<portlet:namespace />document").on('change', function(){
 	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
@@ -174,6 +174,8 @@ $("#<portlet:namespace />document").on('change', function(){
      var formData = new FormData();
    	 formData.append('document', myFile);
 	 formData.append('groupId', groupId);
+	 var extension = $("#<portlet:namespace />document").val().split('.').pop().toLowerCase();
+	 if(myFile.size > 26,214,400 && extension == 'pdf'){ 
 	 $.ajax({
 		    type: "POST",
 		    url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
@@ -194,6 +196,34 @@ $("#<portlet:namespace />document").on('change', function(){
 		  }).fail(function(e) {
 		     console.log(e);
 		  }); 
-	
+	 }
 });
+
+
+/* getByReceiptId*/
+var receiptId = $("#<portlet:namespace />receiptId").val();
+console.log('receiptId'+receiptId);
+AUI().use('aui-base', function(A){
+Liferay.Service(
+		'/jet_process.receipt/get-receipt-by-receipt-id',
+		{
+		    receiptId: receiptId
+		},
+		function(obj) {
+		    console.log(obj);
+		}
+		);
+});
+
+/* userPostId*/
+
+$("#value").change(function (e) {
+    console.log("Jquery ......" + $("#value").val());
+  var userPostId=($("#value").val());
+console.log('  '+ userPostId);
+$("#<portlet:namespace />userPostId").val(userPostId);
+
+  });
+
+
 </aui:script>
