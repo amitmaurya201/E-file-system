@@ -3,7 +3,7 @@
 	    var currentTime = new Date();
 		var year = currentTime.getFullYear();
      	var currentYear = document.getElementById("<portlet:namespace/>year").value=year;
-
+     	
       /* get basicHead data */
 	 AUI().use('aui-base', function(A){
 	        Liferay.Service(

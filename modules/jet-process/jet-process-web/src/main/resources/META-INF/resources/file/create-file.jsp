@@ -302,6 +302,3 @@ addDocFileButton.on('click', function(event) {
     );      
 });
 </aui:script>
-
-
-
