@@ -75,8 +75,7 @@
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="" id="basicHead" >
-																			 <option value="">Basic Head</option>
-																			 
+																			 <option value="">Basic Head</option>																			
 																			</aui:select>
 																			
 																	</div>
@@ -84,7 +83,6 @@
 																		<aui:select cssClass="form-select form-control"
 																			 name="" id="primaryHead">
 																			<option value="">Primary Head Code</option>
-																			
 																			</aui:select>
 																			
 																			</div>
@@ -207,7 +205,7 @@
 						</div>
 					</div>
 					<div class="text-center">
-						<aui:button type="submit" cssClass="btn btn-danger"  value="Create File"></aui:button>
+						<aui:button type="submit" cssClass="btn btn-danger"  value="Create File"  id="add-docfile"></aui:button>
 					</div>
 				</div>
 			</aui:form>
@@ -238,15 +236,72 @@ $('#<portlet:namespace />type').change(function(){
    $("#<portlet:namespace />secondaryHead").attr('required', ''); 
    $("#<portlet:namespace />tertiaryHead").attr('required', ''); 
    $("#<portlet:namespace />fileCode").attr('required', ''); 
+
+	
+
 	
 </aui:script>
 
 
+<aui:script use="node, event">
+var addDocFileButton = A.one('#<portlet:namespace/>add-docfile');
 
+var basicHead = A.one('#<portlet:namespace />basicHead');
+console.log("basicHead ---->"+b"jet-process-react"asicHead);
+var primaryHead = A.one('#<portlet:namespace />primaryHead');
+var filecode = A.one('#<portlet:namespace />fileCode');
+var secondaryHead = A.one('#<portlet:namespace />secondaryHead');
 
+console.log("primaryHead ---->"+primaryHead);
 
+addDocFileButton.on('click', function(event) {
 
-
+  var basicHeadValue = basicHead.get('value');
+        var primaryHeadValue = primaryHead.get('value');
+         var fileCodeValue = filecode.get('value');
+         var secondaryHeadValue = secondaryHead.get('value');
+         
+        console.log("basicHeadValue --->"+basicHeadValue);
+        
+        
+        var addfile = Liferay.Service(
+        '/o/jet-process-rs/v1.0/createFile',      
+            {
+            
+     method: 'POST', headers: {...headers, 'Content-Type': 'application/json'}, 
+     
+     body: JSON.stringify(       
+            
+            
+   
+    "items": [
+        {
+            "basicHeadId": basicHeadValue,
+            "fileCodeId": fileCodeValue,
+            "fileNumber": "aaa",
+            "groupId": 20121,
+            "id": 1,
+            "nature": "NON-SFS",
+            "primaryHeadId": primaryHeadValue,
+            "secondaryHeadId": secondaryHeadValue,
+            "subject": "demo",
+            "tertiaryHeadId": 1,
+            "type": "Electronic",
+            "year": 2022
+        }
+    ],
+    "lastPage": 1,
+    "page": 1,
+    "pageSize": 1,
+    "totalCount": 1
+)},
+        function(obj) {
+            console.log(obj);
+           
+        }
+    );      
+});
+</aui:script>
 
 
 
