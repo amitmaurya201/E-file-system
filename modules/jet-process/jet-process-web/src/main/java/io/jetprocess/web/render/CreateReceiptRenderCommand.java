@@ -1,6 +1,7 @@
 package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.util.ParamUtil;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -23,7 +24,8 @@ public class CreateReceiptRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		System.out.println("");
+        Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+        renderRequest.setAttribute("receiptId", receiptId);
 		return "/receipt/create-receipt.jsp";
 	}
 
