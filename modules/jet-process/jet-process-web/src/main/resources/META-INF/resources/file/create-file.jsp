@@ -2,7 +2,9 @@
 <%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
 <%@page import="com.liferay.portal.kernel.util.ListUtil"%>
-
+<%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
+<%@ page
+	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/file.js" %>
 
 <div class="row">
@@ -10,14 +12,17 @@
 	<%@ include file="/navigation.jsp" %>
 	
 </div>
-
+<%
+		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+		String setURl = serviceContext.getPortalURL();
+%>
 
 <div class="col mr-5">
 
 
 	<div class="container m-3">
 		<div class="card">
-			<aui:form >
+			<aui:form id="formId">
 	             <div class="card-body">
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
@@ -74,38 +79,38 @@
 																<aui:row>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
-																			 name="" id="basicHead" >
+																			 name="basicHeadId" id="basicHeadId" label="">
 																			 <option value="">Basic Head</option>																			
 																			</aui:select>
 																			
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
-																			 name="" id="primaryHead">
+																			 name="primaryHeadId" id="primaryHeadId" label="">
 																			<option value="">Primary Head Code</option>
 																			</aui:select>
 																			
 																			</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
-																			 name="" id="secondaryHead">
+																			 name="secondaryHeadId" id="secondaryHeadId" label="">
 																			<option value=''>Secondary Head Code</option>
 																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
-																			 name="" id="tertiaryHead">
+																			 name="tertiaryHeadId" id="tertiaryHeadId" label="">
 																			<option value=''>Tertiary Head Code</option> 
 																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:input type="text" cssClass="form-control" id="year"
-																			name="" value="">
+																			name="year" value="" label="">
 																			</aui:input>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control" 
-																			name="" id="fileCode" >
+																			name="fileCodeId" id="fileCodeId" label="">
 																			<option value="">File-Code</option> 
 																		</aui:select>
 																	</div>
@@ -145,8 +150,8 @@
 										</legend> -->
 										<aui:input cssClass="form-control" type="text" name="subject"
 											id="subject">
-											<aui:validator name="required"/>
-										<aui:validator name="alpha" errorMessage="alphabet-characters" />
+										 <aui:validator name="required"/>
+										<aui:validator name="alpha" errorMessage="alphabet-characters" /> 
 											</aui:input>
                                            
 									</aui:fieldset>
@@ -155,20 +160,20 @@
 									<aui:fieldset cssClass="child-scheduler-border col-md-6">
 									<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 										<div cssClass="input-group">
-											<aui:select cssClass="form-select form-control" id="category"
-												name="category" >
+											<aui:select cssClass="form-select form-control" id="categoryId"
+												name="categoryId" >
 												<option value=''>Choose...</option> 
-												<aui:validator name="required" />
+											 <aui:validator name="required" /> 
 											</aui:select>
 										</div>
 									</aui:fieldset>
 									<aui:fieldset cssClass="child-scheduler-border col-md-6">
 										<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 										<div cssClass="input-group">
-											<aui:select cssClass="form-select form-control" id="subCategory"
-												name="subCategory" >
+											<aui:select cssClass="form-select form-control" id="subCategoryId"
+												name="subCategoryId" >
 												<option value=''>Choose...</option>
-												<aui:validator name="required" /> 
+												 <aui:validator name="required" />  
 											</aui:select>
 										</div>
 									</aui:fieldset>
@@ -183,9 +188,9 @@
 											Remark<span class='text-danger'>*</span>
 										</legend>-->
 										<aui:input cssClass="form-control col-md-12" rows="3" type="textarea"
-											name="remarks" id="remark" >
-											<aui:validator name="required"/>
-											<aui:validator name="maxLength">1000</aui:validator>
+											name="remarks" id="remarks" >
+											 <aui:validator name="required"/>
+											<aui:validator name="maxLength">1000</aui:validator> 
 											</aui:input>
 									</aui:fieldset>
 								</div>
@@ -196,7 +201,7 @@
 										</legend> -->
 										<aui:input  cssClass="form-control col-md-12 " type="text"
 											name="reference" id="reference"  >
-											<aui:validator name="required" />
+										 	<aui:validator name="required" />
 											<aui:validator name="maxLength">250</aui:validator>
 											</aui:input>
 									</aui:fieldset>
@@ -205,7 +210,7 @@
 						</div>
 					</div>
 					<div class="text-center">
-						<aui:button type="submit" cssClass="btn btn-danger"  value="Create File"  id="add-docfile"></aui:button>
+						<aui:button type="button" cssClass="btn btn-danger"  value="Create File"  id="add-docfile"></aui:button>
 					</div>
 				</div>
 			</aui:form>
@@ -231,74 +236,36 @@ $('#<portlet:namespace />type').change(function(){
 	});
 	
 	
-   $("#<portlet:namespace/>basicHead").attr('required','');
-   $("#<portlet:namespace />primaryHead").attr('required', ''); 
-   $("#<portlet:namespace />secondaryHead").attr('required', ''); 
-   $("#<portlet:namespace />tertiaryHead").attr('required', ''); 
-   $("#<portlet:namespace />fileCode").attr('required', ''); 
+  $("#<portlet:namespace/>basicHeadId").attr('required','');
+   $("#<portlet:namespace />primaryHeadId").attr('required', ''); 
+   $("#<portlet:namespace />secondaryHeadId").attr('required', ''); 
+   $("#<portlet:namespace />tertiaryHeadId").attr('required', ''); 
+   $("#<portlet:namespace />fileCodeId").attr('required', ''); 
 
 	
 
-	
+
+
+<%-- 
+AUI().use('aui-io-request', function(A){
+
+
+A.io.request(url, {
+			url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
+	        		    processData: false,
+		      			type: 'POST',
+		      			data: formdata,
+		      			contentType: false,
+	        		  }).on(function(response) {
+	        			  console.log(response);
+	        			  
+	        			
+	                    
+	        	 })
+
+}); --%>
+
+
+
 </aui:script>
 
-
-<aui:script use="node, event">
-var addDocFileButton = A.one('#<portlet:namespace/>add-docfile');
-
-var basicHead = A.one('#<portlet:namespace />basicHead');
-console.log("basicHead ---->"+b"jet-process-react"asicHead);
-var primaryHead = A.one('#<portlet:namespace />primaryHead');
-var filecode = A.one('#<portlet:namespace />fileCode');
-var secondaryHead = A.one('#<portlet:namespace />secondaryHead');
-
-console.log("primaryHead ---->"+primaryHead);
-
-addDocFileButton.on('click', function(event) {
-
-  var basicHeadValue = basicHead.get('value');
-        var primaryHeadValue = primaryHead.get('value');
-         var fileCodeValue = filecode.get('value');
-         var secondaryHeadValue = secondaryHead.get('value');
-         
-        console.log("basicHeadValue --->"+basicHeadValue);
-        
-        
-        var addfile = Liferay.Service(
-        '/o/jet-process-rs/v1.0/createFile',      
-            {
-            
-     method: 'POST', headers: {...headers, 'Content-Type': 'application/json'}, 
-     
-     body: JSON.stringify(       
-            
-            
-   
-    "items": [
-        {
-            "basicHeadId": basicHeadValue,
-            "fileCodeId": fileCodeValue,
-            "fileNumber": "aaa",
-            "groupId": 20121,
-            "id": 1,
-            "nature": "NON-SFS",
-            "primaryHeadId": primaryHeadValue,
-            "secondaryHeadId": secondaryHeadValue,
-            "subject": "demo",
-            "tertiaryHeadId": 1,
-            "type": "Electronic",
-            "year": 2022
-        }
-    ],
-    "lastPage": 1,
-    "page": 1,
-    "pageSize": 1,
-    "totalCount": 1
-)},
-        function(obj) {
-            console.log(obj);
-           
-        }
-    );      
-});
-</aui:script>
