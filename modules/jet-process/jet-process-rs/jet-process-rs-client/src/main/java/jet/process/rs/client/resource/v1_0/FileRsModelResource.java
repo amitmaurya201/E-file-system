@@ -10,9 +10,7 @@ import javax.annotation.Generated;
 
 import jet.process.rs.client.dto.v1_0.FileRsModel;
 import jet.process.rs.client.http.HttpInvoker;
-import jet.process.rs.client.pagination.Page;
 import jet.process.rs.client.problem.Problem;
-import jet.process.rs.client.serdes.v1_0.FileRsModelSerDes;
 
 /**
  * @author Admin
@@ -25,8 +23,7 @@ public interface FileRsModelResource {
 		return new Builder();
 	}
 
-	public Page<FileRsModel> createFile(FileRsModel fileRsModel)
-		throws Exception;
+	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception;
 
 	public HttpInvoker.HttpResponse createFileHttpResponse(
 			FileRsModel fileRsModel)
@@ -110,7 +107,7 @@ public interface FileRsModelResource {
 
 	public static class FileRsModelResourceImpl implements FileRsModelResource {
 
-		public Page<FileRsModel> createFile(FileRsModel fileRsModel)
+		public FileRsModel createFile(FileRsModel fileRsModel)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = createFileHttpResponse(
@@ -142,7 +139,8 @@ public interface FileRsModelResource {
 			}
 
 			try {
-				return Page.of(content, FileRsModelSerDes::toDTO);
+				return jet.process.rs.client.serdes.v1_0.FileRsModelSerDes.
+					toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(

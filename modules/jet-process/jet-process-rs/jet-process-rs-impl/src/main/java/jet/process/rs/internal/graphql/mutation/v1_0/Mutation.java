@@ -6,10 +6,8 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
-import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.function.BiFunction;
 
@@ -51,63 +49,26 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public java.util.Collection<FileRsModel> createFile(
+	public FileRsModel createFile(
 			@GraphQLName("fileRsModel") FileRsModel fileRsModel)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_fileRsModelResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			fileRsModelResource -> {
-				Page paginationPage = fileRsModelResource.createFile(
-					fileRsModel);
-
-				return paginationPage.getItems();
-			});
+			fileRsModelResource -> fileRsModelResource.createFile(fileRsModel));
 	}
 
-	@GraphQLField(description = "It stores receipt details")
-	public java.util.Collection<ReceiptRsModel> createReceipt(
-			@GraphQLName("groupId") Integer groupId,
-			@GraphQLName("typeId") Integer typeId,
-			@GraphQLName("tempfileEntryId") Integer tempfileEntryId,
-			@GraphQLName("deliveryModeId") Integer deliveryModeId,
-			@GraphQLName("receivedOn") String receivedOn,
-			@GraphQLName("letterDate") String letterDate,
-			@GraphQLName("referenceNumber") String referenceNumber,
-			@GraphQLName("modeNumber") String modeNumber,
-			@GraphQLName("receiptCategoryId") Integer receiptCategoryId,
-			@GraphQLName("receiptSubCategoryId") Integer receiptSubCategoryId,
-			@GraphQLName("subject") String subject,
-			@GraphQLName("remarks") String remarks,
-			@GraphQLName("name") String name,
-			@GraphQLName("designation") String designation,
-			@GraphQLName("mobile") String mobile,
-			@GraphQLName("email") String email,
-			@GraphQLName("address") String address,
-			@GraphQLName("countryId") Integer countryId,
-			@GraphQLName("stateId") Integer stateId,
-			@GraphQLName("pinCode") String pinCode,
-			@GraphQLName("organizationId") Integer organizationId,
-			@GraphQLName("subOrganizationId") Integer subOrganizationId,
-			@GraphQLName("city") String city,
-			@GraphQLName("userPostId") Integer userPostId)
+	@GraphQLField
+	public ReceiptRsModel createReceipt(
+			@GraphQLName("receiptRsModel") ReceiptRsModel receiptRsModel)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_receiptRsModelResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			receiptRsModelResource -> {
-				Page paginationPage = receiptRsModelResource.createReceipt(
-					groupId, typeId, tempfileEntryId, deliveryModeId,
-					receivedOn, letterDate, referenceNumber, modeNumber,
-					receiptCategoryId, receiptSubCategoryId, subject, remarks,
-					name, designation, mobile, email, address, countryId,
-					stateId, pinCode, organizationId, subOrganizationId, city,
-					userPostId);
-
-				return paginationPage.getItems();
-			});
+			receiptRsModelResource -> receiptRsModelResource.createReceipt(
+				receiptRsModel));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -160,9 +121,6 @@ public class Mutation {
 		fileRsModelResource.setContextUser(_user);
 		fileRsModelResource.setGroupLocalService(_groupLocalService);
 		fileRsModelResource.setRoleLocalService(_roleLocalService);
-
-		fileRsModelResource.setVulcanBatchEngineImportTaskResource(
-			_vulcanBatchEngineImportTaskResource);
 	}
 
 	private void _populateResourceContext(
@@ -179,9 +137,6 @@ public class Mutation {
 		receiptRsModelResource.setContextUser(_user);
 		receiptRsModelResource.setGroupLocalService(_groupLocalService);
 		receiptRsModelResource.setRoleLocalService(_roleLocalService);
-
-		receiptRsModelResource.setVulcanBatchEngineImportTaskResource(
-			_vulcanBatchEngineImportTaskResource);
 	}
 
 	private static ComponentServiceObjects<FileRsModelResource>
@@ -198,7 +153,5 @@ public class Mutation {
 	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
 	private com.liferay.portal.kernel.model.User _user;
-	private VulcanBatchEngineImportTaskResource
-		_vulcanBatchEngineImportTaskResource;
 
 }

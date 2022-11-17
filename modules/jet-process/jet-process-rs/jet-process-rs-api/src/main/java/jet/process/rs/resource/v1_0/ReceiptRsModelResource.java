@@ -8,8 +8,6 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
-import com.liferay.portal.vulcan.pagination.Page;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,15 +41,7 @@ public interface ReceiptRsModelResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<ReceiptRsModel> createReceipt(
-			Integer groupId, Integer typeId, Integer tempfileEntryId,
-			Integer deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber,
-			Integer receiptCategoryId, Integer receiptSubCategoryId,
-			String subject, String remarks, String name, String designation,
-			String mobile, String email, String address, Integer countryId,
-			Integer stateId, String pinCode, Integer organizationId,
-			Integer subOrganizationId, String city, Integer userPostId)
+	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
@@ -90,10 +80,6 @@ public interface ReceiptRsModelResource {
 		ResourcePermissionLocalService resourcePermissionLocalService);
 
 	public void setRoleLocalService(RoleLocalService roleLocalService);
-
-	public void setVulcanBatchEngineImportTaskResource(
-		VulcanBatchEngineImportTaskResource
-			vulcanBatchEngineImportTaskResource);
 
 	public default Filter toFilter(String filterString) {
 		return toFilter(

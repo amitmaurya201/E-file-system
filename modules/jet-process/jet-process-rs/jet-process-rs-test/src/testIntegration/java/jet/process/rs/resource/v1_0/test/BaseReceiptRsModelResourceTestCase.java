@@ -203,7 +203,21 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 	@Test
 	public void testCreateReceipt() throws Exception {
-		Assert.assertTrue(false);
+		ReceiptRsModel randomReceiptRsModel = randomReceiptRsModel();
+
+		ReceiptRsModel postReceiptRsModel = testCreateReceipt_addReceiptRsModel(
+			randomReceiptRsModel);
+
+		assertEquals(randomReceiptRsModel, postReceiptRsModel);
+		assertValid(postReceiptRsModel);
+	}
+
+	protected ReceiptRsModel testCreateReceipt_addReceiptRsModel(
+			ReceiptRsModel receiptRsModel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	protected ReceiptRsModel testGraphQLReceiptRsModel_addReceiptRsModel()

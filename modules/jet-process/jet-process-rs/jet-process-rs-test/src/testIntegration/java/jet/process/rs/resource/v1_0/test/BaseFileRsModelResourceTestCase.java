@@ -184,7 +184,20 @@ public abstract class BaseFileRsModelResourceTestCase {
 
 	@Test
 	public void testCreateFile() throws Exception {
-		Assert.assertTrue(false);
+		FileRsModel randomFileRsModel = randomFileRsModel();
+
+		FileRsModel postFileRsModel = testCreateFile_addFileRsModel(
+			randomFileRsModel);
+
+		assertEquals(randomFileRsModel, postFileRsModel);
+		assertValid(postFileRsModel);
+	}
+
+	protected FileRsModel testCreateFile_addFileRsModel(FileRsModel fileRsModel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	protected FileRsModel testGraphQLFileRsModel_addFileRsModel()

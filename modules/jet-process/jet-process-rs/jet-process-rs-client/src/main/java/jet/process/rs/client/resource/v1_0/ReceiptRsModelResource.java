@@ -10,9 +10,7 @@ import javax.annotation.Generated;
 
 import jet.process.rs.client.dto.v1_0.ReceiptRsModel;
 import jet.process.rs.client.http.HttpInvoker;
-import jet.process.rs.client.pagination.Page;
 import jet.process.rs.client.problem.Problem;
-import jet.process.rs.client.serdes.v1_0.ReceiptRsModelSerDes;
 
 /**
  * @author Admin
@@ -25,26 +23,11 @@ public interface ReceiptRsModelResource {
 		return new Builder();
 	}
 
-	public Page<ReceiptRsModel> createReceipt(
-			Integer groupId, Integer typeId, Integer tempfileEntryId,
-			Integer deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber,
-			Integer receiptCategoryId, Integer receiptSubCategoryId,
-			String subject, String remarks, String name, String designation,
-			String mobile, String email, String address, Integer countryId,
-			Integer stateId, String pinCode, Integer organizationId,
-			Integer subOrganizationId, String city, Integer userPostId)
+	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse createReceiptHttpResponse(
-			Integer groupId, Integer typeId, Integer tempfileEntryId,
-			Integer deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber,
-			Integer receiptCategoryId, Integer receiptSubCategoryId,
-			String subject, String remarks, String name, String designation,
-			String mobile, String email, String address, Integer countryId,
-			Integer stateId, String pinCode, Integer organizationId,
-			Integer subOrganizationId, String city, Integer userPostId)
+			ReceiptRsModel receiptRsModel)
 		throws Exception;
 
 	public static class Builder {
@@ -126,23 +109,11 @@ public interface ReceiptRsModelResource {
 	public static class ReceiptRsModelResourceImpl
 		implements ReceiptRsModelResource {
 
-		public Page<ReceiptRsModel> createReceipt(
-				Integer groupId, Integer typeId, Integer tempfileEntryId,
-				Integer deliveryModeId, String receivedOn, String letterDate,
-				String referenceNumber, String modeNumber,
-				Integer receiptCategoryId, Integer receiptSubCategoryId,
-				String subject, String remarks, String name, String designation,
-				String mobile, String email, String address, Integer countryId,
-				Integer stateId, String pinCode, Integer organizationId,
-				Integer subOrganizationId, String city, Integer userPostId)
+		public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = createReceiptHttpResponse(
-				groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
-				letterDate, referenceNumber, modeNumber, receiptCategoryId,
-				receiptSubCategoryId, subject, remarks, name, designation,
-				mobile, email, address, countryId, stateId, pinCode,
-				organizationId, subOrganizationId, city, userPostId);
+				receiptRsModel);
 
 			String content = httpResponse.getContent();
 
@@ -170,7 +141,8 @@ public interface ReceiptRsModelResource {
 			}
 
 			try {
-				return Page.of(content, ReceiptRsModelSerDes::toDTO);
+				return jet.process.rs.client.serdes.v1_0.ReceiptRsModelSerDes.
+					toDTO(content);
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -182,19 +154,12 @@ public interface ReceiptRsModelResource {
 		}
 
 		public HttpInvoker.HttpResponse createReceiptHttpResponse(
-				Integer groupId, Integer typeId, Integer tempfileEntryId,
-				Integer deliveryModeId, String receivedOn, String letterDate,
-				String referenceNumber, String modeNumber,
-				Integer receiptCategoryId, Integer receiptSubCategoryId,
-				String subject, String remarks, String name, String designation,
-				String mobile, String email, String address, Integer countryId,
-				Integer stateId, String pinCode, Integer organizationId,
-				Integer subOrganizationId, String city, Integer userPostId)
+				ReceiptRsModel receiptRsModel)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(userPostId.toString(), "application/json");
+			httpInvoker.body(receiptRsModel.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -214,111 +179,6 @@ public interface ReceiptRsModelResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (groupId != null) {
-				httpInvoker.parameter("groupId", String.valueOf(groupId));
-			}
-
-			if (typeId != null) {
-				httpInvoker.parameter("typeId", String.valueOf(typeId));
-			}
-
-			if (tempfileEntryId != null) {
-				httpInvoker.parameter(
-					"tempfileEntryId", String.valueOf(tempfileEntryId));
-			}
-
-			if (deliveryModeId != null) {
-				httpInvoker.parameter(
-					"deliveryModeId", String.valueOf(deliveryModeId));
-			}
-
-			if (receivedOn != null) {
-				httpInvoker.parameter("receivedOn", String.valueOf(receivedOn));
-			}
-
-			if (letterDate != null) {
-				httpInvoker.parameter("letterDate", String.valueOf(letterDate));
-			}
-
-			if (referenceNumber != null) {
-				httpInvoker.parameter(
-					"referenceNumber", String.valueOf(referenceNumber));
-			}
-
-			if (modeNumber != null) {
-				httpInvoker.parameter("modeNumber", String.valueOf(modeNumber));
-			}
-
-			if (receiptCategoryId != null) {
-				httpInvoker.parameter(
-					"receiptCategoryId", String.valueOf(receiptCategoryId));
-			}
-
-			if (receiptSubCategoryId != null) {
-				httpInvoker.parameter(
-					"receiptSubCategoryId",
-					String.valueOf(receiptSubCategoryId));
-			}
-
-			if (subject != null) {
-				httpInvoker.parameter("subject", String.valueOf(subject));
-			}
-
-			if (remarks != null) {
-				httpInvoker.parameter("remarks", String.valueOf(remarks));
-			}
-
-			if (name != null) {
-				httpInvoker.parameter("name", String.valueOf(name));
-			}
-
-			if (designation != null) {
-				httpInvoker.parameter(
-					"designation", String.valueOf(designation));
-			}
-
-			if (mobile != null) {
-				httpInvoker.parameter("mobile", String.valueOf(mobile));
-			}
-
-			if (email != null) {
-				httpInvoker.parameter("email", String.valueOf(email));
-			}
-
-			if (address != null) {
-				httpInvoker.parameter("address", String.valueOf(address));
-			}
-
-			if (countryId != null) {
-				httpInvoker.parameter("countryId", String.valueOf(countryId));
-			}
-
-			if (stateId != null) {
-				httpInvoker.parameter("stateId", String.valueOf(stateId));
-			}
-
-			if (pinCode != null) {
-				httpInvoker.parameter("pinCode", String.valueOf(pinCode));
-			}
-
-			if (organizationId != null) {
-				httpInvoker.parameter(
-					"organizationId", String.valueOf(organizationId));
-			}
-
-			if (subOrganizationId != null) {
-				httpInvoker.parameter(
-					"subOrganizationId", String.valueOf(subOrganizationId));
-			}
-
-			if (city != null) {
-				httpInvoker.parameter("city", String.valueOf(city));
-			}
-
-			if (userPostId != null) {
-				httpInvoker.parameter("userPostId", String.valueOf(userPostId));
-			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
