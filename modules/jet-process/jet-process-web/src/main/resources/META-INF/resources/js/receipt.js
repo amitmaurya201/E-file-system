@@ -200,7 +200,7 @@ $("#<portlet:namespace />document").on('change', function(){
 });
 
 
-/ getByReceiptId/ /
+/* getByReceiptId */
 var receiptId = $("#<portlet:namespace />receiptId").val();
 console.log('receiptId'+receiptId);
 AUI().use('aui-base', function(A){
