@@ -1,25 +1,21 @@
+<aui:script use= "aui-base">
+	
 /*	masterdata call */
-	<aui:script use= "aui-base">
-	
-	 AUI().use('aui-base', function(A){
-		 Liferay.Service(
-				 '/masterdata.masterdata/get-receipt-category-masterdata',
-				 function(response) {
-				     console.log(response);
-				     $.each(response, function(key, value) {
-							optionText = value.value;
-							optionValue = value.masterdataId;
-							$("#<portlet:namespace />receiptCategoryId").append(new Option(optionText,optionValue));
+AUI().use('aui-base', function(A){
+	 Liferay.Service(
+			 '/masterdata.masterdata/get-receipt-category-masterdata',
+			 function(response) {
+			     console.log(response);
+			     $.each(response, function(key, value) {
+						optionText = value.value;
+						optionValue = value.masterdataId;
+						$("#<portlet:namespace />receiptCategoryId").append(new Option(optionText,optionValue));
+			});
+	});
+});	
 
-						});
-
-				 }
-			 );
-	 });
-	 	/* receipt subcategory masterdata */
-
+/* receipt subcategory masterdata */
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
-	
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
 		console.log(receiptCategoryId);
 		 AUI().use('aui-base', function(A){
@@ -29,21 +25,17 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 					 {
 					     receiptCategoryId: receiptCategoryId
 					 },
-					 
 					 function(response) {
 					     console.log(response);
-			 
 					     $.each(response, function(key, value) {
 					     optionText = value.value;
 					     optionValue = value.masterdataId;
 					     $("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
-
-					     })
-		 })
-
+					 });
+		 });
 	});
 });
-		/* type masterdata */
+/* type masterdata */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-type-masterdata',
@@ -53,14 +45,11 @@ AUI().use('aui-base', function(A){
 						optionText = value.value;
 						optionValue = value.masterdataId;
 						$("#<portlet:namespace />typeId").append(new Option(optionText,optionValue));
-
-					});
-
-			 }
-			 );
+			});
+	});
 });
 
-		/* delivery mode masterdata */
+/* delivery mode masterdata */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-delivery-mode-masterdata',
@@ -71,12 +60,11 @@ AUI().use('aui-base', function(A){
 						optionValue = value.masterdataId;
 						$("#<portlet:namespace />deliveryModeId").append(new Option(optionText,optionValue));
 
-					});
-			     }
-			 );
+			 });
+	 });
 });
 
- 	/ Country Masterdata /
+/* Country Masterdata */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-countries-masterdata',
@@ -87,12 +75,11 @@ AUI().use('aui-base', function(A){
 						optionValue = value.masterdataId;
 						$("#<portlet:namespace />countryId").append(new Option(optionText,optionValue));
 
-					});
-			     }
-			 );
+			});
+	});
 });
 
-	/* State Masterdata */
+/* State Masterdata */
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
 		console.log(countryId);
@@ -103,7 +90,6 @@ $("#<portlet:namespace />countryId").on('change', function(){
 					 {
 						 countryId: countryId
 					 },
-					 
 					 function(response) {
 					     console.log(response);
 			 
@@ -111,14 +97,13 @@ $("#<portlet:namespace />countryId").on('change', function(){
 					     optionText = value.value;
 					     optionValue = value.masterdataId;
 					     $("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
-
-					     })
-		 })
+					 });
+		 });
 
 	});
 });
 
- 	/* Organization Masterdata* /
+/* Organization Masterdata */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-organization-masterdata',
@@ -128,29 +113,23 @@ AUI().use('aui-base', function(A){
 						optionText = value.value;
 						optionValue = value.masterdataId;
 						$("#<portlet:namespace />organizationId").append(new Option(optionText,optionValue));
-
-					});
-
-			 }
-			 );
+			});
+	});
 });
 
- 		/ Suborganization Masterdata /
+/* Suborganization Masterdata */
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
 		console.log(organizationId);
 		 AUI().use('aui-base', function(A){
 			 $("#<portlet:namespace />subOrganizationId").empty();
-			
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-sub-organization-masterdata',
 					 {
 						 organizationId: organizationId
 					 },
-					 
 					 function(response) {
 					     console.log(response);
-			 
 					     $.each(response, function(key, value) {
 					     optionText = value.value;
 					     optionValue = value.masterdataId;
@@ -158,13 +137,11 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 					    	 
 					    	 $("#<portlet:namespace />subOrganizationId").append(new Option(optionText,optionValue));
 					     }
-
-					     })
-					 })
+					     });
+					 });
 		 	});
 });
-/ *<!-- file upload -->* /
-	
+/* file upload */	
 $("#<portlet:namespace />document").on('change', function(){
 	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
 	 var dmFileId=0;
@@ -188,19 +165,16 @@ $("#<portlet:namespace />document").on('change', function(){
 			  console.log(response.id);
 			  console.log(response.description);
              $("#<portlet:namespace />tempFileId").val(response.id);
-           
              var embed = $('<embed id="pdfurl" type="application/pdf" width="600" height="600">');
              embed.attr('src',pdfurl);
              $('#targetDiv').append(embed);
-               
 		  }).fail(function(e) {
 		     console.log(e);
 		  }); 
 	 }
 });
 
-
-/* getByReceiptId*/
+/* getByReceiptId */
 var receiptId = $("#<portlet:namespace />receiptId").val();
 console.log('receiptId'+receiptId);
 AUI().use('aui-base', function(A){
@@ -211,19 +185,14 @@ Liferay.Service(
 		},
 		function(obj) {
 		    console.log(obj);
-		}
-		);
+		});
 });
 
-/* userPostId*/
-
+/* userPostId */
 $("#value").change(function (e) {
-    console.log("Jquery ......" + $("#value").val());
   var userPostId=($("#value").val());
-console.log('  '+ userPostId);
-$("#<portlet:namespace />userPostId").val(userPostId);
-
-  });
+  $("#<portlet:namespace />userPostId").val(userPostId);
+});
 
 
 </aui:script>
