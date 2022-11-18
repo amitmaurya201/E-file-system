@@ -1,5 +1,15 @@
 <aui:script use= "aui-base">
-       /* get current year */
+
+// jquery for getting userpost id from theme 
+$("#value").change(function(e){
+    console.log("Jquery ......"+$("#value").val());
+    userPostId = ($("#value").val());
+  $('#<portlet:namespace/>userPostId').val(userPostId);
+
+ });
+    
+
+     /* get current year */
 	    var currentTime = new Date();
 		var year = currentTime.getFullYear();
      	var currentYear = document.getElementById("<portlet:namespace/>year").value=year;
@@ -137,13 +147,15 @@
             });          
      });
 });
-	         
+	                   
 	         $("#<portlet:namespace />add-docfile").on('click', function(e){
 	        	 e.preventDefault();
 	        	/* var myForm = document.getElementById("<portlet:namespace />filecreate");
 	        	 cosole.log(myForm);*/
 	        	 var subject  = $('#<portlet:namespace/>subject').val();
+	        	 var  userPostId = $('#<portlet:namespace/>userPostId').val()
 	        	 console.log(subject);
+	        	 console.log("userPostId"+userPostId);
 	        	 var basicHeadId  = $('#<portlet:namespace/>basicHeadId').val();
 	        	 var primaryHeadId  = $('#<portlet:namespace/>primaryHeadId').val();
 	        	 var secondaryHeadId  = $('#<portlet:namespace/>secondaryHeadId').val();
@@ -156,8 +168,8 @@
 	        	 var year = $('#<portlet:namespace/>year').val();
 	        	 var remarks  = $('#<portlet:namespace/>remarks').val();
 	        	 var reference = $('#<portlet:namespace/>reference').val();
-	        	 
-	        	 
+	        	
+	        	 console.log("----basichead"+basicHeadId+"priary-------"+primaryHeadId+"---second----"+secondaryHeadId+"--tertiary---"+tertiaryHeadId+"---nature--"+nature+"---categoryId---"+categoryId+"---subCategoryId---"+subCategoryId+"---fileCodeId---"+fileCodeId+"---year--"+year+"--remarks---"+remarks+"--reference--"+reference+"---type-"+type);
 	        	 
 	        	 var formdata = new FormData();
 	        	 formdata.append('subject',subject);
@@ -172,7 +184,8 @@
 	        	 formdata.append('year',year);
 	        	 formdata.append('remarks',remarks);
 	        	 formdata.append('reference',reference);
-	        	 
+	        	 formdata.append('type',type);
+	        	 formdata.append('userPostId',userPostId);
 	        	 
 	        	 var object = {};
 	        	 formdata.forEach(function(value, key){

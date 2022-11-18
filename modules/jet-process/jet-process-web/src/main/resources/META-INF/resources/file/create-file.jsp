@@ -73,7 +73,7 @@
 							                        
                                                                  
 														<div class="row mt-3 " id="non-sfs">
-															
+															<aui:input name="userPostId" label="" id="userPostId" type="hidden"/>
 																<legend class="child-scheduler-border">File No.</legend>
 																<aui:fieldset cssClass="col-md-12 p-0 child-scheduler-border">
 																<aui:row>
@@ -114,6 +114,7 @@
 																			<option value="">File-Code</option> 
 																		</aui:select>
 																	</div>
+																	
 															</aui:row>
                                                                </aui:fieldset>
 														
