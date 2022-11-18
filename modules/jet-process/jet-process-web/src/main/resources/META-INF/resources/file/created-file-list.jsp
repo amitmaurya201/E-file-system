@@ -49,7 +49,7 @@ if(Validator.isNull(orderByType)){
 
     //usersPerPage is unmodifyable list. It can not be sorted.
     List<FileListViewDto> usersPerPage = ListUtil.subList(fileList, searchContainer.getStart(),searchContainer.getEnd());
-    int totalUsers =  MasterdataLocalServiceUtil.getMasterdatasCount() ;
+  
      
     //From usersPerPage a new list sortableUsers is created. For sorting we will use this list
     List<FileListViewDto> sortableUsers = new ArrayList<FileListViewDto>(usersPerPage);
@@ -70,7 +70,7 @@ if(Validator.isNull(orderByType)){
     //sortableUsers list is sorted on the basis of condition. When page load it wont be sorted
     //It will be sorted only when a header of coulmn is clicked for sorting
     pageContext.setAttribute("results", sortableUsers);
-    pageContext.setAttribute("total", totalUsers);
+   
     %>
 </liferay-ui:search-container-results>
  
@@ -79,21 +79,16 @@ if(Validator.isNull(orderByType)){
             keyProperty="fileNumber"
             modelVar="posting">
      
-        <!-- orderableProperty="userId" this means that when this column is sorted orderByCol=userId is passed in the request-->
-        <!-- if orderableProperty attribute is not mentioned then orderByCol=User Id is passed in request parameter at the time of sorting -->
-        <!--orderable="true" means this column is sortable -->
-        <!--Using name="User Id" we are saying that header should be User Id. If its not mentioned the header would be userId -->
-        <%-- <liferay-ui:search-container-column-text  property="userId" orderable="true" name="User Id" orderableProperty="userId" /> --%>
+     
+        <liferay-ui:search-container-column-text  href="<%=fileInnerView%>" name="File No." property="fileNumber" orderable="true" />
  
-        <liferay-ui:search-container-column-text  href="<%=fileInnerView%>" property="fileNumber" orderable="true" />
+        <liferay-ui:search-container-column-text property="subject"  name="Subject" />
  
-        <liferay-ui:search-container-column-text property="subject" orderable="true" name="" orderableProperty="subject"/>
+        <liferay-ui:search-container-column-text property="category"  />
  
-        <liferay-ui:search-container-column-text property="category" orderable="true" />
+        <liferay-ui:search-container-column-text property="createDate" orderable="true" name="Create On" orderableProperty="createDate"/>
  
-        <liferay-ui:search-container-column-text property="createDate" orderable="true" name="" orderableProperty="createDate"/>
- 
-        <liferay-ui:search-container-column-text property="remark" orderable="true" name="" orderableProperty="remark"/>
+        <liferay-ui:search-container-column-text property="remark"  name="Remarks" />
  
          
     </liferay-ui:search-container-row>
