@@ -1,5 +1,5 @@
-<%@ include file="/init.jsp" %>
-<%@ include file="/navigation.jsp"%>
+<%@ include file="../init.jsp" %>
+<%@ include file="../navigation.jsp"%>
 
 <%@page import="java.util.Collections"%>
 <%@page import="org.apache.commons.beanutils.BeanComparator"%>
@@ -15,7 +15,7 @@
 
  
  <portlet:renderURL var="fileInnerView">
-    <portlet:param name="mvcPath" value="/file/file_view.jsp"/>
+    <portlet:param name="mvcPath" value="/file/file-view.jsp"/>
 </portlet:renderURL>
  
 

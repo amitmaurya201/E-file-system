@@ -16,6 +16,7 @@
 		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 		String setURl = serviceContext.getPortalURL();
 %>
+
 <%@ include file="file-view.jsp" %>
 <div class="col mr-5">
 
@@ -211,7 +212,7 @@
 						</div>
 					</div>
 					<div class="text-center">
-						<aui:button type="button" cssClass="btn btn-danger"  value="Create File"  id="add-docfile"></aui:button>
+						<aui:button type="button" cssClass="btn btn-danger"  value="Create File" id="add-docfile"></aui:button>
 					</div>
 				</div>
 			</aui:form>
@@ -269,4 +270,9 @@ A.io.request(url, {
 
 
 </aui:script>
+
+
+
+
+
 
