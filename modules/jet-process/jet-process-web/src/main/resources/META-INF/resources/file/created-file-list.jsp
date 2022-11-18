@@ -13,8 +13,10 @@
 <%@page import="java.util.List"%>
  
 
-<portlet:defineObjects />
-<theme:defineObjects />
+ 
+ <portlet:renderURL var="fileInnerView">
+    <portlet:param name="mvcPath" value="/file/file_view.jsp"/>
+</portlet:renderURL>
  
 
 
@@ -83,7 +85,7 @@ if(Validator.isNull(orderByType)){
         <!--Using name="User Id" we are saying that header should be User Id. If its not mentioned the header would be userId -->
         <%-- <liferay-ui:search-container-column-text  property="userId" orderable="true" name="User Id" orderableProperty="userId" /> --%>
  
-        <liferay-ui:search-container-column-text property="fileNumber" orderable="true" />
+        <liferay-ui:search-container-column-text  href="<%=fileInnerView%>" property="fileNumber" orderable="true" />
  
         <liferay-ui:search-container-column-text property="subject" orderable="true" name="" orderableProperty="subject"/>
  

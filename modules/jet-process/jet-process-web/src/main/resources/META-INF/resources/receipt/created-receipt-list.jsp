@@ -13,6 +13,9 @@
 <%@page import="java.util.List"%>
  
 
+<portlet:renderURL var="receiptInnerView">
+    <portlet:param name="mvcPath" value="/receipt/receipt_view.jsp"/>
+</portlet:renderURL>
 
 <%
 //orderByCol is the column name passed in the request while sorting
@@ -70,8 +73,7 @@ if(Validator.isNull(orderByType)){
  
    <liferay-ui:search-container-row 
             className="io.jetprocess.masterdata.model.ReceiptListViewDto"
-            keyProperty="receiptNumber"
-            modelVar="posting">
+            keyProperty="receiptNumber">
      
         <!-- orderableProperty="userId" this means that when this column is sorted orderByCol=userId is passed in the request-->
         <!-- if orderableProperty attribute is not mentioned then orderByCol=User Id is passed in request parameter at the time of sorting -->
@@ -79,7 +81,7 @@ if(Validator.isNull(orderByType)){
         <!--Using name="User Id" we are saying that header should be User Id. If its not mentioned the header would be userId -->
         <%-- <liferay-ui:search-container-column-text  property="userId" orderable="true" name="User Id" orderableProperty="userId" /> --%>
  
-        <liferay-ui:search-container-column-text property="receiptNumber" orderable="true" />
+        <liferay-ui:search-container-column-text  href="<%=receiptInnerView%>" property="receiptNumber" name="ReceiptNumber" orderable="true" />
  
         <liferay-ui:search-container-column-text property="subject" orderable="true" name="" orderableProperty="subject"/>
  
@@ -87,7 +89,7 @@ if(Validator.isNull(orderByType)){
  
         <liferay-ui:search-container-column-text property="createDate" orderable="true" name="" orderableProperty="createDate"/>
  
-        <liferay-ui:search-container-column-text property="remark" orderable="true" name="" orderableProperty="remark"/>
+        <liferay-ui:search-container-column-text property="remark" orderable="true" name="Remark" orderableProperty="remark"/>
  
          
     </liferay-ui:search-container-row>
