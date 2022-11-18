@@ -1,5 +1,5 @@
-<%@ include file="/init.jsp"%>
-<%@ include file="/navigation.jsp"%>
+<%@ include file="../init.jsp"%>
+<%@ include file="../navigation.jsp"%>
 
 <%@page import="java.util.Collections"%>
 <%@page import="org.apache.commons.beanutils.BeanComparator"%>

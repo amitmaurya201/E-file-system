@@ -16,7 +16,7 @@
 		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 		String setURl = serviceContext.getPortalURL();
 %>
-
+<%@ include file="file-view.jsp" %>
 <div class="col mr-5">
 
 
