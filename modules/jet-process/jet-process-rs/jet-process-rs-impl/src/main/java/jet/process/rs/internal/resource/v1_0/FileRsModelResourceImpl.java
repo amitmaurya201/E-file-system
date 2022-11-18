@@ -32,8 +32,18 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setBasicHeadId(fileRsModel.getBasicHeadId());
 		docFile.setPrimaryHeadId(fileRsModel.getPrimaryHeadId());
 		docFile.setNature(fileRsModel.getNature());
+		docFile.setSubject(fileRsModel.getSubject());
+		docFile.setFileCodeId(fileRsModel.getFileCodeId());
+		docFile.setSecondaryHeadId(fileRsModel.getSecondaryHeadId());
+		docFile.setTertiaryHeadId(fileRsModel.getTertiaryHeadId());
 		docFile.setFileNumber(fileId);
-		docFileLocalService.addDocFile(docFile);
+		docFile.setType(fileRsModel.getType());
+		docFile.setRemarks(fileRsModel.getRemarks());
+		docFile.setReference(fileRsModel.getReference());
+		docFile.setCategoryId(fileRsModel.getCategoryId());
+		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		docFile.setUserPostId(fileRsModel.getUserPostId());
+        docFileLocalService.addDocFile(docFile);
 		System.out.println(docFile);
 		return  fileRsModel;
 	}

@@ -167,6 +167,8 @@ public abstract class BaseFileRsModelResourceTestCase {
 
 		fileRsModel.setFileNumber(regex);
 		fileRsModel.setNature(regex);
+		fileRsModel.setReference(regex);
+		fileRsModel.setRemarks(regex);
 		fileRsModel.setSubject(regex);
 		fileRsModel.setType(regex);
 
@@ -178,6 +180,8 @@ public abstract class BaseFileRsModelResourceTestCase {
 
 		Assert.assertEquals(regex, fileRsModel.getFileNumber());
 		Assert.assertEquals(regex, fileRsModel.getNature());
+		Assert.assertEquals(regex, fileRsModel.getReference());
+		Assert.assertEquals(regex, fileRsModel.getRemarks());
 		Assert.assertEquals(regex, fileRsModel.getSubject());
 		Assert.assertEquals(regex, fileRsModel.getType());
 	}
@@ -292,6 +296,14 @@ public abstract class BaseFileRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("categoryId", additionalAssertFieldName)) {
+				if (fileRsModel.getCategoryId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("fileCodeId", additionalAssertFieldName)) {
 				if (fileRsModel.getFileCodeId() == null) {
 					valid = false;
@@ -332,8 +344,32 @@ public abstract class BaseFileRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("reference", additionalAssertFieldName)) {
+				if (fileRsModel.getReference() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("remarks", additionalAssertFieldName)) {
+				if (fileRsModel.getRemarks() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("secondaryHeadId", additionalAssertFieldName)) {
 				if (fileRsModel.getSecondaryHeadId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("subCategoryId", additionalAssertFieldName)) {
+				if (fileRsModel.getSubCategoryId() == null) {
 					valid = false;
 				}
 
@@ -358,6 +394,14 @@ public abstract class BaseFileRsModelResourceTestCase {
 
 			if (Objects.equals("type", additionalAssertFieldName)) {
 				if (fileRsModel.getType() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("userPostId", additionalAssertFieldName)) {
+				if (fileRsModel.getUserPostId() == null) {
 					valid = false;
 				}
 
@@ -474,6 +518,17 @@ public abstract class BaseFileRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("categoryId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						fileRsModel1.getCategoryId(),
+						fileRsModel2.getCategoryId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("fileCodeId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						fileRsModel1.getFileCodeId(),
@@ -537,10 +592,42 @@ public abstract class BaseFileRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("reference", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						fileRsModel1.getReference(),
+						fileRsModel2.getReference())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("remarks", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						fileRsModel1.getRemarks(), fileRsModel2.getRemarks())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("secondaryHeadId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						fileRsModel1.getSecondaryHeadId(),
 						fileRsModel2.getSecondaryHeadId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("subCategoryId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						fileRsModel1.getSubCategoryId(),
+						fileRsModel2.getSubCategoryId())) {
 
 					return false;
 				}
@@ -572,6 +659,17 @@ public abstract class BaseFileRsModelResourceTestCase {
 			if (Objects.equals("type", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						fileRsModel1.getType(), fileRsModel2.getType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("userPostId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						fileRsModel1.getUserPostId(),
+						fileRsModel2.getUserPostId())) {
 
 					return false;
 				}
@@ -691,6 +789,11 @@ public abstract class BaseFileRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("categoryId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("fileCodeId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -727,7 +830,28 @@ public abstract class BaseFileRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("reference")) {
+			sb.append("'");
+			sb.append(String.valueOf(fileRsModel.getReference()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("remarks")) {
+			sb.append("'");
+			sb.append(String.valueOf(fileRsModel.getRemarks()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("secondaryHeadId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("subCategoryId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -751,6 +875,11 @@ public abstract class BaseFileRsModelResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("userPostId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("year")) {
@@ -803,6 +932,7 @@ public abstract class BaseFileRsModelResourceTestCase {
 		return new FileRsModel() {
 			{
 				basicHeadId = RandomTestUtil.randomLong();
+				categoryId = RandomTestUtil.randomLong();
 				fileCodeId = RandomTestUtil.randomLong();
 				fileNumber = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
@@ -810,10 +940,15 @@ public abstract class BaseFileRsModelResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				nature = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				primaryHeadId = RandomTestUtil.randomLong();
+				reference = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				remarks = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				secondaryHeadId = RandomTestUtil.randomLong();
+				subCategoryId = RandomTestUtil.randomLong();
 				subject = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				tertiaryHeadId = RandomTestUtil.randomLong();
 				type = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				userPostId = RandomTestUtil.randomLong();
 				year = RandomTestUtil.randomLong();
 			}
 		};

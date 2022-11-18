@@ -41,6 +41,27 @@ public class FileRsModel implements Cloneable, Serializable {
 
 	protected Long basicHeadId;
 
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public void setCategoryId(
+		UnsafeSupplier<Long, Exception> categoryIdUnsafeSupplier) {
+
+		try {
+			categoryId = categoryIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long categoryId;
+
 	public Long getFileCodeId() {
 		return fileCodeId;
 	}
@@ -165,6 +186,48 @@ public class FileRsModel implements Cloneable, Serializable {
 
 	protected Long primaryHeadId;
 
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public void setReference(
+		UnsafeSupplier<String, Exception> referenceUnsafeSupplier) {
+
+		try {
+			reference = referenceUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String reference;
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public void setRemarks(
+		UnsafeSupplier<String, Exception> remarksUnsafeSupplier) {
+
+		try {
+			remarks = remarksUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String remarks;
+
 	public Long getSecondaryHeadId() {
 		return secondaryHeadId;
 	}
@@ -185,6 +248,27 @@ public class FileRsModel implements Cloneable, Serializable {
 	}
 
 	protected Long secondaryHeadId;
+
+	public Long getSubCategoryId() {
+		return subCategoryId;
+	}
+
+	public void setSubCategoryId(Long subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+
+	public void setSubCategoryId(
+		UnsafeSupplier<Long, Exception> subCategoryIdUnsafeSupplier) {
+
+		try {
+			subCategoryId = subCategoryIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long subCategoryId;
 
 	public String getSubject() {
 		return subject;
@@ -246,6 +330,27 @@ public class FileRsModel implements Cloneable, Serializable {
 	}
 
 	protected String type;
+
+	public Long getUserPostId() {
+		return userPostId;
+	}
+
+	public void setUserPostId(Long userPostId) {
+		this.userPostId = userPostId;
+	}
+
+	public void setUserPostId(
+		UnsafeSupplier<Long, Exception> userPostIdUnsafeSupplier) {
+
+		try {
+			userPostId = userPostIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long userPostId;
 
 	public Long getYear() {
 		return year;

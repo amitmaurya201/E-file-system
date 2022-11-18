@@ -40,7 +40,7 @@ public abstract class BaseFileRsModelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createFile' -d $'{"basicHeadId": ___, "fileCodeId": ___, "fileNumber": ___, "groupId": ___, "id": ___, "nature": ___, "primaryHeadId": ___, "secondaryHeadId": ___, "subject": ___, "tertiaryHeadId": ___, "type": ___, "year": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createFile' -d $'{"basicHeadId": ___, "categoryId": ___, "fileCodeId": ___, "fileNumber": ___, "groupId": ___, "id": ___, "nature": ___, "primaryHeadId": ___, "reference": ___, "remarks": ___, "secondaryHeadId": ___, "subCategoryId": ___, "subject": ___, "tertiaryHeadId": ___, "type": ___, "userPostId": ___, "year": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "FileRsModel")}

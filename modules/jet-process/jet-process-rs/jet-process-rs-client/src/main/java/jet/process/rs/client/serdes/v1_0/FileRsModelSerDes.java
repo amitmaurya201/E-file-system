@@ -51,6 +51,16 @@ public class FileRsModelSerDes {
 			sb.append(fileRsModel.getBasicHeadId());
 		}
 
+		if (fileRsModel.getCategoryId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"categoryId\": ");
+
+			sb.append(fileRsModel.getCategoryId());
+		}
+
 		if (fileRsModel.getFileCodeId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -119,6 +129,34 @@ public class FileRsModelSerDes {
 			sb.append(fileRsModel.getPrimaryHeadId());
 		}
 
+		if (fileRsModel.getReference() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"reference\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(fileRsModel.getReference()));
+
+			sb.append("\"");
+		}
+
+		if (fileRsModel.getRemarks() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"remarks\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(fileRsModel.getRemarks()));
+
+			sb.append("\"");
+		}
+
 		if (fileRsModel.getSecondaryHeadId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -127,6 +165,16 @@ public class FileRsModelSerDes {
 			sb.append("\"secondaryHeadId\": ");
 
 			sb.append(fileRsModel.getSecondaryHeadId());
+		}
+
+		if (fileRsModel.getSubCategoryId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subCategoryId\": ");
+
+			sb.append(fileRsModel.getSubCategoryId());
 		}
 
 		if (fileRsModel.getSubject() != null) {
@@ -167,6 +215,16 @@ public class FileRsModelSerDes {
 			sb.append("\"");
 		}
 
+		if (fileRsModel.getUserPostId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"userPostId\": ");
+
+			sb.append(fileRsModel.getUserPostId());
+		}
+
 		if (fileRsModel.getYear() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -202,6 +260,13 @@ public class FileRsModelSerDes {
 		else {
 			map.put(
 				"basicHeadId", String.valueOf(fileRsModel.getBasicHeadId()));
+		}
+
+		if (fileRsModel.getCategoryId() == null) {
+			map.put("categoryId", null);
+		}
+		else {
+			map.put("categoryId", String.valueOf(fileRsModel.getCategoryId()));
 		}
 
 		if (fileRsModel.getFileCodeId() == null) {
@@ -248,6 +313,20 @@ public class FileRsModelSerDes {
 				String.valueOf(fileRsModel.getPrimaryHeadId()));
 		}
 
+		if (fileRsModel.getReference() == null) {
+			map.put("reference", null);
+		}
+		else {
+			map.put("reference", String.valueOf(fileRsModel.getReference()));
+		}
+
+		if (fileRsModel.getRemarks() == null) {
+			map.put("remarks", null);
+		}
+		else {
+			map.put("remarks", String.valueOf(fileRsModel.getRemarks()));
+		}
+
 		if (fileRsModel.getSecondaryHeadId() == null) {
 			map.put("secondaryHeadId", null);
 		}
@@ -255,6 +334,15 @@ public class FileRsModelSerDes {
 			map.put(
 				"secondaryHeadId",
 				String.valueOf(fileRsModel.getSecondaryHeadId()));
+		}
+
+		if (fileRsModel.getSubCategoryId() == null) {
+			map.put("subCategoryId", null);
+		}
+		else {
+			map.put(
+				"subCategoryId",
+				String.valueOf(fileRsModel.getSubCategoryId()));
 		}
 
 		if (fileRsModel.getSubject() == null) {
@@ -278,6 +366,13 @@ public class FileRsModelSerDes {
 		}
 		else {
 			map.put("type", String.valueOf(fileRsModel.getType()));
+		}
+
+		if (fileRsModel.getUserPostId() == null) {
+			map.put("userPostId", null);
+		}
+		else {
+			map.put("userPostId", String.valueOf(fileRsModel.getUserPostId()));
 		}
 
 		if (fileRsModel.getYear() == null) {
@@ -311,6 +406,12 @@ public class FileRsModelSerDes {
 			if (Objects.equals(jsonParserFieldName, "basicHeadId")) {
 				if (jsonParserFieldValue != null) {
 					fileRsModel.setBasicHeadId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "categoryId")) {
+				if (jsonParserFieldValue != null) {
+					fileRsModel.setCategoryId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -348,9 +449,25 @@ public class FileRsModelSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "reference")) {
+				if (jsonParserFieldValue != null) {
+					fileRsModel.setReference((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "remarks")) {
+				if (jsonParserFieldValue != null) {
+					fileRsModel.setRemarks((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "secondaryHeadId")) {
 				if (jsonParserFieldValue != null) {
 					fileRsModel.setSecondaryHeadId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "subCategoryId")) {
+				if (jsonParserFieldValue != null) {
+					fileRsModel.setSubCategoryId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -368,6 +485,12 @@ public class FileRsModelSerDes {
 			else if (Objects.equals(jsonParserFieldName, "type")) {
 				if (jsonParserFieldValue != null) {
 					fileRsModel.setType((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "userPostId")) {
+				if (jsonParserFieldValue != null) {
+					fileRsModel.setUserPostId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "year")) {

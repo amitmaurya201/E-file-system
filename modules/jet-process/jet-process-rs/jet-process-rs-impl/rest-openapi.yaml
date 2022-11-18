@@ -109,6 +109,19 @@ components:
           type: string
         fileNumber:
           type: string
+        categoryId:
+          format: int64
+          type: integer 
+        subCategoryId:
+          format: int64
+          type: integer  
+        remarks:
+          type: string 
+        reference:
+          type: string 
+        userPostId:
+          format: int64
+          type: integer   
       type: object    
 paths:
   /createFile:
@@ -155,5 +168,3 @@ paths:
                   $ref: '#/components/schemas/ReceiptRsModel'
           description: ''
       tags: ["ReceiptRsModel"]
-      
-  
