@@ -44,6 +44,8 @@ public interface ReceiptRsModelResource {
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel)
 		throws Exception;
 
+	public ReceiptRsModel getReceiptByReceiptId(Long id) throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

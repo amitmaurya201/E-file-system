@@ -30,6 +30,9 @@ public class ServletDataImpl implements ServletData {
 			_fileRsModelResourceComponentServiceObjects);
 		Mutation.setReceiptRsModelResourceComponentServiceObjects(
 			_receiptRsModelResourceComponentServiceObjects);
+
+		Query.setReceiptRsModelResourceComponentServiceObjects(
+			_receiptRsModelResourceComponentServiceObjects);
 	}
 
 	@Override

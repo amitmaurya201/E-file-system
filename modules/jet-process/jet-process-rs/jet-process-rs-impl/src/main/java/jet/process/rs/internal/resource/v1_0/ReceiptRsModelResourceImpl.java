@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.validation.constraints.NotNull;
+
 import jet.process.rs.dto.v1_0.ReceiptRsModel;
 import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 
@@ -95,6 +97,45 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		return receiptNumber;
 
 	}
+
+	
+	
+	
+	@Override
+	public ReceiptRsModel getReceiptByReceiptId(@NotNull Long id) throws Exception {
+		System.out.println("oo");
+		Receipt receipt = receiptLocalService.getReceiptByReceiptId(id);
+		System.out.println("oo  -  "+receipt);
+		ReceiptRsModel receiptRsModel=new ReceiptRsModel();
+		receiptRsModel.setId(receipt.getReceiptId());
+		receiptRsModel.setAddress(receipt.getAddress());
+		receiptRsModel.setCity(receipt.getCity());
+		receiptRsModel.setCountryId(receipt.getCountryId());
+		receiptRsModel.setDeliveryModeId(receipt.getDeliveryModeId());
+		receiptRsModel.setDesignation(receipt.getDesignation());
+		receiptRsModel.setEmail(receipt.getEmail());
+		receiptRsModel.setLetterDate(receipt.getLetterDate());
+		receiptRsModel.setMobile(receipt.getMobile());
+		receiptRsModel.setModeNumber(receipt.getModeNumber());
+		receiptRsModel.setName(receipt.getName());
+		receiptRsModel.setOrganizationId(receipt.getOrganizationId());
+		receiptRsModel.setPinCode(receipt.getPinCode());
+		receiptRsModel.setReceiptCategoryId(receipt.getReceiptCategoryId());
+		receiptRsModel.setReceiptSubCategoryId(receipt.getReceiptSubCategoryId());
+		receiptRsModel.setReceivedOn(receipt.getReceivedOn());
+		receiptRsModel.setReferenceNumber(receipt.getReferenceNumber());
+		receiptRsModel.setRemarks(receipt.getRemarks());
+		receiptRsModel.setStateId(receipt.getStateId());
+		receiptRsModel.setSubOrganizationId(receipt.getSubOrganizationId());
+		receiptRsModel.setSubject(receipt.getSubject());
+		receiptRsModel.setTypeId(receipt.getTypeId());
+		receiptRsModel.setUserPostId(receipt.getUserPostId());
+		receiptRsModel.setId(receipt.getReceiptId());
+		return receiptRsModel;
+	}
+
+
+
 
 	@Reference
 	private CounterLocalService counterLocalService;

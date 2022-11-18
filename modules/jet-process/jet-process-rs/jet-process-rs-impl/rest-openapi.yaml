@@ -168,3 +168,25 @@ paths:
                   $ref: '#/components/schemas/ReceiptRsModel'
           description: ''
       tags: ["ReceiptRsModel"]
+  /receiptId/{id}:
+    get:
+      operationId: getReceiptByReceiptId
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ReceiptRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/ReceiptRsModel'
+          description: ''
+      tags: ["ReceiptRsModel"]
