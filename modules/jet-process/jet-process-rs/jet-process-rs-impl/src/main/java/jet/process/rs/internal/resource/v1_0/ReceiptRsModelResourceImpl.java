@@ -58,26 +58,32 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 			e.printStackTrace();
 		}
+		System.out.println(receiptRsModel.getReceiptCategoryId());
 		System.out.println(documentAndMediaFileId);
 		docstore.deleteTempFile(receiptRsModel.getTempfileId());
 		System.out.println("test");
-		receipt.setName(receiptRsModel.getName());
 		receipt.setAddress(receiptRsModel.getAddress());
-		receipt.setCountryId(receiptRsModel.getCountryId());
-		receipt.setStateId(receiptRsModel.getStateId());
 		receipt.setCity(receiptRsModel.getCity());
+		receipt.setCountryId(receiptRsModel.getCountryId());
 		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
 		receipt.setDesignation(receiptRsModel.getDesignation());
 		receipt.setEmail(receiptRsModel.getEmail());
+		receipt.setLetterDate(receiptRsModel.getLetterDate());
 		receipt.setMobile(receiptRsModel.getMobile());
+		receipt.setModeNumber(receiptRsModel.getModeNumber());
+		receipt.setName(receiptRsModel.getName());
 		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
 		receipt.setPinCode(receiptRsModel.getPinCode());
-		receipt.setModeNumber(receiptRsModel.getModeNumber());
 		receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
 		receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());
 		receipt.setReceivedOn(receiptRsModel.getReceivedOn());
-		receipt.setLetterDate(receiptRsModel.getLetterDate());
+		receipt.setReferenceNumber(receiptRsModel.getReferenceNumber());
+		receipt.setRemarks(receiptRsModel.getRemarks());
+		receipt.setStateId(receiptRsModel.getStateId());
+		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
+		receipt.setSubject(receiptRsModel.getSubject());
 		receipt.setDmFileId(documentAndMediaFileId);
+		receipt.setTypeId(receiptRsModel.getTypeId());
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		receipt.setReceiptNumber(number);
 		receiptLocalService.addReceipt(receipt);

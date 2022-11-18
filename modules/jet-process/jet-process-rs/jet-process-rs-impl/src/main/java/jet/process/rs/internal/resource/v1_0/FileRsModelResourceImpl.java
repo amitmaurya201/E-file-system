@@ -43,6 +43,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCategoryId(fileRsModel.getCategoryId());
 		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
 		docFile.setUserPostId(fileRsModel.getUserPostId());
+		docFile.setYear(fileRsModel.getYear());
         docFileLocalService.addDocFile(docFile);
 		System.out.println(docFile);
 		return  fileRsModel;
