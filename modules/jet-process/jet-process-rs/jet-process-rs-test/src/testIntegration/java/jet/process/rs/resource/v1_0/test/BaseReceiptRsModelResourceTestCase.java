@@ -220,6 +220,75 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testGetReceiptByReceiptId() throws Exception {
+		ReceiptRsModel postReceiptRsModel =
+			testGetReceiptByReceiptId_addReceiptRsModel();
+
+		ReceiptRsModel getReceiptRsModel =
+			receiptRsModelResource.getReceiptByReceiptId(
+				postReceiptRsModel.getId());
+
+		assertEquals(postReceiptRsModel, getReceiptRsModel);
+		assertValid(getReceiptRsModel);
+	}
+
+	protected ReceiptRsModel testGetReceiptByReceiptId_addReceiptRsModel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetReceiptByReceiptId() throws Exception {
+		ReceiptRsModel receiptRsModel =
+			testGraphQLGetReceiptByReceiptId_addReceiptRsModel();
+
+		Assert.assertTrue(
+			equals(
+				receiptRsModel,
+				ReceiptRsModelSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"receiptByReceiptId",
+								new HashMap<String, Object>() {
+									{
+										put("id", receiptRsModel.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/receiptByReceiptId"))));
+	}
+
+	@Test
+	public void testGraphQLGetReceiptByReceiptIdNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"receiptByReceiptId",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected ReceiptRsModel
+			testGraphQLGetReceiptByReceiptId_addReceiptRsModel()
+		throws Exception {
+
+		return testGraphQLReceiptRsModel_addReceiptRsModel();
+	}
+
 	protected ReceiptRsModel testGraphQLReceiptRsModel_addReceiptRsModel()
 		throws Exception {
 

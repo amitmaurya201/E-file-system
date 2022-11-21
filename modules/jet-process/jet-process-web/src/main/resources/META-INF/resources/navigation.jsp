@@ -80,7 +80,6 @@ Receipt
             
           </div>
        
-        <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
     </div>
 
         

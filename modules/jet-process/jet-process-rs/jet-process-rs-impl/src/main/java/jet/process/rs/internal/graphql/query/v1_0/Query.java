@@ -7,7 +7,11 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.pagination.Page;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -17,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.ws.rs.core.UriInfo;
 
+import jet.process.rs.dto.v1_0.ReceiptRsModel;
+import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
+
 import org.osgi.service.component.ComponentServiceObjects;
 
 /**
@@ -25,6 +32,63 @@ import org.osgi.service.component.ComponentServiceObjects;
  */
 @Generated("")
 public class Query {
+
+	public static void setReceiptRsModelResourceComponentServiceObjects(
+		ComponentServiceObjects<ReceiptRsModelResource>
+			receiptRsModelResourceComponentServiceObjects) {
+
+		_receiptRsModelResourceComponentServiceObjects =
+			receiptRsModelResourceComponentServiceObjects;
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {receiptByReceiptId(id: ___){id, typeId, tempfileId, groupId, deliveryModeId, receiptCategoryId, receiptSubCategoryId, countryId, stateId, organizationId, subOrganizationId, userPostId, receivedOn, letterDate, referenceNumber, modeNumber, subject, remarks, name, designation, mobile, email, address, pinCode, city}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ReceiptRsModel receiptByReceiptId(@GraphQLName("id") Long id)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_receiptRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			receiptRsModelResource ->
+				receiptRsModelResource.getReceiptByReceiptId(id));
+	}
+
+	@GraphQLName("ReceiptRsModelPage")
+	public class ReceiptRsModelPage {
+
+		public ReceiptRsModelPage(Page receiptRsModelPage) {
+			actions = receiptRsModelPage.getActions();
+
+			items = receiptRsModelPage.getItems();
+			lastPage = receiptRsModelPage.getLastPage();
+			page = receiptRsModelPage.getPage();
+			pageSize = receiptRsModelPage.getPageSize();
+			totalCount = receiptRsModelPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<ReceiptRsModel> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
@@ -44,6 +108,25 @@ public class Query {
 			componentServiceObjects.ungetService(resource);
 		}
 	}
+
+	private void _populateResourceContext(
+			ReceiptRsModelResource receiptRsModelResource)
+		throws Exception {
+
+		receiptRsModelResource.setContextAcceptLanguage(_acceptLanguage);
+		receiptRsModelResource.setContextCompany(_company);
+		receiptRsModelResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		receiptRsModelResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		receiptRsModelResource.setContextUriInfo(_uriInfo);
+		receiptRsModelResource.setContextUser(_user);
+		receiptRsModelResource.setGroupLocalService(_groupLocalService);
+		receiptRsModelResource.setRoleLocalService(_roleLocalService);
+	}
+
+	private static ComponentServiceObjects<ReceiptRsModelResource>
+		_receiptRsModelResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;

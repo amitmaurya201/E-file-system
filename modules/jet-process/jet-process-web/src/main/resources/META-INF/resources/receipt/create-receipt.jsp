@@ -23,13 +23,13 @@
 	%>
 	<div class="col mr-2 receipt">
 		<aui:container fluid="1200">
-			<aui:form name="receiptForm">
-				<aui:input name="receiptId" id="receiptId" value="${receiptId}" />
-				<aui:input name="userPostId" id="userPostId" />
+			<aui:form name="receiptForm" id="receiptForm">
+				<aui:input name="receiptId" id="receiptId"  type="hidden" value="${receiptId}" />
+				<aui:input name="userPostId" id="userPostId"  type="hidden" />
 				<aui:row>
-					<aui:col lg="6" cssClass="border">
-						<div id="targetDiv">
-							<aui:input id="document" name="document" type="file">
+					<aui:col lg="6" cssClass="border" >
+						<div id="targetDiv" class="targetDiv" >
+							<aui:input id="document" name="document" type="file" >
 								<aui:validator name="required" />
 								<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
 							</aui:input>
@@ -75,7 +75,7 @@
 						<aui:row>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
-									<label>Received on</label>
+									<label>Received on<span class='text-danger'>*</span></label>
 									<aui:input type="date" label="" name="receivedOn"
 										id="receivedOn">
 										<aui:validator name="required" />
@@ -118,7 +118,9 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Reference Number<span class='text-danger'>*</span></label>
-									<aui:input label="" name="referenceNumber" id="referenceNumber" />
+									<aui:input label="" name="referenceNumber" id="referenceNumber" >
+									<aui:validator name="required" />
+									</aui:input>
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">

@@ -74,6 +74,34 @@ public class FileRsModel implements Serializable {
 	protected Long basicHeadId;
 
 	@Schema
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	@JsonIgnore
+	public void setCategoryId(
+		UnsafeSupplier<Long, Exception> categoryIdUnsafeSupplier) {
+
+		try {
+			categoryId = categoryIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long categoryId;
+
+	@Schema
 	public Long getFileCodeId() {
 		return fileCodeId;
 	}
@@ -240,6 +268,62 @@ public class FileRsModel implements Serializable {
 	protected Long primaryHeadId;
 
 	@Schema
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	@JsonIgnore
+	public void setReference(
+		UnsafeSupplier<String, Exception> referenceUnsafeSupplier) {
+
+		try {
+			reference = referenceUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String reference;
+
+	@Schema
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	@JsonIgnore
+	public void setRemarks(
+		UnsafeSupplier<String, Exception> remarksUnsafeSupplier) {
+
+		try {
+			remarks = remarksUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String remarks;
+
+	@Schema
 	public Long getSecondaryHeadId() {
 		return secondaryHeadId;
 	}
@@ -266,6 +350,34 @@ public class FileRsModel implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long secondaryHeadId;
+
+	@Schema
+	public Long getSubCategoryId() {
+		return subCategoryId;
+	}
+
+	public void setSubCategoryId(Long subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+
+	@JsonIgnore
+	public void setSubCategoryId(
+		UnsafeSupplier<Long, Exception> subCategoryIdUnsafeSupplier) {
+
+		try {
+			subCategoryId = subCategoryIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long subCategoryId;
 
 	@Schema
 	public String getSubject() {
@@ -350,6 +462,34 @@ public class FileRsModel implements Serializable {
 	protected String type;
 
 	@Schema
+	public Long getUserPostId() {
+		return userPostId;
+	}
+
+	public void setUserPostId(Long userPostId) {
+		this.userPostId = userPostId;
+	}
+
+	@JsonIgnore
+	public void setUserPostId(
+		UnsafeSupplier<Long, Exception> userPostIdUnsafeSupplier) {
+
+		try {
+			userPostId = userPostIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long userPostId;
+
+	@Schema
 	public Long getYear() {
 		return year;
 	}
@@ -410,6 +550,16 @@ public class FileRsModel implements Serializable {
 			sb.append("\"basicHeadId\": ");
 
 			sb.append(basicHeadId);
+		}
+
+		if (categoryId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"categoryId\": ");
+
+			sb.append(categoryId);
 		}
 
 		if (fileCodeId != null) {
@@ -480,6 +630,34 @@ public class FileRsModel implements Serializable {
 			sb.append(primaryHeadId);
 		}
 
+		if (reference != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"reference\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(reference));
+
+			sb.append("\"");
+		}
+
+		if (remarks != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"remarks\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(remarks));
+
+			sb.append("\"");
+		}
+
 		if (secondaryHeadId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -488,6 +666,16 @@ public class FileRsModel implements Serializable {
 			sb.append("\"secondaryHeadId\": ");
 
 			sb.append(secondaryHeadId);
+		}
+
+		if (subCategoryId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subCategoryId\": ");
+
+			sb.append(subCategoryId);
 		}
 
 		if (subject != null) {
@@ -526,6 +714,16 @@ public class FileRsModel implements Serializable {
 			sb.append(_escape(type));
 
 			sb.append("\"");
+		}
+
+		if (userPostId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"userPostId\": ");
+
+			sb.append(userPostId);
 		}
 
 		if (year != null) {
