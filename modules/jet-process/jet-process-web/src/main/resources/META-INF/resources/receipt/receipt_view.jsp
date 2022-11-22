@@ -80,6 +80,17 @@
 				</aui:row>
 				<aui:row>
 					<aui:col lg="6">
+						<label>Organization<span><aui:input label=""
+									name="organizationId" id="organizationId" readonly="true" /> </span></label>
+					</aui:col>
+					<aui:col lg="6">
+						<label>Sub Organization<span><aui:input label=""
+									name="subOrganizationId" id="subOrganizationId" readonly="true" />
+						</span></label>
+					</aui:col>
+				</aui:row>
+				<aui:row>
+					<aui:col lg="6">
 						<label>Form<span><aui:input label="" name="name"
 									id="name" readonly="true" /> </span></label>
 					</aui:col>
@@ -136,12 +147,12 @@
 					<aui:col lg="12">
 						<label>Subject<span><aui:input label=""
 									name="subject" id="subject" readonly="true" /> </span></label>
-						<label>Remarks<span><aui:input label=""
-									name="remarks" id="remarks" readonly="true" /> </span></label>
 					</aui:col>
 				</aui:row>
 				<aui:row>
 					<aui:col lg="12">
+						<label>Remarks<span><aui:input label=""
+									name="remarks" id="remarks" readonly="true" /> </span></label>
 					</aui:col>
 				</aui:row>
 				<aui:row>
