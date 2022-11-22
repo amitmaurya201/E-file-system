@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ReceiptListViewDto {
 	
+	private long receiptId;
 	private String receiptNumber;
 	private String subject;
 	private String category;
@@ -39,20 +40,26 @@ public class ReceiptListViewDto {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public ReceiptListViewDto(String receiptNumber, String subject, String category, Date createDate, String remark) {
+	
+	public long getReceiptId() {
+		return receiptId;
+	}
+	public void setReceiptId(long receiptId) {
+		this.receiptId = receiptId;
+	}
+	public ReceiptListViewDto() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ReceiptListViewDto(long receiptId, String receiptNumber, String subject, String category, Date createDate,
+			String remark) {
+		super();
+		this.receiptId = receiptId;
 		this.receiptNumber = receiptNumber;
 		this.subject = subject;
 		this.category = category;
 		this.createDate = createDate;
 		this.remark = remark;
 	}
-	public ReceiptListViewDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-		
-	
-	
 	
 }

@@ -19,8 +19,9 @@ public class CreateReceiptRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
-		renderRequest.setAttribute("receiptId", receiptId);
+        Long receiptId = ParamUtil.getLong(renderRequest, "receipt-id");
+        System.out.println("--   "+receiptId);
+        renderRequest.setAttribute("receiptId", receiptId);		
 		return "/receipt/create-receipt.jsp";
 	}
 }

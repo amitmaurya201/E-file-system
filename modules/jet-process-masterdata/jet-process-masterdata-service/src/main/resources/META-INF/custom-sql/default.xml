@@ -186,7 +186,7 @@ SELECT filenumber as filenumber , subject as subject , categoryvalue as category
 <![CDATA[
 
 
-SELECT receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
+SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
 	FROM jet_process_receipt INNER JOIN 
 	category  ON categorydataid = receiptcategoryid where userpostid = ? ;
 ]]>
