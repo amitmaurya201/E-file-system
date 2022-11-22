@@ -7,6 +7,7 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
+<%@ include file="/js/receipt-id.js"%>
 <%@ include file="/js/common.js" %> 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
@@ -27,7 +28,7 @@
 		<aui:form >
 		<aui:col lg="6" cssClass="border" >
 						<div id="targetDiv" class="targetDiv" >
-							<aui:input id="document" name="document" type="file" >
+							<aui:input id="document" name="document" label="" type="file" >
 								<aui:validator name="required" />
 								<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
 							</aui:input>	
@@ -35,8 +36,8 @@
 					</aui:col>
 		</aui:form>
 			<aui:form name="receiptForm" id="receiptForm">
-				<%-- <aui:input name="receiptId" id="receiptId"  type="hidden" value="${receiptId}" />
-				<aui:input name="userPostId" id="userPostId"  type="hidden" /> --%>
+				 <aui:input name="receiptId" id="receiptId" value="${receiptId}" />
+			<%--	<aui:input name="userPostId" id="userPostId"  type="hidden" /> --%>
 				<aui:row>
 					 <aui:col lg="6" cssClass="border" >
 						<div id="targetDiv" class="targetDiv" >

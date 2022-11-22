@@ -167,26 +167,6 @@ $("#<portlet:namespace />document").on('change', function(){
 	 }
 });
 
-/* getByReceiptId */
-var receiptId = $("#<portlet:namespace />receiptId").val();
-AUI().use('aui-base', function(A){
-Liferay.Service(
-		'/jet_process.receipt/get-receipt-by-receipt-id',
-		{
-		    receiptId: receiptId
-		},
-		function(obj) {
-		    console.log(obj);
-		});
-});
-
-/* userPostId */
-/*$("#value").change(function (e) {
-  var userPostId=($("#value").val());
-  console.log('--  '+ userPostId);
-  $("#<portlet:namespace />userPostId").val(userPostId);
-});
-*/
 /* create receipt */
 
 $("#<portlet:namespace />generate").on('click', function(e){
@@ -209,14 +189,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
 	        contentType : 'application/json'
 		  }).done(function(response) {
 			  console.log(response);
-			
-           
 	 })
-	 
-	 
 });
-
-
-
 
 </aui:script>
