@@ -5,6 +5,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import io.jetprocess.docstore.DocStore;
+import io.jetprocess.masterdata.model.Masterdata;
+import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
 
@@ -27,6 +29,14 @@ import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
  */
 @Component(properties = "OSGI-INF/liferay/rest/v1_0/receipt-rs-model.properties", scope = ServiceScope.PROTOTYPE, service = ReceiptRsModelResource.class)
 public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
+	private Masterdata typeById;
+	private Masterdata deliveryModeById;
+	private Masterdata organizationById;
+	private Masterdata subOrganizationById;
+	private Masterdata receiptCategoryById;
+	private Masterdata receiptSubCategoryById;
+	private Masterdata countryById;
+	private Masterdata stateById;
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
@@ -95,10 +105,8 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	
 	
 	@Override
-	public ReceiptRsModel getReceiptByReceiptId(@NotNull Long id) throws Exception {
-		System.out.println("oo");
-		Receipt receipt = receiptLocalService.getReceiptByReceiptId(id);
-		System.out.println("oo  -  "+receipt);
+	public ReceiptRsModel getReceiptByReceiptId(@NotNull Long receiptId) throws Exception {
+		Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 		ReceiptRsModel receiptRsModel=new ReceiptRsModel();
 		receiptRsModel.setId(receipt.getReceiptId());
 		receiptRsModel.setAddress(receipt.getAddress());
@@ -123,7 +131,28 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receiptRsModel.setSubject(receipt.getSubject());
 		receiptRsModel.setTypeId(receipt.getTypeId());
 		receiptRsModel.setUserPostId(receipt.getUserPostId());
-		receiptRsModel.setId(receipt.getReceiptId());
+		receiptRsModel.setViewPdfUrl(receipt.getViewPdfUrl());
+		receiptRsModel.setDmFileId(receipt.getDmFileId());
+		receiptRsModel.setReceiptNumber(receipt.getReceiptNumber());
+		
+		typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
+		deliveryModeById = masterdataLocalService.getDeliveryModeById(receipt.getDeliveryModeId());
+		organizationById = masterdataLocalService.getOrganizationById(receipt.getOrganizationId());
+		subOrganizationById = masterdataLocalService.getSubOrganizationById(receipt.getSubOrganizationId());
+		receiptCategoryById = masterdataLocalService.getReceiptCategoryById(receipt.getReceiptCategoryId());
+		receiptSubCategoryById = masterdataLocalService.getReceiptSubCategoryById(receipt.getReceiptSubCategoryId());
+		countryById = masterdataLocalService.getCountryById(receipt.getCountryId());
+		stateById = masterdataLocalService.getStateById(receipt.getStateId());
+
+		receiptRsModel.setTypevalue(typeById.getValue());
+		receiptRsModel.setDeliverymodevalue(deliveryModeById.getValue());
+		receiptRsModel.setOrganizationvalue(organizationById.getValue());
+		receiptRsModel.setSuborganizationvalue(subOrganizationById.getValue());
+		receiptRsModel.setReceiptcategoryvalue(receiptCategoryById.getValue());
+		receiptRsModel.setReceiptsubcategoryvalue(receiptSubCategoryById.getValue());
+		receiptRsModel.setCountryvalue(countryById.getValue());
+		receiptRsModel.setStatevalue(stateById.getValue());
+		
 		return receiptRsModel;
 	}
 
@@ -138,4 +167,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	private UserLocalService userLocalService;
 	@Reference
 	private DocStore docstore;
+	@Reference
+	private MasterdataLocalService masterdataLocalService;
 }

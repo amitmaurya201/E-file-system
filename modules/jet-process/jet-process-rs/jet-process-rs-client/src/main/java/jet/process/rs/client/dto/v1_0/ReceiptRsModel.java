@@ -81,6 +81,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected Long countryId;
 
+	public String getCountryvalue() {
+		return countryvalue;
+	}
+
+	public void setCountryvalue(String countryvalue) {
+		this.countryvalue = countryvalue;
+	}
+
+	public void setCountryvalue(
+		UnsafeSupplier<String, Exception> countryvalueUnsafeSupplier) {
+
+		try {
+			countryvalue = countryvalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String countryvalue;
+
 	public Long getDeliveryModeId() {
 		return deliveryModeId;
 	}
@@ -102,6 +123,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected Long deliveryModeId;
 
+	public String getDeliverymodevalue() {
+		return deliverymodevalue;
+	}
+
+	public void setDeliverymodevalue(String deliverymodevalue) {
+		this.deliverymodevalue = deliverymodevalue;
+	}
+
+	public void setDeliverymodevalue(
+		UnsafeSupplier<String, Exception> deliverymodevalueUnsafeSupplier) {
+
+		try {
+			deliverymodevalue = deliverymodevalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String deliverymodevalue;
+
 	public String getDesignation() {
 		return designation;
 	}
@@ -122,6 +164,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 	}
 
 	protected String designation;
+
+	public Long getDmFileId() {
+		return dmFileId;
+	}
+
+	public void setDmFileId(Long dmFileId) {
+		this.dmFileId = dmFileId;
+	}
+
+	public void setDmFileId(
+		UnsafeSupplier<Long, Exception> dmFileIdUnsafeSupplier) {
+
+		try {
+			dmFileId = dmFileIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long dmFileId;
 
 	public String getEmail() {
 		return email;
@@ -287,6 +350,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected Long organizationId;
 
+	public String getOrganizationvalue() {
+		return organizationvalue;
+	}
+
+	public void setOrganizationvalue(String organizationvalue) {
+		this.organizationvalue = organizationvalue;
+	}
+
+	public void setOrganizationvalue(
+		UnsafeSupplier<String, Exception> organizationvalueUnsafeSupplier) {
+
+		try {
+			organizationvalue = organizationvalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String organizationvalue;
+
 	public String getPinCode() {
 		return pinCode;
 	}
@@ -329,6 +413,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected Long receiptCategoryId;
 
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
+
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
+	public void setReceiptNumber(
+		UnsafeSupplier<String, Exception> receiptNumberUnsafeSupplier) {
+
+		try {
+			receiptNumber = receiptNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String receiptNumber;
+
 	public Long getReceiptSubCategoryId() {
 		return receiptSubCategoryId;
 	}
@@ -349,6 +454,50 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 	}
 
 	protected Long receiptSubCategoryId;
+
+	public String getReceiptcategoryvalue() {
+		return receiptcategoryvalue;
+	}
+
+	public void setReceiptcategoryvalue(String receiptcategoryvalue) {
+		this.receiptcategoryvalue = receiptcategoryvalue;
+	}
+
+	public void setReceiptcategoryvalue(
+		UnsafeSupplier<String, Exception> receiptcategoryvalueUnsafeSupplier) {
+
+		try {
+			receiptcategoryvalue = receiptcategoryvalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String receiptcategoryvalue;
+
+	public String getReceiptsubcategoryvalue() {
+		return receiptsubcategoryvalue;
+	}
+
+	public void setReceiptsubcategoryvalue(String receiptsubcategoryvalue) {
+		this.receiptsubcategoryvalue = receiptsubcategoryvalue;
+	}
+
+	public void setReceiptsubcategoryvalue(
+		UnsafeSupplier<String, Exception>
+			receiptsubcategoryvalueUnsafeSupplier) {
+
+		try {
+			receiptsubcategoryvalue =
+				receiptsubcategoryvalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String receiptsubcategoryvalue;
 
 	public String getReceivedOn() {
 		return receivedOn;
@@ -434,6 +583,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected Long stateId;
 
+	public String getStatevalue() {
+		return statevalue;
+	}
+
+	public void setStatevalue(String statevalue) {
+		this.statevalue = statevalue;
+	}
+
+	public void setStatevalue(
+		UnsafeSupplier<String, Exception> statevalueUnsafeSupplier) {
+
+		try {
+			statevalue = statevalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String statevalue;
+
 	public Long getSubOrganizationId() {
 		return subOrganizationId;
 	}
@@ -476,6 +646,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected String subject;
 
+	public String getSuborganizationvalue() {
+		return suborganizationvalue;
+	}
+
+	public void setSuborganizationvalue(String suborganizationvalue) {
+		this.suborganizationvalue = suborganizationvalue;
+	}
+
+	public void setSuborganizationvalue(
+		UnsafeSupplier<String, Exception> suborganizationvalueUnsafeSupplier) {
+
+		try {
+			suborganizationvalue = suborganizationvalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String suborganizationvalue;
+
 	public Long getTempFileId() {
 		return tempFileId;
 	}
@@ -517,6 +708,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 	}
 
 	protected Long typeId;
+
+	public String getTypevalue() {
+		return typevalue;
+	}
+
+	public void setTypevalue(String typevalue) {
+		this.typevalue = typevalue;
+	}
+
+	public void setTypevalue(
+		UnsafeSupplier<String, Exception> typevalueUnsafeSupplier) {
+
+		try {
+			typevalue = typevalueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String typevalue;
 
 	public Long getUserPostId() {
 		return userPostId;

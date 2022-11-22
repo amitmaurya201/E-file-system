@@ -128,6 +128,34 @@ public class ReceiptRsModel implements Serializable {
 	protected Long countryId;
 
 	@Schema
+	public String getCountryvalue() {
+		return countryvalue;
+	}
+
+	public void setCountryvalue(String countryvalue) {
+		this.countryvalue = countryvalue;
+	}
+
+	@JsonIgnore
+	public void setCountryvalue(
+		UnsafeSupplier<String, Exception> countryvalueUnsafeSupplier) {
+
+		try {
+			countryvalue = countryvalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String countryvalue;
+
+	@Schema
 	public Long getDeliveryModeId() {
 		return deliveryModeId;
 	}
@@ -156,6 +184,34 @@ public class ReceiptRsModel implements Serializable {
 	protected Long deliveryModeId;
 
 	@Schema
+	public String getDeliverymodevalue() {
+		return deliverymodevalue;
+	}
+
+	public void setDeliverymodevalue(String deliverymodevalue) {
+		this.deliverymodevalue = deliverymodevalue;
+	}
+
+	@JsonIgnore
+	public void setDeliverymodevalue(
+		UnsafeSupplier<String, Exception> deliverymodevalueUnsafeSupplier) {
+
+		try {
+			deliverymodevalue = deliverymodevalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String deliverymodevalue;
+
+	@Schema
 	public String getDesignation() {
 		return designation;
 	}
@@ -182,6 +238,34 @@ public class ReceiptRsModel implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String designation;
+
+	@Schema
+	public Long getDmFileId() {
+		return dmFileId;
+	}
+
+	public void setDmFileId(Long dmFileId) {
+		this.dmFileId = dmFileId;
+	}
+
+	@JsonIgnore
+	public void setDmFileId(
+		UnsafeSupplier<Long, Exception> dmFileIdUnsafeSupplier) {
+
+		try {
+			dmFileId = dmFileIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long dmFileId;
 
 	@Schema
 	public String getEmail() {
@@ -404,6 +488,34 @@ public class ReceiptRsModel implements Serializable {
 	protected Long organizationId;
 
 	@Schema
+	public String getOrganizationvalue() {
+		return organizationvalue;
+	}
+
+	public void setOrganizationvalue(String organizationvalue) {
+		this.organizationvalue = organizationvalue;
+	}
+
+	@JsonIgnore
+	public void setOrganizationvalue(
+		UnsafeSupplier<String, Exception> organizationvalueUnsafeSupplier) {
+
+		try {
+			organizationvalue = organizationvalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String organizationvalue;
+
+	@Schema
 	public String getPinCode() {
 		return pinCode;
 	}
@@ -460,6 +572,34 @@ public class ReceiptRsModel implements Serializable {
 	protected Long receiptCategoryId;
 
 	@Schema
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
+
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
+	@JsonIgnore
+	public void setReceiptNumber(
+		UnsafeSupplier<String, Exception> receiptNumberUnsafeSupplier) {
+
+		try {
+			receiptNumber = receiptNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String receiptNumber;
+
+	@Schema
 	public Long getReceiptSubCategoryId() {
 		return receiptSubCategoryId;
 	}
@@ -486,6 +626,64 @@ public class ReceiptRsModel implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long receiptSubCategoryId;
+
+	@Schema
+	public String getReceiptcategoryvalue() {
+		return receiptcategoryvalue;
+	}
+
+	public void setReceiptcategoryvalue(String receiptcategoryvalue) {
+		this.receiptcategoryvalue = receiptcategoryvalue;
+	}
+
+	@JsonIgnore
+	public void setReceiptcategoryvalue(
+		UnsafeSupplier<String, Exception> receiptcategoryvalueUnsafeSupplier) {
+
+		try {
+			receiptcategoryvalue = receiptcategoryvalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String receiptcategoryvalue;
+
+	@Schema
+	public String getReceiptsubcategoryvalue() {
+		return receiptsubcategoryvalue;
+	}
+
+	public void setReceiptsubcategoryvalue(String receiptsubcategoryvalue) {
+		this.receiptsubcategoryvalue = receiptsubcategoryvalue;
+	}
+
+	@JsonIgnore
+	public void setReceiptsubcategoryvalue(
+		UnsafeSupplier<String, Exception>
+			receiptsubcategoryvalueUnsafeSupplier) {
+
+		try {
+			receiptsubcategoryvalue =
+				receiptsubcategoryvalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String receiptsubcategoryvalue;
 
 	@Schema
 	public String getReceivedOn() {
@@ -600,6 +798,34 @@ public class ReceiptRsModel implements Serializable {
 	protected Long stateId;
 
 	@Schema
+	public String getStatevalue() {
+		return statevalue;
+	}
+
+	public void setStatevalue(String statevalue) {
+		this.statevalue = statevalue;
+	}
+
+	@JsonIgnore
+	public void setStatevalue(
+		UnsafeSupplier<String, Exception> statevalueUnsafeSupplier) {
+
+		try {
+			statevalue = statevalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String statevalue;
+
+	@Schema
 	public Long getSubOrganizationId() {
 		return subOrganizationId;
 	}
@@ -656,6 +882,34 @@ public class ReceiptRsModel implements Serializable {
 	protected String subject;
 
 	@Schema
+	public String getSuborganizationvalue() {
+		return suborganizationvalue;
+	}
+
+	public void setSuborganizationvalue(String suborganizationvalue) {
+		this.suborganizationvalue = suborganizationvalue;
+	}
+
+	@JsonIgnore
+	public void setSuborganizationvalue(
+		UnsafeSupplier<String, Exception> suborganizationvalueUnsafeSupplier) {
+
+		try {
+			suborganizationvalue = suborganizationvalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String suborganizationvalue;
+
+	@Schema
 	public Long getTempFileId() {
 		return tempFileId;
 	}
@@ -710,6 +964,34 @@ public class ReceiptRsModel implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long typeId;
+
+	@Schema
+	public String getTypevalue() {
+		return typevalue;
+	}
+
+	public void setTypevalue(String typevalue) {
+		this.typevalue = typevalue;
+	}
+
+	@JsonIgnore
+	public void setTypevalue(
+		UnsafeSupplier<String, Exception> typevalueUnsafeSupplier) {
+
+		try {
+			typevalue = typevalueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String typevalue;
 
 	@Schema
 	public Long getUserPostId() {
@@ -832,6 +1114,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append(countryId);
 		}
 
+		if (countryvalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"countryvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(countryvalue));
+
+			sb.append("\"");
+		}
+
 		if (deliveryModeId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -840,6 +1136,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"deliveryModeId\": ");
 
 			sb.append(deliveryModeId);
+		}
+
+		if (deliverymodevalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"deliverymodevalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(deliverymodevalue));
+
+			sb.append("\"");
 		}
 
 		if (designation != null) {
@@ -854,6 +1164,16 @@ public class ReceiptRsModel implements Serializable {
 			sb.append(_escape(designation));
 
 			sb.append("\"");
+		}
+
+		if (dmFileId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"dmFileId\": ");
+
+			sb.append(dmFileId);
 		}
 
 		if (email != null) {
@@ -956,6 +1276,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append(organizationId);
 		}
 
+		if (organizationvalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"organizationvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(organizationvalue));
+
+			sb.append("\"");
+		}
+
 		if (pinCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -980,6 +1314,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append(receiptCategoryId);
 		}
 
+		if (receiptNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptNumber\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptNumber));
+
+			sb.append("\"");
+		}
+
 		if (receiptSubCategoryId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -988,6 +1336,34 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"receiptSubCategoryId\": ");
 
 			sb.append(receiptSubCategoryId);
+		}
+
+		if (receiptcategoryvalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptcategoryvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptcategoryvalue));
+
+			sb.append("\"");
+		}
+
+		if (receiptsubcategoryvalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptsubcategoryvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptsubcategoryvalue));
+
+			sb.append("\"");
 		}
 
 		if (receivedOn != null) {
@@ -1042,6 +1418,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append(stateId);
 		}
 
+		if (statevalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"statevalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(statevalue));
+
+			sb.append("\"");
+		}
+
 		if (subOrganizationId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1066,6 +1456,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"");
 		}
 
+		if (suborganizationvalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"suborganizationvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(suborganizationvalue));
+
+			sb.append("\"");
+		}
+
 		if (tempFileId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1084,6 +1488,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"typeId\": ");
 
 			sb.append(typeId);
+		}
+
+		if (typevalue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"typevalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(typevalue));
+
+			sb.append("\"");
 		}
 
 		if (userPostId != null) {
