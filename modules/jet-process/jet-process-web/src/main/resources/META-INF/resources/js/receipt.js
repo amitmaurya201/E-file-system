@@ -1,5 +1,9 @@
 <aui:script use= "aui-base">
-	
+// getting current userPostId .....................
+var userPostId=  getUserPostId();
+console.log("userPostId"+userPostId);
+var tempFileId=0;
+
 /* masterdata call */
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
@@ -152,12 +156,10 @@ $("#<portlet:namespace />document").on('change', function(){
 		    processData: false,
 	        contentType : false,
 		  }).done(function(response) {
-			  pdfurl = response.description;
-			  console.log(response.id);
-			  console.log(response.description);
-             $("#<portlet:namespace />tempFileId").val(response.id);
+			  viewPdfUrl=response.description;
+			  tempFileId=response.id;
              var embed = $('<embed id="pdfurl" type="application/pdf"  width="450" height="450">');
-             embed.attr('src',pdfurl);
+             embed.attr('src',viewPdfUrl);
              $('#targetDiv').append(embed);
 		  }).fail(function(e) {
 		     console.log(e);
@@ -179,81 +181,28 @@ Liferay.Service(
 });
 
 /* userPostId */
-$("#value").change(function (e) {
+/*$("#value").change(function (e) {
   var userPostId=($("#value").val());
   console.log('--  '+ userPostId);
   $("#<portlet:namespace />userPostId").val(userPostId);
 });
-
+*/
 /* create receipt */
 
 $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
-	 	var typeId = $('#<portlet:namespace />typeId').val();
-		var deliveryModeId =$('#<portlet:namespace />deliveryModeId').val();
-		var receivedOn =$('#<portlet:namespace />receivedOn').val();
-		var letterDate = $('#<portlet:namespace />letterDate').val();
-		var referenceNumber = $('#<portlet:namespace />referenceNumber').val();
-		var modeNumber = $('#<portlet:namespace />modeNumber').val();
-		var organizationId = $('#<portlet:namespace />organizationId').val();
-		var subOrganizationId = $('#<portlet:namespace />subOrganizationId').val();
-		var name = $('#<portlet:namespace />name').val();
-		var designation = $('#<portlet:namespace />designation').val();
-		var mobile = $('#<portlet:namespace />mobile').val();
-		var email = $('#<portlet:namespace />email').val();
-		var address = $('#<portlet:namespace />address').val();
-		var countryId =$('#<portlet:namespace />countryId').val();
-		var stateId = $('#<portlet:namespace />stateId').val();
-		var city = $('#<portlet:namespace />city').val();
-		var pinCode = $('#<portlet:namespace />pinCode').val();
-		var receiptCategoryId = $('#<portlet:namespace />receiptCategoryId').val();
-		var receiptSubCategoryId = $('#<portlet:namespace />receiptSubCategoryId').val();
-		var subject = $('#<portlet:namespace />subject').val();
-		var remarks = $('#<portlet:namespace />remarks').val();
-		var userPostId = $('#<portlet:namespace />userPostId').val();
-		var tempFileId = $('#<portlet:namespace />tempFileId').val();
-		console.log("receiptCategoryId"+receiptCategoryId);
-	 
-	 
-	 
-	 var receiptFormData = new FormData();
-	 receiptFormData.append('address',address);
-	 receiptFormData.append('city', (city || null)); 
-	 receiptFormData.append('countryId',(countryId || 0) );
-	 receiptFormData.append('deliveryModeId',deliveryModeId);
-	 receiptFormData.append('designation',designation );
-	 receiptFormData.append('email',(email || null));
-	 receiptFormData.append('groupId',groupId);
-	 receiptFormData.append('letterDate',(letterDate || null));
-	 receiptFormData.append('mobile',mobile);
-	 receiptFormData.append('modeNumber',modeNumber);
-	 receiptFormData.append('name',name);
-	 receiptFormData.append('organizationId',organizationId );
-	 receiptFormData.append('pinCode',(pinCode || null));
-	 receiptFormData.append('receiptCategoryId',receiptCategoryId);
-	 receiptFormData.append('receiptSubCategoryId',(receiptSubCategoryId || 0));
-	 receiptFormData.append('receivedOn', (receivedOn || null));
-	 receiptFormData.append('referenceNumber',referenceNumber );
-	 receiptFormData.append('remarks', (remarks || null));
-	 receiptFormData.append('stateId',(stateId || 0));
-	 receiptFormData.append('subOrganizationId',(subOrganizationId || 0));
-	 receiptFormData.append('subject', subject);
-	 receiptFormData.append('tempfileId', tempFileId );
-	 receiptFormData.append('typeId',typeId);
-	 receiptFormData.append('userPostId',userPostId );
-	 
-	 
-	 var object = {};
-	 receiptFormData.forEach(function(value, key){
-	    
-		 object[key] = value;
-	 });
-	 var json = JSON.stringify(object);
-	 console.log(json);
+	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
+     var jsonData = bindFormDataJson(formObj);
+     console.log(jsonData);
+     console.log(tempFileId);
+     jsonData["userPostId"] = userPostId;
+     jsonData["tempFileId"] = tempFileId; 
+    
+     var jsonObj = JSON.stringify(jsonData);  
 	 $.ajax({
 		    type: "POST",
 		    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
-		    data: json,
+		    data: jsonObj,
 		    dataType: 'json',
 		    cache : false,
 		    processData: false,

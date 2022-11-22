@@ -6,6 +6,8 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/file.js" %>
+<%@ include file="/js/common.js" %> 
+
 
 <div class="row">
 <div class="col-2">
@@ -17,13 +19,12 @@
 		String setURl = serviceContext.getPortalURL();
 %>
 
-<%@ include file="file-view.jsp" %>
 <div class="col mr-5">
 
 
 	<div class="container m-3">
 		<div class="card">
-			<aui:form id="formId">
+			<aui:form name="formId">
 	             <div class="card-body">
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
@@ -74,7 +75,7 @@
 							                        
                                                                  
 														<div class="row mt-3 " id="non-sfs">
-															<aui:input name="userPostId" label="" id="userPostId" type="hidden"/>
+														<%--  <aui:input name="userPostId" label="" value = "1" id= "userPostId" />  --%>
 																<legend class="child-scheduler-border">File No.</legend>
 																<aui:fieldset cssClass="col-md-12 p-0 child-scheduler-border">
 																<aui:row>
@@ -101,7 +102,7 @@
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="tertiaryHeadId" id="tertiaryHeadId" label="">
-																			<option value=''>Tertiary Head Code</option> 
+																			<option value='12'>Tertiary Head Code</option> 
 																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
@@ -121,14 +122,14 @@
 														
 														</div>
 														
-														 <div class="row" id="sfs" style="display:none" >
+														<%--  <div class="row" id="sfs" style="display:none" >
                                                                             <aui:fieldset cssClass="col-md-12 child-scheduler-border">
                                                                                 <legend cssClass="child-scheduler-border">File No.</legend>
                                                                                 <aui:input class="form-control" type="text" name="" id="fileNumber" >
                                                                                 </aui:input>
                                                                             </aui:fieldset>
                                                                         </div>
-														
+														 --%>
 													
 											</aui:col>
 										
@@ -174,8 +175,8 @@
 										<div cssClass="input-group">
 											<aui:select cssClass="form-select form-control" id="subCategoryId"
 												name="subCategoryId" >
-												<option value=''>Choose...</option>
-												 <aui:validator name="required" />  
+												<option value='1'>Choose...</option>
+												<%--  <aui:validator name="required" />   --%>
 											</aui:select>
 										</div>
 									</aui:fieldset>
@@ -202,7 +203,7 @@
 											Reference<span class='text-danger'>*</span>
 										</legend> -->
 										<aui:input  cssClass="form-control col-md-12 " type="text"
-											name="reference" id="reference"  >
+											name="reference" id="reference">
 										 	<aui:validator name="required" />
 											<aui:validator name="maxLength">250</aui:validator>
 											</aui:input>
@@ -212,7 +213,7 @@
 						</div>
 					</div>
 					<div class="text-center">
-						<aui:button type="button" cssClass="btn btn-danger"  value="Create File" id="add-docfile"></aui:button>
+						<aui:button type="button" cssClass="btn btn-danger"  value="Create File"  id="add-docfile"></aui:button>
 					</div>
 				</div>
 			</aui:form>
@@ -270,9 +271,4 @@ A.io.request(url, {
 
 
 </aui:script>
-
-
-
-
-
 

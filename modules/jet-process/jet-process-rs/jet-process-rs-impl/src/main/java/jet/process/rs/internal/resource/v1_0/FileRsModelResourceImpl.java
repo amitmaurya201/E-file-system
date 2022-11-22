@@ -27,25 +27,41 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
 		long docFileId = counterLocalService.increment(DocFile.class.getName());
 		System.out.println(docFileId);
+		System.out.println(fileRsModel.getBasicHeadId());
+		System.out.println(fileRsModel.getPrimaryHeadId());
+		System.out.println(fileRsModel.getPrimaryHeadId());
+		System.out.println(fileRsModel.getNature());
 		String fileId = generateFileNumber(docFileId);
 		DocFile docFile = docFileLocalService.createDocFile(docFileId);
 		docFile.setBasicHeadId(fileRsModel.getBasicHeadId());
 		docFile.setPrimaryHeadId(fileRsModel.getPrimaryHeadId());
 		docFile.setNature(fileRsModel.getNature());
 		docFile.setSubject(fileRsModel.getSubject());
+		System.out.println("test1");
 		docFile.setFileCodeId(fileRsModel.getFileCodeId());
+		System.out.println("test2");
 		docFile.setSecondaryHeadId(fileRsModel.getSecondaryHeadId());
+		System.out.println("test3");
 		docFile.setTertiaryHeadId(fileRsModel.getTertiaryHeadId());
+		System.out.println("test4");
 		docFile.setFileNumber(fileId);
 		docFile.setType(fileRsModel.getType());
+		System.out.println("test5");
 		docFile.setRemarks(fileRsModel.getRemarks());
+		System.out.println("test6");
 		docFile.setReference(fileRsModel.getReference());
+		System.out.println("test7");
 		docFile.setCategoryId(fileRsModel.getCategoryId());
+		System.out.println("test8");
 		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		System.out.println("test9");
 		docFile.setUserPostId(fileRsModel.getUserPostId());
+		System.out.println("test10");
 		docFile.setYear(fileRsModel.getYear());
+		System.out.println("test11");
         docFileLocalService.addDocFile(docFile);
-		System.out.println(docFile);
+        System.out.println("test12");
+		
 		return  fileRsModel;
 	}
 	

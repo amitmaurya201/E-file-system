@@ -313,14 +313,14 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"");
 		}
 
-		if (receiptRsModel.getTempfileId() != null) {
+		if (receiptRsModel.getTempFileId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"tempfileId\": ");
+			sb.append("\"tempFileId\": ");
 
-			sb.append(receiptRsModel.getTempfileId());
+			sb.append(receiptRsModel.getTempFileId());
 		}
 
 		if (receiptRsModel.getTypeId() != null) {
@@ -341,6 +341,20 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"userPostId\": ");
 
 			sb.append(receiptRsModel.getUserPostId());
+		}
+
+		if (receiptRsModel.getViewPdfUrl() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"viewPdfUrl\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getViewPdfUrl()));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");
@@ -532,12 +546,12 @@ public class ReceiptRsModelSerDes {
 			map.put("subject", String.valueOf(receiptRsModel.getSubject()));
 		}
 
-		if (receiptRsModel.getTempfileId() == null) {
-			map.put("tempfileId", null);
+		if (receiptRsModel.getTempFileId() == null) {
+			map.put("tempFileId", null);
 		}
 		else {
 			map.put(
-				"tempfileId", String.valueOf(receiptRsModel.getTempfileId()));
+				"tempFileId", String.valueOf(receiptRsModel.getTempFileId()));
 		}
 
 		if (receiptRsModel.getTypeId() == null) {
@@ -553,6 +567,14 @@ public class ReceiptRsModelSerDes {
 		else {
 			map.put(
 				"userPostId", String.valueOf(receiptRsModel.getUserPostId()));
+		}
+
+		if (receiptRsModel.getViewPdfUrl() == null) {
+			map.put("viewPdfUrl", null);
+		}
+		else {
+			map.put(
+				"viewPdfUrl", String.valueOf(receiptRsModel.getViewPdfUrl()));
 		}
 
 		return map;
@@ -698,9 +720,9 @@ public class ReceiptRsModelSerDes {
 					receiptRsModel.setSubject((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "tempfileId")) {
+			else if (Objects.equals(jsonParserFieldName, "tempFileId")) {
 				if (jsonParserFieldValue != null) {
-					receiptRsModel.setTempfileId(
+					receiptRsModel.setTempFileId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -714,6 +736,11 @@ public class ReceiptRsModelSerDes {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setUserPostId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "viewPdfUrl")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setViewPdfUrl((String)jsonParserFieldValue);
 				}
 			}
 		}

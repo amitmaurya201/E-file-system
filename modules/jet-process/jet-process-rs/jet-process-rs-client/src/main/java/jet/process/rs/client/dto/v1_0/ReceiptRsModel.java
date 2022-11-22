@@ -476,26 +476,26 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected String subject;
 
-	public Long getTempfileId() {
-		return tempfileId;
+	public Long getTempFileId() {
+		return tempFileId;
 	}
 
-	public void setTempfileId(Long tempfileId) {
-		this.tempfileId = tempfileId;
+	public void setTempFileId(Long tempFileId) {
+		this.tempFileId = tempFileId;
 	}
 
-	public void setTempfileId(
-		UnsafeSupplier<Long, Exception> tempfileIdUnsafeSupplier) {
+	public void setTempFileId(
+		UnsafeSupplier<Long, Exception> tempFileIdUnsafeSupplier) {
 
 		try {
-			tempfileId = tempfileIdUnsafeSupplier.get();
+			tempFileId = tempFileIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Long tempfileId;
+	protected Long tempFileId;
 
 	public Long getTypeId() {
 		return typeId;
@@ -538,6 +538,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 	}
 
 	protected Long userPostId;
+
+	public String getViewPdfUrl() {
+		return viewPdfUrl;
+	}
+
+	public void setViewPdfUrl(String viewPdfUrl) {
+		this.viewPdfUrl = viewPdfUrl;
+	}
+
+	public void setViewPdfUrl(
+		UnsafeSupplier<String, Exception> viewPdfUrlUnsafeSupplier) {
+
+		try {
+			viewPdfUrl = viewPdfUrlUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String viewPdfUrl;
 
 	@Override
 	public ReceiptRsModel clone() throws CloneNotSupportedException {

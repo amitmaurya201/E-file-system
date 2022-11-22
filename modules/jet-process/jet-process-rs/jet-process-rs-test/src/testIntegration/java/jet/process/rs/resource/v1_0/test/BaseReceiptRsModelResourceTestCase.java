@@ -179,6 +179,7 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 		receiptRsModel.setReferenceNumber(regex);
 		receiptRsModel.setRemarks(regex);
 		receiptRsModel.setSubject(regex);
+		receiptRsModel.setViewPdfUrl(regex);
 
 		String json = ReceiptRsModelSerDes.toJSON(receiptRsModel);
 
@@ -199,6 +200,7 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 		Assert.assertEquals(regex, receiptRsModel.getReferenceNumber());
 		Assert.assertEquals(regex, receiptRsModel.getRemarks());
 		Assert.assertEquals(regex, receiptRsModel.getSubject());
+		Assert.assertEquals(regex, receiptRsModel.getViewPdfUrl());
 	}
 
 	@Test
@@ -550,8 +552,8 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("tempfileId", additionalAssertFieldName)) {
-				if (receiptRsModel.getTempfileId() == null) {
+			if (Objects.equals("tempFileId", additionalAssertFieldName)) {
+				if (receiptRsModel.getTempFileId() == null) {
 					valid = false;
 				}
 
@@ -568,6 +570,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 			if (Objects.equals("userPostId", additionalAssertFieldName)) {
 				if (receiptRsModel.getUserPostId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("viewPdfUrl", additionalAssertFieldName)) {
+				if (receiptRsModel.getViewPdfUrl() == null) {
 					valid = false;
 				}
 
@@ -911,10 +921,10 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("tempfileId", additionalAssertFieldName)) {
+			if (Objects.equals("tempFileId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						receiptRsModel1.getTempfileId(),
-						receiptRsModel2.getTempfileId())) {
+						receiptRsModel1.getTempFileId(),
+						receiptRsModel2.getTempFileId())) {
 
 					return false;
 				}
@@ -937,6 +947,17 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getUserPostId(),
 						receiptRsModel2.getUserPostId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("viewPdfUrl", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getViewPdfUrl(),
+						receiptRsModel2.getViewPdfUrl())) {
 
 					return false;
 				}
@@ -1191,7 +1212,7 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("tempfileId")) {
+		if (entityFieldName.equals("tempFileId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1204,6 +1225,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 		if (entityFieldName.equals("userPostId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("viewPdfUrl")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getViewPdfUrl()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		throw new IllegalArgumentException(
@@ -1279,9 +1308,11 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				stateId = RandomTestUtil.randomLong();
 				subOrganizationId = RandomTestUtil.randomLong();
 				subject = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				tempfileId = RandomTestUtil.randomLong();
+				tempFileId = RandomTestUtil.randomLong();
 				typeId = RandomTestUtil.randomLong();
 				userPostId = RandomTestUtil.randomLong();
+				viewPdfUrl = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 			}
 		};
 	}

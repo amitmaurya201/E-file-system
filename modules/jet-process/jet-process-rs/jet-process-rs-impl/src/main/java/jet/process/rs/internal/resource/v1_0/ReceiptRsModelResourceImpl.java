@@ -30,41 +30,9 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
-		System.out.println(receiptId);
-		System.out.println(receiptRsModel.getTempfileId());
-		String number = generateReceiptNumber(receiptId);
+		
 		Receipt receipt = receiptLocalService.createReceipt(receiptId);
-		System.out.println(receipt);
-		// file fields
-		String changeLog = "docStore";
-		FileEntry fileEntry = docstore.getTempFile(receiptRsModel.getTempfileId());
-		System.out.println(fileEntry);
-
-		String title = fileEntry.getFileName();
-
-		InputStream is = fileEntry.getContentStream();
-		String mimeType = fileEntry.getMimeType();
-		String viewFileUrl = null;
-		try {
-			viewFileUrl = docstore.ViewDocumentAndMediaFile(receiptRsModel.getTempfileId());
-		} catch (IOException e1) {
-
-			e1.printStackTrace();
-		}
-		System.out.println(viewFileUrl);
-		long documentAndMediaFileId = 0l;
-		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(20121, receiptRsModel.getTempfileId(), is,
-					title, mimeType, changeLog, 0l, "");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		System.out.println(receiptRsModel.getReceiptCategoryId());
-		System.out.println(documentAndMediaFileId);
-		docstore.deleteTempFile(receiptRsModel.getTempfileId());
-		System.out.println("test");
-		receipt.setAddress(receiptRsModel.getAddress());
+		receipt.setAddress(receiptRsModel.getAddress());	
 		receipt.setCity(receiptRsModel.getCity());
 		receipt.setCountryId(receiptRsModel.getCountryId());
 		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
@@ -84,10 +52,35 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setStateId(receiptRsModel.getStateId());
 		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
 		receipt.setSubject(receiptRsModel.getSubject());
-		receipt.setDmFileId(documentAndMediaFileId);
 		receipt.setTypeId(receiptRsModel.getTypeId());
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
+		String number = generateReceiptNumber(receiptId);
 		receipt.setReceiptNumber(number);
+		// file fields
+		String changeLog = "docStore";
+		FileEntry fileEntry = docstore.getTempFile(receiptRsModel.getTempFileId());
+		String title = fileEntry.getFileName();
+		InputStream is = fileEntry.getContentStream();
+		String mimeType = fileEntry.getMimeType();
+		String viewFileUrl = null;
+		try {
+			viewFileUrl = docstore.ViewDocumentAndMediaFile(receiptRsModel.getTempFileId());
+		} catch (IOException e1) {
+
+			e1.printStackTrace();
+		}
+		long documentAndMediaFileId = 0l;
+		try {
+			documentAndMediaFileId = docstore.documentAndMediaFileUpload(20121, receiptRsModel.getTempFileId(), is,
+					title, mimeType, changeLog, 0l, "");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		docstore.deleteTempFile(receiptRsModel.getTempFileId());
+		
+		receipt.setDmFileId(documentAndMediaFileId);
+		receipt.setViewPdfUrl(viewFileUrl);
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}

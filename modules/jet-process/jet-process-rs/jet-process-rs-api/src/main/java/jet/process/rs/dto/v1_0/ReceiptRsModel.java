@@ -656,20 +656,20 @@ public class ReceiptRsModel implements Serializable {
 	protected String subject;
 
 	@Schema
-	public Long getTempfileId() {
-		return tempfileId;
+	public Long getTempFileId() {
+		return tempFileId;
 	}
 
-	public void setTempfileId(Long tempfileId) {
-		this.tempfileId = tempfileId;
+	public void setTempFileId(Long tempFileId) {
+		this.tempFileId = tempFileId;
 	}
 
 	@JsonIgnore
-	public void setTempfileId(
-		UnsafeSupplier<Long, Exception> tempfileIdUnsafeSupplier) {
+	public void setTempFileId(
+		UnsafeSupplier<Long, Exception> tempFileIdUnsafeSupplier) {
 
 		try {
-			tempfileId = tempfileIdUnsafeSupplier.get();
+			tempFileId = tempFileIdUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -681,7 +681,7 @@ public class ReceiptRsModel implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long tempfileId;
+	protected Long tempFileId;
 
 	@Schema
 	public Long getTypeId() {
@@ -738,6 +738,34 @@ public class ReceiptRsModel implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long userPostId;
+
+	@Schema
+	public String getViewPdfUrl() {
+		return viewPdfUrl;
+	}
+
+	public void setViewPdfUrl(String viewPdfUrl) {
+		this.viewPdfUrl = viewPdfUrl;
+	}
+
+	@JsonIgnore
+	public void setViewPdfUrl(
+		UnsafeSupplier<String, Exception> viewPdfUrlUnsafeSupplier) {
+
+		try {
+			viewPdfUrl = viewPdfUrlUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String viewPdfUrl;
 
 	@Override
 	public boolean equals(Object object) {
@@ -1038,14 +1066,14 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"");
 		}
 
-		if (tempfileId != null) {
+		if (tempFileId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"tempfileId\": ");
+			sb.append("\"tempFileId\": ");
 
-			sb.append(tempfileId);
+			sb.append(tempFileId);
 		}
 
 		if (typeId != null) {
@@ -1066,6 +1094,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"userPostId\": ");
 
 			sb.append(userPostId);
+		}
+
+		if (viewPdfUrl != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"viewPdfUrl\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(viewPdfUrl));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");

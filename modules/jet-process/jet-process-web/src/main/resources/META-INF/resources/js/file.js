@@ -1,15 +1,13 @@
 
-
 <aui:script use= "aui-base">
-
-// jquery for getting userpost id from theme 
-$("#value").change(function(e){
-    console.log("Jquery ......"+$("#value").val());
-    userPostId = ($("#value").val());
+/*$("#value").change(function(e){
+ var userPostId=  getUserPostId();
+ console.log("userPostId" + userPostId);
   $('#<portlet:namespace/>userPostId').val(userPostId);
-
- });
-    
+});
+    */
+   var userPostId=  getUserPostId();
+   console.log("userPostId"+userPostId);
 
      /* get current year */
 	    var currentTime = new Date();
@@ -23,6 +21,8 @@ $("#value").change(function(e){
                 function(obj) {
                console.log(obj);
             $.each(obj,function(key,value){
+            	
+            	console.log(key);
             basicheadText = value.value;
             basicheadValue = value.masterdataId;
             $("#<portlet:namespace/>basicHeadId").append(new Option(basicheadText,basicheadValue));
@@ -82,6 +82,7 @@ $("#value").change(function(e){
 	/* get tertiary head data */       
 	  $("#<portlet:namespace />secondaryHeadId").on('change', function(){
 			 var secondarHeadId = $("#<portlet:namespace />secondaryHeadId").val();
+			 console.log(secondarHeadId);
 			   
 	      AUI().use('aui-base', function(A){
 	       Liferay.Service(
@@ -150,79 +151,25 @@ $("#value").change(function(e){
      });
 });
 	                   
-	         $("#<portlet:namespace />add-docfile").on('click', function(e){
+	$("#<portlet:namespace />add-docfile").on('click', function(e){
 	        	 e.preventDefault();
-	        	/* var myForm = document.getElementById("<portlet:namespace />filecreate");
-	        	 cosole.log(myForm);*/
-	        	 var subject  = $('#<portlet:namespace/>subject').val();
-	        	 var  userPostId = $('#<portlet:namespace/>userPostId').val()
-	        	 console.log(subject);
-	        	 console.log("userPostId"+userPostId);
-	        	 var basicHeadId  = $('#<portlet:namespace/>basicHeadId').val();
-	        	 var primaryHeadId  = $('#<portlet:namespace/>primaryHeadId').val();
-	        	 var secondaryHeadId  = $('#<portlet:namespace/>secondaryHeadId').val();
-	        	 var tertiaryHeadId  = $('#<portlet:namespace/>tertiaryHeadId').val();
-	        	 var nature  = $('#<portlet:namespace/>nature').val();
-	        	 var type  = $('#<portlet:namespace/>type').val();
-	        	 var categoryId  = $('#<portlet:namespace/>categoryId').val();
-	        	 var subCategoryId  = $('#<portlet:namespace/>subCategoryId').val();
-	        	 var fileCodeId  = $('#<portlet:namespace/>fileCodeId').val();
-	        	 var year = $('#<portlet:namespace/>year').val();
-	        	 var remarks  = $('#<portlet:namespace/>remarks').val();
-	        	 var reference = $('#<portlet:namespace/>reference').val();
-	        	
-	        	 console.log("----basichead"+basicHeadId+"priary-------"+primaryHeadId+"---second----"+secondaryHeadId+"--tertiary---"+tertiaryHeadId+"---nature--"+nature+"---categoryId---"+categoryId+"---subCategoryId---"+subCategoryId+"---fileCodeId---"+fileCodeId+"---year--"+year+"--remarks---"+remarks+"--reference--"+reference+"---type-"+type);
-	        	 
-	        	 var formdata = new FormData();
-	        	 formdata.append('subject',subject);
-	        	 formdata.append('primaryHeadId',primaryHeadId);
-	        	 formdata.append('basicHeadId',basicHeadId);
-	        	 formdata.append('secondaryHeadId',secondaryHeadId);
-	        	 formdata.append('tertiaryHeadId',tertiaryHeadId);
-	        	 formdata.append('nature',nature);
-	        	 formdata.append('categoryId',categoryId);
-	        	 formdata.append('subCategoryId',subCategoryId);
-	        	 formdata.append('fileCodeId',fileCodeId);
-	        	 formdata.append('year',year);
-	        	 formdata.append('remarks',remarks);
-	        	 formdata.append('reference',reference);
-	        	 formdata.append('type',type);
-	        	 formdata.append('userPostId',userPostId);
-	        	 
-	        	 var object = {};
-	        	 formdata.forEach(function(value, key){
-	        	    
-	        		 object[key] = value;
-	        	 });
-	        	 var json = JSON.stringify(object);
-	        	/* formdata.append('nature','natureValue');*/
-	        	/* console.log(formdata.get("BasicHeadId"));*/
+	        	 var formObj= $('#<portlet:namespace/>formId')[0];
+	             var jsonData = bindFormDataJson(formObj);
+	             jsonData["userPostId"] = userPostId;
+	          var jsonObj = JSON.stringify(jsonData);  
 	        	 $.ajax({
 	        		    type: "POST",
 	        		    url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
-	        		    data: json,
+	        		    data: jsonObj,
 	        		    dataType: 'json',
 	        		    cache : false,
 	        		    processData: false,
 	        	        contentType : 'application/json'
 	        		  }).done(function(response) {
 	        			  console.log(response);
-	        			
-	                    
+		        
 	        	 })
 	        });
-	        
-	     	
-	         
-	         
-	         
+	                 
 </aui:script>
-
-
-
-
-
-
-
-
 

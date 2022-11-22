@@ -7,6 +7,7 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
+<%@ include file="/js/common.js" %> 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <div class="row">
@@ -23,20 +24,31 @@
 	%>
 	<div class="col mr-2 receipt">
 		<aui:container fluid="1200">
-			<aui:form name="receiptForm" id="receiptForm">
-				<aui:input name="receiptId" id="receiptId"  type="hidden" value="${receiptId}" />
-				<aui:input name="userPostId" id="userPostId"  type="hidden" />
-				<aui:row>
-					<aui:col lg="6" cssClass="border" >
+		<aui:form >
+		<aui:col lg="6" cssClass="border" >
 						<div id="targetDiv" class="targetDiv" >
 							<aui:input id="document" name="document" type="file" >
 								<aui:validator name="required" />
 								<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
-							</aui:input>
-							<aui:input id="tempFileId" name="tempFileId" type="hidden" />
+							</aui:input>	
+						</div>
+					</aui:col>
+		</aui:form>
+			<aui:form name="receiptForm" id="receiptForm">
+				<%-- <aui:input name="receiptId" id="receiptId"  type="hidden" value="${receiptId}" />
+				<aui:input name="userPostId" id="userPostId"  type="hidden" /> --%>
+				<aui:row>
+					 <aui:col lg="6" cssClass="border" >
+						<div id="targetDiv" class="targetDiv" >
+							 <%-- <aui:input id="document" name="document" type="file" >
+								<aui:validator name="required" />
+								<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
+							</aui:input> 
+							 <aui:input id="tempFileId" name="tempFileId" />  --%>
 
 						</div>
 					</aui:col>
+					
 					<aui:col lg="6" cssClass="border">
 					<div class="scroll">
 						<div class="border heading">
@@ -229,7 +241,7 @@
 								<div class="textOnInput">
 									<label>State</label>
 									<aui:select label="" name="stateId" id="stateId">
-										<aui:option value="">Select</aui:option>
+										<aui:option value="6">Select</aui:option>
 									</aui:select>
 								</div>
 							</aui:col>
