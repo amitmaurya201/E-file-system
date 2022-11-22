@@ -211,7 +211,16 @@ public interface MasterdataLocalService
 	public List<Masterdata> getCategory();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getCategoryById(long categoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getCountry();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getCountryById(long countryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getDeliveryModeById(long deliveryModeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModes();
@@ -220,7 +229,13 @@ public interface MasterdataLocalService
 	public List<Masterdata> getFile();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getFileById(long fileCodeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileListViewDto> getFileList(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getFileListCount(long userPostId);
 
 	/**
 	 * Returns the masterdata with the primary key.
@@ -255,6 +270,9 @@ public interface MasterdataLocalService
 	public int getMasterdatasCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getOrganizationById(long organizationId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getOrgranizations();
 
 	/**
@@ -282,10 +300,19 @@ public interface MasterdataLocalService
 	public List<Masterdata> getReceiptCategory();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getReceiptCategoryById(long receiptCategoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptListViewDto> getReceiptList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getReceiptListCount(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getReceiptSubCategoryById(long receiptSubCategoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getSecondary(long secondaryHeadId);
@@ -294,10 +321,19 @@ public interface MasterdataLocalService
 	public List<Masterdata> getSecondaryHead(long primaryHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getStateById(long stateId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getStates(long countryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSubcategories(long categoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getSubCategoryById(long subCategoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getSubOrganizationById(long subOrganizationId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSubOrgranizations(long organizationId);
@@ -307,6 +343,9 @@ public interface MasterdataLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getTertiary(long tertiaryHeadId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getTypeById(long typeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getTypes();

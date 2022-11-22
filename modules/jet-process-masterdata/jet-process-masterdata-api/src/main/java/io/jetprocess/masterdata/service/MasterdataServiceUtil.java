@@ -49,8 +49,22 @@ public class MasterdataServiceUtil {
 		return getService().getCategoryMasterdata();
 	}
 
+	public static Masterdata getCategoryValueByIdMasterdata(long categoryId) {
+		return getService().getCategoryValueByIdMasterdata(categoryId);
+	}
+
 	public static List<Masterdata> getCountriesMasterdata() {
 		return getService().getCountriesMasterdata();
+	}
+
+	public static Masterdata getCountryByIdMasterdata(long countryId) {
+		return getService().getCountryByIdMasterdata(countryId);
+	}
+
+	public static Masterdata getDeliveryModeByIdMasterdata(
+		long deliveryModeId) {
+
+		return getService().getDeliveryModeByIdMasterdata(deliveryModeId);
 	}
 
 	public static List<Masterdata> getDeliveryModeMasterdata() {
@@ -61,10 +75,20 @@ public class MasterdataServiceUtil {
 		return getService().getFileCodeMasterdata();
 	}
 
+	public static Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
+		return getService().getFileCodeValueByIdMasterdata(fileCodeId);
+	}
+
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileCreatedListMasterdata(long userPostId) {
 
 		return getService().getFileCreatedListMasterdata(userPostId);
+	}
+
+	public static Masterdata getOrganizationByIdMasterdata(
+		long organizationId) {
+
+		return getService().getOrganizationByIdMasterdata(organizationId);
 	}
 
 	public static List<Masterdata> getOrganizationMasterdata() {
@@ -88,6 +112,12 @@ public class MasterdataServiceUtil {
 		return getService().getPrimaryHeadMasterdata(basicHeadId);
 	}
 
+	public static Masterdata getReceiptCategoryByIdMasterdata(
+		long receiptCategoryId) {
+
+		return getService().getReceiptCategoryByIdMasterdata(receiptCategoryId);
+	}
+
 	public static List<Masterdata> getReceiptCategoryMasterdata() {
 		return getService().getReceiptCategoryMasterdata();
 	}
@@ -96,6 +126,13 @@ public class MasterdataServiceUtil {
 		getReceiptListMasterdata(long userPostId) {
 
 		return getService().getReceiptListMasterdata(userPostId);
+	}
+
+	public static Masterdata getReceiptSubCategoryByIdMasterdata(
+		long receiptSubCategoryId) {
+
+		return getService().getReceiptSubCategoryByIdMasterdata(
+			receiptSubCategoryId);
 	}
 
 	public static List<Masterdata> getReceiptSubCategoryMasterdata(
@@ -116,12 +153,28 @@ public class MasterdataServiceUtil {
 		return getService().getSecondaryHeadMasterdata(primaryHeadId);
 	}
 
+	public static Masterdata getStateByIdMasterdata(long stateId) {
+		return getService().getStateByIdMasterdata(stateId);
+	}
+
 	public static List<Masterdata> getStatesMasterdata(long countryId) {
 		return getService().getStatesMasterdata(countryId);
 	}
 
 	public static List<Masterdata> getSubCategoryMasterdata(long categoryId) {
 		return getService().getSubCategoryMasterdata(categoryId);
+	}
+
+	public static Masterdata getSubCategoryValueByIdMasterdata(
+		long subCategoryId) {
+
+		return getService().getSubCategoryValueByIdMasterdata(subCategoryId);
+	}
+
+	public static Masterdata getSubOrganizationByIdMasterdata(
+		long subOrganizationId) {
+
+		return getService().getSubOrganizationByIdMasterdata(subOrganizationId);
 	}
 
 	public static List<Masterdata> getSubOrganizationMasterdata(
@@ -142,6 +195,10 @@ public class MasterdataServiceUtil {
 
 	public static List<Masterdata> getTypeMasterdata() {
 		return getService().getTypeMasterdata();
+	}
+
+	public static Masterdata getTypeValueByIdMasterdata(long typeId) {
+		return getService().getTypeValueByIdMasterdata(typeId);
 	}
 
 	public static MasterdataService getService() {

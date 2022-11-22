@@ -85,4 +85,41 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptCreatedList(long userPostId);
 
+	public int getFileCreatedListCount(long userPostId);
+
+	public int getReceiptCreatedListCount(long userPostId);
+
+	public io.jetprocess.masterdata.model.Masterdata getFileCodeValueById(
+		long fileCodeId);
+
+	public io.jetprocess.masterdata.model.Masterdata getCategoryValueById(
+		long categoryId);
+
+	public io.jetprocess.masterdata.model.Masterdata getSubCategoryValueById(
+		long subCategoryId);
+
+	public io.jetprocess.masterdata.model.Masterdata getTypeValueById(
+		long typeId);
+
+	public io.jetprocess.masterdata.model.Masterdata getDeliveryModeValueById(
+		long deliveryModeId);
+
+	public io.jetprocess.masterdata.model.Masterdata getOrganizationValueById(
+		long organizationId);
+
+	public io.jetprocess.masterdata.model.Masterdata
+		getSubOrganizationValueById(long subOrganizationId);
+
+	public io.jetprocess.masterdata.model.Masterdata getCountryValueById(
+		long countryId);
+
+	public io.jetprocess.masterdata.model.Masterdata getStateValueById(
+		long stateId);
+
+	public io.jetprocess.masterdata.model.Masterdata
+		getReceiptCategoryValueById(long receiptCategoryId);
+
+	public io.jetprocess.masterdata.model.Masterdata
+		getReceiptSubCategoryValueById(long receiptSubCategoryId);
+
 }

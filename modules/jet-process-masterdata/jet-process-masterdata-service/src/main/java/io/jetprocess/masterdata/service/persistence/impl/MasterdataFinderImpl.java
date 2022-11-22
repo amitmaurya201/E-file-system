@@ -6,6 +6,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
 
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 
@@ -557,6 +558,374 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
 			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+
+	public int getFileCreatedListCount(long userPostId) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "fileListCount");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println("query---"+sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			List  count = sqlQuery.list();
+			BigInteger b1 = null;
+			for (Object object : count) {
+				b1 = (BigInteger) object;
+			}
+			 int i1 = b1.intValue();
+			 
+			
+			
+			return i1;
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return (Integer)null;
+	}
+
+	public int getReceiptCreatedListCount(long userPostId) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "receiptListCount");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println("query---"+sql);
+			sqlQuery.setCacheable(false);
+			List  count = sqlQuery.list();
+			BigInteger b1 = null;
+			for (Object object : count) {
+				b1 = (BigInteger) object;
+			}
+			 int i1 = b1.intValue();
+			 return i1;
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return (Integer) null;
+	}
+
+	public Masterdata getFileCodeValueById(long fileCodeId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getFileCodeValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(fileCodeId);
+			object = sqlQuery.uniqueResult();
+			
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public Masterdata getCategoryValueById(long categoryId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getCategoryValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(categoryId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public Masterdata getSubCategoryValueById(long subCategoryId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getSubCategoryValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(subCategoryId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+	public Masterdata getTypeValueById(long typeId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getTypeValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(typeId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public Masterdata getDeliveryModeValueById(long deliveryModeId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getDeliveryModeValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(deliveryModeId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+	public Masterdata getOrganizationValueById(long organizationId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getOrganizationValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(organizationId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public Masterdata getSubOrganizationValueById(long subOrganizationId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getSubOrganizationValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(subOrganizationId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+	public Masterdata getCountryValueById(long countryId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getCountryValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(countryId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public Masterdata getStateValueById(long stateId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getStateValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(stateId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public Masterdata getReceiptCategoryValueById(long receiptCategoryId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptCategoryValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(receiptCategoryId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+
+	public Masterdata getReceiptSubCategoryValueById(long receiptSubCategoryId) {
+		Object object = null;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptSubCategoryValueById");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(receiptSubCategoryId);
+			object = sqlQuery.uniqueResult();
+			
+			return (Masterdata)object;
 
 		} catch (Exception e) {
 			try {

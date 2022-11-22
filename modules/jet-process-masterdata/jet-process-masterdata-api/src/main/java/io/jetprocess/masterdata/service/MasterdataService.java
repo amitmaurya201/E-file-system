@@ -64,7 +64,16 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getCategoryMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getCategoryValueByIdMasterdata(long categoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getCountriesMasterdata();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getCountryByIdMasterdata(long countryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getDeliveryModeByIdMasterdata(long deliveryModeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getDeliveryModeMasterdata();
@@ -73,7 +82,13 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getFileCodeMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getOrganizationByIdMasterdata(long organizationId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getOrganizationMasterdata();
@@ -92,10 +107,17 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getPrimaryHeadMasterdata(long basicHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getReceiptCategoryByIdMasterdata(long receiptCategoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptCategoryMasterdata();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptListViewDto> getReceiptListMasterdata(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getReceiptSubCategoryByIdMasterdata(
+		long receiptSubCategoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategoryMasterdata(
@@ -108,10 +130,19 @@ public interface MasterdataService extends BaseService {
 	public List<Masterdata> getSecondaryHeadMasterdata(long primaryHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getStateByIdMasterdata(long stateId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getStatesMasterdata(long countryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSubCategoryMasterdata(long categoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getSubCategoryValueByIdMasterdata(long subCategoryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getSubOrganizationByIdMasterdata(long subOrganizationId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getSubOrganizationMasterdata(long organizationId);
@@ -124,5 +155,8 @@ public interface MasterdataService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getTypeMasterdata();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Masterdata getTypeValueByIdMasterdata(long typeId);
 
 }

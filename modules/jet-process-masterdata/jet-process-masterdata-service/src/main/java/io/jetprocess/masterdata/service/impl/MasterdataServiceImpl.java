@@ -135,4 +135,50 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 
 		return masterdataLocalService.getReceiptList(userPostId);
 	}
+public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
+		
+		return masterdataLocalService.getFileById(fileCodeId);
+		
+	}
+	public Masterdata getCategoryValueByIdMasterdata(long categoryId) {
+		
+		return masterdataLocalService.getCategoryById(categoryId);
+		
+	}
+	public Masterdata getSubCategoryValueByIdMasterdata(long subCategoryId) {
+		
+		return masterdataLocalService.getSubCategoryById(subCategoryId);
+	}
+	public Masterdata getTypeValueByIdMasterdata(long typeId) {
+	
+		return masterdataLocalService.getTypeById(typeId);
+	}
+    public Masterdata getDeliveryModeByIdMasterdata(long deliveryModeId) {
+    	
+    	return masterdataLocalService.getDeliveryModeById(deliveryModeId);
+    }
+    public Masterdata getOrganizationByIdMasterdata(long organizationId) {
+    	
+    	return masterdataLocalService.getOrganizationById(organizationId);
+    }
+    public Masterdata getSubOrganizationByIdMasterdata(long subOrganizationId) {
+    	
+    	return masterdataLocalService.getSubOrganizationById(subOrganizationId);
+    }
+    public Masterdata getCountryByIdMasterdata(long countryId) {
+    	
+    	return masterdataLocalService.getCountryById(countryId);
+    }
+    public Masterdata getStateByIdMasterdata(long stateId) {
+    	
+    	return masterdataLocalService.getStateById(stateId);
+    }
+    public Masterdata getReceiptCategoryByIdMasterdata(long receiptCategoryId) {
+    	
+    	return masterdataLocalService.getReceiptCategoryById(receiptCategoryId);
+    }
+    public Masterdata getReceiptSubCategoryByIdMasterdata(long receiptSubCategoryId) {
+    	
+    	return masterdataLocalService.getReceiptSubCategoryById(receiptSubCategoryId);
+    }
 }

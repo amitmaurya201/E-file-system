@@ -142,5 +142,64 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		
 		return masterdataFinder.getReceiptCreatedList(userPostId) ;
 	}
+	 public int getFileListCount(long userPostId) {
+	        
+		    System.out.println(userPostId);
+			
+			return masterdataFinder.getFileCreatedListCount(userPostId);
+		}
+	   public int getReceiptListCount(long userPostId) {
+	          
+			
+			return masterdataFinder.getReceiptCreatedListCount(userPostId);
+		}
+	   public Masterdata getFileById(long fileCodeId) {
+		   
+		   return masterdataFinder.getFileCodeValueById(fileCodeId);
+	   }
+	   public Masterdata getCategoryById(long categoryId) {
+		   
+		   return masterdataFinder.getCategoryValueById(categoryId);
+		   
+	   }
+
+	   public Masterdata getSubCategoryById(long subCategoryId) {
+		   
+		   return masterdataFinder.getSubCategoryValueById(subCategoryId);
+	   }
+	   public Masterdata getTypeById(long typeId) {
+		   
+		   return masterdataFinder.getTypeValueById(typeId);
+	   }
+	   public Masterdata getDeliveryModeById(long deliveryModeId) {
+		   
+		   return masterdataFinder.getDeliveryModeValueById(deliveryModeId);
+	   }
+	   public Masterdata getOrganizationById(long organizationId) {
+		   
+		   return masterdataFinder.getOrganizationValueById(organizationId);
+	   }
+	   public Masterdata getSubOrganizationById(long subOrganizationId) {
+		   
+		   return masterdataFinder.getSubOrganizationValueById(subOrganizationId);
+	   }
+	   public Masterdata getCountryById(long countryId) {
+		   
+		   return masterdataFinder.getCountryValueById(countryId);
+	   }
+	   public Masterdata getStateById(long stateId) {
+		   
+		   return masterdataFinder.getStateValueById(stateId);
+		   
+	   }
+	   public Masterdata getReceiptCategoryById(long receiptCategoryId) {
+		   
+		   return masterdataFinder.getReceiptCategoryValueById(receiptCategoryId);
+	   }
+	   public Masterdata getReceiptSubCategoryById(long receiptSubCategoryId) {
+		   
+		   return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
+	   }
+	   
 
 }

@@ -744,6 +744,366 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static io.jetprocess.masterdata.model.Masterdata
+		getFileCodeValueByIdMasterdata(
+			HttpPrincipal httpPrincipal, long fileCodeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getFileCodeValueByIdMasterdata",
+				_getFileCodeValueByIdMasterdataParameterTypes21);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, fileCodeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getCategoryValueByIdMasterdata(
+			HttpPrincipal httpPrincipal, long categoryId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getCategoryValueByIdMasterdata",
+				_getCategoryValueByIdMasterdataParameterTypes22);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, categoryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getSubCategoryValueByIdMasterdata(
+			HttpPrincipal httpPrincipal, long subCategoryId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class,
+				"getSubCategoryValueByIdMasterdata",
+				_getSubCategoryValueByIdMasterdataParameterTypes23);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, subCategoryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getTypeValueByIdMasterdata(HttpPrincipal httpPrincipal, long typeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getTypeValueByIdMasterdata",
+				_getTypeValueByIdMasterdataParameterTypes24);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, typeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getDeliveryModeByIdMasterdata(
+			HttpPrincipal httpPrincipal, long deliveryModeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getDeliveryModeByIdMasterdata",
+				_getDeliveryModeByIdMasterdataParameterTypes25);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, deliveryModeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getOrganizationByIdMasterdata(
+			HttpPrincipal httpPrincipal, long organizationId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getOrganizationByIdMasterdata",
+				_getOrganizationByIdMasterdataParameterTypes26);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, organizationId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getSubOrganizationByIdMasterdata(
+			HttpPrincipal httpPrincipal, long subOrganizationId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getSubOrganizationByIdMasterdata",
+				_getSubOrganizationByIdMasterdataParameterTypes27);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, subOrganizationId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getCountryByIdMasterdata(HttpPrincipal httpPrincipal, long countryId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getCountryByIdMasterdata",
+				_getCountryByIdMasterdataParameterTypes28);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, countryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getStateByIdMasterdata(HttpPrincipal httpPrincipal, long stateId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getStateByIdMasterdata",
+				_getStateByIdMasterdataParameterTypes29);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, stateId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getReceiptCategoryByIdMasterdata(
+			HttpPrincipal httpPrincipal, long receiptCategoryId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getReceiptCategoryByIdMasterdata",
+				_getReceiptCategoryByIdMasterdataParameterTypes30);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, receiptCategoryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static io.jetprocess.masterdata.model.Masterdata
+		getReceiptSubCategoryByIdMasterdata(
+			HttpPrincipal httpPrincipal, long receiptSubCategoryId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class,
+				"getReceiptSubCategoryByIdMasterdata",
+				_getReceiptSubCategoryByIdMasterdataParameterTypes31);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, receiptSubCategoryId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.masterdata.model.Masterdata)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		MasterdataServiceHttp.class);
 
@@ -799,5 +1159,43 @@ public class MasterdataServiceHttp {
 		};
 	private static final Class<?>[] _getReceiptListMasterdataParameterTypes20 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_getFileCodeValueByIdMasterdataParameterTypes21 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCategoryValueByIdMasterdataParameterTypes22 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getSubCategoryValueByIdMasterdataParameterTypes23 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getTypeValueByIdMasterdataParameterTypes24 = new Class[] {long.class};
+	private static final Class<?>[]
+		_getDeliveryModeByIdMasterdataParameterTypes25 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getOrganizationByIdMasterdataParameterTypes26 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getSubOrganizationByIdMasterdataParameterTypes27 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getCountryByIdMasterdataParameterTypes28 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getStateByIdMasterdataParameterTypes29 =
+		new Class[] {long.class};
+	private static final Class<?>[]
+		_getReceiptCategoryByIdMasterdataParameterTypes30 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getReceiptSubCategoryByIdMasterdataParameterTypes31 = new Class[] {
+			long.class
+		};
 
 }

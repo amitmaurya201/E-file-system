@@ -192,4 +192,130 @@ SELECT receiptnumber as receiptnumber , subject as subject , categoryvalue as ca
 ]]>
 
 </sql>
+<sql id="fileListCount">
+<![CDATA[
+
+SELECT count(*)
+ FROM public.jet_process_docfile where userpostid = ?;
+
+]]>
+
+</sql>
+<sql id="receiptListCount">
+<![CDATA[
+
+SELECT count(*) FROM public.jet_process_receipt where userpostid = ?;
+
+
+]]>
+
+</sql>
+
+<sql id="getFileCodeValueById">
+<![CDATA[
+
+SELECT filecodeid as masterdataid , 'C-'||filecodeid as referenceid , filecodevalue as value , filecodevalue as code_
+	FROM filecode where  filecodeid = ? ;
+
+
+]]>
+
+</sql>
+
+<sql id="getCategoryValueById">
+<![CDATA[
+
+SELECT categorydataid as masterdataid , 'C-'||categorydataid as referenceid , categoryvalue as value , categoryvalue as code_
+	FROM category where categorydataid = ? ;
+
+
+]]>
+
+</sql>
+
+<sql id="getSubCategoryValueById">
+<![CDATA[
+
+SELECT subcategorydataid as masterdataid , 'C-'||categoryid as referenceid , subcategoryvalue as value , subcategoryvalue as code_
+	FROM subcategory where subcategorydataid = ? ;
+
+]]>
+
+</sql>
+
+<sql id="getTypeValueById">
+<![CDATA[
+
+SELECT typeid as masterdataid , 'C-'||typeid as referenceid , typevalue as value , typevalue as code_
+	FROM type where typeid = ? ;
+
+]]>
+
+</sql>
+
+<sql id="getDeliveryModeValueById">
+<![CDATA[
+
+SELECT deliverymodeid as masterdataid , 'C-'||deliverymodeid as referenceid , deliverymodevalue as value , deliverymodevalue	 as code_
+	FROM deliverymode where deliverymodeid = ? ;
+
+]]>
+
+</sql>
+<sql id="getOrganizationValueById">
+<![CDATA[
+
+SELECT organizationid as masterdataid , 'C-'||organizationid as referenceid , organizationvalue as value , organizationvalue	 as code_
+	FROM organization where organizationid = ? ;
+
+]]>
+
+</sql>
+<sql id="getSubOrganizationValueById">
+<![CDATA[
+
+SELECT suborganizationid as masterdataid , 'C-'||suborganizationid as referenceid , suborganizationvalue as value , suborganizationvalue	 as code_
+	FROM suborganization where suborganizationid = ? ;
+
+]]>
+
+</sql>
+
+<sql id="getCountryValueById">
+<![CDATA[
+
+SELECT countryid as masterdataid , 'C-'||countryid as referenceid , countryvalue as value , countryvalue	 as code_
+	FROM country where countryid = ? ;
+
+]]>
+
+</sql>
+<sql id="getStateValueById">
+<![CDATA[
+
+SELECT stateid as masterdataid , 'C-'||stateid as referenceid , statevalue as value , statevalue as code_
+	FROM state where stateid = ? ;
+
+]]>
+
+</sql>
+<sql id="getReceiptCategoryValueById">
+<![CDATA[
+
+SELECT receiptcategorydataid as masterdataid , 'C-'||receiptcategorydataid as referenceid , receiptcategoryvalue as value , receiptcategoryvalue as code_
+	FROM receiptcategory where receiptcategorydataid = ? ;
+
+]]>
+
+</sql>
+<sql id="getReceiptSubCategoryValueById">
+<![CDATA[
+
+SELECT receiptsubcategorydataid as masterdataid , 'C-'||receiptsubcategorydataid as referenceid , receiptsubcategoryvalue as value , receiptsubcategoryvalue as code_
+	FROM receiptsubcategory where receiptsubcategorydataid = ? ;
+
+]]>
+
+</sql>
+
 </custom-sql>

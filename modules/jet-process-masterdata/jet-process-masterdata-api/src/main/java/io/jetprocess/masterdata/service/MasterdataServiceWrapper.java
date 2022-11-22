@@ -56,10 +56,31 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getCategoryValueByIdMasterdata(long categoryId) {
+
+		return _masterdataService.getCategoryValueByIdMasterdata(categoryId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getCountriesMasterdata() {
 
 		return _masterdataService.getCountriesMasterdata();
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata getCountryByIdMasterdata(
+		long countryId) {
+
+		return _masterdataService.getCountryByIdMasterdata(countryId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getDeliveryModeByIdMasterdata(long deliveryModeId) {
+
+		return _masterdataService.getDeliveryModeByIdMasterdata(deliveryModeId);
 	}
 
 	@Override
@@ -77,10 +98,24 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getFileCodeValueByIdMasterdata(long fileCodeId) {
+
+		return _masterdataService.getFileCodeValueByIdMasterdata(fileCodeId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileCreatedListMasterdata(long userPostId) {
 
 		return _masterdataService.getFileCreatedListMasterdata(userPostId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getOrganizationByIdMasterdata(long organizationId) {
+
+		return _masterdataService.getOrganizationByIdMasterdata(organizationId);
 	}
 
 	@Override
@@ -115,6 +150,14 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getReceiptCategoryByIdMasterdata(long receiptCategoryId) {
+
+		return _masterdataService.getReceiptCategoryByIdMasterdata(
+			receiptCategoryId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getReceiptCategoryMasterdata() {
 
@@ -126,6 +169,14 @@ public class MasterdataServiceWrapper
 		getReceiptListMasterdata(long userPostId) {
 
 		return _masterdataService.getReceiptListMasterdata(userPostId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getReceiptSubCategoryByIdMasterdata(long receiptSubCategoryId) {
+
+		return _masterdataService.getReceiptSubCategoryByIdMasterdata(
+			receiptSubCategoryId);
 	}
 
 	@Override
@@ -152,6 +203,13 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.masterdata.model.Masterdata getStateByIdMasterdata(
+		long stateId) {
+
+		return _masterdataService.getStateByIdMasterdata(stateId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getStatesMasterdata(long countryId) {
 
@@ -163,6 +221,22 @@ public class MasterdataServiceWrapper
 		getSubCategoryMasterdata(long categoryId) {
 
 		return _masterdataService.getSubCategoryMasterdata(categoryId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getSubCategoryValueByIdMasterdata(long subCategoryId) {
+
+		return _masterdataService.getSubCategoryValueByIdMasterdata(
+			subCategoryId);
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata
+		getSubOrganizationByIdMasterdata(long subOrganizationId) {
+
+		return _masterdataService.getSubOrganizationByIdMasterdata(
+			subOrganizationId);
 	}
 
 	@Override
@@ -191,6 +265,13 @@ public class MasterdataServiceWrapper
 		getTypeMasterdata() {
 
 		return _masterdataService.getTypeMasterdata();
+	}
+
+	@Override
+	public io.jetprocess.masterdata.model.Masterdata getTypeValueByIdMasterdata(
+		long typeId) {
+
+		return _masterdataService.getTypeValueByIdMasterdata(typeId);
 	}
 
 	@Override
