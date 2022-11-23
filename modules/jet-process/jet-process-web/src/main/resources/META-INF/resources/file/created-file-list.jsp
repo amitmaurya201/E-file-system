@@ -15,12 +15,12 @@
 
  
  <portlet:renderURL var="fileInnerView">
-    <portlet:param name="mvcPath" value="/file/file-view-nav.jsp"/>
+    <portlet:param name="mvcPath" value="/file/details.jsp"/>
     <portlet:param name="fileNumber" value="${ posting}" />
 </portlet:renderURL>
  
 
-<%@ include file="../file/file-view-nav.jsp"%>
+<%-- <%@ include file="../file/file-view-nav.jsp"%> --%>
 
 <%
 //orderByCol is the column name passed in the request while sorting

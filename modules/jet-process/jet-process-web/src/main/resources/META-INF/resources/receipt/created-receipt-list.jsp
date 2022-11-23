@@ -13,6 +13,37 @@
 <%@page import="com.liferay.portal.kernel.util.Validator"%>
 <%@page import="java.util.List"%>
 
+<style>
+	.subject, .remark{
+		white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50ch;
+        color: red;
+	}
+	.popup {
+            display: none;
+            width: 500px;
+            border: solid red 3px;
+            color: aquamarine;
+        }
+</style>
+<script>
+        $flag = -1;
+  
+        $("td").hover(
+            function () {
+                $("td.popup").attr("style", "display:block");
+            },
+            function () {
+                if ($flag == -1) {
+                    $("td.popup").attr("style", "display:none");
+                }
+            }
+        );
+  
+    </script>
+
 
 
 <%
@@ -83,15 +114,19 @@
 		<liferay-ui:search-container-column-text href="<%=receiptInnerView%>"
 			property="receiptNumber" name="Receipt No." orderable="true" />
 
-		<liferay-ui:search-container-column-text property="subject" />
+		<liferay-ui:search-container-column-text cssClass="subject" property="subject" />
 
 		<liferay-ui:search-container-column-text property="category" />
 
 		<liferay-ui:search-container-column-text property="createDate"
 			orderable="true" name="Create On" orderableProperty="createDate" />
 
-		<liferay-ui:search-container-column-text property="remark"
+		<liferay-ui:search-container-column-text property="remark" cssClass="remark"
 			name="Remarks" />
+		
+			
+		<liferay-ui:search-container-column-text property="pdf" cssClass="fa fa-file-pdf-o"
+			name="pdf" />
 
 
 	</liferay-ui:search-container-row>
