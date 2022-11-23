@@ -1,5 +1,11 @@
+<%@page import="java.util.List"%>
 <%@ include file="../init.jsp" %>
 <%@ include file="../navigation.jsp" %>
+
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import ="io.jetprocess.masterdata.service.UserPostLocalServiceUtil" %>
+<%@ page import="io.jetprocess.masterdata.model.UserPost" %>
+
 <style>
 
 .border a{
@@ -151,6 +157,29 @@
     
   </div>
 </nav>
+
+
+<%-- <%
+
+ if(themeDisplay.isSignedIn()){
+ List<UserPost> userPostList =UserPostLocalServiceUtil.getUserPostList(user.getUserId());
+ for(UserPost userPosts:userPostList){
+ long id=userPosts.getUserPostId();
+ String name=userPosts.getShortName();
+  out.println("userPostId--> "+id);
+  out.println("userPostName--> "+name);
+ %> 
+
+
+<form action="">  
+	<input type="text" name="uname" value="<%= id%>">  
+	<input type="text" value="${userPostId}"><br/>  
+</form>  
+
+<% }}%>
+ --%>
+
+
 
 <script>
 var navId = "${param.selectedNav}";

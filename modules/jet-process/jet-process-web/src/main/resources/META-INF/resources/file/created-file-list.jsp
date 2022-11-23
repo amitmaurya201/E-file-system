@@ -15,10 +15,12 @@
 
  
  <portlet:renderURL var="fileInnerView">
-    <portlet:param name="mvcPath" value="/file/file-view.jsp"/>
+    <portlet:param name="mvcPath" value="/file/file-view-nav.jsp"/>
+    <portlet:param name="fileNumber" value="${ posting}" />
 </portlet:renderURL>
  
 
+<%@ include file="../file/file-view-nav.jsp"%>
 
 <%
 //orderByCol is the column name passed in the request while sorting
@@ -80,7 +82,7 @@ if(Validator.isNull(orderByType)){
             modelVar="posting">
      
      
-        <liferay-ui:search-container-column-text  href="<%=fileInnerView%>" name="File No." property="fileNumber" orderable="true" />
+        <liferay-ui:search-container-column-text href="<%=fileInnerView%>" name="File No." property="fileNumber" orderable="true" />
  
         <liferay-ui:search-container-column-text property="subject"  name="Subject" />
  
