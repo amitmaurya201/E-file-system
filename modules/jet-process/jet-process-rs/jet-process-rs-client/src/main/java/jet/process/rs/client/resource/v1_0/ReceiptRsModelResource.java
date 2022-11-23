@@ -30,9 +30,11 @@ public interface ReceiptRsModelResource {
 			ReceiptRsModel receiptRsModel)
 		throws Exception;
 
-	public ReceiptRsModel getReceiptByReceiptId(Long id) throws Exception;
+	public ReceiptRsModel getReceiptByReceiptId(Long receiptId)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse getReceiptByReceiptIdHttpResponse(Long id)
+	public HttpInvoker.HttpResponse getReceiptByReceiptIdHttpResponse(
+			Long receiptId)
 		throws Exception;
 
 	public static class Builder {
@@ -196,9 +198,11 @@ public interface ReceiptRsModelResource {
 			return httpInvoker.invoke();
 		}
 
-		public ReceiptRsModel getReceiptByReceiptId(Long id) throws Exception {
+		public ReceiptRsModel getReceiptByReceiptId(Long receiptId)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				getReceiptByReceiptIdHttpResponse(id);
+				getReceiptByReceiptIdHttpResponse(receiptId);
 
 			String content = httpResponse.getContent();
 
@@ -239,7 +243,7 @@ public interface ReceiptRsModelResource {
 		}
 
 		public HttpInvoker.HttpResponse getReceiptByReceiptIdHttpResponse(
-				Long id)
+				Long receiptId)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -266,9 +270,9 @@ public interface ReceiptRsModelResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + _builder._contextPath +
-						"/o/jet-process-rs/v1.0/receiptId/{id}");
+						"/o/jet-process-rs/v1.0/receiptId/{receiptId}");
 
-			httpInvoker.path("id", id);
+			httpInvoker.path("receiptId", receiptId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

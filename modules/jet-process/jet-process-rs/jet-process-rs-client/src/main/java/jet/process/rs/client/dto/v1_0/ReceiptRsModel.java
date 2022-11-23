@@ -228,25 +228,6 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 
 	protected Long groupId;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
-		try {
-			id = idUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Long id;
-
 	public String getLetterDate() {
 		return letterDate;
 	}
@@ -412,6 +393,27 @@ public class ReceiptRsModel implements Cloneable, Serializable {
 	}
 
 	protected Long receiptCategoryId;
+
+	public Long getReceiptId() {
+		return receiptId;
+	}
+
+	public void setReceiptId(Long receiptId) {
+		this.receiptId = receiptId;
+	}
+
+	public void setReceiptId(
+		UnsafeSupplier<Long, Exception> receiptIdUnsafeSupplier) {
+
+		try {
+			receiptId = receiptIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long receiptId;
 
 	public String getReceiptNumber() {
 		return receiptNumber;

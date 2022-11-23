@@ -165,16 +165,6 @@ public class ReceiptRsModelSerDes {
 			sb.append(receiptRsModel.getGroupId());
 		}
 
-		if (receiptRsModel.getId() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"id\": ");
-
-			sb.append(receiptRsModel.getId());
-		}
-
 		if (receiptRsModel.getLetterDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -277,6 +267,16 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"receiptCategoryId\": ");
 
 			sb.append(receiptRsModel.getReceiptCategoryId());
+		}
+
+		if (receiptRsModel.getReceiptId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptId\": ");
+
+			sb.append(receiptRsModel.getReceiptId());
 		}
 
 		if (receiptRsModel.getReceiptNumber() != null) {
@@ -589,13 +589,6 @@ public class ReceiptRsModelSerDes {
 			map.put("groupId", String.valueOf(receiptRsModel.getGroupId()));
 		}
 
-		if (receiptRsModel.getId() == null) {
-			map.put("id", null);
-		}
-		else {
-			map.put("id", String.valueOf(receiptRsModel.getId()));
-		}
-
 		if (receiptRsModel.getLetterDate() == null) {
 			map.put("letterDate", null);
 		}
@@ -658,6 +651,13 @@ public class ReceiptRsModelSerDes {
 			map.put(
 				"receiptCategoryId",
 				String.valueOf(receiptRsModel.getReceiptCategoryId()));
+		}
+
+		if (receiptRsModel.getReceiptId() == null) {
+			map.put("receiptId", null);
+		}
+		else {
+			map.put("receiptId", String.valueOf(receiptRsModel.getReceiptId()));
 		}
 
 		if (receiptRsModel.getReceiptNumber() == null) {
@@ -875,12 +875,6 @@ public class ReceiptRsModelSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "id")) {
-				if (jsonParserFieldValue != null) {
-					receiptRsModel.setId(
-						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
 			else if (Objects.equals(jsonParserFieldName, "letterDate")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setLetterDate((String)jsonParserFieldValue);
@@ -921,6 +915,12 @@ public class ReceiptRsModelSerDes {
 			else if (Objects.equals(jsonParserFieldName, "receiptCategoryId")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setReceiptCategoryId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "receiptId")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setReceiptId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}

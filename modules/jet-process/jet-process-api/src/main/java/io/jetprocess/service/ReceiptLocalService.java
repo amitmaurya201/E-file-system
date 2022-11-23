@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import java.util.List;
@@ -266,6 +267,10 @@ public interface ReceiptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceiptByReceiptId(long receiptId)
 		throws NoSuchReceiptException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Receipt getReceiptByTempFileId(long tempFileId)
+		throws IOException, PortalException;
 
 	/**
 	 * Returns the receipt matching the UUID and group.

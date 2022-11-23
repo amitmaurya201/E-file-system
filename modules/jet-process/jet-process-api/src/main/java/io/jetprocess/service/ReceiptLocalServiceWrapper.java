@@ -331,6 +331,14 @@ public class ReceiptLocalServiceWrapper
 		return _receiptLocalService.getReceiptByReceiptId(receiptId);
 	}
 
+	@Override
+	public io.jetprocess.model.Receipt getReceiptByTempFileId(long tempFileId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
+
+		return _receiptLocalService.getReceiptByTempFileId(tempFileId);
+	}
+
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *

@@ -40,7 +40,7 @@ public abstract class BaseReceiptRsModelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createReceipt' -d $'{"address": ___, "city": ___, "countryId": ___, "countryvalue": ___, "deliveryModeId": ___, "deliverymodevalue": ___, "designation": ___, "dmFileId": ___, "email": ___, "groupId": ___, "id": ___, "letterDate": ___, "mobile": ___, "modeNumber": ___, "name": ___, "organizationId": ___, "organizationvalue": ___, "pinCode": ___, "receiptCategoryId": ___, "receiptNumber": ___, "receiptSubCategoryId": ___, "receiptcategoryvalue": ___, "receiptsubcategoryvalue": ___, "receivedOn": ___, "referenceNumber": ___, "remarks": ___, "stateId": ___, "statevalue": ___, "subOrganizationId": ___, "subject": ___, "suborganizationvalue": ___, "tempFileId": ___, "typeId": ___, "typevalue": ___, "userPostId": ___, "viewPdfUrl": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createReceipt' -d $'{"address": ___, "city": ___, "countryId": ___, "countryvalue": ___, "deliveryModeId": ___, "deliverymodevalue": ___, "designation": ___, "dmFileId": ___, "email": ___, "groupId": ___, "letterDate": ___, "mobile": ___, "modeNumber": ___, "name": ___, "organizationId": ___, "organizationvalue": ___, "pinCode": ___, "receiptCategoryId": ___, "receiptId": ___, "receiptNumber": ___, "receiptSubCategoryId": ___, "receiptcategoryvalue": ___, "receiptsubcategoryvalue": ___, "receivedOn": ___, "referenceNumber": ___, "remarks": ___, "stateId": ___, "statevalue": ___, "subOrganizationId": ___, "subject": ___, "suborganizationvalue": ___, "tempFileId": ___, "typeId": ___, "typevalue": ___, "userPostId": ___, "viewPdfUrl": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {
@@ -61,13 +61,13 @@ public abstract class BaseReceiptRsModelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/jet-process-rs/v1.0/receiptId/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/jet-process-rs/v1.0/receiptId/{receiptId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
-				name = "id"
+				name = "receiptId"
 			)
 		}
 	)
@@ -77,13 +77,14 @@ public abstract class BaseReceiptRsModelResourceImpl
 		}
 	)
 	@javax.ws.rs.GET
-	@javax.ws.rs.Path("/receiptId/{id}")
+	@javax.ws.rs.Path("/receiptId/{receiptId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public ReceiptRsModel getReceiptByReceiptId(
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
-			@javax.validation.constraints.NotNull @javax.ws.rs.PathParam("id")
-			Long id)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("receiptId")
+			Long receiptId)
 		throws Exception {
 
 		return new ReceiptRsModel();

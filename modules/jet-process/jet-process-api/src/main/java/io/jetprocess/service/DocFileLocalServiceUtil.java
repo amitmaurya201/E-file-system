@@ -242,6 +242,10 @@ public class DocFileLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static DocFile getDocFile() {
+		return getService().getDocFile();
+	}
+
 	/**
 	 * Returns the doc file with the primary key.
 	 *

@@ -102,7 +102,7 @@
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="tertiaryHeadId" id="tertiaryHeadId" label="">
-																			<option value=''>Tertiary Head Code</option> 
+																			<option value='2'>Tertiary Head Code</option> 
 																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">

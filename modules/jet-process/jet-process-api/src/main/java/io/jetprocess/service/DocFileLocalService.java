@@ -225,6 +225,9 @@ public interface DocFileLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DocFile getDocFile();
+
 	/**
 	 * Returns the doc file with the primary key.
 	 *

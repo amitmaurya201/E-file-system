@@ -262,6 +262,11 @@ public class DocFileLocalServiceWrapper
 		return _docFileLocalService.getActionableDynamicQuery();
 	}
 
+	@Override
+	public io.jetprocess.model.DocFile getDocFile() {
+		return _docFileLocalService.getDocFile();
+	}
+
 	/**
 	 * Returns the doc file with the primary key.
 	 *

@@ -242,78 +242,17 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 	@Test
 	public void testGetReceiptByReceiptId() throws Exception {
-		ReceiptRsModel postReceiptRsModel =
-			testGetReceiptByReceiptId_addReceiptRsModel();
-
-		ReceiptRsModel getReceiptRsModel =
-			receiptRsModelResource.getReceiptByReceiptId(
-				postReceiptRsModel.getId());
-
-		assertEquals(postReceiptRsModel, getReceiptRsModel);
-		assertValid(getReceiptRsModel);
-	}
-
-	protected ReceiptRsModel testGetReceiptByReceiptId_addReceiptRsModel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		Assert.assertTrue(false);
 	}
 
 	@Test
 	public void testGraphQLGetReceiptByReceiptId() throws Exception {
-		ReceiptRsModel receiptRsModel =
-			testGraphQLGetReceiptByReceiptId_addReceiptRsModel();
-
-		Assert.assertTrue(
-			equals(
-				receiptRsModel,
-				ReceiptRsModelSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"receiptByReceiptId",
-								new HashMap<String, Object>() {
-									{
-										put("id", receiptRsModel.getId());
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/receiptByReceiptId"))));
+		Assert.assertTrue(true);
 	}
 
 	@Test
 	public void testGraphQLGetReceiptByReceiptIdNotFound() throws Exception {
-		Long irrelevantId = RandomTestUtil.randomLong();
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"receiptByReceiptId",
-						new HashMap<String, Object>() {
-							{
-								put("id", irrelevantId);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected ReceiptRsModel
-			testGraphQLGetReceiptByReceiptId_addReceiptRsModel()
-		throws Exception {
-
-		return testGraphQLReceiptRsModel_addReceiptRsModel();
-	}
-
-	protected ReceiptRsModel testGraphQLReceiptRsModel_addReceiptRsModel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		Assert.assertTrue(true);
 	}
 
 	protected void assertContains(
@@ -388,10 +327,6 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 	protected void assertValid(ReceiptRsModel receiptRsModel) throws Exception {
 		boolean valid = true;
-
-		if (receiptRsModel.getId() == null) {
-			valid = false;
-		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
@@ -540,6 +475,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 					"receiptCategoryId", additionalAssertFieldName)) {
 
 				if (receiptRsModel.getReceiptCategoryId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("receiptId", additionalAssertFieldName)) {
+				if (receiptRsModel.getReceiptId() == null) {
 					valid = false;
 				}
 
@@ -895,16 +838,6 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						receiptRsModel1.getId(), receiptRsModel2.getId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("letterDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getLetterDate(),
@@ -989,6 +922,17 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getReceiptCategoryId(),
 						receiptRsModel2.getReceiptCategoryId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("receiptId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getReceiptId(),
+						receiptRsModel2.getReceiptId())) {
 
 					return false;
 				}
@@ -1359,11 +1303,6 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("id")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("letterDate")) {
 			sb.append("'");
 			sb.append(String.valueOf(receiptRsModel.getLetterDate()));
@@ -1418,6 +1357,11 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 		}
 
 		if (entityFieldName.equals("receiptCategoryId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("receiptId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1600,7 +1544,6 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";
 				groupId = RandomTestUtil.randomLong();
-				id = RandomTestUtil.randomLong();
 				letterDate = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				mobile = StringUtil.toLowerCase(RandomTestUtil.randomString());
@@ -1612,6 +1555,7 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 					RandomTestUtil.randomString());
 				pinCode = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				receiptCategoryId = RandomTestUtil.randomLong();
+				receiptId = RandomTestUtil.randomLong();
 				receiptNumber = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				receiptSubCategoryId = RandomTestUtil.randomLong();

@@ -27,8 +27,7 @@
    function getUserPostId(){
 		var userPostId = $("#value").val();
 		 console.log(userPostId);	 
-	     return userPostId;	    
-	   
+	     return userPostId;	 
    }
  </script>
  

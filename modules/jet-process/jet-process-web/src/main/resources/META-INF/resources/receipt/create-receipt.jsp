@@ -11,10 +11,7 @@
 <%@ include file="/js/common.js" %> 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-<div class="row">
-	<div class="col-2">
 		<%@ include file="/navigation.jsp"%>
-	</div>
 	<%
 		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 		String setURl = serviceContext.getPortalURL();
@@ -23,34 +20,24 @@
 		DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
 
 	%>
-	<div class="col mr-2 receipt">
-		<aui:container fluid="1200">
-		<aui:form >
-		<aui:col lg="6" cssClass="border" >
-						<div id="targetDiv" class="targetDiv" >
-							<aui:input id="document" name="document" label="" type="file" >
-								<aui:validator name="required" />
-								<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
-							</aui:input>	
-						</div>
-					</aui:col>
-		</aui:form>
-			<aui:form name="receiptForm" id="receiptForm">
-				 <aui:input name="receiptId" id="receiptId" value="${receiptId}" />
-			<%--	<aui:input name="userPostId" id="userPostId"  type="hidden" /> --%>
-				<aui:row>
-					 <aui:col lg="6" cssClass="border" >
-						<div id="targetDiv" class="targetDiv" >
-							 <%-- <aui:input id="document" name="document" type="file" >
-								<aui:validator name="required" />
-								<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
-							</aui:input> 
-							 <aui:input id="tempFileId" name="tempFileId" />  --%>
+	<div class=" mr-1 receipt">
+		<aui:container cssClass="row" >
+		
+			<aui:form cssClass="col-6" >
+			<aui:col cssClass="border" >
+							<div id="targetDiv" class="targetDiv" >
+								<aui:input id="document" label = "" name="document" type="file" >
+									<aui:validator name="required" />
+									<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
+								</aui:input>	
+							</div>
+						</aui:col>
+			</aui:form>
 
-						</div>
-					</aui:col>
-					
-					<aui:col lg="6" cssClass="border">
+			<aui:form  cssClass="col-6"  name="receiptForm" id="receiptForm">
+				<%--  <aui:input name="receiptId" id="receiptId" value="${receiptId}" /> --%>
+				<aui:row>
+					<aui:col  cssClass="border">
 					<div class="scroll">
 						<div class="border heading">
 							<h4>

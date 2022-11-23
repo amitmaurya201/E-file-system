@@ -25,14 +25,15 @@ import jet.process.rs.resource.v1_0.FileRsModelResource;
 public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	@Override
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
-		long docFileId = counterLocalService.increment(DocFile.class.getName());
-		System.out.println(docFileId);
+		 DocFile docFile=docFileLocalService.getDocFile();
+		//long docFileId = counterLocalService.increment(DocFile.class.getName());
+		//System.out.println(docFileId);
 		System.out.println(fileRsModel.getBasicHeadId());
 		System.out.println(fileRsModel.getPrimaryHeadId());
 		System.out.println(fileRsModel.getPrimaryHeadId());
 		System.out.println(fileRsModel.getNature());
-		String fileId = generateFileNumber(docFileId);
-		DocFile docFile = docFileLocalService.createDocFile(docFileId);
+		//String fileId = generateFileNumber(docFileId);
+		//DocFile docFile = docFileLocalService.createDocFile(docFileId);
 		docFile.setBasicHeadId(fileRsModel.getBasicHeadId());
 		docFile.setPrimaryHeadId(fileRsModel.getPrimaryHeadId());
 		docFile.setNature(fileRsModel.getNature());
@@ -44,7 +45,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		System.out.println("test3");
 		docFile.setTertiaryHeadId(fileRsModel.getTertiaryHeadId());
 		System.out.println("test4");
-		docFile.setFileNumber(fileId);
+		//docFile.setFileNumber(fileId);
 		docFile.setType(fileRsModel.getType());
 		System.out.println("test5");
 		docFile.setRemarks(fileRsModel.getRemarks());
@@ -61,16 +62,13 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		System.out.println("test11");
         docFileLocalService.addDocFile(docFile);
         System.out.println("test12");
-		
 		return  fileRsModel;
 	}
 	
 	private String generateFileNumber(long fileId) {
 		String FileNumber = "F" + fileId;
 		return FileNumber;
-
 	}
-	
 	@Reference
 	private CounterLocalService counterLocalService;
 	@Reference

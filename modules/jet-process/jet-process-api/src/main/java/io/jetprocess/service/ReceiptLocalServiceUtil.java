@@ -301,6 +301,12 @@ public class ReceiptLocalServiceUtil {
 		return getService().getReceiptByReceiptId(receiptId);
 	}
 
+	public static Receipt getReceiptByTempFileId(long tempFileId)
+		throws java.io.IOException, PortalException {
+
+		return getService().getReceiptByTempFileId(tempFileId);
+	}
+
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *

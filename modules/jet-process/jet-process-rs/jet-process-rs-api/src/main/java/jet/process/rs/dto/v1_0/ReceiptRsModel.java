@@ -324,32 +324,6 @@ public class ReceiptRsModel implements Serializable {
 	protected Long groupId;
 
 	@Schema
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	@JsonIgnore
-	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
-		try {
-			id = idUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long id;
-
-	@Schema
 	public String getLetterDate() {
 		return letterDate;
 	}
@@ -570,6 +544,34 @@ public class ReceiptRsModel implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long receiptCategoryId;
+
+	@Schema
+	public Long getReceiptId() {
+		return receiptId;
+	}
+
+	public void setReceiptId(Long receiptId) {
+		this.receiptId = receiptId;
+	}
+
+	@JsonIgnore
+	public void setReceiptId(
+		UnsafeSupplier<Long, Exception> receiptIdUnsafeSupplier) {
+
+		try {
+			receiptId = receiptIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long receiptId;
 
 	@Schema
 	public String getReceiptNumber() {
@@ -1200,16 +1202,6 @@ public class ReceiptRsModel implements Serializable {
 			sb.append(groupId);
 		}
 
-		if (id != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"id\": ");
-
-			sb.append(id);
-		}
-
 		if (letterDate != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1312,6 +1304,16 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"receiptCategoryId\": ");
 
 			sb.append(receiptCategoryId);
+		}
+
+		if (receiptId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptId\": ");
+
+			sb.append(receiptId);
 		}
 
 		if (receiptNumber != null) {

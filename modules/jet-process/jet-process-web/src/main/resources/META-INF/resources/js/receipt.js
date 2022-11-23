@@ -1,7 +1,6 @@
 <aui:script use= "aui-base">
 // getting current userPostId .....................
-var userPostId=  getUserPostId();
-console.log("userPostId"+userPostId);
+
 var tempFileId=0;
 
 /* masterdata call */
@@ -158,7 +157,7 @@ $("#<portlet:namespace />document").on('change', function(){
 		  }).done(function(response) {
 			  viewPdfUrl=response.description;
 			  tempFileId=response.id;
-             var embed = $('<embed id="pdfurl" type="application/pdf"  width="450" height="450">');
+             var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
              embed.attr('src',viewPdfUrl);
              $('#targetDiv').append(embed);
 		  }).fail(function(e) {
@@ -169,12 +168,14 @@ $("#<portlet:namespace />document").on('change', function(){
 
 /* create receipt */
 
+
 $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
      console.log(jsonData);
      console.log(tempFileId);
+     var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
      jsonData["tempFileId"] = tempFileId; 
     
@@ -189,7 +190,13 @@ $("#<portlet:namespace />generate").on('click', function(e){
 	        contentType : 'application/json'
 		  }).done(function(response) {
 			  console.log(response);
+			
+           
 	 })
+	 
+	 
 });
+
+
 
 </aui:script>

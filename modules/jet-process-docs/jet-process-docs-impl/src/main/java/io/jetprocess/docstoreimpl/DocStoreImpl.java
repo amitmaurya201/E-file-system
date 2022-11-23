@@ -89,7 +89,7 @@ public class DocStoreImpl implements DocStore {
 	}catch (Exception e) {
 		e.printStackTrace();
 	}
-		return "http://localhost:8080"+sb.toString();
+		return sb.toString();
 }
 
 

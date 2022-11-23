@@ -208,6 +208,26 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 	public Receipt getReceiptByReceiptId(long receiptId) throws NoSuchReceiptException {
 		return receiptPersistence.findByPrimaryKey(receiptId);
 	}
+	
+	public Receipt getReceiptByTempFileId (long tempFileId) throws PortalException, IOException {
+		long receiptId = counterLocalService.increment(Receipt.class.getName());
+		System.out.println(receiptId);
+	    Receipt receipt = createReceipt(receiptId);
+	     String number = generateReceiptNumber(receiptId);
+		 receipt.setReceiptNumber(number);
+	  // file fields
+			String changeLog = "docStore";
+			FileEntry fileEntry = docstore.getTempFile(tempFileId);
+			String title = fileEntry.getFileName();
+			InputStream is = fileEntry.getContentStream();
+			String mimeType = fileEntry.getMimeType();
+			String viewFileUrl =  docstore.ViewDocumentAndMediaFile(tempFileId);
+			long  documentAndMediaFileId = docstore.documentAndMediaFileUpload(20121, tempFileId, is,title, mimeType, changeLog, 0l, "");
+			docstore.deleteTempFile(tempFileId);
+			receipt.setDmFileId(documentAndMediaFileId);
+			receipt.setViewPdfUrl(viewFileUrl);
+			return receipt;
+	}
 
 	@Reference
 	private DocStore docstore;

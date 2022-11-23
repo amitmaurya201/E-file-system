@@ -1,13 +1,4 @@
-
 <aui:script use= "aui-base">
-/*$("#value").change(function(e){
- var userPostId=  getUserPostId();
- console.log("userPostId" + userPostId);
-  $('#<portlet:namespace/>userPostId').val(userPostId);
-});
-    */
-   var userPostId=  getUserPostId();
-   console.log("userPostId"+userPostId);
 
      /* get current year */
 	    var currentTime = new Date();
@@ -28,7 +19,7 @@
             $("#<portlet:namespace/>basicHeadId").append(new Option(basicheadText,basicheadValue));
             });          
      })
-     });
+	            });
 
  	            
          /* get primaryHead data */ 	            
@@ -155,6 +146,7 @@
 	        	 e.preventDefault();
 	        	 var formObj= $('#<portlet:namespace/>formId')[0];
 	             var jsonData = bindFormDataJson(formObj);
+	             var userPostId=  getUserPostId();
 	             jsonData["userPostId"] = userPostId;
 	          var jsonObj = JSON.stringify(jsonData);  
 	        	 $.ajax({
