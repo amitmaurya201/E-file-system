@@ -157,6 +157,8 @@ $("#<portlet:namespace />document").on('change', function(){
 		  }).done(function(response) {
 			  viewPdfUrl=response.description;
 			  tempFileId=response.id;
+			  console.log(viewPdfUrl);
+			  console.log(tempFileId);
              var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
              embed.attr('src',viewPdfUrl);
              $('#targetDiv').append(embed);
