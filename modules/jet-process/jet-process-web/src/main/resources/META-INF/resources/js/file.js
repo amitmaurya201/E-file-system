@@ -28,7 +28,7 @@
             $("#<portlet:namespace/>basicHeadId").append(new Option(basicheadText,basicheadValue));
             });          
      })
-	            });
+     });
 
  	            
          /* get primaryHead data */ 	            

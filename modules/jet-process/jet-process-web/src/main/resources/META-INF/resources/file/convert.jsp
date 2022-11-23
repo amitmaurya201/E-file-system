@@ -3,7 +3,7 @@
 
 
 
-<liferay-util:include page="/file/file-view.jsp" servletContext="<%= application %>">
+<liferay-util:include page="/file/file-view-nav.jsp" servletContext="<%= application %>">
 	<liferay-util:param name="selectedNav" value="convert" />
 </liferay-util:include>
 <%-- <%@ include file="file-view.jsp" %> --%>
