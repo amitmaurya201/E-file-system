@@ -17,5 +17,10 @@
 		<field name="userName" type="String" />
 		<field name="shortName" type="String" />
 		<field name="userId" type="long" />
+		<field name="postName" type="String" />
+		<field name="sectionName" type="String" />
+		<field name="departmentName" type="String" />
+		<field name="departmentId" type="long" />
+		<field name="postMarking" type="String" />
 	</model>
 </model-hints>

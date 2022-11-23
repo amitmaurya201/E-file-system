@@ -48,6 +48,16 @@ public class UserPostTable extends BaseTable<UserPostTable> {
 		"shortName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<UserPostTable, Long> userId = createColumn(
 		"userId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, String> postName = createColumn(
+		"postName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, String> sectionName = createColumn(
+		"sectionName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, String> departmentName = createColumn(
+		"departmentName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, Long> departmentId = createColumn(
+		"departmentId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<UserPostTable, String> postMarking = createColumn(
+		"postMarking", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private UserPostTable() {
 		super("Masterdata_UserPost", UserPostTable::new);

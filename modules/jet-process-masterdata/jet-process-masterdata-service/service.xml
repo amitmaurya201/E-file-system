@@ -28,7 +28,11 @@
 		<column name="userName" type="String"></column>
 		<column name="shortName" type="String"></column>
 		<column name="userId" type="long"></column>
-	
+		<column name="postName" type="String"></column>
+	    <column name="sectionName" type="String"></column>
+	    <column name="departmentName" type="String"></column>
+	    <column name="departmentId" type="long"></column>
+	    <column name="postMarking" type="String"></column>
 	<finder name="userId" return-type="Collection">
 			<finder-column name="userId" />
 		</finder>

@@ -60,7 +60,7 @@ public class UserPostCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -80,6 +80,16 @@ public class UserPostCacheModel
 		sb.append(shortName);
 		sb.append(", userId=");
 		sb.append(userId);
+		sb.append(", postName=");
+		sb.append(postName);
+		sb.append(", sectionName=");
+		sb.append(sectionName);
+		sb.append(", departmentName=");
+		sb.append(departmentName);
+		sb.append(", departmentId=");
+		sb.append(departmentId);
+		sb.append(", postMarking=");
+		sb.append(postMarking);
 		sb.append("}");
 
 		return sb.toString();
@@ -124,6 +134,36 @@ public class UserPostCacheModel
 
 		userPostImpl.setUserId(userId);
 
+		if (postName == null) {
+			userPostImpl.setPostName("");
+		}
+		else {
+			userPostImpl.setPostName(postName);
+		}
+
+		if (sectionName == null) {
+			userPostImpl.setSectionName("");
+		}
+		else {
+			userPostImpl.setSectionName(sectionName);
+		}
+
+		if (departmentName == null) {
+			userPostImpl.setDepartmentName("");
+		}
+		else {
+			userPostImpl.setDepartmentName(departmentName);
+		}
+
+		userPostImpl.setDepartmentId(departmentId);
+
+		if (postMarking == null) {
+			userPostImpl.setPostMarking("");
+		}
+		else {
+			userPostImpl.setPostMarking(postMarking);
+		}
+
 		userPostImpl.resetOriginalValues();
 
 		return userPostImpl;
@@ -145,6 +185,12 @@ public class UserPostCacheModel
 		shortName = objectInput.readUTF();
 
 		userId = objectInput.readLong();
+		postName = objectInput.readUTF();
+		sectionName = objectInput.readUTF();
+		departmentName = objectInput.readUTF();
+
+		departmentId = objectInput.readLong();
+		postMarking = objectInput.readUTF();
 	}
 
 	@Override
@@ -186,6 +232,36 @@ public class UserPostCacheModel
 		}
 
 		objectOutput.writeLong(userId);
+
+		if (postName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(postName);
+		}
+
+		if (sectionName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(sectionName);
+		}
+
+		if (departmentName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(departmentName);
+		}
+
+		objectOutput.writeLong(departmentId);
+
+		if (postMarking == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(postMarking);
+		}
 	}
 
 	public String uuid;
@@ -197,5 +273,10 @@ public class UserPostCacheModel
 	public String userName;
 	public String shortName;
 	public long userId;
+	public String postName;
+	public String sectionName;
+	public String departmentName;
+	public long departmentId;
+	public String postMarking;
 
 }

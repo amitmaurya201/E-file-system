@@ -197,6 +197,80 @@ public interface UserPostModel extends BaseModel<UserPost> {
 	 */
 	public void setUserUuid(String userUuid);
 
+	/**
+	 * Returns the post name of this user post.
+	 *
+	 * @return the post name of this user post
+	 */
+	@AutoEscape
+	public String getPostName();
+
+	/**
+	 * Sets the post name of this user post.
+	 *
+	 * @param postName the post name of this user post
+	 */
+	public void setPostName(String postName);
+
+	/**
+	 * Returns the section name of this user post.
+	 *
+	 * @return the section name of this user post
+	 */
+	@AutoEscape
+	public String getSectionName();
+
+	/**
+	 * Sets the section name of this user post.
+	 *
+	 * @param sectionName the section name of this user post
+	 */
+	public void setSectionName(String sectionName);
+
+	/**
+	 * Returns the department name of this user post.
+	 *
+	 * @return the department name of this user post
+	 */
+	@AutoEscape
+	public String getDepartmentName();
+
+	/**
+	 * Sets the department name of this user post.
+	 *
+	 * @param departmentName the department name of this user post
+	 */
+	public void setDepartmentName(String departmentName);
+
+	/**
+	 * Returns the department ID of this user post.
+	 *
+	 * @return the department ID of this user post
+	 */
+	public long getDepartmentId();
+
+	/**
+	 * Sets the department ID of this user post.
+	 *
+	 * @param departmentId the department ID of this user post
+	 */
+	public void setDepartmentId(long departmentId);
+
+	/**
+	 * Returns the post marking of this user post.
+	 *
+	 * @return the post marking of this user post
+	 */
+	@AutoEscape
+	public String getPostMarking();
+
+	/**
+	 * Sets the post marking of this user post.
+	 *
+	 * @param postMarking the post marking of this user post
+	 */
+	public void setPostMarking(String postMarking);
+
 	@Override
 	public UserPost cloneWithOriginalValues();
 

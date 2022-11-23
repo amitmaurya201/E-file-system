@@ -76,7 +76,9 @@ public class UserPostModelImpl
 		{"groupId", Types.BIGINT}, {"postId", Types.BIGINT},
 		{"sectionId", Types.BIGINT}, {"description", Types.VARCHAR},
 		{"userName", Types.VARCHAR}, {"shortName", Types.VARCHAR},
-		{"userId", Types.BIGINT}
+		{"userId", Types.BIGINT}, {"postName", Types.VARCHAR},
+		{"sectionName", Types.VARCHAR}, {"departmentName", Types.VARCHAR},
+		{"departmentId", Types.BIGINT}, {"postMarking", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -92,10 +94,15 @@ public class UserPostModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("shortName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("postName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("sectionName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("departmentName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("departmentId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("postMarking", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Masterdata_UserPost (uuid_ VARCHAR(75) null,userPostId LONG not null primary key,groupId LONG,postId LONG,sectionId LONG,description VARCHAR(75) null,userName VARCHAR(75) null,shortName VARCHAR(75) null,userId LONG)";
+		"create table Masterdata_UserPost (uuid_ VARCHAR(75) null,userPostId LONG not null primary key,groupId LONG,postId LONG,sectionId LONG,description VARCHAR(75) null,userName VARCHAR(75) null,shortName VARCHAR(75) null,userId LONG,postName VARCHAR(75) null,sectionName VARCHAR(75) null,departmentName VARCHAR(75) null,departmentId LONG,postMarking VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Masterdata_UserPost";
@@ -274,6 +281,26 @@ public class UserPostModelImpl
 		attributeGetterFunctions.put("userId", UserPost::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<UserPost, Long>)UserPost::setUserId);
+		attributeGetterFunctions.put("postName", UserPost::getPostName);
+		attributeSetterBiConsumers.put(
+			"postName", (BiConsumer<UserPost, String>)UserPost::setPostName);
+		attributeGetterFunctions.put("sectionName", UserPost::getSectionName);
+		attributeSetterBiConsumers.put(
+			"sectionName",
+			(BiConsumer<UserPost, String>)UserPost::setSectionName);
+		attributeGetterFunctions.put(
+			"departmentName", UserPost::getDepartmentName);
+		attributeSetterBiConsumers.put(
+			"departmentName",
+			(BiConsumer<UserPost, String>)UserPost::setDepartmentName);
+		attributeGetterFunctions.put("departmentId", UserPost::getDepartmentId);
+		attributeSetterBiConsumers.put(
+			"departmentId",
+			(BiConsumer<UserPost, Long>)UserPost::setDepartmentId);
+		attributeGetterFunctions.put("postMarking", UserPost::getPostMarking);
+		attributeSetterBiConsumers.put(
+			"postMarking",
+			(BiConsumer<UserPost, String>)UserPost::setPostMarking);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -479,6 +506,101 @@ public class UserPostModelImpl
 		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("userId"));
 	}
 
+	@JSON
+	@Override
+	public String getPostName() {
+		if (_postName == null) {
+			return "";
+		}
+		else {
+			return _postName;
+		}
+	}
+
+	@Override
+	public void setPostName(String postName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_postName = postName;
+	}
+
+	@JSON
+	@Override
+	public String getSectionName() {
+		if (_sectionName == null) {
+			return "";
+		}
+		else {
+			return _sectionName;
+		}
+	}
+
+	@Override
+	public void setSectionName(String sectionName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_sectionName = sectionName;
+	}
+
+	@JSON
+	@Override
+	public String getDepartmentName() {
+		if (_departmentName == null) {
+			return "";
+		}
+		else {
+			return _departmentName;
+		}
+	}
+
+	@Override
+	public void setDepartmentName(String departmentName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_departmentName = departmentName;
+	}
+
+	@JSON
+	@Override
+	public long getDepartmentId() {
+		return _departmentId;
+	}
+
+	@Override
+	public void setDepartmentId(long departmentId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_departmentId = departmentId;
+	}
+
+	@JSON
+	@Override
+	public String getPostMarking() {
+		if (_postMarking == null) {
+			return "";
+		}
+		else {
+			return _postMarking;
+		}
+	}
+
+	@Override
+	public void setPostMarking(String postMarking) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_postMarking = postMarking;
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -544,6 +666,11 @@ public class UserPostModelImpl
 		userPostImpl.setUserName(getUserName());
 		userPostImpl.setShortName(getShortName());
 		userPostImpl.setUserId(getUserId());
+		userPostImpl.setPostName(getPostName());
+		userPostImpl.setSectionName(getSectionName());
+		userPostImpl.setDepartmentName(getDepartmentName());
+		userPostImpl.setDepartmentId(getDepartmentId());
+		userPostImpl.setPostMarking(getPostMarking());
 
 		userPostImpl.resetOriginalValues();
 
@@ -568,6 +695,16 @@ public class UserPostModelImpl
 		userPostImpl.setShortName(
 			this.<String>getColumnOriginalValue("shortName"));
 		userPostImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		userPostImpl.setPostName(
+			this.<String>getColumnOriginalValue("postName"));
+		userPostImpl.setSectionName(
+			this.<String>getColumnOriginalValue("sectionName"));
+		userPostImpl.setDepartmentName(
+			this.<String>getColumnOriginalValue("departmentName"));
+		userPostImpl.setDepartmentId(
+			this.<Long>getColumnOriginalValue("departmentId"));
+		userPostImpl.setPostMarking(
+			this.<String>getColumnOriginalValue("postMarking"));
 
 		return userPostImpl;
 	}
@@ -685,6 +822,40 @@ public class UserPostModelImpl
 
 		userPostCacheModel.userId = getUserId();
 
+		userPostCacheModel.postName = getPostName();
+
+		String postName = userPostCacheModel.postName;
+
+		if ((postName != null) && (postName.length() == 0)) {
+			userPostCacheModel.postName = null;
+		}
+
+		userPostCacheModel.sectionName = getSectionName();
+
+		String sectionName = userPostCacheModel.sectionName;
+
+		if ((sectionName != null) && (sectionName.length() == 0)) {
+			userPostCacheModel.sectionName = null;
+		}
+
+		userPostCacheModel.departmentName = getDepartmentName();
+
+		String departmentName = userPostCacheModel.departmentName;
+
+		if ((departmentName != null) && (departmentName.length() == 0)) {
+			userPostCacheModel.departmentName = null;
+		}
+
+		userPostCacheModel.departmentId = getDepartmentId();
+
+		userPostCacheModel.postMarking = getPostMarking();
+
+		String postMarking = userPostCacheModel.postMarking;
+
+		if ((postMarking != null) && (postMarking.length() == 0)) {
+			userPostCacheModel.postMarking = null;
+		}
+
 		return userPostCacheModel;
 	}
 
@@ -786,6 +957,11 @@ public class UserPostModelImpl
 	private String _userName;
 	private String _shortName;
 	private long _userId;
+	private String _postName;
+	private String _sectionName;
+	private String _departmentName;
+	private long _departmentId;
+	private String _postMarking;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -825,6 +1001,11 @@ public class UserPostModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("shortName", _shortName);
 		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("postName", _postName);
+		_columnOriginalValues.put("sectionName", _sectionName);
+		_columnOriginalValues.put("departmentName", _departmentName);
+		_columnOriginalValues.put("departmentId", _departmentId);
+		_columnOriginalValues.put("postMarking", _postMarking);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -865,6 +1046,16 @@ public class UserPostModelImpl
 		columnBitmasks.put("shortName", 128L);
 
 		columnBitmasks.put("userId", 256L);
+
+		columnBitmasks.put("postName", 512L);
+
+		columnBitmasks.put("sectionName", 1024L);
+
+		columnBitmasks.put("departmentName", 2048L);
+
+		columnBitmasks.put("departmentId", 4096L);
+
+		columnBitmasks.put("postMarking", 8192L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

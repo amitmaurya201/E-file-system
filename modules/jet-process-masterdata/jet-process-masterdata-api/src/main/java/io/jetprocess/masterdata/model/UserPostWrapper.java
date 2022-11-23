@@ -50,6 +50,11 @@ public class UserPostWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("shortName", getShortName());
 		attributes.put("userId", getUserId());
+		attributes.put("postName", getPostName());
+		attributes.put("sectionName", getSectionName());
+		attributes.put("departmentName", getDepartmentName());
+		attributes.put("departmentId", getDepartmentId());
+		attributes.put("postMarking", getPostMarking());
 
 		return attributes;
 	}
@@ -109,11 +114,61 @@ public class UserPostWrapper
 		if (userId != null) {
 			setUserId(userId);
 		}
+
+		String postName = (String)attributes.get("postName");
+
+		if (postName != null) {
+			setPostName(postName);
+		}
+
+		String sectionName = (String)attributes.get("sectionName");
+
+		if (sectionName != null) {
+			setSectionName(sectionName);
+		}
+
+		String departmentName = (String)attributes.get("departmentName");
+
+		if (departmentName != null) {
+			setDepartmentName(departmentName);
+		}
+
+		Long departmentId = (Long)attributes.get("departmentId");
+
+		if (departmentId != null) {
+			setDepartmentId(departmentId);
+		}
+
+		String postMarking = (String)attributes.get("postMarking");
+
+		if (postMarking != null) {
+			setPostMarking(postMarking);
+		}
 	}
 
 	@Override
 	public UserPost cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the department ID of this user post.
+	 *
+	 * @return the department ID of this user post
+	 */
+	@Override
+	public long getDepartmentId() {
+		return model.getDepartmentId();
+	}
+
+	/**
+	 * Returns the department name of this user post.
+	 *
+	 * @return the department name of this user post
+	 */
+	@Override
+	public String getDepartmentName() {
+		return model.getDepartmentName();
 	}
 
 	/**
@@ -147,6 +202,26 @@ public class UserPostWrapper
 	}
 
 	/**
+	 * Returns the post marking of this user post.
+	 *
+	 * @return the post marking of this user post
+	 */
+	@Override
+	public String getPostMarking() {
+		return model.getPostMarking();
+	}
+
+	/**
+	 * Returns the post name of this user post.
+	 *
+	 * @return the post name of this user post
+	 */
+	@Override
+	public String getPostName() {
+		return model.getPostName();
+	}
+
+	/**
 	 * Returns the primary key of this user post.
 	 *
 	 * @return the primary key of this user post
@@ -164,6 +239,16 @@ public class UserPostWrapper
 	@Override
 	public long getSectionId() {
 		return model.getSectionId();
+	}
+
+	/**
+	 * Returns the section name of this user post.
+	 *
+	 * @return the section name of this user post
+	 */
+	@Override
+	public String getSectionName() {
+		return model.getSectionName();
 	}
 
 	/**
@@ -232,6 +317,26 @@ public class UserPostWrapper
 	}
 
 	/**
+	 * Sets the department ID of this user post.
+	 *
+	 * @param departmentId the department ID of this user post
+	 */
+	@Override
+	public void setDepartmentId(long departmentId) {
+		model.setDepartmentId(departmentId);
+	}
+
+	/**
+	 * Sets the department name of this user post.
+	 *
+	 * @param departmentName the department name of this user post
+	 */
+	@Override
+	public void setDepartmentName(String departmentName) {
+		model.setDepartmentName(departmentName);
+	}
+
+	/**
 	 * Sets the description of this user post.
 	 *
 	 * @param description the description of this user post
@@ -262,6 +367,26 @@ public class UserPostWrapper
 	}
 
 	/**
+	 * Sets the post marking of this user post.
+	 *
+	 * @param postMarking the post marking of this user post
+	 */
+	@Override
+	public void setPostMarking(String postMarking) {
+		model.setPostMarking(postMarking);
+	}
+
+	/**
+	 * Sets the post name of this user post.
+	 *
+	 * @param postName the post name of this user post
+	 */
+	@Override
+	public void setPostName(String postName) {
+		model.setPostName(postName);
+	}
+
+	/**
 	 * Sets the primary key of this user post.
 	 *
 	 * @param primaryKey the primary key of this user post
@@ -279,6 +404,16 @@ public class UserPostWrapper
 	@Override
 	public void setSectionId(long sectionId) {
 		model.setSectionId(sectionId);
+	}
+
+	/**
+	 * Sets the section name of this user post.
+	 *
+	 * @param sectionName the section name of this user post
+	 */
+	@Override
+	public void setSectionName(String sectionName) {
+		model.setSectionName(sectionName);
 	}
 
 	/**

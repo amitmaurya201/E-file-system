@@ -120,7 +120,7 @@ SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as 
 <![CDATA[
 
 SELECT  countrydataid as masterdataid ,  'C-'||countrydataid as referenceid , countryvalue as value ,  countrycode as code_
-	FROM country ;
+	FROM masterdatacountry ;
 
 ]]>
 
@@ -131,7 +131,7 @@ SELECT  countrydataid as masterdataid ,  'C-'||countrydataid as referenceid , co
 
 
 SELECT  statedataid as masterdataid ,  'C-'||statedataid as referenceid , statecode as code_ ,statevalue as value
-	FROM state where countrydataid = ?;
+	FROM masterdatastate where countrydataid = ?;
 
 ]]>
 
@@ -265,8 +265,8 @@ SELECT deliverymodeid as masterdataid , 'C-'||deliverymodeid as referenceid , de
 <sql id="getOrganizationValueById">
 <![CDATA[
 
-SELECT organizationid as masterdataid , 'C-'||organizationid as referenceid , organizationvalue as value , organizationvalue	 as code_
-	FROM organization where organizationid = ? ;
+SELECT organizationdataid as masterdataid , 'C-'||organizationdataid as referenceid , organizationvalue as value , organizationvalue	 as code_
+	FROM organization where organizationdataid = ? ;
 
 ]]>
 
@@ -274,8 +274,8 @@ SELECT organizationid as masterdataid , 'C-'||organizationid as referenceid , or
 <sql id="getSubOrganizationValueById">
 <![CDATA[
 
-SELECT suborganizationid as masterdataid , 'C-'||suborganizationid as referenceid , suborganizationvalue as value , suborganizationvalue	 as code_
-	FROM suborganization where suborganizationid = ? ;
+SELECT suborganizationdataid as masterdataid , 'C-'||suborganizationdataid as referenceid , suborganizationvalue as value , suborganizationvalue	 as code_
+	FROM suborganization where suborganizationdataid = ? ;
 
 ]]>
 
@@ -284,8 +284,8 @@ SELECT suborganizationid as masterdataid , 'C-'||suborganizationid as referencei
 <sql id="getCountryValueById">
 <![CDATA[
 
-SELECT countryid as masterdataid , 'C-'||countryid as referenceid , countryvalue as value , countryvalue	 as code_
-	FROM country where countryid = ? ;
+SELECT countrydataid as masterdataid , 'C-'||countrydataid as referenceid , countryvalue as value , countryvalue	 as code_
+	FROM masterdatacountry where countrydataid = ? ;
 
 ]]>
 
@@ -293,8 +293,8 @@ SELECT countryid as masterdataid , 'C-'||countryid as referenceid , countryvalue
 <sql id="getStateValueById">
 <![CDATA[
 
-SELECT stateid as masterdataid , 'C-'||stateid as referenceid , statevalue as value , statevalue as code_
-	FROM state where stateid = ? ;
+SELECT statedataid as masterdataid , 'C-'||statedataid as referenceid , statevalue as value , statevalue as code_
+	FROM masterdatastate where statedataid = ? ;
 
 ]]>
 
@@ -311,8 +311,8 @@ SELECT receiptcategorydataid as masterdataid , 'C-'||receiptcategorydataid as re
 <sql id="getReceiptSubCategoryValueById">
 <![CDATA[
 
-SELECT receiptsubcategorydataid as masterdataid , 'C-'||receiptsubcategorydataid as referenceid , receiptsubcategoryvalue as value , receiptsubcategoryvalue as code_
-	FROM receiptsubcategory where receiptsubcategorydataid = ? ;
+SELECT receiptsubcategoryid as masterdataid , 'C-'||receiptsubcategoryid as referenceid , receiptsubcategoryvalue as value , receiptsubcategoryvalue as code_
+	FROM receiptsubcategory where receiptsubcategoryid = ? ;
 
 ]]>
 
