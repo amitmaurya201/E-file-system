@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 
 import java.io.IOException;
@@ -265,8 +264,7 @@ public interface ReceiptLocalService
 	public Receipt getReceipt(long receiptId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptByReceiptId(long receiptId)
-		throws NoSuchReceiptException;
+	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceiptByTempFileId(long tempFileId)

@@ -135,6 +135,9 @@
 			<finder-column name="receiptId" />
 		</finder>
 		
+        <finder name="ReceiptId" return-type="Receipt">
+        	<finder-column name="receiptId"></finder-column>
+        </finder>
 	   <!-- 	Group Reference  -->
 	   <reference entity="Group" package-path="com.liferay.portal" />
 

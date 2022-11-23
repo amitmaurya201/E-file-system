@@ -205,8 +205,10 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
 	}
 
-	public Receipt getReceiptByReceiptId(long receiptId) throws NoSuchReceiptException {
-		return receiptPersistence.findByPrimaryKey(receiptId);
+	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException {
+		Receipt receipt = receiptLocalService.getReceipt(receiptId);
+		
+		return receipt;
 	}
 	
 	public Receipt getReceiptByTempFileId (long tempFileId) throws PortalException, IOException {

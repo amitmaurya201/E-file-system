@@ -231,7 +231,7 @@ public class ReceiptServiceHttp {
 
 	public static io.jetprocess.model.Receipt getReceiptByReceiptId(
 			HttpPrincipal httpPrincipal, long receiptId)
-		throws io.jetprocess.exception.NoSuchReceiptException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -248,9 +248,9 @@ public class ReceiptServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						io.jetprocess.exception.NoSuchReceiptException) {
+						com.liferay.portal.kernel.exception.PortalException) {
 
-					throw (io.jetprocess.exception.NoSuchReceiptException)
+					throw (com.liferay.portal.kernel.exception.PortalException)
 						exception;
 				}
 

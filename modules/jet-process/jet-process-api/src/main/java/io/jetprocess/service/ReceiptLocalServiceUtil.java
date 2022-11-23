@@ -296,7 +296,7 @@ public class ReceiptLocalServiceUtil {
 	}
 
 	public static Receipt getReceiptByReceiptId(long receiptId)
-		throws io.jetprocess.exception.NoSuchReceiptException {
+		throws PortalException {
 
 		return getService().getReceiptByReceiptId(receiptId);
 	}

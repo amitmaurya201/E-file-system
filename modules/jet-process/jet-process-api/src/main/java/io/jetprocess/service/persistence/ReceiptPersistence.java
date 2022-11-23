@@ -669,6 +669,50 @@ public interface ReceiptPersistence extends BasePersistence<Receipt> {
 	public int countByG_R(long groupId, long receiptId);
 
 	/**
+	 * Returns the receipt where receiptId = &#63; or throws a <code>NoSuchReceiptException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt
+	 * @throws NoSuchReceiptException if a matching receipt could not be found
+	 */
+	public Receipt findByReceiptId(long receiptId)
+		throws NoSuchReceiptException;
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt, or <code>null</code> if a matching receipt could not be found
+	 */
+	public Receipt fetchByReceiptId(long receiptId);
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching receipt, or <code>null</code> if a matching receipt could not be found
+	 */
+	public Receipt fetchByReceiptId(long receiptId, boolean useFinderCache);
+
+	/**
+	 * Removes the receipt where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the receipt that was removed
+	 */
+	public Receipt removeByReceiptId(long receiptId)
+		throws NoSuchReceiptException;
+
+	/**
+	 * Returns the number of receipts where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the number of matching receipts
+	 */
+	public int countByReceiptId(long receiptId);
+
+	/**
 	 * Caches the receipt in the entity cache if it is enabled.
 	 *
 	 * @param receipt the receipt

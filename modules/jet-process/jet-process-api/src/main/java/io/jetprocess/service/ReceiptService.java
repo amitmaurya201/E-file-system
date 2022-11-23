@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
-import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 
 import java.util.List;
@@ -78,8 +77,7 @@ public interface ReceiptService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptByReceiptId(long receiptId)
-		throws NoSuchReceiptException;
+	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException;
 
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,

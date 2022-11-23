@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -2315,6 +2317,217 @@ public class ReceiptPersistenceImpl
 	private static final String _FINDER_COLUMN_G_R_RECEIPTID_2 =
 		"receipt.receiptId = ?";
 
+	private FinderPath _finderPathFetchByReceiptId;
+	private FinderPath _finderPathCountByReceiptId;
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or throws a <code>NoSuchReceiptException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt
+	 * @throws NoSuchReceiptException if a matching receipt could not be found
+	 */
+	@Override
+	public Receipt findByReceiptId(long receiptId)
+		throws NoSuchReceiptException {
+
+		Receipt receipt = fetchByReceiptId(receiptId);
+
+		if (receipt == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("receiptId=");
+			sb.append(receiptId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchReceiptException(sb.toString());
+		}
+
+		return receipt;
+	}
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt, or <code>null</code> if a matching receipt could not be found
+	 */
+	@Override
+	public Receipt fetchByReceiptId(long receiptId) {
+		return fetchByReceiptId(receiptId, true);
+	}
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching receipt, or <code>null</code> if a matching receipt could not be found
+	 */
+	@Override
+	public Receipt fetchByReceiptId(long receiptId, boolean useFinderCache) {
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {receiptId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByReceiptId, finderArgs);
+		}
+
+		if (result instanceof Receipt) {
+			Receipt receipt = (Receipt)result;
+
+			if (receiptId != receipt.getReceiptId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_RECEIPT_WHERE);
+
+			sb.append(_FINDER_COLUMN_RECEIPTID_RECEIPTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(receiptId);
+
+				List<Receipt> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByReceiptId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {receiptId};
+							}
+
+							_log.warn(
+								"ReceiptPersistenceImpl.fetchByReceiptId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Receipt receipt = list.get(0);
+
+					result = receipt;
+
+					cacheResult(receipt);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Receipt)result;
+		}
+	}
+
+	/**
+	 * Removes the receipt where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the receipt that was removed
+	 */
+	@Override
+	public Receipt removeByReceiptId(long receiptId)
+		throws NoSuchReceiptException {
+
+		Receipt receipt = findByReceiptId(receiptId);
+
+		return remove(receipt);
+	}
+
+	/**
+	 * Returns the number of receipts where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the number of matching receipts
+	 */
+	@Override
+	public int countByReceiptId(long receiptId) {
+		FinderPath finderPath = _finderPathCountByReceiptId;
+
+		Object[] finderArgs = new Object[] {receiptId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_RECEIPT_WHERE);
+
+			sb.append(_FINDER_COLUMN_RECEIPTID_RECEIPTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(receiptId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_RECEIPTID_RECEIPTID_2 =
+		"receipt.receiptId = ?";
+
 	public ReceiptPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2343,6 +2556,10 @@ public class ReceiptPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {receipt.getUuid(), receipt.getGroupId()}, receipt);
+
+		finderCache.putResult(
+			_finderPathFetchByReceiptId, new Object[] {receipt.getReceiptId()},
+			receipt);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -2419,6 +2636,13 @@ public class ReceiptPersistenceImpl
 
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(_finderPathFetchByUUID_G, args, receiptModelImpl);
+
+		args = new Object[] {receiptModelImpl.getReceiptId()};
+
+		finderCache.putResult(
+			_finderPathCountByReceiptId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByReceiptId, args, receiptModelImpl);
 	}
 
 	/**
@@ -2965,6 +3189,16 @@ public class ReceiptPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_R",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"groupId", "receiptId"}, false);
+
+		_finderPathFetchByReceiptId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByReceiptId",
+			new String[] {Long.class.getName()}, new String[] {"receiptId"},
+			true);
+
+		_finderPathCountByReceiptId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByReceiptId",
+			new String[] {Long.class.getName()}, new String[] {"receiptId"},
+			false);
 
 		_setReceiptUtilPersistence(this);
 	}

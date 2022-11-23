@@ -79,7 +79,7 @@ public class ReceiptServiceWrapper
 
 	@Override
 	public io.jetprocess.model.Receipt getReceiptByReceiptId(long receiptId)
-		throws io.jetprocess.exception.NoSuchReceiptException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _receiptService.getReceiptByReceiptId(receiptId);
 	}

@@ -67,7 +67,7 @@ public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 		return receiptLocalService.getAllReceipt();
 	}
 
-	public Receipt getReceiptByReceiptId(long receiptId) throws NoSuchReceiptException {
+	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException {
 		return receiptLocalService.getReceiptByReceiptId(receiptId);
 	}
 }

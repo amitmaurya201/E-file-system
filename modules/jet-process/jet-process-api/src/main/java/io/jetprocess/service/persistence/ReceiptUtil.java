@@ -857,6 +857,64 @@ public class ReceiptUtil {
 	}
 
 	/**
+	 * Returns the receipt where receiptId = &#63; or throws a <code>NoSuchReceiptException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt
+	 * @throws NoSuchReceiptException if a matching receipt could not be found
+	 */
+	public static Receipt findByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return getPersistence().findByReceiptId(receiptId);
+	}
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt, or <code>null</code> if a matching receipt could not be found
+	 */
+	public static Receipt fetchByReceiptId(long receiptId) {
+		return getPersistence().fetchByReceiptId(receiptId);
+	}
+
+	/**
+	 * Returns the receipt where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching receipt, or <code>null</code> if a matching receipt could not be found
+	 */
+	public static Receipt fetchByReceiptId(
+		long receiptId, boolean useFinderCache) {
+
+		return getPersistence().fetchByReceiptId(receiptId, useFinderCache);
+	}
+
+	/**
+	 * Removes the receipt where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the receipt that was removed
+	 */
+	public static Receipt removeByReceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptException {
+
+		return getPersistence().removeByReceiptId(receiptId);
+	}
+
+	/**
+	 * Returns the number of receipts where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the number of matching receipts
+	 */
+	public static int countByReceiptId(long receiptId) {
+		return getPersistence().countByReceiptId(receiptId);
+	}
+
+	/**
 	 * Caches the receipt in the entity cache if it is enabled.
 	 *
 	 * @param receipt the receipt
