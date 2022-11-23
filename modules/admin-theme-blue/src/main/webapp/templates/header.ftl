@@ -169,7 +169,7 @@
 		        	  <label for="cars">Select Post:</label>
                           <select name="post" id="value">
 		        <#list userPostList as userpost>
-		        	  	  <option value=${userpost.getUserPostId()}>${userpost.getDescription()}</option>
+		        	  	  <option value=${userpost.getUserPostId()}>${userpost.getShortName()}</option>
                    </#list>
                            </select>		          
 		            
