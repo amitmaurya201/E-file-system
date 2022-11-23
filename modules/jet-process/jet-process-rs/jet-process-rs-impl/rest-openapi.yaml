@@ -11,7 +11,7 @@ components:
     ReceiptRsModel:
       description: Contains all the data for receipt creation.
       properties:
-        id:
+        receiptId:
           format: int64
           type: integer
         typeId:
@@ -74,7 +74,28 @@ components:
         city:
           type: string
         viewPdfUrl:
+          type: string
+        dmFileId:
+          format: int64
+          type: integer
+        receiptNumber:
           type: string  
+        typevalue:
+          type: string
+        deliverymodevalue:
+          type: string
+        organizationvalue:
+          type: string
+        suborganizationvalue:
+          type: string
+        countryvalue:
+          type: string
+        statevalue:
+          type: string
+        receiptcategoryvalue:
+          type: string
+        receiptsubcategoryvalue:
+          type: string 
       type: object
     FileRsModel:
       description: Contains all the data for file creation.
@@ -170,12 +191,12 @@ paths:
                   $ref: '#/components/schemas/ReceiptRsModel'
           description: ''
       tags: ["ReceiptRsModel"]
-  /receiptId/{id}:
+  /receiptId/{receiptId}:
     get:
       operationId: getReceiptByReceiptId
       parameters:
         - in: path
-          name: id
+          name: receiptId
           schema:
             type: integer
             format: int64

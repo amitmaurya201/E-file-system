@@ -102,7 +102,7 @@
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="tertiaryHeadId" id="tertiaryHeadId" label="">
-																			<option value='12'>Tertiary Head Code</option> 
+																			<option value=''>Tertiary Head Code</option> 
 																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
@@ -175,8 +175,8 @@
 										<div cssClass="input-group">
 											<aui:select cssClass="form-select form-control" id="subCategoryId"
 												name="subCategoryId" >
-												<option value='1'>Choose...</option>
-												<%--  <aui:validator name="required" />   --%>
+												<option value=''>Choose...</option>
+											 <aui:validator name="required" />  
 											</aui:select>
 										</div>
 									</aui:fieldset>

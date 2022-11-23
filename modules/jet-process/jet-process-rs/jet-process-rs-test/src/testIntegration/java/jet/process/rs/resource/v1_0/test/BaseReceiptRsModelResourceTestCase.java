@@ -168,17 +168,26 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 		receiptRsModel.setAddress(regex);
 		receiptRsModel.setCity(regex);
+		receiptRsModel.setCountryvalue(regex);
+		receiptRsModel.setDeliverymodevalue(regex);
 		receiptRsModel.setDesignation(regex);
 		receiptRsModel.setEmail(regex);
 		receiptRsModel.setLetterDate(regex);
 		receiptRsModel.setMobile(regex);
 		receiptRsModel.setModeNumber(regex);
 		receiptRsModel.setName(regex);
+		receiptRsModel.setOrganizationvalue(regex);
 		receiptRsModel.setPinCode(regex);
+		receiptRsModel.setReceiptNumber(regex);
+		receiptRsModel.setReceiptcategoryvalue(regex);
+		receiptRsModel.setReceiptsubcategoryvalue(regex);
 		receiptRsModel.setReceivedOn(regex);
 		receiptRsModel.setReferenceNumber(regex);
 		receiptRsModel.setRemarks(regex);
+		receiptRsModel.setStatevalue(regex);
 		receiptRsModel.setSubject(regex);
+		receiptRsModel.setSuborganizationvalue(regex);
+		receiptRsModel.setTypevalue(regex);
 		receiptRsModel.setViewPdfUrl(regex);
 
 		String json = ReceiptRsModelSerDes.toJSON(receiptRsModel);
@@ -189,17 +198,26 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 		Assert.assertEquals(regex, receiptRsModel.getAddress());
 		Assert.assertEquals(regex, receiptRsModel.getCity());
+		Assert.assertEquals(regex, receiptRsModel.getCountryvalue());
+		Assert.assertEquals(regex, receiptRsModel.getDeliverymodevalue());
 		Assert.assertEquals(regex, receiptRsModel.getDesignation());
 		Assert.assertEquals(regex, receiptRsModel.getEmail());
 		Assert.assertEquals(regex, receiptRsModel.getLetterDate());
 		Assert.assertEquals(regex, receiptRsModel.getMobile());
 		Assert.assertEquals(regex, receiptRsModel.getModeNumber());
 		Assert.assertEquals(regex, receiptRsModel.getName());
+		Assert.assertEquals(regex, receiptRsModel.getOrganizationvalue());
 		Assert.assertEquals(regex, receiptRsModel.getPinCode());
+		Assert.assertEquals(regex, receiptRsModel.getReceiptNumber());
+		Assert.assertEquals(regex, receiptRsModel.getReceiptcategoryvalue());
+		Assert.assertEquals(regex, receiptRsModel.getReceiptsubcategoryvalue());
 		Assert.assertEquals(regex, receiptRsModel.getReceivedOn());
 		Assert.assertEquals(regex, receiptRsModel.getReferenceNumber());
 		Assert.assertEquals(regex, receiptRsModel.getRemarks());
+		Assert.assertEquals(regex, receiptRsModel.getStatevalue());
 		Assert.assertEquals(regex, receiptRsModel.getSubject());
+		Assert.assertEquals(regex, receiptRsModel.getSuborganizationvalue());
+		Assert.assertEquals(regex, receiptRsModel.getTypevalue());
 		Assert.assertEquals(regex, receiptRsModel.getViewPdfUrl());
 	}
 
@@ -402,6 +420,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("countryvalue", additionalAssertFieldName)) {
+				if (receiptRsModel.getCountryvalue() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("deliveryModeId", additionalAssertFieldName)) {
 				if (receiptRsModel.getDeliveryModeId() == null) {
 					valid = false;
@@ -410,8 +436,26 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"deliverymodevalue", additionalAssertFieldName)) {
+
+				if (receiptRsModel.getDeliverymodevalue() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("designation", additionalAssertFieldName)) {
 				if (receiptRsModel.getDesignation() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("dmFileId", additionalAssertFieldName)) {
+				if (receiptRsModel.getDmFileId() == null) {
 					valid = false;
 				}
 
@@ -474,6 +518,16 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"organizationvalue", additionalAssertFieldName)) {
+
+				if (receiptRsModel.getOrganizationvalue() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("pinCode", additionalAssertFieldName)) {
 				if (receiptRsModel.getPinCode() == null) {
 					valid = false;
@@ -492,10 +546,38 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("receiptNumber", additionalAssertFieldName)) {
+				if (receiptRsModel.getReceiptNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"receiptSubCategoryId", additionalAssertFieldName)) {
 
 				if (receiptRsModel.getReceiptSubCategoryId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"receiptcategoryvalue", additionalAssertFieldName)) {
+
+				if (receiptRsModel.getReceiptcategoryvalue() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"receiptsubcategoryvalue", additionalAssertFieldName)) {
+
+				if (receiptRsModel.getReceiptsubcategoryvalue() == null) {
 					valid = false;
 				}
 
@@ -534,6 +616,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("statevalue", additionalAssertFieldName)) {
+				if (receiptRsModel.getStatevalue() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"subOrganizationId", additionalAssertFieldName)) {
 
@@ -552,6 +642,16 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"suborganizationvalue", additionalAssertFieldName)) {
+
+				if (receiptRsModel.getSuborganizationvalue() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("tempFileId", additionalAssertFieldName)) {
 				if (receiptRsModel.getTempFileId() == null) {
 					valid = false;
@@ -562,6 +662,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 
 			if (Objects.equals("typeId", additionalAssertFieldName)) {
 				if (receiptRsModel.getTypeId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("typevalue", additionalAssertFieldName)) {
+				if (receiptRsModel.getTypevalue() == null) {
 					valid = false;
 				}
 
@@ -708,6 +816,17 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("countryvalue", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getCountryvalue(),
+						receiptRsModel2.getCountryvalue())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("deliveryModeId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getDeliveryModeId(),
@@ -719,10 +838,34 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"deliverymodevalue", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						receiptRsModel1.getDeliverymodevalue(),
+						receiptRsModel2.getDeliverymodevalue())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("designation", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getDesignation(),
 						receiptRsModel2.getDesignation())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("dmFileId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getDmFileId(),
+						receiptRsModel2.getDmFileId())) {
 
 					return false;
 				}
@@ -816,6 +959,19 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"organizationvalue", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						receiptRsModel1.getOrganizationvalue(),
+						receiptRsModel2.getOrganizationvalue())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("pinCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getPinCode(),
@@ -840,12 +996,49 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("receiptNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getReceiptNumber(),
+						receiptRsModel2.getReceiptNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"receiptSubCategoryId", additionalAssertFieldName)) {
 
 				if (!Objects.deepEquals(
 						receiptRsModel1.getReceiptSubCategoryId(),
 						receiptRsModel2.getReceiptSubCategoryId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"receiptcategoryvalue", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						receiptRsModel1.getReceiptcategoryvalue(),
+						receiptRsModel2.getReceiptcategoryvalue())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"receiptsubcategoryvalue", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						receiptRsModel1.getReceiptsubcategoryvalue(),
+						receiptRsModel2.getReceiptsubcategoryvalue())) {
 
 					return false;
 				}
@@ -897,6 +1090,17 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("statevalue", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getStatevalue(),
+						receiptRsModel2.getStatevalue())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"subOrganizationId", additionalAssertFieldName)) {
 
@@ -921,6 +1125,19 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"suborganizationvalue", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						receiptRsModel1.getSuborganizationvalue(),
+						receiptRsModel2.getSuborganizationvalue())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("tempFileId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getTempFileId(),
@@ -936,6 +1153,17 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				if (!Objects.deepEquals(
 						receiptRsModel1.getTypeId(),
 						receiptRsModel2.getTypeId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("typevalue", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						receiptRsModel1.getTypevalue(),
+						receiptRsModel2.getTypevalue())) {
 
 					return false;
 				}
@@ -1084,9 +1312,25 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("countryvalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getCountryvalue()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("deliveryModeId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("deliverymodevalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getDeliverymodevalue()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("designation")) {
@@ -1095,6 +1339,11 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("dmFileId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("email")) {
@@ -1152,6 +1401,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("organizationvalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getOrganizationvalue()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("pinCode")) {
 			sb.append("'");
 			sb.append(String.valueOf(receiptRsModel.getPinCode()));
@@ -1165,9 +1422,34 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("receiptNumber")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getReceiptNumber()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("receiptSubCategoryId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("receiptcategoryvalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getReceiptcategoryvalue()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("receiptsubcategoryvalue")) {
+			sb.append("'");
+			sb.append(
+				String.valueOf(receiptRsModel.getReceiptsubcategoryvalue()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("receivedOn")) {
@@ -1199,6 +1481,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("statevalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getStatevalue()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("subOrganizationId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1212,6 +1502,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("suborganizationvalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getSuborganizationvalue()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("tempFileId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1220,6 +1518,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 		if (entityFieldName.equals("typeId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("typevalue")) {
+			sb.append("'");
+			sb.append(String.valueOf(receiptRsModel.getTypevalue()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("userPostId")) {
@@ -1282,9 +1588,14 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 				address = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				city = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				countryId = RandomTestUtil.randomLong();
+				countryvalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				deliveryModeId = RandomTestUtil.randomLong();
+				deliverymodevalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				designation = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				dmFileId = RandomTestUtil.randomLong();
 				email =
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";
@@ -1297,19 +1608,33 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 					RandomTestUtil.randomString());
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				organizationId = RandomTestUtil.randomLong();
+				organizationvalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				pinCode = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				receiptCategoryId = RandomTestUtil.randomLong();
+				receiptNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				receiptSubCategoryId = RandomTestUtil.randomLong();
+				receiptcategoryvalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				receiptsubcategoryvalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				receivedOn = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				referenceNumber = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				remarks = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				stateId = RandomTestUtil.randomLong();
+				statevalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				subOrganizationId = RandomTestUtil.randomLong();
 				subject = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				suborganizationvalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				tempFileId = RandomTestUtil.randomLong();
 				typeId = RandomTestUtil.randomLong();
+				typevalue = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				userPostId = RandomTestUtil.randomLong();
 				viewPdfUrl = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

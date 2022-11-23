@@ -40,7 +40,7 @@ public abstract class BaseReceiptRsModelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createReceipt' -d $'{"address": ___, "city": ___, "countryId": ___, "deliveryModeId": ___, "designation": ___, "email": ___, "groupId": ___, "id": ___, "letterDate": ___, "mobile": ___, "modeNumber": ___, "name": ___, "organizationId": ___, "pinCode": ___, "receiptCategoryId": ___, "receiptSubCategoryId": ___, "receivedOn": ___, "referenceNumber": ___, "remarks": ___, "stateId": ___, "subOrganizationId": ___, "subject": ___, "tempFileId": ___, "typeId": ___, "userPostId": ___, "viewPdfUrl": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createReceipt' -d $'{"address": ___, "city": ___, "countryId": ___, "countryvalue": ___, "deliveryModeId": ___, "deliverymodevalue": ___, "designation": ___, "dmFileId": ___, "email": ___, "groupId": ___, "id": ___, "letterDate": ___, "mobile": ___, "modeNumber": ___, "name": ___, "organizationId": ___, "organizationvalue": ___, "pinCode": ___, "receiptCategoryId": ___, "receiptNumber": ___, "receiptSubCategoryId": ___, "receiptcategoryvalue": ___, "receiptsubcategoryvalue": ___, "receivedOn": ___, "referenceNumber": ___, "remarks": ___, "stateId": ___, "statevalue": ___, "subOrganizationId": ___, "subject": ___, "suborganizationvalue": ___, "tempFileId": ___, "typeId": ___, "typevalue": ___, "userPostId": ___, "viewPdfUrl": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {

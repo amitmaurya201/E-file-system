@@ -79,6 +79,20 @@ public class ReceiptRsModelSerDes {
 			sb.append(receiptRsModel.getCountryId());
 		}
 
+		if (receiptRsModel.getCountryvalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"countryvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getCountryvalue()));
+
+			sb.append("\"");
+		}
+
 		if (receiptRsModel.getDeliveryModeId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -87,6 +101,20 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"deliveryModeId\": ");
 
 			sb.append(receiptRsModel.getDeliveryModeId());
+		}
+
+		if (receiptRsModel.getDeliverymodevalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"deliverymodevalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getDeliverymodevalue()));
+
+			sb.append("\"");
 		}
 
 		if (receiptRsModel.getDesignation() != null) {
@@ -101,6 +129,16 @@ public class ReceiptRsModelSerDes {
 			sb.append(_escape(receiptRsModel.getDesignation()));
 
 			sb.append("\"");
+		}
+
+		if (receiptRsModel.getDmFileId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"dmFileId\": ");
+
+			sb.append(receiptRsModel.getDmFileId());
 		}
 
 		if (receiptRsModel.getEmail() != null) {
@@ -203,6 +241,20 @@ public class ReceiptRsModelSerDes {
 			sb.append(receiptRsModel.getOrganizationId());
 		}
 
+		if (receiptRsModel.getOrganizationvalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"organizationvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getOrganizationvalue()));
+
+			sb.append("\"");
+		}
+
 		if (receiptRsModel.getPinCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -227,6 +279,20 @@ public class ReceiptRsModelSerDes {
 			sb.append(receiptRsModel.getReceiptCategoryId());
 		}
 
+		if (receiptRsModel.getReceiptNumber() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptNumber\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getReceiptNumber()));
+
+			sb.append("\"");
+		}
+
 		if (receiptRsModel.getReceiptSubCategoryId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -235,6 +301,34 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"receiptSubCategoryId\": ");
 
 			sb.append(receiptRsModel.getReceiptSubCategoryId());
+		}
+
+		if (receiptRsModel.getReceiptcategoryvalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptcategoryvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getReceiptcategoryvalue()));
+
+			sb.append("\"");
+		}
+
+		if (receiptRsModel.getReceiptsubcategoryvalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"receiptsubcategoryvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getReceiptsubcategoryvalue()));
+
+			sb.append("\"");
 		}
 
 		if (receiptRsModel.getReceivedOn() != null) {
@@ -289,6 +383,20 @@ public class ReceiptRsModelSerDes {
 			sb.append(receiptRsModel.getStateId());
 		}
 
+		if (receiptRsModel.getStatevalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"statevalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getStatevalue()));
+
+			sb.append("\"");
+		}
+
 		if (receiptRsModel.getSubOrganizationId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -313,6 +421,20 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"");
 		}
 
+		if (receiptRsModel.getSuborganizationvalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"suborganizationvalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getSuborganizationvalue()));
+
+			sb.append("\"");
+		}
+
 		if (receiptRsModel.getTempFileId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -331,6 +453,20 @@ public class ReceiptRsModelSerDes {
 			sb.append("\"typeId\": ");
 
 			sb.append(receiptRsModel.getTypeId());
+		}
+
+		if (receiptRsModel.getTypevalue() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"typevalue\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(receiptRsModel.getTypevalue()));
+
+			sb.append("\"");
 		}
 
 		if (receiptRsModel.getUserPostId() != null) {
@@ -397,6 +533,15 @@ public class ReceiptRsModelSerDes {
 			map.put("countryId", String.valueOf(receiptRsModel.getCountryId()));
 		}
 
+		if (receiptRsModel.getCountryvalue() == null) {
+			map.put("countryvalue", null);
+		}
+		else {
+			map.put(
+				"countryvalue",
+				String.valueOf(receiptRsModel.getCountryvalue()));
+		}
+
 		if (receiptRsModel.getDeliveryModeId() == null) {
 			map.put("deliveryModeId", null);
 		}
@@ -406,12 +551,28 @@ public class ReceiptRsModelSerDes {
 				String.valueOf(receiptRsModel.getDeliveryModeId()));
 		}
 
+		if (receiptRsModel.getDeliverymodevalue() == null) {
+			map.put("deliverymodevalue", null);
+		}
+		else {
+			map.put(
+				"deliverymodevalue",
+				String.valueOf(receiptRsModel.getDeliverymodevalue()));
+		}
+
 		if (receiptRsModel.getDesignation() == null) {
 			map.put("designation", null);
 		}
 		else {
 			map.put(
 				"designation", String.valueOf(receiptRsModel.getDesignation()));
+		}
+
+		if (receiptRsModel.getDmFileId() == null) {
+			map.put("dmFileId", null);
+		}
+		else {
+			map.put("dmFileId", String.valueOf(receiptRsModel.getDmFileId()));
 		}
 
 		if (receiptRsModel.getEmail() == null) {
@@ -474,6 +635,15 @@ public class ReceiptRsModelSerDes {
 				String.valueOf(receiptRsModel.getOrganizationId()));
 		}
 
+		if (receiptRsModel.getOrganizationvalue() == null) {
+			map.put("organizationvalue", null);
+		}
+		else {
+			map.put(
+				"organizationvalue",
+				String.valueOf(receiptRsModel.getOrganizationvalue()));
+		}
+
 		if (receiptRsModel.getPinCode() == null) {
 			map.put("pinCode", null);
 		}
@@ -490,6 +660,15 @@ public class ReceiptRsModelSerDes {
 				String.valueOf(receiptRsModel.getReceiptCategoryId()));
 		}
 
+		if (receiptRsModel.getReceiptNumber() == null) {
+			map.put("receiptNumber", null);
+		}
+		else {
+			map.put(
+				"receiptNumber",
+				String.valueOf(receiptRsModel.getReceiptNumber()));
+		}
+
 		if (receiptRsModel.getReceiptSubCategoryId() == null) {
 			map.put("receiptSubCategoryId", null);
 		}
@@ -497,6 +676,24 @@ public class ReceiptRsModelSerDes {
 			map.put(
 				"receiptSubCategoryId",
 				String.valueOf(receiptRsModel.getReceiptSubCategoryId()));
+		}
+
+		if (receiptRsModel.getReceiptcategoryvalue() == null) {
+			map.put("receiptcategoryvalue", null);
+		}
+		else {
+			map.put(
+				"receiptcategoryvalue",
+				String.valueOf(receiptRsModel.getReceiptcategoryvalue()));
+		}
+
+		if (receiptRsModel.getReceiptsubcategoryvalue() == null) {
+			map.put("receiptsubcategoryvalue", null);
+		}
+		else {
+			map.put(
+				"receiptsubcategoryvalue",
+				String.valueOf(receiptRsModel.getReceiptsubcategoryvalue()));
 		}
 
 		if (receiptRsModel.getReceivedOn() == null) {
@@ -530,6 +727,14 @@ public class ReceiptRsModelSerDes {
 			map.put("stateId", String.valueOf(receiptRsModel.getStateId()));
 		}
 
+		if (receiptRsModel.getStatevalue() == null) {
+			map.put("statevalue", null);
+		}
+		else {
+			map.put(
+				"statevalue", String.valueOf(receiptRsModel.getStatevalue()));
+		}
+
 		if (receiptRsModel.getSubOrganizationId() == null) {
 			map.put("subOrganizationId", null);
 		}
@@ -546,6 +751,15 @@ public class ReceiptRsModelSerDes {
 			map.put("subject", String.valueOf(receiptRsModel.getSubject()));
 		}
 
+		if (receiptRsModel.getSuborganizationvalue() == null) {
+			map.put("suborganizationvalue", null);
+		}
+		else {
+			map.put(
+				"suborganizationvalue",
+				String.valueOf(receiptRsModel.getSuborganizationvalue()));
+		}
+
 		if (receiptRsModel.getTempFileId() == null) {
 			map.put("tempFileId", null);
 		}
@@ -559,6 +773,13 @@ public class ReceiptRsModelSerDes {
 		}
 		else {
 			map.put("typeId", String.valueOf(receiptRsModel.getTypeId()));
+		}
+
+		if (receiptRsModel.getTypevalue() == null) {
+			map.put("typevalue", null);
+		}
+		else {
+			map.put("typevalue", String.valueOf(receiptRsModel.getTypevalue()));
 		}
 
 		if (receiptRsModel.getUserPostId() == null) {
@@ -614,15 +835,33 @@ public class ReceiptRsModelSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "countryvalue")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setCountryvalue(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "deliveryModeId")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setDeliveryModeId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "deliverymodevalue")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setDeliverymodevalue(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "designation")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setDesignation((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "dmFileId")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setDmFileId(
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "email")) {
@@ -668,6 +907,12 @@ public class ReceiptRsModelSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "organizationvalue")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setOrganizationvalue(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "pinCode")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setPinCode((String)jsonParserFieldValue);
@@ -679,12 +924,34 @@ public class ReceiptRsModelSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "receiptNumber")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setReceiptNumber(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(
 						jsonParserFieldName, "receiptSubCategoryId")) {
 
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setReceiptSubCategoryId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "receiptcategoryvalue")) {
+
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setReceiptcategoryvalue(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "receiptsubcategoryvalue")) {
+
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setReceiptsubcategoryvalue(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "receivedOn")) {
@@ -709,6 +976,11 @@ public class ReceiptRsModelSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "statevalue")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setStatevalue((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "subOrganizationId")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setSubOrganizationId(
@@ -718,6 +990,14 @@ public class ReceiptRsModelSerDes {
 			else if (Objects.equals(jsonParserFieldName, "subject")) {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setSubject((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "suborganizationvalue")) {
+
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setSuborganizationvalue(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "tempFileId")) {
@@ -730,6 +1010,11 @@ public class ReceiptRsModelSerDes {
 				if (jsonParserFieldValue != null) {
 					receiptRsModel.setTypeId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "typevalue")) {
+				if (jsonParserFieldValue != null) {
+					receiptRsModel.setTypevalue((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "userPostId")) {
