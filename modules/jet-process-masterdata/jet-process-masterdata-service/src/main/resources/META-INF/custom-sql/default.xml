@@ -3,14 +3,14 @@
 <sql id="getCategories">
 <![CDATA[
 SELECT  categorydataid as masterdataid ,'C-'||categorydataid as referenceid, categoryvalue as value , 'C-'||categoryvalue as code_
-	FROM category;
+	FROM md_category;
 ]]>
 
 </sql>
 <sql id="getSubCategories">
 <![CDATA[
 SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||subcategoryvalue as code_ , 'SC-'||subcategorydataid as referenceid 
-	FROM subcategory  where categoryid = ? ;
+	FROM md_subcategory  where categoryid = ? ;
 ]]>
 
 </sql>
@@ -19,7 +19,7 @@ SELECT  subcategorydataid as masterdataid , subcategoryvalue as value , 'SC-'||s
 <![CDATA[
 
 SELECT typeid as masterdataid ,'C-'||typeid as referenceid, 'C-'||typevalue as code_, typevalue as value
-	FROM type;
+	FROM md_type;
 
 ]]>
 
@@ -29,7 +29,7 @@ SELECT typeid as masterdataid ,'C-'||typeid as referenceid, 'C-'||typevalue as c
 <![CDATA[
 
 SELECT deliverymodeid as masterdataid ,  'C-'||deliverymodeid as referenceid, 'C-'||deliverymodevalue as code_, deliverymodevalue as value
-	FROM deliverymode;
+	FROM md_deliverymode;
 
 ]]>
 
@@ -38,7 +38,7 @@ SELECT deliverymodeid as masterdataid ,  'C-'||deliverymodeid as referenceid, 'C
 <![CDATA[
 
 SELECT filecodeid as masterdataid ,  'C-'||filecodeid as referenceid, 'C-'||filecodevalue as code_,  filecodevalue as value
-	FROM filecode;
+	FROM md_filecode;
 
 ]]>
 
@@ -47,7 +47,7 @@ SELECT filecodeid as masterdataid ,  'C-'||filecodeid as referenceid, 'C-'||file
 <![CDATA[
 
 SELECT basicheaddataid as masterdataid , 'C-'||basicheaddataid as referenceid , basicheadvalue as value , basicheadcode as code_
-	FROM basichead;
+	FROM md_basichead;
 
 ]]>
 
@@ -56,7 +56,7 @@ SELECT basicheaddataid as masterdataid , 'C-'||basicheaddataid as referenceid , 
 <![CDATA[
 
 SELECT primaryheaddataid as masterdataid ,  'C-'||primaryheaddataid as referenceid , primaryheadvalue as value , primaryheadcode as code_
-	FROM primaryhead where basicheaddataid = ?;
+	FROM md_primaryhead where basicheaddataid = ?;
 
 ]]>
 
@@ -65,7 +65,7 @@ SELECT primaryheaddataid as masterdataid ,  'C-'||primaryheaddataid as reference
 <![CDATA[
 
 SELECT secondaryheaddataid as masterdataid ,  'C-'||secondaryheaddataid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
-	FROM secondaryhead where primaryheaddataid = ?;
+	FROM md_secondaryhead where primaryheaddataid = ?;
 
 ]]>
 
@@ -74,7 +74,7 @@ SELECT secondaryheaddataid as masterdataid ,  'C-'||secondaryheaddataid as refer
 <![CDATA[
 
 SELECT teritaryheaddataid as masterdataid ,  'C-'||teritaryheaddataid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
-	FROM tertiaryhead where secondaryheaddataid = ?;
+	FROM md_tertiaryhead where secondaryheaddataid = ?;
 
 ]]>
 
@@ -83,7 +83,7 @@ SELECT teritaryheaddataid as masterdataid ,  'C-'||teritaryheaddataid as referen
 <![CDATA[
 
 SELECT organizationdataid as masterdataid ,  'C-'||organizationdataid as referenceid , organizationvalue as value , organizationcode as code_
-	FROM organization ;
+	FROM md_organization ;
 
 ]]>
 
@@ -92,7 +92,7 @@ SELECT organizationdataid as masterdataid ,  'C-'||organizationdataid as referen
 <![CDATA[
 
 SELECT  suborganizationdataid as masterdataid ,  'C-'||suborganizationdataid as referenceid ,'C-'||suborganizationvalue as code_ , suborganizationvalue as value
-	FROM suborganization where organizationdataid = ?;
+	FROM md_suborganization where organizationdataid = ?;
 
 ]]>
 
@@ -101,7 +101,7 @@ SELECT  suborganizationdataid as masterdataid ,  'C-'||suborganizationdataid as 
 <![CDATA[
 
 SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as referenceid , 'C-'||receiptcategoryvalue as code_ , receiptcategoryvalue as value
-	FROM receiptcategory;
+	FROM md_receiptcategory;
 
 ]]>
 
@@ -110,7 +110,7 @@ SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as 
 <![CDATA[
 
 SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as referenceid , 'C-'||receiptsubcategoryvalue as code_ , receiptsubcategoryvalue as value
-	FROM receiptsubcategory where receiptcategorydataid = ?;
+	FROM md_receiptsubcategory where receiptcategorydataid = ?;
 
 ]]>
 
@@ -120,7 +120,7 @@ SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as 
 <![CDATA[
 
 SELECT  countrydataid as masterdataid ,  'C-'||countrydataid as referenceid , countryvalue as value ,  countrycode as code_
-	FROM masterdatacountry ;
+	FROM md_masterdatacountry ;
 
 ]]>
 
@@ -131,7 +131,7 @@ SELECT  countrydataid as masterdataid ,  'C-'||countrydataid as referenceid , co
 
 
 SELECT  statedataid as masterdataid ,  'C-'||statedataid as referenceid , statecode as code_ ,statevalue as value
-	FROM masterdatastate where countrydataid = ?;
+	FROM md_masterdatastate where countrydataid = ?;
 
 ]]>
 
@@ -141,7 +141,7 @@ SELECT  statedataid as masterdataid ,  'C-'||statedataid as referenceid , statec
 <![CDATA[
 
 SELECT basicheaddataid as masterdataid , 'C-'||basicheaddataid as referenceid , basicheadvalue as value , basicheadcode as code_
-	FROM basichead where basicheaddataid = ? ;
+	FROM md_basichead where basicheaddataid = ? ;
 
 ]]>
 
@@ -151,7 +151,7 @@ SELECT basicheaddataid as masterdataid , 'C-'||basicheaddataid as referenceid , 
 
 
 SELECT primaryheaddataid as masterdataid ,  'C-'||primaryheaddataid as referenceid , primaryheadvalue as value , primaryheadcode as code_
-	FROM primaryhead where primaryheaddataid = ?;
+	FROM md_primaryhead where primaryheaddataid = ?;
 
 
 ]]>
@@ -161,14 +161,14 @@ SELECT primaryheaddataid as masterdataid ,  'C-'||primaryheaddataid as reference
 <![CDATA[
 
 SELECT secondaryheaddataid as masterdataid ,  'C-'||secondaryheaddataid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
-	FROM secondaryhead where secondaryheaddataid = ?;
+	FROM md_secondaryhead where secondaryheaddataid = ?;
 ]]>
 
 </sql>
 <sql id="getTertiaryHeadById">
 <![CDATA[
 SELECT tertiaryheaddataid as masterdataid ,  'C-'||tertiaryheaddataid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
-	FROM tertiaryhead where tertiaryheaddataid = ?;
+	FROM md_tertiaryhead where tertiaryheaddataid = ?;
 ]]>
 
 </sql>
@@ -178,7 +178,7 @@ SELECT tertiaryheaddataid as masterdataid ,  'C-'||tertiaryheaddataid as referen
 <![CDATA[
 SELECT filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
 	FROM jet_process_docfile  INNER JOIN 
-	category  ON categorydataid = categoryid where userpostid = ? ;
+	md_category  ON categorydataid = categoryid where userpostid = ? ;
 ]]>
 
 </sql>
@@ -188,7 +188,7 @@ SELECT filenumber as filenumber , subject as subject , categoryvalue as category
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
 	FROM jet_process_receipt INNER JOIN 
-	category  ON categorydataid = receiptcategoryid where userpostid = ? ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? ;
 ]]>
 
 </sql>
@@ -215,7 +215,7 @@ SELECT count(*) FROM public.jet_process_receipt where userpostid = ?;
 <![CDATA[
 
 SELECT filecodeid as masterdataid , 'C-'||filecodeid as referenceid , filecodevalue as value , filecodevalue as code_
-	FROM filecode where  filecodeid = ? ;
+	FROM md_filecode where  filecodeid = ? ;
 
 
 ]]>
@@ -226,7 +226,7 @@ SELECT filecodeid as masterdataid , 'C-'||filecodeid as referenceid , filecodeva
 <![CDATA[
 
 SELECT categorydataid as masterdataid , 'C-'||categorydataid as referenceid , categoryvalue as value , categoryvalue as code_
-	FROM category where categorydataid = ? ;
+	FROM md_category where categorydataid = ? ;
 
 
 ]]>
@@ -237,7 +237,7 @@ SELECT categorydataid as masterdataid , 'C-'||categorydataid as referenceid , ca
 <![CDATA[
 
 SELECT subcategorydataid as masterdataid , 'C-'||categoryid as referenceid , subcategoryvalue as value , subcategoryvalue as code_
-	FROM subcategory where subcategorydataid = ? ;
+	FROM md_subcategory where subcategorydataid = ? ;
 
 ]]>
 
@@ -247,7 +247,7 @@ SELECT subcategorydataid as masterdataid , 'C-'||categoryid as referenceid , sub
 <![CDATA[
 
 SELECT typeid as masterdataid , 'C-'||typeid as referenceid , typevalue as value , typevalue as code_
-	FROM type where typeid = ? ;
+	FROM md_type where typeid = ? ;
 
 ]]>
 
@@ -257,7 +257,7 @@ SELECT typeid as masterdataid , 'C-'||typeid as referenceid , typevalue as value
 <![CDATA[
 
 SELECT deliverymodeid as masterdataid , 'C-'||deliverymodeid as referenceid , deliverymodevalue as value , deliverymodevalue	 as code_
-	FROM deliverymode where deliverymodeid = ? ;
+	FROM md_deliverymode where deliverymodeid = ? ;
 
 ]]>
 
@@ -266,7 +266,7 @@ SELECT deliverymodeid as masterdataid , 'C-'||deliverymodeid as referenceid , de
 <![CDATA[
 
 SELECT organizationdataid as masterdataid , 'C-'||organizationdataid as referenceid , organizationvalue as value , organizationvalue	 as code_
-	FROM organization where organizationdataid = ? ;
+	FROM md_organization where organizationdataid = ? ;
 
 ]]>
 
@@ -275,7 +275,7 @@ SELECT organizationdataid as masterdataid , 'C-'||organizationdataid as referenc
 <![CDATA[
 
 SELECT suborganizationdataid as masterdataid , 'C-'||suborganizationdataid as referenceid , suborganizationvalue as value , suborganizationvalue	 as code_
-	FROM suborganization where suborganizationdataid = ? ;
+	FROM md_suborganization where suborganizationdataid = ? ;
 
 ]]>
 
@@ -285,7 +285,7 @@ SELECT suborganizationdataid as masterdataid , 'C-'||suborganizationdataid as re
 <![CDATA[
 
 SELECT countrydataid as masterdataid , 'C-'||countrydataid as referenceid , countryvalue as value , countryvalue	 as code_
-	FROM masterdatacountry where countrydataid = ? ;
+	FROM md_masterdatacountry where countrydataid = ? ;
 
 ]]>
 
@@ -294,7 +294,7 @@ SELECT countrydataid as masterdataid , 'C-'||countrydataid as referenceid , coun
 <![CDATA[
 
 SELECT statedataid as masterdataid , 'C-'||statedataid as referenceid , statevalue as value , statevalue as code_
-	FROM masterdatastate where statedataid = ? ;
+	FROM md_masterdatastate where statedataid = ? ;
 
 ]]>
 
@@ -303,7 +303,7 @@ SELECT statedataid as masterdataid , 'C-'||statedataid as referenceid , stateval
 <![CDATA[
 
 SELECT receiptcategorydataid as masterdataid , 'C-'||receiptcategorydataid as referenceid , receiptcategoryvalue as value , receiptcategoryvalue as code_
-	FROM receiptcategory where receiptcategorydataid = ? ;
+	FROM md_receiptcategory where receiptcategorydataid = ? ;
 
 ]]>
 
@@ -312,7 +312,7 @@ SELECT receiptcategorydataid as masterdataid , 'C-'||receiptcategorydataid as re
 <![CDATA[
 
 SELECT receiptsubcategoryid as masterdataid , 'C-'||receiptsubcategoryid as referenceid , receiptsubcategoryvalue as value , receiptsubcategoryvalue as code_
-	FROM receiptsubcategory where receiptsubcategoryid = ? ;
+	FROM md_receiptsubcategory where receiptsubcategoryid = ? ;
 
 ]]>
 
