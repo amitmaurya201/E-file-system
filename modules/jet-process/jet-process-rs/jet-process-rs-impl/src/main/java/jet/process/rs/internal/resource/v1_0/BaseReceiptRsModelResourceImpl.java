@@ -90,6 +90,27 @@ public abstract class BaseReceiptRsModelResourceImpl
 		return new ReceiptRsModel();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/jet-process-rs/v1.0/updateReceipt' -d $'{"address": ___, "city": ___, "countryId": ___, "countryvalue": ___, "deliveryModeId": ___, "deliverymodevalue": ___, "designation": ___, "dmFileId": ___, "email": ___, "groupId": ___, "letterDate": ___, "mobile": ___, "modeNumber": ___, "name": ___, "organizationId": ___, "organizationvalue": ___, "pinCode": ___, "receiptCategoryId": ___, "receiptId": ___, "receiptNumber": ___, "receiptSubCategoryId": ___, "receiptcategoryvalue": ___, "receiptsubcategoryvalue": ___, "receivedOn": ___, "referenceNumber": ___, "remarks": ___, "stateId": ___, "statevalue": ___, "subOrganizationId": ___, "subject": ___, "suborganizationvalue": ___, "tempFileId": ___, "typeId": ___, "typevalue": ___, "userPostId": ___, "viewPdfUrl": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {
+			@io.swagger.v3.oas.annotations.tags.Tag(name = "ReceiptRsModel")
+		}
+	)
+	@javax.ws.rs.Consumes({"application/json", "application/xml"})
+	@javax.ws.rs.Path("/updateReceipt")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel)
+		throws Exception {
+
+		return new ReceiptRsModel();
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

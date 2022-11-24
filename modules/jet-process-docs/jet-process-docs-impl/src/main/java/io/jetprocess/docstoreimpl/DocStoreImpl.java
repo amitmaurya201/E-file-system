@@ -42,6 +42,7 @@ public class DocStoreImpl implements DocStore {
 		long userId = PrincipalThreadLocal.getUserId();
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setUserId(userId);
+		
 		serviceContext.setScopeGroupId(groupId);
 		if(!isFolderExist(groupId, folderId)) {
 			createFolder(groupId, folderId, description);

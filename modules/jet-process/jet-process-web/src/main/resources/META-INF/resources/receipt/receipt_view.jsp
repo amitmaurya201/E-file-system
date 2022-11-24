@@ -30,138 +30,137 @@
 
 
 <%-- receipt view --%>
-
 <div class="receipt">
-	<aui:container>
-		<aui:input name="receiptId" id="receiptId" value="${receiptId}" />
-		<aui:input name="userPostId" id="userPostId" type="hidden" />
-		<aui:row>
-			<aui:col lg="6" cssClass="border">
-				<h1>pdf</h1>
-			</aui:col>
-			<aui:col lg="6" cssClass="border">
-				<div class="border heading">
-					<h4>
-						<aui:icon cssClass="fas fa-file-alt icon" />
-						Diary Details
-					</h4>
+<div class="container">
+	<input name="receiptId" id="receiptId" value="${receiptId}" /> <input
+		name="userPostId" id="userPostId" type="hidden" />
+	<div class="row">
+		<div class="col-md-6" Class="border">
+			<h1>pdf</h1>
+		</div>
+		<div class="col-md-6" Class="border">
+			<div class="border heading">
+				<h4>
+					<aui:icon cssClass="fas fa-file-alt icon" />
+					Diary Details
+				</h4>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Created On :<span><input name="createOn"
+							id="createOn" readonly="readonly"> </span></label>
 				</div>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Comp No.<span><aui:input label="" name=""
-									id="" readonly="true" /> </span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>Receipt No.<span><aui:input label=""
-									name="receiptNumber" id="receiptNumber" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Nature<span><aui:input label=""
-									name="nature" id="nature" readonly="true" /> </span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>File No.<span><aui:input label=""
-									name="fileNumber" id="fileNumber" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Category<span><aui:input label=""
-									name="receiptCategoryId" id="receiptCategoryId" readonly="true" />
-						</span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>Sub Category<span><aui:input label=""
-									name="receiptSubCategoryId" id="receiptSubCategoryId"
-									readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Organization<span><aui:input label=""
-									name="organizationId" id="organizationId" readonly="true" /> </span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>Sub Organization<span><aui:input label=""
-									name="subOrganizationId" id="subOrganizationId" readonly="true" />
-						</span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Form<span><aui:input label="" name="name"
-									id="name" readonly="true" /> </span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>Designation<span><aui:input label=""
-									name="designation" id="designation" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Type<span><aui:input label="" name="typeId"
-									id="typeId" readonly="true" /> </span></label>
-					</aui:col>
+				<div class="col-md-6">
+					<label>Receipt No. :<span><input
+							name="receiptNumber" id="receiptNumber" readonly="readonly">
+					</span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Nature :<span><input name="nature"
+							id="nature" readonly="readonly"> </span></label>
+				</div>
+				<div class="col-md-6">
+					<label>File No. :<span><input name="fileNumber"
+							id="fileNumber" readonly="readonly"> </span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Type :<span><input name="typeId" id="typeId"
+							readonly="readonly"> </span></label>
+				</div>
 
-					<aui:col lg="6">
-						<label>Delivery Mode<span><aui:input label=""
-									name="deliveryModeId" id="deliveryModeId" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
+				<div class="col-md-6">
+					<label>Delivery Mode :<span><input
+							name="deliveryModeId" id="deliveryModeId" readonly="readonly">
+					</span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Received On :<span><input name="receivedOn"
+							id="receivedOn" readonly="readonly"> </span></label>
+				</div>
+				<div class="col-md-6">
+					<label>Letter Date :<span><input name="letterDate"
+							id="letterDate" readonly="readonly"> </span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Reference Number :<span><input
+							name="referenceNumber" id="referenceNumber" readonly="readonly">
+					</span></label>
+				</div>
+				<div class="col-md-6">
+					<label>ModeNumber :<span><input name="modeNumber"
+							id="modeNumber" readonly="readonly"> </span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Category :<span><input name="receiptCategoryId"
+							id="receiptCategoryId" readonly="readonly"> </span></label>
+				</div>
+				<div class="col-md-6">
+					<label>Sub Category :<span><input
+							name="receiptSubCategoryId" id="receiptSubCategoryId"
+							readonly="readonly"> </span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label>Diarised By :<span><input name=""
+							readonly="readonly"> </span></label>
+				</div>
+				<div class="col-md-12">
+					<label>Subject :<span><input name="subject"
+							id="subject" readonly="readonly"> </span></label>
+				</div>
+				<div class="col-md-12">
+					<label>Remarks :<span><input name="remarks"
+							id="remarks" readonly="readonly"> </span></label>
+				</div>
+			</div>
 
-				<aui:row>
-					<aui:col lg="6">
-						<label>Reference Number<span><aui:input label=""
-									name="referenceNumber" id="referenceNumber" readonly="true" />
-						</span></label>
-					</aui:col>
+			<div class="border heading">
+				<h4>
+					<aui:icon cssClass="fas fa-envelope icon" />
+					Sender Details
+				</h4>
+			</div>
 
-					<aui:col lg="6">
-						<label>ModeNumber<span><aui:input label=""
-									name="modeNumber" id="modeNumber" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Received On<span><aui:input label=""
-									name="receivedOn" id="receivedOn" readonly="true" /> </span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>Letter Date<span><aui:input label=""
-									name="letterDate" id="letterDate" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="6">
-						<label>Created On<span><aui:input label=""
-									name="createOn" id="createOn" readonly="true" /> </span></label>
-					</aui:col>
-					<aui:col lg="6">
-						<label>Diarised By<span><aui:input label="" name=""
-									readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="12">
-						<label>Subject<span><aui:input label=""
-									name="subject" id="subject" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="12">
-						<label>Remarks<span><aui:input label=""
-									name="remarks" id="remarks" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-				<aui:row>
-					<aui:col lg="12">
-						<label>Address<span><aui:input label=""
-									name="address" id="address" readonly="true" /> </span></label>
-					</aui:col>
-				</aui:row>
-			</aui:col>
-		</aui:row>
-	</aui:container>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Organization :<span><input
+							name="organizationId" id="organizationId" readonly="readonly">
+					</span></label>
+				</div>
+				<div class="col-md-6">
+					<label>Sub Organization :<span><input
+							name="subOrganizationId" id="subOrganizationId"
+							readonly="readonly"> </span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Form :<span><input name="name" id="name"
+							readonly="readonly"> </span></label>
+				</div>
+				<div class="col-md-6">
+					<label>Designation :<span><input name="designation"
+							id="designation" readonly="readonly"> </span></label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label>Address :<span><input name="address"
+							id="address" readonly="readonly"> </span></label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </div>

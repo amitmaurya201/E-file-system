@@ -2,12 +2,12 @@
    function bindFormDataJson(formObj){
 	 //  var list= $('#<portlet:namespace/>formName')[0];
 	   var formdata = new FormData(formObj);
-	   
+	   var portletnamespace = '<portlet:namespace/>';
 	   var object = {};
   	 formdata.forEach(function(value, key){
   	  var keySpace = key.trim();
   
-  	  var splitnamespace = keySpace.split("_io_jetprocess_web_JetProcessWebPortlet_INSTANCE_kapw_")[1];
+  	  var splitnamespace = keySpace.split(portletnamespace)[1];
   	 var test = splitnamespace;
   	
   	 

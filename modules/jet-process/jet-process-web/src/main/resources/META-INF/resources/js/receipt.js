@@ -180,7 +180,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
      var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
      jsonData["tempFileId"] = tempFileId; 
-    
+     jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
 	 $.ajax({
 		    type: "POST",

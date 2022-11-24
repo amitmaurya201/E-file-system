@@ -71,6 +71,18 @@ public class Mutation {
 				receiptRsModel));
 	}
 
+	@GraphQLField
+	public ReceiptRsModel updateReceipt(
+			@GraphQLName("receiptRsModel") ReceiptRsModel receiptRsModel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_receiptRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			receiptRsModelResource -> receiptRsModelResource.updateReceipt(
+				receiptRsModel));
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,

@@ -45,29 +45,52 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		 * 
 		 * Receipt receipt = receiptLocalService.createReceipt(receiptId);
 		 */
-		Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId());
-		receipt.setAddress(receiptRsModel.getAddress());	
+		System.out.println("test");
+		Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId(),receiptRsModel.getGroupId());
+		System.out.println("test1");
+		receipt.setAddress(receiptRsModel.getAddress());
+		System.out.println("test1");
 		receipt.setCity(receiptRsModel.getCity());
+		System.out.println("test1");
 		receipt.setCountryId(receiptRsModel.getCountryId());
+		System.out.println("test1");
 		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
+		System.out.println("test1");
 		receipt.setDesignation(receiptRsModel.getDesignation());
+		System.out.println("test1");
 		receipt.setEmail(receiptRsModel.getEmail());
+		System.out.println("test1");
 		receipt.setLetterDate(receiptRsModel.getLetterDate());
+		System.out.println("test1");
 		receipt.setMobile(receiptRsModel.getMobile());
+		System.out.println("test1");
 		receipt.setModeNumber(receiptRsModel.getModeNumber());
+		System.out.println("test1");
 		receipt.setName(receiptRsModel.getName());
 		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
+		System.out.println("test1");
 		receipt.setPinCode(receiptRsModel.getPinCode());
+		System.out.println("test1");
 		receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
+		System.out.println("test1");
 		receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());
+		System.out.println("test1");
 		receipt.setReceivedOn(receiptRsModel.getReceivedOn());
+		System.out.println("test1");
 		receipt.setReferenceNumber(receiptRsModel.getReferenceNumber());
+		System.out.println("test1");
 		receipt.setRemarks(receiptRsModel.getRemarks());
+		System.out.println("test1");
 		receipt.setStateId(receiptRsModel.getStateId());
+		System.out.println("test1");
 		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
+		System.out.println("test1");
 		receipt.setSubject(receiptRsModel.getSubject());
+		System.out.println("test1");
 		receipt.setTypeId(receiptRsModel.getTypeId());
+		System.out.println("test1");
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
+		System.out.println("test1");
 		/*
 		 * // file fields String changeLog = "docStore"; FileEntry fileEntry =
 		 * docstore.getTempFile(receiptRsModel.getTempFileId()); String title =
@@ -99,9 +122,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 	}
 
-	
-	
-	
 	@Override
 	public ReceiptRsModel getReceiptByReceiptId(@NotNull Long receiptId) throws Exception {
 		Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
@@ -153,9 +173,58 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		
 		return receiptRsModel;
 	}
-
-
-
+	
+	@Override
+	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
+		System.out.println("test");
+		Receipt receipt = receiptLocalService.getReceiptUpdate(receiptRsModel.getReceiptId());
+		long dmFileId= receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(),receiptRsModel.getGroupId());
+		System.out.println("test1");
+		receipt.setAddress(receiptRsModel.getAddress());
+		System.out.println("test2");
+		receipt.setCity(receiptRsModel.getCity());
+		System.out.println("test3");
+		receipt.setCountryId(receiptRsModel.getCountryId());
+		System.out.println("test4");
+		receipt.setDesignation(receiptRsModel.getDesignation());
+		System.out.println("test5");
+		receipt.setEmail(receiptRsModel.getEmail());
+		System.out.println("test6");
+		receipt.setLetterDate(receiptRsModel.getLetterDate());
+		System.out.println("test7");
+		receipt.setMobile(receiptRsModel.getMobile());
+		System.out.println("test8");
+		receipt.setModeNumber(receiptRsModel.getModeNumber());
+		System.out.println("test9");
+		receipt.setName(receiptRsModel.getName());
+		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
+		System.out.println("test10");
+		receipt.setPinCode(receiptRsModel.getPinCode());
+		System.out.println("test11");
+		receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
+		System.out.println("test12");
+		receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());
+		System.out.println("test13");
+		receipt.setReceivedOn(receiptRsModel.getReceivedOn());
+		System.out.println("test14");
+		receipt.setReferenceNumber(receiptRsModel.getReferenceNumber());
+		System.out.println("test15");
+		receipt.setRemarks(receiptRsModel.getRemarks());
+		System.out.println("test15");
+		receipt.setStateId(receiptRsModel.getStateId());
+		System.out.println("test16");
+		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
+		System.out.println("test17");
+		receipt.setSubject(receiptRsModel.getSubject());
+		System.out.println("test18");
+		receipt.setTypeId(receiptRsModel.getTypeId());
+		System.out.println("test19");
+		receipt.setUserPostId(receiptRsModel.getUserPostId());
+		System.out.println("test20");
+		receipt.setDmFileId(dmFileId);
+		System.out.println("test22");
+		return receiptRsModel;
+	}
 
 	@Reference
 	private CounterLocalService counterLocalService;
