@@ -355,6 +355,13 @@ public class UserPostLocalServiceWrapper
 		return _userPostLocalService.getUserPostsCount();
 	}
 
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.UserPost>
+		getUserPostSearchedData(String data) {
+
+		return _userPostLocalService.getUserPostSearchedData(data);
+	}
+
 	/**
 	 * Updates the user post in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

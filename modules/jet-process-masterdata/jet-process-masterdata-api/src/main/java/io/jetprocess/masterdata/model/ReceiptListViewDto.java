@@ -10,6 +10,14 @@ public class ReceiptListViewDto {
 	private String category;
 	private Date createDate;
 	private String remark;
+	
+	private String viewPdfUrl;
+	public long getReceiptId() {
+		return receiptId;
+	}
+	public void setReceiptId(long receiptId) {
+		this.receiptId = receiptId;
+	}
 	public String getReceiptNumber() {
 		return receiptNumber;
 	}
@@ -40,19 +48,14 @@ public class ReceiptListViewDto {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
-	public long getReceiptId() {
-		return receiptId;
+	public String getViewPdfUrl() {
+		return viewPdfUrl;
 	}
-	public void setReceiptId(long receiptId) {
-		this.receiptId = receiptId;
-	}
-	public ReceiptListViewDto() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setViewPdfUrl(String viewPdfUrl) {
+		this.viewPdfUrl = viewPdfUrl;
 	}
 	public ReceiptListViewDto(long receiptId, String receiptNumber, String subject, String category, Date createDate,
-			String remark) {
+			String remark, String viewPdfUrl) {
 		super();
 		this.receiptId = receiptId;
 		this.receiptNumber = receiptNumber;
@@ -60,6 +63,12 @@ public class ReceiptListViewDto {
 		this.category = category;
 		this.createDate = createDate;
 		this.remark = remark;
+		this.viewPdfUrl = viewPdfUrl;
 	}
+	public ReceiptListViewDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }

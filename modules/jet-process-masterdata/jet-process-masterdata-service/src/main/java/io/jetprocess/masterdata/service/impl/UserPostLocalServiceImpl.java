@@ -15,7 +15,15 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Junction;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 
 import java.util.List;
 
@@ -44,4 +52,19 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 		return userPost;
 	}
 
+	public List<UserPost> getUserPostSearchedData(String data){
+		
+		System.out.println("enter--");
+	    
+		
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(UserPost.class, PortalClassLoaderUtil.getClassLoader());
+		dynamicQuery.add(PropertyFactoryUtil.forName("description").eq(data));
+		
+		List<UserPost> userPostList = UserPostLocalServiceUtil.dynamicQuery(dynamicQuery);
+			 
+			 
+			 return userPostList;
+	}	 
+		
+	
 }

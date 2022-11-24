@@ -312,6 +312,10 @@ public class UserPostLocalServiceUtil {
 		return getService().getUserPostsCount();
 	}
 
+	public static List<UserPost> getUserPostSearchedData(String data) {
+		return getService().getUserPostSearchedData(data);
+	}
+
 	/**
 	 * Updates the user post in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
