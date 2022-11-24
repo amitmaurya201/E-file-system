@@ -55,7 +55,7 @@ SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basichea
 <sql id="getPrimaryHeads">
 <![CDATA[
 
-SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value , primaryheadcode as code_
+SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value 
 	FROM md_primaryhead where basicheadid = ?;
 
 ]]>
@@ -64,7 +64,7 @@ SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , pri
 <sql id="getSecondaryHeads">
 <![CDATA[
 
-SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
+SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid , secondaryheadvalue as value
 	FROM md_secondaryhead where primaryheadid = ?;
 
 ]]>
@@ -73,7 +73,7 @@ SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid ,
 <sql id="getTeritaryHeads">
 <![CDATA[
 
-SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
+SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , tertiaryheadvalue as value
 	FROM md_tertiaryhead where secondaryheadid = ?;
 
 ]]>
