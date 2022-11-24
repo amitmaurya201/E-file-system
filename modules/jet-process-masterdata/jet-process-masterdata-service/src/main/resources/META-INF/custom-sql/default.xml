@@ -10,7 +10,7 @@ SELECT  categorydataid as masterdataid ,'C-'||categorydataid as referenceid, cat
 <sql id="getSubCategories">
 <![CDATA[
 SELECT  subcategoryid as masterdataid , subcategoryvalue as value , 'SC-'||subcategoryvalue as code_ , 'SC-'||subcategoryid as referenceid 
-	FROM md_subcategory  where categoryid = ? ;
+	FROM md_subcategory  where categorydataid = ? ;
 ]]>
 
 </sql>
@@ -55,7 +55,7 @@ SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basichea
 <sql id="getPrimaryHeads">
 <![CDATA[
 
-SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value 
+SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value , primaryheadvalue as code_
 	FROM md_primaryhead where basicheadid = ?;
 
 ]]>
@@ -64,7 +64,7 @@ SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , pri
 <sql id="getSecondaryHeads">
 <![CDATA[
 
-SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid , secondaryheadvalue as value
+SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid , secondaryheadvalue as value , secondaryheadvalue as code_
 	FROM md_secondaryhead where primaryheadid = ?;
 
 ]]>
@@ -73,7 +73,7 @@ SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid ,
 <sql id="getTeritaryHeads">
 <![CDATA[
 
-SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , tertiaryheadvalue as value
+SELECT teritaryheadid as masterdataid ,  'C-'||teritaryheadid as referenceid , tertiaryheadvalue as value ,tertiaryheadvalue as code_ 
 	FROM md_tertiaryhead where secondaryheadid = ?;
 
 ]]>
@@ -111,7 +111,6 @@ SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as 
 
 SELECT  receiptsubcategorydataid as masterdataid ,  'C-'||receiptsubcategorydataid as referenceid , 'C-'||receiptsubcategoryvalue as code_ , receiptsubcategoryvalue as value
 	FROM md_receiptsubcategory where receiptcategorydataid = ?;
-
 
 ]]>
 
@@ -151,7 +150,7 @@ SELECT basicheadid as masterdataid , 'C-'||basicheadid as referenceid , basichea
 <![CDATA[
 
 
-SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value , primaryheadcode as code_
+SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , primaryheadvalue as value , primaryheadvalue as code_ 
 	FROM md_primaryhead where primaryheadid = ?;
 
 
@@ -161,14 +160,14 @@ SELECT primaryheadid as masterdataid ,  'C-'||primaryheadid as referenceid , pri
 <sql id="getSecondaryHeadById">
 <![CDATA[
 
-SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid , secondaryheadvalue as value , secondaryheadcode as code_
+SELECT secondaryheadid as masterdataid ,  'C-'||secondaryheadid as referenceid , secondaryheadvalue as value , secondaryheadvalue as code_ 
 	FROM md_secondaryhead where secondaryheadid = ?;
 ]]>
 
 </sql>
 <sql id="getTertiaryHeadById">
 <![CDATA[
-SELECT tertiaryheadid as masterdataid ,  'C-'||tertiaryheadid as referenceid , tertiaryheadvalue as value , tertiaryheadcode as code_
+SELECT tertiaryheadid as masterdataid ,  'C-'||tertiaryheadid as referenceid , tertiaryheadvalue as value ,  tertiaryheadvalue as code_ 
 	FROM md_tertiaryhead where tertiaryheadid = ?;
 ]]>
 
@@ -186,10 +185,10 @@ SELECT filenumber as filenumber , subject as subject , categoryvalue as category
 <sql id="receiptCreatedListQuery">
 <![CDATA[
 
-SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark 
+
+SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
 	FROM jet_process_receipt INNER JOIN 
 	md_category  ON categorydataid = receiptcategoryid where userpostid = ? ;
-
 ]]>
 
 </sql>
@@ -237,7 +236,7 @@ SELECT categorydataid as masterdataid , 'C-'||categorydataid as referenceid , ca
 <sql id="getSubCategoryValueById">
 <![CDATA[
 
-SELECT subcategoryid as masterdataid , 'C-'||categoryid as referenceid , subcategoryvalue as value , subcategoryvalue as code_
+SELECT subcategoryid as masterdataid , 'C-'||subcategoryid as referenceid , subcategoryvalue as value , subcategoryvalue as code_
 	FROM md_subcategory where subcategoryid = ? ;
 
 ]]>
@@ -312,8 +311,8 @@ SELECT receiptcategorydataid as masterdataid , 'C-'||receiptcategorydataid as re
 <sql id="getReceiptSubCategoryValueById">
 <![CDATA[
 
-SELECT receiptsubcategoryid as masterdataid , 'C-'||receiptsubcategoryid as referenceid , receiptsubcategoryvalue as value , receiptsubcategoryvalue as code_
-	FROM md_receiptsubcategory where receiptsubcategoryid = ? ;
+SELECT receiptsubcategorydataid as masterdataid , 'C-'||receiptsubcategorydataid as referenceid , receiptsubcategoryvalue as value , receiptsubcategoryvalue as code_
+	FROM md_receiptsubcategory where receiptsubcategorydataid = ? ;
 
 ]]>
 
