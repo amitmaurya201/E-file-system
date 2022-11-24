@@ -27,7 +27,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
 		 DocFile docFile=docFileLocalService.getDocFile();
 		//long docFileId = counterLocalService.increment(DocFile.class.getName());
-		//System.out.println(docFileId);
+		System.out.println(fileRsModel.getSubCategoryId());
 		System.out.println(fileRsModel.getBasicHeadId());
 		System.out.println(fileRsModel.getPrimaryHeadId());
 		System.out.println(fileRsModel.getPrimaryHeadId());
@@ -54,6 +54,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		System.out.println("test7");
 		docFile.setCategoryId(fileRsModel.getCategoryId());
 		System.out.println("test8");
+		
 		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
 		System.out.println("test9");
 		docFile.setUserPostId(fileRsModel.getUserPostId());

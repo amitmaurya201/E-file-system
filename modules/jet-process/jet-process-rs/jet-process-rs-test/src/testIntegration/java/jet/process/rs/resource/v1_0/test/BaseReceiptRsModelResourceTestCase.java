@@ -255,6 +255,11 @@ public abstract class BaseReceiptRsModelResourceTestCase {
 		Assert.assertTrue(true);
 	}
 
+	@Test
+	public void testUpdateReceipt() throws Exception {
+		Assert.assertTrue(false);
+	}
+
 	protected void assertContains(
 		ReceiptRsModel receiptRsModel, List<ReceiptRsModel> receiptRsModels) {
 

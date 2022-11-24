@@ -125,7 +125,7 @@
             $("#<portlet:namespace />subCategoryId").append(new Option( subCategoryText, subCategoryValue));
             });          
      })
-	            });   
+ });   
 	});
 	        
 	        /* get filecode data */
@@ -141,13 +141,15 @@
             });          
      });
 });
-	                   
+	
+	                          
 	$("#<portlet:namespace />add-docfile").on('click', function(e){
 	        	 e.preventDefault();
 	        	 var formObj= $('#<portlet:namespace/>formId')[0];
 	             var jsonData = bindFormDataJson(formObj);
 	             var userPostId=  getUserPostId();
 	             jsonData["userPostId"] = userPostId;
+	           
 	          var jsonObj = JSON.stringify(jsonData);  
 	        	 $.ajax({
 	        		    type: "POST",
