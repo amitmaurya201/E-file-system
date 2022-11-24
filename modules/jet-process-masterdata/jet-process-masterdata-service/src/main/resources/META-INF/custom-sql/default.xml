@@ -109,8 +109,9 @@ SELECT  receiptcategorydataid as masterdataid ,  'C-'||receiptcategorydataid as 
 <sql id="getReceiptSubCategory">
 <![CDATA[
 
-SELECT  receiptcategoryid as masterdataid ,  'C-'||receiptcategoryid as referenceid , 'C-'||receiptsubcategoryvalue as code_ , receiptsubcategoryvalue as value
-	FROM md_receiptsubcategory where receiptcategoryid = ?;
+SELECT  receiptsubcategorydataid as masterdataid ,  'C-'||receiptsubcategorydataid as referenceid , 'C-'||receiptsubcategoryvalue as code_ , receiptsubcategoryvalue as value
+	FROM md_receiptsubcategory where receiptcategorydataid = ?;
+
 
 ]]>
 
@@ -185,10 +186,10 @@ SELECT filenumber as filenumber , subject as subject , categoryvalue as category
 <sql id="receiptCreatedListQuery">
 <![CDATA[
 
-
-SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark
+SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark 
 	FROM jet_process_receipt INNER JOIN 
 	md_category  ON categorydataid = receiptcategoryid where userpostid = ? ;
+
 ]]>
 
 </sql>
