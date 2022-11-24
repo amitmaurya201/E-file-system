@@ -120,7 +120,7 @@ SELECT  receiptcategoryid as masterdataid ,  'C-'||receiptcategoryid as referenc
 <![CDATA[
 
 SELECT  countryid as masterdataid ,  'C-'||countryid as referenceid , countryvalue as value ,  countrycode as code_
-	FROM md_masterdatacountry ;
+	FROM md_country ;
 
 ]]>
 
@@ -131,7 +131,7 @@ SELECT  countryid as masterdataid ,  'C-'||countryid as referenceid , countryval
 
 
 SELECT  stateid as masterdataid ,  'C-'||stateid as referenceid , statecode as code_ ,statevalue as value
-	FROM md_masterdatastate where countryid = ?;
+	FROM md_state where countryid = ?;
 
 ]]>
 
@@ -285,7 +285,7 @@ SELECT suborganizationid as masterdataid , 'C-'||suborganizationid as referencei
 <![CDATA[
 
 SELECT countryid as masterdataid , 'C-'||countryid as referenceid , countryvalue as value , countryvalue	 as code_
-	FROM md_masterdatacountry where countryid = ? ;
+	FROM md_country where countryid = ? ;
 
 ]]>
 
@@ -294,7 +294,7 @@ SELECT countryid as masterdataid , 'C-'||countryid as referenceid , countryvalue
 <![CDATA[
 
 SELECT stateid as masterdataid , 'C-'||stateid as referenceid , statevalue as value , statevalue as code_
-	FROM md_masterdatastate where stateid = ? ;
+	FROM md_state where stateid = ? ;
 
 ]]>
 
