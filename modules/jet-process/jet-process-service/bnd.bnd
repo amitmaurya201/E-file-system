@@ -6,7 +6,7 @@ Liferay-Service: true
 -dsannotations-options: inherit
 
 
-Export-Package: 
+Export-Package: io.jetprocess.docstore
 	io.jetprocess.validator,
 	io.jetprocess.exception
 
