@@ -251,6 +251,12 @@ public class ReceiptLocalServiceUtil {
 		return getService().getAllReceipt();
 	}
 
+	public static long getDmFileId(long tempFileId, long groupId)
+		throws java.io.IOException, PortalException {
+
+		return getService().getDmFileId(tempFileId, groupId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -301,10 +307,10 @@ public class ReceiptLocalServiceUtil {
 		return getService().getReceiptByReceiptId(receiptId);
 	}
 
-	public static Receipt getReceiptByTempFileId(long tempFileId)
+	public static Receipt getReceiptByTempFileId(long tempFileId, long groupId)
 		throws java.io.IOException, PortalException {
 
-		return getService().getReceiptByTempFileId(tempFileId);
+		return getService().getReceiptByTempFileId(tempFileId, groupId);
 	}
 
 	/**
@@ -374,6 +380,12 @@ public class ReceiptLocalServiceUtil {
 	 */
 	public static int getReceiptsCount() {
 		return getService().getReceiptsCount();
+	}
+
+	public static Receipt getReceiptUpdate(long receiptId)
+		throws PortalException {
+
+		return getService().getReceiptUpdate(receiptId);
 	}
 
 	public static Receipt updateReceipt(

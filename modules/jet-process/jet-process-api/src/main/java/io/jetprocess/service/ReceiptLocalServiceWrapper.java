@@ -273,6 +273,14 @@ public class ReceiptLocalServiceWrapper
 	}
 
 	@Override
+	public long getDmFileId(long tempFileId, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
+
+		return _receiptLocalService.getDmFileId(tempFileId, groupId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -332,11 +340,12 @@ public class ReceiptLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Receipt getReceiptByTempFileId(long tempFileId)
+	public io.jetprocess.model.Receipt getReceiptByTempFileId(
+			long tempFileId, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			   java.io.IOException {
 
-		return _receiptLocalService.getReceiptByTempFileId(tempFileId);
+		return _receiptLocalService.getReceiptByTempFileId(tempFileId, groupId);
 	}
 
 	/**
@@ -417,6 +426,13 @@ public class ReceiptLocalServiceWrapper
 	@Override
 	public int getReceiptsCount() {
 		return _receiptLocalService.getReceiptsCount();
+	}
+
+	@Override
+	public io.jetprocess.model.Receipt getReceiptUpdate(long receiptId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptLocalService.getReceiptUpdate(receiptId);
 	}
 
 	@Override

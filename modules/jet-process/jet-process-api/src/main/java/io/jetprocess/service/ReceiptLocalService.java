@@ -232,6 +232,10 @@ public interface ReceiptLocalService
 	public List<Receipt> getAllReceipt();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getDmFileId(long tempFileId, long groupId)
+		throws IOException, PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
@@ -267,7 +271,7 @@ public interface ReceiptLocalService
 	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptByTempFileId(long tempFileId)
+	public Receipt getReceiptByTempFileId(long tempFileId, long groupId)
 		throws IOException, PortalException;
 
 	/**
@@ -329,6 +333,9 @@ public interface ReceiptLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getReceiptsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Receipt getReceiptUpdate(long receiptId) throws PortalException;
 
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,

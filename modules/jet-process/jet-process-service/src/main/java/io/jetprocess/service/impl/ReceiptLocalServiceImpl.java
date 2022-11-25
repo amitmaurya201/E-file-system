@@ -59,21 +59,23 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		String viewFileUrl = null;
-		try {
-			viewFileUrl = docstore.ViewDocumentAndMediaFile(tempfileEntryId);
-		} catch (IOException e1) {
-
-			e1.printStackTrace();
-		}
 		long documentAndMediaFileId = 0l;
 		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, tempfileEntryId, is, title, mimeType,
-					changeLog, 0l, "");
+			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,changeLog, 0l, "");
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
+		System.out.println(documentAndMediaFileId);
+		String viewFileUrl = null;
+		try {
+			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+		} catch (IOException e1) {
+
+			e1.printStackTrace();
+		}
+		System.out.println(viewFileUrl);
+		
 		docstore.deleteTempFile(tempfileEntryId);
 		// Generate A New Primary Key For The ContactDetails
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
@@ -145,7 +147,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		}
 		long documentAndMediaFileId = 0l;
 		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, tempfileEntryId, is, title, mimeType,
+			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,
 					changeLog, 0l, "");
 		} catch (IOException e) {
 
@@ -209,48 +211,47 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		return receipt;
 	}
-
-	public Receipt getReceiptByTempFileId(long tempFileId, long groupId) throws PortalException, IOException {
+	
+	public Receipt getReceiptByTempFileId (long tempFileId, long groupId) throws PortalException, IOException {
 
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
 		System.out.println(receiptId);
-		Receipt receipt = createReceipt(receiptId);
-		String number = generateReceiptNumber(receiptId);
-		receipt.setReceiptNumber(number);
-		// file fields
+	    Receipt receipt = createReceipt(receiptId);
+	     String number = generateReceiptNumber(receiptId);
+		 receipt.setReceiptNumber(number);
+	  // file fields
+			String changeLog = "docStore";
+			FileEntry fileEntry = docstore.getTempFile(tempFileId);
+			String title = fileEntry.getFileName();
+			InputStream is = fileEntry.getContentStream();
+			String mimeType = fileEntry.getMimeType();
+			long  documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId,is,title, mimeType, changeLog, 0l, "");
+			
+			String viewFileUrl =  docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+			System.out.println(viewFileUrl);
+			docstore.deleteTempFile(tempFileId);
+			receipt.setDmFileId(documentAndMediaFileId);
+			receipt.setViewPdfUrl(viewFileUrl);
+			return receipt;
+	}
+    public Receipt getReceiptUpdate(long receiptId) throws PortalException{
+    	Receipt receipt = getReceipt(receiptId);
+    	return receipt;	
+    }
+    
+    public long getDmFileId (long tempFileId, long groupId) throws PortalException, IOException {
+    	
 		String changeLog = "docStore";
 		FileEntry fileEntry = docstore.getTempFile(tempFileId);
 		String title = fileEntry.getFileName();
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		String viewFileUrl = docstore.ViewDocumentAndMediaFile(tempFileId);
-		long documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, tempFileId, is, title, mimeType,
-				changeLog, 0l, "");
+		long  documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is,title, mimeType, changeLog, 0l, "");
+		String viewFileUrl =  docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+		System.out.println(viewFileUrl);
 		docstore.deleteTempFile(tempFileId);
-		receipt.setDmFileId(documentAndMediaFileId);
-		receipt.setViewPdfUrl(viewFileUrl);
-		return receipt;
-	}
-
-	public Receipt getReceiptUpdate(long receiptId) throws PortalException {
-		Receipt receipt = getReceipt(receiptId);
-		return receipt;
-	}
-
-	public long getDmFileId(long tempFileId, long groupId) throws PortalException, IOException {
-
-		String changeLog = "docStore";
-		FileEntry fileEntry = docstore.getTempFile(tempFileId);
-		String title = fileEntry.getFileName();
-		InputStream is = fileEntry.getContentStream();
-		String mimeType = fileEntry.getMimeType();
-		String viewFileUrl = docstore.ViewDocumentAndMediaFile(tempFileId);
-		long documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, tempFileId, is, title, mimeType,
-				changeLog, 0l, "");
-		docstore.deleteTempFile(tempFileId);
-		return documentAndMediaFileId;
-	}
-
+    	return documentAndMediaFileId;
+    }
 	@Reference
 	private DocStore docstore;
 }

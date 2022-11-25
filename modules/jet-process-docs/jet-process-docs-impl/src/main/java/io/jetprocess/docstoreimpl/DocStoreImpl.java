@@ -36,7 +36,7 @@ import io.jetprocess.docstore.DocStore;
 public class DocStoreImpl implements DocStore {
 	
 	@Override
-	public long documentAndMediaFileUpload(long groupId, long fileEntryId, InputStream is, String title,String mimeType, String changeLog, long totalSpace, String description)throws PortalException, IOException {	
+	public long documentAndMediaFileUpload(long groupId, InputStream is, String title,String mimeType, String changeLog, long totalSpace, String description)throws PortalException, IOException {	
 		long folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
 		long documentAndMediaFileId = 0l;
 		long userId = PrincipalThreadLocal.getUserId();
