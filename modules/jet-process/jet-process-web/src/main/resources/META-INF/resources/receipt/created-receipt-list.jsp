@@ -1,17 +1,7 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="../navigation.jsp"%>
 
-<%@page import="java.util.Collections"%>
-<%@page import="org.apache.commons.beanutils.BeanComparator"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
-<%@page import="com.liferay.portal.kernel.dao.orm.QueryUtil"%>
-<%@ page import="io.jetprocess.masterdata.model.ReceiptListViewDto"%>
-<%@ page
-	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="com.liferay.portal.kernel.util.Validator"%>
-<%@page import="java.util.List"%>
+
 
 <style>
 	.subject, .remark{
@@ -65,38 +55,36 @@
 	}
 %>
 <h1 class=" text-center">Receipt Created List</h1>
-<liferay-ui:search-container orderByType="<%=orderByType %>" delta="15"
-	deltaConfigurable="true" iteratorURL="${iteratorURL}"
-	total="${totalUsers}">
+<%int count = MasterdataLocalServiceUtil.getReceiptListCount(1); %>
+<liferay-ui:search-container orderByType="<%=orderByType %>" delta="2"
+	deltaConfigurable="true" 
+	total="<%=count %>">
 
 	<liferay-ui:search-container-results>
 		<%
 			//Get all the results  from file created list
 					List<ReceiptListViewDto> fileList = MasterdataLocalServiceUtil.getReceiptList(1);
 				
-					//usersPerPage is unmodifyable list. It can not be sorted.
-					List<ReceiptListViewDto> usersPerPage = ListUtil.subList(fileList, searchContainer.getStart(),
+					List<ReceiptListViewDto> listPerPage = ListUtil.subList(fileList, searchContainer.getStart(),
 							searchContainer.getEnd());
 
 					//From usersPerPage a new list sortableUsers is created. For sorting we will use this list
-					List<ReceiptListViewDto> sortableUsers = new ArrayList<ReceiptListViewDto>(usersPerPage);
+					List<ReceiptListViewDto> sortableList = new ArrayList<ReceiptListViewDto>(listPerPage);
 					if (Validator.isNotNull(orderByCol)) {
 						//Pass the column name to BeanComparator to get comparator object
 						BeanComparator comparator = new BeanComparator(orderByCol);
 						if (sortingOrder.equalsIgnoreCase("asc")) {
 
 							//It will sort in ascending order
-							Collections.sort(sortableUsers, comparator);
+							Collections.sort(sortableList, comparator);
 						} else {
 							//It will sort in descending order
-							Collections.reverse(sortableUsers);
+							Collections.reverse(sortableList);
 						}
 
 					}
 
-					//sortableUsers list is sorted on the basis of condition. When page load it wont be sorted
-					//It will be sorted only when a header of coulmn is clicked for sorting
-					pageContext.setAttribute("results", sortableUsers);
+					pageContext.setAttribute("results", sortableList);
 		%>
 	</liferay-ui:search-container-results>
 
