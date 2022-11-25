@@ -31,8 +31,8 @@ if(Validator.isNull(orderByType)){
  
 %>
 <h1 class=" text-center">File Created List</h1>
-<%int count = MasterdataLocalServiceUtil.getFileListCount(1); %>
-<liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="2" deltaConfigurable="true"  total="<%=count %>" >
+<% int count = MasterdataLocalServiceUtil.getFileListCount(1); %>
+<liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="2" deltaConfigurable="true"  total="<%=count%>" >
  
 <liferay-ui:search-container-results >
     <%
@@ -52,7 +52,7 @@ if(Validator.isNull(orderByType)){
             Collections.sort(sortableList, comparator);
         }else{
             //It will sort in descending order
-            Collections.reverse(sortableUsers);
+            Collections.reverse(sortableList);
         }
  
     }
