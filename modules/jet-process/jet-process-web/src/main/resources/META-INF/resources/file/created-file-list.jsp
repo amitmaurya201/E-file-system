@@ -1,16 +1,6 @@
 <%@ include file="../init.jsp" %>
 <%@ include file="../navigation.jsp"%>
 
-<%@page import="java.util.Collections"%>
-<%@page import="org.apache.commons.beanutils.BeanComparator"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
-<%@page import="com.liferay.portal.kernel.dao.orm.QueryUtil"%>
-<%@ page import="io.jetprocess.masterdata.model.FileListViewDto"%>
-<%@ page import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="com.liferay.portal.kernel.util.Validator"%>
-<%@page import="java.util.List"%>
  
 
  
@@ -20,7 +10,6 @@
 </portlet:renderURL>
  
 
-<%-- <%@ include file="../file/file-view-nav.jsp"%> --%>
 
 <%
 //orderByCol is the column name passed in the request while sorting
@@ -42,26 +31,25 @@ if(Validator.isNull(orderByType)){
  
 %>
 <h1 class=" text-center">File Created List</h1>
-<liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="13" deltaConfigurable="true" iteratorURL="${iteratorURL}" total="${totalUsers}" >
+<%int count = MasterdataLocalServiceUtil.getFileListCount(1); %>
+<liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="2" deltaConfigurable="true"  total="<%=count %>" >
  
 <liferay-ui:search-container-results >
     <%
     //Get all the results  from file created list
       List<FileListViewDto> fileList = MasterdataLocalServiceUtil.getFileList(1);
 
-    //usersPerPage is unmodifyable list. It can not be sorted.
-    List<FileListViewDto> usersPerPage = ListUtil.subList(fileList, searchContainer.getStart(),searchContainer.getEnd());
+    List<FileListViewDto> filePerPage = ListUtil.subList(fileList, searchContainer.getStart(),searchContainer.getEnd());
   
      
-    //From usersPerPage a new list sortableUsers is created. For sorting we will use this list
-    List<FileListViewDto> sortableUsers = new ArrayList<FileListViewDto>(usersPerPage);
+    List<FileListViewDto> sortableList = new ArrayList<FileListViewDto>(filePerPage);
     if(Validator.isNotNull(orderByCol)){
         //Pass the column name to BeanComparator to get comparator object
         BeanComparator comparator = new BeanComparator(orderByCol);
         if(sortingOrder.equalsIgnoreCase("asc")){
              
             //It will sort in ascending order
-            Collections.sort(sortableUsers, comparator);
+            Collections.sort(sortableList, comparator);
         }else{
             //It will sort in descending order
             Collections.reverse(sortableUsers);
@@ -69,9 +57,8 @@ if(Validator.isNull(orderByType)){
  
     }
  
-    //sortableUsers list is sorted on the basis of condition. When page load it wont be sorted
     //It will be sorted only when a header of coulmn is clicked for sorting
-    pageContext.setAttribute("results", sortableUsers);
+    pageContext.setAttribute("results", sortableList);
    
     %>
 </liferay-ui:search-container-results>

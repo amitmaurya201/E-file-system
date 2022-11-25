@@ -15,3 +15,17 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <link rel="stylesheet" 
   href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   
+<%@page import="java.util.Collections"%>
+<%@page import="org.apache.commons.beanutils.BeanComparator"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.QueryUtil"%>
+<%@ page import="io.jetprocess.masterdata.model.FileListViewDto"%>
+<%@ page import="io.jetprocess.masterdata.model.ReceiptListViewDto"%>
+<%@ page import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
+<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
+<%@page import="com.liferay.portal.kernel.util.Validator"%>
+<%@page import="java.util.List"%>
+
+
+
