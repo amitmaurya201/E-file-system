@@ -213,3 +213,25 @@ paths:
                   $ref: '#/components/schemas/ReceiptRsModel'
           description: ''
       tags: ["ReceiptRsModel"]
+  /updateReceipt:
+    put:
+      operationId: updateReceipt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReceiptRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/ReceiptRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ReceiptRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/ReceiptRsModel'
+          description: ''
+      tags: ["ReceiptRsModel"]   
