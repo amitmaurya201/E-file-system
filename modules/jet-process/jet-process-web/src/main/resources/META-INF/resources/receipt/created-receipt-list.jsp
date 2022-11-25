@@ -55,10 +55,10 @@
 	}
 %>
 <h1 class=" text-center">Receipt Created List</h1>
-<%int count = MasterdataLocalServiceUtil.getReceiptListCount(1); %>
+<% int count = MasterdataLocalServiceUtil.getReceiptListCount(1); %>
 <liferay-ui:search-container orderByType="<%=orderByType %>" delta="2"
 	deltaConfigurable="true" 
-	total="<%=count %>">
+	total="<%=count%>">
 
 	<liferay-ui:search-container-results>
 		<%
@@ -113,7 +113,7 @@
 			name="Remarks" />
 		
 			
-		<liferay-ui:search-container-column-text property="pdf" cssClass="fa fa-file-pdf-o"
+		<liferay-ui:search-container-column-text property="viewPdfUrl" cssClass="fa fa-file-pdf-o"
 			name="pdf" />
 
 

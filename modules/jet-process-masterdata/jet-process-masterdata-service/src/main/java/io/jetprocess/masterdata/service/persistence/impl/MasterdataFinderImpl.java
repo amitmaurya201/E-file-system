@@ -615,6 +615,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			System.out.println("query---"+sql);
 			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
 			List  count = sqlQuery.list();
 			BigInteger b1 = null;
 			for (Object object : count) {
