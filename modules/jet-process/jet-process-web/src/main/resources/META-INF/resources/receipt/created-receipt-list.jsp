@@ -1,38 +1,23 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="../navigation.jsp"%>
 
+<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
 
 <style>
-	.subject, .remark{
+	.tips{
 		white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 50ch;
-        color: red;
+        
 	}
-	.popup {
-            display: none;
-            width: 500px;
-            border: solid red 3px;
-            color: aquamarine;
-        }
+	.tips[title]:hover::after {
+	  background-color: #fcf4ca;
+	}
+	
+	
 </style>
-<script>
-        $flag = -1;
-  
-        $("td").hover(
-            function () {
-                $("td.popup").attr("style", "display:block");
-            },
-            function () {
-                if ($flag == -1) {
-                    $("td.popup").attr("style", "display:none");
-                }
-            }
-        );
-  
-    </script>
 
 
 
@@ -102,7 +87,7 @@
 		<liferay-ui:search-container-column-text href="<%=receiptInnerView%>"
 			property="receiptNumber" name="Receipt No." orderable="true" />
 
-		<liferay-ui:search-container-column-text cssClass="subject" property="subject" />
+		<liferay-ui:search-container-column-text cssClass="tips" property="subject" />
 
 		<liferay-ui:search-container-column-text property="category" />
 
@@ -113,11 +98,48 @@
 			name="Remarks" />
 		
 			
-		<liferay-ui:search-container-column-text property="viewPdfUrl" cssClass="fa fa-file-pdf-o"
-			name="pdf" />
+		<liferay-ui:search-container-column-text cssClass="openPdf fa fa-file-pdf-o" name="pdf" />
 
 
 	</liferay-ui:search-container-row>
 
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>
+
+
+<portlet:renderURL var="viewPdf"
+			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+			<portlet:param name="mvcPath" value="/receipt/pdf_view.jsp" />
+			<portlet:param name="pdfUrl" value="${receipt.viewPdfUrl }" />
+		</portlet:renderURL>
+		
+		
+<script type="text/javascript">
+
+
+$(".tips").hover(function() {
+	
+    $(this).attr('title', $(this).text());
+    
+    $("title").css('background-color','#fcf4ca');
+});
+
+
+$(".openPdf").on('click', function(e){
+	
+	var pdfUrl = '<%= viewPdf %>';
+	Liferay.Util.openWindow({
+		dialog:{
+
+		height:900,
+		modal: true,
+		width:900,
+		destroyOnHide: true,
+		destroyOnClose: true
+		},
+		title:'View Pdf',
+		
+		uri:pdfUrl
+		});
+});
+</script>
