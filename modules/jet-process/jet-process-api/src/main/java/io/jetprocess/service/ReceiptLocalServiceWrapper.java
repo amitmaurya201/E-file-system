@@ -318,6 +318,13 @@ public class ReceiptLocalServiceWrapper
 		return _receiptLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public io.jetprocess.model.Receipt getReceipt()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptLocalService.getReceipt();
+	}
+
 	/**
 	 * Returns the receipt with the primary key.
 	 *

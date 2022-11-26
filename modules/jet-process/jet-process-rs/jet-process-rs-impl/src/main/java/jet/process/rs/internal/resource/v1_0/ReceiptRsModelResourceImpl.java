@@ -43,11 +43,11 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 
 		System.out.println("test");
-		Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId(),
-				receiptRsModel.getGroupId());
+		//Receipt receipt = receiptLocalService.getReceipt();
+	     Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId(),receiptRsModel.getGroupId());
 		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
 		String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
-		System.out.println("test1");
+		System.out.println(viewFileUrl);
 		receipt.setAddress(receiptRsModel.getAddress());
 		System.out.println("test1");
 		receipt.setCity(receiptRsModel.getCity());
@@ -167,11 +167,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		System.out.println("test");
 		Receipt receipt = receiptLocalService.getReceiptUpdate(receiptRsModel.getReceiptId());
-		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
-		if(dmFileId!=receipt.getDmFileId()) {
-			receipt.setDmFileId(dmFileId);
-			
-		}
+		
 		System.out.println("test1");
 		receipt.setAddress(receiptRsModel.getAddress());
 		System.out.println("test2");
@@ -214,6 +210,17 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		System.out.println("test19");
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		System.out.println("test20");
+		long dmFileId =receiptRsModel.getDmFileId(); 
+		System.out.println(dmFileId);
+		//receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
+		//System.out.println(dmFileId);
+		if(dmFileId!=receipt.getDmFileId()) {
+			receipt.setDmFileId(dmFileId);
+			System.out.println("dmFileId saved ");
+			
+		}
+		System.out.println("dmFileId1 saved ");
+		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;
 	}
 

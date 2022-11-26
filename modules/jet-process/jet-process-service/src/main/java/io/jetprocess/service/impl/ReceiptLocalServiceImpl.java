@@ -54,6 +54,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		String number = null;
 		String changeLog = "docStore";
 		FileEntry fileEntry = docstore.getTempFile(tempfileEntryId);
+		System.out.println(fileEntry);
 
 		String title = fileEntry.getFileName();
 
@@ -66,7 +67,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
 			e.printStackTrace();
 		}
-		System.out.println(documentAndMediaFileId);
+		System.out.println("documentAndMediaFileId"+documentAndMediaFileId);
 		String viewFileUrl = null;
 		try {
 			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
@@ -74,7 +75,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
 			e1.printStackTrace();
 		}
-		System.out.println(viewFileUrl);
+		System.out.println("viewFileUrl"+viewFileUrl);
 		
 		docstore.deleteTempFile(tempfileEntryId);
 		// Generate A New Primary Key For The ContactDetails
@@ -247,11 +248,19 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
 		long  documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is,title, mimeType, changeLog, 0l, "");
+		System.out.println(documentAndMediaFileId);
 		String viewFileUrl =  docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-		System.out.println(viewFileUrl);
+		System.out.println("localservice"+viewFileUrl);
 		docstore.deleteTempFile(tempFileId);
     	return documentAndMediaFileId;
     }
+    public Receipt getReceipt() throws PortalException{
+    	long receiptId = counterLocalService.increment(Receipt.class.getName());
+		System.out.println(receiptId);
+	    Receipt receipt = createReceipt(receiptId);
+	    return receipt;
+    }
+    
 	@Reference
 	private DocStore docstore;
 }

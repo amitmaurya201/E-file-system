@@ -290,6 +290,10 @@ public class ReceiptLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static Receipt getReceipt() throws PortalException {
+		return getService().getReceipt();
+	}
+
 	/**
 	 * Returns the receipt with the primary key.
 	 *

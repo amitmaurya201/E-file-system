@@ -257,6 +257,9 @@ public interface ReceiptLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Receipt getReceipt() throws PortalException;
+
 	/**
 	 * Returns the receipt with the primary key.
 	 *
