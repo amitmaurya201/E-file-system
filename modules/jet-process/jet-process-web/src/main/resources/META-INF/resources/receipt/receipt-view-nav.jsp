@@ -2,6 +2,7 @@
 <%@ include file="../navigation.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ include file="/js/common.js" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +29,9 @@
 
 	<%
 		String receiptId = renderRequest.getParameter("receiptId");
-		/*String userPostId = renderRequest.getParameter("userPostId");*/
 	%>
 	<portlet:renderURL var="home">
-		<portlet:param name="mvcPath" value="/receipt/receipt_view.jsp" />
+		<portlet:param name="mvcRenderCommandName" value="/receiptView" />
 		<portlet:param name="receiptId" value="<%=receiptId %>"/>
 	</portlet:renderURL>
 
@@ -49,7 +49,7 @@
 		<portlet:param name="mvcPath" value="/receipt/put_in_a_file.jsp" />
 	</portlet:renderURL>
 	<portlet:renderURL var="edit">
-		<portlet:param name="mvcRenderCommandName" value="/createReceipt" />
+		<portlet:param name="mvcRenderCommandName" value="/editReceipt" />
 		<portlet:param name="receiptId" value="<%=receiptId%>" />
 	</portlet:renderURL>
 	<portlet:renderURL var="dispatch">

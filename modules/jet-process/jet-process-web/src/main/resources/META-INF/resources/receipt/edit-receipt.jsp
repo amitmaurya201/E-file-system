@@ -1,3 +1,6 @@
+<%@page
+	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
+<%@page import="io.jetprocess.service.ReceiptLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -7,34 +10,47 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
-<%@ include file="/js/common.js" %> 
+<%@ include file="/js/common.js"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-		<%@ include file="/navigation.jsp"%>
-	<%
-		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-		String setURl = serviceContext.getPortalURL();
+<%@ include file="/navigation.jsp"%>
+<liferay-util:include page="/receipt/receipt-view-nav.jsp"
+	servletContext="<%=application%>">
+	<liferay-util:param name="selectedNav" value="home" />
+	<%-- <liferay-util:param name="userPostId" value="${id}" /> --%>
+</liferay-util:include>
+<%
+	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+	String setURl = serviceContext.getPortalURL();
+%>
+<div class=" mr-1 receipt">
+	<aui:container cssClass="row">
 
-		/* for current date*/
-		DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+		<aui:form cssClass="col-6">
+			<aui:col cssClass="border">
+				<div id="targetDiv" class="targetDiv">
+					<aui:input id="document" label="" name="document" type="file">
+						<aui:validator name="required" />
+						<aui:validator name="acceptFiles"
+							errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
+					</aui:input>
+					<%-- <c:if test="${receipt.viewPdfUrl != null}">
+						<embed id="pdfurl" type="application/pdf" 
+							src="${receipt.viewPdfUrl}" width="100%" height="450">
+					</c:if> --%>
+				</div>
+			</aui:col>
+		</aui:form>
 
-	%>
-	<div class=" mr-1 receipt">
-		<aui:container cssClass="row" >
-			<aui:form cssClass="col-6" >
-			<aui:col cssClass="border" >
-							<div id="targetDiv" class="targetDiv" >
-								<aui:input id="document" label = "" name="document" type="file" >
-									<aui:validator name="required" />
-									<aui:validator name="acceptFiles" errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
-								</aui:input>	
-							</div>
-						</aui:col>
-			</aui:form>
-
-			<aui:form  cssClass="col-6"  name="receiptForm" id="receiptForm">
-				<aui:row>
-					<aui:col  cssClass="border">
+		<aui:form cssClass="col-6" name="receiptForm" id="receiptForm">
+			<c:if test="${receipt.receiptId != 0}">
+				<aui:input name="receiptId" id="receiptId" type="hidden"
+					value="${receipt.receiptId}" />
+				<%-- <aui:input name="userpostId" id="userpostId" 
+				value="${receipt.userPostId}" /> --%>
+			</c:if>
+			<aui:row>
+				<aui:col cssClass="border">
 					<div class="scroll">
 						<div class="border heading">
 							<h4>
@@ -47,13 +63,16 @@
 								<div class="textOnInput">
 									<label>Created On</label>
 									<aui:input label="" name="createdOn" id="createdOn"
-										value="<%=currentDate.format(new Date())%>" disabled="true" />
+										value="${receipt.createDate}" disabled="true" />
 								</div>
 							</aui:col>
 							<aui:col md="4" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Type<span class='text-danger'>*</span></label>
 									<aui:select label="" name="typeId" id="typeId">
+										<c:if test="${receipt.typeId != null}">
+											<aui:option value="${receipt.typeId}">${typeValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 										<aui:validator name="required" />
 									</aui:select>
@@ -62,7 +81,11 @@
 							<aui:col md="4" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Delivery Mode<span class='text-danger'>*</span></label>
-									<aui:select label="" name="deliveryModeId" id="deliveryModeId">
+									<aui:select label="" name="deliveryModeId" id="deliveryModeId"
+										disabled="true">
+										<c:if test="${receipt.deliveryModeId != null}">
+											<aui:option value="${receipt.deliveryModeId}">${deliveryModeValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 										<aui:validator name="required" />
 									</aui:select>
@@ -74,7 +97,7 @@
 								<div class="textOnInput">
 									<label>Received on<span class='text-danger'>*</span></label>
 									<aui:input type="date" label="" name="receivedOn"
-										id="receivedOn">
+										id="receivedOn" value="${receipt.receivedOn}">
 										<aui:validator name="required" />
 										<aui:validator name="custom"
 											errorMessage="Received Date should be greater than or equal to Letter Date">
@@ -98,7 +121,7 @@
 								<div class="textOnInput">
 									<label>Letter Date</label>
 									<aui:input type="date" label="" name="letterDate"
-										id="letterDate">
+										id="letterDate" value="${receipt.letterDate}">
 										<aui:validator name="custom"
 											errorMessage="Letter Date should not be greater than Created On">
 											function(val){
@@ -115,15 +138,17 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Reference Number<span class='text-danger'>*</span></label>
-									<aui:input label="" name="referenceNumber" id="referenceNumber" >
-									<aui:validator name="required" />
+									<aui:input label="" name="referenceNumber" id="referenceNumber"
+										value="${receipt.referenceNumber}">
+										<aui:validator name="required" />
 									</aui:input>
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Mode Number</label>
-									<aui:input label="" name="modeNumber" id="modeNumber" />
+									<aui:input label="" name="modeNumber" id="modeNumber"
+										value="${receipt.modeNumber}" />
 								</div>
 							</aui:col>
 						</aui:row>
@@ -138,6 +163,9 @@
 								<div class="textOnInput">
 									<label>Organization<span class='text-danger'>*</span></label>
 									<aui:select label="" name="organizationId" id="organizationId">
+										<c:if test="${receipt.organizationId != null}">
+											<aui:option value="${receipt.organizationId}">${organizationValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 										<aui:validator name="required" />
 									</aui:select>
@@ -148,6 +176,9 @@
 									<label>Sub Organization</label>
 									<aui:select label="" name="subOrganizationId"
 										id="subOrganizationId">
+										<c:if test="${receipt.subOrganizationId != null}">
+											<aui:option value="${receipt.subOrganizationId}">${subOrganizationValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 									</aui:select>
 								</div>
@@ -157,7 +188,8 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Name<span class='text-danger'>*</span></label>
-									<aui:input label="" name="name" id="name">
+									<aui:input label="" name="name" id="name"
+										value="${receipt.name}">
 										<aui:validator name="required" />
 									</aui:input>
 								</div>
@@ -165,7 +197,8 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Designation<span class='text-danger'>*</span></label>
-									<aui:input label="" name="designation" id="designation">
+									<aui:input label="" name="designation" id="designation"
+										value="${receipt.designation}">
 										<aui:validator name="required" />
 									</aui:input>
 								</div>
@@ -175,7 +208,8 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Mobile</label>
-									<aui:input label="" name="mobile" id="mobile">
+									<aui:input label="" name="mobile" id="mobile"
+										value="${receipt.mobile}">
 										<aui:validator name="custom"
 											errorMessage="Mobile should be maximum 10 numeric characters">
 											function(val){
@@ -189,7 +223,8 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Email</label>
-									<aui:input label="" name="email" id="email">
+									<aui:input label="" name="email" id="email"
+										value="${receipt.email}">
 										<aui:validator name=""></aui:validator>
 										<aui:validator name="custom"
 											errorMessage="please enter valid email">
@@ -206,7 +241,8 @@
 							<aui:col cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Address<span class='text-danger'>*</span></label>
-									<aui:input type="textarea" label="" name="address" id="address">
+									<aui:input type="textarea" label="" name="address" id="address"
+										value="${receipt.address}">
 										<aui:validator name="required" />
 										<aui:validator name="maxLength">500</aui:validator>
 									</aui:input>
@@ -218,6 +254,9 @@
 								<div class="textOnInput">
 									<label>Country</label>
 									<aui:select label="" name="countryId" id="countryId">
+										<c:if test="${receipt.countryId != null}">
+											<aui:option value="${receipt.countryId}">${countryValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 									</aui:select>
 								</div>
@@ -226,7 +265,10 @@
 								<div class="textOnInput">
 									<label>State</label>
 									<aui:select label="" name="stateId" id="stateId">
-										<aui:option value="6">Select</aui:option>
+										<c:if test="${receipt.stateId != null}">
+											<aui:option value="${receipt.stateId}">${stateValue}</aui:option>
+										</c:if>
+										<aui:option value="">Select</aui:option>
 									</aui:select>
 								</div>
 							</aui:col>
@@ -235,13 +277,15 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>City/District</label>
-									<aui:input label="" name="city" id="city" />
+									<aui:input label="" name="city" id="city"
+										value="${receipt.city}" />
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Pin Code</label>
-									<aui:input label="" name="pinCode" id="pinCode">
+									<aui:input label="" name="pinCode" id="pinCode"
+										value="${receipt.pinCode}">
 										<aui:validator name="maxLength">8</aui:validator>
 									</aui:input>
 								</div>
@@ -259,6 +303,9 @@
 									<label>Category<span class='text-danger'>*</span></label>
 									<aui:select label="" name="receiptCategoryId"
 										id="receiptCategoryId">
+										<c:if test="${receipt.receiptCategoryId != null}">
+											<aui:option value="${receipt.receiptCategoryId}">${receiptCategoryValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 										<aui:validator name="required" />
 									</aui:select>
@@ -269,6 +316,9 @@
 									<label>Sub Category</label>
 									<aui:select label="" name="receiptSubCategoryId"
 										id="receiptSubCategoryId">
+										<c:if test="${receipt.receiptSubCategoryId != null}">
+											<aui:option value="${receipt.receiptSubCategoryId}">${receiptSubCategoryValue}</aui:option>
+										</c:if>
 										<aui:option value="">Select</aui:option>
 									</aui:select>
 								</div>
@@ -278,7 +328,8 @@
 							<aui:col cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Subject<span class='text-danger'>*</span></label>
-									<aui:input type="textarea" label="" name="subject" id="subject">
+									<aui:input type="textarea" label="" name="subject" id="subject"
+										value="${receipt.subject}">
 										<aui:validator name="required" />
 										<aui:validator name="maxLength">500</aui:validator>
 									</aui:input>
@@ -289,19 +340,20 @@
 							<aui:col cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Remarks</label>
-									<aui:input label="" name="remarks" id="remarks" />
+									<aui:input label="" name="remarks" id="remarks"
+										value="${receipt.remarks}" />
 								</div>
 							</aui:col>
 						</aui:row>
-						</div>
-						<%--	Action Buttons--%>
-						<aui:button-row>
-							<aui:button cssClass="btn btn-primary button" type="submit"
-								name="generate" value="Generate" />
-						</aui:button-row>
-					</aui:col>
-				</aui:row>
-			</aui:form>
-		</aui:container>
-	</div>
+					</div>
+					<%--	Action Buttons--%>
+					<aui:button-row>
+						<aui:button cssClass="btn btn-primary button" type="submit"
+							name="generate" value="Generate" />
+					</aui:button-row>
+				</aui:col>
+			</aui:row>
+		</aui:form>
+	</aui:container>
+</div>
 </div>
