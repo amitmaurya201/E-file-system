@@ -226,7 +226,7 @@
 								<div class="textOnInput">
 									<label>State</label>
 									<aui:select label="" name="stateId" id="stateId">
-										<aui:option value="6">Select</aui:option>
+										<aui:option value="">Select</aui:option>
 									</aui:select>
 								</div>
 							</aui:col>
