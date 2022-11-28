@@ -60,6 +60,29 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		return fileRsModel;
 }
 	
+	// update method for file update 
+	@Override
+		public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
+		
+		DocFile docFile =  docFileLocalService.getDocFileByDocFileId(fileRsModel.getId());
+		
+		docFile.setSubject(fileRsModel.getSubject());
+		System.out.println("Subject --->"+docFile.getSubject());
+		docFile.setCategoryId(fileRsModel.getCategoryId());
+		System.out.println("CategoryId --->"+docFile.getCategoryId());
+		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		System.out.println("SubCategory --->"+docFile.getSubCategoryId());
+		docFile.setRemarks(fileRsModel.getRemarks());
+		System.out.println("Remarks --->"+docFile.getRemarks());
+		docFile.setReference(fileRsModel.getReference());
+		System.out.println("Reference --->"+docFile.getReference());
+		 docFileLocalService.updateDocFile(docFile);
+		
+			return fileRsModel;
+		}
+	
+	
+	
 	private String generateFileNumber(long fileId) {
 		String FileNumber = "F" + fileId;
 		return FileNumber;

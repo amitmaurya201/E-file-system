@@ -204,6 +204,29 @@ public abstract class BaseFileRsModelResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testUpdateDocFile() throws Exception {
+		FileRsModel postFileRsModel = testUpdateDocFile_addFileRsModel();
+
+		FileRsModel randomFileRsModel = randomFileRsModel();
+
+		FileRsModel putFileRsModel = fileRsModelResource.updateDocFile(
+			randomFileRsModel);
+
+		assertEquals(randomFileRsModel, putFileRsModel);
+		assertValid(putFileRsModel);
+
+		FileRsModel getFileRsModel = fileRsModelResource.updateDocFile();
+
+		assertEquals(randomFileRsModel, getFileRsModel);
+		assertValid(getFileRsModel);
+	}
+
+	protected FileRsModel testUpdateDocFile_addFileRsModel() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected FileRsModel testGraphQLFileRsModel_addFileRsModel()
 		throws Exception {
 

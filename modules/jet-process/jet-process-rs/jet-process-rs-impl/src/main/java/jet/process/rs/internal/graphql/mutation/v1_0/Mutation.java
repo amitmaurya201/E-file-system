@@ -60,6 +60,18 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public FileRsModel updateDocFile(
+			@GraphQLName("fileRsModel") FileRsModel fileRsModel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_fileRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			fileRsModelResource -> fileRsModelResource.updateDocFile(
+				fileRsModel));
+	}
+
+	@GraphQLField
 	public ReceiptRsModel createReceipt(
 			@GraphQLName("receiptRsModel") ReceiptRsModel receiptRsModel)
 		throws Exception {

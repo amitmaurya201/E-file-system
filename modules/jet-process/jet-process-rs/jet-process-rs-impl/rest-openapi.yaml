@@ -169,6 +169,30 @@ paths:
                   $ref: '#/components/schemas/FileRsModel'
           description: ''
       tags: ["FileRsModel"]
+      
+  /updateDocFile:
+    put:
+      operationId: updateDocFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FileRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/FileRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/FileRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/FileRsModel'
+          description: ''
+      tags: ["FileRsModel"]
+      
   /createReceipt:
     post:
       operationId: createReceipt
