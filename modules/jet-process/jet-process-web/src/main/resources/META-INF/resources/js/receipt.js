@@ -136,40 +136,87 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 		 	});
 });
 var groupId = Liferay.ThemeDisplay.getScopeGroupId();
+var receiptId= $('#<portlet:namespace/>receiptId').val(); 
+console.log("-- receiptId "+receiptId);
+var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
+console.log(viewPdf);
+
 /* file upload */	
-$("#<portlet:namespace />document").on('change', function(){
-	 var myFile = $("#<portlet:namespace />document").prop("files")[0];
-	 var dmFileId=0;
-	 console.log(myFile);
-     console.log(groupId);
-     var formData = new FormData();
-   	 formData.append('document', myFile);
-	 formData.append('groupId', groupId);
-	 var extension = $("#<portlet:namespace />document").val().split('.').pop().toLowerCase();
-	 if(myFile.size > 26,214,400 && extension == 'pdf'){ 
-	 $.ajax({
-		    type: "POST",
-		    url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
-		    data: formData,
-		    cache : false,
-		    processData: false,
-	        contentType : false,
-		  }).done(function(response) {
-			  viewPdfUrl=response.description;
-			  tempFileId=response.id;
-			  console.log(viewPdfUrl);
-			  console.log(tempFileId);
-             var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
-             embed.attr('src',viewPdfUrl);
-             $('#targetDiv').append(embed);
-		  }).fail(function(e) {
-		     console.log(e);
-		  }); 
-	 }
-});
+var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
+var viewPdfUrl=null;
+if(receiptId == null){
+	
+	$("#<portlet:namespace />document").on('change', function(){
+		 var myFile = $("#<portlet:namespace />document").prop("files")[0];
+		 var dmFileId=0;
+		 console.log(myFile);
+	     console.log(groupId);
+	     var formData = new FormData();
+	   	 formData.append('document', myFile);
+		 formData.append('groupId', groupId);
+		 var extension = $("#<portlet:namespace />document").val().split('.').pop().toLowerCase();
+		 if(myFile.size > 26,214,400 && extension == 'pdf'){ 
+		 $.ajax({
+			    type: "POST",
+			    url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
+			    data: formData,
+			    cache : false,
+			    processData: false,
+		        contentType : false,
+			  }).done(function(response) {
+				  tempFileId=response.id;
+				  console.log(tempFileId);
+	            	 viewPdfUrl=response.description;
+	            	 console.log("add     " +viewPdfUrl);
+//	            	 var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
+	            	 embed.attr('src',viewPdfUrl);
+	            		$('#targetDiv').append(embed);
+			  }).fail(function(e) {
+			     console.log(e);
+			  }); 
+		 }
+	});
+	 
+}
+else{ 
+//	if(viewPdfUrl != null || viewPdf != null){
+	alert('else');
+embed.attr('src',viewPdf);
+$('#targetDiv').append(embed);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* create receipt */
 
+
+ 
+ 
 
 $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
@@ -182,21 +229,34 @@ $("#<portlet:namespace />generate").on('click', function(e){
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
-	 $.ajax({
-		    type: "POST",
-		    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
-		    data: jsonObj,
-		    dataType: 'json',
-		    cache : false,
-		    processData: false,
-	        contentType : 'application/json'
-		  }).done(function(response) {
-			  console.log(response);
-			
-           
-	 })
-	 
-	 
+	 if(receiptId != null){
+		  $.ajax({
+			    type: "PUT",
+			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
+			    data: jsonObj,
+			    dataType: 'json',
+			    cache : false,
+			    processData: false,
+		        contentType : 'application/json'
+			  }).done(function(response) {
+				  console.log("------------------------3s3-------------------------");
+				  console.log(response);
+		  })
+		 }
+	 else {
+		 $.ajax({
+			    type: "POST",
+			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
+			    data: jsonObj,
+			    dataType: 'json',
+			    cache : false,
+			    processData: false,
+		        contentType : 'application/json'
+			  }).done(function(response) {
+				  console.log("------------------------33-------------------------");
+				  console.log(response);
+		 })
+	 }
 });
 
 

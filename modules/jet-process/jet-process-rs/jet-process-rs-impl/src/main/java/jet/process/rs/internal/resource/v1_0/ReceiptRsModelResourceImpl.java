@@ -181,16 +181,16 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		System.out.println("test19");
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		System.out.println("test20");
-		long dmFileId =receiptRsModel.getDmFileId(); 
-		System.out.println(dmFileId);
+//		long dmFileId =receiptRsModel.getDmFileId(); 
+//		System.out.println(dmFileId);
 		//receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
 		//System.out.println(dmFileId);
-		if(dmFileId!=receipt.getDmFileId()) {
-			receipt.setDmFileId(dmFileId);
-			System.out.println("dmFileId saved ");
-			
-		}
-		System.out.println("dmFileId1 saved ");
+//		if(dmFileId!=receipt.getDmFileId()) {
+//			receipt.setDmFileId(dmFileId);
+//			System.out.println("dmFileId saved ");
+//			
+//		}
+//		System.out.println("dmFileId1 saved ");
 		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;
 	}

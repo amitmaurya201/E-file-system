@@ -24,17 +24,12 @@ public class EditReceiptRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
-		System.out.println("-1");
 		if (receiptId != 0) {
-			System.out.println("-2");
 			try {
 				Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 				renderRequest.setAttribute("receipt", receipt);
-				System.out.println("-23" + receipt.getUserPostId());
-				System.out.println("-3" + receipt.getViewPdfUrl());
 				renderRequest.setAttribute("viewPdfUrl", receipt.getViewPdfUrl());
 //				renderRequest.setAttribute("receiptId", receipt.getReceiptId());
-				System.out.println("-3");
 				Masterdata typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
 				Masterdata deliveryModeById = masterdataLocalService.getDeliveryModeById(receipt.getDeliveryModeId());
 				Masterdata organizationById = masterdataLocalService.getOrganizationById(receipt.getOrganizationId());
@@ -46,7 +41,6 @@ public class EditReceiptRenderCommand implements MVCRenderCommand {
 						.getReceiptSubCategoryById(receipt.getReceiptSubCategoryId());
 				Masterdata countryById = masterdataLocalService.getCountryById(receipt.getCountryId());
 				Masterdata StateById = masterdataLocalService.getStateById(receipt.getStateId());
-				System.out.println("-4");
 				renderRequest.setAttribute("typeValue", typeById.getValue());
 				renderRequest.setAttribute("deliveryModeValue", deliveryModeById.getValue());
 				renderRequest.setAttribute("organizationValue", organizationById.getValue());
@@ -55,7 +49,6 @@ public class EditReceiptRenderCommand implements MVCRenderCommand {
 				renderRequest.setAttribute("receiptSubCategoryValue", receiptSubCategoryById.getValue());
 				renderRequest.setAttribute("countryValue", countryById.getValue());
 				renderRequest.setAttribute("stateValue", StateById.getValue());
-				System.out.println("-4");
 			} catch (PortalException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

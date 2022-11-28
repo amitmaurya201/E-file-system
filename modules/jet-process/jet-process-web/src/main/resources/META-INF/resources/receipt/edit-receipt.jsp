@@ -82,7 +82,7 @@
 								<div class="textOnInput">
 									<label>Delivery Mode<span class='text-danger'>*</span></label>
 									<aui:select label="" name="deliveryModeId" id="deliveryModeId"
-										disabled="true">
+										readonly="true">
 										<c:if test="${receipt.deliveryModeId != null}">
 											<aui:option value="${receipt.deliveryModeId}">${deliveryModeValue}</aui:option>
 										</c:if>
