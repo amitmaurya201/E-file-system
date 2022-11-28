@@ -43,6 +43,8 @@ public interface FileRsModelResource {
 
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception;
 
+	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

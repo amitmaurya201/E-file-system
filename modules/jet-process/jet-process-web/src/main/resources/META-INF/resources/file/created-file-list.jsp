@@ -32,7 +32,8 @@ if(Validator.isNull(orderByType)){
  
 %>
 <h1 class=" text-center">File Created List</h1>
-<liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="13" deltaConfigurable="true" iteratorURL="${iteratorURL}" total="${totalUsers}" >
+<% int count = MasterdataLocalServiceUtil.getFileListCount(1); %>
+<liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="13" deltaConfigurable="true" iteratorURL="${iteratorURL}" total="<%=count%>" >
  
 <liferay-ui:search-container-results >
     <%

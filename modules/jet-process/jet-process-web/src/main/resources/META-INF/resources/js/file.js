@@ -142,6 +142,7 @@
      });
 });
 	
+	        /*   Add docFile   */
 	                          
 	$("#<portlet:namespace />add-docfile").on('click', function(e){
 	        	 e.preventDefault();
@@ -165,6 +166,38 @@
 		        
 	        	 })
 	        });
-	                 
+	             
+	
+	
+	/* update docFile */
+	
+	$("#<portlet:namespace />update-docfile").on('click', function(e){
+   	 e.preventDefault();
+   	 var formObj= $('#<portlet:namespace/>updateformId')[0];
+   	 
+        var jsonData = bindFormDataJson(formObj);
+        var userPostId=  getUserPostId();
+        jsonData["userPostId"] = userPostId;
+      
+     var jsonObj = JSON.stringify(jsonData);  
+   	 $.ajax({
+   		    type: "PUT",
+   		    url: "${setURL}/o/jet-process-rs/v1.0/updateDocFile?p_auth=" + Liferay.authToken,
+   		    data: jsonObj,
+   		    dataType: 'json',
+   		    cache : false,
+   		    processData: false,
+   	        contentType : 'application/json'
+   		  }).done(function(response) {
+   			  console.log(response);
+   			  alert("File Updated SuccessFully "+response.fileNumber);
+       
+   	 })
+   });
+	
+	
+	
+	
+	
 </aui:script>
 

@@ -54,6 +54,23 @@ public abstract class BaseFileRsModelResourceImpl
 		return new FileRsModel();
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/jet-process-rs/v1.0/updateDocFile' -d $'{"basicHeadId": ___, "categoryId": ___, "fileCodeId": ___, "fileNumber": ___, "groupId": ___, "id": ___, "nature": ___, "primaryHeadId": ___, "reference": ___, "remarks": ___, "secondaryHeadId": ___, "subCategoryId": ___, "subject": ___, "tertiaryHeadId": ___, "type": ___, "userPostId": ___, "year": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "FileRsModel")}
+	)
+	@javax.ws.rs.Consumes({"application/json", "application/xml"})
+	@javax.ws.rs.Path("/updateDocFile")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
+		return new FileRsModel();
+	}
+
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
 	}

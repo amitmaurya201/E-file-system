@@ -24,14 +24,14 @@ import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
  String categoryValue = (String) request.getAttribute("CategoryValue");
  String subCategoryValue = (String) request.getAttribute("SubCategoryValue");
 
-/* session.setAttribute("DocFile", docFile);
+ session.setAttribute("DocFile", docFile);
 session.setAttribute("BasicHeadValue",basicHeadValue);
 session.setAttribute("PrimaryHeadValue", primaryHeadValue);
 session.setAttribute("SecondaryHeadValue",secondaryHeadValue);
 session.setAttribute("TertiaryHeadValue", tertiaryHeadValue);
 session.setAttribute("FileCodeValue",fileCodeValue);
 session.setAttribute("CategoryVaue", categoryValue);
-session.setAttribute("SubCategoryValue",subCategoryValue); */
+session.setAttribute("SubCategoryValue",subCategoryValue); 
 
 %>
 
