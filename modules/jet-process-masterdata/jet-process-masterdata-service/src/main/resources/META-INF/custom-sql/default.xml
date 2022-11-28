@@ -176,7 +176,7 @@ SELECT tertiaryheadid as masterdataid ,  'C-'||tertiaryheadid as referenceid , t
 
 <sql id="fileCreatedListQuery">
 <![CDATA[
-SELECT filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
+SELECT docfileid as docfileid , filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
 	FROM jet_process_docfile  INNER JOIN 
 	md_category  ON categorydataid = categoryid where userpostid = ? ;
 ]]>

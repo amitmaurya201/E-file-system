@@ -3,7 +3,8 @@ package io.jetprocess.masterdata.model;
 import java.util.Date;
 
 public class FileListViewDto {
-
+    
+	private long docFileId;
 	private String fileNumber;
 	private String subject;
 	private String category;
@@ -39,14 +40,23 @@ public class FileListViewDto {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public FileListViewDto(String fileNumber, String subject, String category, String remark, Date createDate) {
+	public long getDocFileId() {
+		return docFileId;
+	}
+	public void setDocFileId(long docFileId) {
+		this.docFileId = docFileId;
+	}
+	public FileListViewDto(long docFileId, String fileNumber, String subject, String category, String remark,
+			Date createDate) {
 		super();
+		this.docFileId = docFileId;
 		this.fileNumber = fileNumber;
 		this.subject = subject;
 		this.category = category;
 		this.remark = remark;
 		this.createDate = createDate;
 	}
+	
 	
 	
 	

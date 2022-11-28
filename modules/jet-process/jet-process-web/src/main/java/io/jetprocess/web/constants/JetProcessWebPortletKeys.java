@@ -5,7 +5,6 @@ package io.jetprocess.web.constants;
  */
 public class JetProcessWebPortletKeys {
 
-	public static final String JETPROCESSWEB =
-		"io_jetprocess_web_JetProcessWebPortlet";
+	public static final String JETPROCESSWEB = "io_jetprocess_web_JetProcessWebPortlet";
 
 }
