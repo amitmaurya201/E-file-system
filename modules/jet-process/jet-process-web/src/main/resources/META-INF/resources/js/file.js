@@ -161,6 +161,7 @@
 	        	        contentType : 'application/json'
 	        		  }).done(function(response) {
 	        			  console.log(response);
+	        			  alert("File Created Successfully Generated File number "+response.fileNumber);
 		        
 	        	 })
 	        });

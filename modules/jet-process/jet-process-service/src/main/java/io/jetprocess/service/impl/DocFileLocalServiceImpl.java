@@ -185,10 +185,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 	public DocFile getDocFile() {
 		long docFileId = counterLocalService.increment(DocFile.class.getName());
 		DocFile docFile = createDocFile(docFileId);
-		String fileId = getGenerateFileNumber(docFile);
-		docFile.setFileNumber(fileId);
-		return docFile;
-		
+		return docFile;	
 	}
 
 }
