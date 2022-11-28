@@ -95,6 +95,22 @@
 						<aui:row>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
+									<label>Letter Date</label>
+									<aui:input type="date" label="" name="letterDate"
+										id="letterDate" value="${receipt.letterDate}">
+										<aui:validator name="custom"
+											errorMessage="Letter Date should not be greater than Created On">
+											function(val){
+												var date=new Date(val);
+												var today = new Date();
+												return (date < today);
+											}
+										</aui:validator>
+									</aui:input>
+								</div>
+							</aui:col>
+							<aui:col md="6" cssClass="mt-3">
+								<div class="textOnInput">
 									<label>Received on<span class='text-danger'>*</span></label>
 									<aui:input type="date" label="" name="receivedOn"
 										id="receivedOn" value="${receipt.receivedOn}">
@@ -108,22 +124,6 @@
 										</aui:validator>
 										<aui:validator name="custom"
 											errorMessage="Received Date should not be greater than Created On">
-											function(val){
-												var date=new Date(val);
-												var today = new Date();
-												return (date < today);
-											}
-										</aui:validator>
-									</aui:input>
-								</div>
-							</aui:col>
-							<aui:col md="6" cssClass="mt-3">
-								<div class="textOnInput">
-									<label>Letter Date</label>
-									<aui:input type="date" label="" name="letterDate"
-										id="letterDate" value="${receipt.letterDate}">
-										<aui:validator name="custom"
-											errorMessage="Letter Date should not be greater than Created On">
 											function(val){
 												var date=new Date(val);
 												var today = new Date();
