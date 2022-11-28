@@ -3,10 +3,14 @@ package io.jetprocess.web.portlet;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.ParamUtil;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Admin
@@ -27,4 +31,26 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class JetProcessWebPortlet extends MVCPortlet {
+	public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) {
+		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
+		long senderId = ParamUtil.get(actionRequest, "senderId", 0);		
+		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
+		String remark = ParamUtil.getString(actionRequest, "remark");
+		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
+		String priority = ParamUtil.getString(actionRequest, "priorty");
+		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
+		
+		//UserPostServiceUtil.getUserPostSearchedData(data);
+		/*
+		 * System.out.println("receiverId-- > " +receiverId);
+		 * System.out.println("senderId-- > " +senderId);
+		 * System.out.println("fileId-- > " +fileId); System.out.println("remark-- > "
+		 * +remark); System.out.println("dueDate-- > " +dueDate);
+		 * System.out.println("priority-> " +priority);
+		 */
+		
+	}
+	
+	@Reference
+	FileMovementLocalService fLocalService;
 }

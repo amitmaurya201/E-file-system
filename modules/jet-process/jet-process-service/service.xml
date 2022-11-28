@@ -146,5 +146,43 @@
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
 	</entity>
+	
+	
+	<!-- fileMovement Entity  -->
+	<entity name="FileMovement" local-service="true" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="fmId" primary="true" type="long" />
+		
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="receiverId" type="long" />
+		<column name="senderId" type="long" />
+		<column name="fileId" type="long" />
+		<column name="priority" type="String" />
+		<column name="dueDate" type="String" />
+		<column name="remark" type="String" />
+					
+		
+		
+		
+	   <!-- 	Group Reference  -->
+	   <reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- References -->
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+	</entity>
 
 </service-builder>

@@ -15,6 +15,7 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Junction;
@@ -24,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
@@ -52,19 +54,28 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 		return userPost;
 	}
 
-	public List<UserPost> getUserPostSearchedData(String data){
+	public List<UserPost> getUserPostSearchedData(String data) {
+		List<UserPost> userPostList = null;
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(UserPost.class,
+				PortalClassLoaderUtil.getClassLoader());
+		// dynamicQuery.add(PropertyFactoryUtil.forName("description").eq(data));
+		Criterion criterion = null;
+		if (Validator.isNotNull(data)) {
+			criterion = RestrictionsFactoryUtil.like("shortName", new String(data));
+			criterion = RestrictionsFactoryUtil.or(criterion,
+					RestrictionsFactoryUtil.like("description", new String(data)));
+			criterion = RestrictionsFactoryUtil.or(criterion,
+					RestrictionsFactoryUtil.like("departmentName", new String(data)));
+			criterion = RestrictionsFactoryUtil.or(criterion,
+					RestrictionsFactoryUtil.like("postName", new String(data)));
+			 dynamicQuery.add(criterion);
+			userPostList = UserPostLocalServiceUtil.dynamicQuery(dynamicQuery);
+
+		}
+
+		return userPostList;
 		
-		System.out.println("enter--");
-	    
-		
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(UserPost.class, PortalClassLoaderUtil.getClassLoader());
-		dynamicQuery.add(PropertyFactoryUtil.forName("description").eq(data));
-		
-		List<UserPost> userPostList = UserPostLocalServiceUtil.dynamicQuery(dynamicQuery);
-			 
-			 
-			 return userPostList;
-	}	 
+	}
 		
 	
 }
