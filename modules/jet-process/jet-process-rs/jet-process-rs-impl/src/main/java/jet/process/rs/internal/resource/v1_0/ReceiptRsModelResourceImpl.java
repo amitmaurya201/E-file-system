@@ -29,16 +29,7 @@ import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
  */
 @Component(properties = "OSGI-INF/liferay/rest/v1_0/receipt-rs-model.properties", scope = ServiceScope.PROTOTYPE, service = ReceiptRsModelResource.class)
 public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
-
-	private Masterdata typeById;
-	private Masterdata deliveryModeById;
-	private Masterdata organizationById;
-	private Masterdata subOrganizationById;
-	private Masterdata receiptCategoryById;
-	private Masterdata receiptSubCategoryById;
-	private Masterdata countryById;
-	private Masterdata stateById;
-
+	
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 
