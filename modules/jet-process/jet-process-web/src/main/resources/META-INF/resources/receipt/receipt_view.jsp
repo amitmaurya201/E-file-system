@@ -26,18 +26,17 @@
  --%>
 <%-- <%@ include file="receipt-view-nav.jsp"%> --%>
 
-
+<%
+	Object userPostId = renderRequest.getAttribute("userPostId");
+%>
 
 <%-- receipt view --%>
 <div class="receipt_view">
 	<div class="container">
-		<%-- <input name="receiptId" id="receiptId" value="${receipt.receiptId}"
-			type="hidden" /> <input name="userPostId" id="userPostId"
-			type="hidden" /> --%>
 		<div class="row">
 			<div class="col-md-6" Class="border">
-				<embed id="pdfurl" type="application/pdf" src="${receipt.viewPdfUrl} "width="100%"
-					height="450">
+				<embed id="pdfurl" type="application/pdf"
+					src="${receipt.viewPdfUrl} " width="100%" height="450">
 			</div>
 			<div class="col-md-6" Class="border">
 				<div class="border heading">
@@ -56,7 +55,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<label>Nature :</label><span> </span>
+						<label>Nature :</label><span>${receipt.nature} </span>
 					</div>
 					<div class="col-md-6">
 						<label>File No. :</label><span> </span>
@@ -64,13 +63,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<label>Type :</label><span>typeValue</span>
+						<label>Type :</label><span>${ typeValue}</span>
 					</div>
 
 					<div class="col-md-6">
 						<label>Delivery Mode :</label><span>${deliveryModeValue} </span>
 					</div>
-				</div> 
+				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<label>Received On :</label><span>${receipt.receivedOn} </span>

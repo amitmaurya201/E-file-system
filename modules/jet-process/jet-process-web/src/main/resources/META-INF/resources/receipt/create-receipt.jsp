@@ -20,7 +20,6 @@
 %>
 <div class=" mr-1 receipt">
 	<aui:container cssClass="row">
-
 		<aui:form cssClass="col-6">
 			<aui:col cssClass="border">
 				<div id="targetDiv" class="targetDiv">

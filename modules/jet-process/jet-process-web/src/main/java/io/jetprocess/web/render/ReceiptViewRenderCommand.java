@@ -48,7 +48,9 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("receiptSubCategoryValue", receiptSubCategoryById.getValue());
 
 			// For User Post Table
-			UserPost userPost = userPostLocalService.getUserPost(receipt.getUserPostId());
+			long userPostId = receipt.getUserPostId();
+			renderRequest.setAttribute("userPostId",userPostId );
+			UserPost userPost = userPostLocalService.getUserPost(userPostId);
 			renderRequest.setAttribute("userPost", userPost);
 
 		} catch (PortalException e) {
