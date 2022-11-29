@@ -568,6 +568,50 @@ public interface ReceiptModel
 	 */
 	public void setDmFileId(long dmFileId);
 
+	/**
+	 * Returns the nature of this receipt.
+	 *
+	 * @return the nature of this receipt
+	 */
+	@AutoEscape
+	public String getNature();
+
+	/**
+	 * Sets the nature of this receipt.
+	 *
+	 * @param nature the nature of this receipt
+	 */
+	public void setNature(String nature);
+
+	/**
+	 * Returns the currently with of this receipt.
+	 *
+	 * @return the currently with of this receipt
+	 */
+	public long getCurrentlyWith();
+
+	/**
+	 * Sets the currently with of this receipt.
+	 *
+	 * @param currentlyWith the currently with of this receipt
+	 */
+	public void setCurrentlyWith(long currentlyWith);
+
+	/**
+	 * Returns the current state of this receipt.
+	 *
+	 * @return the current state of this receipt
+	 */
+	@AutoEscape
+	public String getCurrentState();
+
+	/**
+	 * Sets the current state of this receipt.
+	 *
+	 * @param currentState the current state of this receipt
+	 */
+	public void setCurrentState(String currentState);
+
 	@Override
 	public Receipt cloneWithOriginalValues();
 

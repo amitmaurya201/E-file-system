@@ -1,16 +1,15 @@
 <%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/js/receipt-id.js"%>
 
 <%--  <%
  if(themeDisplay.isSignedIn()){
  List<UserPost> userPostList =UserPostLocalServiceUtil.getUserPostList(user.getUserId());
  for(UserPost userPosts:userPostList){
  long id=userPosts.getUserPostId();
- /* String name=userPosts.getShortName(); */
+ / String name=userPosts.getShortName(); /
   out.println("userPostId--> "+id);
-  /* out.println("userPostName--> "+name); */
+  / out.println("userPostName--> "+name); /
 
  %> --%>
 
@@ -30,137 +29,114 @@
 
 
 <%-- receipt view --%>
-<div class="receipt">
-<div class="container">
-	<input name="receiptId" id="receiptId" value="${receiptId}" /> <input
-		name="userPostId" id="userPostId" type="hidden" />
-	<div class="row">
-		<div class="col-md-6" Class="border">
-			<h1>pdf</h1>
-		</div>
-		<div class="col-md-6" Class="border">
-			<div class="border heading">
-				<h4>
-					<aui:icon cssClass="fas fa-file-alt icon" />
-					Diary Details
-				</h4>
+<div class="receipt_view">
+	<div class="container">
+		<%-- <input name="receiptId" id="receiptId" value="${receipt.receiptId}"
+			type="hidden" /> <input name="userPostId" id="userPostId"
+			type="hidden" /> --%>
+		<div class="row">
+			<div class="col-md-6" Class="border">
+				<embed id="pdfurl" type="application/pdf" src="${receipt.viewPdfUrl} "width="100%"
+					height="450">
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Created On :<span><input name="createOn"
-							id="createOn" readonly="readonly"> </span></label>
+			<div class="col-md-6" Class="border">
+				<div class="border heading">
+					<h4>
+						<aui:icon cssClass="fas fa-file-alt icon" />
+						Diary Details
+					</h4>
 				</div>
-				<div class="col-md-6">
-					<label>Receipt No. :<span><input
-							name="receiptNumber" id="receiptNumber" readonly="readonly">
-					</span></label>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Created On :</label><span>${receipt.createDate}</span>
+					</div>
+					<div class="col-md-6">
+						<label>Receipt No. :</label><span>${receipt.receiptNumber}</span>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Nature :<span><input name="nature"
-							id="nature" readonly="readonly"> </span></label>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Nature :</label><span> </span>
+					</div>
+					<div class="col-md-6">
+						<label>File No. :</label><span> </span>
+					</div>
 				</div>
-				<div class="col-md-6">
-					<label>File No. :<span><input name="fileNumber"
-							id="fileNumber" readonly="readonly"> </span></label>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Type :</label><span>typeValue</span>
+					</div>
+
+					<div class="col-md-6">
+						<label>Delivery Mode :</label><span>${deliveryModeValue} </span>
+					</div>
+				</div> 
+				<div class="row">
+					<div class="col-md-6">
+						<label>Received On :</label><span>${receipt.receivedOn} </span>
+					</div>
+					<div class="col-md-6">
+						<label>Letter Date :</label><span>${receipt.letterDate} </span>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Type :<span><input name="typeId" id="typeId"
-							readonly="readonly"> </span></label>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Reference Number :</label><span>${receipt.referenceNumber}
+						</span>
+					</div>
+					<div class="col-md-6">
+						<label>ModeNumber :</label><span>${receipt.modeNumber} </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Category :</label><span>${receiptCategoryValue}</span>
+					</div>
+					<div class="col-md-6">
+						<label>Sub Category :</label><span>${receiptSubCategoryValue}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label>Diarised By :</label><span>${userPost.getUserName()},${userPost.getSectionName()}_${userPost.getDepartmentName()},${userPost.getPostMarking()}</span>
+					</div>
+					<div class="col-md-12">
+						<label>Subject :</label><span>${receipt.subject} </span>
+					</div>
+					<div class="col-md-12">
+						<label>Remarks :</label><span>${receipt.remarks} </span>
+					</div>
 				</div>
 
-				<div class="col-md-6">
-					<label>Delivery Mode :<span><input
-							name="deliveryModeId" id="deliveryModeId" readonly="readonly">
-					</span></label>
+				<div class="border heading">
+					<h4>
+						<aui:icon cssClass="fas fa-envelope icon" />
+						Sender Details
+					</h4>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Received On :<span><input name="receivedOn"
-							id="receivedOn" readonly="readonly"> </span></label>
-				</div>
-				<div class="col-md-6">
-					<label>Letter Date :<span><input name="letterDate"
-							id="letterDate" readonly="readonly"> </span></label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Reference Number :<span><input
-							name="referenceNumber" id="referenceNumber" readonly="readonly">
-					</span></label>
-				</div>
-				<div class="col-md-6">
-					<label>ModeNumber :<span><input name="modeNumber"
-							id="modeNumber" readonly="readonly"> </span></label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Category :<span><input name="receiptCategoryId"
-							id="receiptCategoryId" readonly="readonly"> </span></label>
-				</div>
-				<div class="col-md-6">
-					<label>Sub Category :<span><input
-							name="receiptSubCategoryId" id="receiptSubCategoryId"
-							readonly="readonly"> </span></label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<label>Diarised By :<span><input name=""
-							readonly="readonly"> </span></label>
-				</div>
-				<div class="col-md-12">
-					<label>Subject :<span><input name="subject"
-							id="subject" readonly="readonly"> </span></label>
-				</div>
-				<div class="col-md-12">
-					<label>Remarks :<span><input name="remarks"
-							id="remarks" readonly="readonly"> </span></label>
-				</div>
-			</div>
 
-			<div class="border heading">
-				<h4>
-					<aui:icon cssClass="fas fa-envelope icon" />
-					Sender Details
-				</h4>
-			</div>
-
-			<div class="row">
-				<div class="col-md-6">
-					<label>Organization :<span><input
-							name="organizationId" id="organizationId" readonly="readonly">
-					</span></label>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Organization :</label><span>${organizationValue}</span>
+					</div>
+					<div class="col-md-6">
+						<label>Sub Organization :</label><span>${subOrganizationValue}</span>
+					</div>
 				</div>
-				<div class="col-md-6">
-					<label>Sub Organization :<span><input
-							name="subOrganizationId" id="subOrganizationId"
-							readonly="readonly"> </span></label>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Sender :</label><span>${receipt.name}</span>
+					</div>
+					<div class="col-md-6">
+						<label>Designation :</label><span>${receipt.designation}</span>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Form :<span><input name="name" id="name"
-							readonly="readonly"> </span></label>
-				</div>
-				<div class="col-md-6">
-					<label>Designation :<span><input name="designation"
-							id="designation" readonly="readonly"> </span></label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<label>Address :<span><input name="address"
-							id="address" readonly="readonly"> </span></label>
+				<div class="row">
+					<div class="col-md-12">
+						<label>Address :</label><span>${receipt.address} </span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>

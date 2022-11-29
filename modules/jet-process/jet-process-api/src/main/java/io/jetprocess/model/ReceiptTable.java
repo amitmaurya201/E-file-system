@@ -98,6 +98,12 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"viewPdfUrl", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Long> dmFileId = createColumn(
 		"dmFileId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> nature = createColumn(
+		"nature", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, Long> currentlyWith = createColumn(
+		"currentlyWith", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> currentState = createColumn(
+		"currentState", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private ReceiptTable() {
 		super("JET_PROCESS_Receipt", ReceiptTable::new);

@@ -8,6 +8,7 @@ implementation group: 'commons-collections', name: 'commons-collections', versio
 
 	compile project(":modules:jet-process-masterdata:jet-process-masterdata-api")
 
+	compile project(":modules:jet-process:jet-process-api")
 
 
 
