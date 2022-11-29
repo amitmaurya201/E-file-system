@@ -26,6 +26,8 @@
      .modal-body{
         position: relative;
      }
+     
+     
 </style>
 
 
@@ -50,11 +52,13 @@
 %>
 <h1 class=" text-center">Receipt Created List</h1>
 <% int count = MasterdataLocalServiceUtil.getReceiptListCount(1); %>
+
+
 <liferay-ui:search-container orderByType="<%=orderByType %>" delta="2"
 	deltaConfigurable="true" 
 	total="<%=count%>">
 
-	<liferay-ui:search-container-results>
+	<liferay-ui:search-container-results >
 		<%
 			//Get all the results  from file created list
 					List<ReceiptListViewDto> fileList = MasterdataLocalServiceUtil.getReceiptList(1);
@@ -85,7 +89,7 @@
 
 	<liferay-ui:search-container-row
 		className="io.jetprocess.masterdata.model.ReceiptListViewDto"
-		keyProperty="receiptNumber" modelVar="receipt">
+		keyProperty="receiptNumber" modelVar="receipt" cssClass="colour" >
 
 		<portlet:renderURL var="receiptInnerView">
 			<portlet:param name="mvcPath" value="/receipt/receipt-view-nav.jsp" />

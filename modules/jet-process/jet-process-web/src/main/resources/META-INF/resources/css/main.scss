@@ -58,6 +58,12 @@
 .tips[title]:hover::after {
   background-color: #fcf4ca;
 }
+
+.table thead th{
+     	background: #96b4d6 !important;
+     	font-size:20px;
+     	color:black;
+     }
 	
 .receipt_view .heading {
   background-color: gainsboro;
