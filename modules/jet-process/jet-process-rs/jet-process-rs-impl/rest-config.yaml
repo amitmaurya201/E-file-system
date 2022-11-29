@@ -5,5 +5,3 @@ application:
     className: "JetProcessRsApplication"
     name: "JetProcessRs"
 author: "Admin"
-clientDir: "../jet-process-rs-client/src/main/java"
-testDir: "../jet-process-rs-test/src/testIntegration/java"

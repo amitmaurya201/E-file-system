@@ -1,5 +1,0 @@
-Bundle-Name: jet-process-rs-test
-Bundle-SymbolicName: jet.process.rs.test
-Bundle-Version: 1.0.0
--includeresource: jet.process.rs.client.jar=../jet-process-rs-client/build/libs/jet.process.rs.client-1.0.0.jar;lib:=true
--provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
