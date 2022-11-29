@@ -303,6 +303,14 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListSearchedData(long userPostId, String data) {
+
+		return _masterdataLocalService.getFileCreatedListSearchedData(
+			userPostId, data);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileList(long userPostId) {
 
 		return _masterdataLocalService.getFileList(userPostId);

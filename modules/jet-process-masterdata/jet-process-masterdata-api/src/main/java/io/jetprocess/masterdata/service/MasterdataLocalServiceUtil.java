@@ -251,6 +251,12 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListSearchedData(long userPostId, String data) {
+
+		return getService().getFileCreatedListSearchedData(userPostId, data);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileList(long userPostId) {
 
 		return getService().getFileList(userPostId);
