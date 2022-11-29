@@ -96,6 +96,8 @@ components:
           type: string
         receiptsubcategoryvalue:
           type: string 
+        nature:
+          type: string
       type: object
     FileRsModel:
       description: Contains all the data for file creation.

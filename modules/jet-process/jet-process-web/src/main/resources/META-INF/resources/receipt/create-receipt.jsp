@@ -91,6 +91,23 @@
 							</aui:col>
 						</aui:row>
 						<aui:row>
+						<aui:col md="6" cssClass="mt-3">
+								<div class="textOnInput">
+									<label><liferay-ui:message
+											key="label-receipt-letter-date" /></label>
+									<aui:input type="date" label="" name="letterDate"
+										id="letterDate">
+										<aui:validator name="custom"
+											errorMessage="label-receipt-letter-date-erroe-message">
+											function(val){
+												var date=new Date(val);
+												var today = new Date();
+												return (date < today);
+											}
+										</aui:validator>
+									</aui:input>
+								</div>
+							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label><liferay-ui:message
@@ -107,23 +124,6 @@
 										</aui:validator>
 										<aui:validator name="custom"
 											errorMessage="label-receipt-received-on-error-message2">
-											function(val){
-												var date=new Date(val);
-												var today = new Date();
-												return (date < today);
-											}
-										</aui:validator>
-									</aui:input>
-								</div>
-							</aui:col>
-							<aui:col md="6" cssClass="mt-3">
-								<div class="textOnInput">
-									<label><liferay-ui:message
-											key="label-receipt-letter-date" /></label>
-									<aui:input type="date" label="" name="letterDate"
-										id="letterDate">
-										<aui:validator name="custom"
-											errorMessage="label-receipt-letter-date-erroe-message">
 											function(val){
 												var date=new Date(val);
 												var today = new Date();
