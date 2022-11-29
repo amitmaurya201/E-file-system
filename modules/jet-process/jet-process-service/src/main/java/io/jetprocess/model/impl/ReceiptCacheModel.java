@@ -61,7 +61,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(67);
+		StringBundler sb = new StringBundler(73);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -129,6 +129,12 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(viewPdfUrl);
 		sb.append(", dmFileId=");
 		sb.append(dmFileId);
+		sb.append(", nature=");
+		sb.append(nature);
+		sb.append(", currentlyWith=");
+		sb.append(currentlyWith);
+		sb.append(", currentState=");
+		sb.append(currentState);
 		sb.append("}");
 
 		return sb.toString();
@@ -292,6 +298,22 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 		receiptImpl.setDmFileId(dmFileId);
 
+		if (nature == null) {
+			receiptImpl.setNature("");
+		}
+		else {
+			receiptImpl.setNature(nature);
+		}
+
+		receiptImpl.setCurrentlyWith(currentlyWith);
+
+		if (currentState == null) {
+			receiptImpl.setCurrentState("");
+		}
+		else {
+			receiptImpl.setCurrentState(currentState);
+		}
+
 		receiptImpl.resetOriginalValues();
 
 		return receiptImpl;
@@ -346,6 +368,10 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		viewPdfUrl = objectInput.readUTF();
 
 		dmFileId = objectInput.readLong();
+		nature = objectInput.readUTF();
+
+		currentlyWith = objectInput.readLong();
+		currentState = objectInput.readUTF();
 	}
 
 	@Override
@@ -499,6 +525,22 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		}
 
 		objectOutput.writeLong(dmFileId);
+
+		if (nature == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(nature);
+		}
+
+		objectOutput.writeLong(currentlyWith);
+
+		if (currentState == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(currentState);
+		}
 	}
 
 	public String uuid;
@@ -534,5 +576,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public long userPostId;
 	public String viewPdfUrl;
 	public long dmFileId;
+	public String nature;
+	public long currentlyWith;
+	public String currentState;
 
 }

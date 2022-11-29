@@ -57,5 +57,8 @@ create table JET_PROCESS_Receipt (
 	subOrganizationId LONG,
 	userPostId LONG,
 	viewPdfUrl VARCHAR(1024) null,
-	dmFileId LONG
+	dmFileId LONG,
+	nature VARCHAR(75) null,
+	currentlyWith LONG,
+	currentState VARCHAR(75) null
 );

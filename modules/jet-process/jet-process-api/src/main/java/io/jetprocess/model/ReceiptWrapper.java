@@ -76,6 +76,9 @@ public class ReceiptWrapper
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("viewPdfUrl", getViewPdfUrl());
 		attributes.put("dmFileId", getDmFileId());
+		attributes.put("nature", getNature());
+		attributes.put("currentlyWith", getCurrentlyWith());
+		attributes.put("currentState", getCurrentState());
 
 		return attributes;
 	}
@@ -280,6 +283,24 @@ public class ReceiptWrapper
 		if (dmFileId != null) {
 			setDmFileId(dmFileId);
 		}
+
+		String nature = (String)attributes.get("nature");
+
+		if (nature != null) {
+			setNature(nature);
+		}
+
+		Long currentlyWith = (Long)attributes.get("currentlyWith");
+
+		if (currentlyWith != null) {
+			setCurrentlyWith(currentlyWith);
+		}
+
+		String currentState = (String)attributes.get("currentState");
+
+		if (currentState != null) {
+			setCurrentState(currentState);
+		}
 	}
 
 	@Override
@@ -335,6 +356,26 @@ public class ReceiptWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the currently with of this receipt.
+	 *
+	 * @return the currently with of this receipt
+	 */
+	@Override
+	public long getCurrentlyWith() {
+		return model.getCurrentlyWith();
+	}
+
+	/**
+	 * Returns the current state of this receipt.
+	 *
+	 * @return the current state of this receipt
+	 */
+	@Override
+	public String getCurrentState() {
+		return model.getCurrentState();
 	}
 
 	/**
@@ -435,6 +476,16 @@ public class ReceiptWrapper
 	@Override
 	public String getName() {
 		return model.getName();
+	}
+
+	/**
+	 * Returns the nature of this receipt.
+	 *
+	 * @return the nature of this receipt
+	 */
+	@Override
+	public String getNature() {
+		return model.getNature();
 	}
 
 	/**
@@ -693,6 +744,26 @@ public class ReceiptWrapper
 	}
 
 	/**
+	 * Sets the currently with of this receipt.
+	 *
+	 * @param currentlyWith the currently with of this receipt
+	 */
+	@Override
+	public void setCurrentlyWith(long currentlyWith) {
+		model.setCurrentlyWith(currentlyWith);
+	}
+
+	/**
+	 * Sets the current state of this receipt.
+	 *
+	 * @param currentState the current state of this receipt
+	 */
+	@Override
+	public void setCurrentState(String currentState) {
+		model.setCurrentState(currentState);
+	}
+
+	/**
 	 * Sets the delivery mode ID of this receipt.
 	 *
 	 * @param deliveryModeId the delivery mode ID of this receipt
@@ -790,6 +861,16 @@ public class ReceiptWrapper
 	@Override
 	public void setName(String name) {
 		model.setName(name);
+	}
+
+	/**
+	 * Sets the nature of this receipt.
+	 *
+	 * @param nature the nature of this receipt
+	 */
+	@Override
+	public void setNature(String nature) {
+		model.setNature(nature);
 	}
 
 	/**

@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
 
-<service-builder dependency-injector="ds" package-path="io.jetprocess">
+<service-builder dependency-injector="ds"
+	package-path="io.jetprocess">
 	<namespace>JET_PROCESS</namespace>
-	<entity local-service="true" name="DocFile" remote-service="true" uuid="true">
+	<entity local-service="true" name="DocFile"
+		remote-service="true" uuid="true">
 
 		<!-- PK fields -->
 
@@ -27,18 +29,18 @@
 		<column name="nature" type="String" />
 		<column name="type" type="String" />
 		<column name="basicHeadId" type="long" />
-		<column name="primaryHeadId" type="long"/>
-		<column name="secondaryHeadId" type="long"/>
+		<column name="primaryHeadId" type="long" />
+		<column name="secondaryHeadId" type="long" />
 		<column name="tertiaryHeadId" type="long" />
 		<column name="fileCodeId" type="long" />
 		<column name="subject" type="String" />
-		<column name="fileNumber" type="String"/>
+		<column name="fileNumber" type="String" />
 		<column name="categoryId" type="long" />
 		<column name="subCategoryId" type="long" />
-    	<column name="remarks" type="String" />
-    	<column name="reference" type="String" />
-    	<column name="year" type="long"/>
-        <column name="userPostId" type="long"/>
+		<column name="remarks" type="String" />
+		<column name="reference" type="String" />
+		<column name="year" type="long" />
+		<column name="userPostId" type="long" />
 		<!-- Order -->
 
 		<order by="asc">
@@ -51,28 +53,31 @@
 		<finder name="groupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		
+
 		<finder name="DocFileId" return-type="DocFile">
 			<finder-column name="docFileId" />
 		</finder>
-		
-		
+
+
 		<finder name="Nature" return-type="DocFile">
 			<finder-column name="nature" />
 		</finder>
 
-         <!--- Group Reference  -->
-	   <reference entity="Group" package-path="com.liferay.portal" />
-        
+		<!--- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
 		<!-- References -->
 
-		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
-		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
 	</entity>
-	
 
-	<!-- Receipt Entity  -->
-	<entity name="Receipt" local-service="true" remote-service="true" uuid="true">
+
+	<!-- Receipt Entity -->
+	<entity name="Receipt" local-service="true"
+		remote-service="true" uuid="true">
 
 		<!-- PK fields -->
 		<column name="receiptId" primary="true" type="long" />
@@ -111,12 +116,14 @@
 		<column name="organizationId" type="long" />
 		<column name="city" type="String" />
 		<column name="subOrganizationId" type="long" />
-        <column name="userPostId" type="long" />
-         <column name="viewPdfUrl" type="String" />
-           <column name="dmFileId" type="long" />
-          
-        		
-			
+		<column name="userPostId" type="long" />
+		<column name="viewPdfUrl" type="String" />
+		<column name="dmFileId" type="long" />
+		<column name="nature" type="String" />
+		<column name="currentlyWith" type="long" />
+		<column name="currentState" type="String" />
+
+
 		<!-- Order -->
 
 		<order by="asc">
@@ -128,23 +135,25 @@
 		<finder name="groupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		
-		
+
+
 		<finder name="G_R" return-type="Collection">
 			<finder-column name="groupId" />
 			<finder-column name="receiptId" />
 		</finder>
-		
-        <finder name="ReceiptId" return-type="Receipt">
-        	<finder-column name="receiptId"></finder-column>
-        </finder>
-	   <!-- 	Group Reference  -->
-	   <reference entity="Group" package-path="com.liferay.portal" />
+
+		<finder name="ReceiptId" return-type="Receipt">
+			<finder-column name="receiptId"></finder-column>
+		</finder>
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->
 
-		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
-		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
 	</entity>
 
 </service-builder>

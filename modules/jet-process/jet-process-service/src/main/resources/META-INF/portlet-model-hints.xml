@@ -66,5 +66,8 @@
 			<hint name="max-length">1024</hint>
 		</field>
 		<field name="dmFileId" type="long" />
+		<field name="nature" type="String" />
+		<field name="currentlyWith" type="long" />
+		<field name="currentState" type="String" />
 	</model>
 </model-hints>

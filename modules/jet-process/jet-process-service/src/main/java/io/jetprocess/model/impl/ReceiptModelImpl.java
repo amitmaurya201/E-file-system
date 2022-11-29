@@ -90,7 +90,9 @@ public class ReceiptModelImpl
 		{"pinCode", Types.VARCHAR}, {"receiptNumber", Types.VARCHAR},
 		{"organizationId", Types.BIGINT}, {"city", Types.VARCHAR},
 		{"subOrganizationId", Types.BIGINT}, {"userPostId", Types.BIGINT},
-		{"viewPdfUrl", Types.VARCHAR}, {"dmFileId", Types.BIGINT}
+		{"viewPdfUrl", Types.VARCHAR}, {"dmFileId", Types.BIGINT},
+		{"nature", Types.VARCHAR}, {"currentlyWith", Types.BIGINT},
+		{"currentState", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -130,10 +132,13 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("viewPdfUrl", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("dmFileId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("nature", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("currentState", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn VARCHAR(75) null,letterDate VARCHAR(75) null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(500) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(500) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn VARCHAR(75) null,letterDate VARCHAR(75) null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(500) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(500) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG,nature VARCHAR(75) null,currentlyWith LONG,currentState VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
@@ -405,6 +410,18 @@ public class ReceiptModelImpl
 		attributeGetterFunctions.put("dmFileId", Receipt::getDmFileId);
 		attributeSetterBiConsumers.put(
 			"dmFileId", (BiConsumer<Receipt, Long>)Receipt::setDmFileId);
+		attributeGetterFunctions.put("nature", Receipt::getNature);
+		attributeSetterBiConsumers.put(
+			"nature", (BiConsumer<Receipt, String>)Receipt::setNature);
+		attributeGetterFunctions.put(
+			"currentlyWith", Receipt::getCurrentlyWith);
+		attributeSetterBiConsumers.put(
+			"currentlyWith",
+			(BiConsumer<Receipt, Long>)Receipt::setCurrentlyWith);
+		attributeGetterFunctions.put("currentState", Receipt::getCurrentState);
+		attributeSetterBiConsumers.put(
+			"currentState",
+			(BiConsumer<Receipt, String>)Receipt::setCurrentState);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -1052,6 +1069,61 @@ public class ReceiptModelImpl
 		_dmFileId = dmFileId;
 	}
 
+	@JSON
+	@Override
+	public String getNature() {
+		if (_nature == null) {
+			return "";
+		}
+		else {
+			return _nature;
+		}
+	}
+
+	@Override
+	public void setNature(String nature) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_nature = nature;
+	}
+
+	@JSON
+	@Override
+	public long getCurrentlyWith() {
+		return _currentlyWith;
+	}
+
+	@Override
+	public void setCurrentlyWith(long currentlyWith) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_currentlyWith = currentlyWith;
+	}
+
+	@JSON
+	@Override
+	public String getCurrentState() {
+		if (_currentState == null) {
+			return "";
+		}
+		else {
+			return _currentState;
+		}
+	}
+
+	@Override
+	public void setCurrentState(String currentState) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_currentState = currentState;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -1147,6 +1219,9 @@ public class ReceiptModelImpl
 		receiptImpl.setUserPostId(getUserPostId());
 		receiptImpl.setViewPdfUrl(getViewPdfUrl());
 		receiptImpl.setDmFileId(getDmFileId());
+		receiptImpl.setNature(getNature());
+		receiptImpl.setCurrentlyWith(getCurrentlyWith());
+		receiptImpl.setCurrentState(getCurrentState());
 
 		receiptImpl.resetOriginalValues();
 
@@ -1209,6 +1284,11 @@ public class ReceiptModelImpl
 		receiptImpl.setViewPdfUrl(
 			this.<String>getColumnOriginalValue("viewPdfUrl"));
 		receiptImpl.setDmFileId(this.<Long>getColumnOriginalValue("dmFileId"));
+		receiptImpl.setNature(this.<String>getColumnOriginalValue("nature"));
+		receiptImpl.setCurrentlyWith(
+			this.<Long>getColumnOriginalValue("currentlyWith"));
+		receiptImpl.setCurrentState(
+			this.<String>getColumnOriginalValue("currentState"));
 
 		return receiptImpl;
 	}
@@ -1474,6 +1554,24 @@ public class ReceiptModelImpl
 
 		receiptCacheModel.dmFileId = getDmFileId();
 
+		receiptCacheModel.nature = getNature();
+
+		String nature = receiptCacheModel.nature;
+
+		if ((nature != null) && (nature.length() == 0)) {
+			receiptCacheModel.nature = null;
+		}
+
+		receiptCacheModel.currentlyWith = getCurrentlyWith();
+
+		receiptCacheModel.currentState = getCurrentState();
+
+		String currentState = receiptCacheModel.currentState;
+
+		if ((currentState != null) && (currentState.length() == 0)) {
+			receiptCacheModel.currentState = null;
+		}
+
 		return receiptCacheModel;
 	}
 
@@ -1600,6 +1698,9 @@ public class ReceiptModelImpl
 	private long _userPostId;
 	private String _viewPdfUrl;
 	private long _dmFileId;
+	private String _nature;
+	private long _currentlyWith;
+	private String _currentState;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1664,6 +1765,9 @@ public class ReceiptModelImpl
 		_columnOriginalValues.put("userPostId", _userPostId);
 		_columnOriginalValues.put("viewPdfUrl", _viewPdfUrl);
 		_columnOriginalValues.put("dmFileId", _dmFileId);
+		_columnOriginalValues.put("nature", _nature);
+		_columnOriginalValues.put("currentlyWith", _currentlyWith);
+		_columnOriginalValues.put("currentState", _currentState);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1752,6 +1856,12 @@ public class ReceiptModelImpl
 		columnBitmasks.put("viewPdfUrl", 2147483648L);
 
 		columnBitmasks.put("dmFileId", 4294967296L);
+
+		columnBitmasks.put("nature", 8589934592L);
+
+		columnBitmasks.put("currentlyWith", 17179869184L);
+
+		columnBitmasks.put("currentState", 34359738368L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

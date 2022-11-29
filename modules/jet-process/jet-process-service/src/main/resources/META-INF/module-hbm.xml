@@ -67,5 +67,8 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userPostId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="viewPdfUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="dmFileId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="nature" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentlyWith" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentState" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>
