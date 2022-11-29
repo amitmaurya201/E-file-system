@@ -69,7 +69,7 @@
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Nature</label>
-									<aui:select label="" name="typeId" id="typeId">
+									<aui:select label="" name="nature" id="nature">
 										<aui:option value="Electronic">Electronic</aui:option>
 										<aui:option value="Physical">Physical</aui:option>
 									</aui:select>

@@ -29,7 +29,6 @@
 
 	<%
 		String receiptId = renderRequest.getParameter("receiptId");
-	out.print(receiptId);
 	%>
 	<portlet:renderURL var="home">
 		<portlet:param name="mvcRenderCommandName" value="/receiptView" />
@@ -73,7 +72,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="main_nav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link text-black"
+					<li class="nav-item "><a  class="nav-link text-black"
 						style="font-weight: 700; border-right: 1px solid #a19c9c;"
 						href="<%=home%>">Home </a></li>
 					<li class="nav-item"><a class="nav-link text-black"
