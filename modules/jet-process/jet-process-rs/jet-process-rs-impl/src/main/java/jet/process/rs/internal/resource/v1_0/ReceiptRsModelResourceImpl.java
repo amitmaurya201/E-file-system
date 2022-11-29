@@ -42,9 +42,9 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 
-		System.out.println("test");
-		//Receipt receipt = receiptLocalService.getReceipt();
-	     Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId(),receiptRsModel.getGroupId());
+		System.out.println("create receipt");
+		Receipt receipt = receiptLocalService.getReceipt();
+	    // Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId(),receiptRsModel.getGroupId());
 		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
 		String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 		System.out.println(viewFileUrl);
@@ -97,6 +97,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}
+
 
 	private String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R" + receiptId;
@@ -165,7 +166,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
-		System.out.println("test");
+		System.out.println("update test");
 		Receipt receipt = receiptLocalService.getReceiptUpdate(receiptRsModel.getReceiptId());
 		
 		System.out.println("test1");
@@ -233,7 +234,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	private UserLocalService userLocalService;
 	@Reference
 	private DocStore docstore;
-
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
 
