@@ -434,6 +434,34 @@ public class ReceiptRsModel implements Serializable {
 	protected String name;
 
 	@Schema
+	public String getNature() {
+		return nature;
+	}
+
+	public void setNature(String nature) {
+		this.nature = nature;
+	}
+
+	@JsonIgnore
+	public void setNature(
+		UnsafeSupplier<String, Exception> natureUnsafeSupplier) {
+
+		try {
+			nature = natureUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String nature;
+
+	@Schema
 	public Long getOrganizationId() {
 		return organizationId;
 	}
@@ -1254,6 +1282,20 @@ public class ReceiptRsModel implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(name));
+
+			sb.append("\"");
+		}
+
+		if (nature != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"nature\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(nature));
 
 			sb.append("\"");
 		}

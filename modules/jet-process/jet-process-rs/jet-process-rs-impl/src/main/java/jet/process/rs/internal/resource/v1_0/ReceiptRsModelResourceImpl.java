@@ -56,7 +56,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setMobile(receiptRsModel.getMobile());
 		System.out.println("test1");
 		receipt.setModeNumber(receiptRsModel.getModeNumber());
-		System.out.println("test1");
+		System.out.println("test6666");
 		receipt.setName(receiptRsModel.getName());
 		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
 		System.out.println("test1");
