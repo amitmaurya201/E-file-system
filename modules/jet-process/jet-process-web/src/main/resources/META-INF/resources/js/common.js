@@ -29,5 +29,12 @@
 		 console.log(userPostId);	 
 	     return userPostId;	 
    }
+   
+   
+   $(".tips").hover(function() {
+		
+	    $(this).attr('title', $(this).text());
+	    
+	});
  </script>
  

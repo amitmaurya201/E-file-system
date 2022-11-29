@@ -47,3 +47,15 @@
 .receipt .button {
   margin: auto 40%;
 }
+
+.tips{
+		white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50ch;
+        
+	}
+.tips[title]:hover::after {
+  background-color: #fcf4ca;
+}
+	

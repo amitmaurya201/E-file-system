@@ -1,25 +1,33 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="../navigation.jsp"%>
+<%@ include file="/js/common.js" %> 
+
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
-
 <style>
-	.tips{
-		white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 50ch;
-        
+     .invisible{
+       visibility: hidden !important;
+     }
+      .visible{
+       visibility: visible !important;
+     }
+     
+     
+     
+     .btn-close {
+	    border-radius: 50%;
+	    position: absolute;
+	    top: 0px;
+	    right: 0px;
+	    padding: 1px;
+	    /* z-index: 999999; */
 	}
-	.tips[title]:hover::after {
-	  background-color: #fcf4ca;
-	}
-	
-	
+     
+     .modal-body{
+        position: relative;
+     }
 </style>
-
-
 
 <%
 	//orderByCol is the column name passed in the request while sorting
@@ -98,7 +106,7 @@
 			name="Remarks" />
 		
 			
-		<liferay-ui:search-container-column-text cssClass="openPdf fa fa-file-pdf-o" name="pdf" />
+		<liferay-ui:search-container-column-text property="viewPdfUrl" value="" cssClass="openPdf fa fa-file-pdf" name="label-receipt-pdf" />
 
 
 	</liferay-ui:search-container-row>
@@ -113,33 +121,59 @@
 			<portlet:param name="pdfUrl" value="${receipt.viewPdfUrl }" />
 		</portlet:renderURL>
 		
-		
+	
+<div id="popup" class="modal invisible" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content" style="max-width: 70rem; margin: 0 auto;">
+      <div class="modal-body" style="padding: 0">
+      <button type="button" class="btn btn-white btn-close" data-bs-dismiss="modal" aria-label="Close">&#10005;</button>
+          <div id="pdf">
+          </div>
+      </div>
+      
+	 </div>
+  </div>
+</div>
+
+
+
 <script type="text/javascript">
 
-
-$(".tips").hover(function() {
+$(document).ready(function(){
 	
-    $(this).attr('title', $(this).text());
-    
-    $("title").css('background-color','#fcf4ca');
-});
-
-
-$(".openPdf").on('click', function(e){
 	
-	var pdfUrl = '<%= viewPdf %>';
-	Liferay.Util.openWindow({
-		dialog:{
-
-		height:900,
-		modal: true,
-		width:900,
-		destroyOnHide: true,
-		destroyOnClose: true
-		},
-		title:'View Pdf',
+	/* let pdf= $(".openPdf").text();
+	if (pdf !== ""){
+		$(".openPdf").append('<i class="fa fa-file-pdf"></i>');
+	} */
+	
+	
+	$('.btn-close').on('click', function(e){
+		//$('#popup').removeClass('visible').addClass('invisible');
+		$('#popup').modal('hide');
+	});
+	
+	$(".openPdf").on('click', function(e){
 		
-		uri:pdfUrl
-		});
+		//let url = 'http://localhost:8080'.trim()+encodeURIComponent((e.target.innerText).trim());
+		let url = themeDisplay.getPortalURL()+(e.target.innerText).trim();
+		console.log(url);
+	<%--     var pdfUrl = '<%= viewPdf %>'; 
+		console.log(pdfUrl);
+ --%>		$('#popup').modal({
+			  keyboard: false
+	     });
+		$('#popup').removeClass('invisible').addClass('visible');
+		//console.log(${pdfUrl});
+	 $('#popup').find('div#pdf').empty();
+	 
+	 let embeded= $('<embed/>',{type:'application/pdf',width:'100%',height:'500'}).appendTo($('#popup').find('div#pdf'));
+	 //$('#popup').find('.modal-body').load(url);
+		embeded.attr('src',url);
+		
+		
+	});
+	
 });
+
 </script>
