@@ -26,6 +26,21 @@
 		<field name="year" type="long" />
 		<field name="userPostId" type="long" />
 	</model>
+	<model name="io.jetprocess.model.FileMovement">
+		<field name="uuid" type="String" />
+		<field name="fmId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="receiverId" type="long" />
+		<field name="senderId" type="long" />
+		<field name="fileId" type="long" />
+		<field name="priority" type="String" />
+		<field name="dueDate" type="String" />
+		<field name="remark" type="String" />
+	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />
 		<field name="receiptId" type="long" />
@@ -69,5 +84,20 @@
 		<field name="nature" type="String" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="String" />
+	</model>
+	<model name="io.jetprocess.model.ReceiptMovement">
+		<field name="uuid" type="String" />
+		<field name="rmId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="receiverId" type="long" />
+		<field name="senderId" type="long" />
+		<field name="receiptId" type="long" />
+		<field name="priority" type="String" />
+		<field name="dueDate" type="String" />
+		<field name="remark" type="String" />
 	</model>
 </model-hints>
