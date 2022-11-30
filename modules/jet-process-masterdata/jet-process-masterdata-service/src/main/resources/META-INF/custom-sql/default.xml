@@ -178,7 +178,7 @@ SELECT tertiaryheadid as masterdataid ,  'C-'||tertiaryheadid as referenceid , t
 <![CDATA[
 SELECT  docfileid, filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
 	FROM jet_process_docfile  INNER JOIN 
-	md_category  ON categorydataid = categoryid where userpostid = ?  order by filenumber desc; 
+	md_category  ON categorydataid = categoryid where userpostid = ?  order by createDate desc; 
 ]]>
 
 </sql>
@@ -192,7 +192,7 @@ SELECT  docfileid, filenumber as filenumber , subject as subject , categoryvalue
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
 	FROM jet_process_receipt INNER JOIN 
-	md_category  ON categorydataid = receiptcategoryid where userpostid = ? order by receiptnumber desc ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? order by createDate desc ;
 ]]>
 
 </sql>
