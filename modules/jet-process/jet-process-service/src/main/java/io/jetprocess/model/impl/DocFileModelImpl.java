@@ -85,7 +85,8 @@ public class DocFileModelImpl
 		{"fileNumber", Types.VARCHAR}, {"categoryId", Types.BIGINT},
 		{"subCategoryId", Types.BIGINT}, {"remarks", Types.VARCHAR},
 		{"reference", Types.VARCHAR}, {"year", Types.BIGINT},
-		{"userPostId", Types.BIGINT}
+		{"userPostId", Types.BIGINT}, {"currentlyWith", Types.BIGINT},
+		{"currentState", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -115,10 +116,12 @@ public class DocFileModelImpl
 		TABLE_COLUMNS_MAP.put("reference", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("year", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("currentState", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(75) null,reference VARCHAR(75) null,year LONG,userPostId LONG)";
+		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(75) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocFile";
@@ -352,6 +355,15 @@ public class DocFileModelImpl
 		attributeGetterFunctions.put("userPostId", DocFile::getUserPostId);
 		attributeSetterBiConsumers.put(
 			"userPostId", (BiConsumer<DocFile, Long>)DocFile::setUserPostId);
+		attributeGetterFunctions.put(
+			"currentlyWith", DocFile::getCurrentlyWith);
+		attributeSetterBiConsumers.put(
+			"currentlyWith",
+			(BiConsumer<DocFile, Long>)DocFile::setCurrentlyWith);
+		attributeGetterFunctions.put("currentState", DocFile::getCurrentState);
+		attributeSetterBiConsumers.put(
+			"currentState",
+			(BiConsumer<DocFile, Integer>)DocFile::setCurrentState);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -813,6 +825,36 @@ public class DocFileModelImpl
 		_userPostId = userPostId;
 	}
 
+	@JSON
+	@Override
+	public long getCurrentlyWith() {
+		return _currentlyWith;
+	}
+
+	@Override
+	public void setCurrentlyWith(long currentlyWith) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_currentlyWith = currentlyWith;
+	}
+
+	@JSON
+	@Override
+	public int getCurrentState() {
+		return _currentState;
+	}
+
+	@Override
+	public void setCurrentState(int currentState) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_currentState = currentState;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -898,6 +940,8 @@ public class DocFileModelImpl
 		docFileImpl.setReference(getReference());
 		docFileImpl.setYear(getYear());
 		docFileImpl.setUserPostId(getUserPostId());
+		docFileImpl.setCurrentlyWith(getCurrentlyWith());
+		docFileImpl.setCurrentState(getCurrentState());
 
 		docFileImpl.resetOriginalValues();
 
@@ -946,6 +990,10 @@ public class DocFileModelImpl
 		docFileImpl.setYear(this.<Long>getColumnOriginalValue("year"));
 		docFileImpl.setUserPostId(
 			this.<Long>getColumnOriginalValue("userPostId"));
+		docFileImpl.setCurrentlyWith(
+			this.<Long>getColumnOriginalValue("currentlyWith"));
+		docFileImpl.setCurrentState(
+			this.<Integer>getColumnOriginalValue("currentState"));
 
 		return docFileImpl;
 	}
@@ -1137,6 +1185,10 @@ public class DocFileModelImpl
 
 		docFileCacheModel.userPostId = getUserPostId();
 
+		docFileCacheModel.currentlyWith = getCurrentlyWith();
+
+		docFileCacheModel.currentState = getCurrentState();
+
 		return docFileCacheModel;
 	}
 
@@ -1253,6 +1305,8 @@ public class DocFileModelImpl
 	private String _reference;
 	private long _year;
 	private long _userPostId;
+	private long _currentlyWith;
+	private int _currentState;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1306,6 +1360,8 @@ public class DocFileModelImpl
 		_columnOriginalValues.put("reference", _reference);
 		_columnOriginalValues.put("year", _year);
 		_columnOriginalValues.put("userPostId", _userPostId);
+		_columnOriginalValues.put("currentlyWith", _currentlyWith);
+		_columnOriginalValues.put("currentState", _currentState);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1375,6 +1431,10 @@ public class DocFileModelImpl
 		columnBitmasks.put("year", 2097152L);
 
 		columnBitmasks.put("userPostId", 4194304L);
+
+		columnBitmasks.put("currentlyWith", 8388608L);
+
+		columnBitmasks.put("currentState", 16777216L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

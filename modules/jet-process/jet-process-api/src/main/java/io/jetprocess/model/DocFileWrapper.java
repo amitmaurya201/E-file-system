@@ -66,6 +66,8 @@ public class DocFileWrapper
 		attributes.put("reference", getReference());
 		attributes.put("year", getYear());
 		attributes.put("userPostId", getUserPostId());
+		attributes.put("currentlyWith", getCurrentlyWith());
+		attributes.put("currentState", getCurrentState());
 
 		return attributes;
 	}
@@ -209,6 +211,18 @@ public class DocFileWrapper
 		if (userPostId != null) {
 			setUserPostId(userPostId);
 		}
+
+		Long currentlyWith = (Long)attributes.get("currentlyWith");
+
+		if (currentlyWith != null) {
+			setCurrentlyWith(currentlyWith);
+		}
+
+		Integer currentState = (Integer)attributes.get("currentState");
+
+		if (currentState != null) {
+			setCurrentState(currentState);
+		}
 	}
 
 	@Override
@@ -254,6 +268,26 @@ public class DocFileWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the currently with of this doc file.
+	 *
+	 * @return the currently with of this doc file
+	 */
+	@Override
+	public long getCurrentlyWith() {
+		return model.getCurrentlyWith();
+	}
+
+	/**
+	 * Returns the current state of this doc file.
+	 *
+	 * @return the current state of this doc file
+	 */
+	@Override
+	public int getCurrentState() {
+		return model.getCurrentState();
 	}
 
 	/**
@@ -509,6 +543,26 @@ public class DocFileWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the currently with of this doc file.
+	 *
+	 * @param currentlyWith the currently with of this doc file
+	 */
+	@Override
+	public void setCurrentlyWith(long currentlyWith) {
+		model.setCurrentlyWith(currentlyWith);
+	}
+
+	/**
+	 * Sets the current state of this doc file.
+	 *
+	 * @param currentState the current state of this doc file
+	 */
+	@Override
+	public void setCurrentState(int currentState) {
+		model.setCurrentState(currentState);
 	}
 
 	/**

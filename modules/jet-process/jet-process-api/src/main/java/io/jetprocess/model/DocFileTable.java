@@ -78,6 +78,10 @@ public class DocFileTable extends BaseTable<DocFileTable> {
 		"year", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, Long> userPostId = createColumn(
 		"userPostId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> currentlyWith = createColumn(
+		"currentlyWith", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Integer> currentState = createColumn(
+		"currentState", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
 
 	private DocFileTable() {
 		super("JET_PROCESS_DocFile", DocFileTable::new);
