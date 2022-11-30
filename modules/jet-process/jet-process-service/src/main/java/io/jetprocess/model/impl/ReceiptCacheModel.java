@@ -306,13 +306,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		}
 
 		receiptImpl.setCurrentlyWith(currentlyWith);
-
-		if (currentState == null) {
-			receiptImpl.setCurrentState("");
-		}
-		else {
-			receiptImpl.setCurrentState(currentState);
-		}
+		receiptImpl.setCurrentState(currentState);
 
 		receiptImpl.resetOriginalValues();
 
@@ -371,7 +365,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		nature = objectInput.readUTF();
 
 		currentlyWith = objectInput.readLong();
-		currentState = objectInput.readUTF();
+
+		currentState = objectInput.readInt();
 	}
 
 	@Override
@@ -535,12 +530,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 		objectOutput.writeLong(currentlyWith);
 
-		if (currentState == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(currentState);
-		}
+		objectOutput.writeInt(currentState);
 	}
 
 	public String uuid;
@@ -578,6 +568,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public long dmFileId;
 	public String nature;
 	public long currentlyWith;
-	public String currentState;
+	public int currentState;
 
 }

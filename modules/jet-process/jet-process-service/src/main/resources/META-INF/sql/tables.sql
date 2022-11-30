@@ -21,7 +21,25 @@ create table JET_PROCESS_DocFile (
 	remarks VARCHAR(75) null,
 	reference VARCHAR(75) null,
 	year LONG,
-	userPostId LONG
+	userPostId LONG,
+	currentlyWith LONG,
+	currentState INTEGER
+);
+
+create table JET_PROCESS_FileMovement (
+	uuid_ VARCHAR(75) null,
+	fmId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	receiverId LONG,
+	senderId LONG,
+	fileId LONG,
+	priority VARCHAR(75) null,
+	dueDate VARCHAR(75) null,
+	remark VARCHAR(75) null
 );
 
 create table JET_PROCESS_FileMovement (
@@ -76,7 +94,8 @@ create table JET_PROCESS_Receipt (
 	dmFileId LONG,
 	nature VARCHAR(75) null,
 	currentlyWith LONG,
-	currentState VARCHAR(75) null
+	currentState INTEGER
+
 );
 
 create table JET_PROCESS_ReceiptMovement (

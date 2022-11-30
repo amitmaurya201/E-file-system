@@ -123,7 +123,7 @@
 		<column name="dmFileId" type="long" />
 		<column name="nature" type="String" />
 		<column name="currentlyWith" type="long" />
-		<column name="currentState" type="String" />
+		<column name="currentState" type="int" />
 
 
 		<!-- Order -->

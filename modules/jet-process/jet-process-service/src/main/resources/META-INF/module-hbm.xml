@@ -32,6 +32,25 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="reference" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="year" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userPostId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentlyWith" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentState" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="io.jetprocess.model.impl.FileMovementImpl" table="JET_PROCESS_FileMovement">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fmId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="createDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="receiverId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="senderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fileId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="priority" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="dueDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="remark" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="io.jetprocess.model.impl.FileMovementImpl" table="JET_PROCESS_FileMovement">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fmId" type="long">
@@ -88,7 +107,24 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="dmFileId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="nature" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentlyWith" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentState" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentState" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="io.jetprocess.model.impl.ReceiptMovementImpl" table="JET_PROCESS_ReceiptMovement">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="rmId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="createDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="receiverId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="senderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="receiptId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="priority" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="dueDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="remark" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="io.jetprocess.model.impl.ReceiptMovementImpl" table="JET_PROCESS_ReceiptMovement">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="rmId" type="long">

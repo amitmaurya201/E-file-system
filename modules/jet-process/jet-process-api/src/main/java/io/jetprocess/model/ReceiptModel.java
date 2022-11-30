@@ -602,15 +602,14 @@ public interface ReceiptModel
 	 *
 	 * @return the current state of this receipt
 	 */
-	@AutoEscape
-	public String getCurrentState();
+	public int getCurrentState();
 
 	/**
 	 * Sets the current state of this receipt.
 	 *
 	 * @param currentState the current state of this receipt
 	 */
-	public void setCurrentState(String currentState);
+	public void setCurrentState(int currentState);
 
 	@Override
 	public Receipt cloneWithOriginalValues();

@@ -92,7 +92,7 @@ public class ReceiptModelImpl
 		{"subOrganizationId", Types.BIGINT}, {"userPostId", Types.BIGINT},
 		{"viewPdfUrl", Types.VARCHAR}, {"dmFileId", Types.BIGINT},
 		{"nature", Types.VARCHAR}, {"currentlyWith", Types.BIGINT},
-		{"currentState", Types.VARCHAR}
+		{"currentState", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -134,11 +134,11 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("dmFileId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("nature", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("currentState", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("currentState", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn VARCHAR(75) null,letterDate VARCHAR(75) null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(500) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(500) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG,nature VARCHAR(75) null,currentlyWith LONG,currentState VARCHAR(75) null)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn VARCHAR(75) null,letterDate VARCHAR(75) null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(500) null,remarks VARCHAR(75) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(500) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG,nature VARCHAR(75) null,currentlyWith LONG,currentState INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
@@ -421,7 +421,7 @@ public class ReceiptModelImpl
 		attributeGetterFunctions.put("currentState", Receipt::getCurrentState);
 		attributeSetterBiConsumers.put(
 			"currentState",
-			(BiConsumer<Receipt, String>)Receipt::setCurrentState);
+			(BiConsumer<Receipt, Integer>)Receipt::setCurrentState);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -1106,17 +1106,12 @@ public class ReceiptModelImpl
 
 	@JSON
 	@Override
-	public String getCurrentState() {
-		if (_currentState == null) {
-			return "";
-		}
-		else {
-			return _currentState;
-		}
+	public int getCurrentState() {
+		return _currentState;
 	}
 
 	@Override
-	public void setCurrentState(String currentState) {
+	public void setCurrentState(int currentState) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -1288,7 +1283,7 @@ public class ReceiptModelImpl
 		receiptImpl.setCurrentlyWith(
 			this.<Long>getColumnOriginalValue("currentlyWith"));
 		receiptImpl.setCurrentState(
-			this.<String>getColumnOriginalValue("currentState"));
+			this.<Integer>getColumnOriginalValue("currentState"));
 
 		return receiptImpl;
 	}
@@ -1566,12 +1561,6 @@ public class ReceiptModelImpl
 
 		receiptCacheModel.currentState = getCurrentState();
 
-		String currentState = receiptCacheModel.currentState;
-
-		if ((currentState != null) && (currentState.length() == 0)) {
-			receiptCacheModel.currentState = null;
-		}
-
 		return receiptCacheModel;
 	}
 
@@ -1700,7 +1689,7 @@ public class ReceiptModelImpl
 	private long _dmFileId;
 	private String _nature;
 	private long _currentlyWith;
-	private String _currentState;
+	private int _currentState;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);

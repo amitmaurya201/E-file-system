@@ -296,7 +296,7 @@ public class ReceiptWrapper
 			setCurrentlyWith(currentlyWith);
 		}
 
-		String currentState = (String)attributes.get("currentState");
+		Integer currentState = (Integer)attributes.get("currentState");
 
 		if (currentState != null) {
 			setCurrentState(currentState);
@@ -374,7 +374,7 @@ public class ReceiptWrapper
 	 * @return the current state of this receipt
 	 */
 	@Override
-	public String getCurrentState() {
+	public int getCurrentState() {
 		return model.getCurrentState();
 	}
 
@@ -759,7 +759,7 @@ public class ReceiptWrapper
 	 * @param currentState the current state of this receipt
 	 */
 	@Override
-	public void setCurrentState(String currentState) {
+	public void setCurrentState(int currentState) {
 		model.setCurrentState(currentState);
 	}
 
