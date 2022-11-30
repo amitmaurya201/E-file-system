@@ -143,14 +143,9 @@ console.log(viewPdf);
 
 /* file upload */	
 var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
-var viewPdfUrl=null;
-if(receiptId == null){
-	
 	$("#<portlet:namespace />document").on('change', function(){
 		 var myFile = $("#<portlet:namespace />document").prop("files")[0];
 		 var dmFileId=0;
-		 console.log(myFile);
-	     console.log(groupId);
 	     var formData = new FormData();
 	   	 formData.append('document', myFile);
 		 formData.append('groupId', groupId);
@@ -167,61 +162,32 @@ if(receiptId == null){
 				  tempFileId=response.id;
 				  console.log(tempFileId);
 	            	 viewPdfUrl=response.description;
-	            	 console.log("add     " +viewPdfUrl);
-//	            	 var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
+	            	console.log("viewPdfUrl--- " +viewPdfUrl);
+	            	var parent = $('#editpdfurl').parent();
+	            	if(parent!=undefined){
+	            		$("#editpdfurl").remove();
+	            		 var embed = $('<embed id="editpdfurl" type="application/pdf"  width="100%" height="450">');
+	            		 embed.attr('src',viewPdfUrl);
+	 	            	$('#targetDiv').append(embed);
+	            	}
+	      
 	            	 embed.attr('src',viewPdfUrl);
-	            		$('#targetDiv').append(embed);
+	            	$('#targetDiv').append(embed);
+	            	
 			  }).fail(function(e) {
 			     console.log(e);
 			  }); 
 		 }
 	});
-	 
-}
-else{ 
-//	if(viewPdfUrl != null || viewPdf != null){
-	alert('else');
-embed.attr('src',viewPdf);
-$('#targetDiv').append(embed);
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* create receipt */
 
-
- 
- 
-
 $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
+	
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
+     
      console.log(jsonData);
      console.log(tempFileId);
      var userPostId=  getUserPostId();
@@ -229,6 +195,38 @@ $("#<portlet:namespace />generate").on('click', function(e){
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
+		 $.ajax({
+			    type: "POST",
+			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
+			    data: jsonObj,
+			    dataType: 'json',
+			    cache : false,
+			    processData: false,
+		        contentType : 'application/json'
+			  }).done(function(response) {
+				  console.log("------------------------33-------------------------");
+				  console.log(response);
+		 })
+});
+
+/* update receipt*/
+$("#<portlet:namespace />Save").on('click', function(e){
+	 e.preventDefault();
+	 var dmFileId = $('#<portlet:namespace/>dmFileId').val();
+	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
+    var jsonData = bindFormDataJson(formObj);
+    console.log(jsonData);
+    console.log(tempFileId);
+    var userPostId=  getUserPostId();
+    jsonData["userPostId"] = userPostId;
+    if(tempFileId!=0){
+    	 jsonData["tempFileId"] = tempFileId; 
+    }
+    else{
+    	jsonData["tempFileId"] = 0;
+    }
+    jsonData["groupId"] = groupId; 
+    var jsonObj = JSON.stringify(jsonData);  
 	 if(receiptId != null){
 		  $.ajax({
 			    type: "PUT",
@@ -243,20 +241,6 @@ $("#<portlet:namespace />generate").on('click', function(e){
 				  console.log(response);
 		  })
 		 }
-	 else {
-		 $.ajax({
-			    type: "POST",
-			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
-			    data: jsonObj,
-			    dataType: 'json',
-			    cache : false,
-			    processData: false,
-		        contentType : 'application/json'
-			  }).done(function(response) {
-				  console.log("------------------------33-------------------------");
-				  console.log(response);
-		 })
-	 }
 });
 
 

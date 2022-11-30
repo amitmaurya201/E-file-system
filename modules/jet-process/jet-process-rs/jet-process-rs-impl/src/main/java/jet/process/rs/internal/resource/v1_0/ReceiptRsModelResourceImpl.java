@@ -35,8 +35,12 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 		System.out.println("create receipt");
 		Receipt receipt = receiptLocalService.getReceipt();
+		String receiptNumber =generateReceiptNumber(receipt.getReceiptId());
+		System.out.println(receiptNumber);
+		System.out.println(receiptRsModel.getTempFileId());
 	    // Receipt receipt = receiptLocalService.getReceiptByTempFileId(receiptRsModel.getTempFileId(),receiptRsModel.getGroupId());
 		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
+		System.out.println(dmFileId);
 		String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 		System.out.println(viewFileUrl);
 		receipt.setAddress(receiptRsModel.getAddress());
@@ -84,6 +88,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setDmFileId(dmFileId);
 		System.out.println("test1");
 		receipt.setViewPdfUrl(viewFileUrl);
+		receipt.setReceiptNumber(receiptNumber);
 		System.out.println("nature"+receiptRsModel.getNature());
 		receipt.setNature(receiptRsModel.getNature());
 		receipt.setCurrentState(1);
@@ -92,74 +97,20 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	}
 
 
+
+	
 	private String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R" + receiptId;
 		return receiptNumber;
 
 	}
 
-	/*
-	 * @Override public ReceiptRsModel getReceiptByReceiptId(@NotNull Long
-	 * receiptId) throws Exception { Receipt receipt =
-	 * receiptLocalService.getReceiptByReceiptId(receiptId); ReceiptRsModel
-	 * receiptRsModel=new ReceiptRsModel();
-	 * receiptRsModel.setReceiptId(receipt.getReceiptId());
-	 * receiptRsModel.setAddress(receipt.getAddress());
-	 * receiptRsModel.setCity(receipt.getCity());
-	 * receiptRsModel.setCountryId(receipt.getCountryId());
-	 * receiptRsModel.setDeliveryModeId(receipt.getDeliveryModeId());
-	 * receiptRsModel.setDesignation(receipt.getDesignation());
-	 * receiptRsModel.setEmail(receipt.getEmail());
-	 * receiptRsModel.setLetterDate(receipt.getLetterDate());
-	 * receiptRsModel.setMobile(receipt.getMobile());
-	 * receiptRsModel.setModeNumber(receipt.getModeNumber());
-	 * receiptRsModel.setName(receipt.getName());
-	 * receiptRsModel.setOrganizationId(receipt.getOrganizationId());
-	 * receiptRsModel.setPinCode(receipt.getPinCode());
-	 * receiptRsModel.setReceiptCategoryId(receipt.getReceiptCategoryId());
-	 * receiptRsModel.setReceiptSubCategoryId(receipt.getReceiptSubCategoryId());
-	 * receiptRsModel.setReceivedOn(receipt.getReceivedOn());
-	 * receiptRsModel.setReferenceNumber(receipt.getReferenceNumber());
-	 * receiptRsModel.setRemarks(receipt.getRemarks());
-	 * receiptRsModel.setStateId(receipt.getStateId());
-	 * receiptRsModel.setSubOrganizationId(receipt.getSubOrganizationId());
-	 * receiptRsModel.setSubject(receipt.getSubject());
-	 * receiptRsModel.setTypeId(receipt.getTypeId());
-	 * receiptRsModel.setUserPostId(receipt.getUserPostId());
-	 * receiptRsModel.setViewPdfUrl(receipt.getViewPdfUrl());
-	 * receiptRsModel.setDmFileId(receipt.getDmFileId());
-	 * receiptRsModel.setReceiptNumber(receipt.getReceiptNumber());
-	 * 
-	 * typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
-	 * deliveryModeById =
-	 * masterdataLocalService.getDeliveryModeById(receipt.getDeliveryModeId());
-	 * organizationById =
-	 * masterdataLocalService.getOrganizationById(receipt.getOrganizationId());
-	 * subOrganizationById =
-	 * masterdataLocalService.getSubOrganizationById(receipt.getSubOrganizationId())
-	 * ; receiptCategoryById =
-	 * masterdataLocalService.getReceiptCategoryById(receipt.getReceiptCategoryId())
-	 * ; receiptSubCategoryById =
-	 * masterdataLocalService.getReceiptSubCategoryById(receipt.
-	 * getReceiptSubCategoryId()); countryById =
-	 * masterdataLocalService.getCountryById(receipt.getCountryId()); stateById =
-	 * masterdataLocalService.getStateById(receipt.getStateId());
-	 * 
-	 * receiptRsModel.setTypevalue(typeById.getValue());
-	 * receiptRsModel.setDeliverymodevalue(deliveryModeById.getValue());
-	 * receiptRsModel.setOrganizationvalue(organizationById.getValue());
-	 * receiptRsModel.setSuborganizationvalue(subOrganizationById.getValue());
-	 * receiptRsModel.setReceiptcategoryvalue(receiptCategoryById.getValue());
-	 * receiptRsModel.setReceiptsubcategoryvalue(receiptSubCategoryById.getValue());
-	 * receiptRsModel.setCountryvalue(countryById.getValue());
-	 * receiptRsModel.setStatevalue(stateById.getValue());
-	 * 
-	 * return receiptRsModel; }
-	 */
-
+	
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
-		System.out.println("update test");
+		System.out.println("update test" + receiptRsModel.getReceiptId());
+		long dmFileId =0l;
+		String viewFileUrl= null;
 		Receipt receipt = receiptLocalService.getReceiptUpdate(receiptRsModel.getReceiptId());
 		
 		System.out.println("test1");
@@ -179,6 +130,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		System.out.println("test8");
 		receipt.setModeNumber(receiptRsModel.getModeNumber());
 		System.out.println("test9");
+		
 		receipt.setName(receiptRsModel.getName());
 		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
 		System.out.println("test10");
@@ -204,20 +156,19 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		System.out.println("test19");
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		System.out.println("test20");
-		long dmFileId =receiptRsModel.getDmFileId(); 
-		System.out.println(dmFileId);
-		//receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
-		//System.out.println(dmFileId);
-		if(dmFileId!=receipt.getDmFileId()) {
-			receipt.setDmFileId(dmFileId);
-			System.out.println("dmFileId saved ");
-			
+		long tempFileId = receiptRsModel.getTempFileId();
+		System.out.println(tempFileId);
+		if(tempFileId!=0) {
+			System.out.println("tempFileId");
+			 dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
+			 viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
+			 System.out.println("temp!=0"+viewFileUrl);
+			 receipt.setViewPdfUrl(viewFileUrl);
+			 receipt.setDmFileId(dmFileId);
 		}
-		System.out.println("dmFileId1 saved ");
 		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;
 	}
-
 
 	@Reference
 	private CounterLocalService counterLocalService;
@@ -231,3 +182,4 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	private MasterdataLocalService masterdataLocalService;
 
 }
+

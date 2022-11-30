@@ -30,10 +30,12 @@
 			<aui:col cssClass="border">
 				<div id="targetDiv" class="targetDiv">
 					<aui:input id="document" label="" name="document" type="file">
+					
 						<aui:validator name="required" />
 						<aui:validator name="acceptFiles"
 							errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
 					</aui:input>
+					<embed id="editpdfurl" type="application/pdf" src="${receipt.viewPdfUrl}"  width="100%" height="450">
 					<%-- <c:if test="${receipt.viewPdfUrl != null}">
 						<embed id="pdfurl" type="application/pdf" 
 							src="${receipt.viewPdfUrl}" width="100%" height="450">
@@ -63,16 +65,14 @@
 								<div class="textOnInput">
 									<label>Created On</label>
 									<aui:input label="" name="createdOn" id="createdOn"
-										value="${receipt.createDate}" readOnly="true" />
+										value="${receipt.createDate}" disabled="true" />
+										
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
 									<label>Nature</label>
-									<aui:select label="" name="nature" id="nature">
-										<aui:option value="Electronic">Electronic</aui:option>
-										<aui:option value="Physical">Physical</aui:option>
-									</aui:select>
+									<aui:input label="" name="nature" id="nature" value="${receipt.nature}" disabled="true"/>
 								</div>
 							</aui:col>
 							</aui:row>
@@ -93,7 +93,7 @@
 								<div class="textOnInput">
 									<label>Delivery Mode<span class='text-danger'>*</span></label>
 									<aui:input label="" name="deliveryModeId" id="deliveryModeId" value="${deliveryModeValue}"
-										readonly="true" />
+										disabled="true"/>
 								</div>
 							</aui:col>
 						</aui:row>
@@ -145,6 +145,8 @@
 									<label>Reference Number</label>
 									<aui:input label="" name="referenceNumber" id="referenceNumber"
 										value="${receipt.referenceNumber}"/>
+										<aui:input label="" name="dmFileId" id="dmFileId"
+										value="${receipt.dmFileId}" type = "hidden"/>
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
@@ -352,7 +354,7 @@
 					<%--	Action Buttons--%>
 					<aui:button-row>
 						<aui:button cssClass="btn btn-primary button" type="submit"
-							name="generate" value="Generate" />
+							name="Save" value="Save" />
 					</aui:button-row>
 				</aui:col>
 			</aui:row>
