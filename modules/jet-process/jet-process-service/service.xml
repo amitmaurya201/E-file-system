@@ -41,6 +41,8 @@
 		<column name="reference" type="String" />
 		<column name="year" type="long" />
 		<column name="userPostId" type="long" />
+		<column name="currentlyWith" type="long"/>
+		<column name="currentState" type="int"/>
 		<!-- Order -->
 
 		<order by="asc">
