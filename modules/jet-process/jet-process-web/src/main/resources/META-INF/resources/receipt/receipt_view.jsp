@@ -32,6 +32,8 @@
 	session.setAttribute("receipt", receipt);
 %>
 	 
+	 
+<h6>${receipt.nature}-${receipt.receiptNumber}</h6>
 
 <%-- receipt view --%>
 <div class="receipt_view">
