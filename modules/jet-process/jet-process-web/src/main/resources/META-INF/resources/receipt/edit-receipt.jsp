@@ -23,11 +23,6 @@
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
 %>
-
-<portlet:renderURL var="receiptView">
-	<portlet:param name="mvcPath" value="/receipt/receipt_view.jsp" />
-</portlet:renderURL>
-
 <div class=" mr-1 receipt">
 	<aui:container cssClass="row">
 

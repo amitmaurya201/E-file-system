@@ -203,23 +203,9 @@ $("#<portlet:namespace />generate").on('click', function(e){
 			    cache : false,
 			    processData: false,
 		        contentType : 'application/json'
-			  }) .done(function(response) {
+			  }).done(function(response) {
+				  console.log("------------------------33-------------------------");
 				  console.log(response);
-				  swal( {
-                      title: "successfull !",
-                      text: `You Have successfully created Your Receipt! And Your Receipt Number is ${response.receiptNumber} `,
-                      icon: "success",
-                      button: "ok"
-                  }).then(function() {
-                	    window.location.href = "createdReceiptList";
-                  });
-		 })
-		 .fail(function(error){
-			 swal({  
-				  title: " Oops!",  
-				  text: " Something went wrong, you should choose again!",  
-				  icon: "error",  
-				});  
 		 })
 });
 
@@ -250,24 +236,10 @@ $("#<portlet:namespace />Save").on('click', function(e){
 			    cache : false,
 			    processData: false,
 		        contentType : 'application/json'
-			  }) .done(function(response) {
+			  }).done(function(response) {
+				  console.log("------------------------3s3-------------------------");
 				  console.log(response);
-				  swal( {
-                      title: "successfull !",
-                      text: `You Have successfully created Your Receipt! And Your Receipt Number is ${response.receiptNumber} `,
-                      icon: "success",
-                      button: "ok"
-                  }).then(function() {
-                	    window.location.href = "receiptView";
-                  });
-		 })
-		 .fail(function(error){
-			 swal({  
-				  title: " Oops!",  
-				  text: " Something went wrong, you should choose again!",  
-				  icon: "error",  
-				});  
-		 })
+		  })
 		 }
 });
 
