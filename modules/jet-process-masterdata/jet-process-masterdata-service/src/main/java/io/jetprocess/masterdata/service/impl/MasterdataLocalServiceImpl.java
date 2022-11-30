@@ -205,6 +205,10 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 	    	
 	    	return masterdataFinder.getFileCreatedListSearch(userPostId, data);
 	    }
-	   
+	   public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(long userPostId , String data){
+	    	
+	    	return masterdataFinder.getReceiptCreatedListSearch(userPostId, data);
+	    } 
 
+	   
 }

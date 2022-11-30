@@ -966,4 +966,28 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 
+	public List<ReceiptListViewDto> getReceiptCreatedListSearch(long userPostId, String data) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptCreatedListData");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			queryPos.add(data);
+			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
 }

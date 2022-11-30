@@ -346,6 +346,12 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptCreatedListSearchedData(long userPostId, String data) {
+
+		return getService().getReceiptCreatedListSearchedData(userPostId, data);
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptList(long userPostId) {
 
 		return getService().getReceiptList(userPostId);

@@ -430,6 +430,14 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptCreatedListSearchedData(long userPostId, String data) {
+
+		return _masterdataLocalService.getReceiptCreatedListSearchedData(
+			userPostId, data);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptList(long userPostId) {
 
 		return _masterdataLocalService.getReceiptList(userPostId);
