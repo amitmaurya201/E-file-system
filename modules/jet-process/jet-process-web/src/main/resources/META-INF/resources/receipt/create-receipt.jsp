@@ -16,7 +16,7 @@
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-10">
+	<div class="col-10 border border-dark p-1">
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 			String setURl = serviceContext.getPortalURL();
@@ -30,9 +30,9 @@
 				value="/receipt/created-receipt-list.jsp" />
 		</portlet:renderURL>
 
-		<div class=" mr-1 receipt">
+		<div class="border border-dark mr-1 receipt">
 			<aui:container cssClass="row">
-				<aui:form cssClass="col-6">
+				<aui:form cssClass="col-6 p-2">
 					<aui:col cssClass="border">
 						<div id="targetDiv" class="targetDiv">
 							<aui:input id="document" label="" name="document" type="file">
@@ -48,7 +48,7 @@
 					<%--  <aui:input name="receiptId" id="receiptId" value="${receiptId}" /> --%>
 					<aui:row>
 						<aui:col cssClass="border">
-							<div class="scroll">
+							<!-- <div class="scroll"> -->
 								<div class="border heading">
 									<h4>
 										<aui:icon cssClass="fas fa-file-alt icon" />
@@ -367,7 +367,7 @@
 										</div>
 									</aui:col>
 								</aui:row>
-							</div>
+							<!-- </div> -->
 							<%--	Action Buttons--%>
 							<aui:button-row>
 								<aui:button cssClass="btn btn-primary button" type="submit"

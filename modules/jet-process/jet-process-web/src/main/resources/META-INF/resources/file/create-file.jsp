@@ -14,14 +14,14 @@
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-10 ml-3 mr-3">
+	<div class="col-10">
 
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 			String setURl = serviceContext.getPortalURL();
 		%>
 
-		<div class="container m-3">
+		<div class="container">
 			<div class="card">
 
 				<aui:form name="formId">
