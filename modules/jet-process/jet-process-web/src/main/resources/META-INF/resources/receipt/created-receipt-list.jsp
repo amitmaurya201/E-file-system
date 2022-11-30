@@ -1,6 +1,6 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp" %>
-<%@ include file="/css/main.scss" %>
+<%-- <%@ include file="/css/main.scss" %> --%>
 
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
