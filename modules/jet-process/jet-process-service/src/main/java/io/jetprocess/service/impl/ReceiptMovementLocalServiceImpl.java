@@ -43,21 +43,23 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		receiptMovement.setRemark(remark);
 		receiptMovement.setPriority(priority);
 		receiptMovement.setDueDate(dueDate);
-		receiptMovementLocalService.addReceiptMovement(receiptMovement);
 
-		/*try {
-			Receipt receipt=receiptLocalService.getReceipt(receiptId);
+		try {
+			Receipt receipt=receiptLocalService.getReceiptByReceiptId(receiptId);
 			if(receiptId==receipt.getReceiptId()) {
 				receipt.setCurrentlyWith(receiverId);
+				receiptLocalService.updateReceipt(receipt);
 				if(Validator.isNotNull(receipt.getCurrentState())) {
 					receipt.setCurrentState(2);
+					receiptLocalService.updateReceipt(receipt);
 				}
 			}else {
 				System.out.println("ReceiptId not valid");
 			}
 		} catch (PortalException e) {
 			e.printStackTrace();
-		}*/
+		}
+		receiptMovementLocalService.addReceiptMovement(receiptMovement);
 
 	}
 

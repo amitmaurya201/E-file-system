@@ -58,8 +58,10 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			DocFile docFile=docFileLocalService.getDocFileByDocFileId(fileId);
 			if(fileId==docFile.getDocFileId()) {
 				docFile.setCurrentlyWith(receiverId);
+				docFileLocalService.updateDocFile(docFile);
 				if(Validator.isNotNull(docFile.getCurrentState())) {
 					docFile.setCurrentState(2);
+					docFileLocalService.updateDocFile(docFile);
 				}
 			}else {
 				System.out.println("fileId not valid");

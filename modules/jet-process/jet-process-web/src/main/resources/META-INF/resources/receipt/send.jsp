@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.model.Receipt"%>
 <%@ include file="../init.jsp"%>
 <%@ include file="../navigation.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,11 +12,11 @@
 <portlet:actionURL name="sendReceipt" var="send"/>
 
 
-<%-- <% DocFile docFile = (DocFile) session.getAttribute("DocFileObj"); %> --%>
+<% Receipt receipt = (Receipt) session.getAttribute("receipt"); %>
 
 <aui:form action="${send}">
-	<input type="hidden" name="<portlet:namespace/>senderId" value="">
-	<input type="hidden" name="<portlet:namespace/>receiptId" value="">
+	<input type="hidden" name="<portlet:namespace/>senderId" value="<%=receipt.getUserPostId() %>">
+	<input type="hidden" name="<portlet:namespace/>receiptId" value="<%= receipt.getReceiptId()%>">
 	<div class="row">
 		<div class="col-6">
 			<aui:fieldset-group>
