@@ -49,7 +49,6 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 
 			// For User Post Table
 			long userPostId = receipt.getUserPostId();
-			renderRequest.setAttribute("userPostId",userPostId );
 			UserPost userPost = userPostLocalService.getUserPost(userPostId);
 			renderRequest.setAttribute("userPost", userPost);
 
