@@ -33,16 +33,9 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String remark = ParamUtil.getString(actionRequest, "remark");
 		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
-		// fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate,
-		// remark);
+		 fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate,
+		 remark);
 
-
-		System.out.println("receiverId-- > " + receiverId);
-		System.out.println("senderId-- > " + senderId);
-		System.out.println("fileId-- > " + fileId);
-		System.out.println("remark-- > " + remark);
-		System.out.println("dueDate-- > " + dueDate);
-		System.out.println("priority-> " + priority);
 
 	}
 

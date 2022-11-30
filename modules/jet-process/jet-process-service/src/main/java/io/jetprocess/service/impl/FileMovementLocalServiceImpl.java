@@ -54,7 +54,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		fm.setDueDate(dueDate);
 		fileMovementLocalService.addFileMovement(fm);
 
-		/*try {
+		try {
 			DocFile docFile=docFileLocalService.getDocFileByDocFileId(fileId);
 			if(fileId==docFile.getDocFileId()) {
 				docFile.setCurrentlyWith(receiverId);
@@ -68,7 +68,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 		} catch (PortalException e) {
 			e.printStackTrace();
-		}*/
+		}
 
 	}
 
