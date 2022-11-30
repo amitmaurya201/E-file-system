@@ -330,7 +330,7 @@ SELECT receiptsubcategorydataid as masterdataid , 'C-'||receiptsubcategorydataid
 <sql id="getFileCreatedListData">
 <![CDATA[
 
-Select filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn
+Select docfileid as docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn
 FROM jet_process_docfile  INNER JOIN 
 	md_category  ON categorydataid = categoryid where userpostid = ? AND  (CONCAT(filenumber ,subject, categoryvalue) LIKE ?) order by filenumber desc ;
 
