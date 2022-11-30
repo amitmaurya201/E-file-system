@@ -1,6 +1,6 @@
 <!-- Header -->
 
-  <div class="theme-header row">
+  <div class="theme-header row" >
 	<!-- Logo -->
 	<div class="col-md-8">
 	    <div class="header-left">
@@ -8,13 +8,13 @@
 				<img src="${site_logo}" width="40" height="40" alt="">
 			</a>
 	    </div>
-		<a id="navbartoggle">
+		<#--<a id="navbartoggle">
 			<span class="bar-icon">
 				<span></span>
 				<span></span>
 				<span></span>
 			</span>
-		</a>
+		</a>-->
 		
 		<!-- Header Title -->
 	    <div class="page-title-box">

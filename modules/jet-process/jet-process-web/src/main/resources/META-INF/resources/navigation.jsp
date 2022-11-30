@@ -8,44 +8,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <style>
-        body {font-family: "Lato", sans-serif;}
+        /* body {font-family: "Lato", sans-serif;} */
         
-        .sidebar {
-          height: 100%;
-          width: 160px;
+      .sidebar {
+          
+          width: 15%;
           position: fixed;
           z-index: 1;
-          top: 0;
+          padding-top: 10%;
           left: 0;
-          background-color: #111;
+          background-color: #345686;
           overflow-x: hidden;
-          padding-top: 16px;
-        }
+          color:white;
+          
+        } 
         
         .sidebar a {
-          padding: 6px 8px 6px 16px;
-          text-decoration: none;
-          font-size: 20px;
-          color: #1378D1;
-          display: block;
+          text-align: center;
+	    padding: 11px 9px;
+	    margin: 2px;
+	    text-decoration: none;
+	    font-size: 18px;
+	    color: white;
+	    display: block;
+	    line-height: 25px;
+	    border: 2px solid #819394;
+	    background: #2f466e;
+          
         }
         
         .sidebar a:hover {
           color: #f1f1f1;
         }
         
-        .main {
+/*         .main {
           margin-left: 160px; /* Same as the width of the sidenav */
-          padding: 0px 10px;
-        }
+         /* padding: 0px 10px;
+        }*/
         
-        @media screen and (max-height: 450px) {
+        /*@media screen and (max-height: 450px) {
           .sidebar {padding-top: 15px;}
           .sidebar a {font-size: 18px;}
         }
-        </style>
+ */        </style>
 </head>
 
+<portlet:renderURL var="view">
+    <portlet:param name="mvcRenderCommandName" value="/home"/>
+</portlet:renderURL>
 <portlet:renderURL var="createFile">
     <portlet:param name="mvcRenderCommandName" value="/createFile1"/>
 </portlet:renderURL>
@@ -61,7 +71,7 @@
 
 <body>
     <div class="sidebar">
-         <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+         <a href="<%=view  %>""><i class="fa fa-fw fa-home"></i> Home</a>
         <a class="dropdown-btn"><i class="fa fa-file" aria-hidden="true"></i>File
             <i class="fa fa-caret-down"></i>
         </a>
@@ -71,7 +81,7 @@
             
           </div>
           <a class="dropdown-btn"><i class='fas fa-receipt' style='font-size:24px'></i>
-Receipt
+				Receipt
             <i class="fa fa-caret-down"></i>
         </a>
           <div class="dropdown-container">

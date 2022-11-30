@@ -52,7 +52,7 @@
 			<@liferay.control_menu />
 		</#if>
 	</div>
-	<div id="custom-control-menu" class="col col-md-12"><#include "${full_templates_path}/header.ftl" /></div>
+	<div id="custom-control-menu" class="col col-md-12" style="z-index:2 !important;"><#include "${full_templates_path}/header.ftl" /></div>
 </div>
 <#if isAdmin>
 	<@liferay_util["include"] page=body_top_include />
@@ -62,8 +62,9 @@
 
 
 <div id="content" class="row">
-	<div id="left-panel" class="float-left p-0" style="width:17%; transition: all 1s ease-in-out;"><#include "${full_templates_path}/left_navigation.ftl" /></div>
-	<div id="portlet-area" class="float-left pl-4 pr-4" style="width:83%; transition: all 1s ease-in-out;">
+	<#-- <div id="left-panel" class="float-left p-0" style="width:17%; transition: all 1s ease-in-out;"><#include "${full_templates_path}/left_navigation.ftl" /></div>
+	<div id="portlet-area" class="float-left pl-4 pr-4" style="width:83%; transition: all 1s ease-in-out;">-->
+	<div id="" class="pl-4 pr-4" style="margin-left:15%" ">
 		<section class="${portal_content_css_class}" >
 			<h2 class="sr-only" role="heading" aria-level="1">${the_title}</h2>
  
@@ -80,7 +81,7 @@
 			</#if>
 		</section>
 	</div>
-	<#-- <div id="right-panel" class="float-right p-0" style="width:5%; transition: all 1s ease-in-out;"><#include "${full_templates_path}/right_navigation.ftl" /></div> -->
+	 <#--<div id="right-panel" class="float-right p-0" style="width:5%; transition: all 1s ease-in-out;"><#include "${full_templates_path}/right_navigation.ftl" /></div> -->
 </div>
 <div id="footer" class="row">
 	<div id="footer-panel" class="col col-md-12">

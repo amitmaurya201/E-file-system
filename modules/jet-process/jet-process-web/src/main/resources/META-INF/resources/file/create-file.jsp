@@ -1,3 +1,5 @@
+
+
 <%@ include file="../init.jsp"%>
 <%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
@@ -7,6 +9,9 @@
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/file.js" %>
 <%@ include file="/js/common.js" %> 
+
+
+
 
 
 <div class="row">
@@ -21,9 +26,9 @@
 
 <div class="col mr-5">
 
-
 	<div class="container m-3">
 		<div class="card">
+		
 			<aui:form name="formId">
 	             <div class="card-body">
 					<div class="row">
@@ -46,7 +51,8 @@
 															</div>
 															<div class="col-auto">
 																<aui:select label="Nature" cssClass="form-select form-control" id="nature"
-																	name="nature" >
+																	name="nature" readonly="true" >
+																	
 																	<option value="Electronic">Electronic</option>
 																	<option value="Physical">Physical</option>
 																</aui:select>
@@ -58,9 +64,9 @@
 															</div>
 															<div class="col-auto">
 																<aui:select class="form-select form-control" id="type"
-																	name="type"  >
-																	<option value="NON-SFS">NON SFS</option>
-																	<option value="SFS">SFS</option>
+																	name="type" readonly="true" >
+																<option value="NON-SFS">NON-SFS</option>
+																<option value="SFS">SFS</option> 
 																</aui:select>
 															</div>
 														</div>
@@ -80,16 +86,17 @@
 																<aui:fieldset cssClass="col-md-12 p-0 child-scheduler-border">
 																<aui:row>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<aui:select cssClass="form-select form-control"
+																			<aui:select cssClass="form-select form-control"
 																			 name="basicHeadId" id="basicHeadId" label="">
-																			 <option value="">Basic Head</option>																			
+																		<option value="">Basic Head</option>
+																		<aui:validator name="required" />
 																			</aui:select>
-																			
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="primaryHeadId" id="primaryHeadId" label="">
 																			<option value="">Primary Head Code</option>
+																			<aui:validator name="required" />
 																			</aui:select>
 																			
 																			</div>
@@ -97,23 +104,26 @@
 																		<aui:select cssClass="form-select form-control"
 																			 name="secondaryHeadId" id="secondaryHeadId" label="">
 																			<option value=''>Secondary Head Code</option>
+																			<aui:validator name="required" />
 																			</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control"
 																			 name="tertiaryHeadId" id="tertiaryHeadId" label="">
 																			<option value=''>Tertiary Head Code</option> 
+																			<aui:validator name="required" />
 																	</aui:select>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
-																		<aui:input type="text" cssClass="form-control" id="year"
+																			<aui:input type="text" cssClass="form-control" id="year"
 																			name="year" value="" label="">
 																			</aui:input>
 																	</div>
 																	<div class="col-md-2 col-sm-6 mt-2">
 																		<aui:select cssClass="form-select form-control" 
 																			name="fileCodeId" id="fileCodeId" label="">
-																			<option value="">File-Code</option> 
+																			<option value="">File-Code</option>
+																			<aui:validator name="required" />
 																		</aui:select>
 																	</div>
 																	
@@ -122,14 +132,15 @@
 														
 														</div>
 														
-														<%--  <div class="row" id="sfs" style="display:none" >
+													  <div class="row" id="sfs" style="display:none" >
                                                                             <aui:fieldset cssClass="col-md-12 child-scheduler-border">
                                                                                 <legend cssClass="child-scheduler-border">File No.</legend>
-                                                                                <aui:input class="form-control" type="text" name="" id="fileNumber" >
+                                                                                <aui:input class="form-control" type="text" name="fileNumber" id="fileNumber" value="" >
+                                                                                <aui:validator name="required" />
                                                                                 </aui:input>
                                                                             </aui:fieldset>
                                                                         </div>
-														 --%>
+													
 													
 											</aui:col>
 										
@@ -151,22 +162,26 @@
 										<!-- <legend class="child-scheduler-border">
 											Subject<span class='text-danger'>*</span>
 										</legend> -->
-										<aui:input cssClass="form-control" type="text" name="subject"
-											id="subject">
+									
+                                           
+                                           <aui:input cssClass="form-control" type="text" name="subject" value=""
+											id="subject" label="Subject">
 										 <aui:validator name="required"/>
 										<aui:validator name="alpha" errorMessage="alphabet-characters" /> 
 											</aui:input>
-                                           
+										 
 									</aui:fieldset>
 								</div>
 								<div class="row">
 									<aui:fieldset cssClass="child-scheduler-border col-md-6">
 									<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 										<div cssClass="input-group">
-											<aui:select cssClass="form-select form-control" id="categoryId"
-												name="categoryId" >
-												<option value=''>Choose...</option> 
-											 <aui:validator name="required" /> 
+											 <aui:select cssClass="form-select form-control" id="categoryId"
+												name="categoryId" label="Category" >
+												
+												<option value=''>Choose...</option>
+												 <aui:validator name="required" /> 
+												
 											</aui:select>
 										</div>
 									</aui:fieldset>
@@ -174,9 +189,11 @@
 										<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 										<div cssClass="input-group">
 											<aui:select cssClass="form-select form-control" id="subCategoryId"
-												name="subCategoryId" >
+												name="subCategoryId" label="SubCategory" >
+											
 												<option value=''>Choose...</option>
-											 <aui:validator name="required" />  
+												 <aui:validator name="required" /> 
+												
 											</aui:select>
 										</div>
 									</aui:fieldset>
@@ -190,11 +207,12 @@
 										<!-- <legend class="child-scheduler-border">
 											Remark<span class='text-danger'>*</span>
 										</legend>-->
-										<aui:input cssClass="form-control col-md-12" rows="3" type="textarea"
-											name="remarks" id="remarks" >
+											<aui:input cssClass="form-control col-md-12" rows="3" type="textarea"
+											name="remarks" id="remarks" value=""  label="Remarks" >
 											 <aui:validator name="required"/>
 											<aui:validator name="maxLength">1000</aui:validator> 
 											</aui:input>
+											 
 									</aui:fieldset>
 								</div>
 								<div class="row">
@@ -202,11 +220,13 @@
 										<!-- <legend class="child-scheduler-border">
 											Reference<span class='text-danger'>*</span>
 										</legend> -->
-										<aui:input  cssClass="form-control col-md-12 " type="text"
-											name="reference" id="reference">
+											<aui:input  cssClass="form-control col-md-12 " type="text"
+											name="reference" id="reference" value="" label="Reference">
 										 	<aui:validator name="required" />
 											<aui:validator name="maxLength">250</aui:validator>
 											</aui:input>
+										    	
+											
 									</aui:fieldset>
 								</div>
 							</aui:fieldset>
@@ -239,7 +259,7 @@ $('#<portlet:namespace />type').change(function(){
 	});
 	
 	
-  $("#<portlet:namespace/>basicHeadId").attr('required','');
+   $("#<portlet:namespace/>basicHeadId").attr('required','');
    $("#<portlet:namespace />primaryHeadId").attr('required', ''); 
    $("#<portlet:namespace />secondaryHeadId").attr('required', ''); 
    $("#<portlet:namespace />tertiaryHeadId").attr('required', ''); 
@@ -271,4 +291,3 @@ A.io.request(url, {
 
 
 </aui:script>
-
