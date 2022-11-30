@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.io.IOException;
 
@@ -65,12 +66,15 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			throws IOException, PortletException {
 
 		// For the first time set the user posr id in session
-		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
-		String userPostId = (String) httpSession.getAttribute("userPostId");
-		if (null == userPostId || userPostId.isEmpty() || userPostId.equals("")) {
-			httpSession.setAttribute("userPostId", "1");
+		String userPostId = "1";
+		HttpSession httpSession = PortalUtil.getHttpServletRequest(renderRequest).getSession();
+		if(httpSession != null) {
+			userPostId = (String) httpSession.getAttribute("userPostId");
+			if (userPostId == null || userPostId.isEmpty() || userPostId.equals("")) {
+				httpSession.setAttribute("userPostId", "1");
+			}
+			httpSession.setAttribute("userPostId", userPostId);
 		}
-		logger.info("--User Post Id-->" + userPostId);
 		super.render(renderRequest, renderResponse);
 	}
 

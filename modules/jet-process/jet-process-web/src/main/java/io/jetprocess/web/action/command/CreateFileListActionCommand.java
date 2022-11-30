@@ -34,9 +34,9 @@ public class CreateFileListActionCommand extends BaseMVCActionCommand {
 
 		// For the second time when user post is changed
 		String userPostId = ParamUtil.getString(actionRequest, "userPostId");
-		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+		HttpSession httpSession = PortalUtil.getHttpServletRequest(actionRequest).getSession();
 		httpSession.setAttribute("userPostId", userPostId);
-		logger.info("------inside Action Command ---userPostId---" + userPostId);
 		String portletName = (String) actionRequest.getAttribute(WebKeys.PORTLET_ID);
 	}
+	
 }

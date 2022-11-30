@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
@@ -34,8 +35,12 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
  <%@page import="com.liferay.portal.kernel.portlet.LiferayPortletMode"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <!-- Getting the User Post Id from the session -->
-<%!
-HttpSession newHttpSession = PortalSessionThreadLocal.getHttpSession();
-String selectedUserPostId = (String)newHttpSession.getAttribute("userPostId");
+<%
+String selectedUserPostId = "1";
+HttpSession httpSession = PortalUtil.getHttpServletRequest(renderRequest).getSession();
+if(httpSession != null){
+	selectedUserPostId = (String)httpSession.getAttribute("userPostId");
+}
 %>
+
 
