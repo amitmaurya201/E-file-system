@@ -59,6 +59,13 @@ public class UserPostServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.UserPost>
+		getUserPostSearchedData(String data) {
+
+		return _userPostService.getUserPostSearchedData(data);
+	}
+
+	@Override
 	public UserPostService getWrappedService() {
 		return _userPostService;
 	}
