@@ -1,5 +1,6 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
+<%@ include file="/css/main.scss"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import= "java.util.TimeZone"%>
 
@@ -10,10 +11,10 @@
 
 
 <div class="row">
-	<div class="col-3">
+	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col">
+	<div class="col-10">
 		<%
 			//orderByCol is the column name passed in the request while sorting
 			String orderByCol = ParamUtil.getString(request, "orderByCol");

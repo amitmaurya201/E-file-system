@@ -1,42 +1,49 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
     <style>
         /* body {font-family: "Lato", sans-serif;} */
         
-      .sidebar {
-          
+      .side-nav {
+          padding:5px;
           /* width: 15%;
           position: fixed;
           z-index: 1;
           padding-top: 10%;
           left: 0; */
           background-color: #345686;
-          overflow-x: hidden;
+          /* overflow-x: hidden; */
           color:white;
           
         } 
         
-        .sidebar a {
-          text-align: center;
-	    padding: 11px 9px;
-	    margin: 2px;
-	    text-decoration: none;
-	    font-size: 18px;
-	    color: white;
-	    display: block;
-	    line-height: 25px;
-	    border: 2px solid #819394;
-	    background: #2f466e;
+        .side-nav a {
           
+		    text-align: center;
+		    margin: 5px;
+		    text-decoration: none;
+		    font-size: 18px;
+		    color: white;
+		    display: block;
+		    line-height: 35px;
+		    border: 2px solid #819394;
+		    border-radius: 30px;
+		    background: #2f466e;
         }
         
-        .sidebar a:hover {
+        .side-nav a:hover {
           color: #f1f1f1;
+        }
+        .side-nav .dropdown-container{
+        	padding-left:30px;
+        }
+        
+        .side-nav .dropdown-container a{
+        	background:#1d4f3d;
         }
         
 /*         .main {
@@ -49,7 +56,7 @@
           .sidebar a {font-size: 18px;}
         }
  */        </style>
-</head>
+<!-- </head> -->
 
 <portlet:renderURL var="view">
     <portlet:param name="mvcRenderCommandName" value="/home"/>
@@ -67,13 +74,12 @@
     <portlet:param name="mvcRenderCommandName" value="/createdListReceipt"/>
 </portlet:renderURL>
 
-<body>
-    <div class="sidebar">
+    <div class="side-nav">
          <a href="<%=view%>"><i class="fa fa-fw fa-home"></i> Home</a>
         <a class="dropdown-btn"><i class="fa fa-file" aria-hidden="true"></i>File
             <i class="fa fa-caret-down"></i>
         </a>
-          <div class="dropdown-container">
+          <div class="dropdown-container ">
             <a href="<%= createFile%>">Create File</a>
             <a href="<%= createdFileList %>">Created  List</a>
             
@@ -82,7 +88,7 @@
 				Receipt
             <i class="fa fa-caret-down"></i>
         </a>
-          <div class="dropdown-container">
+          <div class="dropdown-container ">
             <a href="<%=createReceipt  %>">Create Receipt</a>
             <a href="<%= createdListReceipt %>">Created  List</a>
             
@@ -101,14 +107,16 @@
               dropdown[i].addEventListener("click", function() {
                 this.classList.toggle("active");
                 var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
+                if (dropdownContent.style.display == "block") {
                   dropdownContent.style.display = "none";
                 } else {
                   dropdownContent.style.display = "block";
+                  
+              
                 }
               });
             }
             </script>
-    
+<!--     
 </body>
-</html>
+</html> -->

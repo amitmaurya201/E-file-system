@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@ include file="../init.jsp" %>
-<%@ include file="../navigation.jsp" %>
+
 
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page import ="io.jetprocess.masterdata.service.UserPostLocalServiceUtil" %>
