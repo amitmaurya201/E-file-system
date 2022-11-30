@@ -176,7 +176,7 @@ SELECT tertiaryheadid as masterdataid ,  'C-'||tertiaryheadid as referenceid , t
 
 <sql id="fileCreatedListQuery">
 <![CDATA[
-SELECT filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
+SELECT  docfileid, filenumber as filenumber , subject as subject , categoryvalue as category , remarks as remark , createDate as createdOn  
 	FROM jet_process_docfile  INNER JOIN 
 	md_category  ON categorydataid = categoryid where userpostid = ?  order by filenumber desc; 
 ]]>
@@ -330,7 +330,7 @@ SELECT receiptsubcategorydataid as masterdataid , 'C-'||receiptsubcategorydataid
 <sql id="getFileCreatedListData">
 <![CDATA[
 
-Select docfileid as docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn
+Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn
 FROM jet_process_docfile  INNER JOIN 
 	md_category  ON categorydataid = categoryid where userpostid = ? AND  (CONCAT(filenumber ,subject, categoryvalue) LIKE ?) order by filenumber desc ;
 
