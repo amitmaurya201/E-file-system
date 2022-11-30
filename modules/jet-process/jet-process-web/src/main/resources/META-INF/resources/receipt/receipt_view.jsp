@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
 <%@ include file="../init.jsp"%>
@@ -27,8 +28,10 @@
 <%-- <%@ include file="receipt-view-nav.jsp"%> --%>
 
 <%
-	Object userPostId = renderRequest.getAttribute("userPostId");
+	 Receipt receipt = (Receipt)request.getAttribute("receipt");
+	session.setAttribute("receipt", receipt);
 %>
+	 
 
 <%-- receipt view --%>
 <div class="receipt_view">
