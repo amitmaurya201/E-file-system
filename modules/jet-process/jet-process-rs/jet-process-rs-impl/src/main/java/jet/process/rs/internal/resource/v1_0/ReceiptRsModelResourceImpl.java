@@ -86,7 +86,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setViewPdfUrl(viewFileUrl);
 		System.out.println("nature"+receiptRsModel.getNature());
 		receipt.setNature(receiptRsModel.getNature());
-//		receipt.setCurrentState(CurrentState.created.name());
+		receipt.setCurrentState(1);
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}
