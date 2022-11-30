@@ -102,6 +102,34 @@ public class FileRsModel implements Serializable {
 	protected Long categoryId;
 
 	@Schema
+	public Long getDocFileId() {
+		return docFileId;
+	}
+
+	public void setDocFileId(Long docFileId) {
+		this.docFileId = docFileId;
+	}
+
+	@JsonIgnore
+	public void setDocFileId(
+		UnsafeSupplier<Long, Exception> docFileIdUnsafeSupplier) {
+
+		try {
+			docFileId = docFileIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long docFileId;
+
+	@Schema
 	public Long getFileCodeId() {
 		return fileCodeId;
 	}
@@ -560,6 +588,16 @@ public class FileRsModel implements Serializable {
 			sb.append("\"categoryId\": ");
 
 			sb.append(categoryId);
+		}
+
+		if (docFileId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"docFileId\": ");
+
+			sb.append(docFileId);
 		}
 
 		if (fileCodeId != null) {
