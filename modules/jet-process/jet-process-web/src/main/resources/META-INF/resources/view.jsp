@@ -1,2 +1,1 @@
-<%@ include file="/file/created-file-list.jsp"%>
-
+<jsp:include page="/file/created-file-list.jsp"/>

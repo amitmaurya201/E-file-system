@@ -1,4 +1,4 @@
-<!--
+<#--
 <nav aria-label="<@liferay.language key="site-pages" />" class="${nav_css_class}" id="navigation" role="navigation">
 
 	<ul role="menubar">

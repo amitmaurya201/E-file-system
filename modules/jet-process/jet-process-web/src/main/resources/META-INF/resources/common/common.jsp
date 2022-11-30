@@ -68,5 +68,12 @@
  }
  
  
+  $(".hover-tips").hover(function() {
+		
+	    $(this).attr('title', $(this).text());
+	    
+	});
+ 
+ 
  	
  </aui:script>

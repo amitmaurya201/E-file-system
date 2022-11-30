@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +10,11 @@
         
       .sidebar {
           
-          width: 15%;
+          /* width: 15%;
           position: fixed;
           z-index: 1;
           padding-top: 10%;
-          left: 0;
+          left: 0; */
           background-color: #345686;
           overflow-x: hidden;
           color:white;
@@ -70,12 +69,12 @@
 
 <body>
     <div class="sidebar">
-         <a href="<%=view  %>""><i class="fa fa-fw fa-home"></i> Home</a>
+         <a href="<%=view%>"><i class="fa fa-fw fa-home"></i> Home</a>
         <a class="dropdown-btn"><i class="fa fa-file" aria-hidden="true"></i>File
             <i class="fa fa-caret-down"></i>
         </a>
           <div class="dropdown-container">
-            <a href="<%= createFile %>">Create File</a>
+            <a href="<%= createFile%>">Create File</a>
             <a href="<%= createdFileList %>">Created  List</a>
             
           </div>

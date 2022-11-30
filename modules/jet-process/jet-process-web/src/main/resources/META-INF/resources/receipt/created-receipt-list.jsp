@@ -1,5 +1,4 @@
 <%@ include file="../init.jsp"%>
-<%@ include file="../navigation.jsp"%>
 <%@ include file="/common/common.jsp" %>
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
@@ -31,7 +30,11 @@
      
 </style>
 
-
+<div>
+	<div class="col-3">
+		<%@ include file="../navigation.jsp"%>
+	</div>
+	<div class="col-9">
 
 <%
 	//orderByCol is the column name passed in the request while sorting
@@ -101,7 +104,7 @@
 		<liferay-ui:search-container-column-text href="<%=receiptInnerView%>"
 			property="receiptNumber" name="label-receipt-list-receiptno"  orderable="true" />
 
-		<liferay-ui:search-container-column-text cssClass="tips" property="subject" name="label-receipt-list-subject" />
+		<liferay-ui:search-container-column-text cssClass="hover-tips" property="subject" name="label-receipt-list-subject" />
 
 		<liferay-ui:search-container-column-text property="category" name="label-receipt-list-category"/>
 
@@ -139,6 +142,11 @@
       
 	 </div>
   </div>
+</div>
+
+
+
+</div>
 </div>
 
 

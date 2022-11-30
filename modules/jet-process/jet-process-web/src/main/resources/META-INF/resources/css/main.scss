@@ -48,14 +48,14 @@
   margin: auto 40%;
 }
 
-.tips{
+.hover-tips{
 		white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 50ch;
+        max-width: 30ch;
         
 	}
-.tips[title]:hover::after {
+.hover-tips[title]:hover::after {
   background-color: #fcf4ca;
 }
 
