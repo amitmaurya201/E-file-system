@@ -54,6 +54,7 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 		} catch (PortalException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return "/file/details.jsp";
 	}
 
