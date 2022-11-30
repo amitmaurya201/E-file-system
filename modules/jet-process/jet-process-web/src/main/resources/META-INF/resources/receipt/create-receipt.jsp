@@ -24,7 +24,8 @@
 			<aui:col cssClass="border">
 				<div id="targetDiv" class="targetDiv">
 					<aui:input id="document" label="" name="document" type="file">
-						<aui:validator name="required" />
+					<!-- <embed id="pdfurl" type="application/pdf" width="100%" height="450"> 
+ -->						<aui:validator name="required" />
 						<aui:validator name="acceptFiles"
 							errorMessage="label-receipt-upload-error-message">'pdf'</aui:validator>
 					</aui:input>
