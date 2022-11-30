@@ -4,12 +4,10 @@
 <%@page import="java.text.DateFormat"%>
 <%@ include file="../init.jsp"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+<%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
-<%@ include file="/js/common.js"%>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<%@ include file="/common/common.jsp"%>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <%@ include file="/navigation.jsp"%>
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
@@ -352,3 +350,8 @@
 	</aui:container>
 </div>
 </div>
+<script>
+$(document).ready(function(){
+	setUserPostId();
+});
+</script>

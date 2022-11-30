@@ -1,7 +1,6 @@
-<%@ include file="../init.jsp" %>
+<%@ include file="../init.jsp"%>
 <%@ include file="../navigation.jsp"%>
-
- 
+<%@ include file="/common/common.jsp" %> 
 
  <%-- 
  <portlet:renderURL var="fileInnerView">
@@ -31,13 +30,13 @@ if(Validator.isNull(orderByType)){
  
 %>
 <h1 class=" text-center">File Created List</h1>
-<% int count = MasterdataLocalServiceUtil.getFileListCount(1); %>
+<% int count = MasterdataLocalServiceUtil.getFileListCount(selectedUserPostId  != null ? Integer.parseInt(selectedUserPostId) : 1); %>
 <liferay-ui:search-container  orderByType="<%=orderByType %>"  delta="2" deltaConfigurable="true"  total="<%=count%>" >
  
 <liferay-ui:search-container-results >
     <%
     //Get all the results  from file created list
-      List<FileListViewDto> fileList = MasterdataLocalServiceUtil.getFileList(1);
+      List<FileListViewDto> fileList = MasterdataLocalServiceUtil.getFileList(selectedUserPostId  != null ? Integer.parseInt(selectedUserPostId) : 1);
 
     List<FileListViewDto> filePerPage = ListUtil.subList(fileList, searchContainer.getStart(),searchContainer.getEnd());
   
@@ -90,3 +89,9 @@ if(Validator.isNull(orderByType)){
  
     <liferay-ui:search-iterator  />
 </liferay-ui:search-container>
+
+<script>
+$(document).ready(function(){
+	setUserPostId();
+});
+</script>

@@ -1,5 +1,6 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="../navigation.jsp"%>
+<%@ include file="/common/common.jsp" %>
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
@@ -51,7 +52,7 @@
 	}
 %>
 <h1 class=" text-center">Receipt Created List</h1>
-<% int count = MasterdataLocalServiceUtil.getReceiptListCount(1); %>
+<% int count = MasterdataLocalServiceUtil.getReceiptListCount(selectedUserPostId  != null ? Integer.parseInt(selectedUserPostId) : 1); %>
 
 
 <liferay-ui:search-container orderByType="<%=orderByType %>" delta="2"
@@ -61,7 +62,7 @@
 	<liferay-ui:search-container-results >
 		<%
 			//Get all the results  from file created list
-					List<ReceiptListViewDto> fileList = MasterdataLocalServiceUtil.getReceiptList(1);
+					List<ReceiptListViewDto> fileList = MasterdataLocalServiceUtil.getReceiptList(selectedUserPostId  != null ? Integer.parseInt(selectedUserPostId) : 1);
 				
 					List<ReceiptListViewDto> listPerPage = ListUtil.subList(fileList, searchContainer.getStart(),
 							searchContainer.getEnd());
@@ -178,6 +179,8 @@ $(document).ready(function(){
 		
 		
 	});
+	
+	setUserPostId();
 	
 });
 

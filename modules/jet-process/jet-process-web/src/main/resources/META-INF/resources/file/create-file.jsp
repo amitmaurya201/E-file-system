@@ -1,23 +1,16 @@
-
-
 <%@ include file="../init.jsp"%>
+<%@ include file="/common/common.jsp" %> 
 <%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
-<%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@ page import="com.liferay.portal.kernel.util.ListUtil"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+<%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/file.js" %>
-<%@ include file="/js/common.js" %> 
-
-
-
 
 
 <div class="row">
 <div class="col-2">
 	<%@ include file="/navigation.jsp" %>
-	
 </div>
 <%
 		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
@@ -290,6 +283,8 @@ A.io.request(url, {
 
 }); --%>
 
-
+$(document).ready(function(){
+	setUserPostId();
+});
 
 </aui:script>
