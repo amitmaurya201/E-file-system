@@ -18,6 +18,11 @@
 	/* for current date*/
 	DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
 %>
+
+<portlet:renderURL var="createdReceiptList">
+	<portlet:param name="mvcPath" value="/receipt/created-receipt-list.jsp" />
+</portlet:renderURL>
+
 <div class=" mr-1 receipt">
 	<aui:container cssClass="row">
 		<aui:form cssClass="col-6">

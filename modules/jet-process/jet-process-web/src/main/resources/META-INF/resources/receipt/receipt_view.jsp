@@ -36,6 +36,7 @@
 <%-- receipt view --%>
 <div class="receipt_view">
 	<div class="container">
+	<h6>${receipt.nature}-${receipt.receiptNumber}</h6>
 		<div class="row">
 			<div class="col-md-6" Class="border">
 				<embed id="pdfurl" type="application/pdf"
