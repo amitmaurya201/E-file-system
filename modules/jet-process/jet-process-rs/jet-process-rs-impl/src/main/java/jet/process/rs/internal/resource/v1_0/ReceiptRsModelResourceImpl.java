@@ -105,65 +105,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 	}
 
-	/*
-	 * @Override public ReceiptRsModel getReceiptByReceiptId(@NotNull Long
-	 * receiptId) throws Exception { Receipt receipt =
-	 * receiptLocalService.getReceiptByReceiptId(receiptId); ReceiptRsModel
-	 * receiptRsModel=new ReceiptRsModel();
-	 * receiptRsModel.setReceiptId(receipt.getReceiptId());
-	 * receiptRsModel.setAddress(receipt.getAddress());
-	 * receiptRsModel.setCity(receipt.getCity());
-	 * receiptRsModel.setCountryId(receipt.getCountryId());
-	 * receiptRsModel.setDeliveryModeId(receipt.getDeliveryModeId());
-	 * receiptRsModel.setDesignation(receipt.getDesignation());
-	 * receiptRsModel.setEmail(receipt.getEmail());
-	 * receiptRsModel.setLetterDate(receipt.getLetterDate());
-	 * receiptRsModel.setMobile(receipt.getMobile());
-	 * receiptRsModel.setModeNumber(receipt.getModeNumber());
-	 * receiptRsModel.setName(receipt.getName());
-	 * receiptRsModel.setOrganizationId(receipt.getOrganizationId());
-	 * receiptRsModel.setPinCode(receipt.getPinCode());
-	 * receiptRsModel.setReceiptCategoryId(receipt.getReceiptCategoryId());
-	 * receiptRsModel.setReceiptSubCategoryId(receipt.getReceiptSubCategoryId());
-	 * receiptRsModel.setReceivedOn(receipt.getReceivedOn());
-	 * receiptRsModel.setReferenceNumber(receipt.getReferenceNumber());
-	 * receiptRsModel.setRemarks(receipt.getRemarks());
-	 * receiptRsModel.setStateId(receipt.getStateId());
-	 * receiptRsModel.setSubOrganizationId(receipt.getSubOrganizationId());
-	 * receiptRsModel.setSubject(receipt.getSubject());
-	 * receiptRsModel.setTypeId(receipt.getTypeId());
-	 * receiptRsModel.setUserPostId(receipt.getUserPostId());
-	 * receiptRsModel.setViewPdfUrl(receipt.getViewPdfUrl());
-	 * receiptRsModel.setDmFileId(receipt.getDmFileId());
-	 * receiptRsModel.setReceiptNumber(receipt.getReceiptNumber());
-	 * 
-	 * typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
-	 * deliveryModeById =
-	 * masterdataLocalService.getDeliveryModeById(receipt.getDeliveryModeId());
-	 * organizationById =
-	 * masterdataLocalService.getOrganizationById(receipt.getOrganizationId());
-	 * subOrganizationById =
-	 * masterdataLocalService.getSubOrganizationById(receipt.getSubOrganizationId())
-	 * ; receiptCategoryById =
-	 * masterdataLocalService.getReceiptCategoryById(receipt.getReceiptCategoryId())
-	 * ; receiptSubCategoryById =
-	 * masterdataLocalService.getReceiptSubCategoryById(receipt.
-	 * getReceiptSubCategoryId()); countryById =
-	 * masterdataLocalService.getCountryById(receipt.getCountryId()); stateById =
-	 * masterdataLocalService.getStateById(receipt.getStateId());
-	 * 
-	 * receiptRsModel.setTypevalue(typeById.getValue());
-	 * receiptRsModel.setDeliverymodevalue(deliveryModeById.getValue());
-	 * receiptRsModel.setOrganizationvalue(organizationById.getValue());
-	 * receiptRsModel.setSuborganizationvalue(subOrganizationById.getValue());
-	 * receiptRsModel.setReceiptcategoryvalue(receiptCategoryById.getValue());
-	 * receiptRsModel.setReceiptsubcategoryvalue(receiptSubCategoryById.getValue());
-	 * receiptRsModel.setCountryvalue(countryById.getValue());
-	 * receiptRsModel.setStatevalue(stateById.getValue());
-	 * 
-	 * return receiptRsModel; }
-	 */
-
+	
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		System.out.println("update test" + receiptRsModel.getReceiptId());
@@ -224,29 +166,9 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 			 receipt.setViewPdfUrl(viewFileUrl);
 			 receipt.setDmFileId(dmFileId);
 		}
-		/*
-		 * else { System.out.println("dmfileId"); dmFileId
-		 * =receiptRsModel.getDmFileId(); System.out.println(dmFileId);
-		 * receipt.setDmFileId(dmFileId);
-		 */
-		// System.out.println(dmFileId);
-		//receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
-		//System.out.println(dmFileId);
-		//if(dmFileId!=receipt.getDmFileId()) {
-			/*
-			 * receipt.setDmFileId(dmFileId); System.out.println("dmFileId saved ");
-			 */
-			
-			  
-				//System.out.println("dmFileId1 saved ");
-		//}
-		
 		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;
 	}
-
-
-
 
 	@Reference
 	private CounterLocalService counterLocalService;
@@ -260,3 +182,4 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	private MasterdataLocalService masterdataLocalService;
 
 }
+

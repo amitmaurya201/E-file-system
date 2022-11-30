@@ -143,14 +143,9 @@ console.log(viewPdf);
 
 /* file upload */	
 var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
-//var viewPdfUrl=null;
-//if(receiptId == null){
-	
 	$("#<portlet:namespace />document").on('change', function(){
 		 var myFile = $("#<portlet:namespace />document").prop("files")[0];
 		 var dmFileId=0;
-	    // var embed = $('#<portlet:namespace />pdfurl');
-	   //  console.log(embed);
 	     var formData = new FormData();
 	   	 formData.append('document', myFile);
 		 formData.append('groupId', groupId);
@@ -167,18 +162,15 @@ var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="4
 				  tempFileId=response.id;
 				  console.log(tempFileId);
 	            	 viewPdfUrl=response.description;
-	            	console.log("add     " +viewPdfUrl);
-	            	
-	            	//console.log($(#pdfurl).attr('src'));
-	            	//var parent = $('#pdfurl').parent();
-	             // var embed1 =   parent.prevObject[0] ;
-	              // var src= $('embed1').attr('src');
-	               // console.log(src);
-	            	// var newElement = "<embed src='new src' id='audio_file'>";
-
-	            	// $('#pdfurl').remove();
-	            	// parent.append(newElement);
-//	            	 var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
+	            	console.log("viewPdfUrl--- " +viewPdfUrl);
+	            	var parent = $('#editpdfurl').parent();
+	            	if(parent!=undefined){
+	            		$("#editpdfurl").remove();
+	            		 var embed = $('<embed id="editpdfurl" type="application/pdf"  width="100%" height="450">');
+	            		 embed.attr('src',viewPdfUrl);
+	 	            	$('#targetDiv').append(embed);
+	            	}
+	      
 	            	 embed.attr('src',viewPdfUrl);
 	            	$('#targetDiv').append(embed);
 	            	
@@ -187,15 +179,6 @@ var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="4
 			  }); 
 		 }
 	});
-	 
-//}
-//else{ 
-//	if(viewPdfUrl != null || viewPdf != null){
-	//alert('else');
-//embed.attr('src',viewPdf);
-//$('#targetDiv').append(embed);
-
-//}
 
 /* create receipt */
 
@@ -212,21 +195,6 @@ $("#<portlet:namespace />generate").on('click', function(e){
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
-	 //if(receiptId != null){
-		 /* $.ajax({
-			    type: "PUT",
-			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
-			    data: jsonObj,
-			    dataType: 'json',
-			    cache : false,
-			    processData: false,
-		        contentType : 'application/json'
-			  }).done(function(response) {
-				  console.log("------------------------3s3-------------------------");
-				  console.log(response);
-		  })
-		 }
-	 else {*/
 		 $.ajax({
 			    type: "POST",
 			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
@@ -239,7 +207,6 @@ $("#<portlet:namespace />generate").on('click', function(e){
 				  console.log("------------------------33-------------------------");
 				  console.log(response);
 		 })
-	 //}
 });
 
 /* update receipt*/

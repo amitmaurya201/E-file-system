@@ -28,8 +28,6 @@ import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptService;
 import io.jetprocess.service.ReceiptServiceUtil;
 import io.jetprocess.service.persistence.DocFilePersistence;
-import io.jetprocess.service.persistence.FileMovementPersistence;
-import io.jetprocess.service.persistence.ReceiptMovementPersistence;
 import io.jetprocess.service.persistence.ReceiptPersistence;
 
 import java.lang.reflect.Field;
@@ -137,18 +135,12 @@ public abstract class ReceiptServiceBaseImpl
 	protected DocFilePersistence docFilePersistence;
 
 	@Reference
-	protected FileMovementPersistence fileMovementPersistence;
-
-	@Reference
 	protected io.jetprocess.service.ReceiptLocalService receiptLocalService;
 
 	protected ReceiptService receiptService;
 
 	@Reference
 	protected ReceiptPersistence receiptPersistence;
-
-	@Reference
-	protected ReceiptMovementPersistence receiptMovementPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

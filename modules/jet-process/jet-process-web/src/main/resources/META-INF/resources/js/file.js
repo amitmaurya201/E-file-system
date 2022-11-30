@@ -1,3 +1,6 @@
+
+
+
 <aui:script use= "aui-base">
 
      /* get current year */
@@ -142,6 +145,7 @@
      });
 });
 	
+	        /*   Add docFile   */
 	                          
 	$("#<portlet:namespace />add-docfile").on('click', function(e){
 	        	 e.preventDefault();
@@ -161,9 +165,41 @@
 	        	        contentType : 'application/json'
 	        		  }).done(function(response) {
 	        			  console.log(response);
+	        			
+	        			  alert("File Created Successfully "+response.fileNumber);
+	        			  window.location.href = "http://localhost:8080/jet_process?p_p_id=io_jetprocess_web_JetProcessWebPortlet_INSTANCE_nuow&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_io_jetprocess_web_JetProcessWebPortlet_INSTANCE_nuow_mvcRenderCommandName=%2FcreatedFileList";
 		        
 	        	 })
 	        });
-	                 
-</aui:script>
+	             
+	
+	
+	/* update docFile */
+	
+	$("#<portlet:namespace />update-docfile").on('click', function(e){
+   	 e.preventDefault();
+   	 var formObj= $('#<portlet:namespace/>updateformId')[0];
+   	 console.log("formObj"+formObj);
+        var jsonData = bindFormDataJson(formObj);
+        console.log("jsonData"+jsonData);
+        var userPostId=  getUserPostId();
+        console.log("userPostId"+userPostId);
+        jsonData["userPostId"] = userPostId;
+     var jsonObj = JSON.stringify(jsonData);  
+     console.log("jsonObj-->"+jsonObj);
+   	 $.ajax({
+   		    type: 'PUT',
+   		    url: "${setURL}/o/jet-process-rs/v1.0/updateDocFile?p_auth=" + Liferay.authToken,
+   		    data: jsonObj,
+   		    dataType: 'json',
+   		    cache : false,
+   		    processData: false,
+   	        contentType : 'application/json'
+   		  }).done(function(response) {
+   			  console.log(response);
+   			  alert("File Updated Successfully For File Number "+response.fileNumber);
+   			
+   	 })
+   });
 
+</aui:script>

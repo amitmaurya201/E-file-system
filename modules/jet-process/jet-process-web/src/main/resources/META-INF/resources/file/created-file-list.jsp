@@ -3,12 +3,12 @@
 
  
 
- 
+ <%-- 
  <portlet:renderURL var="fileInnerView">
     <portlet:param name="mvcPath" value="/file/details.jsp"/>
     <portlet:param name="fileNumber" value="${ posting}" />
 </portlet:renderURL>
- 
+  --%>
 
 
 <%
@@ -66,10 +66,16 @@ if(Validator.isNull(orderByType)){
    <liferay-ui:search-container-row 
             className="io.jetprocess.masterdata.model.FileListViewDto"
             keyProperty="fileNumber"
-            modelVar="posting">
+            modelVar="filedto">
      
      
-        <liferay-ui:search-container-column-text href="<%=fileInnerView%>" name="File No." property="fileNumber" orderable="true" />
+ <portlet:renderURL var="fileInnerView">
+    <portlet:param name="mvcRenderCommandName" value="/FileViewDetails"/>
+    <portlet:param name="docFileId" value="${filedto.docFileId}"/>
+ </portlet:renderURL>
+  
+     
+        <liferay-ui:search-container-column-text href="<%=fileInnerView%>" name="" property="fileNumber" orderable="true" />
  
         <liferay-ui:search-container-column-text property="subject"  name="Subject" />
  

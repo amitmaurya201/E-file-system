@@ -150,6 +150,10 @@ components:
         userPostId:
           format: int64
           type: integer   
+        docFileId:
+          format: int64
+          type: integer
+           
       type: object    
 paths:
   /createFile:

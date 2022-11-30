@@ -31,7 +31,7 @@
     <portlet:param name="mvcPath" value="/file/details.jsp"/>
 </portlet:renderURL>
 <portlet:renderURL var="edit">
-    <portlet:param name="mvcPath" value="/file/edit.jsp"/>
+    <portlet:param name="mvcPath" value="/file/edit-file.jsp"/>
 </portlet:renderURL>
 <portlet:renderURL var="send">
     <portlet:param name="mvcPath" value="/file/send.jsp"/>

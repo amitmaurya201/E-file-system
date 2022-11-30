@@ -24,8 +24,7 @@
 			<aui:col cssClass="border">
 				<div id="targetDiv" class="targetDiv">
 					<aui:input id="document" label="" name="document" type="file">
-					<!-- <embed id="pdfurl" type="application/pdf" width="100%" height="450"> 
- -->						<aui:validator name="required" />
+						<aui:validator name="required" />
 						<aui:validator name="acceptFiles"
 							errorMessage="label-receipt-upload-error-message">'pdf'</aui:validator>
 					</aui:input>
@@ -55,10 +54,10 @@
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
-									<label>Nature</label>
+									<label><liferay-ui:message key="label-receipt-nature" /></label>
 									<aui:select label="" name="nature" id="nature">
-										<aui:option value="Electronic">Electronic</aui:option>
-										<aui:option value="Physical">Physical</aui:option>
+										<aui:option value="Electronic"><liferay-ui:message key="label-receipt-nature-option1" /></aui:option>
+										<aui:option value="Physical"><liferay-ui:message key="label-receipt-nature-option2 " /></aui:option>
 									</aui:select>
 								</div>
 							</aui:col>
