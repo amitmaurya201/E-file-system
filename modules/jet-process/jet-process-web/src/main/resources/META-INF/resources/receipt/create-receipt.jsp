@@ -12,7 +12,7 @@
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
 
-<div>
+<div class="row">
 	<div class="col-3">
 		<%@ include file="../navigation.jsp"%>
 	</div>

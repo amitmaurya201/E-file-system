@@ -1,5 +1,7 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp" %>
+<%@ include file="/css/main.scss" %>
+
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
@@ -30,7 +32,7 @@
      
 </style>
 
-<div>
+<div class="row">
 	<div class="col-3">
 		<%@ include file="../navigation.jsp"%>
 	</div>

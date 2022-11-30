@@ -2,8 +2,9 @@
 <%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
 <%@ include file="../init.jsp"%>
+<%@ include file="/common/common.js"%>
 
-<div>
+<div class="row">
 	<div class="col-3">
 		<%@ include file="../navigation.jsp"%>
 	</div>
