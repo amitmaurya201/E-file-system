@@ -5,10 +5,10 @@
 <%@ include file="/common/common.js"%>
 
 <div class="row">
-	<div class="col-3">
+	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-9">
+	<div class="col-10">
 
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
@@ -27,7 +27,7 @@
 		%>
 
 
-		<h6>${receipt.nature}-${receipt.receiptNumber}</h6>
+		<h6 >${receipt.nature}-${receipt.receiptNumber}</h6>
 
 		<%-- receipt view --%>
 		<div class="receipt_view">

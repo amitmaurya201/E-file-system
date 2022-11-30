@@ -1,14 +1,19 @@
-<%@ include file="../init.jsp" %>
-<%@ include file="../navigation.jsp" %>
+<%@ include file="../init.jsp"%>
+<div class="row">
+	<div class="col-2">
+		<%@ include file="../navigation.jsp"%>
+	</div>
+	<div class="col-10">
+		<liferay-util:include page="/file/file-view-nav.jsp"
+			servletContext="<%=application%>">
+			<liferay-util:param name="selectedNav" value="sendback" />
+		</liferay-util:include>
+		<%-- <%@ include file="file-view.jsp" %> --%>
 
+		<div class="m-2 border boredr border-dark">
+			<h1 class="text-warning">This is senback page Inside file.</h1>
+		</div>
 
-
-<liferay-util:include page="/file/file-view-nav.jsp" servletContext="<%= application %>">
-	<liferay-util:param name="selectedNav" value="sendback" />
-</liferay-util:include>
-<%-- <%@ include file="file-view.jsp" %> --%>
-
-<div class="m-2 border boredr border-dark">
-	<h1 class="text-warning">This is senback page Inside file.</h1>
+	</div>
 </div>
 

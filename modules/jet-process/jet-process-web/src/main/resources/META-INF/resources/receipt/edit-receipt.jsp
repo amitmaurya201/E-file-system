@@ -17,10 +17,10 @@
 
 
 <div class="row">
-	<div class="col-3">
+	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-9">
+	<div class="col-10">
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="home" />

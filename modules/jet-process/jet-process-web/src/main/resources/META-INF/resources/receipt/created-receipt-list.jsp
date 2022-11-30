@@ -37,10 +37,10 @@
 </style>
 
 <div class="row">
-	<div class="col-3">
+	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-9">
+	<div class="col-10">
 
 <%
 	//orderByCol is the column name passed in the request while sorting
