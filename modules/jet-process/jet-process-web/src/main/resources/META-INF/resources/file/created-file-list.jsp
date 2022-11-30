@@ -1,5 +1,13 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import= "java.util.TimeZone"%>
+
+
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/file/created-file-list.jsp" />
+</liferay-portlet:renderURL>
+
 
 <div class="row">
 	<div class="col-3">
@@ -29,8 +37,7 @@
 			int count = MasterdataLocalServiceUtil
 					.getFileListCount(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
 		%>
-		<liferay-ui:search-container orderByType="<%=orderByType%>" delta="2"
-			deltaConfigurable="true" total="<%=count%>">
+		<liferay-ui:search-container orderByType="<%=orderByType%>" delta="5" total="<%=count%>" iteratorURL="<%=iteratorURL%>">
 
 			<liferay-ui:search-container-results>
 				<%
@@ -73,14 +80,19 @@
 
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="" property="fileNumber" orderable="true" />
+					name="File Number" property="fileNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"
 					name="Subject" />
 
 				<liferay-ui:search-container-column-text property="category" />
 
-				<liferay-ui:search-container-column-text property="createDate"
+<%
+			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+                simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+		%>
+		
+				<liferay-ui:search-container-column-text value="<%=simpleformat.format(filedto.getCreateDate())%>"
 					orderable="true" name="Create On" orderableProperty="createDate" />
 
 				<liferay-ui:search-container-column-text property="remark"
@@ -89,13 +101,11 @@
 
 			</liferay-ui:search-container-row>
 
-			<liferay-ui:search-iterator />
+			<liferay-ui:search-iterator markupView="lexicon" />
 		</liferay-ui:search-container>
 	</div>
 
 </div>
-
-
 
 
 <script>

@@ -1,10 +1,14 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp" %>
 <%@ include file="/css/main.scss" %>
-
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import= "java.util.TimeZone"%>
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/receipt/created-receipt-list.jsp" />
+</liferay-portlet:renderURL>
 
 <style>
      .invisible{
@@ -60,9 +64,7 @@
 <% int count = MasterdataLocalServiceUtil.getReceiptListCount(selectedUserPostId  != null ? Integer.parseInt(selectedUserPostId) : 1); %>
 
 
-<liferay-ui:search-container orderByType="<%=orderByType %>" delta="2"
-	deltaConfigurable="true" 
-	total="<%=count%>">
+<liferay-ui:search-container orderByType="<%=orderByType %>" delta="5" total="<%=count%>" iteratorURL="<%=iteratorURL%>">
 
 	<liferay-ui:search-container-results >
 		<%
@@ -72,7 +74,6 @@
 					List<ReceiptListViewDto> listPerPage = ListUtil.subList(fileList, searchContainer.getStart(),
 							searchContainer.getEnd());
 
-					//From usersPerPage a new list sortableUsers is created. For sorting we will use this list
 					List<ReceiptListViewDto> sortableList = new ArrayList<ReceiptListViewDto>(listPerPage);
 					if (Validator.isNotNull(orderByCol)) {
 						//Pass the column name to BeanComparator to get comparator object
@@ -109,8 +110,12 @@
 		<liferay-ui:search-container-column-text cssClass="hover-tips" property="subject" name="label-receipt-list-subject" />
 
 		<liferay-ui:search-container-column-text property="category" name="label-receipt-list-category"/>
+<%
+			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+                simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+		%>
 
-		<liferay-ui:search-container-column-text property="createDate"
+		<liferay-ui:search-container-column-text value="<%=simpleformat.format(receipt.getCreateDate())%>"
 			orderable="true" name="label-receipt-list-create-date" orderableProperty="createDate"  />
 
 		<liferay-ui:search-container-column-text property="remark" cssClass="remark"
@@ -122,7 +127,7 @@
 
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator />
+	<liferay-ui:search-iterator markupView="lexicon" />
 </liferay-ui:search-container>
 
 
