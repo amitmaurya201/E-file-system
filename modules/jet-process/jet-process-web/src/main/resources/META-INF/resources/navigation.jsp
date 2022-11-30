@@ -1,4 +1,3 @@
-<%@ include file="init.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">

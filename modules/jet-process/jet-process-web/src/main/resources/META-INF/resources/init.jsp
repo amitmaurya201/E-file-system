@@ -30,5 +30,12 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@page import ="io.jetprocess.masterdata.service.UserPostLocalServiceUtil" %>
 <%@ page import="io.jetprocess.masterdata.model.UserPost" %>
 
-
+<%@page import="com.liferay.portal.kernel.servlet.PortalSessionThreadLocal"%>
+ <%@page import="com.liferay.portal.kernel.portlet.LiferayPortletMode"%>
+<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
+<!-- Getting the User Post Id from the session -->
+<%!
+HttpSession newHttpSession = PortalSessionThreadLocal.getHttpSession();
+String selectedUserPostId = (String)newHttpSession.getAttribute("userPostId");
+%>
 

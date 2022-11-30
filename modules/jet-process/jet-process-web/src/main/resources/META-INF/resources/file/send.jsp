@@ -12,15 +12,15 @@
 
 <portlet:actionURL name="sendFile" var="send"/>
 
-<%-- <% DocFile docFile = (DocFile) session.getAttribute("DocFileObj"); %>
+<% DocFile docFile = (DocFile) session.getAttribute("DocFile"); %>
 
 
 <h3>File Number : <%=docFile.getFileNumber() %></h3><hr>
- --%>
+
 
 <aui:form action="${send}">
-	<input type="hidden" name="<portlet:namespace/>senderId" value="<%-- <%=docFile.getUserPostId()%> --%>">
-	<input type="hidden" name="<portlet:namespace/>fileId" value="<%-- <%=docFile.getDocFileId() %> --%>">
+	<input type="hidden" name="<portlet:namespace/>senderId" value="<%=docFile.getUserPostId()%>">
+	<input type="hidden" name="<portlet:namespace/>fileId" value="<%=docFile.getDocFileId() %>">
 	<div class="row">
 		<div class="col-6">
 			<aui:fieldset-group>
