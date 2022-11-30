@@ -54,10 +54,10 @@
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
 								<div class="textOnInput">
-									<label>Nature</label>
+									<label><liferay-ui:message key="label-receipt-nature" /></label>
 									<aui:select label="" name="nature" id="nature">
-										<aui:option value="Electronic">Electronic</aui:option>
-										<aui:option value="Physical">Physical</aui:option>
+										<aui:option value="label-receipt-nature-option1"><liferay-ui:message key="label-receipt-nature-option1" /></aui:option>
+										<aui:option value="label-receipt-nature-option2"><liferay-ui:message key="label-receipt-nature-option2" /></aui:option>
 									</aui:select>
 								</div>
 							</aui:col>
