@@ -115,11 +115,45 @@ public class UserPostServiceHttp {
 		}
 	}
 
+	public static java.util.List<io.jetprocess.masterdata.model.UserPost>
+		getUserPostSearchedData(HttpPrincipal httpPrincipal, String data) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserPostServiceUtil.class, "getUserPostSearchedData",
+				_getUserPostSearchedDataParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, data);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<io.jetprocess.masterdata.model.UserPost>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UserPostServiceHttp.class);
 
 	private static final Class<?>[] _getUserPostListParameterTypes0 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getUserPostByIdParameterTypes1 =
 		new Class[] {long.class};
+	private static final Class<?>[] _getUserPostSearchedDataParameterTypes2 =
+		new Class[] {String.class};
 
 }
