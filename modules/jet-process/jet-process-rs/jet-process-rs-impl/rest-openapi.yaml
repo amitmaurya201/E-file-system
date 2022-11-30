@@ -97,7 +97,7 @@ components:
         receiptsubcategoryvalue:
           type: string 
         nature:
-          type: integer
+          type: string
         docFileId:
           format: int64
           type: integer
