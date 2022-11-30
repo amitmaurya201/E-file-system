@@ -61,7 +61,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(47);
+		StringBundler sb = new StringBundler(51);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -109,6 +109,10 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		sb.append(year);
 		sb.append(", userPostId=");
 		sb.append(userPostId);
+		sb.append(", currentlyWith=");
+		sb.append(currentlyWith);
+		sb.append(", currentState=");
+		sb.append(currentState);
 		sb.append("}");
 
 		return sb.toString();
@@ -204,6 +208,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 		docFileImpl.setYear(year);
 		docFileImpl.setUserPostId(userPostId);
+		docFileImpl.setCurrentlyWith(currentlyWith);
+		docFileImpl.setCurrentState(currentState);
 
 		docFileImpl.resetOriginalValues();
 
@@ -248,6 +254,10 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		year = objectInput.readLong();
 
 		userPostId = objectInput.readLong();
+
+		currentlyWith = objectInput.readLong();
+
+		currentState = objectInput.readInt();
 	}
 
 	@Override
@@ -336,6 +346,10 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		objectOutput.writeLong(year);
 
 		objectOutput.writeLong(userPostId);
+
+		objectOutput.writeLong(currentlyWith);
+
+		objectOutput.writeInt(currentState);
 	}
 
 	public String uuid;
@@ -361,5 +375,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 	public String reference;
 	public long year;
 	public long userPostId;
+	public long currentlyWith;
+	public int currentState;
 
 }

@@ -419,6 +419,34 @@ public interface DocFileModel
 	 */
 	public void setUserPostId(long userPostId);
 
+	/**
+	 * Returns the currently with of this doc file.
+	 *
+	 * @return the currently with of this doc file
+	 */
+	public long getCurrentlyWith();
+
+	/**
+	 * Sets the currently with of this doc file.
+	 *
+	 * @param currentlyWith the currently with of this doc file
+	 */
+	public void setCurrentlyWith(long currentlyWith);
+
+	/**
+	 * Returns the current state of this doc file.
+	 *
+	 * @return the current state of this doc file
+	 */
+	public int getCurrentState();
+
+	/**
+	 * Sets the current state of this doc file.
+	 *
+	 * @param currentState the current state of this doc file
+	 */
+	public void setCurrentState(int currentState);
+
 	@Override
 	public DocFile cloneWithOriginalValues();
 
