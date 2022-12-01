@@ -68,11 +68,11 @@
 										<div class="textOnInput">
 											<label><liferay-ui:message key="label-receipt-nature" /></label>
 											<aui:select label="" name="nature" id="nature">
-												<aui:option value="Electronic">
+												<aui:option value="label-receipt-nature-option1">
 													<liferay-ui:message key="label-receipt-nature-option1" />
 												</aui:option>
-												<aui:option value="Physical">
-													<liferay-ui:message key="label-receipt-nature-option2 " />
+												<aui:option value="label-receipt-nature-option2">
+													<liferay-ui:message key="label-receipt-nature-option2" />
 												</aui:option>
 											</aui:select>
 										</div>

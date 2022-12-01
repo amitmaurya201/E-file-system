@@ -5,10 +5,7 @@
 <%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
 
 <%@ include file="../init.jsp"%>
-<liferay-util:include page="/file/file-view-nav.jsp"
-	servletContext="<%=application%>">
-	<liferay-util:param name="selectedNav" value="edit" />
-</liferay-util:include>
+
 <%@ include file="/js/file.js"%>
 <%@ include file="/common/common.jsp"%>
 
@@ -16,7 +13,11 @@
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-10 mr-5">
+	<div class="col-10">
+		<liferay-util:include page="/file/file-view-nav.jsp"
+			servletContext="<%=application%>">
+			<liferay-util:param name="selectedNav" value="edit" />
+		</liferay-util:include>
 
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
@@ -33,7 +34,7 @@
 			String subcategoryValue = (String) session.getAttribute("SubCategoryValue");
 		%>
 
-		<div class="container m-3">
+		<div class="container">
 			<div class="card">
 
 				<aui:form name="updateformId">

@@ -68,11 +68,12 @@
         <a class="nav-link" href="#"><i class="fa fa-tasks"></i></a>
       </li> -->
       <li class="nav-item border ">
-        <a id="movement" class="nav-link" href="<%= movement %>">Movement</a>
-      </li>
-      <li class="nav-item border ">
         <a id="details" class="nav-link" href="<%= details %>">Details</a>
       </li>
+      <li class="nav-item border ">
+        <a id="movement" class="nav-link" href="<%= movement %>">Movement</a>
+      </li>
+      
       <li class="nav-item dropdown border ">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
           Draft <i class="fa fa-caret-down"></i>
