@@ -2,7 +2,7 @@
 <%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.js"%>
+<%@ include file="/common/common.jsp"%>
 
 <div class="row">
 	<div class="col-2">
@@ -139,6 +139,5 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </div>
