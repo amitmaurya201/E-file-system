@@ -207,11 +207,11 @@ $("#<portlet:namespace />generate").on('click', function(e){
 				  console.log(response);
 				  swal( {
                       title: "successfull !",
-                      text: `You Have successfully created Your Receipt! And Your Receipt Number is ${response.receiptNumber} `,
+                      text: `You Have successfully created Your Receipt! `,
                       icon: "success",
                       button: "ok"
                   }).then(function() {
-                	    window.location.href = "createdReceiptList";
+                	    window.location.href = '<%= createdListReceipt.toString() %>';
                   });
 		 })
 		 .fail(function(error){
@@ -255,12 +255,10 @@ $("#<portlet:namespace />Save").on('click', function(e){
 				  console.log(response);
 				  swal( {
                       title: "successfull !",
-                      text: `You Have successfully created Your Receipt! And Your Receipt Number is ${response.receiptNumber} `,
+                      text: `You Have successfully created Your Receipt! `,
                       icon: "success",
                       button: "ok"
-                  }).then(function() {
-                	    window.location.href = "receiptView";
-                  });
+                  })
 		 })
 		 .fail(function(error){
 			 swal({  
