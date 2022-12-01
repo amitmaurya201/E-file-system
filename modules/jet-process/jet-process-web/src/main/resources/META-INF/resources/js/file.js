@@ -209,7 +209,12 @@
    	        contentType : 'application/json'
    		  }).done(function(response) {
    			  console.log(response);
-   			  alert("File Updated Successfully For File Number "+response.fileNumber);
+   			  swal( {
+                  title: "successfull !",
+                  text: `You Have successfully Updated Your File! `,
+                  icon: "success",
+                  button: "ok"
+              })
    			
    	 })
    });

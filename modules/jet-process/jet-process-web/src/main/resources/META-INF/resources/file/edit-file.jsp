@@ -6,7 +6,7 @@
 
 <%@ include file="../init.jsp"%>
 
-<%@ include file="/js/file.js"%>
+
 <%@ include file="/common/common.jsp"%>
 
 <div class="row">
@@ -91,7 +91,7 @@
 															<div class="row mt-3 " id="non-sfs">
 																<aui:input name="docFileId" label=""
 																	value="<%=docFile.getDocFileId()%>" type="hidden" />
-																<legend class="child-scheduler-border">File No.</legend>
+																<legend class="child-scheduler-border">File Number</legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">
 																	<aui:row>
@@ -150,7 +150,7 @@
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
 																	<legend cssClass="child-scheduler-border">File
-																		No.</legend>
+																		Number</legend>
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber"
 																		value="<%=docFile.getFileNumber()%>"
@@ -187,8 +187,7 @@
 												value="<%=docFile.getSubject()%>" id="subject"
 												label="Subject">
 												<aui:validator name="required" />
-												<aui:validator name="alpha"
-													errorMessage="alphabet-characters" />
+												<aui:validator name="maxLength">500</aui:validator>
 											</aui:input>
 										</aui:fieldset>
 									</div>
@@ -260,5 +259,6 @@
 		</div>
 	</div>
 </div>
+<%@ include file="/js/file.js"%>
 
 
