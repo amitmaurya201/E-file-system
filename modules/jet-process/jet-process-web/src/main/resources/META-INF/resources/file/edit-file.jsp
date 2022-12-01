@@ -59,7 +59,7 @@
 																<div class="col-auto">
 																	<aui:select label="Nature"
 																		cssClass="form-select form-control" id="nature"
-																		name="nature" disabled="true">
+																		name="nature" readonly="true">
 
 																		<option value="Electronic"><%=docFile.getNature()%></option>
 
@@ -72,7 +72,7 @@
 																</div>
 																<div class="col-auto">
 																	<aui:select class="form-select form-control" id="type"
-																		name="type" disabled="true">
+																		name="type" readonly="true">
 																		<option value="NON-SFS"><%=docFile.getType()%></option>
 																	</aui:select>
 																</div>
@@ -95,17 +95,15 @@
 																	cssClass="col-md-12 p-0 child-scheduler-border">
 																	<aui:row>
 																		<div class="col-md-2 col-sm-6 mt-2">
-																		
-<%-- 																	
- --%>																			<aui:select cssClass="form-select form-control"
-																				name="basicHeadId" id="basicHeadId" label="" disabled="true">
+																			<aui:select cssClass="form-select form-control"
+																				name="basicHeadId" id="basicHeadId" label="">
 																				<option value="<%=docFile.getBasicHeadId()%>"><%=basicHeadValue%></option>
 																				<aui:validator name="required" />
-																			</aui:select> 
+																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="primaryHeadId" id="primaryHeadId" label="" disabled="true">
+																				name="primaryHeadId" id="primaryHeadId" label="">
 																				<option value="<%=docFile.getPrimaryHeadId()%>"><%=primaryHeadValue%></option>
 																				<aui:validator name="required" />
 																			</aui:select>
@@ -113,27 +111,27 @@
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="secondaryHeadId" id="secondaryHeadId" label="" disabled="true">
+																				name="secondaryHeadId" id="secondaryHeadId" label="">
 																				<option value="<%=docFile.getSecondaryHeadId()%>"><%=secondaryHeadValue%></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
-																			 <aui:select cssClass="form-select form-control"
-																				name="tertiaryHeadId" id="tertiaryHeadId" label=""  disabled="true">
+																			<aui:select cssClass="form-select form-control"
+																				name="tertiaryHeadId" id="tertiaryHeadId" label="">
 																				<option value="<%=docFile.getTertiaryHeadId()%>"><%=tertiaryHeadValue%></option>
 																				<aui:validator name="required" />
-																			</aui:select> 
+																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:input type="text" cssClass="form-control"
 																				id="year" name="year"
-																				value="<%=docFile.getYear()%>" readonly="true" label="" disabled="true">
+																				value="<%=docFile.getYear()%>" label="">
 																			</aui:input>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="fileCodeId" id="fileCodeId" label="" disabled="true">
+																				name="fileCodeId" id="fileCodeId" label="">
 																				<option value="<%=docFile.getFileCodeId()%>"><%=fileCodeValue%>
 																				</option>
 																				<aui:validator name="required" />
