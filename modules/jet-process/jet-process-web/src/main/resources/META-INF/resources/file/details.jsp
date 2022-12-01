@@ -14,7 +14,7 @@
 
 		<liferay-util:include page="/file/file-view-nav.jsp"
 			servletContext="<%=application%>">
-			<liferay-util:param name="selectedNav" value="edit" />
+			<liferay-util:param name="selectedNav" value="details" />
 		</liferay-util:include>
 
 
