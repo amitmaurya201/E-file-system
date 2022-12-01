@@ -11,7 +11,7 @@
 </liferay-util:include>
 <%@ include file="/js/file.js"%>
 <%@ include file="/common/common.jsp"%>
-<%@ include file="../init.jsp"%>
+
 <div class="row">
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
