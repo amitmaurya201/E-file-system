@@ -30,14 +30,14 @@
 		<h6 >${receipt.nature}-${receipt.receiptNumber}</h6>
 
 		<%-- receipt view --%>
-		<div class="receipt_view">
+		<div class="receipt_view border border-dark">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6" Class="border">
 						<embed id="pdfurl" type="application/pdf"
 							src="${receipt.viewPdfUrl} " width="100%" height="450">
 					</div>
-					<div class="col-md-6" Class="border">
+					<div class="col-md-6" Class="border border-dark">
 						<div class="border heading">
 							<h4>
 								<aui:icon cssClass="fas fa-file-alt icon" />

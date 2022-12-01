@@ -64,9 +64,9 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item border " >
+      <!-- <li class="nav-item border " >
         <a class="nav-link" href="#"><i class="fa fa-tasks"></i></a>
-      </li>
+      </li> -->
       <li class="nav-item border ">
         <a id="movement" class="nav-link" href="<%= movement %>">Movement</a>
       </li>

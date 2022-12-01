@@ -44,7 +44,7 @@
 					</aui:col>
 				</aui:form>
 
-				<aui:form cssClass="col-6" name="receiptForm" id="receiptForm">
+				<aui:form cssClass="scroll border border-dark col-6"  name="receiptForm" id="receiptForm">
 					<%--  <aui:input name="receiptId" id="receiptId" value="${receiptId}" /> --%>
 					<aui:row>
 						<aui:col cssClass="border">
