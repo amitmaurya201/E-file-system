@@ -204,7 +204,6 @@ $("#<portlet:namespace />generate").on('click', function(e){
 			    processData: false,
 		        contentType : 'application/json'
 			  }) .done(function(response) {
-				  console.log("------------------------33-------------------------");
 				  console.log(response);
 				  swal( {
                       title: "successfull !",
