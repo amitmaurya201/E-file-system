@@ -10,7 +10,7 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/js/receipt.js"%>
-<%@ include file="/common/common.js"%>
+<%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 

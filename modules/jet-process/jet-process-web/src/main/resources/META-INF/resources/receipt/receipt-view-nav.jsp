@@ -1,7 +1,7 @@
 <%@ include file="../init.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ include file="/common/common.js"%>
+<%@ include file="/common/common.jsp"%>
 
 <style>
 @media all and (min-width: 992px) {

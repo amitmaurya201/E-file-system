@@ -10,6 +10,8 @@
         
       .side-nav {
           padding:5px;
+          position:sticky;
+          top:0;
           /* width: 15%;
           position: fixed;
           z-index: 1;
