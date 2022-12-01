@@ -171,7 +171,7 @@
 	                          icon: "success",
 	                          button: "ok"
 	                      }).then(function() {
-	                    	    window.location.href = "createdFileList";
+	                    	    window.location.href = "<%=createdFileList.toString()%>";
 	                      });
 	    		 })
 	    		 .fail(function(error){

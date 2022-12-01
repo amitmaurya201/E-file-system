@@ -1,3 +1,4 @@
+
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
 <%@ page import="java.util.Date"%>
@@ -9,8 +10,8 @@
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 	<link rel="stylesheet" 
   href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  
-<%@ include file="/js/file.js"%>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 
 <div class="row">
@@ -24,8 +25,15 @@
 			String setURl = serviceContext.getPortalURL();
 		%>
 
+
+ <portlet:renderURL var="FileList">
+    <portlet:param name="mvcRenderCommandName" value="/createdFileList"/>
+</portlet:renderURL> 
+
 		<div class="container">
 			<div class="card">
+			
+			
 
 				<aui:form name="formId">
 					<div class="card-body">
@@ -50,8 +58,8 @@
 																<div class="col-auto">
 																	<aui:select label="Nature"
 																		cssClass="form-select form-control" id="nature"
-																		name="nature" readonly="true">
-
+																		name="nature" 
+>
 																		<option value="Electronic">Electronic</option>
 																		<option value="Physical">Physical</option>
 																	</aui:select>
@@ -63,7 +71,7 @@
 																</div>
 																<div class="col-auto">
 																	<aui:select class="form-select form-control" id="type"
-																		name="type" readonly="true">
+																		name="type" >
 																		<option value="NON-SFS">NON-SFS</option>
 																		<option value="SFS">SFS</option>
 																	</aui:select>
@@ -81,21 +89,21 @@
 
 															<div class="row mt-3 " id="non-sfs">
 																<%--  <aui:input name="userPostId" label="" value = "1" id= "userPostId" />  --%>
-																<legend class="child-scheduler-border">File No.</legend>
+																<legend class="child-scheduler-border">File Number</legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">
 																	<aui:row>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
 																				name="basicHeadId" id="basicHeadId" label="">
-																				<option value="">Basic Head</option>
+																				<option value="">Choose One</option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
 																				name="primaryHeadId" id="primaryHeadId" label="">
-																				<option value="">Primary Head Code</option>
+																				<option value="">Choose One</option>
 																				<aui:validator name="required" />
 																			</aui:select>
 
@@ -103,14 +111,14 @@
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
 																				name="secondaryHeadId" id="secondaryHeadId" label="">
-																				<option value=''>Secondary Head Code</option>
+																				<option value=''>Choose One</option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
 																				name="tertiaryHeadId" id="tertiaryHeadId" label="">
-																				<option value=''>Tertiary Head Code</option>
+																				<option value=''>Choose One</option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
@@ -135,8 +143,8 @@
 															<div class="row" id="sfs" style="display: none">
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
-																	<legend cssClass="child-scheduler-border">File
-																		No.</legend>
+																	<legend cssClass="child-scheduler-border">File Number
+																		</legend>
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber" value="" label="">
 																		<aui:validator name="required" />
@@ -170,8 +178,8 @@
 											<aui:input cssClass="form-control" type="text" name="subject"
 												value="" id="subject" label="Subject">
 												<aui:validator name="required" />
-												<aui:validator name="alpha"
-													errorMessage="alphabet-characters" />
+												<aui:validator name="maxLength">500</aui:validator>
+												
 											</aui:input>
 
 										</aui:fieldset>
@@ -183,7 +191,7 @@
 												<aui:select cssClass="form-select form-control"
 													id="categoryId" name="categoryId" label="Category">
 
-													<option value=''>Choose...</option>
+													<option value=''>Choose One</option>
 													<aui:validator name="required" />
 
 												</aui:select>
@@ -195,7 +203,7 @@
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="Sub Category">
 
-													<option value=''>Choose...</option>
+													<option value=''>Choose One</option>
 													<aui:validator name="required" />
 
 												</aui:select>
@@ -300,3 +308,4 @@ $(document).ready(function(){
 });
 
 </aui:script>
+<%@ include file="/js/file.js"%>
