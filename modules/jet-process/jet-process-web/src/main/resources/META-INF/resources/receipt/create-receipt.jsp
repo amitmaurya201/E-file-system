@@ -25,9 +25,6 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10 border border-dark p-1">
-
-
-
 		<div class="border border-dark mr-1 receipt">
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6 p-2">
@@ -41,10 +38,8 @@
 						</div>
 					</aui:col>
 				</aui:form>
-
 				<aui:form cssClass="scroll border border-dark col-6"
 					name="receiptForm" id="receiptForm">
-					<%--  <aui:input name="receiptId" id="receiptId" value="${receiptId}" /> --%>
 					<aui:row>
 						<aui:col cssClass="border">
 							<!-- <div class="scroll"> -->
@@ -65,7 +60,8 @@
 								</aui:col>
 								<aui:col md="6" cssClass="mt-3">
 									<div class="textOnInput">
-										<label><liferay-ui:message key="label-receipt-nature" /></label>
+										<label><liferay-ui:message key="label-receipt-nature" /><span
+											class='text-danger'>*</span></label>
 										<aui:select label="" name="nature" id="nature">
 											<aui:option value="label-receipt-nature-option1">
 												<liferay-ui:message key="label-receipt-nature-option1" />
@@ -73,6 +69,7 @@
 											<aui:option value="label-receipt-nature-option2">
 												<liferay-ui:message key="label-receipt-nature-option2" />
 											</aui:option>
+											<aui:validator name="required" />
 										</aui:select>
 									</div>
 								</aui:col>

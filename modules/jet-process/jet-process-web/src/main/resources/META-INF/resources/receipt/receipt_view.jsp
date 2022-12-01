@@ -98,7 +98,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<label>Diarised By :</label><span>${userPost.getUserName()},${userPost.getSectionName()}_${userPost.getDepartmentName()},${userPost.getPostMarking()}</span>
+								<label>Created By :</label><span>${userPost.getUserName()},${userPost.getSectionName()}_${userPost.getDepartmentName()},${userPost.getPostMarking()}</span>
 							</div>
 							<div class="col-md-12">
 								<label>Subject :</label><span>${receipt.subject} </span>
