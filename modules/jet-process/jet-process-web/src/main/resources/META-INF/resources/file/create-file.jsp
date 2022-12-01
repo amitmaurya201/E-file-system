@@ -7,6 +7,9 @@
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+	<link rel="stylesheet" 
+  href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  
 <%@ include file="/js/file.js"%>
 
 

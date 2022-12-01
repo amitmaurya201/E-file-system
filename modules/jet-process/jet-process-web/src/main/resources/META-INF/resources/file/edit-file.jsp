@@ -4,14 +4,14 @@
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
 
-
+<%@ include file="../init.jsp"%>
 <liferay-util:include page="/file/file-view-nav.jsp"
 	servletContext="<%=application%>">
 	<liferay-util:param name="selectedNav" value="edit" />
 </liferay-util:include>
 <%@ include file="/js/file.js"%>
-<%@ include file="/common/common.js"%>
-
+<%@ include file="/common/common.jsp"%>
+<%@ include file="../init.jsp"%>
 <div class="row">
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -45,7 +45,7 @@
 										<div class="row mt-2">
 											<div class="col-md-12 col-sm-12">
 												<div class="text-center">
-													<h1>भारत सरकार</h1>
+														<h1>भारत सरकार</h1>
 													<h4>GOVERNMENT OF INDIA</h4>
 													<h4>Ministry of Home Affairs ( MHA )</h4>
 												</div>
@@ -151,7 +151,7 @@
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber"
 																		value="<%=docFile.getFileNumber()%>"
-																		label="fileNumber">
+																		label="">
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
@@ -194,7 +194,7 @@
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="categoryId" name="categoryId" label="CategoryId">
+													id="categoryId" name="categoryId" label="Category">
 													<option value="<%=docFile.getCategoryId()%>"><%=categoryValue%></option>
 													<aui:validator name="required" />
 												</aui:select>
@@ -204,7 +204,7 @@
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="subCategoryId" name="subCategoryId" label="SubCategory">
+													id="subCategoryId" name="subCategoryId" label="Sub Category">
 													<option value=""><%=subcategoryValue%></option>
 													<aui:validator name="required" />
 												</aui:select>

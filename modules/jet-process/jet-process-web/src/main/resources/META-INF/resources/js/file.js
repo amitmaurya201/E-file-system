@@ -165,11 +165,23 @@
 	        	        contentType : 'application/json'
 	        		  }).done(function(response) {
 	        			  console.log(response);
-	        			
-	        			  alert("File Created Successfully "+response.fileNumber);
-	        			 /* window.location.href = "http://localhost:8080/jet_process?p_p_id=io_jetprocess_web_JetProcessWebPortlet_INSTANCE_nuow&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_io_jetprocess_web_JetProcessWebPortlet_INSTANCE_nuow_mvcRenderCommandName=%2FcreatedFileList";
-*/		        
-	        	 })
+	        			  swal( {
+	                          title: "successfull !",
+	                          text: `You Have successfully created Your File! And Your File Number is ${response.fileNumber} `,
+	                          icon: "success",
+	                          button: "ok"
+	                      }).then(function() {
+	                    	    window.location.href = "createdFileList";
+	                      });
+	    		 })
+	    		 .fail(function(error){
+	    			 swal({  
+	    				  title: " Oops!",  
+	    				  text: " Something went wrong, you should choose again!",  
+	    				  icon: "error",  
+	    				});  
+	    		 })
+	        	
 	        });
 	             
 	
