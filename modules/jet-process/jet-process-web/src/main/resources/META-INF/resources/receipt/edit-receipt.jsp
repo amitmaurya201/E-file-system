@@ -35,7 +35,7 @@
 			<portlet:param name="mvcPath" value="/receipt/receipt_view.jsp" />
 		</portlet:renderURL>
 
-		<div class=" mr-1 receipt">
+		<div class="border border-dark m-1 receipt">
 			<aui:container cssClass="row">
 
 				<aui:form cssClass="col-6">
@@ -57,16 +57,16 @@
 					</aui:col>
 				</aui:form>
 
-				<aui:form cssClass="col-6" name="receiptForm" id="receiptForm">
+				<aui:form cssClass="border border-dark col-6" name="receiptForm" id="receiptForm">
 					<c:if test="${receipt.receiptId != 0}">
 						<aui:input name="receiptId" id="receiptId" type="hidden"
 							value="${receipt.receiptId}" />
 						<%-- <aui:input name="userpostId" id="userpostId" 
 				value="${receipt.userPostId}" /> --%>
 					</c:if>
-					<aui:row>
-						<aui:col cssClass="border">
-							<div class="scroll">
+					<aui:row cssClass="scroll">
+						<aui:col cssClass="">
+							<!-- <div class="scroll"> -->
 								<div class="border heading">
 									<h4>
 										<aui:icon cssClass="fas fa-file-alt icon" />
