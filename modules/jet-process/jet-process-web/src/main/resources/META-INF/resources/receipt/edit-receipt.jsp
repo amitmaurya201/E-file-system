@@ -17,11 +17,11 @@
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
 %>
-<portlet:renderURL var="receiptView">
+<%-- <portlet:renderURL var="receiptView">
 	<portlet:param name="mvcRenderCommandName" value="/receiptView" />
 	<portlet:param name="receiptId" value="${receipt.receiptId}" />
 </portlet:renderURL>
-
+ --%>
 <div class="row">
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>

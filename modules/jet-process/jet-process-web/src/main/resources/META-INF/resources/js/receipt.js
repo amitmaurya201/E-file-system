@@ -258,9 +258,7 @@ $("#<portlet:namespace />Save").on('click', function(e){
                       text: `You Have successfully created Your Receipt! `,
                       icon: "success",
                       button: "ok"
-                  }).then(function() {
-                	    window.location.href = "<%= receiptView.toString() %>";
-                  });
+                  })
 
 		 })
 		 .fail(function(error){
