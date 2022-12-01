@@ -135,7 +135,7 @@
 																	<legend cssClass="child-scheduler-border">File
 																		No.</legend>
 																	<aui:input class="form-control" type="text"
-																		name="fileNumber" id="fileNumber" value="">
+																		name="fileNumber" id="fileNumber" value="" label="">
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
@@ -190,7 +190,7 @@
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="subCategoryId" name="subCategoryId" label="SubCategory">
+													id="subCategoryId" name="subCategoryId" label="Sub Category">
 
 													<option value=''>Choose...</option>
 													<aui:validator name="required" />
