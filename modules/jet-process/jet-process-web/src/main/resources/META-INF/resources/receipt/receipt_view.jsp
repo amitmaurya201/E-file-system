@@ -24,14 +24,15 @@
 		<%
 			Receipt receipt = (Receipt) request.getAttribute("receipt");
 			session.setAttribute("receipt", receipt);
+			String nature = receipt.getNature();
+			char currentNature = nature.charAt(0);
 		%>
-
-
-		<h6 >${receipt.nature}-${receipt.receiptNumber}</h6>
-
-		<%-- receipt view --%>
-		<div class="receipt_view border border-dark">
+		<div class="receipt_view">
 			<div class="container">
+				<h5 Class="border" style="margin-top: 3px;">
+					<%=currentNature%>
+					| ${receipt.receiptNumber} | ${receiptCategoryValue}
+				</h5>
 				<div class="row">
 					<div class="col-md-6" class="border">
 						<embed id="pdfurl" type="application/pdf"
