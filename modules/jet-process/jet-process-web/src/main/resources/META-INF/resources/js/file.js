@@ -147,7 +147,7 @@
 	
 	        /*   Add docFile   */
 	                          
-	$("#<portlet:namespace />add-docfile").on('click', function(e){
+	$("#<portlet:namespace />formId").on('submit', function(e){
 	        	 e.preventDefault();
 	        	 var formObj= $('#<portlet:namespace/>formId')[0];
 	             var jsonData = bindFormDataJson(formObj);
@@ -188,7 +188,7 @@
 	
 	/* update docFile */
 	
-	$("#<portlet:namespace />update-docfile").on('click', function(e){
+	$("#<portlet:namespace />updateformId").on('submit', function(e){
    	 e.preventDefault();
    	 var formObj= $('#<portlet:namespace/>updateformId')[0];
    	 console.log("formObj"+formObj);

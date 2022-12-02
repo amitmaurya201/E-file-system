@@ -246,7 +246,7 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<aui:button type="button" cssClass="btn btn-danger"
+							<aui:button type="submit" cssClass="btn btn-danger"
 								value="Create File" id="add-docfile"></aui:button>
 						</div>
 					</div>
