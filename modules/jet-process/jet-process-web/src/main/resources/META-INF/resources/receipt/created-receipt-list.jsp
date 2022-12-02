@@ -127,7 +127,7 @@
 
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.ReceiptListViewDto"
-				keyProperty="receiptNumber" modelVar="receipt" cssClass="colour">
+				keyProperty="receiptNumber" modelVar="receipt" cssClass="">
 
 				<portlet:renderURL var="receiptInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/receiptView" />
@@ -137,12 +137,12 @@
 
 				<liferay-ui:search-container-column-text
 					href="<%=receiptInnerView%>" property="receiptNumber"
-					name="label-receipt-list-receiptno" orderable="true" />
+					name="label-receipt-list-receiptno" cssClass="" orderable="true" />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
 					property="subject" name="label-receipt-list-subject" />
 
-				<liferay-ui:search-container-column-text property="category"
+				<liferay-ui:search-container-column-text cssClass=" hover-tips" property="category"
 					name="label-receipt-list-category" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -152,14 +152,14 @@
 				<liferay-ui:search-container-column-text
 					value="<%=simpleformat.format(receipt.getCreateDate())%>"
 					orderable="true" name="label-receipt-list-create-date"
-					orderableProperty="createDate" />
+					orderableProperty="createDate" cssClass="" />
 
 				<liferay-ui:search-container-column-text property="remark"
-					cssClass="remark" name="label-receipt-list-remark" />
+					cssClass=" remark" name="label-receipt-list-remark" />
 
 
 				<liferay-ui:search-container-column-text property="viewPdfUrl"
-					cssClass="openPdf fa fa-file-pdf-o" name="label-receipt-list-pdf" />
+					cssClass=" openPdf fa fa-file-pdf-o" name="label-receipt-list-pdf" />
 
 
 			</liferay-ui:search-container-row>

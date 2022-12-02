@@ -25,6 +25,12 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10 border border-dark p-1">
+<<<<<<< Updated upstream
+=======
+
+		<h2 class="text-center">Create Receipt</h2>
+
+>>>>>>> Stashed changes
 		<div class="border border-dark mr-1 receipt">
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6 p-2">
@@ -63,10 +69,10 @@
 										<label><liferay-ui:message key="label-receipt-nature" /><span
 											class='text-danger'>*</span></label>
 										<aui:select label="" name="nature" id="nature">
-											<aui:option value="label-receipt-nature-option1">
+											<aui:option selected="true" value="Electronic" >
 												<liferay-ui:message key="label-receipt-nature-option1" />
 											</aui:option>
-											<aui:option value="label-receipt-nature-option2">
+											<aui:option value="Physical">
 												<liferay-ui:message key="label-receipt-nature-option2" />
 											</aui:option>
 											<aui:validator name="required" />
@@ -92,7 +98,7 @@
 										<label><liferay-ui:message
 												key="label-receipt-delivery-mode" /><span
 											class='text-danger'>*</span></label>
-										<aui:select label="" name="deliveryModeId" id="deliveryModeId">
+										<aui:select label="" name="deliveryModeId"  id="deliveryModeId">
 											<aui:option value="">
 												<liferay-ui:message key="label-receipt-deafult-option" />
 											</aui:option>
