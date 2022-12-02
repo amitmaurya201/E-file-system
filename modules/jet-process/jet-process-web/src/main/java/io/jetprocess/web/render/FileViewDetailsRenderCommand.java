@@ -35,8 +35,10 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 		System.out.println("mvcRenderCommand" + docFileId);
 
 		try {
+			
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 			renderRequest.setAttribute("DocFile", docFile);
+			if(docFile.getType().equalsIgnoreCase("NON-SFS")) {
 			Masterdata masterdata = masterdataLocalService.getBasic(docFile.getBasicHeadId());
 			renderRequest.setAttribute("BasicHeadValue", masterdata.getValue());
 			Masterdata masterdata1 = masterdataLocalService.getPrimary(docFile.getPrimaryHeadId());
@@ -51,6 +53,16 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("CategoryValue", masterdata5.getValue());
 			Masterdata masterdata6 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
 			renderRequest.setAttribute("SubCategoryValue", masterdata6.getValue());
+			} else {
+				
+				Masterdata masterdata7 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
+				renderRequest.setAttribute("SfsCategoryValue", masterdata7.getValue());
+				Masterdata masterdata8 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
+				renderRequest.setAttribute("SfsSubCategoryValue", masterdata8.getValue());
+				
+				
+				
+			}
 		} catch (PortalException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}

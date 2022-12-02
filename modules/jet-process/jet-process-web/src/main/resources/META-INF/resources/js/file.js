@@ -210,7 +210,7 @@
    		  }).done(function(response) {
    			  console.log(response);
    			  swal( {
-                  title: "successfull !",
+                  title: "successful !",
                   text: `You Have successfully Updated Your File! `,
                   icon: "success",
                   button: "ok"

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
-
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileLocalService;
 import jet.process.rs.dto.v1_0.FileRsModel;
@@ -56,7 +56,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setRemarks(fileRsModel.getRemarks());
 		docFile.setReference(fileRsModel.getReference());
 		docFile.setUserPostId(fileRsModel.getUserPostId());
-		docFile.setCurrentState(1);
+		docFile.setCurrentState(FileStatus.CREADTED);
 		docFileLocalService.addDocFile(docFile);
 		return fileRsModel;
 }

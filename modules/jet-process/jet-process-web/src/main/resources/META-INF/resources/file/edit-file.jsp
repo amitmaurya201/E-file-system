@@ -22,19 +22,21 @@
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 			String setURl = serviceContext.getPortalURL();
-
 			DocFile docFile = (DocFile) session.getAttribute("DocFile");
 
-			String basicHeadValue = (String) session.getAttribute("BasicHeadValue");
-			String primaryHeadValue = (String) session.getAttribute("PrimaryHeadValue");
-			String secondaryHeadValue = (String) session.getAttribute("SecondaryHeadValue");
-			String tertiaryHeadValue = (String) session.getAttribute("TertiaryHeadValue");
-			String fileCodeValue = (String) session.getAttribute("FileCodeValue");
-			String categoryValue = (String) session.getAttribute("CategoryVaue");
-			String subcategoryValue = (String) session.getAttribute("SubCategoryValue");
-		%>
-
-		<div class="container">
+			String   basicHeadValue = (String) session.getAttribute("BasicHeadValue");
+        	  String primaryHeadValue	 = (String) session.getAttribute("PrimaryHeadValue");
+        	 String  secondaryHeadValue = (String) session.getAttribute("SecondaryHeadValue");
+        	  String tertiaryHeadValue  = (String) session.getAttribute("TertiaryHeadValue");
+        	  String fileCodeValue	 = (String) session.getAttribute("FileCodeValue");
+        	  String categoryValue 	= (String) session.getAttribute("CategoryVaue");
+        	  String subcategoryValue = (String) session.getAttribute("SubCategoryValue");
+        	  
+        	  String sfsCategoryValue =  (String) session.getAttribute("SfsCategoryValue");
+        	  String sfsSubCategoryValue =  (String) session.getAttribute("SfsSubCategoryValue");
+        	 
+        	   %>
+     	<div class="container">
 			<div class="card">
 
 				<aui:form name="updateformId">
@@ -87,7 +89,7 @@
 
 														<aui:col md="12">
 
-
+                                                          <% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
 															<div class="row mt-3 " id="non-sfs">
 																<aui:input name="docFileId" label=""
 																	value="<%=docFile.getDocFileId()%>" type="hidden" />
@@ -145,8 +147,8 @@
 																</aui:fieldset>
 
 															</div>
-
-															<div class="row" id="sfs" style="display: none">
+															<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
+                                                            <div class="row" id="sfs">
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
 																	<legend cssClass="child-scheduler-border">File
@@ -154,12 +156,12 @@
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber"
 																		value="<%=docFile.getFileNumber()%>"
-																		label="">
+																		label=""  disabled="true">
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
 															</div>
-
+                                                           <% } %>
 
 														</aui:col>
 
@@ -197,7 +199,12 @@
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
 													id="categoryId" name="categoryId" label="Category">
+													<% if(docFile.getType().equalsIgnoreCase("NON-SFS")){ %>
 													<option value="<%=docFile.getCategoryId()%>"><%=categoryValue%></option>
+													
+													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
+													<option value="<%=docFile.getCategoryId()%>"><%= sfsCategoryValue %></option>
+													<% } %>
 													<aui:validator name="required" />
 												</aui:select>
 											</div>
@@ -207,7 +214,11 @@
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="Sub Category">
+													<% if(docFile.getType().equalsIgnoreCase("NON-SFS")){ %>
 													<option value="<%=docFile.getSubCategoryId() %>"><%=subcategoryValue%></option>
+													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
+													<option value="<%= docFile.getSubCategoryId()%>"><%= sfsSubCategoryValue %></option>
+													<% } %>
 													<aui:validator name="required" />
 												</aui:select>
 											</div>
@@ -250,7 +261,7 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<aui:button type="button" cssClass="btn btn-danger"
+							<aui:button type="submit" cssClass="btn btn-danger"
 								value="Update File" id="update-docfile"></aui:button>
 						</div>
 					</div>
@@ -259,6 +270,6 @@
 		</div>
 	</div>
 </div>
-<%@ include file="/js/file.js"%>
+ <%@ include file="/js/file.js"%>
 
 

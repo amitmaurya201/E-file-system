@@ -22,17 +22,19 @@
 
 <% 
  DocFile docFile = (DocFile) request.getAttribute("DocFile"); 
- String basicHeadValue = (String) request.getAttribute("BasicHeadValue");
+session.setAttribute("DocFile", docFile);
+String categoryValue;
+String subCategoryValue;
+String basicHeadValue;
+if(docFile.getType().equalsIgnoreCase("NON-SFS")){
+	basicHeadValue= (String) request.getAttribute("BasicHeadValue");
  String primaryHeadValue = (String) request.getAttribute("PrimaryHeadValue");
  String secondaryHeadValue = (String) request.getAttribute("SecondaryHeadValue");
  String tertiaryHeadValue = (String) request.getAttribute("TertiaryHeadValue");
  String fileCodeValue = (String) request.getAttribute("FileCodeValue");
- String categoryValue = (String) request.getAttribute("CategoryValue");
- String subCategoryValue = (String) request.getAttribute("SubCategoryValue");
+ categoryValue = (String) request.getAttribute("CategoryValue");
+ subCategoryValue = (String) request.getAttribute("SubCategoryValue");
 
- session.setAttribute("DocFile", docFile);
-String nature = (String) docFile.getType();
- if(nature == "NON-SFS"){
  session.setAttribute("BasicHeadValue",basicHeadValue);
  session.setAttribute("PrimaryHeadValue", primaryHeadValue);
  session.setAttribute("SecondaryHeadValue",secondaryHeadValue);
@@ -41,8 +43,11 @@ String nature = (String) docFile.getType();
  session.setAttribute("CategoryVaue", categoryValue);
  session.setAttribute("SubCategoryValue",subCategoryValue);
  }else {
-	 session.setAttribute("CategoryVaue", categoryValue);
-	 session.setAttribute("SubCategoryValue",subCategoryValue);
+	categoryValue = (String) request.getAttribute("SfsCategoryValue");
+	 subCategoryValue = (String) request.getAttribute("SfsSubCategoryValue");
+	 
+	 session.setAttribute("SfsCategoryValue", categoryValue);
+	 session.setAttribute("SfsSubCategoryValue",subCategoryValue);
  }
  
  %>
@@ -78,11 +83,13 @@ String nature = (String) docFile.getType();
   <h5>Subject:</h5>
   <h5>SubCategory:</h5>
   <h5>Remarks:</h5>
+  <h5>Type:</h5>
   </div>
   <div class="column" style="background-color:#F8F8F8;">
   <h5><%= docFile.getSubject() %></h5>
   <h5><%= subCategoryValue %></h5>
   <h5><%= docFile.getRemarks() %></h5>
+  <h5><%= docFile.getType() %></h5>
   </div>
 </div>
 </div>
