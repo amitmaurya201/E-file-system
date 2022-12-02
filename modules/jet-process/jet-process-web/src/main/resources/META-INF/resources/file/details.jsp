@@ -54,31 +54,31 @@
 </div>
 
 <div class="container-fluid m-1" style="background-color: #E8E8E8;" >
-<span><b>File Details</b></span><br/>
+<span style="font-weight: 500">File Details</span><br/>
 </div>
 
 <div class="row m-1" >
   <div class="column" style="background-color:#E8E8E8;">
-   <h4>FileNumber:</h4>
-   <h4>Category:</h4>
-   <h4>Reference:</h4>
-   <h4>Nature:</h4>
+   <h5>FileNumber:</h5>
+   <h5>Category:</h5>
+   <h5>Reference:</h5>
+   <h5>Nature:</h5>
   </div>
   <div class="column" style="background-color: #F8F8F8;">
-  <h4><%= docFile.getFileNumber() %></h4>
-  <h4><%= categoryValue  %></h4>
-  <h4><%= docFile.getReference() %></h4>
-  <h4><%= docFile.getNature() %></h4> 
+  <h5><%= docFile.getFileNumber() %></h5>
+  <h5><%= categoryValue  %></h5>
+  <h5><%= docFile.getReference() %></h5>
+  <h5><%= docFile.getNature() %></h5> 
   </div>
   <div class="column" style="background-color:#E8E8E8;">
-  <h4>Subject:</h4>
-  <h4>SubCategory:</h4>
-  <h4>Remarks:</h4>
+  <h5>Subject:</h5>
+  <h5>SubCategory:</h5>
+  <h5>Remarks:</h5>
   </div>
   <div class="column" style="background-color:#F8F8F8;">
-  <h4><%= docFile.getSubject() %></h4>
-  <h4><%= subCategoryValue %></h4>
-  <h4><%= docFile.getRemarks() %></h4>
+  <h5><%= docFile.getSubject() %></h5>
+  <h5><%= subCategoryValue %></h5>
+  <h5><%= docFile.getRemarks() %></h5>
   </div>
 </div>
 </div>
@@ -95,7 +95,7 @@ font-weight:500;
   float: left;
   width: 25%;
   padding: 10px;
-  height: 200px; /* Should be removed. Only for demonstration */
+  height: 150px; /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
