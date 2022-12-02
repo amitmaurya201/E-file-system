@@ -271,6 +271,17 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 		 }
 });
 
+$('#removeFileUpload').on('click',function(){	
+ var myFile1 = $("#<portlet:namespace />document").prop("files")[0];
+ console.log(myFile1);
+	if(myFile1==undefined){
+		$("#editpdfurl").remove();
+	}
+	else{
+		myFile1.remove();
+	}
+	
+});
 
 
 </aui:script>

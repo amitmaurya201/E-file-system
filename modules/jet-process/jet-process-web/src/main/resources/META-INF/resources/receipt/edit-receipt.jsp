@@ -1,5 +1,4 @@
-<%@page
-	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
+<%@page import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
 <%@page import="io.jetprocess.service.ReceiptLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="java.util.Date"%>
@@ -7,15 +6,12 @@
 <%@page import="java.text.DateFormat"%>
 <%@ include file="../init.jsp"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-
+<%@ page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/common/common.jsp"%>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <style>
 input[type='file'] {
-   color: rgba(0, 0, 0, 0)
+	color: rgba(0, 0, 0, 0)
 }
 </style>
 <%
@@ -44,18 +40,19 @@ input[type='file'] {
 				<aui:form cssClass="col-6">
 					<aui:col cssClass="border">
 						<div id="targetDiv" class="targetDiv">
-							<aui:input id="document" label="" name="document" type="file">
-
+							<button class="btn" id="removeFileUpload"
+								style="font-size: 15px; margin: 1px; float: left;">
+								<i class="fa fa-close"></i>
+							</button>
+							<aui:input label="" name="document" type="file"
+								style="float: left ; width: 200px;">
 								<aui:validator name="required" />
 								<aui:validator name="acceptFiles"
 									errorMessage="Please enter a file with a valid extension (pdf)and 25 MB PDF file sizeAllowed">'pdf'</aui:validator>
 							</aui:input>
+
 							<embed id="editpdfurl" type="application/pdf"
 								src="${receipt.viewPdfUrl}" width="100%" height="450">
-								<%-- <c:if test="${receipt.viewPdfUrl != null}">
-						<embed id="pdfurl" type="application/pdf" 
-							src="${receipt.viewPdfUrl}" width="100%" height="450">
-					</c:if> --%>
 						</div>
 					</aui:col>
 				</aui:form>

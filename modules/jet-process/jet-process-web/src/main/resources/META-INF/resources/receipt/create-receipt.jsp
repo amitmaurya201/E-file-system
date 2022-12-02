@@ -30,11 +30,12 @@
 				<aui:form cssClass="col-6 p-2">
 					<aui:col cssClass="border">
 						<div id="targetDiv" class="targetDiv">
-							<aui:input id="document" label="" name="document" type="file">
+							<aui:input id="document" label="" name="document" type="file" style="float: left; width: 200px;">
 								<aui:validator name="required" />
 								<aui:validator name="acceptFiles"
-									errorMessage="label-receipt-upload-error-message">'pdf'</aui:validator>
+									errorMessage="label-receipt-upload-error-message"></aui:validator>
 							</aui:input>
+							<button class="btn" id = "removeFileUpload" style="font-size: 15px; margin: 1px; float: left;"><i class="fa fa-close"></i></button>
 						</div>
 					</aui:col>
 				</aui:form>
@@ -370,6 +371,7 @@
 
 	</div>
 </div>
+
 <script>
 	$(document).ready(function() {
 		setUserPostId();
