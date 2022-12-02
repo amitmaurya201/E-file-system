@@ -95,7 +95,6 @@ create table JET_PROCESS_Receipt (
 	nature VARCHAR(75) null,
 	currentlyWith LONG,
 	currentState INTEGER
-
 );
 
 create table JET_PROCESS_ReceiptMovement (
