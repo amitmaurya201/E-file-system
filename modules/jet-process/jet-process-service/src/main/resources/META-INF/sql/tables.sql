@@ -42,22 +42,6 @@ create table JET_PROCESS_FileMovement (
 	remark VARCHAR(75) null
 );
 
-create table JET_PROCESS_FileMovement (
-	uuid_ VARCHAR(75) null,
-	fmId LONG not null primary key,
-	groupId LONG,
-	companyId LONG,
-	userId LONG,
-	createDate DATE null,
-	modifiedDate DATE null,
-	receiverId LONG,
-	senderId LONG,
-	fileId LONG,
-	priority VARCHAR(75) null,
-	dueDate VARCHAR(75) null,
-	remark VARCHAR(75) null
-);
-
 create table JET_PROCESS_Receipt (
 	uuid_ VARCHAR(75) null,
 	receiptId LONG not null primary key,
