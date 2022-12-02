@@ -25,6 +25,9 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10 border border-dark p-1">
+		<div>
+			<h1 style="text-align: center;">Create Receipt</h1>
+		</div>
 		<div class="border border-dark mr-1 receipt">
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6 p-2">
@@ -64,10 +67,10 @@
 										<label><liferay-ui:message key="label-receipt-nature" /><span
 											class='text-danger'>*</span></label>
 										<aui:select label="" name="nature" id="nature">
-											<aui:option value="label-receipt-nature-option1">
+											<aui:option value="Electronic">
 												<liferay-ui:message key="label-receipt-nature-option1" />
 											</aui:option>
-											<aui:option value="label-receipt-nature-option2">
+											<aui:option value="Physical">
 												<liferay-ui:message key="label-receipt-nature-option2" />
 											</aui:option>
 											<aui:validator name="required" />
