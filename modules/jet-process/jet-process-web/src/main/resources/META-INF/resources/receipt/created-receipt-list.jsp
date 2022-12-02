@@ -38,6 +38,28 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
+	
+		<liferay-portlet:actionURL name="receiptSearch" var="formAction">
+	</liferay-portlet:actionURL>
+ <%
+ String keyword="";
+ try{
+	 System.out.println("On Jsp ");
+	  keyword=(String)request.getAttribute("keywords");
+	 System.out.println("On Jsp : "+keyword);
+ }catch(Exception ex){
+	 System.out.println("Error in jsp : "+ ex.getMessage());
+ }
+ %>
+ <br><br>
+<aui:form action="<%=formAction%>" method="post" name="fm">
+    <div class="search-form">
+        <span class="aui-search-bar">
+            <aui:input label="" name="keywords" class="keywords" size="30" title="search-entries" type="text" />
+            <aui:button type="submit" value="search"/>
+        </span>
+    </div>
+</aui:form>
 
 		<%
 			//orderByCol is the column name passed in the request while sorting
@@ -70,13 +92,20 @@
 			<liferay-ui:search-container-results>
 				<%
 					//Get all the results  from file created list
-							List<ReceiptListViewDto> fileList = MasterdataLocalServiceUtil
-									.getReceiptList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-
-							List<ReceiptListViewDto> listPerPage = ListUtil.subList(fileList, searchContainer.getStart(),
-									searchContainer.getEnd());
-
-							List<ReceiptListViewDto> sortableList = new ArrayList<ReceiptListViewDto>(listPerPage);
+							List<ReceiptListViewDto> receiptPerList =null ;
+    String data = "%"+keyword+"%";
+    System.out.println("After data assigning :- "+data);
+    if(data.equalsIgnoreCase("%%") || data.equalsIgnoreCase("%null%")){
+    	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
+    	receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),searchContainer.getEnd());
+    	  System.out.println("After data fetching inside if :- "+receiptPerList);
+    }
+    else{
+    	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptCreatedListSearchedData(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1, data);
+    	receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),searchContainer.getEnd());
+    	 System.out.println("After data fetching inside else :- "+receiptPerList);
+    }
+							List<ReceiptListViewDto> sortableList = new ArrayList<ReceiptListViewDto>(receiptPerList);
 							if (Validator.isNotNull(orderByCol)) {
 								//Pass the column name to BeanComparator to get comparator object
 								BeanComparator comparator = new BeanComparator(orderByCol);

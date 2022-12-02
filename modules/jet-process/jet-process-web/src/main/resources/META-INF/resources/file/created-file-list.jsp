@@ -15,6 +15,28 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
+	
+	<liferay-portlet:actionURL name="fileSearch" var="formAction">
+	</liferay-portlet:actionURL>
+ <%
+ String keyword="";
+ try{
+	 System.out.println("On Jsp ");
+	  keyword=(String)request.getAttribute("keywords");
+	 System.out.println("On Jsp : "+keyword);
+ }catch(Exception ex){
+	 System.out.println("Error in jsp : "+ ex.getMessage());
+ }
+ %>
+ <br><br>
+<aui:form action="<%=formAction%>" method="post" name="fm">
+    <div class="search-form">
+        <span class="aui-search-bar">
+            <aui:input label="" name="keywords" class="keywords" size="30" title="search-entries" type="text" />
+            <aui:button type="submit" value="search"/>
+        </span>
+    </div>
+</aui:form>
 		<%
 			//orderByCol is the column name passed in the request while sorting
 			String orderByCol = ParamUtil.getString(request, "orderByCol");
@@ -43,13 +65,22 @@
 			<liferay-ui:search-container-results>
 				<%
 					//Get all the results  from file created list
-							List<FileListViewDto> fileList = MasterdataLocalServiceUtil
-									.getFileList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
+							 List<FileListViewDto> filePerList =null ;
+    String data = "%"+keyword+"%";
+    System.out.println("After data assigning :- "+data);
+    if(data.equalsIgnoreCase("%%") || data.equalsIgnoreCase("%null%")){
+    	List<FileListViewDto> fileList = MasterdataLocalServiceUtil.getFileList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
+    	filePerList = ListUtil.subList(fileList, searchContainer.getStart(),searchContainer.getEnd());
+    	  System.out.println("After data fetching inside if :- "+filePerList);
+    }
+    else{
+    	List<FileListViewDto> fileList = MasterdataLocalServiceUtil.getFileCreatedListSearchedData(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1, data);
+    	filePerList = ListUtil.subList(fileList, searchContainer.getStart(),searchContainer.getEnd());
+    	 System.out.println("After data fetching inside else :- "+filePerList);
+    }
 
-							List<FileListViewDto> filePerPage = ListUtil.subList(fileList, searchContainer.getStart(),
-									searchContainer.getEnd());
 
-							List<FileListViewDto> sortableList = new ArrayList<FileListViewDto>(filePerPage);
+							List<FileListViewDto> sortableList = new ArrayList<FileListViewDto>(filePerList);
 							if (Validator.isNotNull(orderByCol)) {
 								//Pass the column name to BeanComparator to get comparator object
 								BeanComparator comparator = new BeanComparator(orderByCol);

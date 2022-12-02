@@ -332,7 +332,7 @@ SELECT receiptsubcategorydataid as masterdataid , 'C-'||receiptsubcategorydataid
 
 Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn
 FROM jet_process_docfile  INNER JOIN 
-	md_category  ON categorydataid = categoryid where userpostid = ? AND  (CONCAT(filenumber ,subject, categoryvalue) LIKE ?) order by createDate desc ;
+	md_category  ON categorydataid = categoryid where userpostid = ? AND  currentstate = 1  AND (CONCAT(filenumber ,subject, categoryvalue) LIKE ?) order by createDate desc ;
 
 ]]>
 
@@ -343,7 +343,7 @@ FROM jet_process_docfile  INNER JOIN
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
 	FROM jet_process_receipt INNER JOIN 
-	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) order by createDate desc ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) order by createDate desc ;
 
 
 ]]>

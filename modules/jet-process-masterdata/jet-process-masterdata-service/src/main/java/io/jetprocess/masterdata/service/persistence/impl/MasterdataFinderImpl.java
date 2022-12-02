@@ -977,7 +977,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
 			queryPos.add(data);
-			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
