@@ -125,7 +125,7 @@
 		%>
 		
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(filedto.getCreateDate())%>"
-					orderable="true" name="Create On" orderableProperty="createDate" />
+					orderable="true" name="Created On" orderableProperty="createDate" />
 
 				<liferay-ui:search-container-column-text property="remark"
 					name="Remarks" />
