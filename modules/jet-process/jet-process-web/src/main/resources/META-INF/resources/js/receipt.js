@@ -182,7 +182,7 @@ var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="4
 
 /* create receipt */
 
-$("#<portlet:namespace />generate").on('click', function(e){
+$("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 e.preventDefault();
 	
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
@@ -224,7 +224,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
 });
 
 /* update receipt*/
-$("#<portlet:namespace />Save").on('click', function(e){
+$("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 e.preventDefault();
 	 var dmFileId = $('#<portlet:namespace/>dmFileId').val();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];

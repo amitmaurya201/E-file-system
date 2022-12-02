@@ -60,7 +60,7 @@
 			int count = MasterdataLocalServiceUtil
 					.getFileListCount(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
 		%>
-		<liferay-ui:search-container orderByType="<%=orderByType%>" delta="5" total="<%=count%>" iteratorURL="<%=iteratorURL%>">
+		<liferay-ui:search-container orderByType="<%=orderByType%>" delta="2" total="<%=count%>" iteratorURL="<%=iteratorURL%>">
 
 			<liferay-ui:search-container-results>
 				<%

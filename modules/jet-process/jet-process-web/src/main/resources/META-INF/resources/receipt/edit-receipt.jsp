@@ -13,6 +13,11 @@
 <%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<style>
+input[type='file'] {
+   color: rgba(0, 0, 0, 0)
+}
+</style>
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
