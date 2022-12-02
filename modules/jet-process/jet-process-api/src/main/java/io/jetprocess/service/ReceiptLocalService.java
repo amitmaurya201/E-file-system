@@ -273,10 +273,6 @@ public interface ReceiptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptByTempFileId(long tempFileId, long groupId)
-		throws IOException, PortalException;
-
 	/**
 	 * Returns the receipt matching the UUID and group.
 	 *
