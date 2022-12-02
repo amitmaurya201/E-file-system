@@ -1,26 +1,17 @@
 package jet.process.rs.internal.resource.v1_0;
 
+import com.liferay.counter.kernel.service.CounterLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.docstore.DocStore;
-import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
-
-import com.liferay.counter.kernel.service.CounterLocalService;
-import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.vulcan.pagination.Page;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import javax.validation.constraints.NotNull;
-
 import jet.process.rs.dto.v1_0.ReceiptRsModel;
 import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 
@@ -91,20 +82,15 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setReceiptNumber(receiptNumber);
 		System.out.println("nature"+receiptRsModel.getNature());
 		receipt.setNature(receiptRsModel.getNature());
-		receipt.setCurrentState(1);
+		receipt.setCurrentState(FileStatus.CREADTED);
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}
-
-
-
 	
 	private String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R" + receiptId;
 		return receiptNumber;
-
 	}
-
 	
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
@@ -180,6 +166,5 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	private DocStore docstore;
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
-
 }
 
