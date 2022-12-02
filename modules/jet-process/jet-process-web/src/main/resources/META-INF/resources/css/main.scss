@@ -47,14 +47,12 @@
 .receipt .button {
   margin: auto 40%;
 }
-
 .hover-tips{
-		white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 30ch;
-        
-	}
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30ch;
+}
 .hover-tips[title]:hover::after {
   background-color: #fcf4ca;
 }
@@ -70,14 +68,16 @@
   background-color: gainsboro;
   
 }
-.receipt_view label {
-  text-align: left;
+.receipt_view th {
   background-color: gainsboro;
-  width:150px;
-  
+  width:140px;
+  font-size:14px;  
+  vertical-align: top;
+  padding-left: 3px;
 }
-.receipt_view  span{
- margin-left:10px;
+.receipt_view td {
+  font-size:14px;  
+  padding-left: 5px !important;
 }
 .fieldset {
   border: 2px groove threedface;
