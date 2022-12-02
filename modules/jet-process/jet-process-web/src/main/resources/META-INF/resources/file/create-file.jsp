@@ -89,7 +89,8 @@
 
 															<div class="row mt-3 " id="non-sfs">
 																<%--  <aui:input name="userPostId" label="" value = "1" id= "userPostId" />  --%>
-																<legend class="child-scheduler-border">File Number</legend>
+																<legend class="child-scheduler-border">File Number<span
+										                            	class='text-danger'>*</span></legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">
 																	<aui:row>
@@ -143,7 +144,8 @@
 															<div class="row" id="sfs" style="display: none">
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
-																	<legend cssClass="child-scheduler-border">File Number
+																	<legend cssClass="child-scheduler-border">File Number<span
+										                            	class='text-danger'>*</span>
 																		</legend>
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber" value="" label="">
@@ -174,14 +176,12 @@
 											Subject<span class='text-danger'>*</span>
 										</legend> -->
 
-
+                                            <h5 style="font-weight:bold;">Subject<span class='text-danger'>*</span></h5>
 											<aui:input cssClass="form-control" type="text" name="subject"
-												value="" id="subject" label="Subject">
-												<aui:validator name="required" />
+												value="" id="subject" label="">
 												<aui:validator name="maxLength">500</aui:validator>
-												
+												<aui:validator name="required" />
 											</aui:input>
-
 										</aui:fieldset>
 									</div>
 									<div class="row">
@@ -192,8 +192,7 @@
 													id="categoryId" name="categoryId" label="Category">
 
 													<option value=''>Choose One</option>
-													<aui:validator name="required" />
-
+												
 												</aui:select>
 											</div>
 										</aui:fieldset>
@@ -202,9 +201,10 @@
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="Sub Category">
+												
 
 													<option value=''>Choose One</option>
-													<aui:validator name="required" />
+													
 
 												</aui:select>
 											</div>
@@ -222,7 +222,7 @@
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks" value=""
 												label="Remarks">
-												<aui:validator name="required" />
+												
 												<aui:validator name="maxLength">1000</aui:validator>
 											</aui:input>
 
@@ -235,7 +235,7 @@
 										</legend> -->
 											<aui:input cssClass="form-control col-md-12 " type="text"
 												name="reference" id="reference" value="" label="Reference">
-												<aui:validator name="required" />
+											
 												<aui:validator name="maxLength">250</aui:validator>
 											</aui:input>
 
@@ -273,14 +273,12 @@ $('#<portlet:namespace />type').change(function(){
 	}
 	});
 	
-	
+<%-- 	
    $("#<portlet:namespace />basicHeadId").attr('required','');
    $("#<portlet:namespace />primaryHeadId").attr('required', ''); 
    $("#<portlet:namespace />secondaryHeadId").attr('required', ''); 
    $("#<portlet:namespace />tertiaryHeadId").attr('required', ''); 
-   $("#<portlet:namespace />fileCodeId").attr('required', ''); 
-
-	
+   $("#<portlet:namespace />fileCodeId").attr('required', '');   --%>
 
 
 
@@ -309,3 +307,7 @@ $(document).ready(function(){
 
 </aui:script>
 <%@ include file="/js/file.js"%>
+
+
+
+
