@@ -37,29 +37,30 @@
 	<div class="col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-10">
-	
+	<div class="col-9 ml-4 mr-4">
+
 		<liferay-portlet:actionURL name="receiptSearch" var="formAction">
-	</liferay-portlet:actionURL>
- <%
- String keyword="";
- try{
-	 System.out.println("On Jsp ");
-	  keyword=(String)request.getAttribute("keywords");
-	 System.out.println("On Jsp : "+keyword);
- }catch(Exception ex){
-	 System.out.println("Error in jsp : "+ ex.getMessage());
- }
- %>
- <br><br>
-<aui:form action="<%=formAction%>" method="post" name="fm">
-    <div class="search-form">
-        <span class="aui-search-bar">
-            <aui:input label="" name="keywords" class="keywords" size="30" title="search-entries" type="text" />
-            <aui:button type="submit" value="search"/>
-        </span>
-    </div>
-</aui:form>
+		</liferay-portlet:actionURL>
+		<%
+			String keyword = "";
+			try {
+				System.out.println("On Jsp ");
+				keyword = (String) request.getAttribute("keywords");
+				System.out.println("On Jsp : " + keyword);
+			} catch (Exception ex) {
+				System.out.println("Error in jsp : " + ex.getMessage());
+			}
+		%>
+		<br>
+		<br>
+		<aui:form action="<%=formAction%>" method="post" name="fm">
+			<div class="search-form">
+				<span class="aui-search-bar"> <aui:input label=""
+						name="keywords" class="keywords" size="30" title="search-entries"
+						type="text" /> <aui:button type="submit" value="search" />
+				</span>
+			</div>
+		</aui:form>
 
 		<%
 			//orderByCol is the column name passed in the request while sorting
@@ -92,19 +93,23 @@
 			<liferay-ui:search-container-results>
 				<%
 					//Get all the results  from file created list
-							List<ReceiptListViewDto> receiptPerList =null ;
-    String data = "%"+keyword+"%";
-    System.out.println("After data assigning :- "+data);
-    if(data.equalsIgnoreCase("%%") || data.equalsIgnoreCase("%null%")){
-    	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-    	receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),searchContainer.getEnd());
-    	  System.out.println("After data fetching inside if :- "+receiptPerList);
-    }
-    else{
-    	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptCreatedListSearchedData(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1, data);
-    	receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),searchContainer.getEnd());
-    	 System.out.println("After data fetching inside else :- "+receiptPerList);
-    }
+							List<ReceiptListViewDto> receiptPerList = null;
+							String data = "%" + keyword + "%";
+							System.out.println("After data assigning :- " + data);
+							if (data.equalsIgnoreCase("%%") || data.equalsIgnoreCase("%null%")) {
+								List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil
+										.getReceiptList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
+								receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),
+										searchContainer.getEnd());
+								System.out.println("After data fetching inside if :- " + receiptPerList);
+							} else {
+								List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil
+										.getReceiptCreatedListSearchedData(
+												selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1, data);
+								receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),
+										searchContainer.getEnd());
+								System.out.println("After data fetching inside else :- " + receiptPerList);
+							}
 							List<ReceiptListViewDto> sortableList = new ArrayList<ReceiptListViewDto>(receiptPerList);
 							if (Validator.isNotNull(orderByCol)) {
 								//Pass the column name to BeanComparator to get comparator object
@@ -143,7 +148,7 @@
 					property="subject" name="label-receipt-list-subject" />
 
 				<liferay-ui:search-container-column-text property="category"
-					name="label-receipt-list-category" />
+					cssClass="hover-tips" name="label-receipt-list-category" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
@@ -157,10 +162,10 @@
 				<liferay-ui:search-container-column-text property="remark"
 					cssClass="remark" name="label-receipt-list-remark" />
 
-
-				<liferay-ui:search-container-column-text property="viewPdfUrl"
-					cssClass="openPdf fa fa-file-pdf-o" name="label-receipt-list-pdf" />
-
+				<liferay-ui:search-container-column-text name="label-receipt-list-pdf">
+					<i class="fa fa-file-pdf openPdf"  data-url="${receipt.viewPdfUrl}"></i>
+				</liferay-ui:search-container-column-text>
+					
 
 			</liferay-ui:search-container-row>
 
@@ -199,13 +204,6 @@
 
 $(document).ready(function(){
 	
-	
-	/* let pdf= $(".openPdf").text();
-	if (pdf !== ""){
-		$(".openPdf").append('<i class="fa fa-file-pdf"></i>');
-	} */
-	
-	
 	$('.btn-close').on('click', function(e){
 		//$('#popup').removeClass('visible').addClass('invisible');
 		$('#popup').modal('hide');
@@ -214,7 +212,12 @@ $(document).ready(function(){
 	$(".openPdf").on('click', function(e){
 		
 		//let url = 'http://localhost:8080'.trim()+encodeURIComponent((e.target.innerText).trim());
-		let url = themeDisplay.getPortalURL()+(e.target.innerText).trim();
+		
+		console.log($(this).attr('data-url'))
+		let url = themeDisplay.getPortalURL()+($(this).attr('data-url')).trim();
+		//let url = themeDisplay.getPortalURL()+(e.target.innerText).trim();
+		
+		//e.target.innerText="";
 		console.log(url);
 	<%--     var pdfUrl = '<%= viewPdf %>'; 
 		console.log(pdfUrl);
