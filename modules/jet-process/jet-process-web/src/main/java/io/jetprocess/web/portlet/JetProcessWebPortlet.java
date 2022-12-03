@@ -4,8 +4,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 
@@ -27,13 +29,19 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 /**
  * @author Admin
  */
-@Component(immediate = true, property = { "com.liferay.portlet.display-category=category.sample",
-		"com.liferay.portlet.header-portlet-css=/css/main.css", "com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=JetProcessWeb", "javax.portlet.init-param.template-path=/",
-		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=power-user,user" }, service = Portlet.class)
+@Component(
+		immediate = true, 
+		property = { 
+				"com.liferay.portlet.display-category=category.sample",
+				"com.liferay.portlet.header-portlet-css=/css/main.css", "com.liferay.portlet.instanceable=true",
+				"javax.portlet.display-name=JetProcessWeb", "javax.portlet.init-param.template-path=/",
+				"javax.portlet.init-param.view-template=/view.jsp",
+				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+				"javax.portlet.resource-bundle=content.Language",
+				"javax.portlet.security-role-ref=power-user,user" 
+		}, 
+		service = Portlet.class
+)
 public class JetProcessWebPortlet extends MVCPortlet {
 
 	public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -62,28 +70,30 @@ public class JetProcessWebPortlet extends MVCPortlet {
 	}
 
 	@Override
-	public void render(RenderRequest renderRequest, RenderResponse renderResponse)
-			throws IOException, PortletException {
-
+	public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
+		
 		// For the first time set the user posr id in session
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		HttpSession session = themeDisplay.getRequest().getSession();
+//		HttpSession httpSession = PortalUtil.getHttpServletRequest(renderRequest).getSession();
 		String userPostId = "1";
-		HttpSession httpSession = PortalUtil.getHttpServletRequest(renderRequest).getSession();
-		if(httpSession != null) {
-			userPostId = (String) httpSession.getAttribute("userPostId");
+		if(session != null) {
+			userPostId = (String) session.getAttribute("userPostId");
 			if (userPostId == null || userPostId.isEmpty() || userPostId.equals("")) {
-				httpSession.setAttribute("userPostId", "1");
+				session.setAttribute("userPostId", "1");
 			}
-			httpSession.setAttribute("userPostId", userPostId);
+			else {
+				session.setAttribute("userPostId", userPostId);
+			}
 		}
 		super.render(renderRequest, renderResponse);
 	}
-
-	private static Log logger = LogFactoryUtil.getLog(JetProcessWebPortlet.class);
-
 	
 	@Reference
 	FileMovementLocalService fLocalService;
 
 	@Reference
 	ReceiptMovementLocalService receiptMovementLocalService;
+
+	private static Log logger = LogFactoryUtil.getLog(JetProcessWebPortlet.class);
 }

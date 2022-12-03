@@ -167,7 +167,7 @@
               <#assign userPostList =userPostService.getUserPostList(user.getUserId())/>
                           
 		        	  <label for="cars">Select Post:</label>
-                          <select name="post" id="value">
+                          <select name="post" id="userPostOption">
 		        <#list userPostList as userpost>
 		        	  	  <option value=${userpost.getUserPostId()}>${userpost.getShortName()}</option>
                    </#list>
@@ -226,3 +226,9 @@
 	
 </div>
 <!-- /Header -->
+
+<script>
+	 $('#userPostOption').val(${themeDisplay.getRequest().getSession().getAttribute("userPostId")});
+</script>
+
+

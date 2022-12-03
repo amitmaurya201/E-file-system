@@ -37,7 +37,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <!-- Getting the User Post Id from the session -->
 <%
 String selectedUserPostId = "1";
-HttpSession httpSession = PortalUtil.getHttpServletRequest(renderRequest).getSession();
+HttpSession httpSession = themeDisplay.getRequest().getSession();
 if(httpSession != null){
 	selectedUserPostId = (String)httpSession.getAttribute("userPostId");
 }

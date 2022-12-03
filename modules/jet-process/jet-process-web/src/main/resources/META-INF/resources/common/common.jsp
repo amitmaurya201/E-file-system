@@ -34,10 +34,10 @@
 
 
  function setUserPostId(){
-	 var userPostId = $('#value').find(":selected").val();
-	 $('#value').on('change', function() {
+	 var userPostId = $('#userPostOption').find(":selected").val();
+	 $('#userPostOption').on('change', function() {
 	 	userPostId = this.value;
-
+		
 		AUI().use('liferay-portlet-url', function(A) {
 	 		var actionURL = Liferay.PortletURL.createActionURL();
 	 		actionURL.setWindowState("<%=LiferayWindowState.NORMAL.toString() %>");
