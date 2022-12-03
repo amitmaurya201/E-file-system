@@ -53,7 +53,7 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light  mt-3 mb-3 " style=" background-color: #ede8e8;
+<nav class="navbar navbar-expand-lg navbar-light  mt-2 " style=" background-color: #ede8e8;
   border-top: 2px solid #a19c9c;
   border-top-left-radius:5px;
   border-top-right-radius:5px;">

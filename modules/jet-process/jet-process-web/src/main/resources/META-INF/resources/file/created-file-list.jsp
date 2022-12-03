@@ -11,7 +11,7 @@
 
 
 <div class="row">
-	<div class="col-2">
+	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
