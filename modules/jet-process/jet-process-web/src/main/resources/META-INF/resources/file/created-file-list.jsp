@@ -112,12 +112,12 @@
 
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="File Number" property="fileNumber" orderable="true" />
+					name="label-file-list-fileno" property="fileNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"
-					name="Subject" />
+					name="label-file-list-subject" />
 
-				<liferay-ui:search-container-column-text property="category" />
+				<liferay-ui:search-container-column-text property="category" name="label-file-list-category" cssClass="hover-tips" />
 
 <%
 			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -125,10 +125,10 @@
 		%>
 		
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(filedto.getCreateDate())%>"
-					orderable="true" name="Created On" orderableProperty="createDate" />
+					orderable="true" name="label-file-list-createon" orderableProperty="createDate" />
 
 				<liferay-ui:search-container-column-text property="remark"
-					name="Remarks" />
+					name="label-file-list-remark" />
 
 
 			</liferay-ui:search-container-row>

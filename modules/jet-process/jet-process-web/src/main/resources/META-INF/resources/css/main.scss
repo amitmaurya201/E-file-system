@@ -62,7 +62,12 @@
      	background: #96b4d6 !important;
      	font-size:18px;
      	color:black;
+     	text-align: center;
      }
+
+.table tbody td{
+	text-align: center;
+}
 	
 .receipt_view .heading {
   background-color: gainsboro;
