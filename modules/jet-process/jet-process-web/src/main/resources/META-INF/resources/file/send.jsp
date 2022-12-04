@@ -24,14 +24,14 @@
 
 		<%
 			DocFile docFile = (DocFile) session.getAttribute("DocFile");
+		
+			String type = (String) docFile.getNature();
+			char firstChar = type.charAt(0);
 		%>
+		<div class="container-fluid m-1" style="background-color: #E8E8E8;">
+			<span><%=firstChar%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span><br />
 
-
-		<h3>
-			File Number :
-			<%=docFile.getFileNumber()%></h3>
-		<hr>
-
+		</div>
 
 		<aui:form action="${send}">
 			<input type="hidden" name="<portlet:namespace/>senderId"
@@ -67,7 +67,7 @@
 						</div>
 						<div class="fieldset">
 							<h1>
-								<span><b>SetDueDate</b></span>
+								<span><b>Duedate</b></span>
 							</h1>
 							<input type="date" class="form-control"
 								name="<portlet:namespace/>dueDate">

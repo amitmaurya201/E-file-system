@@ -53,7 +53,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		 fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate,
 		 remark);
-
+		actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
 
 	}
 
@@ -67,6 +67,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId,
 		priority, dueDate, remark);
 
+		actionResponse.setRenderParameter("mvcPath","/receipt/created-receipt-list.jsp");
 	}
 
 	@Override
