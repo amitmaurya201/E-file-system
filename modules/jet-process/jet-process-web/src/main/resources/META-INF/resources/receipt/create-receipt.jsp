@@ -85,7 +85,7 @@
 						</aui:col>
 					</aui:row>
 					<aui:row>
-						<aui:col cssClass="mt-3">
+						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-type" /><span
 									class='text-danger'>*</span></label>
@@ -97,7 +97,7 @@
 								</aui:select>
 							</div>
 						</aui:col>
-						<aui:col cssClass="mt-3">
+						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-delivery-mode" /><span class='text-danger'>*</span></label>

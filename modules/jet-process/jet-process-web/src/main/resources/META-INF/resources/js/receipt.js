@@ -217,7 +217,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 				  console.log(response);
 				  swal( {
                       title: "successfull !",
-                      text: `You Have successfully created Your Receipt! `,
+                      text: `You Have successfully created Your Receipt!And Your Receipt Number is ${response.receiptNumber}  `,
                       icon: "success",
                       button: "ok"
                   }).then(function() {
@@ -241,7 +241,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
     var jsonData = bindFormDataJson(formObj);
     console.log(jsonData);
     console.log(tempFileId);
-    var userPostId=  getUserPostId();
+    var userPostId= getUserPostId();
     jsonData["userPostId"] = userPostId;
     if(tempFileId!=0){
     	 jsonData["tempFileId"] = tempFileId; 
