@@ -10,17 +10,18 @@
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <style>
-.date-icon{
-            position: absolute;
-            right: 5px;
-           /* bottom: 14px; */
-           margin-top: 15px;
-           z-index: 9;
-           }
-   &.date-input-width{
-              width: 48%;
-    }
+.date-icon {
+	position: absolute;
+	right: 5px;
+	/* bottom: 14px; */
+	margin-top: 15px;
+	z-index: 9;
+}
 
+&
+.date-input-width {
+	width: 48%;
+}
 </style>
 
 <%
@@ -28,7 +29,7 @@
 	String setURl = serviceContext.getPortalURL();
 
 	/* for current date*/
-	    DateFormat currentDate = new SimpleDateFormat("dd-MMM-yyyy");
+	DateFormat currentDate = new SimpleDateFormat("dd-MMM-yyyy");
 %>
 <portlet:renderURL var="createdListReceipt">
 	<portlet:param name="mvcRenderCommandName" value="/createdListReceipt" />
@@ -47,24 +48,33 @@
 		<div class=" receipt" style="border: 2px solid #a19c9c">
 			<aui:container cssClass="row">
 				<aui:form id="dropfile" cssClass="col-6 p-2 ">
-					<aui:row >
+					<aui:row>
 						<aui:col cssClass="border  ">
-						
-           						 <button class="btn text-danger" id="removeFileUpload"
-									style="display:none">
-									<liferay-ui:message key="receipt-remove-button" />
-								</button>
-					<div id="targetDiv" class="targetDiv text-center">
-							<div class="dropzone-wrapper ">
-							<i class="glyphicon glyphicon-download-alt"></i>
-               	 				<p><liferay-ui:message key="label-receipt-pdf-drag" /></p>
-               		 			<span class="btn btn-info" style="font-size:15px;" id="doc-select-btn"><liferay-ui:message key="label-receipt-pdf-file" /></span>
-								<input name="doc-input" id="doc-input" type="file" hidden />
-								
-								</div> 
-					</div>
-					</aui:col>
-					
+							<button class="btn text-danger" id="removeFileUpload"
+								style="display: none">
+								<liferay-ui:message key="receipt-remove-button" />
+							</button>
+							<div id="targetDiv" class="targetDiv text-center">
+								<div class="dropzone-wrapper ">
+									<i class="glyphicon glyphicon-download-alt"></i>
+									<p>
+										<liferay-ui:message key="label-receipt-pdf-drag" />
+									</p>
+									<span class="btn btn-info" style="font-size: 15px;"
+										id="doc-select-btn"><liferay-ui:message
+											key="label-receipt-pdf-file" /></span>
+									<%-- <c:choose
+										test="${<portlet:namespace />letterDate  eq  'Electronic'}"> --%>
+									<input name="doc-input" id="doc-input" type="file" hidden
+										required="required" />
+									<%-- 	</c:choose>
+									<c:otherwise>
+										<input name="doc-input" id="doc-input" type="file" hidden />
+									</c:otherwise> --%>
+								</div>
+							</div>
+						</aui:col>
+
 					</aui:row>
 				</aui:form>
 				<aui:form cssClass="scroll border border-dark col"
@@ -131,17 +141,15 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-letter-date" /></label>
-								
+
 								<aui:input type="text" label="" name="letterDate"
-									id="letterDate" placeholder="dd-mm-yyyy" >
+									id="letterDate" placeholder="dd-mm-yyyy">
 									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
-											var created = (document.getElementById("<portlet:namespace />createdOn").value);
-											var date=new Date(val);
-											var today = new Date();
-											console.log(date);
+												var date=new Date(val);
+												var today = new Date();
 												return (today > date);
 											}
 										</aui:validator>
@@ -160,7 +168,9 @@
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												return (letterDate <= val);
+												var letterDateFmt=new Date(letterDate);
+												var valFrt=new Date(val);	
+												return (letterDateFmt <= valFrt);
 											}
 										</aui:validator>
 									<aui:validator name="custom"
@@ -385,7 +395,7 @@
 					<%--	Action Buttons--%>
 					<aui:button-row>
 						<aui:button cssClass="btn btn-primary button" type="submit"
-							name="generate" value="receipt-submit-button"  />
+							name="generate" value="receipt-submit-button" />
 					</aui:button-row>
 				</aui:form>
 			</aui:container>
@@ -398,18 +408,15 @@
 	});
 </script>
 <script type="text/javascript">
+	$(document).ready(function() {
+		$("#<portlet:namespace/>letterDate").datepicker({
+			format : 'dd-M-yyyy'
+		});
 
+		$("#<portlet:namespace/>receivedOn").datepicker({
+			format : 'dd-M-yyyy'
+		});
 
-
-$(document).ready(function() {
-	$("#<portlet:namespace/>letterDate").datepicker({
-		format : 'dd-M-yyyy'		
 	});
-
-	 $("#<portlet:namespace/>receivedOn").datepicker({
-		format : 'dd-M-yyyy'
-	});
-
-});
 </script>
 <%@ include file="/js/receipt.js"%>
