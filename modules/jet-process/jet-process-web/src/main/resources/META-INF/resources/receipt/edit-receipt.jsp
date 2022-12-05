@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="java.util.TimeZone"%>
 <%@page
 	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
@@ -19,9 +20,10 @@ input[type='file'] {
 }
 </style>
 <%
+	Receipt receipt = (Receipt) session.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <div class="row">
@@ -74,7 +76,8 @@ input[type='file'] {
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-createdon" /></label>
 								<aui:input label="" name="createdOn" id="createdOn"
-									value="${receipt.createDate}" disabled="true" />
+									value="<%=simpleFormat.format(receipt.getCreateDate())%>"
+									disabled="true" />
 							</div>
 						</aui:col>
 						<aui:col md="6" cssClass="mt-3">
@@ -88,12 +91,15 @@ input[type='file'] {
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
-								<label><liferay-ui:message key="label-receipt-type" /><span class='text-danger'>*</span></label>
+								<label><liferay-ui:message key="label-receipt-type" /><span
+									class='text-danger'>*</span></label>
 								<aui:select label="" name="typeId" id="typeId">
 									<c:if test="${receipt.typeId != null}">
 										<aui:option value="${receipt.typeId}">${typeValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-deafult-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-deafult-option" />
+									</aui:option>
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -119,7 +125,7 @@ input[type='file'] {
 											function(val){
 												var date=new Date(val);
 												var today = new Date();
-												return (date < today);
+												return (today > date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -136,7 +142,7 @@ input[type='file'] {
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												return (val >= letterDate);
+												return (letterDate <= val);
 											}
 										</aui:validator>
 									<aui:validator name="custom"
@@ -144,7 +150,7 @@ input[type='file'] {
 											function(val){
 												var date=new Date(val);
 												var today = new Date();
-												return (date < today);
+												return (today > date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -185,7 +191,9 @@ input[type='file'] {
 									<c:if test="${receipt.organizationId != null}">
 										<aui:option value="${receipt.organizationId}">${organizationValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-default-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -199,7 +207,9 @@ input[type='file'] {
 									<c:if test="${receipt.subOrganizationId != null}">
 										<aui:option value="${receipt.subOrganizationId}">${subOrganizationValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-default-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -207,7 +217,8 @@ input[type='file'] {
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
-								<label><liferay-ui:message key="label-receipt-name" /><span class='text-danger'>*</span></label>
+								<label><liferay-ui:message key="label-receipt-name" /><span
+									class='text-danger'>*</span></label>
 								<aui:input label="" name="name" id="name"
 									value="${receipt.name}">
 									<aui:validator name="required" />
@@ -261,11 +272,14 @@ input[type='file'] {
 					<aui:row>
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
-								<label><liferay-ui:message key="label-receipt-address" /><span class='text-danger'>*</span></label>
+								<label><liferay-ui:message key="label-receipt-address" /><span
+									class='text-danger'>*</span></label>
 								<aui:input type="textarea" label="" name="address" id="address"
 									value="${receipt.address}">
 									<aui:validator name="required" />
-									<aui:validator name="maxLength"><liferay-ui:message key="receipt-address-maxlength" /></aui:validator>
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-address-maxlength" />
+									</aui:validator>
 								</aui:input>
 							</div>
 						</aui:col>
@@ -278,7 +292,9 @@ input[type='file'] {
 									<c:if test="${receipt.countryId != null}">
 										<aui:option value="${receipt.countryId}">${countryValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-default-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -289,7 +305,9 @@ input[type='file'] {
 									<c:if test="${receipt.stateId != null}">
 										<aui:option value="${receipt.stateId}">${stateValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-default-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -307,7 +325,9 @@ input[type='file'] {
 								<label><liferay-ui:message key="label-receipt-pincode" /></label>
 								<aui:input label="" name="pinCode" id="pinCode"
 									value="${receipt.pinCode}">
-									<aui:validator name="maxLength"><liferay-ui:message key="receipt-pincode-maxlength" /></aui:validator>
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-pincode-maxlength" />
+									</aui:validator>
 								</aui:input>
 							</div>
 						</aui:col>
@@ -321,13 +341,16 @@ input[type='file'] {
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
-								<label><liferay-ui:message key="label-receipt-category" /><span class='text-danger'>*</span></label>
+								<label><liferay-ui:message key="label-receipt-category" /><span
+									class='text-danger'>*</span></label>
 								<aui:select label="" name="receiptCategoryId"
 									id="receiptCategoryId">
 									<c:if test="${receipt.receiptCategoryId != null}">
 										<aui:option value="${receipt.receiptCategoryId}">${receiptCategoryValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-default-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -341,7 +364,9 @@ input[type='file'] {
 									<c:if test="${receipt.receiptSubCategoryId != null}">
 										<aui:option value="${receipt.receiptSubCategoryId}">${receiptSubCategoryValue}</aui:option>
 									</c:if>
-									<aui:option value=""><liferay-ui:message key="receipt-default-option" /></aui:option>
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -349,11 +374,14 @@ input[type='file'] {
 					<aui:row>
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
-								<label><liferay-ui:message key="label-receipt-subject" /><span class='text-danger'>*</span></label>
+								<label><liferay-ui:message key="label-receipt-subject" /><span
+									class='text-danger'>*</span></label>
 								<aui:input type="textarea" label="" name="subject" id="subject"
 									value="${receipt.subject}">
 									<aui:validator name="required" />
-									<aui:validator name="maxLength"><liferay-ui:message key="receipt-subject-maxlength" /></aui:validator>
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-subject-maxlength" />
+									</aui:validator>
 								</aui:input>
 							</div>
 						</aui:col>
