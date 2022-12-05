@@ -45,7 +45,7 @@
 			</h5>
 			<div class="container">
 				<div class="row border border-dark scroll"
-					style="height: 370px; overflow: overlay">
+					style="height:440px; overflow: overlay">
 					<div class="col-5" class="border">
 						<embed id="pdfurl" type="application/pdf"
 							src="${receipt.viewPdfUrl} " width="100%" height="450">
