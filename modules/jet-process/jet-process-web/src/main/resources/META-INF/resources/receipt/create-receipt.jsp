@@ -207,7 +207,7 @@
 										key="label-receipt-sub-organization" /></label>
 								<aui:select label="" name="subOrganizationId"
 									id="subOrganizationId">
-									<aui:option value="">
+									<aui:option value='0'>
 										<liferay-ui:message key="receipt-default-option" />
 									</aui:option>
 								</aui:select>
@@ -284,7 +284,7 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-country" /></label>
 								<aui:select label="" name="countryId" id="countryId">
-									<aui:option value="">
+									<aui:option value='0'>
 										<liferay-ui:message key="receipt-default-option" />
 									</aui:option>
 								</aui:select>
@@ -294,7 +294,7 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-state" /></label>
 								<aui:select label="" name="stateId" id="stateId">
-									<aui:option value="">
+									<aui:option value='0'>
 										<liferay-ui:message key="receipt-default-option" />
 									</aui:option>
 								</aui:select>
@@ -345,7 +345,7 @@
 										key="label-receipt-sub-category" /></label>
 								<aui:select label="" name="receiptSubCategoryId"
 									id="receiptSubCategoryId">
-									<aui:option value="">
+									<aui:option value='0'>
 										<liferay-ui:message key="receipt-default-option" />
 									</aui:option>
 								</aui:select>

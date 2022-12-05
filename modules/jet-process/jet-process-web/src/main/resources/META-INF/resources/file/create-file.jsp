@@ -1,4 +1,3 @@
-
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
 <%@ page import="java.util.Date"%>
@@ -8,33 +7,25 @@
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-	<link rel="stylesheet" 
-  href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
-
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 			String setURl = serviceContext.getPortalURL();
 		%>
-
-
- <portlet:renderURL var="FileList">
-    <portlet:param name="mvcRenderCommandName" value="/createdFileList"/>
-</portlet:renderURL> 
+		<portlet:renderURL var="FileList">
+			<portlet:param name="mvcRenderCommandName" value="/createdFileList" />
+		</portlet:renderURL>
 
 		<div class="container">
 			<div class="card">
-			
-			
-
 				<aui:form name="formId">
 					<div class="card-body">
 						<div class="row">
@@ -44,9 +35,15 @@
 										<div class="row mt-2">
 											<div class="col-md-12 col-sm-12">
 												<div class="text-center">
-													<h1><liferay-ui:message key="label-file-hin-bharat-sarkar" /></h1>
-													<h4><liferay-ui:message key="label-file-govt-of-india" /></h4>
-													<h4><liferay-ui:message key="label-file-mha" /></h4>
+													<h1>
+														<liferay-ui:message key="label-file-hin-bharat-sarkar" />
+													</h1>
+													<h4>
+														<liferay-ui:message key="label-file-govt-of-india" />
+													</h4>
+													<h4>
+														<liferay-ui:message key="label-file-mha" />
+													</h4>
 												</div>
 												<div class="container">
 													<div class="row">
@@ -55,19 +52,22 @@
 																<div class="col-auto">
 																	<aui:select label="label-file-nature"
 																		cssClass="form-select form-control" id="nature"
-																		name="nature" 
->
-																		<option value="Electronic"><liferay-ui:message key="label-file-nature-option1" /></option>
-																		<option value="Physical"><liferay-ui:message key="label-file-nature-option2" /></option>
+																		name="nature">
+																		<option value="Electronic"><liferay-ui:message
+																				key="label-file-nature-option1" /></option>
+																		<option value="Physical"><liferay-ui:message
+																				key="label-file-nature-option2" /></option>
 																	</aui:select>
 																</div>
 															</div>
 															<div class="row">
 																<div class="col-auto">
-																	<aui:select class="form-select form-control" id="type" label="label-file-nature-type"
-																		name="type" >
-																		<option value="NON-SFS"><liferay-ui:message key="label-file-nature-type-option1-nonsfs" /></option>
-																		<option value="SFS"><liferay-ui:message key="label-file-nature-type-option2-sfs" /></option>
+																	<aui:select class="form-select form-control" id="type"
+																		label="label-file-nature-type" name="type">
+																		<option value="NON-SFS"><liferay-ui:message
+																				key="label-file-nature-type-option1-nonsfs" /></option>
+																		<option value="SFS"><liferay-ui:message
+																				key="label-file-nature-type-option2-sfs" /></option>
 																	</aui:select>
 																</div>
 															</div>
@@ -79,49 +79,62 @@
 														<aui:col md="12">
 															<div class="row mt-3 " id="non-sfs">
 																<%--  <aui:input name="userPostId" label="" value = "1" id= "userPostId" />  --%>
-																<legend class="child-scheduler-border"><liferay-ui:message key="label-file-file-no" /><span
-										                            	class='text-danger'>*</span></legend>
+																<legend class="child-scheduler-border">
+																	<liferay-ui:message key="label-file-fileno" />
+																	<span class='text-danger'>*</span>
+																</legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">
 																	<aui:row>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="basicHeadId" id="basicHeadId" label="label-file-file-no-basic-headid">
-																				<option value=""><liferay-ui:message key="label-file-masterdata-deafult-option" /></option>
+																				name="basicHeadId" id="basicHeadId"
+																				label="label-file-basic-head-id">
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="primaryHeadId" id="primaryHeadId" label="label-file-file-no-primary-headid">
-																				<!-- <option value="">Choose One</option> -->
+																				name="primaryHeadId" id="primaryHeadId"
+																				label="label-file-primary-head-id">
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="secondaryHeadId" id="secondaryHeadId" label="label-file-file-no-secondary-headid">
-																				<!-- <option value=''>Choose One</option> -->
+																				name="secondaryHeadId" id="secondaryHeadId"
+																				label="label-file-secondary-head-id">
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="tertiaryHeadId" id="tertiaryHeadId" label="label-file-file-no-tertiary-headid">
-																			<!-- 	<option value=''>Choose One</option> -->
+																				name="tertiaryHeadId" id="tertiaryHeadId"
+																				label="label-file-tertiary-head-id">
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:input type="text" cssClass="form-control"
-																				id="year" name="year" value="" label="label-file-file-no-year">
+																				id="year" name="year" value=""
+																				label="label-file-year">
 																			</aui:input>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="fileCodeId" id="fileCodeId" label="label-file-masterdata-filecode-id">
-																				<option value=""><liferay-ui:message key="label-file-masterdata-deafult-option" /></option>
+																				name="fileCodeId" id="fileCodeId"
+																				label="label-file-filecode-id">
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
@@ -134,11 +147,13 @@
 															<div class="row" id="sfs" style="display: none">
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
-																	<legend cssClass="child-scheduler-border"><liferay-ui:message key="label-file-file-no" /><span
-										                            	class='text-danger'>*</span>
-																		</legend>
+																	<legend cssClass="child-scheduler-border">
+																		<liferay-ui:message key="label-file-fileno" />
+																		<span class='text-danger'>*</span>
+																	</legend>
 																	<aui:input class="form-control" type="text"
-																		name="fileNumber" id="fileNumber" value="" label="label-file-file-no">
+																		name="fileNumber" id="fileNumber" value=""
+																		label="label-file-fileno">
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
@@ -166,10 +181,15 @@
 											Subject<span class='text-danger'>*</span>
 										</legend> -->
 
-                                            <h5 style="font-weight:bold;"><liferay-ui:message key="label-file-subject" /><span class='text-danger'>*</span></h5>
+											<h5 style="font-weight: bold;">
+												<liferay-ui:message key="label-file-subject" />
+												<span class='text-danger'>*</span>
+											</h5>
 											<aui:input cssClass="form-control" type="text" name="subject"
 												value="" id="subject" label="">
-												<aui:validator name="maxLength"><liferay-ui:message key="label-file-remark-maxlength" /></aui:validator>
+												<aui:validator name="maxLength">
+													<liferay-ui:message key="file-subject-maxlength" />
+												</aui:validator>
 												<aui:validator name="required" />
 											</aui:input>
 										</aui:fieldset>
@@ -179,10 +199,11 @@
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="categoryId" name="categoryId" label="label-file-categoryid">
+													id="categoryId" name="categoryId"
+													label="label-file-categoryid">
 
-													<!-- <option value=''>Choose One</option> -->
-												
+													<option value='0'><liferay-ui:message
+															key="file-default-option" /></option>
 												</aui:select>
 											</div>
 										</aui:fieldset>
@@ -190,11 +211,11 @@
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-												
+													id="subCategoryId" name="subCategoryId"
+													label="label-file-sub-categoryid">
+													<option value='0'><liferay-ui:message
+															key="file-default-option" /></option>
 
-													<!-- <option value=''>Choose One</option> -->
-													
 
 												</aui:select>
 											</div>
@@ -212,8 +233,10 @@
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks" value=""
 												label="label-file-remark">
-												
-												<aui:validator name="maxLength"><liferay-ui:message key="label-file-remark-maxlength" /></aui:validator>
+
+												<aui:validator name="maxLength">
+													<liferay-ui:message key="file-remark-maxlength" />
+												</aui:validator>
 											</aui:input>
 
 										</aui:fieldset>
@@ -224,9 +247,12 @@
 											Reference<span class='text-danger'>*</span>
 										</legend> -->
 											<aui:input cssClass="form-control col-md-12 " type="text"
-												name="reference" id="reference" value="" label="label-file-reference">
-											
-												<aui:validator name="maxLength"><liferay-ui:message key="label-file-reference-maxlength" /></aui:validator>
+												name="reference" id="reference" value=""
+												label="label-file-reference">
+
+												<aui:validator name="maxLength">
+													<liferay-ui:message key="file-reference-maxlength" />
+												</aui:validator>
 											</aui:input>
 
 
@@ -237,7 +263,7 @@
 						</div>
 						<div class="text-center">
 							<aui:button type="submit" cssClass="btn btn-danger"
-								value="Create File" id="add-docfile"></aui:button>
+								value="file-submit-button" id="add-docfile"></aui:button>
 						</div>
 					</div>
 				</aui:form>
@@ -245,9 +271,6 @@
 		</div>
 	</div>
 </div>
-
-
-
 <aui:script>
 
 $('#<portlet:namespace />type').change(function(){
@@ -272,7 +295,7 @@ $('#<portlet:namespace />type').change(function(){
 
 
 
-<%-- 
+	<%-- 
 AUI().use('aui-io-request', function(A){
 
 

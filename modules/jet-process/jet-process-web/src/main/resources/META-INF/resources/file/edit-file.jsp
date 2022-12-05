@@ -48,9 +48,15 @@
 										<div class="row mt-2">
 											<div class="col-md-12 col-sm-12">
 												<div class="text-center">
-														<h1>भारत सरकार</h1>
-													<h4>GOVERNMENT OF INDIA</h4>
-													<h4>Ministry of Home Affairs ( MHA )</h4>
+														<h1>
+														<liferay-ui:message key="label-file-hin-bharat-sarkar" />
+													</h1>
+													<h4>
+														<liferay-ui:message key="label-file-govt-of-india" />
+													</h4>
+													<h4>
+														<liferay-ui:message key="label-file-mha" />
+													</h4>
 												</div>
 												<div class="container">
 													<div class="row">
@@ -60,7 +66,7 @@
 																	<!-- <label><b>Nature</b></label> -->
 																</div>
 																<div class="col-auto">
-																	<aui:select label="Nature"
+																	<aui:select label="label-file-nature"
 																		cssClass="form-select form-control" id="nature"
 																		name="nature" disabled="true">
 
@@ -75,7 +81,7 @@
 																</div>
 																<div class="col-auto">
 																	<aui:select class="form-select form-control" id="type"
-																		name="type" disabled="true">
+																		name="type" label="label-file-nature-type" disabled="true">
 																		<option value="NON-SFS"><%=docFile.getType()%></option>
 																	</aui:select>
 																</div>
@@ -93,7 +99,7 @@
 															<div class="row mt-3 " id="non-sfs">
 																<aui:input name="docFileId" label=""
 																	value="<%=docFile.getDocFileId()%>" type="hidden" />
-																<legend class="child-scheduler-border">File Number</legend>
+																<legend class="child-scheduler-border"><liferay-ui:message key="label-file-fileno" /></legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">
 																	<aui:row>
@@ -101,14 +107,14 @@
 																		
 																	
 																			<aui:select cssClass="form-select form-control"
-																				name="basicHeadId" id="basicHeadId" label="" disabled="true">
+																				name="basicHeadId" id="basicHeadId" label="label-file-basic-head-id" disabled="true">
 																				<option value="<%=docFile.getBasicHeadId()%>"><%=basicHeadValue%></option>
 																				<aui:validator name="required" />
 																			</aui:select> 
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="primaryHeadId" id="primaryHeadId" label="" disabled="true">
+																				name="primaryHeadId" id="primaryHeadId" label="label-file-primary-head-id" disabled="true">
 																				<option value="<%=docFile.getPrimaryHeadId()%>"><%=primaryHeadValue%></option>
 																				<aui:validator name="required" />
 																			</aui:select>
@@ -116,14 +122,14 @@
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="secondaryHeadId" id="secondaryHeadId" label="" disabled="true">
+																				name="secondaryHeadId" id="secondaryHeadId" label="label-file-secondary-head-id" disabled="true">
 																				<option value="<%=docFile.getSecondaryHeadId()%>"><%=secondaryHeadValue%></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			 <aui:select cssClass="form-select form-control"
-																				name="tertiaryHeadId" id="tertiaryHeadId" label=""  disabled="true">
+																				name="tertiaryHeadId" id="tertiaryHeadId" label="label-file-tertiary-head-id"  disabled="true">
 																				<option value="<%=docFile.getTertiaryHeadId()%>"><%=tertiaryHeadValue%></option>
 																				<aui:validator name="required" />
 																			</aui:select> 
@@ -131,12 +137,12 @@
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:input type="text" cssClass="form-control"
 																				id="year" name="year"
-																				value="<%=docFile.getYear()%>" readonly="true" label="" disabled="true">
+																				value="<%=docFile.getYear()%>" readonly="true" label="label-file-year" disabled="true">
 																			</aui:input>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:select cssClass="form-select form-control"
-																				name="fileCodeId" id="fileCodeId" label="" disabled="true">
+																				name="fileCodeId" id="fileCodeId" label="label-file-filecode-id" disabled="true">
 																				<option value="<%=docFile.getFileCodeId()%>"><%=fileCodeValue%>
 																				</option>
 																				<aui:validator name="required" />
@@ -151,12 +157,11 @@
                                                             <div class="row" id="sfs">
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
-																	<legend cssClass="child-scheduler-border">File
-																		Number</legend>
+																	<legend cssClass="child-scheduler-border"><liferay-ui:message key="label-file-fileno" /></legend>
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber"
 																		value="<%=docFile.getFileNumber()%>"
-																		label=""  disabled="true">
+																		label="label-file-fileno"  disabled="true">
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
@@ -187,9 +192,9 @@
 
 											<aui:input cssClass="form-control" type="text" name="subject"
 												value="<%=docFile.getSubject()%>" id="subject"
-												label="Subject">
+												label="label-file-subject">
 												<aui:validator name="required" />
-												<aui:validator name="maxLength">500</aui:validator>
+												<aui:validator name="maxLength"><liferay-ui:message key="file-subject-maxlength" /></aui:validator>
 											</aui:input>
 										</aui:fieldset>
 									</div>
@@ -198,7 +203,7 @@
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="categoryId" name="categoryId" label="Category">
+													id="categoryId" name="categoryId" label="label-file-categoryid">
 													<% if(docFile.getType().equalsIgnoreCase("NON-SFS")){ %>
 													<option value="<%=docFile.getCategoryId()%>"><%=categoryValue%></option>
 													
@@ -213,7 +218,7 @@
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
-													id="subCategoryId" name="subCategoryId" label="Sub Category">
+													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
 													<% if(docFile.getType().equalsIgnoreCase("NON-SFS")){ %>
 													<option value="<%=docFile.getSubCategoryId() %>"><%=subcategoryValue%></option>
 													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
@@ -235,9 +240,9 @@
 										</legend>-->
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks"
-												value="<%=docFile.getRemarks()%>" label="Remarks">
+												value="<%=docFile.getRemarks()%>" label="label-file-remark">
 												<aui:validator name="required" />
-												<aui:validator name="maxLength">1000</aui:validator>
+												<aui:validator name="maxLength"><liferay-ui:message key="file-remark-maxlength" /></aui:validator>
 											</aui:input>
 
 										</aui:fieldset>
@@ -249,9 +254,9 @@
 										</legend> -->
 											<aui:input cssClass="form-control col-md-12 " type="text"
 												name="reference" id="reference"
-												value="<%=docFile.getReference()%>" label="Reference">
+												value="<%=docFile.getReference()%>" label="label-file-reference">
 												<aui:validator name="required" />
-												<aui:validator name="maxLength">250</aui:validator>
+												<aui:validator name="maxLength"><liferay-ui:message key="file-reference-maxlength" /></aui:validator>
 											</aui:input>
 
 
@@ -262,7 +267,7 @@
 						</div>
 						<div class="text-center">
 							<aui:button type="submit" cssClass="btn btn-danger"
-								value="Update File" id="update-docfile"></aui:button>
+								value="file-edit-button" id="update-docfile"></aui:button>
 						</div>
 					</div>
 				</aui:form>

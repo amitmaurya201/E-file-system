@@ -1,11 +1,6 @@
 
 <aui:script use= "aui-base">
-$("#<portlet:namespace/>basicHeadId").append(new Option("Select","0"));
-$("#<portlet:namespace/>primaryHeadId").append(new Option( "Select","0"));
-$("#<portlet:namespace/>secondaryHeadId").append(new Option("Select","0"));
-$("#<portlet:namespace/>tertiaryHeadId").append(new Option("Select","0"));
-$("#<portlet:namespace/>categoryId").append(new Option("Select","0"));
-$("#<portlet:namespace />subCategoryId").append(new Option( "Select","0"));
+
 
      /* get current year */
 	    var currentTime = new Date();
@@ -169,6 +164,7 @@ $("#<portlet:namespace />subCategoryId").append(new Option( "Select","0"));
 	        	        contentType : 'application/json'
 	        		  }).done(function(response) {
 	        			  console.log(response);
+	        			  if(response!=null){
 	        			  swal( {
 	                          title: "successfull !",
 	                          text: `You Have successfully created Your File! And Your File Number is ${response.fileNumber} `,
@@ -177,6 +173,13 @@ $("#<portlet:namespace />subCategoryId").append(new Option( "Select","0"));
 	                      }).then(function() {
 	                    	    window.location.href = "<%=createdFileList.toString()%>";
 	                      });
+	        			  }else{
+	        				  swal({  
+	    	    				  title: " Oops!",  
+	    	    				  text: " Something went wrong, you should choose again!",  
+	    	    				  icon: "error",  
+	    	    				});  	  
+	        			  }		  
 	    		 })
 	    		 .fail(function(error){
 	    			 swal({  
