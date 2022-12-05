@@ -210,7 +210,7 @@
 													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
 													<option value="<%=docFile.getCategoryId()%>"><%= sfsCategoryValue %></option>
 													<% } %>
-													<aui:validator name="required" />
+													
 												</aui:select>
 											</div>
 										</aui:fieldset>
@@ -224,7 +224,7 @@
 													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
 													<option value="<%= docFile.getSubCategoryId()%>"><%= sfsSubCategoryValue %></option>
 													<% } %>
-													<aui:validator name="required" />
+													
 												</aui:select>
 											</div>
 										</aui:fieldset>
@@ -241,7 +241,6 @@
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks"
 												value="<%=docFile.getRemarks()%>" label="label-file-remark">
-												<aui:validator name="required" />
 												<aui:validator name="maxLength"><liferay-ui:message key="file-remark-maxlength" /></aui:validator>
 											</aui:input>
 
@@ -255,7 +254,6 @@
 											<aui:input cssClass="form-control col-md-12 " type="text"
 												name="reference" id="reference"
 												value="<%=docFile.getReference()%>" label="label-file-reference">
-												<aui:validator name="required" />
 												<aui:validator name="maxLength"><liferay-ui:message key="file-reference-maxlength" /></aui:validator>
 											</aui:input>
 
