@@ -210,7 +210,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 			if(response!=null){
 			  swal( {
                  title: "successfull !",
-                 text: `You Have successfully created Your Receipt! `,
+                 text: `You Have successfully created Your Receipt!And Your Receipt Number is ${response.receiptNumber} `,
                  icon: "success",
                  button: "ok"
              }).then(function() {
