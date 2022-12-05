@@ -117,7 +117,7 @@
 											function(val){
 												var date=new Date(val);
 												var today = new Date();
-												return (date < today);
+												return (today > date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -134,7 +134,7 @@
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												return (val >= letterDate);
+												return (letterDate <= val);
 											}
 										</aui:validator>
 									<aui:validator name="custom"
@@ -142,7 +142,7 @@
 											function(val){
 												var date=new Date(val);
 												var today = new Date();
-												return (date < today);
+												return (today > date);
 											}
 										</aui:validator>
 								</aui:input>
