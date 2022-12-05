@@ -55,18 +55,23 @@ input[type='file'] {
 		<div class="border border-dark m-1 receipt">
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6">
-					<aui:col cssClass="border">
-						<div id="targetDiv" class="targetDiv">
-							<button class="btn" id="removeFileUpload"
-								style="font-size: 15px; margin: 1px; float: left;">
-								<i class="fa fa-close"></i>
+					<aui:col cssClass="border ">
+						<button class="btn text-danger" id="removeFileUpload">
+								Remove
 							</button>
-							<aui:input label="" name="document" type="file"
-								style="float: left ; width: 200px;">
-								<aui:validator name="required" />
-								<aui:validator name="acceptFiles"
-									errorMessage="error-receipt-upload-message">'pdf'</aui:validator>
-							</aui:input>
+						<div id="targetDiv" class="targetDiv text-center">
+							
+							
+							
+						
+							<div class="dropzone-wrapper" style="display:none">
+							<i class="glyphicon glyphicon-download-alt"></i>
+               				 	<p>Choose an pdf file or drag it here.</p>
+               					 <span class="btn btn-info" style="font-size:15px;" id="doc-select-btn">Choose file</span>
+								<input name="doc-input" id="doc-input" type="file" hidden />
+								
+								</div> 
+
 							<embed id="editpdfurl" type="application/pdf"
 								src="${receipt.viewPdfUrl}" width="100%" height="450">
 						</div>

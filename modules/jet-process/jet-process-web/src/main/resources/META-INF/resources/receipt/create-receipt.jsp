@@ -46,19 +46,27 @@
 		</div>
 		<div class=" receipt" style="border: 2px solid #a19c9c">
 			<aui:container cssClass="row">
-				<aui:form cssClass="col">
-					<div id="targetDiv" class="targetDiv">
-						<aui:input id="document" label="" name="document" type="file"
-							style="float: left; width: 200px;">
-							<aui:validator name="required" />
-							<aui:validator name="acceptFiles"
-								errorMessage="error-receipt-upload-message"></aui:validator>
-						</aui:input>
-						<button class="btn" id="removeFileUpload"
-							style="font-size: 15px; margin: 1px; float: left;">
-							<i class="fa fa-close"></i>
-						</button>
+				<aui:form id="dropfile" cssClass="col-6 p-2 ">
+					<aui:row >
+						<aui:col cssClass="border  ">
+						
+           						 <button class="btn text-danger" id="removeFileUpload"
+									style="display:none">
+									Remove
+								</button>
+					<div id="targetDiv" class="targetDiv text-center">
+	
+							<div class="dropzone-wrapper ">
+							<i class="glyphicon glyphicon-download-alt"></i>
+               	 				<p>Choose an pdf file or drag it here.</p>
+               		 			<span class="btn btn-info" style="font-size:15px;" id="doc-select-btn">Choose File</span>
+								<input name="doc-input" id="doc-input" type="file" hidden />
+								
+								</div> 
 					</div>
+					</aui:col>
+					
+					</aui:row>
 				</aui:form>
 				<aui:form cssClass="scroll border border-dark col"
 					name="receiptForm" id="receiptForm">

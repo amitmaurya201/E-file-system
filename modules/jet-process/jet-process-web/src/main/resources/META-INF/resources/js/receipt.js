@@ -143,44 +143,7 @@ console.log("-- receiptId "+receiptId);
 var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
 console.log(viewPdf);
 
-/* file upload */	
-var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
-	$("#<portlet:namespace />document").on('change', function(){
-		 var myFile = $("#<portlet:namespace />document").prop("files")[0];
-		 var dmFileId=0;
-	     var formData = new FormData();
-	   	 formData.append('document', myFile);
-		 formData.append('groupId', groupId);
-		 var extension = $("#<portlet:namespace />document").val().split('.').pop().toLowerCase();
-		 if(myFile.size > 26,214,400 && extension == 'pdf'){ 
-		 $.ajax({
-			    type: "POST",
-			    url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
-			    data: formData,
-			    cache : false,
-			    processData: false,
-		        contentType : false,
-			  }).done(function(response) {
-				  tempFileId=response.id;
-				  console.log(tempFileId);
-	            	 viewPdfUrl=response.description;
-	            	console.log("viewPdfUrl--- " +viewPdfUrl);
-	            	var parent = $('#editpdfurl').parent();
-	            	if(parent!=undefined){
-	            		$("#editpdfurl").remove();
-	            		 var embed = $('<embed id="editpdfurl" type="application/pdf"  width="100%" height="450">');
-	            		 embed.attr('src',viewPdfUrl);
-	 	            	$('#targetDiv').append(embed);
-	            	}
-	      
-	            	 embed.attr('src',viewPdfUrl);
-	            	$('#targetDiv').append(embed);
-	            	
-			  }).fail(function(e) {
-			     console.log(e);
-			  }); 
-		 }
-	});
+
 
 /* create receipt */
 
@@ -282,17 +245,90 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 		 }
 });
 
-$('#removeFileUpload').on('click',function(){	
- var myFile1 = $("#<portlet:namespace />document").prop("files")[0];
- console.log(myFile1);
-	if(myFile1==undefined){
-		$("#editpdfurl").remove();
-	}
-	else{
-		myFile1.remove();
-	}
+
+$('#removeFileUpload').on('click',function(e){	
+	e.preventDefault();
+ $('.dropzone-wrapper').css("display", "block");
+ $('#removeFileUpload').css("display", "none");
+	console.log("if ------>>>>>");
+	$("#editpdfurl").remove();
+
 	
 });
+
+
+
+
+$('#doc-select-btn').on('click',function(){	
+		 $("#doc-input").trigger('click');
+	});
+
+
+$('#doc-input').on('change',function(e){	
+	console.log("doc input field...")
+	 console.log(e.target.files[0]);
+	displayPreview(e.target.files[0]);
+});
+
+	$('.dropzone-wrapper').on('dragover', function(e) {
+		console.log("inside drag area..")
+		e.preventDefault();
+		e.stopPropagation();
+	});
+
+	$('.dropzone-wrapper').on('dragleave', function(e) {
+		console.log("leave drag area..")
+	});
+	
+	$('.dropzone-wrapper').on('drop', function(e) {
+		
+	  e.preventDefault();
+	  e.stopPropagation();
+	  
+	  
+	  console.log("drop drag area.."+e.originalEvent.dataTransfer.files[0].name)
+		console.log(e.originalEvent.dataTransfer.files[0]);		
+		displayPreview(e.originalEvent.dataTransfer.files[0]);
+	});
+	
+function displayPreview(file){
+	var embed = $('<embed id="pdfurl" type="application/pdf"  width="100%" height="450">');
+	var myFile = file;
+	 var dmFileId=0;
+     var formData = new FormData();
+   	 formData.append('document', myFile);
+	 formData.append('groupId', groupId);
+	 $.ajax({
+		    type: "POST",
+		    url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
+		    data: formData,
+		    cache : false,
+		    processData: false,
+	        contentType : false,
+		  }).done(function(response) {
+			  tempFileId=response.id;
+			  console.log(tempFileId);
+            	 viewPdfUrl=response.description;
+            	console.log("viewPdfUrl--- " +viewPdfUrl);
+            	var parent = $('#editpdfurl').parent();
+            	if(parent!=undefined){
+            		$("#editpdfurl").remove();
+            		 var embed = $('<embed id="editpdfurl" type="application/pdf"  width="100%" height="450">');
+            		 embed.attr('src',viewPdfUrl);
+ 	            	$('#targetDiv').append(embed);
+            	}
+            	 embed.attr('src',viewPdfUrl);
+            	 $('.dropzone-wrapper').css("display", "none");
+            	 $('#removeFileUpload').css("display", "block");
+            	$('#targetDiv').append(embed);
+            	
+		  }).fail(function(e) {
+		     console.log(e);
+		  }); 
+}
+
+
+
 
 
 </aui:script>
