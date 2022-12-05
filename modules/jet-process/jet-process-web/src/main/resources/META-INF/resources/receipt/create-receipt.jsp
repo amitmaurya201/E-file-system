@@ -125,13 +125,15 @@
 										key="label-receipt-letter-date" /></label>
 								
 								<aui:input type="text" label="" name="letterDate"
-									id="letterDate" placeholder="dd/mm/yyyy" >
+									id="letterDate" placeholder="dd-mm-yyyy" >
 									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
-												var date=new Date(val);
-												var today = new Date();
+											var created = (document.getElementById("<portlet:namespace />createdOn").value);
+											var date=new Date(val);
+											var today = new Date();
+											console.log(date);
 												return (today > date);
 											}
 										</aui:validator>
@@ -143,7 +145,7 @@
 								<label><liferay-ui:message
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
 								<aui:input type="text" label="" name="receivedOn"
-									id="receivedOn" placeholder="dd/mm/yyyy">
+									id="receivedOn" placeholder="dd-mm-yyyy">
 									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="required" />
 									<aui:validator name="custom"
@@ -388,19 +390,27 @@
 	});
 </script>
 <script type="text/javascript">
+/* let datepicker: DatePicker = new DatePicker({
+    value: new Date(),
+    format: 'dd-MMM-yy',
+    placeholder: 'Select a date',
+    width: "233px"
+});
+datepicker.appendTo('#datepicker');
+datepicker.show(); */
 
-$(document).ready(function() {	
+
+$(document).ready(function() {
 	$("#<portlet:namespace/>letterDate").datepicker({
-		format : 'dd/mm/yyyy',
-		pickTime : false,		
-		autoclose:true
+		format : 'dd-M-yyyy'
+		
+		
+		
 	});
 
-	$("#<portlet:namespace/>receivedOn").datepicker({
-		format : 'dd/mm/yyyy',
-		pickTime : false,
+	 $("#<portlet:namespace/>receivedOn").datepicker({
+		format : 'dd-M-yyyy'
 		
-		autoclose:true,
 	});
 
 });

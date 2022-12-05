@@ -30,23 +30,31 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 		try {
 			receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 			renderRequest.setAttribute("receipt", receipt);
+			
 			Masterdata typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
+			renderRequest.setAttribute("typeValue", typeById.getValue());
+			
 			Masterdata deliveryModeById = masterdataLocalService.getDeliveryModeById(receipt.getDeliveryModeId());
+			renderRequest.setAttribute("deliveryModeValue", deliveryModeById.getValue());
+			
 			Masterdata organizationById = masterdataLocalService.getOrganizationById(receipt.getOrganizationId());
+			renderRequest.setAttribute("organizationValue", organizationById.getValue());
+			
+			if(receipt.getSubOrganizationId() != 0) {
 			Masterdata subOrganizationById = masterdataLocalService
 					.getSubOrganizationById(receipt.getSubOrganizationId());
+			renderRequest.setAttribute("subOrganizationValue", subOrganizationById.getValue());
+			}
+			
 			Masterdata receiptCategoryById = masterdataLocalService
 					.getReceiptCategoryById(receipt.getReceiptCategoryId());
+			renderRequest.setAttribute("receiptCategoryValue", receiptCategoryById.getValue());
+			
+			if(receipt.getReceiptSubCategoryId() != 0) {
 			Masterdata receiptSubCategoryById = masterdataLocalService
 					.getReceiptSubCategoryById(receipt.getReceiptSubCategoryId());
-
-			renderRequest.setAttribute("typeValue", typeById.getValue());
-			renderRequest.setAttribute("deliveryModeValue", deliveryModeById.getValue());
-			renderRequest.setAttribute("organizationValue", organizationById.getValue());
-			renderRequest.setAttribute("subOrganizationValue", subOrganizationById.getValue());
-			renderRequest.setAttribute("receiptCategoryValue", receiptCategoryById.getValue());
 			renderRequest.setAttribute("receiptSubCategoryValue", receiptSubCategoryById.getValue());
-
+			}
 			// For User Post Table
 			long userPostId = receipt.getUserPostId();
 			UserPost userPost = userPostLocalService.getUserPost(userPostId);
