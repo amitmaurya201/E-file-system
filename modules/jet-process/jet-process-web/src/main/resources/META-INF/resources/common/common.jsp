@@ -68,9 +68,10 @@
  }
  
  
-  $(".hover-tips").hover(function() {
-		
-	    $(this).attr('title', $(this).text());
+ var char_width="<liferay-ui:message key='max-width-tooltip'/>";
+ $(".hover-tips").css("max-width", char_width);
+ $(".hover-tips").hover(function() {
+	    $(this).attr('title', $(this).text());	
 	    
 	});
  

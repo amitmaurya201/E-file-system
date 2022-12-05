@@ -51,7 +51,7 @@
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 30ch;
+    
 }
 .hover-tips[title]:hover::after {
   background-color: #fcf4ca;
