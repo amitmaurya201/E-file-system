@@ -13,7 +13,8 @@
 .date-icon{
             position: absolute;
             right: 5px;
-           bottom: 14px;
+           /* bottom: 14px; */
+           margin-top: 15px;
            z-index: 9;
            }
    &.date-input-width{
@@ -390,27 +391,16 @@
 	});
 </script>
 <script type="text/javascript">
-/* let datepicker: DatePicker = new DatePicker({
-    value: new Date(),
-    format: 'dd-MMM-yy',
-    placeholder: 'Select a date',
-    width: "233px"
-});
-datepicker.appendTo('#datepicker');
-datepicker.show(); */
+
 
 
 $(document).ready(function() {
 	$("#<portlet:namespace/>letterDate").datepicker({
-		format : 'dd-M-yyyy'
-		
-		
-		
+		format : 'dd-M-yyyy'		
 	});
 
 	 $("#<portlet:namespace/>receivedOn").datepicker({
 		format : 'dd-M-yyyy'
-		
 	});
 
 });
