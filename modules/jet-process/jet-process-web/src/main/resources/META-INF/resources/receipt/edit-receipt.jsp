@@ -279,7 +279,7 @@ input[type='file'] {
 									<aui:validator name="custom"
 										errorMessage="error-receipt-email-message">
 											function(val){
-												var regex=new RegExp(/^(.+)@([\w-]+\.)(.+)$/);
+												var regex=new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 												return regex.test(val);
 											}
 										</aui:validator>
