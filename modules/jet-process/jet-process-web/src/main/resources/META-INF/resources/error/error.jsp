@@ -1,5 +1,5 @@
 <%@ include file="../init.jsp"%>
 <%
-String errorMessage = ParamUtil.getString(request, "orderByType");
+String errorMessage = ParamUtil.getString(request, "noUserPostErrMsg");
 %>
-<h1>errorMessage</h1>
+<h1><%=errorMessage != null ? errorMessage : ""%></h1>
