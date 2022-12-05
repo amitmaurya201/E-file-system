@@ -9,7 +9,9 @@
 <%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
 <style>
+
 .date-icon{
             position: absolute;
             right: 5px;
@@ -20,9 +22,7 @@
    &.date-input-width{
               width: 48%;
     }
-
 </style>
-
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();

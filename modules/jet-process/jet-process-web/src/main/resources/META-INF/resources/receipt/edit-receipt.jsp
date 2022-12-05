@@ -1,3 +1,4 @@
+<%@ include file="../init.jsp"%>
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="java.util.TimeZone"%>
 <%@page
@@ -7,7 +8,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
-<%@ include file="../init.jsp"%>
 <%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
@@ -18,6 +18,17 @@
 input[type='file'] {
 	color: rgba(0, 0, 0, 0)
 }
+
+.date-icon{
+            position: absolute;
+            right: 5px;
+           /* bottom: 14px; */
+           margin-top: 15px;
+           z-index: 9;
+           }
+   &.date-input-width{
+              width: 48%;
+    }
 </style>
 <%
 	Receipt receipt = (Receipt) session.getAttribute("receipt");
@@ -118,8 +129,9 @@ input[type='file'] {
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-letter-date" /></label>
-								<aui:input type="date" label="" name="letterDate"
-									id="letterDate" value="${receipt.letterDate}">
+								<aui:input type="text" label="" name="letterDate"
+									id="letterDate" value="${receipt.letterDate}"placeholder="dd-mm-yyyy">
+									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
@@ -135,8 +147,9 @@ input[type='file'] {
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
-								<aui:input type="date" label="" name="receivedOn"
-									id="receivedOn" value="${receipt.receivedOn}">
+								<aui:input type="text" label="" name="receivedOn"
+									id="receivedOn" value="${receipt.receivedOn}"placeholder="dd-mm-yyyy">
+									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="required" />
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
@@ -407,4 +420,20 @@ input[type='file'] {
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function() {
+	$("#<portlet:namespace/>letterDate").datepicker({
+		format : 'dd-M-yyyy'		
+	});
+
+	 $("#<portlet:namespace/>receivedOn").datepicker({
+		format : 'dd-M-yyyy'
+	});
+
+});
+</script>
 <%@ include file="/js/receipt.js"%>
