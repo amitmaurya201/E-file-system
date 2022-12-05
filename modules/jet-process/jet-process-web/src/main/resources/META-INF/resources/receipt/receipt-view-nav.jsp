@@ -65,28 +65,28 @@
 		</button>
 		<div class="collapse navbar-collapse" id="main_nav">
 			<ul class="navbar-nav">
-				<li class="nav-item "><a class="nav-link text-black"
+				<li class="nav-item "><a id="home" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=home%>">Home </a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="movement" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=movementRenderURL%>"> Movement </a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="send" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=send%>"> Send </a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="sendback" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=sendBack%>"> Send Back </a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="putFile" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=putFile%>"> Put in a file </a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="dispatch" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=dispatch%>">Dispatch</a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="edit" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=edit%>"> Edit </a></li>
-				<li class="nav-item"><a class="nav-link text-black"
+				<li class="nav-item"><a id="actionDetails" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=actionDetails%>"> Action Details </a></li>
 				<li class="nav-item dropdown"><a
@@ -115,3 +115,12 @@
 		</div>
 	</div>
 </nav>
+
+<script>
+var navId = "${param.selectedNav}";
+var nav = document.getElementById(navId);
+
+nav.style.color = 'blue';
+
+
+</script>
