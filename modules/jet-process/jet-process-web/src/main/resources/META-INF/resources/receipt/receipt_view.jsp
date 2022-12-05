@@ -36,81 +36,76 @@
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
 			simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
-		<div class="receipt_view ">
-			<h5 Class="border hover-tips pl-2"
+		<div class="receipt_view">
+
+			<h5 Class="border hover-tips  pl-2"
 				style="margin-top: 3px; background: gainsboro;">
-				<%=currentNature%> | ${receipt.receiptNumber} | ${receiptCategoryValue}
+				<%=currentNature%>
+				| ${receipt.receiptNumber} | ${receiptCategoryValue}
 			</h5>
 			<div class="container">
-
 				<div class="row border border-dark scroll"
 					style="height: 370px; overflow: overlay">
-					<div class=" col-5" class="border">
+					<div class="col-5" class="border">
 						<embed id="pdfurl" type="application/pdf"
 							src="${receipt.viewPdfUrl} " width="100%" height="450">
 					</div>
-					<div class=" border col-7 mb-2">
+					<div class="border col-7 mb-2 ">
 						<div class="heading">
 							<h4>
 								<aui:icon cssClass="fas fa-file-alt icon " />
-								Diary Details
+								<liferay-ui:message key="label-receipt-diary-details" />
 							</h4>
 						</div>
 						<div class="row">
 							<div class="col-6">
 								<table>
 									<tr>
-										<th>Created On:</th>
+										<th><liferay-ui:message key="label-receipt-createdon" />:</th>
 										<td><%=simpleFormat.format(receipt.getCreateDate())%></td>
 									</tr>
 									<tr>
-										<th>Nature:</th>
-										<td>${receipt.nature}</td>
+										<th><liferay-ui:message key="label-receipt-nature" />:</th>
+										<td><%=receipt.getNature()%></td>
 									</tr>
 									<tr>
-										<th>Type:</th>
+										<th><liferay-ui:message key="label-receipt-type" />:</th>
 										<td>${typeValue}</td>
 									</tr>
 									<tr>
-										<th>Received On:</th>
+										<th><liferay-ui:message key="label-receipt-received-on" />:</th>
 										<td>${receipt.receivedOn}</td>
 									</tr>
 									<tr>
-										<th>Reference Number:</th>
+										<th><liferay-ui:message key="label-receipt-reference-no" />:</th>
 										<td>${receipt.referenceNumber}</td>
-									</tr>
-									<tr>
-										<th>Category:</th>
-										<td>${receiptCategoryValue}</td>
 									</tr>
 								</table>
 							</div>
 							<div class="col-6">
 								<table>
 									<tr>
-										<th>Receipt Number:</th>
+										<th><liferay-ui:message
+												key="label-receipt-list-receiptno" />:</th>
 										<td>${receipt.receiptNumber}</td>
 									</tr>
 									<tr>
-										<th>File Number:</th>
-										<td>Linus</td>
+										<th><liferay-ui:message key="label-file-list-fileno" />:</th>
+										<td></td>
 									</tr>
 									<tr>
-										<th>Delivery Mode:</th>
+										<th><liferay-ui:message key="label-receipt-delivery-mode" />:</th>
 										<td>${deliveryModeValue}</td>
 									</tr>
 									<tr>
-										<th>Letter Date:</th>
+										<th><liferay-ui:message key="label-receipt-letter-date" />:</th>
 										<td>${receipt.letterDate}</td>
 									</tr>
 									<tr>
-										<th>Mode Number:</th>
+										<th><liferay-ui:message key="label-receipt-mode-no" />:</th>
 										<td>${receipt.modeNumber}</td>
 									</tr>
-									<tr>
-										<th>Sub Category:</th>
-										<td>${receiptSubCategoryValue}</td>
-									</tr>
+
 								</table>
 							</div>
 						</div>
@@ -118,23 +113,27 @@
 							<div class="col-12">
 								<table>
 									<tr>
-										<th>Created By:</th>
+										<th><liferay-ui:message key="label-receipt-category" />:</th>
+										<td>${receiptCategoryValue}</td>
+									</tr>
+									<tr>
+										<th><liferay-ui:message key="label-receipt-sub-category" />:</th>
+										<td>${receiptSubCategoryValue}</td>
+									</tr>
+									<tr>
+										<th><liferay-ui:message
+												key="label-receipt-view-created-by" />:</th>
 										<td>${userPost.getUserName()},${userPost.getSectionName()}_${userPost.getDepartmentName()},${userPost.getPostMarking()}</td>
 									</tr>
-								</table>
-							</div>
-							<div class="col-12">
-								<table>
+
+
 									<tr>
-										<th>Subject:</th>
+										<th><liferay-ui:message key="label-receipt-subject" />:</th>
 										<td>${receipt.subject}</td>
 									</tr>
-								</table>
-							</div>
-							<div class="col-12">
-								<table>
+
 									<tr>
-										<th>Remarks:</th>
+										<th><liferay-ui:message key="label-receipt-remark" />:</th>
 										<td>${receipt.remarks}</td>
 									</tr>
 
@@ -144,18 +143,19 @@
 						<div class="border heading">
 							<h4>
 								<aui:icon cssClass="fas fa-envelope icon" />
-								Sender Details
+								<liferay-ui:message key="label-receipt-sender-details" />
 							</h4>
 						</div>
 						<div class="row">
 							<div class="col-6">
 								<table>
 									<tr>
-										<th>Organization:</th>
+										<th><liferay-ui:message key="label-receipt-organization" />:</th>
 										<td>${organizationValue}</td>
 									</tr>
 									<tr>
-										<th>Sub Organization:</th>
+										<th><liferay-ui:message
+												key="label-receipt-sub-organization" />:</th>
 										<td>${subOrganizationValue}</td>
 									</tr>
 								</table>
@@ -163,11 +163,11 @@
 							<div class="col-6">
 								<table>
 									<tr>
-										<th>Sender:</th>
+										<th><liferay-ui:message key="label-receipt-view-sender" />:</th>
 										<td>${receipt.name}</td>
 									</tr>
 									<tr>
-										<th>Designation:</th>
+										<th><liferay-ui:message key="label-receipt-designation" />:</th>
 										<td>${receipt.designation}</td>
 									</tr>
 								</table>
@@ -177,7 +177,7 @@
 							<div class="col-12">
 								<table>
 									<tr>
-										<th>Address:</th>
+										<th><liferay-ui:message key="label-receipt-address" />:</th>
 										<td>${receipt.address}</td>
 									</tr>
 								</table>
@@ -189,3 +189,10 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
+
+
