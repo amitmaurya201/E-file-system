@@ -63,15 +63,15 @@
 		</div>
 
 		<div class="container-fluid m-1" style="background-color: #E8E8E8;">
-			<span style="font-weight: 500">File Details</span><br />
+			<span style="font-weight: 500"><liferay-ui:message key="file-details-heading" /></span><br />
 		</div>
 
 		<div class="row m-1">
 			<div class="column" style="background-color: #E8E8E8;">
-				<h5>FileNumber:</h5>
-				<h5>Category:</h5>
-				<h5>Reference:</h5>
-				<h5>Nature:</h5>
+				<h5><liferay-ui:message key="label-file-fileno" />:</h5>
+				<h5><liferay-ui:message key="label-file-categoryid" />:</h5>
+				<h5><liferay-ui:message key="label-file-reference" />:</h5>
+				<h5><liferay-ui:message key="label-file-nature" />:</h5>
 			</div>
 			<div class="column" style="background-color: #F8F8F8;">
 				<h5><%=docFile.getFileNumber()%></h5>
@@ -80,10 +80,10 @@
 				<h5><%=docFile.getNature()%></h5>
 			</div>
 			<div class="column" style="background-color: #E8E8E8;">
-				<h5>Subject:</h5>
-				<h5>SubCategory:</h5>
-				<h5>Remarks:</h5>
-				<h5>Type:</h5>
+				<h5><liferay-ui:message key="label-file-subject" />:</h5>
+				<h5><liferay-ui:message key="label-file-sub-categoryid" />:</h5>
+				<h5><liferay-ui:message key="label-file-remark" />:</h5>
+				<h5><liferay-ui:message key="label-file-nature-type" />:</h5>
 			</div>
 			<div class="column" style="background-color: #F8F8F8;">
 				<h5><%=docFile.getSubject()%></h5>
