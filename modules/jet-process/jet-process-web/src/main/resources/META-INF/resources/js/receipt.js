@@ -1,12 +1,4 @@
 <aui:script use= "aui-base">
-$("#<portlet:namespace />receiptCategoryId").append(new Option("Select","0"));
-$("#<portlet:namespace />countryId").append(new Option("Select","0"));
-$("#<portlet:namespace />stateId").append(new Option("Select","0"));
-$("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select","0"));
-$("#<portlet:namespace />deliveryModeId").append(new Option("Select","0"));
-$("#<portlet:namespace />organizationId").append(new Option("Select","0"));
-$("#<portlet:namespace />subOrganizationId").append(new Option("Select","0"));
-$("#<portlet:namespace />typeId").append(new Option("Select","0"));
 
 var tempFileId=0;
 
@@ -213,18 +205,26 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 			    cache : false,
 			    processData: false,
 		        contentType : 'application/json'
-			  }) .done(function(response) {
-				  console.log(response);
-				  swal( {
-                      title: "successfull !",
-                      text: `You Have successfully created Your Receipt!And Your Receipt Number is ${response.receiptNumber}  `,
-                      icon: "success",
-                      button: "ok"
-                  }).then(function() {
-                	    window.location.href = '<%= createdListReceipt.toString() %>';
-                  });
-		 })
-		 .fail(function(error){
+		 }) .done(function(response) {
+			  console.log(response);
+			if(response!=null){
+			  swal( {
+                 title: "successfull !",
+                 text: `You Have successfully created Your Receipt! `,
+                 icon: "success",
+                 button: "ok"
+             }).then(function() {
+           	    window.location.href = '<%= createdListReceipt.toString() %>';
+             });
+			}else{
+				swal({  
+					  title: " Oops!",  
+					  text: " Something went wrong, you should choose again!",  
+					  icon: "error",  
+					}); 
+				
+			}
+	 }).fail(function(error){
 			 swal({  
 				  title: " Oops!",  
 				  text: " Something went wrong, you should choose again!",  

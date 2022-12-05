@@ -24,18 +24,24 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		Receipt receipt = receiptLocalService.getReceipt();
+		System.out.println("name"+receiptRsModel.getName());
+		if(receiptRsModel.getSubject().isEmpty()||receiptRsModel.getName().isEmpty()||receiptRsModel.getAddress().isEmpty()||receiptRsModel.getDesignation().isEmpty()) {
+			return null;	
+		}
+		
 		String receiptNumber =generateReceiptNumber(receipt.getReceiptId());
+		if(receiptRsModel.getTempFileId()!=0) {
 		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
 		String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
+		receipt.setViewPdfUrl(viewFileUrl);
+		receipt.setDmFileId(dmFileId);
+		}
 		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
 		receipt.setSubject(receiptRsModel.getSubject());
 		receipt.setTypeId(receiptRsModel.getTypeId());
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
-		receipt.setDmFileId(dmFileId);
-		receipt.setViewPdfUrl(viewFileUrl);
 		receipt.setReceiptNumber(receiptNumber);
 		receipt.setNature(receiptRsModel.getNature());
-		receipt.setCurrentState(1);
 		receiptRsModel.setReceiptNumber(receiptNumber);
 		receipt.setAddress(receiptRsModel.getAddress());
 		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
