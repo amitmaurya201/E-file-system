@@ -207,10 +207,11 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 		        contentType : 'application/json'
 		 }) .done(function(response) {
 			  console.log(response);
-			if(response!=null){
+			  var receiptNumber =response.receiptNumber;
+			if(receiptNumber!=null){
 			  swal( {
                  title: "successfull !",
-                 text: `You Have successfully created Your Receipt!And Your Receipt Number is ${response.receiptNumber} `,
+                 text: `You Have successfully created Your Receipt!And Your Receipt Number is `+receiptNumber,
                  icon: "success",
                  button: "ok"
              }).then(function() {
