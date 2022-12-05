@@ -57,7 +57,7 @@ input[type='file'] {
 				<aui:form cssClass="col-6">
 					<aui:col cssClass="border ">
 						<button class="btn text-danger" id="removeFileUpload">
-								Remove
+								<liferay-ui:message key="receipt-remove-button" />
 							</button>
 						<div id="targetDiv" class="targetDiv text-center">
 							
@@ -66,8 +66,8 @@ input[type='file'] {
 						
 							<div class="dropzone-wrapper" style="display:none">
 							<i class="glyphicon glyphicon-download-alt"></i>
-               				 	<p>Choose an pdf file or drag it here.</p>
-               					 <span class="btn btn-info" style="font-size:15px;" id="doc-select-btn">Choose file</span>
+               				 	<p><liferay-ui:message key="label-receipt-pdf-drag" /></p>
+               					 <span class="btn btn-info" style="font-size:15px;" id="doc-select-btn"><liferay-ui:message key="label-receipt-pdf-file" /></span>
 								<input name="doc-input" id="doc-input" type="file" hidden />
 								
 								</div> 
