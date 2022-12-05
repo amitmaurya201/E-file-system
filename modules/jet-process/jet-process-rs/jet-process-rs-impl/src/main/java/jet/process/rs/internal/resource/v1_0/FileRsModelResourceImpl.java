@@ -41,6 +41,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			docFile.setFileCodeId(0);
 			fileNumber=fileRsModel.getFileNumber();
 			if(fileNumber.isEmpty()) {
+				
 				return null;
 			}
 			docFile.setFileNumber(fileNumber);

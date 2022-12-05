@@ -1,4 +1,8 @@
+<%@page import="com.liferay.portal.kernel.util.PropsUtil"%>
 <aui:script>
+ <%
+String char_width = PropsUtil.get("max.width");
+%>
 
  function bindFormDataJson(formObj){
 	 //  var list= $('#<portlet:namespace/>formName')[0];
@@ -26,7 +30,7 @@
    }
    
    function getUserPostId(){
-		var userPostId = $("#value").val();
+		var userPostId = $("#userPostOption").val();
 		 console.log(userPostId);
 		 
 	     return userPostId;	 
@@ -68,8 +72,8 @@
  }
  
  
- var char_width="<liferay-ui:message key='max-width-tooltip'/>";
- $(".hover-tips").css("max-width", char_width);
+ <!-- var char_width="<liferay-ui:message key='max-width-tooltip'/>"; -->
+ $(".hover-tips").css("max-width", "<%=char_width %>");
  $(".hover-tips").hover(function() {
 	    $(this).attr('title', $(this).text());	
 	    

@@ -33,7 +33,7 @@ input[type='file'] {
 	<div class="col-10">
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
-			<liferay-util:param name="selectedNav" value="home" />
+			<liferay-util:param name="selectedNav" value="edit" />
 			<%-- <liferay-util:param name="userPostId" value="${id}" /> --%>
 		</liferay-util:include>
 		<div>
