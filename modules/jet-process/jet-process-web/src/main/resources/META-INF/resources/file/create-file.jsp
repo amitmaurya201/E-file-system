@@ -99,8 +99,8 @@
 																			<aui:select cssClass="form-select form-control"
 																				name="primaryHeadId" id="primaryHeadId"
 																				label="label-file-primary-head-id">
-																				<!-- <option value=""><liferay-ui:message
-																						key="file-default-option" /></option> -->
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 
@@ -109,8 +109,8 @@
 																			<aui:select cssClass="form-select form-control"
 																				name="secondaryHeadId" id="secondaryHeadId"
 																				label="label-file-secondary-head-id">
-																				<!-- <option value=''><liferay-ui:message
-																						key="file-default-option" /></option> -->
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
@@ -118,8 +118,8 @@
 																			<aui:select cssClass="form-select form-control"
 																				name="tertiaryHeadId" id="tertiaryHeadId"
 																				label="label-file-tertiary-head-id">
-																				<!-- 	<option value=''><liferay-ui:message
-																						key="file-default-option" /></option> -->
+																				<option value=""><liferay-ui:message
+																						key="file-default-option" /></option>
 																				<aui:validator name="required" />
 																			</aui:select>
 																		</div>
@@ -202,9 +202,8 @@
 													id="categoryId" name="categoryId"
 													label="label-file-categoryid">
 
-													<!-- <option value=''><liferay-ui:message
-																						key="file-default-option" /></option> -->
-
+													<option value='0'><liferay-ui:message
+															key="file-default-option" /></option>
 												</aui:select>
 											</div>
 										</aui:fieldset>
@@ -214,10 +213,8 @@
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId"
 													label="label-file-sub-categoryid">
-
-
-													<!-- <option value=''><liferay-ui:message
-																						key="file-default-option" /></option> -->
+													<option value='0'><liferay-ui:message
+															key="file-default-option" /></option>
 
 
 												</aui:select>
