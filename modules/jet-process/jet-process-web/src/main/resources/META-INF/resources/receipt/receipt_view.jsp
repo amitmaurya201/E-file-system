@@ -36,18 +36,20 @@
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
 			simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
-		<div class="receipt_view">
+		<div class="receipt_view ">
+			<h5 Class="border hover-tips pl-2"
+				style="margin-top: 3px; background: gainsboro;">
+				<%=currentNature%> | ${receipt.receiptNumber} | ${receiptCategoryValue}
+			</h5>
 			<div class="container">
-				<h5 Class="border hover-tips" style="margin-top: 3px;">
-					<%=currentNature%>
-					| ${receipt.receiptNumber} | ${receiptCategoryValue}
-				</h5>
-				<div class="row">
-					<div class="col-5" class="border">
+
+				<div class="row border border-dark scroll"
+					style="height: 370px; overflow: overlay">
+					<div class=" col-5" class="border">
 						<embed id="pdfurl" type="application/pdf"
 							src="${receipt.viewPdfUrl} " width="100%" height="450">
 					</div>
-					<div class="border col-7 ">
+					<div class=" border col-7 mb-2">
 						<div class="heading">
 							<h4>
 								<aui:icon cssClass="fas fa-file-alt icon " />
