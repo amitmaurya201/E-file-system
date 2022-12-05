@@ -228,7 +228,15 @@
 <!-- /Header -->
 
 <script>
-	 $('#userPostOption').val(${themeDisplay.getRequest().getSession().getAttribute("userPostId")});
+	var userPost = 1;
+	userPost = ${themeDisplay.getRequest().getSession().getAttribute("userPostId")};
+	if(userPost != null){
+	 	$('#userPostOption').val(userPost);
+	 	console.log("Userpost id is not null from session in theme so setting as "+userPost);
+ 	}else{
+ 		$('#userPostOption').val(userPost);
+	 	console.log("Userpost id is null from session in theme so setting as "+userPost);
+	}
 </script>
 
 
