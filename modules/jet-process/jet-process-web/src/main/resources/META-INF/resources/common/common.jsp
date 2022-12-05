@@ -37,7 +37,7 @@ String char_width = PropsUtil.get("max.width");
    }
 
 
- function setUserPostId(){
+ <%-- function setUserPostId(){
 	 var userPostId = $('#userPostOption').find(":selected").val();
 	 $('#userPostOption').on('change', function() {
 	 	userPostId = this.value;
@@ -69,7 +69,7 @@ String char_width = PropsUtil.get("max.width");
 	 	
 	 });
 
- }
+ } --%>
  
  
  <!-- var char_width="<liferay-ui:message key='max-width-tooltip'/>"; -->
