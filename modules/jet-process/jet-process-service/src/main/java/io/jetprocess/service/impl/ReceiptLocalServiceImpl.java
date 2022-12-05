@@ -54,33 +54,20 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		String number = null;
 		String changeLog = "docStore";
 		FileEntry fileEntry = docstore.getTempFile(tempfileEntryId);
-		System.out.println(fileEntry);
-
 		String title = fileEntry.getFileName();
-
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		long documentAndMediaFileId = 0l;
-		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,changeLog, 0l, "");
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		System.out.println("documentAndMediaFileId"+documentAndMediaFileId);
+		long documentAndMediaFileId =0l;
 		String viewFileUrl = null;
-		try {
-			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-		} catch (IOException e1) {
-
-			e1.printStackTrace();
-		}
-		System.out.println("viewFileUrl"+viewFileUrl);
 		
+	 try {
+		documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,changeLog, 0l, "");
+	    viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+	 } catch (IOException e) {	
+			System.out.println("documentAndMediaFileId not found");
+		}
 		docstore.deleteTempFile(tempfileEntryId);
-		// Generate A New Primary Key For The ContactDetails
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
-		// number=generateReceiptNumber(receiptId);
 		Receipt receipt = createReceipt(receiptId);
 
 		// 1.Update Actual Fields
@@ -139,20 +126,14 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
+		long documentAndMediaFileId =0l;
 		String viewFileUrl = null;
-		try {
-			viewFileUrl = docstore.ViewDocumentAndMediaFile(tempfileEntryId);
-		} catch (IOException e1) {
-
-			e1.printStackTrace();
-		}
-		long documentAndMediaFileId = 0l;
-		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,
-					changeLog, 0l, "");
-		} catch (IOException e) {
-
-			e.printStackTrace();
+		
+	 try {
+		documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,changeLog, 0l, "");
+	    viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+	 } catch (IOException e) {	
+			System.out.println("documentAndMediaFileId not found");
 		}
 		docstore.deleteTempFile(tempfileEntryId);
 		// 1.Update Actual Fields
@@ -213,27 +194,6 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		return receipt;
 	}
 	
-	/*
-	 * public Receipt getReceiptByTempFileId (long tempFileId, long groupId) throws
-	 * PortalException, IOException {
-	 * 
-	 * long receiptId = counterLocalService.increment(Receipt.class.getName());
-	 * System.out.println(receiptId); Receipt receipt = createReceipt(receiptId);
-	 * String number = generateReceiptNumber(receiptId);
-	 * receipt.setReceiptNumber(number); // file fields String changeLog =
-	 * "docStore"; FileEntry fileEntry = docstore.getTempFile(tempFileId); String
-	 * title = fileEntry.getFileName(); InputStream is =
-	 * fileEntry.getContentStream(); String mimeType = fileEntry.getMimeType(); long
-	 * documentAndMediaFileId =
-	 * docstore.documentAndMediaFileUpload(groupId,is,title, mimeType, changeLog,
-	 * 0l, "");
-	 * 
-	 * String viewFileUrl =
-	 * docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-	 * System.out.println(viewFileUrl); docstore.deleteTempFile(tempFileId);
-	 * receipt.setDmFileId(documentAndMediaFileId);
-	 * receipt.setViewPdfUrl(viewFileUrl); return receipt; }
-	 */
     public Receipt getReceiptUpdate(long receiptId) throws PortalException{
     	Receipt receipt = getReceipt(receiptId);
     	return receipt;	
@@ -247,12 +207,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
 		long  documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is,title, mimeType, changeLog, 0l, "");
-		System.out.println(documentAndMediaFileId);
-		/*
-		 * String viewFileUrl =
-		 * docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-		 * System.out.println("localservice"+viewFileUrl);
-		 */
+		
 		docstore.deleteTempFile(tempFileId);
     	return documentAndMediaFileId;
     }

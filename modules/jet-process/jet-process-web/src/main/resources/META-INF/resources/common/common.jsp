@@ -26,7 +26,7 @@
    }
    
    function getUserPostId(){
-		var userPostId = $("#value").val();
+		var userPostId = $("#userPostOption").val();
 		 console.log(userPostId);
 		 
 	     return userPostId;	 
