@@ -2,14 +2,14 @@ package io.jetprocess.web.portlet;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -17,11 +17,14 @@ import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostService;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -71,24 +74,44 @@ public class JetProcessWebPortlet extends MVCPortlet {
 	}
 
 	@Override
-	public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
+	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
+			throws IOException, PortletException {
 		
-		// For the first time set the user posr id in session
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		User user = themeDisplay.getUser();
 		HttpSession session = themeDisplay.getRequest().getSession();
-//		HttpSession httpSession = PortalUtil.getHttpServletRequest(renderRequest).getSession();
-		String userPostId = "1";
-		if(session != null) {
-			userPostId = (String) session.getAttribute("userPostId");
-			if (userPostId == null || userPostId.isEmpty() || userPostId.equals("")) {
-				session.setAttribute("userPostId", "1");
-			}
-			else {
-				session.setAttribute("userPostId", userPostId);
+//		HttpServletRequest httpRequest = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(renderRequest));
+		HttpServletRequest httpRequest = themeDisplay.getRequest();
+		String userPostIdFromUrl = httpRequest.getParameter("userPost"); //from url
+//		String userPostId = ParamUtil.getString(renderRequest, "userPostId", "0");// from ajax
+		logger.info("UserPostId from url: "+userPostIdFromUrl);
+		if(userPostIdFromUrl != null ) { 
+			session.setAttribute("userPostId", userPostIdFromUrl);
+			logger.info("UserPostId is sent in the session : "+userPostIdFromUrl);
+		}else {
+			userPostIdFromUrl = (String)session.getAttribute("userPostId");
+			logger.info("UserPostId from session : "+userPostIdFromUrl);
+			if(userPostIdFromUrl == null) {
+				List<UserPost> userPostList = userPostService.getUserPostList(user.getUserId());
+				if(userPostList != null) {
+					logger.info("UserPostList: "+userPostList);
+					UserPost userPost = userPostList.get(0);
+					logger.info("userPost--> "+userPost);
+					long postId = userPost.getPostId();
+					session.setAttribute("userPostId", String.valueOf(postId));
+				}
+				else {
+					// redirect to error.jsp saying userPost is not available for this user 
+					renderRequest.setAttribute("noUserPostErrMsg", "userPost is not available for the current user");
+					renderRequest.setAttribute("jspPage", "/error/error.jsp");
+				}
 			}
 		}
-		super.render(renderRequest, renderResponse);
+		super.doView(renderRequest, renderResponse);
 	}
+	
+		@Reference
+	private UserPostService userPostService;
 	
 	@Reference
 	FileMovementLocalService fLocalService;

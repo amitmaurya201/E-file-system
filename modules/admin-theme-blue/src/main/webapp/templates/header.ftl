@@ -225,18 +225,36 @@
 	<!-- /Mobile Menu -->
 	
 </div>
-<!-- /Header -->
 
+
+
+<!-- If user post is not avalable in session then set 0 as default -->
+<#assign sessionUserPost = themeDisplay.request.session.getAttribute("userPostId") ! "0" >
+
+<!-- /Header -->
 <script>
-	var userPost = 1;
-	userPost = ${themeDisplay.getRequest().getSession().getAttribute("userPostId")};
-	if(userPost != null){
-	 	$('#userPostOption').val(userPost);
-	 	console.log("Userpost id is not null from session in theme so setting as "+userPost);
- 	}else{
- 		$('#userPostOption').val(userPost);
-	 	console.log("Userpost id is null from session in theme so setting as "+userPost);
-	}
+	 $('#userPostOption').on('change', function() {
+	 	var userPost = $('#userPostOption').val();
+	 	var url = new URLSearchParams();
+	 	url = url + "?userPost=" + userPost;
+		window.location.href = url;
+	 });
+	 
+	 
+	 
+$( document ).ready(function() {
+		var userPost = ${sessionUserPost};
+		console.log("userPost => "+userPost);
+		if( userPost!= 0){
+		 	$('#userPostOption').val(userPost);
+		}
+		else{
+			$('#userPostOption').val(1);
+		}
+	});
+	 
+	 
 </script>
+
 
 
