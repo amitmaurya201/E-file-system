@@ -4,44 +4,12 @@
          
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 	
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
-
-<style>
-.duedate {
-        position: relative;
-        width: 150px; height: 20px;
-        color: white;
-    }
-
-   .duedate:before {
-        position: absolute;
-        top: 3px; left: 3px;
-        content: attr(data-date);
-        display: inline-block;
-        color: black;
-    }
-
-    .duedate::-webkit-datetime-edit, .duedate::-webkit-inner-spin-button, .duedate::-webkit-clear-button {
-        display: none;
-    }
-
-    .duedate::-webkit-calendar-picker-indicator {
-        position: absolute;
-        top: 3px;
-        right: 0;
-        color: black;
-        opacity: 1;
-    }
-
-</style>
 
 
 <div class="row">
@@ -104,7 +72,7 @@
 							<h1>
 								<span><b>Duedate</b></span>
 							</h1>
-							<input type="date" class="form-control duedate"
+							<input type="date" class="form-control"
 								name="<portlet:namespace/>dueDate" data-date="" data-date-format="DD/MM/YYYY">
 						</div>
 						<div class="fieldset">
@@ -137,19 +105,6 @@
 	</div>
 </div>
 
-<!-- <script>
-$(document).ready(function() {
-
-     // set an element
-     $("#duedate").val( moment().format('MMM D, YYYY') );
-
-     // set a variable
-     var today = moment().format('DD/MM/YYYY');
-     console.log(today);
-
-});
-</script> -->
-
 <script>
 	$('#receiverId').select2({
 		width : '100%',
@@ -158,15 +113,6 @@ $(document).ready(function() {
 	});
 </script>
 
-<<script type="text/javascript">
-$("#duedate").on("change", function() {
-    this.setAttribute(
-        "data-date",
-        moment(this.value, "YYYY-MM-DD")
-        .format( this.getAttribute("data-date-format") )
-    )
-}).trigger("change")
-</script>
 
 
 

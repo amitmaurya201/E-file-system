@@ -8,33 +8,6 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
-<!-- <style>
-.select2-selection__rendered{
-background-color: #f1f2f5;
-    border-color: #e7e7ed;
-    border-style: solid;
-    border-bottom-width: 0.0625rem;
-    border-left-width: 0.0625rem;
-    border-right-width: 0.0625rem;
-    border-top-width: 0.0625rem;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 rgb(0 0 0 / 0%);
-    color: #272833;
-    display: block;
-    font-size: 1rem;
-    font-weight: 400;
-    height: 2.5rem;
-    line-height: 1.5;
-    min-width: 0;
-    padding-bottom: 0.4375rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.4375rem;
-    width: 100%;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-</style> -->
 
 
 <div class="row">
@@ -73,7 +46,7 @@ background-color: #f1f2f5;
 
 							<select name='<portlet:namespace/>receiverId' id="receiverId"
 								class="form-control">
-
+									<option>choose One</option>
 								<%
 									List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);
 											if (userPostList != null) {

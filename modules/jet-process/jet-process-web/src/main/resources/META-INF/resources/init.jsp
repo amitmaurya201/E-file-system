@@ -43,6 +43,7 @@ if(httpSession != null){
 }
 %>
 
+<script src="<%=request.getContextPath()%>/datepicker/bootstrap-datepicker.min.js"></script>
 
-
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/datepicker/bootstrap-datepicker.min.css"  />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>

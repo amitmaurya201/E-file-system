@@ -9,6 +9,18 @@
 <%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<style>
+.date-icon{
+            position: absolute;
+            right: 5px;
+           bottom: 14px;
+           z-index: 9;
+           }
+   &.date-input-width{
+              width: 48%;
+    }
+
+</style>
 
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
@@ -51,9 +63,7 @@
 				</aui:form>
 				<aui:form cssClass="scroll border border-dark col"
 					name="receiptForm" id="receiptForm">
-					<%-- <aui:row>
-						<aui:col cssClass=""> --%>
-					<!-- <div class="scroll"> -->
+					
 					<div class="border heading">
 						<h4>
 							<aui:icon cssClass="fas fa-file-alt icon" />
@@ -115,8 +125,10 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-letter-date" /></label>
-								<aui:input type="date" label="" name="letterDate"
-									id="letterDate">
+								
+								<aui:input type="text" label="" name="letterDate"
+									id="letterDate" placeholder="dd/mm/yyyy" >
+									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="custom"
 										errorMessage="label-receipt-letter-date-erroe-message">
 											function(val){
@@ -132,8 +144,9 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
-								<aui:input type="date" label="" name="receivedOn"
-									id="receivedOn">
+								<aui:input type="text" label="" name="receivedOn"
+									id="receivedOn" placeholder="dd/mm/yyyy">
+									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="required" />
 									<aui:validator name="custom"
 										errorMessage="label-receipt-received-on-error-message1">
@@ -380,5 +393,23 @@
 	$(document).ready(function() {
 		setUserPostId();
 	});
+</script>
+<script type="text/javascript">
+
+$(document).ready(function() {	
+	$("#<portlet:namespace/>letterDate").datepicker({
+		format : 'dd/mm/yyyy',
+		pickTime : false,		
+		autoclose:true
+	});
+
+	$("#<portlet:namespace/>receivedOn").datepicker({
+		format : 'dd/mm/yyyy',
+		pickTime : false,
+		
+		autoclose:true,
+	});
+
+});
 </script>
 <%@ include file="/js/receipt.js"%>
