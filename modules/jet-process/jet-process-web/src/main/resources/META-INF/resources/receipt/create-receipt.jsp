@@ -62,15 +62,11 @@
 									</p>
 									<span class="btn btn-info" style="font-size: 15px;"
 										id="doc-select-btn"><liferay-ui:message
-											key="label-receipt-pdf-file" /></span>
-									<%-- <c:choose
-										test="${<portlet:namespace />letterDate  eq  'Electronic'}"> --%>
-									<input name="doc-input" id="doc-input" type="file" hidden
-										required="required" />
-									<%-- 	</c:choose>
-									<c:otherwise>
-										<input name="doc-input" id="doc-input" type="file" hidden />
-									</c:otherwise> --%>
+											key="label-receipt-pdf-file" /></span> 
+											
+											<input name="doc-input"
+										id="doc-input" type="file" hidden required="required" />
+
 								</div>
 							</div>
 						</aui:col>
@@ -168,9 +164,12 @@
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												var letterDateFmt=new Date(letterDate);
-												var valFrt=new Date(val);	
-												return (letterDateFmt <= valFrt);
+												var receivedDate=new Date(val);	
+												if(letterDate != ""){
+													var newLetterDate=new Date(letterDate);
+													return (newLetterDate <= receivedDate);
+												}
+												return "letter date null";
 											}
 										</aui:validator>
 									<aui:validator name="custom"

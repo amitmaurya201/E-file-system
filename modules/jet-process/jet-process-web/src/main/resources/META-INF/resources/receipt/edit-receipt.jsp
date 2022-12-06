@@ -160,9 +160,12 @@ input[type='file'] {
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												var letterDateFmt=new Date(letterDate);
-												var valFrt=new Date(val);	
-												return (letterDateFmt <= valFrt);
+												var receivedDate=new Date(val);	
+												if(letterDate != ""){
+													var newLetterDate=new Date(letterDate);
+													return (newLetterDate <= receivedDate);
+												}
+												return "letter date null";
 											}
 										</aui:validator>
 									<aui:validator name="custom"
