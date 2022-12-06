@@ -9,7 +9,7 @@ implementation group: 'commons-collections', name: 'commons-collections', versio
 	compile project(":modules:jet-process-masterdata:jet-process-masterdata-api")
 
 	compile project(":modules:jet-process:jet-process-api")
-
+compile project(":modules:jet-process:jet-process-core")
 
 
 	cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.0.2"
