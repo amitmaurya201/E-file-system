@@ -163,7 +163,9 @@
 					cssClass="remark" name="label-receipt-list-remark" />
 
 				<liferay-ui:search-container-column-text name="label-receipt-list-pdf">
-					<i class="fa fa-file-pdf openPdf"  data-url="${receipt.viewPdfUrl}"></i>
+					<c:if test="${not empty receipt.viewPdfUrl}">
+						<i class="fa fa-file-pdf openPdf"  data-url="${receipt.viewPdfUrl}"></i>
+					</c:if>
 				</liferay-ui:search-container-column-text>
 					
 
