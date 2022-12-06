@@ -266,6 +266,36 @@ public interface FileMovementModel
 	 */
 	public void setRemark(String remark);
 
+	/**
+	 * Returns the read on of this file movement.
+	 *
+	 * @return the read on of this file movement
+	 */
+	@AutoEscape
+	public String getReadOn();
+
+	/**
+	 * Sets the read on of this file movement.
+	 *
+	 * @param readOn the read on of this file movement
+	 */
+	public void setReadOn(String readOn);
+
+	/**
+	 * Returns the received on of this file movement.
+	 *
+	 * @return the received on of this file movement
+	 */
+	@AutoEscape
+	public String getReceivedOn();
+
+	/**
+	 * Sets the received on of this file movement.
+	 *
+	 * @param receivedOn the received on of this file movement
+	 */
+	public void setReceivedOn(String receivedOn);
+
 	@Override
 	public FileMovement cloneWithOriginalValues();
 

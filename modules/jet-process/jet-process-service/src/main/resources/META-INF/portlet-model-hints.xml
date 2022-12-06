@@ -42,6 +42,8 @@
 		<field name="priority" type="String" />
 		<field name="dueDate" type="String" />
 		<field name="remark" type="String" />
+		<field name="readOn" type="String" />
+		<field name="receivedOn" type="String" />
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />

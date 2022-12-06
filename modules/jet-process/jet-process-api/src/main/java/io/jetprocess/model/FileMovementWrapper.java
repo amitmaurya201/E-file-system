@@ -56,6 +56,8 @@ public class FileMovementWrapper
 		attributes.put("priority", getPriority());
 		attributes.put("dueDate", getDueDate());
 		attributes.put("remark", getRemark());
+		attributes.put("readOn", getReadOn());
+		attributes.put("receivedOn", getReceivedOn());
 
 		return attributes;
 	}
@@ -138,6 +140,18 @@ public class FileMovementWrapper
 
 		if (remark != null) {
 			setRemark(remark);
+		}
+
+		String readOn = (String)attributes.get("readOn");
+
+		if (readOn != null) {
+			setReadOn(readOn);
+		}
+
+		String receivedOn = (String)attributes.get("receivedOn");
+
+		if (receivedOn != null) {
+			setReceivedOn(receivedOn);
 		}
 	}
 
@@ -234,6 +248,26 @@ public class FileMovementWrapper
 	@Override
 	public String getPriority() {
 		return model.getPriority();
+	}
+
+	/**
+	 * Returns the read on of this file movement.
+	 *
+	 * @return the read on of this file movement
+	 */
+	@Override
+	public String getReadOn() {
+		return model.getReadOn();
+	}
+
+	/**
+	 * Returns the received on of this file movement.
+	 *
+	 * @return the received on of this file movement
+	 */
+	@Override
+	public String getReceivedOn() {
+		return model.getReceivedOn();
 	}
 
 	/**
@@ -389,6 +423,26 @@ public class FileMovementWrapper
 	@Override
 	public void setPriority(String priority) {
 		model.setPriority(priority);
+	}
+
+	/**
+	 * Sets the read on of this file movement.
+	 *
+	 * @param readOn the read on of this file movement
+	 */
+	@Override
+	public void setReadOn(String readOn) {
+		model.setReadOn(readOn);
+	}
+
+	/**
+	 * Sets the received on of this file movement.
+	 *
+	 * @param receivedOn the received on of this file movement
+	 */
+	@Override
+	public void setReceivedOn(String receivedOn) {
+		model.setReceivedOn(receivedOn);
 	}
 
 	/**

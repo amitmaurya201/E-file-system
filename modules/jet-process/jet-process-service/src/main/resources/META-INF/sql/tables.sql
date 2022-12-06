@@ -39,7 +39,9 @@ create table JET_PROCESS_FileMovement (
 	fileId LONG,
 	priority VARCHAR(75) null,
 	dueDate VARCHAR(75) null,
-	remark VARCHAR(75) null
+	remark VARCHAR(75) null,
+	readOn VARCHAR(75) null,
+	receivedOn VARCHAR(75) null
 );
 
 create table JET_PROCESS_Receipt (

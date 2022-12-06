@@ -58,6 +58,10 @@ public class FileMovementTable extends BaseTable<FileMovementTable> {
 		"dueDate", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<FileMovementTable, String> remark = createColumn(
 		"remark", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileMovementTable, String> readOn = createColumn(
+		"readOn", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileMovementTable, String> receivedOn = createColumn(
+		"receivedOn", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private FileMovementTable() {
 		super("JET_PROCESS_FileMovement", FileMovementTable::new);

@@ -180,7 +180,9 @@
 		<column name="fileId" type="long" />
 		<column name="priority" type="String" />
 		<column name="dueDate" type="String" />
-		<column name="remark" type="String" />		
+		<column name="remark" type="String" />
+		<column type="String" name="readOn"/>		
+		<column type="String" name="receivedOn"/>		
 		
 	   <!-- 	Group Reference  -->
 	   <reference entity="Group" package-path="com.liferay.portal" />

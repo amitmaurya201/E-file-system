@@ -34,6 +34,7 @@
 
 <portlet:renderURL var="send">
 	<portlet:param name="mvcPath" value="/receipt/send.jsp" />
+	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendBack">
 	<portlet:param name="mvcPath" value="/receipt/send_back.jsp" />

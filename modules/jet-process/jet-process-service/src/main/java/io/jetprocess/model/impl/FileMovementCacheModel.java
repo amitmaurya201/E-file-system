@@ -63,7 +63,7 @@ public class FileMovementCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -91,6 +91,10 @@ public class FileMovementCacheModel
 		sb.append(dueDate);
 		sb.append(", remark=");
 		sb.append(remark);
+		sb.append(", readOn=");
+		sb.append(readOn);
+		sb.append(", receivedOn=");
+		sb.append(receivedOn);
 		sb.append("}");
 
 		return sb.toString();
@@ -151,6 +155,20 @@ public class FileMovementCacheModel
 			fileMovementImpl.setRemark(remark);
 		}
 
+		if (readOn == null) {
+			fileMovementImpl.setReadOn("");
+		}
+		else {
+			fileMovementImpl.setReadOn(readOn);
+		}
+
+		if (receivedOn == null) {
+			fileMovementImpl.setReceivedOn("");
+		}
+		else {
+			fileMovementImpl.setReceivedOn(receivedOn);
+		}
+
 		fileMovementImpl.resetOriginalValues();
 
 		return fileMovementImpl;
@@ -178,6 +196,8 @@ public class FileMovementCacheModel
 		priority = objectInput.readUTF();
 		dueDate = objectInput.readUTF();
 		remark = objectInput.readUTF();
+		readOn = objectInput.readUTF();
+		receivedOn = objectInput.readUTF();
 	}
 
 	@Override
@@ -225,6 +245,20 @@ public class FileMovementCacheModel
 		else {
 			objectOutput.writeUTF(remark);
 		}
+
+		if (readOn == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(readOn);
+		}
+
+		if (receivedOn == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(receivedOn);
+		}
 	}
 
 	public String uuid;
@@ -240,5 +274,7 @@ public class FileMovementCacheModel
 	public String priority;
 	public String dueDate;
 	public String remark;
+	public String readOn;
+	public String receivedOn;
 
 }

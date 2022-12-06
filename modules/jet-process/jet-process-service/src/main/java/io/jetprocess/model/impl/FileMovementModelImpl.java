@@ -80,7 +80,8 @@ public class FileMovementModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"receiverId", Types.BIGINT},
 		{"senderId", Types.BIGINT}, {"fileId", Types.BIGINT},
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
-		{"remark", Types.VARCHAR}
+		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
+		{"receivedOn", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -100,10 +101,12 @@ public class FileMovementModelImpl
 		TABLE_COLUMNS_MAP.put("priority", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("dueDate", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("remark", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null)";
+		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileMovement";
@@ -304,6 +307,14 @@ public class FileMovementModelImpl
 		attributeSetterBiConsumers.put(
 			"remark",
 			(BiConsumer<FileMovement, String>)FileMovement::setRemark);
+		attributeGetterFunctions.put("readOn", FileMovement::getReadOn);
+		attributeSetterBiConsumers.put(
+			"readOn",
+			(BiConsumer<FileMovement, String>)FileMovement::setReadOn);
+		attributeGetterFunctions.put("receivedOn", FileMovement::getReceivedOn);
+		attributeSetterBiConsumers.put(
+			"receivedOn",
+			(BiConsumer<FileMovement, String>)FileMovement::setReceivedOn);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -576,6 +587,46 @@ public class FileMovementModelImpl
 		_remark = remark;
 	}
 
+	@JSON
+	@Override
+	public String getReadOn() {
+		if (_readOn == null) {
+			return "";
+		}
+		else {
+			return _readOn;
+		}
+	}
+
+	@Override
+	public void setReadOn(String readOn) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_readOn = readOn;
+	}
+
+	@JSON
+	@Override
+	public String getReceivedOn() {
+		if (_receivedOn == null) {
+			return "";
+		}
+		else {
+			return _receivedOn;
+		}
+	}
+
+	@Override
+	public void setReceivedOn(String receivedOn) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_receivedOn = receivedOn;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -651,6 +702,8 @@ public class FileMovementModelImpl
 		fileMovementImpl.setPriority(getPriority());
 		fileMovementImpl.setDueDate(getDueDate());
 		fileMovementImpl.setRemark(getRemark());
+		fileMovementImpl.setReadOn(getReadOn());
+		fileMovementImpl.setReceivedOn(getReceivedOn());
 
 		fileMovementImpl.resetOriginalValues();
 
@@ -683,6 +736,10 @@ public class FileMovementModelImpl
 			this.<String>getColumnOriginalValue("dueDate"));
 		fileMovementImpl.setRemark(
 			this.<String>getColumnOriginalValue("remark"));
+		fileMovementImpl.setReadOn(
+			this.<String>getColumnOriginalValue("readOn"));
+		fileMovementImpl.setReceivedOn(
+			this.<String>getColumnOriginalValue("receivedOn"));
 
 		return fileMovementImpl;
 	}
@@ -825,6 +882,22 @@ public class FileMovementModelImpl
 			fileMovementCacheModel.remark = null;
 		}
 
+		fileMovementCacheModel.readOn = getReadOn();
+
+		String readOn = fileMovementCacheModel.readOn;
+
+		if ((readOn != null) && (readOn.length() == 0)) {
+			fileMovementCacheModel.readOn = null;
+		}
+
+		fileMovementCacheModel.receivedOn = getReceivedOn();
+
+		String receivedOn = fileMovementCacheModel.receivedOn;
+
+		if ((receivedOn != null) && (receivedOn.length() == 0)) {
+			fileMovementCacheModel.receivedOn = null;
+		}
+
 		return fileMovementCacheModel;
 	}
 
@@ -931,6 +1004,8 @@ public class FileMovementModelImpl
 	private String _priority;
 	private String _dueDate;
 	private String _remark;
+	private String _readOn;
+	private String _receivedOn;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -974,6 +1049,8 @@ public class FileMovementModelImpl
 		_columnOriginalValues.put("priority", _priority);
 		_columnOriginalValues.put("dueDate", _dueDate);
 		_columnOriginalValues.put("remark", _remark);
+		_columnOriginalValues.put("readOn", _readOn);
+		_columnOriginalValues.put("receivedOn", _receivedOn);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1022,6 +1099,10 @@ public class FileMovementModelImpl
 		columnBitmasks.put("dueDate", 2048L);
 
 		columnBitmasks.put("remark", 4096L);
+
+		columnBitmasks.put("readOn", 8192L);
+
+		columnBitmasks.put("receivedOn", 16384L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
