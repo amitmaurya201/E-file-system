@@ -139,9 +139,3 @@
 
 </div>
 
-
-<script>
-	$(document).ready(function() {
-		setUserPostId();
-	});
-</script>

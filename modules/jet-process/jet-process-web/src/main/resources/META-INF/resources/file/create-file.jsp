@@ -314,9 +314,6 @@ A.io.request(url, {
 
 }); --%>
 
-$(document).ready(function(){
-	setUserPostId();
-});
 
 </aui:script>
 <%@ include file="/js/file.js"%>

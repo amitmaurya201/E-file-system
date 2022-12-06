@@ -401,11 +401,6 @@
 		</div>
 	</div>
 </div>
-<script>
-	$(document).ready(function() {
-		setUserPostId();
-	});
-</script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#<portlet:namespace/>letterDate").datepicker({

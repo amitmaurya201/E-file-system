@@ -209,6 +209,30 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 	    	
 	    	return masterdataFinder.getReceiptCreatedListSearch(userPostId, data);
 	    } 
+	   
+	   
+	   public List<FileListViewDto> getFileCreatedListSearchedData1(long userPostId , String keyword , int start , int end , String orderBy , String order  ){
+	    	
+	    	return masterdataFinder.getFileCreatedListSearch1(userPostId, keyword , start , end , orderBy , order );
+	   }
+	    
+	   
+	   public List<FileListViewDto> getFileCreatedByKeywords( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order ) {
+			
+			
+			return getFileCreatedListSearchedData1( userPostId ,keyword  , start , end , orderBy , order );
+			
+			
+		}
+
+		public int getFileCreatedByKeywordCount(long userPostId  , String keyword,  int start, int end , String orderBy ,  String order) {
+			
+			List<FileListViewDto> fileList = getFileCreatedListSearchedData1(userPostId, keyword, start, end, orderBy, order);
+			int count = fileList.size();
+			
+			return count;
+		}
+	
 
 	   
 }

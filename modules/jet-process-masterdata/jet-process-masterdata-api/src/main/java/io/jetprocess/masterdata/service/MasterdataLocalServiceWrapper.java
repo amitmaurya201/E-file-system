@@ -302,11 +302,40 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public int getFileCreatedByKeywordCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
+
+		return _masterdataLocalService.getFileCreatedByKeywordCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedByKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return _masterdataLocalService.getFileCreatedByKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileCreatedListSearchedData(long userPostId, String data) {
 
 		return _masterdataLocalService.getFileCreatedListSearchedData(
 			userPostId, data);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListSearchedData1(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return _masterdataLocalService.getFileCreatedListSearchedData1(
+			userPostId, keyword, start, end, orderBy, order);
 	}
 
 	@Override
