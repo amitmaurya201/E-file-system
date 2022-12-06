@@ -250,10 +250,36 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileById(fileCodeId);
 	}
 
+	public static int getFileCreatedByKeywordCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
+
+		return getService().getFileCreatedByKeywordCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedByKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileCreatedByKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileCreatedListSearchedData(long userPostId, String data) {
 
 		return getService().getFileCreatedListSearchedData(userPostId, data);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListSearchedData1(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileCreatedListSearchedData1(
+			userPostId, keyword, start, end, orderBy, order);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
