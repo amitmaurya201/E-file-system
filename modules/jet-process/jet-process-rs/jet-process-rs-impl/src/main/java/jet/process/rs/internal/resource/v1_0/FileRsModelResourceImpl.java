@@ -82,7 +82,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setReference(fileRsModel.getReference());
 		fileRsModel.setFileNumber(fileNumber);
 		docFile.setNature(fileRsModel.getNature());
-		docFile.setUserPostId(1);
+		docFile.setUserPostId(fileRsModel.getUserPostId());
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFileLocalService.addDocFile(docFile);
 		return fileRsModel;
