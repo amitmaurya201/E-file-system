@@ -123,13 +123,9 @@ public interface MasterdataFinder {
 		getReceiptSubCategoryValueById(long receiptSubCategoryId);
 
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearch(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
+		getFileCreatedListSearch(long userPostId, String data);
 
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptCreatedListSearch(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
+		getReceiptCreatedListSearch(long userPostId, String data);
 
 }
