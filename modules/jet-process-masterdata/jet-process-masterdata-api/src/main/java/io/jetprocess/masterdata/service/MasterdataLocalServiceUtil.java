@@ -250,10 +250,30 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileById(fileCodeId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearchedData(long userPostId, String data) {
+	public static int getFileCreatedByKeywordCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
 
-		return getService().getFileCreatedListSearchedData(userPostId, data);
+		return getService().getFileCreatedByKeywordCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedByKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileCreatedByKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileListViewDto>
+		getFileCreatedListSearchedData(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileCreatedListSearchedData(
+			userPostId, keyword, start, end, orderBy, order);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
@@ -345,10 +365,30 @@ public class MasterdataLocalServiceUtil {
 		return getService().getReceiptCategoryById(receiptCategoryId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptCreatedListSearchedData(long userPostId, String data) {
+	public static int getReceiptCreatedByKeywordCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
 
-		return getService().getReceiptCreatedListSearchedData(userPostId, data);
+		return getService().getReceiptCreatedByKeywordCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptCreatedByKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getReceiptCreatedByKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptCreatedListSearchedData(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getReceiptCreatedListSearchedData(
+			userPostId, keyword, start, end, orderBy, order);
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>

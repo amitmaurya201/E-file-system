@@ -131,84 +131,133 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getTertiaryHeadById(tertiaryHeadId);
 	}
 
-	public List<FileListViewDto> getFileList(long userPostId){
-		
+	public List<FileListViewDto> getFileList(long userPostId) {
+
 		return masterdataFinder.getFileCreatedList(userPostId);
 	}
 
-
 	public List<ReceiptListViewDto> getReceiptList(long userPostId) {
 
-		
-		return masterdataFinder.getReceiptCreatedList(userPostId) ;
+		return masterdataFinder.getReceiptCreatedList(userPostId);
 	}
-	 public int getFileListCount(long userPostId) {
-	        
-		    System.out.println(userPostId);
-			
-			return masterdataFinder.getFileCreatedListCount(userPostId);
-		}
-	   public int getReceiptListCount(long userPostId) {
-	          
-			
-			return masterdataFinder.getReceiptCreatedListCount(userPostId);
-		}
-	   public Masterdata getFileById(long fileCodeId) {
-		   
-		   return masterdataFinder.getFileCodeValueById(fileCodeId);
-	   }
-	   public Masterdata getCategoryById(long categoryId) {
-		   
-		   return masterdataFinder.getCategoryValueById(categoryId);
-		   
-	   }
 
-	   public Masterdata getSubCategoryById(long subCategoryId) {
-		   
-		   return masterdataFinder.getSubCategoryValueById(subCategoryId);
-	   }
-	   public Masterdata getTypeById(long typeId) {
-		   
-		   return masterdataFinder.getTypeValueById(typeId);
-	   }
-	   public Masterdata getDeliveryModeById(long deliveryModeId) {
-		   
-		   return masterdataFinder.getDeliveryModeValueById(deliveryModeId);
-	   }
-	   public Masterdata getOrganizationById(long organizationId) {
-		   
-		   return masterdataFinder.getOrganizationValueById(organizationId);
-	   }
-	   public Masterdata getSubOrganizationById(long subOrganizationId) {
-		   
-		   return masterdataFinder.getSubOrganizationValueById(subOrganizationId);
-	   }
-	   public Masterdata getCountryById(long countryId) {
-		   
-		   return masterdataFinder.getCountryValueById(countryId);
-	   }
-	   public Masterdata getStateById(long stateId) {
-		   
-		   return masterdataFinder.getStateValueById(stateId);
-		   
-	   }
-	   public Masterdata getReceiptCategoryById(long receiptCategoryId) {
-		   
-		   return masterdataFinder.getReceiptCategoryValueById(receiptCategoryId);
-	   }
-	   public Masterdata getReceiptSubCategoryById(long receiptSubCategoryId) {
-		   
-		   return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
-	   }
-	   
-	   public List<FileListViewDto> getFileCreatedListSearchedData(long userPostId , String data){
+	public int getFileListCount(long userPostId) {
+
+		System.out.println(userPostId);
+
+		return masterdataFinder.getFileCreatedListCount(userPostId);
+	}
+
+	public int getReceiptListCount(long userPostId) {
+
+		return masterdataFinder.getReceiptCreatedListCount(userPostId);
+	}
+
+	public Masterdata getFileById(long fileCodeId) {
+
+		return masterdataFinder.getFileCodeValueById(fileCodeId);
+	}
+
+	public Masterdata getCategoryById(long categoryId) {
+
+		return masterdataFinder.getCategoryValueById(categoryId);
+
+	}
+
+	public Masterdata getSubCategoryById(long subCategoryId) {
+
+		return masterdataFinder.getSubCategoryValueById(subCategoryId);
+	}
+
+	public Masterdata getTypeById(long typeId) {
+
+		return masterdataFinder.getTypeValueById(typeId);
+	}
+
+	public Masterdata getDeliveryModeById(long deliveryModeId) {
+
+		return masterdataFinder.getDeliveryModeValueById(deliveryModeId);
+	}
+
+	public Masterdata getOrganizationById(long organizationId) {
+
+		return masterdataFinder.getOrganizationValueById(organizationId);
+	}
+
+	public Masterdata getSubOrganizationById(long subOrganizationId) {
+
+		return masterdataFinder.getSubOrganizationValueById(subOrganizationId);
+	}
+
+	public Masterdata getCountryById(long countryId) {
+
+		return masterdataFinder.getCountryValueById(countryId);
+	}
+
+	public Masterdata getStateById(long stateId) {
+
+		return masterdataFinder.getStateValueById(stateId);
+
+	}
+
+	public Masterdata getReceiptCategoryById(long receiptCategoryId) {
+
+		return masterdataFinder.getReceiptCategoryValueById(receiptCategoryId);
+	}
+
+	public Masterdata getReceiptSubCategoryById(long receiptSubCategoryId) {
+
+		return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
+	}
+	
+	
+	 public List<FileListViewDto> getFileCreatedListSearchedData(long userPostId , String keyword , int start , int end , String orderBy , String order  ){
 	    	
-	    	return masterdataFinder.getFileCreatedListSearch(userPostId, data);
+	    	return masterdataFinder.getFileCreatedListSearch(userPostId, keyword , start , end , orderBy , order );
 	    }
-	   public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(long userPostId , String data){
-	    	
-	    	return masterdataFinder.getReceiptCreatedListSearch(userPostId, data);
-	    } 
+	
+	
 
-	   
+	public List<FileListViewDto> getFileCreatedByKeywords(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+		return getFileCreatedListSearchedData(userPostId, keyword, start, end, orderBy, order);
+
+	}
+
+	public int getFileCreatedByKeywordCount(long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		List<FileListViewDto> fileList = getFileCreatedListSearchedData(userPostId, keyword,
+				start, end, orderBy, order);
+		int fileListcount = fileList.size();
+
+		return fileListcount;
+	}
+
+	public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
+
+		return masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword, start, end, orderBy, order);
+	}
+	
+	public List<ReceiptListViewDto> getReceiptCreatedByKeywords(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+		return getReceiptCreatedListSearchedData(userPostId, keyword, start, end, orderBy, order);
+
+	}
+
+	public int getReceiptCreatedByKeywordCount(long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		List<ReceiptListViewDto> receiptList = getReceiptCreatedListSearchedData(userPostId, keyword,
+				start, end, orderBy, order);
+		int receiptListcount = receiptList.size();
+
+		return receiptListcount;
+	}
+	
+	
+	
+
 }

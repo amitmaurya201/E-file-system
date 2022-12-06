@@ -941,17 +941,38 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 
-	public List<FileListViewDto> getFileCreatedListSearch(long userPostId, String data) {
+	public List<FileListViewDto> getFileCreatedListSearch(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = customSQL.get(getClass(), "getFileCreatedListData");
+			
+			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
+					"FROM jet_process_docfile  INNER JOIN " + 
+					"md_category  ON categorydataid = categoryid where userpostid = ?  OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)  ";
+			if(orderBy!=null && !orderBy.isEmpty()) {
+				sql = sql + " order by "+orderBy;
+				
+			}
+			else {
+				
+				sql = sql + "order by createdate";
+				if(order!=null && !order.isEmpty()) {
+					sql = sql + " order "+ order ;
+					
+				}
+				else {
+					sql = sql + " ASC";
+				}
+				
+			}		
+			sql = sql + " offset "+ start + " limit "+ end;
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			queryPos.add(data);
+			queryPos.add(keyword);
+		
 			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
@@ -966,17 +987,39 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 
-	public List<ReceiptListViewDto> getReceiptCreatedListSearch(long userPostId, String data) {
+	public List<ReceiptListViewDto> getReceiptCreatedListSearch(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = customSQL.get(getClass(), "getReceiptCreatedListData");
+			
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl" + 
+					"	FROM jet_process_receipt INNER JOIN" + 
+					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? OR (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) " ;
+					
+			if(orderBy!=null && !orderBy.isEmpty()) {
+				sql = sql + " order by "+orderBy;
+				
+			}
+			else {
+				
+				sql = sql + "order by createdate";
+				if(order!=null && !order.isEmpty()) {
+					sql = sql + " order "+ order ;
+					
+				}
+				else {
+					sql = sql + " ASC";
+				}
+				
+			}		
+			sql = sql + " offset "+ start + " limit "+ end;
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			queryPos.add(data);
+			queryPos.add(keyword);
+		
 			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {
