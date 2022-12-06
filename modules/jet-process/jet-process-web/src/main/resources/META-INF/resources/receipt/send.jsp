@@ -45,7 +45,7 @@
 							</h1>
 
 							<select name='<portlet:namespace/>receiverId' id="receiverId"
-								class="form-control">
+								class="form-control" required="required">
 									<option>choose One</option>
 								<%
 									List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);

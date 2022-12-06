@@ -50,7 +50,7 @@
 							</h1>
 
 							<select name='<portlet:namespace/>receiverId' id="receiverId"
-								class="form-control">
+								class="form-control" required="required">
 
 								<option value="chooseOne">choose One</option>
 								<%
