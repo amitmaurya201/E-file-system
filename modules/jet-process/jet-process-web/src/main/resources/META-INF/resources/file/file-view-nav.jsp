@@ -22,13 +22,18 @@
 }
 </style>
 
+<% String docFileId = renderRequest.getParameter("docFileId"); 
+
+
+%>
 
 
 <portlet:renderURL var="movement">
     <portlet:param name="mvcPath" value="/file/movement.jsp"/>
 </portlet:renderURL>
 <portlet:renderURL var="details">
-    <portlet:param name="mvcPath" value="/file/details.jsp"/>
+    <portlet:param name="mvcRenderCommandName" value="/EditedView"/>
+    <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="edit">
     <portlet:param name="mvcPath" value="/file/edit-file.jsp"/>

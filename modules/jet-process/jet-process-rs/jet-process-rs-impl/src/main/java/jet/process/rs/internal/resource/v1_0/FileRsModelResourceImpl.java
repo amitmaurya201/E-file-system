@@ -3,8 +3,9 @@ package jet.process.rs.internal.resource.v1_0;
 import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.vulcan.pagination.Page;
-
+import static javax.swing.JOptionPane.showMessageDialog;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -44,7 +45,16 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 				
 				return null;
 			}
-			docFile.setFileNumber(fileNumber);
+			List<DocFile> docFileList = docFileLocalService.getDocFileList();
+			 for (DocFile docFileObj : docFileList) {
+				if(fileNumber.equals(docFileObj.getFileNumber())) {
+					System.out.println("Already exist number");
+					return null;
+				}else {
+					docFile.setFileNumber(fileNumber);
+				}
+			}
+			
 		} else {
 			docFile.setBasicHeadId(fileRsModel.getBasicHeadId());
 			docFile.setPrimaryHeadId(fileRsModel.getPrimaryHeadId());
@@ -61,13 +71,18 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		
 		docFile.setType(fileRsModel.getType());
 		docFile.setSubject(fileRsModel.getSubject());
+		System.out.println("fileRSModesubject --->"+fileRsModel.getSubject());
+		System.out.println("subject ---->"+docFile.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
+		System.out.println("CategoryID --->"+fileRsModel.getCategoryId());
+		System.out.println("categoryId --->"+docFile.getCategoryId());
 		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		System.out.println("subcategoryId--->"+docFile.getSubCategoryId());
 		docFile.setRemarks(fileRsModel.getRemarks());
 		docFile.setReference(fileRsModel.getReference());
 		fileRsModel.setFileNumber(fileNumber);
 		docFile.setNature(fileRsModel.getNature());
-		docFile.setUserPostId(fileRsModel.getUserPostId());
+		docFile.setUserPostId(1);
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFileLocalService.addDocFile(docFile);
 		return fileRsModel;

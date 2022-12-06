@@ -66,7 +66,57 @@
 			<span style="font-weight: 500"><liferay-ui:message key="file-details-heading" /></span><br />
 		</div>
 
-		<div class="row m-1">
+
+ <div class="row m-1">       
+<table>
+
+  <tr >
+    <th><liferay-ui:message key="label-file-fileno" />:</th>
+    <td><%=docFile.getFileNumber()%></td>
+    <th class="category"><liferay-ui:message key="label-file-categoryid" />:</th>
+    <td><%=categoryValue%></td>
+  </tr>
+ 
+  <tr>
+   <th><liferay-ui:message key="label-file-reference" />:</th>
+    <td><%=docFile.getReference()%></td>
+    <th><liferay-ui:message key="label-file-nature" />:</th>
+    <td><%=docFile.getNature()%></td>
+  </tr>
+  <tr>
+    <th><liferay-ui:message key="label-file-subject" />:</th>
+    <td><%=docFile.getSubject()%></td>
+    <th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
+    <td><%=subCategoryValue%></td>
+  </tr>
+  <tr>
+    <th><liferay-ui:message key="label-file-remark" />:</th>
+    <td><%=docFile.getRemarks()%></td>
+    <th><liferay-ui:message key="label-file-nature-type" />:</th>
+    <td><%=docFile.getType()%></td>
+  </tr>
+ 
+</table>
+</div>
+        
+<style>
+table{
+border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+</style>
+
+<!-- <script type="text/javascript">
+
+$(".category").hover(function() {
+
+	$(this).attr('title', $(this).text());
+
+});
+
+</script> -->
+		<%-- <div class="row m-1">
 			<div class="column" style="background-color: #E8E8E8;">
 				<h5><liferay-ui:message key="label-file-fileno" />:</h5>
 				<h5><liferay-ui:message key="label-file-categoryid" />:</h5>
@@ -92,8 +142,8 @@
 				<h5><%=docFile.getType()%></h5>
 			</div>
 		</div>
-	</div>
-	<style>
+	</div> --%>
+	<!-- <style>
 * {
 	box-sizing: border-box;
 }
@@ -130,4 +180,4 @@ h4 {
 			$(this).attr('title', $(this).text());
 
 		});
-	</script>
+	</script> -->

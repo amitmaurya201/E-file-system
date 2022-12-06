@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import java.util.Date;
 import java.util.List;
@@ -41,6 +42,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 	@Reference
 	private FileValidator fileValidator;
+	
 
 	// delete
 	public DocFile deleteDocFile(DocFile docFile) {
@@ -185,8 +187,10 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 	public DocFile getDocFile() {
 		long docFileId = counterLocalService.increment(DocFile.class.getName());
 		DocFile docFile = createDocFile(docFileId);
-		String fileId = getGenerateFileNumber(docFile);
-		docFile.setFileNumber(fileId);
+		/*
+		 * String fileId = getGenerateFileNumber(docFile);
+		 * docFile.setFileNumber(fileId);
+		 */
 		return docFile;
 		
 	}

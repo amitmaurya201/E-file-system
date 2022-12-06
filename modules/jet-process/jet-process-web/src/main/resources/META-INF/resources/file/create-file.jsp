@@ -153,7 +153,7 @@
 																	</legend>
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber" value=""
-																		label="label-file-fileno">
+																		label="">
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
