@@ -93,17 +93,19 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			logger.info("UserPostId from session : "+userPostIdFromUrl);
 			if(userPostIdFromUrl == null) {
 				List<UserPost> userPostList = userPostService.getUserPostList(user.getUserId());
-				if(userPostList != null) {
-					logger.info("UserPostList: "+userPostList);
+				logger.info("UserPostList: "+userPostList);
+				if(!userPostList.isEmpty()) {
 					UserPost userPost = userPostList.get(0);
 					logger.info("userPost--> "+userPost);
 					long postId = userPost.getPostId();
 					session.setAttribute("userPostId", String.valueOf(postId));
 				}
 				else {
-					// redirect to error.jsp saying userPost is not available for this user 
+					// redirect to error.jsp saying userPost is not available for this user
+					logger.info("User Post is not available for the user :"+user.getUserId());
 					renderRequest.setAttribute("noUserPostErrMsg", "userPost is not available for the current user");
-					renderRequest.setAttribute("jspPage", "/error/error.jsp");
+					include("/error/error.jsp", renderRequest, renderResponse);
+//					renderRequest.setAttribute("jspPage", "/error/error.jsp");
 				}
 			}
 		}
