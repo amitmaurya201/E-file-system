@@ -18,7 +18,6 @@ AUI().use('aui-base', function(A){
 /* receipt subcategory masterdata */
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
-		console.log(receiptCategoryId);
 		 AUI().use('aui-base', function(A){
 			 //$("#<portlet:namespace />receiptSubCategoryId").empty();
 			 Liferay.Service(
@@ -29,9 +28,7 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 					 function(response) {
 					     $.each(response, function(key, value) {
 					     optionText = value.value;
-					     console.log(optionText)
 					     optionValue = value.masterdataId;
-					     console.log(optionValue);
 					   
 					     $("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
 					 });
@@ -82,7 +79,6 @@ AUI().use('aui-base', function(A){
 /* State Masterdata */
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
-		console.log(countryId);
 		 AUI().use('aui-base', function(A){
 			// $("#<portlet:namespace />stateId").empty();
 			 Liferay.Service(
@@ -117,7 +113,6 @@ AUI().use('aui-base', function(A){
 /* Suborganization Masterdata */
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
-		console.log(organizationId);
 		 AUI().use('aui-base', function(A){
 			// $("#<portlet:namespace />subOrganizationId").empty();
 			 Liferay.Service(
@@ -153,8 +148,6 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
      
-     console.log(jsonData);
-     console.log(tempFileId);
      var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
      jsonData["tempFileId"] = tempFileId; 
@@ -169,7 +162,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 			    processData: false,
 		        contentType : 'application/json'
 		 }) .done(function(response) {
-			  console.log(response);
+			  console.log("response : - "+response);
 			  var receiptNumber =response.receiptNumber;
 			if(receiptNumber!=null){
 			  swal( {
@@ -203,8 +196,6 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 var dmFileId = $('#<portlet:namespace/>dmFileId').val();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
-    console.log(jsonData);
-    console.log(tempFileId);
     var userPostId= getUserPostId();
     jsonData["userPostId"] = userPostId;
     if(tempFileId!=0){
@@ -266,7 +257,6 @@ $('#doc-select-btn').on('click',function(){
 
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
-	 console.log(e.target.files[0]);
 	displayPreview(e.target.files[0]);
 });
 
@@ -287,7 +277,6 @@ $('#doc-input').on('change',function(e){
 	  
 	  
 	  console.log("drop drag area.."+e.originalEvent.dataTransfer.files[0].name)
-		console.log(e.originalEvent.dataTransfer.files[0]);		
 		displayPreview(e.originalEvent.dataTransfer.files[0]);
 	});
 	
