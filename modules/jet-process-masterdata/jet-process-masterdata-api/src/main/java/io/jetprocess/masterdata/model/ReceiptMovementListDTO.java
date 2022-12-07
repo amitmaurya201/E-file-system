@@ -9,7 +9,7 @@ public class ReceiptMovementListDTO {
 	private long receiptId;
 	private long senderId;
 	private long receiverId;
-	private Date sentOn;
+	private Date createdDate;
 	private String readOn;
 	private String receivedOn;
 	public ReceiptMovementListDTO() {
@@ -18,14 +18,14 @@ public class ReceiptMovementListDTO {
 	}
 	
 	public ReceiptMovementListDTO(String dueDate, String remark, long receiptId, long senderId, long receiverId,
-			Date sentOn, String readOn, String receivedOn) {
+			Date createdDate, String readOn, String receivedOn) {
 		super();
 		this.dueDate = dueDate;
 		this.remark = remark;
 		this.receiptId = receiptId;
 		this.senderId = senderId;
 		this.receiverId = receiverId;
-		this.sentOn = sentOn;
+		this.createdDate = createdDate;
 		this.readOn = readOn;
 		this.receivedOn = receivedOn;
 	}
@@ -70,12 +70,12 @@ public class ReceiptMovementListDTO {
 		this.receiverId = receiverId;
 	}
 
-	public Date getSentOn() {
-		return sentOn;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setSentOn(Date sentOn) {
-		this.sentOn = sentOn;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getReadOn() {
@@ -97,7 +97,7 @@ public class ReceiptMovementListDTO {
 	@Override
 	public String toString() {
 		return "ReceiptMovementListDTO [dueDate=" + dueDate + ", remark=" + remark + ", receiptId=" + receiptId
-				+ ", senderId=" + senderId + ", receiverId=" + receiverId + ", sentOn=" + sentOn + ", readOn="
+				+ ", senderId=" + senderId + ", receiverId=" + receiverId + ", createdDate=" + createdDate + ", readOn="
 				+ readOn + ", receivedOn=" + receivedOn + "]";
 	}
 }
