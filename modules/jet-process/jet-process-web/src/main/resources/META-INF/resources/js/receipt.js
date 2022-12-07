@@ -144,7 +144,10 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
     		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
     	 }
     	 return false;
+     }else{
+    		$("#error").remove();
      }
+     
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
