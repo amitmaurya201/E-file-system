@@ -81,7 +81,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return subCategoryList;
 
 	}
-
 	public List<Masterdata> getType() {
 
 		List<Masterdata> typeList = Collections.EMPTY_LIST;
@@ -1054,15 +1053,15 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 	
-	public List<ReceiptMovementListDTO> getReceiptSentListByFinder() {
+	public List<ReceiptMovementListDTO> getReceiptSentListByFinder(long senderid) {
 		Session session = null;
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
-			System.out.println("finder1  "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println("finder2  "+sqlQuery);
 			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(senderid);
 			return  GenericModelMapper.map(ReceiptMovementListDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {

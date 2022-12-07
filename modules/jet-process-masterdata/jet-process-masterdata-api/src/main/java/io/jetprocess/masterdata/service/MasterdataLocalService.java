@@ -333,7 +333,7 @@ public interface MasterdataLocalService
 	public int getReceiptListCount(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementListDTO> getReceiptSendList();
+	public List<ReceiptMovementListDTO> getReceiptSentList(long senderid);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);

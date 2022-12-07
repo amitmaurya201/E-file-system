@@ -353,8 +353,8 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 <sql id="getReceiptSentListQuery">
 <![CDATA[
 
-SELECT duedate , remark , receiptid , senderid , receiverid , createdate as sendOn 
-	FROM public.jet_process_receiptmovement;
+SELECT duedate as dueDate , remark , receiptid as receiptId , senderid as senderId , receiverid as receiverId , createdate as createdDate , readon as readOn , receivedon as receivedOn
+	FROM jet_process_receiptmovement where senderid = ? ;
 
 ]]>
 

@@ -134,6 +134,6 @@ public interface MasterdataFinder {
 		getReceiptCreatedListSearch(long userPostId, String data);
 
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
-		getReceiptSentListByFinder();
+		getReceiptSentListByFinder(long senderid);
 
 }

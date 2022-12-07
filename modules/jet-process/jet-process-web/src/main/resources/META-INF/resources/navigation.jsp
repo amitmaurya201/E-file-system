@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet"
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <style>
@@ -101,6 +102,7 @@
 	<portlet:renderURL var="receiptSent">
 		<portlet:param name="mvcRenderCommandName" value="/receiptSentList" />
 		<portlet:param name="selectedNav" value="receiptSent" />
+		<portlet:param name="selectedUserPostId" value="<%=selectedUserPostId %>" />
 	</portlet:renderURL>
 
 	<div class="side-nav">

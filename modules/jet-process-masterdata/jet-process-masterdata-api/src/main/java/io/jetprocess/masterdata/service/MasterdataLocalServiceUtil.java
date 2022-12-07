@@ -388,9 +388,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
-		getReceiptSendList() {
+		getReceiptSentList(long senderid) {
 
-		return getService().getReceiptSendList();
+		return getService().getReceiptSentList(senderid);
 	}
 
 	public static List<Masterdata> getReceiptSubCategory(

@@ -233,10 +233,8 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return count;
 		}
 	
-		public List<ReceiptMovementListDTO> getReceiptSendList() {
-			System.out.println("getReceiptSendList");
-
-			return masterdataFinder.getReceiptSentListByFinder() ;
+		public List<ReceiptMovementListDTO> getReceiptSentList(long senderid) {
+			return masterdataFinder.getReceiptSentListByFinder(senderid) ;
 		}
 
 	   
