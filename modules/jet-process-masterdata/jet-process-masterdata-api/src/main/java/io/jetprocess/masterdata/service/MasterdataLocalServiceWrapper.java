@@ -478,6 +478,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
+		getReceiptSendList() {
+
+		return _masterdataLocalService.getReceiptSendList();
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getReceiptSubCategory(long receiptCategoryId) {
 
