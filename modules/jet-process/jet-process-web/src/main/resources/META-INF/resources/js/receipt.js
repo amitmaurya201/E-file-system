@@ -128,8 +128,20 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 		 	});
 });
 var groupId = Liferay.ThemeDisplay.getScopeGroupId();
-var receiptId= $('#<portlet:namespace/>receiptId').val(); 
+var receiptId= $('#<portlet:namespace/>receiptId').val();
 var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
+
+var errorLabel= false;
+$("#<portlet:namespace />nature").on('change', function(e){
+	 var nature= $('#<portlet:namespace/>nature').val(); 
+     if(nature == 'Electronic' && tempFileId == 0 ){
+    	 if(($("#error").length) == 0){
+    		 errorLabel=true;
+    	 }
+     }else{
+    		$("#error ").remove();
+     }
+});
 
 /* create receipt */
 $("#<portlet:namespace />receiptForm").on('submit', function(e){
@@ -138,16 +150,10 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
      var jsonData = bindFormDataJson(formObj);
      var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
-     var nature= $('#<portlet:namespace/>nature').val(); 
-     if(nature == 'Electronic' && tempFileId == 0 ){
-    	 if(($("#error").length) == 0){
-    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
-    	 }
-    	 return false;
-     }else{
-    		$("#error").remove();
+     if(errorLabel == true && ($("#error").length) == 0){
+    	 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
+    	 return true;
      }
-     
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
@@ -186,6 +192,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 				  icon: "error",  
 				});  
 		 })
+     
 });
 
 /* update receipt*/
@@ -231,7 +238,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 				  icon: "error",  
 				});  
 		 })
-		 }
+	 }
 });
 
 
