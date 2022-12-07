@@ -140,9 +140,10 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
      jsonData["userPostId"] = userPostId;
      var nature= $('#<portlet:namespace/>nature').val(); 
      if(nature == 'Electronic' && tempFileId == 0 ){
-    	 alert('In Electronic Choose File is required.');
-//    	 $('.dropzone-wrapper').append('<p class="text-danger">This field is required.<p>');
-    	 return true;
+    	 if(($("#error").length) == 0){
+    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
+    	 }
+    	 return false;
      }
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
