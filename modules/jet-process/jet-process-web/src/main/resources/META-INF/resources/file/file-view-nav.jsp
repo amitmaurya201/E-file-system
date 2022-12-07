@@ -40,6 +40,7 @@
 </portlet:renderURL>
 <portlet:renderURL var="send">
     <portlet:param name="mvcPath" value="/file/send.jsp"/>
+    <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
     <portlet:param name="mvcPath" value="/file/sendback.jsp"/>

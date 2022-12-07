@@ -266,6 +266,36 @@ public interface ReceiptMovementModel
 	 */
 	public void setRemark(String remark);
 
+	/**
+	 * Returns the read on of this receipt movement.
+	 *
+	 * @return the read on of this receipt movement
+	 */
+	@AutoEscape
+	public String getReadOn();
+
+	/**
+	 * Sets the read on of this receipt movement.
+	 *
+	 * @param readOn the read on of this receipt movement
+	 */
+	public void setReadOn(String readOn);
+
+	/**
+	 * Returns the received on of this receipt movement.
+	 *
+	 * @return the received on of this receipt movement
+	 */
+	@AutoEscape
+	public String getReceivedOn();
+
+	/**
+	 * Sets the received on of this receipt movement.
+	 *
+	 * @param receivedOn the received on of this receipt movement
+	 */
+	public void setReceivedOn(String receivedOn);
+
 	@Override
 	public ReceiptMovement cloneWithOriginalValues();
 

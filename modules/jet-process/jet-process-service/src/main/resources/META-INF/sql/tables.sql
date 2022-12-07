@@ -96,5 +96,7 @@ create table JET_PROCESS_ReceiptMovement (
 	receiptId LONG,
 	priority VARCHAR(75) null,
 	dueDate VARCHAR(75) null,
-	remark VARCHAR(75) null
+	remark VARCHAR(75) null,
+	readOn VARCHAR(75) null,
+	receivedOn VARCHAR(75) null
 );

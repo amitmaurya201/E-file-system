@@ -63,7 +63,7 @@ public class ReceiptMovementCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -91,6 +91,10 @@ public class ReceiptMovementCacheModel
 		sb.append(dueDate);
 		sb.append(", remark=");
 		sb.append(remark);
+		sb.append(", readOn=");
+		sb.append(readOn);
+		sb.append(", receivedOn=");
+		sb.append(receivedOn);
 		sb.append("}");
 
 		return sb.toString();
@@ -151,6 +155,20 @@ public class ReceiptMovementCacheModel
 			receiptMovementImpl.setRemark(remark);
 		}
 
+		if (readOn == null) {
+			receiptMovementImpl.setReadOn("");
+		}
+		else {
+			receiptMovementImpl.setReadOn(readOn);
+		}
+
+		if (receivedOn == null) {
+			receiptMovementImpl.setReceivedOn("");
+		}
+		else {
+			receiptMovementImpl.setReceivedOn(receivedOn);
+		}
+
 		receiptMovementImpl.resetOriginalValues();
 
 		return receiptMovementImpl;
@@ -178,6 +196,8 @@ public class ReceiptMovementCacheModel
 		priority = objectInput.readUTF();
 		dueDate = objectInput.readUTF();
 		remark = objectInput.readUTF();
+		readOn = objectInput.readUTF();
+		receivedOn = objectInput.readUTF();
 	}
 
 	@Override
@@ -225,6 +245,20 @@ public class ReceiptMovementCacheModel
 		else {
 			objectOutput.writeUTF(remark);
 		}
+
+		if (readOn == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(readOn);
+		}
+
+		if (receivedOn == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(receivedOn);
+		}
 	}
 
 	public String uuid;
@@ -240,5 +274,7 @@ public class ReceiptMovementCacheModel
 	public String priority;
 	public String dueDate;
 	public String remark;
+	public String readOn;
+	public String receivedOn;
 
 }

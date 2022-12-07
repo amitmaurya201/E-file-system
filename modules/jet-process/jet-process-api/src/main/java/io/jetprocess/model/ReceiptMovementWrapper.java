@@ -56,6 +56,8 @@ public class ReceiptMovementWrapper
 		attributes.put("priority", getPriority());
 		attributes.put("dueDate", getDueDate());
 		attributes.put("remark", getRemark());
+		attributes.put("readOn", getReadOn());
+		attributes.put("receivedOn", getReceivedOn());
 
 		return attributes;
 	}
@@ -139,6 +141,18 @@ public class ReceiptMovementWrapper
 		if (remark != null) {
 			setRemark(remark);
 		}
+
+		String readOn = (String)attributes.get("readOn");
+
+		if (readOn != null) {
+			setReadOn(readOn);
+		}
+
+		String receivedOn = (String)attributes.get("receivedOn");
+
+		if (receivedOn != null) {
+			setReceivedOn(receivedOn);
+		}
 	}
 
 	@Override
@@ -217,6 +231,16 @@ public class ReceiptMovementWrapper
 	}
 
 	/**
+	 * Returns the read on of this receipt movement.
+	 *
+	 * @return the read on of this receipt movement
+	 */
+	@Override
+	public String getReadOn() {
+		return model.getReadOn();
+	}
+
+	/**
 	 * Returns the receipt ID of this receipt movement.
 	 *
 	 * @return the receipt ID of this receipt movement
@@ -224,6 +248,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public long getReceiptId() {
 		return model.getReceiptId();
+	}
+
+	/**
+	 * Returns the received on of this receipt movement.
+	 *
+	 * @return the received on of this receipt movement
+	 */
+	@Override
+	public String getReceivedOn() {
+		return model.getReceivedOn();
 	}
 
 	/**
@@ -372,6 +406,16 @@ public class ReceiptMovementWrapper
 	}
 
 	/**
+	 * Sets the read on of this receipt movement.
+	 *
+	 * @param readOn the read on of this receipt movement
+	 */
+	@Override
+	public void setReadOn(String readOn) {
+		model.setReadOn(readOn);
+	}
+
+	/**
 	 * Sets the receipt ID of this receipt movement.
 	 *
 	 * @param receiptId the receipt ID of this receipt movement
@@ -379,6 +423,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public void setReceiptId(long receiptId) {
 		model.setReceiptId(receiptId);
+	}
+
+	/**
+	 * Sets the received on of this receipt movement.
+	 *
+	 * @param receivedOn the received on of this receipt movement
+	 */
+	@Override
+	public void setReceivedOn(String receivedOn) {
+		model.setReceivedOn(receivedOn);
 	}
 
 	/**
