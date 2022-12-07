@@ -19,7 +19,6 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
 		 AUI().use('aui-base', function(A){
-			 //$("#<portlet:namespace />receiptSubCategoryId").empty();
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
 					 {
@@ -29,9 +28,8 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 					     $.each(response, function(key, value) {
 					     optionText = value.value;
 					     optionValue = value.masterdataId;
-					   
 					     $("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
-					 });
+					 });	
 		 });
 	});
 });
@@ -80,7 +78,6 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
 		 AUI().use('aui-base', function(A){
-			// $("#<portlet:namespace />stateId").empty();
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-states-masterdata',
 					 {
@@ -114,7 +111,6 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
 		 AUI().use('aui-base', function(A){
-			// $("#<portlet:namespace />subOrganizationId").empty();
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-sub-organization-masterdata',
 					 {
@@ -125,7 +121,6 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 					     optionText = value.value;
 					     optionValue = value.masterdataId;
 					     if(response !=null){
-					    	 
 					    	 $("#<portlet:namespace />subOrganizationId").append(new Option(optionText,optionValue));
 					     }
 					     });
@@ -134,22 +129,21 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 });
 var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var receiptId= $('#<portlet:namespace/>receiptId').val(); 
-console.log("-- receiptId "+receiptId);
 var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
-console.log(viewPdf);
-
-
 
 /* create receipt */
-
 $("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 e.preventDefault();
-	
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
-     
      var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
+     var nature= $('#<portlet:namespace/>nature').val(); 
+     if(nature == 'Electronic' && tempFileId == 0 ){
+    	 alert('In Electronic Choose File is required.');
+//    	 $('.dropzone-wrapper').append('<p class="text-danger">This field is required.<p>');
+    	 return true;
+     }
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
@@ -257,7 +251,13 @@ $('#doc-select-btn').on('click',function(){
 
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
-	displayPreview(e.target.files[0]);
+	var file = e.target.files[0];
+	console.log(file.size);
+	if(file.size > 26,214,400){
+	displayPreview(file);
+	}else{
+		 $('.dropzone-wrapper').append('<p class="text-danger">File size could be max then 25MB.<p>');
+	}
 });
 
 	$('.dropzone-wrapper').on('dragover', function(e) {
@@ -296,9 +296,7 @@ function displayPreview(file){
 	        contentType : false,
 		  }).done(function(response) {
 			  tempFileId=response.id;
-			  console.log(tempFileId);
             	 viewPdfUrl=response.description;
-            	console.log("viewPdfUrl--- " +viewPdfUrl);
             	var parent = $('#editpdfurl').parent();
             	if(parent!=undefined){
             		$("#editpdfurl").remove();
