@@ -17,6 +17,7 @@ import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.GenericModelMapper;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
 import io.jetprocess.masterdata.model.impl.MasterdataImpl;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;
 
@@ -1040,6 +1041,29 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			queryPos.add(userPostId);
 			queryPos.add(data);
 			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	public List<ReceiptMovementListDTO> getReceiptSentListByFinder() {
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
+			System.out.println("finder1  "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println("finder2  "+sqlQuery);
+			sqlQuery.setCacheable(false);
+			return  GenericModelMapper.map(ReceiptMovementListDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {

@@ -350,5 +350,13 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 
 </sql>
 
+<sql id="getReceiptSentListQuery">
+<![CDATA[
 
+SELECT duedate , remark , receiptid , senderid , receiverid , createdate as sendOn 
+	FROM public.jet_process_receiptmovement;
+
+]]>
+
+</sql>
 </custom-sql>

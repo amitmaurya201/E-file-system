@@ -25,6 +25,7 @@ import org.osgi.service.component.annotations.Component;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
 import io.jetprocess.masterdata.service.base.MasterdataLocalServiceBaseImpl;
 
 /**
@@ -139,7 +140,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 	public List<ReceiptListViewDto> getReceiptList(long userPostId) {
 
-		
 		return masterdataFinder.getReceiptCreatedList(userPostId) ;
 	}
 	 public int getFileListCount(long userPostId) {
@@ -233,6 +233,10 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return count;
 		}
 	
+		public List<ReceiptMovementListDTO> getReceiptSendList() {
+
+			return masterdataFinder.getReceiptSentListByFinder() ;
+		}
 
 	   
 }
