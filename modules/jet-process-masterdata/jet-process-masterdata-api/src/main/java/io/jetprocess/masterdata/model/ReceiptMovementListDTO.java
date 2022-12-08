@@ -4,30 +4,75 @@ import java.util.Date;
 
 public class ReceiptMovementListDTO {
 
+	private String receiptNumber;
+	private String subject;
+	private String sender;
+	private String sentBy;
+	private String sentTo;
+	private Date sentOn;
+	private String readOn;
 	private String dueDate;
 	private String remark;
-	private long receiptId;
-	private long senderId;
-	private long receiverId;
-	private Date createdDate;
-	private String readOn;
-	private String receivedOn;
+
 	public ReceiptMovementListDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public ReceiptMovementListDTO(String dueDate, String remark, long receiptId, long senderId, long receiverId,
-			Date createdDate, String readOn, String receivedOn) {
-		super();
-		this.dueDate = dueDate;
-		this.remark = remark;
-		this.receiptId = receiptId;
-		this.senderId = senderId;
-		this.receiverId = receiverId;
-		this.createdDate = createdDate;
+
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
+
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+
+	public String getSentBy() {
+		return sentBy;
+	}
+
+	public void setSentBy(String sentBy) {
+		this.sentBy = sentBy;
+	}
+
+	public String getSentTo() {
+		return sentTo;
+	}
+
+	public void setSentTo(String sentTo) {
+		this.sentTo = sentTo;
+	}
+
+	public Date getSentOn() {
+		return sentOn;
+	}
+
+	public void setSentOn(Date sentOn) {
+		this.sentOn = sentOn;
+	}
+
+	public String getReadOn() {
+		return readOn;
+	}
+
+	public void setReadOn(String readOn) {
 		this.readOn = readOn;
-		this.receivedOn = receivedOn;
 	}
 
 	public String getDueDate() {
@@ -46,58 +91,25 @@ public class ReceiptMovementListDTO {
 		this.remark = remark;
 	}
 
-	public long getReceiptId() {
-		return receiptId;
-	}
-
-	public void setReceiptId(long receiptId) {
-		this.receiptId = receiptId;
-	}
-
-	public long getSenderId() {
-		return senderId;
-	}
-
-	public void setSenderId(long senderId) {
-		this.senderId = senderId;
-	}
-
-	public long getReceiverId() {
-		return receiverId;
-	}
-
-	public void setReceiverId(long receiverId) {
-		this.receiverId = receiverId;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getReadOn() {
-		return readOn;
-	}
-
-	public void setReadOn(String readOn) {
+	public ReceiptMovementListDTO(String receiptNumber, String subject, String sender, String sentBy, String sentTo,
+			Date sentOn, String readOn, String dueDate, String remark) {
+		super();
+		this.receiptNumber = receiptNumber;
+		this.subject = subject;
+		this.sender = sender;
+		this.sentBy = sentBy;
+		this.sentTo = sentTo;
+		this.sentOn = sentOn;
 		this.readOn = readOn;
-	}
-
-	public String getReceivedOn() {
-		return receivedOn;
-	}
-
-	public void setReceivedOn(String receivedOn) {
-		this.receivedOn = receivedOn;
+		this.dueDate = dueDate;
+		this.remark = remark;
 	}
 
 	@Override
 	public String toString() {
-		return "ReceiptMovementListDTO [dueDate=" + dueDate + ", remark=" + remark + ", receiptId=" + receiptId
-				+ ", senderId=" + senderId + ", receiverId=" + receiverId + ", createdDate=" + createdDate + ", readOn="
-				+ readOn + ", receivedOn=" + receivedOn + "]";
+		return "ReceiptMovementListDTO [receiptNumber=" + receiptNumber + ", subject=" + subject + ", sender=" + sender
+				+ ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
+				+ ", dueDate=" + dueDate + ", remark=" + remark + "]";
 	}
+
 }
