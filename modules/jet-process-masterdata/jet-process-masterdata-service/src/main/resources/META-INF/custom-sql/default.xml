@@ -364,10 +364,15 @@ SELECT rmid as rmId, duedate as dueDate , remark as remark , senderid as senderI
 <sql id="getReceiptSentListQuery">
 <![CDATA[
 
-SELECT r.receiptnumber , r.subject , r.name as sender , up.username as username , up.postmarking as postmarking , up.sectionname as sectionname , up.departmentname as departmentname , rm.createdate as senton , rm.readon , rm.duedate , rm.remark
-	FROM jet_process_receiptmovement as rm INNER JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId INNER JOIN masterdata_userpost as up
-	ON rm.senderid = up.userpostid where up.userpostid = ? order by rm.createdate desc ;
-
+SELECT rm.rmid as receiptMovementId, r.receiptnumber ,r.subject , r.name as sender ,
+		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as Sent_By,
+		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as Sent_To ,
+		rm.createdate as Sent_On, rm.readOn , rm.duedate , rm.remark
+		FROM jet_process_receiptmovement as rm 
+		 left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
+        left outer JOIN masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
+		left outer JOIN masterdata_userpost as up2 ON rm.senderid = up2.userpostid
+	where rm.senderid = ? order by rm.rmid desc ; 
 ]]>
 </sql>
 

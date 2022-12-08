@@ -102,7 +102,6 @@
 	<portlet:renderURL var="receiptSent">
 		<portlet:param name="mvcRenderCommandName" value="/receiptSentList" />
 		<portlet:param name="selectedNav" value="receiptSent" />
-		<portlet:param name="selectedUserPostId" value="<%=selectedUserPostId %>" />
 	</portlet:renderURL>
 
 	<div class="side-nav">
