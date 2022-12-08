@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@ include file="../init.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -29,7 +30,9 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="movementRenderURL">
-	<portlet:param name="mvcPath" value="/receipt/movement.jsp" />
+<%-- 	<portlet:param name="mvcPath" value="/receipt/movement.jsp" /> --%>
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND %>" />
+	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="send">

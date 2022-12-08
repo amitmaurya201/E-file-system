@@ -371,4 +371,21 @@ SELECT r.receiptnumber , r.subject , r.name as sender , up.username as username 
 ]]>
 </sql>
 
+<sql id="getReceiptMovementList">
+<![CDATA[
+	SELECT 
+		rm.createdate AS Sent_On, 
+		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as Sent_By,
+		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS Sent_To ,
+		rm.remark AS remarks
+		FROM jet_process_receiptmovement as rm 
+		left outer JOIN masterdata_userpost as up1
+		ON rm.receiverid = up1.userpostid 
+		left outer JOIN masterdata_userpost as up2
+		ON rm.senderid = up2.userpostid
+	where rm.senderid = 1; 
+]]>
+</sql>
+
+
 </custom-sql>
