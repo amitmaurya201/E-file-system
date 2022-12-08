@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Component;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
-import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
+import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.base.MasterdataServiceBaseImpl;
 
 /**
@@ -33,7 +33,7 @@ import io.jetprocess.masterdata.service.base.MasterdataServiceBaseImpl;
 		"json.web.service.context.path=Masterdata" }, service = AopService.class)
 public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 	
-	public List<ReceiptMovementListDTO> getReceiptInboxList(long userPostId) {
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
 		return masterdataFinder.getReceiptInboxList(userPostId);
 	}

@@ -52,8 +52,8 @@ import io.jetprocess.masterdata.service.MasterdataServiceUtil;
 public class MasterdataServiceHttp {
 
 	public static java.util.List
-		<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
-			getReceiptInboxList(HttpPrincipal httpPrincipal, long userPostId) {
+		<io.jetprocess.masterdata.model.ReceiptMovementDTO> getReceiptInboxList(
+			HttpPrincipal httpPrincipal, long userPostId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -74,8 +74,7 @@ public class MasterdataServiceHttp {
 			}
 
 			return (java.util.List
-				<io.jetprocess.masterdata.model.ReceiptMovementListDTO>)
-					returnObj;
+				<io.jetprocess.masterdata.model.ReceiptMovementDTO>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {

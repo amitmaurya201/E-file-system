@@ -377,7 +377,7 @@ public class MasterdataLocalServiceUtil {
 		return getService().getReceiptCreatedListSearchedData(userPostId, data);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptInboxList(long userPostId) {
 
 		return getService().getReceiptInboxList(userPostId);
@@ -393,7 +393,7 @@ public class MasterdataLocalServiceUtil {
 		return getService().getReceiptListCount(userPostId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptSentListDto>
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptSentList(long userPostId) {
 
 		return getService().getReceiptSentList(userPostId);

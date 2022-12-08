@@ -122,7 +122,7 @@ public class MasterdataServiceUtil {
 		return getService().getReceiptCategoryMasterdata();
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptInboxList(long userPostId) {
 
 		return getService().getReceiptInboxList(userPostId);

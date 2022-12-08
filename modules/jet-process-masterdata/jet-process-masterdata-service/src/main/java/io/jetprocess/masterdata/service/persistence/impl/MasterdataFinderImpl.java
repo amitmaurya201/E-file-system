@@ -17,8 +17,7 @@ import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.GenericModelMapper;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
-import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
-import io.jetprocess.masterdata.model.ReceiptSentListDto;
+import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.model.impl.MasterdataImpl;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;
 
@@ -28,7 +27,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	@Reference
 	private CustomSQL customSQL;
 	
-	public List<ReceiptMovementListDTO> getReceiptInboxList(long userPostId) {
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
 		Session session = null;
 		try {
@@ -38,7 +37,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			return  GenericModelMapper.map(ReceiptMovementListDTO.class, sqlQuery.list());
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
@@ -1078,7 +1077,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 	
-	public List<ReceiptSentListDto> getReceiptSentListByFinder(long userPostId) {
+	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
 		Session session = null;
 		try {
 			session = openSession();
@@ -1087,7 +1086,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			return  GenericModelMapper.map(ReceiptSentListDto.class, sqlQuery.list());
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
