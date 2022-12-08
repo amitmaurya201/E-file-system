@@ -123,7 +123,7 @@
 									<tr>
 										<th><liferay-ui:message
 												key="label-receipt-view-created-by" />:</th>
-										<td>${userPost.getUserName()}(${userPost.getPostMarking()})${userPost.getSectionName()}-${userPost.getDepartmentName()},</td>
+										<td>${userPost.getUserName()}(${userPost.getPostMarking()})${userPost.getSectionName()},${userPost.getDepartmentName()}</td>
 									</tr>
 
 
