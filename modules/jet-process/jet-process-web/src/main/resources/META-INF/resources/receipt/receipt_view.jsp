@@ -111,7 +111,7 @@
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<table>
+								<table class="col-12">
 									<tr>
 										<th><liferay-ui:message key="label-receipt-category" />:</th>
 										<td>${receiptCategoryValue}</td>
