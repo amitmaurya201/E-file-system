@@ -15,6 +15,8 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.util.List;
 
@@ -187,4 +189,9 @@ public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
     	
     	return masterdataLocalService.getReceiptSubCategoryById(receiptSubCategoryId);
     }
+    public  List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId){
+		return masterdataLocalService.getReceiptMovementDTOListByUserPostId(userPostId);
+	}
+
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

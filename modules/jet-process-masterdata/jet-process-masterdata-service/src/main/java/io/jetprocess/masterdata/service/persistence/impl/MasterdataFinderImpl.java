@@ -5,6 +5,8 @@ import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.math.BigInteger;
 import java.util.Collections;
@@ -1100,4 +1102,34 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 
+
+public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long senderId){
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptMovementList");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			logger.info("User Post Id : "+ senderId);
+			
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(senderId);
+			logger.info("SQL: "+sql);
+			logger.info("Query Pos: "+queryPos);
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
+	
 }

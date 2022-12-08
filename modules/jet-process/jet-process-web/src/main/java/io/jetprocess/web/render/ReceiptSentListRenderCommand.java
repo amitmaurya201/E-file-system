@@ -12,7 +12,6 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
@@ -25,13 +24,14 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		System.out.println("---1----   ");
 		Long userPostId = ParamUtil.getLong(renderRequest, "selectedUserPostId");
 		System.out.println("---1----userPostId  --   " + userPostId);
-
-		List<ReceiptMovementListDTO> receiptSentList = masterdataLocalService.getReceiptSentList(userPostId);
-		System.out.println("---2----   " + receiptSentList);
-		for (ReceiptMovementListDTO receiptMovement : receiptSentList) {
-			System.out.println("---3----   " + receiptMovement);
-		}
-
+		/*
+		 * List<ReceiptSentListDto> receiptSentList =
+		 * masterdataLocalService.getReceiptSentList(userPostId);
+		 * System.out.println("---2----   " + receiptSentList);
+		 * renderRequest.setAttribute("receiptSentList", receiptSentList); for
+		 * (ReceiptSentListDto receiptSent : receiptSentList) {
+		 * System.out.println("---3----   " + receiptSent); }
+		 */
 		return "/receipt/sent_list.jsp";
 	}
 

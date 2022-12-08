@@ -179,6 +179,14 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptMovementDTOListByUserPostId(long userPostId) {
+
+		return _masterdataService.getReceiptMovementDTOListByUserPostId(
+			userPostId);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata
 		getReceiptSubCategoryByIdMasterdata(long receiptSubCategoryId) {
 

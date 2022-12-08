@@ -15,9 +15,9 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -242,4 +242,9 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return masterdataFinder.getReceiptSentListByFinder(userPostId) ;
 		}
 	   
+		public  List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId){
+			return masterdataFinder.getReceiptMovementDTOListByUserPostId(userPostId);
+		}
+	
+		private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

@@ -134,6 +134,12 @@ public class MasterdataServiceUtil {
 		return getService().getReceiptListMasterdata(userPostId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptMovementDTOListByUserPostId(long userPostId) {
+
+		return getService().getReceiptMovementDTOListByUserPostId(userPostId);
+	}
+
 	public static Masterdata getReceiptSubCategoryByIdMasterdata(
 		long receiptSubCategoryId) {
 

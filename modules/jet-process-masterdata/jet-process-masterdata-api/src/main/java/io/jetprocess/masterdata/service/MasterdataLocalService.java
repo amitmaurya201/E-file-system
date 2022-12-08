@@ -336,6 +336,10 @@ public interface MasterdataLocalService
 	public int getReceiptListCount(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(
+		long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

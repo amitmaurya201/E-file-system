@@ -394,6 +394,12 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptMovementDTOListByUserPostId(long userPostId) {
+
+		return getService().getReceiptMovementDTOListByUserPostId(userPostId);
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptSentList(long userPostId) {
 
 		return getService().getReceiptSentList(userPostId);

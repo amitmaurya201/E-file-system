@@ -1138,6 +1138,42 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+			getReceiptMovementDTOListByUserPostId(
+				HttpPrincipal httpPrincipal, long userPostId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class,
+				"getReceiptMovementDTOListByUserPostId",
+				_getReceiptMovementDTOListByUserPostIdParameterTypes33);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.ReceiptMovementDTO>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		MasterdataServiceHttp.class);
 
@@ -1231,6 +1267,10 @@ public class MasterdataServiceHttp {
 		};
 	private static final Class<?>[]
 		_getReceiptSubCategoryByIdMasterdataParameterTypes32 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getReceiptMovementDTOListByUserPostIdParameterTypes33 = new Class[] {
 			long.class
 		};
 
