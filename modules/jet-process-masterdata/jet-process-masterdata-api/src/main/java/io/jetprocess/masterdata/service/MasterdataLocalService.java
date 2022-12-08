@@ -33,6 +33,7 @@ import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
+import io.jetprocess.masterdata.model.ReceiptSentListDto;
 
 import java.io.Serializable;
 
@@ -336,7 +337,7 @@ public interface MasterdataLocalService
 	public int getReceiptListCount(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementListDTO> getReceiptSentList(long senderid);
+	public List<ReceiptSentListDto> getReceiptSentList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);

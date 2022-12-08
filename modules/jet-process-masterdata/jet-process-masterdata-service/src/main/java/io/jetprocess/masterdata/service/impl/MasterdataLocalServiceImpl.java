@@ -26,6 +26,7 @@ import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementListDTO;
+import io.jetprocess.masterdata.model.ReceiptSentListDto;
 import io.jetprocess.masterdata.service.base.MasterdataLocalServiceBaseImpl;
 
 /**
@@ -238,9 +239,8 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return count;
 		}
 	
-		public List<ReceiptMovementListDTO> getReceiptSentList(long senderid) {
-			return masterdataFinder.getReceiptSentListByFinder(senderid) ;
+		public List<ReceiptSentListDto> getReceiptSentList(long userPostId) {
+			return masterdataFinder.getReceiptSentListByFinder(userPostId) ;
 		}
-
 	   
 }

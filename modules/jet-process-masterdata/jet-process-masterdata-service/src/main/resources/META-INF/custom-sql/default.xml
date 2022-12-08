@@ -364,8 +364,9 @@ SELECT rmid as rmId, duedate as dueDate , remark as remark , senderid as senderI
 <sql id="getReceiptSentListQuery">
 <![CDATA[
 
-SELECT duedate as dueDate , remark , receiptid as receiptId , senderid as senderId , receiverid as receiverId , createdate as createdDate , readon as readOn , receivedon as receivedOn
-	FROM jet_process_receiptmovement where senderid = ? ;
+SELECT r.receiptnumber , r.subject , r.name as sender , up.username as username , up.postmarking as postmarking , up.sectionname as sectionname , up.departmentname as departmentname , rm.createdate as senton , rm.readon , rm.duedate , rm.remark
+	FROM jet_process_receiptmovement as rm INNER JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId INNER JOIN masterdata_userpost as up
+	ON rm.senderid = up.userpostid where up.userpostid = ? order by rm.createdate desc ;
 
 ]]>
 </sql>
