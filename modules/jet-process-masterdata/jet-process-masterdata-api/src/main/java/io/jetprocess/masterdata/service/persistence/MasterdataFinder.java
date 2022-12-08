@@ -23,6 +23,9 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface MasterdataFinder {
 
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
+		getReceiptInboxList(long userPostId);
+
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getCategories();
 

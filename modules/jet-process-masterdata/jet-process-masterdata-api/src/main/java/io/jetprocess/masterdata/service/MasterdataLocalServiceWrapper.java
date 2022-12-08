@@ -466,6 +466,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementListDTO>
+		getReceiptInboxList(long userPostId) {
+
+		return _masterdataLocalService.getReceiptInboxList(userPostId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptList(long userPostId) {
 

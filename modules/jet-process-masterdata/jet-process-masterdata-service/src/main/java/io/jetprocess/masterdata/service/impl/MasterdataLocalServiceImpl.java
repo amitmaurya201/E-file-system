@@ -33,7 +33,12 @@ import io.jetprocess.masterdata.service.base.MasterdataLocalServiceBaseImpl;
  */
 @Component(property = "model.class.name=io.jetprocess.masterdata.model.Masterdata", service = AopService.class)
 public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
+	
+	public List<ReceiptMovementListDTO> getReceiptInboxList(long userPostId) {
 
+		return masterdataFinder.getReceiptInboxList(userPostId);
+	}
+	
 	public List<Masterdata> getCategory() {
 
 		return masterdataFinder.getCategories();

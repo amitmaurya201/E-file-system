@@ -350,6 +350,17 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 
 </sql>
 
+
+<sql id="getReceiptInboxList">
+<![CDATA[
+
+SELECT rmid as rmId, duedate as dueDate , remark as remark , senderid as senderID , receiptid as receiptID , readon as readOn , receivedon as receivedOn , createdate as createDate , receiverid as receiverId    
+	FROM public.jet_process_receiptmovement where senderid = ?;
+
+]]>
+</sql>
+
+
 <sql id="getReceiptSentListQuery">
 <![CDATA[
 
@@ -357,6 +368,6 @@ SELECT duedate as dueDate , remark , receiptid as receiptId , senderid as sender
 	FROM jet_process_receiptmovement where senderid = ? ;
 
 ]]>
-
 </sql>
+
 </custom-sql>

@@ -26,6 +26,30 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 
 	@Reference
 	private CustomSQL customSQL;
+	
+	public List<ReceiptMovementListDTO> getReceiptInboxList(long userPostId) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptInboxList");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			return  GenericModelMapper.map(ReceiptMovementListDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
 
 	public List<Masterdata> getCategories() {
 		List<Masterdata> masterdataList = Collections.EMPTY_LIST;
