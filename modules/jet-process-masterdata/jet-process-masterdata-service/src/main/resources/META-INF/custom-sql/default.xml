@@ -365,14 +365,13 @@ SELECT rmid as rmId, duedate as dueDate , remark as remark , senderid as senderI
 <![CDATA[
 
 SELECT rm.rmid as receiptMovementId, r.receiptnumber ,r.subject , r.name as sender ,
-		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as Sent_By,
-		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as Sent_To ,
-		rm.createdate as Sent_On, rm.readOn , rm.duedate , rm.remark
+		null as Sent_By,
+		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as Sent_To ,
+		rm.createdate as Sent_On, null as readOn , rm.duedate , rm.remark
 		FROM jet_process_receiptmovement as rm 
-		 left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
-        left outer JOIN masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-		left outer JOIN masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-	where rm.senderid = ? order by rm.rmid desc ; 
+		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
+		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid
+	where rm.senderid = ? order by rm.rmid desc ;
 ]]>
 </sql>
 

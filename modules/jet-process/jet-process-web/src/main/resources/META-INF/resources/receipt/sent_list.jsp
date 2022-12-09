@@ -33,7 +33,7 @@
 						<liferay-ui:search-container-column-text property="remark" name="Remark"/>
 						<liferay-ui:search-container-column-text name="Action"/>
 					</liferay-ui:search-container-row>
-					<liferay-ui:search-iterator />
+					<liferay-ui:search-iterator  markupView="lexicon"/>
 				</liferay-ui:search-container>
 			</div>
 		</div>
