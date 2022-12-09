@@ -126,7 +126,7 @@
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:input type="text" cssClass="form-control"
 																				id="year" name="year" value=""
-																				label="label-file-year">
+																				label="label-file-year"  disabled="true">
 																			</aui:input>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
@@ -202,8 +202,9 @@
 													id="categoryId" name="categoryId"
 													label="label-file-categoryid">
 
-													<option value='0'><liferay-ui:message
+													<option value=''><liferay-ui:message
 															key="file-default-option" /></option>
+															<aui:validator name="required" />
 												</aui:select>
 											</div>
 										</aui:fieldset>
@@ -314,6 +315,9 @@ A.io.request(url, {
 
 }); --%>
 
+$(document).ready(function(){
+	setUserPostId();
+});
 
 </aui:script>
 <%@ include file="/js/file.js"%>

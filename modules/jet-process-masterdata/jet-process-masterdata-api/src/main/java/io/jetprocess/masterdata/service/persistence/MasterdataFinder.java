@@ -23,6 +23,9 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface MasterdataFinder {
 
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptInboxList(long userPostId);
+
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getCategories();
 
@@ -135,5 +138,11 @@ public interface MasterdataFinder {
 
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptCreatedListSearch(long userPostId, String data);
+
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptSentListByFinder(long userPostId);
+
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptMovementDTOListByUserPostId(long senderId);
 
 }

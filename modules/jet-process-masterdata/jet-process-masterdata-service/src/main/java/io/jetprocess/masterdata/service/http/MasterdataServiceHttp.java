@@ -51,13 +51,47 @@ import io.jetprocess.masterdata.service.MasterdataServiceUtil;
  */
 public class MasterdataServiceHttp {
 
+	public static java.util.List
+		<io.jetprocess.masterdata.model.ReceiptMovementDTO> getReceiptInboxList(
+			HttpPrincipal httpPrincipal, long userPostId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getReceiptInboxList",
+				_getReceiptInboxListParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.ReceiptMovementDTO>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getCategoryMasterdata(HttpPrincipal httpPrincipal) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getCategoryMasterdata",
-				_getCategoryMasterdataParameterTypes0);
+				_getCategoryMasterdataParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -89,7 +123,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getSubCategoryMasterdata",
-				_getSubCategoryMasterdataParameterTypes1);
+				_getSubCategoryMasterdataParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, categoryId);
@@ -122,7 +156,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getTypeMasterdata",
-				_getTypeMasterdataParameterTypes2);
+				_getTypeMasterdataParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -154,7 +188,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getDeliveryModeMasterdata",
-				_getDeliveryModeMasterdataParameterTypes3);
+				_getDeliveryModeMasterdataParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -186,7 +220,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getFileCodeMasterdata",
-				_getFileCodeMasterdataParameterTypes4);
+				_getFileCodeMasterdataParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -218,7 +252,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getBasicHeadMasterdata",
-				_getBasicHeadMasterdataParameterTypes5);
+				_getBasicHeadMasterdataParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -251,7 +285,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getPrimaryHeadMasterdata",
-				_getPrimaryHeadMasterdataParameterTypes6);
+				_getPrimaryHeadMasterdataParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, basicHeadId);
@@ -285,7 +319,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getSecondaryHeadMasterdata",
-				_getSecondaryHeadMasterdataParameterTypes7);
+				_getSecondaryHeadMasterdataParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, primaryHeadId);
@@ -319,7 +353,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getTeritaryHeadMasterdata",
-				_getTeritaryHeadMasterdataParameterTypes8);
+				_getTeritaryHeadMasterdataParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, secondaryHeadId);
@@ -352,7 +386,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getOrganizationMasterdata",
-				_getOrganizationMasterdataParameterTypes9);
+				_getOrganizationMasterdataParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -385,7 +419,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getSubOrganizationMasterdata",
-				_getSubOrganizationMasterdataParameterTypes10);
+				_getSubOrganizationMasterdataParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, organizationId);
@@ -418,7 +452,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getReceiptCategoryMasterdata",
-				_getReceiptCategoryMasterdataParameterTypes11);
+				_getReceiptCategoryMasterdataParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -451,7 +485,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getReceiptSubCategoryMasterdata",
-				_getReceiptSubCategoryMasterdataParameterTypes12);
+				_getReceiptSubCategoryMasterdataParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, receiptCategoryId);
@@ -484,7 +518,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getCountriesMasterdata",
-				_getCountriesMasterdataParameterTypes13);
+				_getCountriesMasterdataParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -516,7 +550,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getStatesMasterdata",
-				_getStatesMasterdataParameterTypes14);
+				_getStatesMasterdataParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId);
@@ -550,7 +584,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getBasicHeadByIdMasterdata",
-				_getBasicHeadByIdMasterdataParameterTypes15);
+				_getBasicHeadByIdMasterdataParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, basicHeadId);
@@ -583,7 +617,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getPrimaryHeadByIdMasterdata",
-				_getPrimaryHeadByIdMasterdataParameterTypes16);
+				_getPrimaryHeadByIdMasterdataParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, primaryHeadId);
@@ -616,7 +650,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getSecondaryHeadByIdMasterdata",
-				_getSecondaryHeadByIdMasterdataParameterTypes17);
+				_getSecondaryHeadByIdMasterdataParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, secondaryHeadId);
@@ -649,7 +683,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getTertiaryByIdMasterdata",
-				_getTertiaryByIdMasterdataParameterTypes18);
+				_getTertiaryByIdMasterdataParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, tertiaryHeadId);
@@ -682,7 +716,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getFileCreatedListMasterdata",
-				_getFileCreatedListMasterdataParameterTypes19);
+				_getFileCreatedListMasterdataParameterTypes20);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userPostId);
@@ -717,7 +751,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getReceiptListMasterdata",
-				_getReceiptListMasterdataParameterTypes20);
+				_getReceiptListMasterdataParameterTypes21);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userPostId);
@@ -751,7 +785,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getFileCodeValueByIdMasterdata",
-				_getFileCodeValueByIdMasterdataParameterTypes21);
+				_getFileCodeValueByIdMasterdataParameterTypes22);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, fileCodeId);
@@ -784,7 +818,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getCategoryValueByIdMasterdata",
-				_getCategoryValueByIdMasterdataParameterTypes22);
+				_getCategoryValueByIdMasterdataParameterTypes23);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, categoryId);
@@ -818,7 +852,7 @@ public class MasterdataServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class,
 				"getSubCategoryValueByIdMasterdata",
-				_getSubCategoryValueByIdMasterdataParameterTypes23);
+				_getSubCategoryValueByIdMasterdataParameterTypes24);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, subCategoryId);
@@ -850,7 +884,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getTypeValueByIdMasterdata",
-				_getTypeValueByIdMasterdataParameterTypes24);
+				_getTypeValueByIdMasterdataParameterTypes25);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, typeId);
 
@@ -882,7 +916,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getDeliveryModeByIdMasterdata",
-				_getDeliveryModeByIdMasterdataParameterTypes25);
+				_getDeliveryModeByIdMasterdataParameterTypes26);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, deliveryModeId);
@@ -915,7 +949,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getOrganizationByIdMasterdata",
-				_getOrganizationByIdMasterdataParameterTypes26);
+				_getOrganizationByIdMasterdataParameterTypes27);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, organizationId);
@@ -948,7 +982,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getSubOrganizationByIdMasterdata",
-				_getSubOrganizationByIdMasterdataParameterTypes27);
+				_getSubOrganizationByIdMasterdataParameterTypes28);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, subOrganizationId);
@@ -980,7 +1014,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getCountryByIdMasterdata",
-				_getCountryByIdMasterdataParameterTypes28);
+				_getCountryByIdMasterdataParameterTypes29);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId);
@@ -1012,7 +1046,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getStateByIdMasterdata",
-				_getStateByIdMasterdataParameterTypes29);
+				_getStateByIdMasterdataParameterTypes30);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, stateId);
 
@@ -1044,7 +1078,7 @@ public class MasterdataServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class, "getReceiptCategoryByIdMasterdata",
-				_getReceiptCategoryByIdMasterdataParameterTypes30);
+				_getReceiptCategoryByIdMasterdataParameterTypes31);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, receiptCategoryId);
@@ -1078,7 +1112,7 @@ public class MasterdataServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class,
 				"getReceiptSubCategoryByIdMasterdata",
-				_getReceiptSubCategoryByIdMasterdataParameterTypes31);
+				_getReceiptSubCategoryByIdMasterdataParameterTypes32);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, receiptSubCategoryId);
@@ -1104,97 +1138,139 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+			getReceiptMovementDTOListByUserPostId(
+				HttpPrincipal httpPrincipal, long userPostId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class,
+				"getReceiptMovementDTOListByUserPostId",
+				_getReceiptMovementDTOListByUserPostIdParameterTypes33);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.ReceiptMovementDTO>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		MasterdataServiceHttp.class);
 
-	private static final Class<?>[] _getCategoryMasterdataParameterTypes0 =
+	private static final Class<?>[] _getReceiptInboxListParameterTypes0 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getCategoryMasterdataParameterTypes1 =
 		new Class[] {};
-	private static final Class<?>[] _getSubCategoryMasterdataParameterTypes1 =
+	private static final Class<?>[] _getSubCategoryMasterdataParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getTypeMasterdataParameterTypes2 =
+	private static final Class<?>[] _getTypeMasterdataParameterTypes3 =
 		new Class[] {};
-	private static final Class<?>[] _getDeliveryModeMasterdataParameterTypes3 =
+	private static final Class<?>[] _getDeliveryModeMasterdataParameterTypes4 =
 		new Class[] {};
-	private static final Class<?>[] _getFileCodeMasterdataParameterTypes4 =
+	private static final Class<?>[] _getFileCodeMasterdataParameterTypes5 =
 		new Class[] {};
-	private static final Class<?>[] _getBasicHeadMasterdataParameterTypes5 =
+	private static final Class<?>[] _getBasicHeadMasterdataParameterTypes6 =
 		new Class[] {};
-	private static final Class<?>[] _getPrimaryHeadMasterdataParameterTypes6 =
+	private static final Class<?>[] _getPrimaryHeadMasterdataParameterTypes7 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getSecondaryHeadMasterdataParameterTypes7 =
+	private static final Class<?>[] _getSecondaryHeadMasterdataParameterTypes8 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getTeritaryHeadMasterdataParameterTypes8 =
+	private static final Class<?>[] _getTeritaryHeadMasterdataParameterTypes9 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getOrganizationMasterdataParameterTypes9 =
+	private static final Class<?>[] _getOrganizationMasterdataParameterTypes10 =
 		new Class[] {};
 	private static final Class<?>[]
-		_getSubOrganizationMasterdataParameterTypes10 = new Class[] {
+		_getSubOrganizationMasterdataParameterTypes11 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getReceiptCategoryMasterdataParameterTypes11 = new Class[] {};
+		_getReceiptCategoryMasterdataParameterTypes12 = new Class[] {};
 	private static final Class<?>[]
-		_getReceiptSubCategoryMasterdataParameterTypes12 = new Class[] {
+		_getReceiptSubCategoryMasterdataParameterTypes13 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCountriesMasterdataParameterTypes13 =
+	private static final Class<?>[] _getCountriesMasterdataParameterTypes14 =
 		new Class[] {};
-	private static final Class<?>[] _getStatesMasterdataParameterTypes14 =
+	private static final Class<?>[] _getStatesMasterdataParameterTypes15 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getBasicHeadByIdMasterdataParameterTypes15 = new Class[] {long.class};
+		_getBasicHeadByIdMasterdataParameterTypes16 = new Class[] {long.class};
 	private static final Class<?>[]
-		_getPrimaryHeadByIdMasterdataParameterTypes16 = new Class[] {
+		_getPrimaryHeadByIdMasterdataParameterTypes17 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getSecondaryHeadByIdMasterdataParameterTypes17 = new Class[] {
+		_getSecondaryHeadByIdMasterdataParameterTypes18 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes18 =
+	private static final Class<?>[] _getTertiaryByIdMasterdataParameterTypes19 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getFileCreatedListMasterdataParameterTypes19 = new Class[] {
+		_getFileCreatedListMasterdataParameterTypes20 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getReceiptListMasterdataParameterTypes20 =
+	private static final Class<?>[] _getReceiptListMasterdataParameterTypes21 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getFileCodeValueByIdMasterdataParameterTypes21 = new Class[] {
+		_getFileCodeValueByIdMasterdataParameterTypes22 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCategoryValueByIdMasterdataParameterTypes22 = new Class[] {
+		_getCategoryValueByIdMasterdataParameterTypes23 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getSubCategoryValueByIdMasterdataParameterTypes23 = new Class[] {
+		_getSubCategoryValueByIdMasterdataParameterTypes24 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getTypeValueByIdMasterdataParameterTypes24 = new Class[] {long.class};
+		_getTypeValueByIdMasterdataParameterTypes25 = new Class[] {long.class};
 	private static final Class<?>[]
-		_getDeliveryModeByIdMasterdataParameterTypes25 = new Class[] {
+		_getDeliveryModeByIdMasterdataParameterTypes26 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getOrganizationByIdMasterdataParameterTypes26 = new Class[] {
+		_getOrganizationByIdMasterdataParameterTypes27 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getSubOrganizationByIdMasterdataParameterTypes27 = new Class[] {
+		_getSubOrganizationByIdMasterdataParameterTypes28 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getCountryByIdMasterdataParameterTypes28 =
+	private static final Class<?>[] _getCountryByIdMasterdataParameterTypes29 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getStateByIdMasterdataParameterTypes29 =
+	private static final Class<?>[] _getStateByIdMasterdataParameterTypes30 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getReceiptCategoryByIdMasterdataParameterTypes30 = new Class[] {
+		_getReceiptCategoryByIdMasterdataParameterTypes31 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getReceiptSubCategoryByIdMasterdataParameterTypes31 = new Class[] {
+		_getReceiptSubCategoryByIdMasterdataParameterTypes32 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getReceiptMovementDTOListByUserPostIdParameterTypes33 = new Class[] {
 			long.class
 		};
 

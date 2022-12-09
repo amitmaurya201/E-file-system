@@ -68,7 +68,7 @@ input[type='file'] {
 							<i class="glyphicon glyphicon-download-alt"></i>
                				 	<p><liferay-ui:message key="label-receipt-pdf-drag" /></p>
                					 <span class="btn btn-info" style="font-size:15px;" id="doc-select-btn"><liferay-ui:message key="label-receipt-pdf-file" /></span>
-								<input name="doc-input" id="doc-input" type="file" hidden />
+								<input name="doc-input" id="doc-input" type="file" hidden  accept=".pdf" />
 								
 								</div> 
 

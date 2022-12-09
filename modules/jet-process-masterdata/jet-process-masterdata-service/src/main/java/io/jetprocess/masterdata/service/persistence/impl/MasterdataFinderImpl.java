@@ -5,6 +5,8 @@ import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.math.BigInteger;
 import java.util.Collections;
@@ -17,6 +19,7 @@ import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.GenericModelMapper;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.model.impl.MasterdataImpl;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;
 
@@ -25,6 +28,30 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 
 	@Reference
 	private CustomSQL customSQL;
+	
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptInboxList");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
 
 	public List<Masterdata> getCategories() {
 		List<Masterdata> masterdataList = Collections.EMPTY_LIST;
@@ -80,7 +107,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return subCategoryList;
 
 	}
-
 	public List<Masterdata> getType() {
 
 		List<Masterdata> typeList = Collections.EMPTY_LIST;
@@ -1125,4 +1151,54 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+	
+	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+
+public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long senderId){
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptMovementList");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(senderId);
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
+	
 }

@@ -41,11 +41,11 @@
 					<aui:fieldset-group>
 						<div class="fieldset" style="background-color: #f1f2f5;">
 							<h1>
-								<span><b>To</b></span>
+								<span><b>To<span class="text-danger">*</span></b></span>
 							</h1>
 
 							<select name='<portlet:namespace/>receiverId' id="receiverId"
-								class="form-control">
+								class="form-control" required="required">
 									<option>choose One</option>
 								<%
 									List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);

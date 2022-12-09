@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@page import="java.util.List"%>
 <%@ include file="../init.jsp" %>
 
@@ -29,7 +30,9 @@
 
 
 <portlet:renderURL var="movement">
-    <portlet:param name="mvcPath" value="/file/movement.jsp"/>
+    <%-- <portlet:param name="mvcPath" value="/file/movement.jsp"/> --%>
+    <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND %>"/>
+    <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="details">
     <portlet:param name="mvcRenderCommandName" value="/EditedView"/>
@@ -40,6 +43,7 @@
 </portlet:renderURL>
 <portlet:renderURL var="send">
     <portlet:param name="mvcPath" value="/file/send.jsp"/>
+    <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
     <portlet:param name="mvcPath" value="/file/sendback.jsp"/>

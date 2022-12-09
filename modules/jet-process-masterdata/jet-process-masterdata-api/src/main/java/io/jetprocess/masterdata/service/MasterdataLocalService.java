@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 
 import java.io.Serializable;
 
@@ -326,10 +327,20 @@ public interface MasterdataLocalService
 		long userPostId, String data);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptListViewDto> getReceiptList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getReceiptListCount(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(
+		long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptSubCategory(long receiptCategoryId);

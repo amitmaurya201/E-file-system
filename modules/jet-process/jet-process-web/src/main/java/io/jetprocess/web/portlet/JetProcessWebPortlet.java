@@ -88,29 +88,32 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		if(userPostIdFromUrl != null ) { 
 			session.setAttribute("userPostId", userPostIdFromUrl);
 			logger.info("UserPostId is sent in the session : "+userPostIdFromUrl);
+			super.doView(renderRequest, renderResponse);
 		}else {
 			userPostIdFromUrl = (String)session.getAttribute("userPostId");
 			logger.info("UserPostId from session : "+userPostIdFromUrl);
 			if(userPostIdFromUrl == null) {
 				List<UserPost> userPostList = userPostService.getUserPostList(user.getUserId());
-				if(userPostList != null) {
-					logger.info("UserPostList: "+userPostList);
+				logger.info("UserPostList: "+userPostList);
+				if(!userPostList.isEmpty()) {
 					UserPost userPost = userPostList.get(0);
 					logger.info("userPost--> "+userPost);
 					long postId = userPost.getPostId();
 					session.setAttribute("userPostId", String.valueOf(postId));
+					super.doView(renderRequest, renderResponse);
 				}
 				else {
-					// redirect to error.jsp saying userPost is not available for this user 
-					renderRequest.setAttribute("noUserPostErrMsg", "userPost is not available for the current user");
-					renderRequest.setAttribute("jspPage", "/error/error.jsp");
+					String errPage = "/error/error.jsp";
+					logger.info("User Post is not available for the user :"+user.getUserId());
+					renderRequest.setAttribute("noUserPostMsg", "label-no-user-post-msg");
+					super.include(errPage, renderRequest, renderResponse);
 				}
 			}
 		}
-		super.doView(renderRequest, renderResponse);
+		
 	}
 	
-		@Reference
+	@Reference
 	private UserPostService userPostService;
 	
 	@Reference

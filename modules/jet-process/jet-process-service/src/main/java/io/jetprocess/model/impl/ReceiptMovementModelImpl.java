@@ -80,7 +80,8 @@ public class ReceiptMovementModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"receiverId", Types.BIGINT},
 		{"senderId", Types.BIGINT}, {"receiptId", Types.BIGINT},
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
-		{"remark", Types.VARCHAR}
+		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
+		{"receivedOn", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -100,10 +101,12 @@ public class ReceiptMovementModelImpl
 		TABLE_COLUMNS_MAP.put("priority", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("dueDate", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("remark", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null)";
+		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_ReceiptMovement";
@@ -314,6 +317,16 @@ public class ReceiptMovementModelImpl
 		attributeSetterBiConsumers.put(
 			"remark",
 			(BiConsumer<ReceiptMovement, String>)ReceiptMovement::setRemark);
+		attributeGetterFunctions.put("readOn", ReceiptMovement::getReadOn);
+		attributeSetterBiConsumers.put(
+			"readOn",
+			(BiConsumer<ReceiptMovement, String>)ReceiptMovement::setReadOn);
+		attributeGetterFunctions.put(
+			"receivedOn", ReceiptMovement::getReceivedOn);
+		attributeSetterBiConsumers.put(
+			"receivedOn",
+			(BiConsumer<ReceiptMovement, String>)
+				ReceiptMovement::setReceivedOn);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -586,6 +599,46 @@ public class ReceiptMovementModelImpl
 		_remark = remark;
 	}
 
+	@JSON
+	@Override
+	public String getReadOn() {
+		if (_readOn == null) {
+			return "";
+		}
+		else {
+			return _readOn;
+		}
+	}
+
+	@Override
+	public void setReadOn(String readOn) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_readOn = readOn;
+	}
+
+	@JSON
+	@Override
+	public String getReceivedOn() {
+		if (_receivedOn == null) {
+			return "";
+		}
+		else {
+			return _receivedOn;
+		}
+	}
+
+	@Override
+	public void setReceivedOn(String receivedOn) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_receivedOn = receivedOn;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -661,6 +714,8 @@ public class ReceiptMovementModelImpl
 		receiptMovementImpl.setPriority(getPriority());
 		receiptMovementImpl.setDueDate(getDueDate());
 		receiptMovementImpl.setRemark(getRemark());
+		receiptMovementImpl.setReadOn(getReadOn());
+		receiptMovementImpl.setReceivedOn(getReceivedOn());
 
 		receiptMovementImpl.resetOriginalValues();
 
@@ -696,6 +751,10 @@ public class ReceiptMovementModelImpl
 			this.<String>getColumnOriginalValue("dueDate"));
 		receiptMovementImpl.setRemark(
 			this.<String>getColumnOriginalValue("remark"));
+		receiptMovementImpl.setReadOn(
+			this.<String>getColumnOriginalValue("readOn"));
+		receiptMovementImpl.setReceivedOn(
+			this.<String>getColumnOriginalValue("receivedOn"));
 
 		return receiptMovementImpl;
 	}
@@ -838,6 +897,22 @@ public class ReceiptMovementModelImpl
 			receiptMovementCacheModel.remark = null;
 		}
 
+		receiptMovementCacheModel.readOn = getReadOn();
+
+		String readOn = receiptMovementCacheModel.readOn;
+
+		if ((readOn != null) && (readOn.length() == 0)) {
+			receiptMovementCacheModel.readOn = null;
+		}
+
+		receiptMovementCacheModel.receivedOn = getReceivedOn();
+
+		String receivedOn = receiptMovementCacheModel.receivedOn;
+
+		if ((receivedOn != null) && (receivedOn.length() == 0)) {
+			receiptMovementCacheModel.receivedOn = null;
+		}
+
 		return receiptMovementCacheModel;
 	}
 
@@ -944,6 +1019,8 @@ public class ReceiptMovementModelImpl
 	private String _priority;
 	private String _dueDate;
 	private String _remark;
+	private String _readOn;
+	private String _receivedOn;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -987,6 +1064,8 @@ public class ReceiptMovementModelImpl
 		_columnOriginalValues.put("priority", _priority);
 		_columnOriginalValues.put("dueDate", _dueDate);
 		_columnOriginalValues.put("remark", _remark);
+		_columnOriginalValues.put("readOn", _readOn);
+		_columnOriginalValues.put("receivedOn", _receivedOn);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1035,6 +1114,10 @@ public class ReceiptMovementModelImpl
 		columnBitmasks.put("dueDate", 2048L);
 
 		columnBitmasks.put("remark", 4096L);
+
+		columnBitmasks.put("readOn", 8192L);
+
+		columnBitmasks.put("receivedOn", 16384L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

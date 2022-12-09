@@ -62,10 +62,8 @@
 									</p>
 									<span class="btn btn-info" style="font-size: 15px;"
 										id="doc-select-btn"><liferay-ui:message
-											key="label-receipt-pdf-file" /></span> 
-											
-											<input name="doc-input"
-										id="doc-input" type="file" hidden required="required" />
+											key="label-receipt-pdf-file" /></span> <input name="doc-input"
+										id="doc-input" type="file" hidden accept=".pdf"/>
 
 								</div>
 							</div>
@@ -95,6 +93,9 @@
 								<label><liferay-ui:message key="label-receipt-nature" /><span
 									class='text-danger'>*</span></label>
 								<aui:select label="" name="nature" id="nature">
+									<aui:option value="">
+										<liferay-ui:message key="receipt-default-option" />
+									</aui:option>
 									<aui:option value="Electronic">
 										<liferay-ui:message key="receipt-nature-option1" />
 									</aui:option>

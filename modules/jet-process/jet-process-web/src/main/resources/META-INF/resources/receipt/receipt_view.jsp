@@ -111,7 +111,7 @@
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<table>
+								<table class="col-12">
 									<tr>
 										<th><liferay-ui:message key="label-receipt-category" />:</th>
 										<td>${receiptCategoryValue}</td>
@@ -123,7 +123,7 @@
 									<tr>
 										<th><liferay-ui:message
 												key="label-receipt-view-created-by" />:</th>
-										<td>${userPost.getUserName()},${userPost.getSectionName()}_${userPost.getDepartmentName()},${userPost.getPostMarking()}</td>
+										<td>${userPost.getUserName()}(${userPost.getPostMarking()})${userPost.getSectionName()},${userPost.getDepartmentName()}</td>
 									</tr>
 
 

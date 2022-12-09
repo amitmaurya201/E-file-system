@@ -59,6 +59,10 @@ public class ReceiptMovementTable extends BaseTable<ReceiptMovementTable> {
 		"dueDate", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReceiptMovementTable, String> remark = createColumn(
 		"remark", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptMovementTable, String> readOn = createColumn(
+		"readOn", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptMovementTable, String> receivedOn = createColumn(
+		"receivedOn", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private ReceiptMovementTable() {
 		super("JET_PROCESS_ReceiptMovement", ReceiptMovementTable::new);

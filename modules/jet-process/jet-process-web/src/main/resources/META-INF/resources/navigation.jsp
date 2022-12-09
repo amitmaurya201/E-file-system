@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet"
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <style>
@@ -67,35 +68,61 @@
 <body id="side-nav">
 	<portlet:renderURL var="view">
 		<portlet:param name="mvcRenderCommandName" value="/home" />
+		<portlet:param name="selectedNav" value="home" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createFile">
 		<portlet:param name="mvcRenderCommandName" value="/createFile1" />
+		<portlet:param name="selectedNav" value="createFile" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdFileList">
 		<portlet:param name="mvcRenderCommandName" value="/createdFileList" />
+		<portlet:param name="selectedNav" value="fileList" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createReceipt">
 		<portlet:param name="mvcRenderCommandName" value="/createReceipt" />
+		<portlet:param name="selectedNav" value="createReceipt" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdListReceipt">
 		<portlet:param name="mvcRenderCommandName" value="/createdListReceipt" />
+		<portlet:param name="selectedNav" value="receiptList" />
+	</portlet:renderURL>
+	
+	<portlet:renderURL var="fileInbox">
+		<portlet:param name="mvcRenderCommandName" value="/fileInBox" />
+		<portlet:param name="selectedNav" value="fileInbox" />
+	</portlet:renderURL>
+	<portlet:renderURL var="receiptInbox">
+		<portlet:param name="mvcRenderCommandName" value="/receiptInBox" />
+		<portlet:param name="selectedNav" value="receiptInbox" />
+	</portlet:renderURL>
+	<portlet:renderURL var="fileSent">
+		<portlet:param name="mvcRenderCommandName" value="/fileSentBox" />
+		<portlet:param name="selectedNav" value="fileSent" />
+	</portlet:renderURL>
+	<portlet:renderURL var="receiptSent">
+		<portlet:param name="mvcRenderCommandName" value="/receiptSentList" />
+		<portlet:param name="selectedNav" value="receiptSent" />
 	</portlet:renderURL>
 
 	<div class="side-nav">
-		<a href="<%=view%>"><i class="fa fa-fw fa-home"></i> Home</a> <a
+		<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i> Home</a> <a
 			class="dropdown-btn"><i class="fa fa-file" aria-hidden="true"></i>File
 			<i class="fa fa-caret-down"></i> </a>
 		<div class="dropdown-container ">
-			<a href="<%=createFile%>">Create File</a> <a
-				href="<%=createdFileList%>">Created List</a>
+			<a id="createFile" href="<%=createFile%>">Create File</a>
+			<a id="fileList" href="<%=createdFileList%>">Created List</a>
+			<a id="fileInbox" href="<%=fileInbox%>">Inbox</a>
+			<a id="fileSent" href="<%=fileSent%>">Sent</a>
 
 		</div>
 		<a class="dropdown-btn"><i class='fas fa-receipt'
 			style='font-size: 24px'></i> Receipt <i class="fa fa-caret-down"></i>
 		</a>
 		<div class="dropdown-container ">
-			<a href="<%=createReceipt%>">Create Receipt</a> <a
-				href="<%=createdListReceipt%>">Created List</a>
+			<a id="createReceipt" href="<%=createReceipt%>">Create Receipt</a>
+			<a id="receiptList" href="<%=createdListReceipt%>">Created List</a>
+			<a id="receiptInbox" href="<%=receiptInbox%>">Inbox</a>
+			<a id="receiptSent" href="<%=receiptSent%>">Sent</a>
 
 		</div>
 
@@ -120,6 +147,11 @@
 				}
 			});
 		}
+		
+		var navId = "${param.selectedNav}";
+		var nav = document.getElementById(navId);
+
+		nav.style.background = '#1f161e';
 	</script>
 
 </body>
