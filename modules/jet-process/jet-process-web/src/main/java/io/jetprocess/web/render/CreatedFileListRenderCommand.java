@@ -35,7 +35,7 @@ import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 		property = {
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST,
-			"mvc.command.name="+"/"
+			"mvc.command.name=/"
 			
 			
 		},
@@ -79,11 +79,11 @@ logger.info("View Render...");
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
 				2);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
-		int end = start + delta;
+		int end = delta;
 
 		HttpSession session = themeDisplay.getRequest().getSession();
 		 String userPostId =  (String) session.getAttribute("userPostId");
-		 long userPost = 1;
+		 long userPost = 1;  
 		// Get sorting options.
 		// Notice that this doesn't really sort on title because the field is
 		// stored in XML. In real world this search would be integrated to the

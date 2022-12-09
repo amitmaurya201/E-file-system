@@ -1014,21 +1014,10 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
+				sql = sql + " ASC";
 				System.out.println("order by ---"+orderBy);			
 			}
-			else {
-				
-				sql = sql + "order by createdate";
-				if(order!=null && !order.isEmpty()) {
-					sql = sql + " order "+ order ;
-					System.out.println("order by ---"+order);
-					
-				}
-				else {
-					sql = sql + " ASC";
-				}
-				
-			}
+			
 			
 			
 			/*
@@ -1085,9 +1074,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 //				OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)
 				sql = sql+"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
-				else {
-					sql = sql + " ASC";
-				}
+				
 				
 			
 			
@@ -1154,24 +1141,24 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	
 	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
 		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
+//		try {
+//			session = openSession();
+//			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
+//			SQLQuery sqlQuery = session.createSQLQuery(sql);
+//			sqlQuery.setCacheable(false);
+//			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+//			queryPos.add(userPostId);
+//			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+//
+//		} catch (Exception e) {
+//			try {
+//				throw new SystemException(e);
+//			} catch (SystemException se) {
+//				se.printStackTrace();
+//			}
+//		} finally {
+//			closeSession(session);
+//		}
 		return null;
 	}
 

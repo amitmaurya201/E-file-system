@@ -15,9 +15,9 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -33,12 +33,7 @@ import io.jetprocess.masterdata.service.base.MasterdataLocalServiceBaseImpl;
  */
 @Component(property = "model.class.name=io.jetprocess.masterdata.model.Masterdata", service = AopService.class)
 public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
-	
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
-		return masterdataFinder.getReceiptInboxList(userPostId);
-	}
-	
 	public List<Masterdata> getCategory() {
 
 		return masterdataFinder.getCategories();
@@ -145,6 +140,7 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 	public List<ReceiptListViewDto> getReceiptList(long userPostId) {
 
+		
 		return masterdataFinder.getReceiptCreatedList(userPostId) ;
 	}
 	 public int getFileListCount(long userPostId) {
@@ -226,32 +222,48 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			
 			
 			return getFileCreatedListSearchedData1( userPostId ,keyword  , start , end , orderBy , order );
+			
+			
 		}
 
 		public int getFileCreatedByKeywordCount(long userPostId  , String keyword,  int start, int end , String orderBy ,  String order) {
 			
-			List<FileListViewDto> fileList=	fileList = getFileList(userPostId);
+		List<FileListViewDto> fileList =null; /* fileList = getFileList(userPostId); */
 			
-//			if(keyword != null && !keyword.isEmpty()) {
-//				fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword, start, end, orderBy, order);
-//				
-//			}else {
-//				fileList = getFileList(userPostId);
-//				System.out.println("File-list : "+fileList.size());
-//			}
-//			int count = fileList.size();
-			System.out.println("File-list : ");
 			
-			return fileList.size();
+			System.out.println(" masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword) : : ---"+ getFileCreatedByKeywords(userPostId,keyword, start, end, orderBy, order));
+			if(keyword != null && !keyword.isEmpty()) {
+				fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword);
+//				fileList=getFileCreatedByKeywords(userPostId,keyword, start, end, orderBy, order);
+				
+			}else {
+				fileList = getFileList(userPostId);
+				System.out.println("File-list : "+fileList.size());
+			}
+			int count = fileList.size();
+			System.out.println("File-list : "+count);
+			
+			return count;
 		}
-	
+
+		@Override
+		public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
 		public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
-			return masterdataFinder.getReceiptSentListByFinder(userPostId) ;
-		}
-	   
-		public  List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId){
-			return masterdataFinder.getReceiptMovementDTOListByUserPostId(userPostId);
+			// TODO Auto-generated method stub
+			return null;
 		}
 	
-		private Log logger = LogFactoryUtil.getLog(this.getClass());
+
+	   
 }
