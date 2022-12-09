@@ -173,7 +173,7 @@
 
 			<liferay-ui:search-iterator markupView="lexicon" />
 		</liferay-ui:search-container>
-
+  
 
 		<portlet:renderURL var="viewPdf"
 			windowState="<%=LiferayWindowState.POP_UP.toString()%>">

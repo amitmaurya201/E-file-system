@@ -221,16 +221,23 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			
 			
 			return getFileCreatedListSearchedData1( userPostId ,keyword  , start , end , orderBy , order );
-			
-			
 		}
 
 		public int getFileCreatedByKeywordCount(long userPostId  , String keyword,  int start, int end , String orderBy ,  String order) {
 			
-			List<FileListViewDto> fileList = getFileCreatedListSearchedData1(userPostId, keyword, start, end, orderBy, order);
-			int count = fileList.size();
+			List<FileListViewDto> fileList=	fileList = getFileList(userPostId);
 			
-			return count;
+//			if(keyword != null && !keyword.isEmpty()) {
+//				fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword, start, end, orderBy, order);
+//				
+//			}else {
+//				fileList = getFileList(userPostId);
+//				System.out.println("File-list : "+fileList.size());
+//			}
+//			int count = fileList.size();
+			System.out.println("File-list : ");
+			
+			return fileList.size();
 		}
 	
 

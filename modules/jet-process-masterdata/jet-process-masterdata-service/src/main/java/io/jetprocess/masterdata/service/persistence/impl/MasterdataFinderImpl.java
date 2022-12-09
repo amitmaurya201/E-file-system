@@ -967,8 +967,10 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<FileListViewDto> getFileCreatedListSearch1(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
+		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
 		Session session = null;
 		try {
 			session = openSession();
@@ -976,11 +978,17 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
 					"FROM jet_process_docfile  INNER JOIN " + 
-					"md_category  ON categorydataid = categoryid where userpostid = ?  OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)  ";
+					"md_category  ON categorydataid = categoryid where userpostid = ?";
+			
+		
+			if(!keyword.isEmpty() && keyword != null ) {
+//				OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)
+				sql = sql+"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
+			}
+			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				System.out.println("order by ---"+orderBy);
-				
+				System.out.println("order by ---"+orderBy);			
 			}
 			else {
 				
@@ -1009,7 +1017,72 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			queryPos.add(keyword);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+	
+			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	public List<FileListViewDto> getFileCreatedListSearchBykey(long userPostId, String keyword) {
+
+		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword );
+		Session session = null;
+		try {
+			session = openSession();
+			//String sql = customSQL.get(getClass(), "getFileCreatedListData");
+			
+			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
+					"FROM jet_process_docfile  INNER JOIN " + 
+					"md_category  ON categorydataid = categoryid where userpostid = ?";
+			
+		
+			if(!keyword.isEmpty() && keyword != null ) {
+//				OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)
+				sql = sql+"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
+			}
+				else {
+					sql = sql + " ASC";
+				}
+				
+			
+			
+			
+			/*
+			 * if(order!=null && !order.isEmpty()) { sql = sql + " order "+ order;
+			 * 
+			 * } else { sql = sql + "ASC"; }
+			 */
+			
+//			sql = sql + " offset "+ start + " limit "+ end;
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
 	
 			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
 
