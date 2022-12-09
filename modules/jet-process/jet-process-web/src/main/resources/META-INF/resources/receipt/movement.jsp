@@ -1,5 +1,6 @@
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
-<%@page import="io.jetprocess.masterdata.model.ReceiptMovementListDTO"%>
 <%@ include file="../init.jsp"%>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
@@ -18,15 +19,19 @@
 			<%
 			 List<ReceiptMovementDTO> receiptMovementList = MasterdataLocalServiceUtil.getReceiptMovementDTOListByUserPostId(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
 			 int count = receiptMovementList.size();
+			 SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+			 simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 			%>
 			<div class="m-2 border boredr border-dark">
 				<liferay-ui:search-container total="<%= count %>" delta="2" iteratorURL="<%=iteratorURL%>">
 					<liferay-ui:search-container-results results="<%= receiptMovementList%>" />
-					<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.ReceiptMovementListDTO" modelVar="receiptMovementListDTO" keyProperty="receiptMovementId">
-						<liferay-ui:search-container-column-text property="createdDate" name="Created Date"/>
-						<liferay-ui:search-container-column-text property="remark" name="Remarks"/>
+					<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.ReceiptMovementDTO" modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
+						<liferay-ui:search-container-column-text value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>" name="label-sent-on"/>
+						<liferay-ui:search-container-column-text property="sentBy" name="label-sent-by"/>
+						<liferay-ui:search-container-column-text property="sentTo" name="label-sent-to"/>
+						<liferay-ui:search-container-column-text property="remark" name="label-remarks"/>
 					</liferay-ui:search-container-row>
-					<liferay-ui:search-iterator />
+					<liferay-ui:search-iterator markupView="lexicon"/>
 				</liferay-ui:search-container>
 			</div>
 		</div>

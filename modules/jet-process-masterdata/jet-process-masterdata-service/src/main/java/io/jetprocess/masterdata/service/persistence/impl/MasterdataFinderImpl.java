@@ -1110,12 +1110,8 @@ public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long sende
 			String sql = customSQL.get(getClass(), "getReceiptMovementList");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
-			logger.info("User Post Id : "+ senderId);
-			
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(senderId);
-			logger.info("SQL: "+sql);
-			logger.info("Query Pos: "+queryPos);
 			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
