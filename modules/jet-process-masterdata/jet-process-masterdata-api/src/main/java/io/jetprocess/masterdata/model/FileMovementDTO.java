@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class FileMovementDTO {
 	private long fileMovementId;
-	private String receiptNumber;
+	private String fileNumber;
 	private String subject;
 	private String sender;
 	private String sentBy;
@@ -22,12 +22,13 @@ public class FileMovementDTO {
 		this.fileMovementId = fileMovementId;
 	}
 
-	public String getReceiptNumber() {
-		return receiptNumber;
+	
+	public String getFileNumber() {
+		return fileNumber;
 	}
 
-	public void setReceiptNumber(String receiptNumber) {
-		this.receiptNumber = receiptNumber;
+	public void setFileNumber(String fileNumber) {
+		this.fileNumber = fileNumber;
 	}
 
 	public String getSubject() {
@@ -94,11 +95,25 @@ public class FileMovementDTO {
 		this.remark = remark;
 	}
 
-	public FileMovementDTO(long fileMovementId, String receiptNumber, String subject, String sender, String sentBy,
+	
+
+	public FileMovementDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
+				+ subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn
+				+ ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark + "]";
+	}
+
+	public FileMovementDTO(long fileMovementId, String fileNumber, String subject, String sender, String sentBy,
 			String sentTo, Date sentOn, String readOn, String dueDate, String remark) {
 		super();
 		this.fileMovementId = fileMovementId;
-		this.receiptNumber = receiptNumber;
+		this.fileNumber = fileNumber;
 		this.subject = subject;
 		this.sender = sender;
 		this.sentBy = sentBy;
@@ -108,17 +123,7 @@ public class FileMovementDTO {
 		this.dueDate = dueDate;
 		this.remark = remark;
 	}
-
-	public FileMovementDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", receiptNumber=" + receiptNumber + ", subject="
-				+ subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn
-				+ ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark + "]";
-	}
-
+	
+	
+	
 }
