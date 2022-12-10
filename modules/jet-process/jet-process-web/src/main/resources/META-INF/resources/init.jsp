@@ -15,7 +15,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <link rel="stylesheet" 
   href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  
+  <%@ taglib prefix="clay" uri="http://liferay.com/tld/clay"%>
 <%@page import="java.util.Collections"%>
 <%@page import="org.apache.commons.beanutils.BeanComparator"%>
 <%@page import="java.util.ArrayList"%>
