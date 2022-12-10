@@ -23,6 +23,7 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.masterdata.model.FileListViewDto;
+import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
@@ -205,6 +206,11 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		   
 		   return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
 	   }
+	public List<FileMovementDTO> getFileInboxList(long userPostId){
+			
+			return masterdataFinder.getFileInboxList(userPostId);
+		}
+	   
 	   
 	   public List<FileListViewDto> getFileCreatedListSearchedData(long userPostId , String data){
 	    	

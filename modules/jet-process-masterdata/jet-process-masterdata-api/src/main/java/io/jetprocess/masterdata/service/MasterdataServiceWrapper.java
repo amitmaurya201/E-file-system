@@ -112,6 +112,13 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileInboxList(long userPostId) {
+
+		return _masterdataService.getFileInboxList(userPostId);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata
 		getOrganizationByIdMasterdata(long organizationId) {
 

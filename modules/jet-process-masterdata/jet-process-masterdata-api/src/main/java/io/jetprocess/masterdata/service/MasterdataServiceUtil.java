@@ -85,6 +85,12 @@ public class MasterdataServiceUtil {
 		return getService().getFileCreatedListMasterdata(userPostId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileInboxList(long userPostId) {
+
+		return getService().getFileInboxList(userPostId);
+	}
+
 	public static Masterdata getOrganizationByIdMasterdata(
 		long organizationId) {
 

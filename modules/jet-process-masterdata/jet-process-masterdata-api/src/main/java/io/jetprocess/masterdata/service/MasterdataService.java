@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import io.jetprocess.masterdata.model.FileListViewDto;
+import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
@@ -87,6 +88,9 @@ public interface MasterdataService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileMovementDTO> getFileInboxList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getOrganizationByIdMasterdata(long organizationId);

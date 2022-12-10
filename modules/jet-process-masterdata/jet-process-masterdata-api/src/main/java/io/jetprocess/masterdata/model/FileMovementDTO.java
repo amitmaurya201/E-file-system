@@ -14,7 +14,8 @@ public class FileMovementDTO {
 	private String dueDate;  // duedate from filemovement table
 	private String remark;    // remarks from filemovement table
 	private String receivedOn;  // receiveOn from filemovement table
-	private int currentlyWith;  // currentlyWith from docfile table
+	private long currentlyWith;  // currentlyWith from docfile table
+	private String nature;		// nature from docFile table
 	public long getFileMovementId() {
 		return fileMovementId;
 	}
@@ -75,14 +76,28 @@ public class FileMovementDTO {
 	public void setReceivedOn(String receivedOn) {
 		this.receivedOn = receivedOn;
 	}
-	public int getCurrentlyWith() {
+	public long getCurrentlyWith() {
 		return currentlyWith;
 	}
-	public void setCurrentlyWith(int currentlyWith) {
+	public void setCurrentlyWith(long currentlyWith) {
 		this.currentlyWith = currentlyWith;
 	}
+	public String getNature() {
+		return nature;
+	}
+	public void setNature(String nature) {
+		this.nature = nature;
+	}
+	@Override
+	public String toString() {
+		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
+				+ subject + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
+				+ ", dueDate=" + dueDate + ", remark=" + remark + ", receivedOn=" + receivedOn + ", currentlyWith="
+				+ currentlyWith + ", nature=" + nature + "]";
+	}
 	public FileMovementDTO(long fileMovementId, String fileNumber, String subject, String sentBy, String sentTo,
-			Date sentOn, String readOn, String dueDate, String remark, String receivedOn, int currentlyWith) {
+			Date sentOn, String readOn, String dueDate, String remark, String receivedOn, long currentlyWith,
+			String nature) {
 		super();
 		this.fileMovementId = fileMovementId;
 		this.fileNumber = fileNumber;
@@ -95,20 +110,10 @@ public class FileMovementDTO {
 		this.remark = remark;
 		this.receivedOn = receivedOn;
 		this.currentlyWith = currentlyWith;
-	}
-	@Override
-	public String toString() {
-		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
-				+ subject + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
-				+ ", dueDate=" + dueDate + ", remark=" + remark + ", receivedOn=" + receivedOn + ", currentlyWith="
-				+ currentlyWith + "]";
+		this.nature = nature;
 	}
 	
 	
 	
 	
-	
-	
-	
-	
-}
+	}

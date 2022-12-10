@@ -339,6 +339,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileInboxList(long userPostId) {
+
+		return _masterdataLocalService.getFileInboxList(userPostId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileList(long userPostId) {
 

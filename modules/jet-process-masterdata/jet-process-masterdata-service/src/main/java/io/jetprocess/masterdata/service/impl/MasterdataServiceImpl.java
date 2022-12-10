@@ -23,6 +23,7 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.masterdata.model.FileListViewDto;
+import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
@@ -193,5 +194,10 @@ public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
 		return masterdataLocalService.getReceiptMovementDTOListByUserPostId(userPostId);
 	}
 
+    public List<FileMovementDTO> getFileInboxList(long userPostId){
+		
+		return masterdataFinder.getFileInboxList(userPostId);
+	}
+    
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

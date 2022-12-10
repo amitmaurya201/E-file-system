@@ -16,6 +16,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.masterdata.model.FileListViewDto;
+import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.GenericModelMapper;
 import io.jetprocess.masterdata.model.Masterdata;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
@@ -1129,6 +1130,34 @@ public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long sende
 		}
 		return null;
 	}
+
+public List<FileMovementDTO> getFileInboxList(long userPostId) {
+
+	Session session = null;
+	try {
+		session = openSession();
+		String sql = customSQL.get(getClass(), "getFileInboxList");
+		SQLQuery sqlQuery = session.createSQLQuery(sql);
+		sqlQuery.setCacheable(false);
+		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+		queryPos.add(userPostId);
+		return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
+
+	} catch (Exception e) {
+		try {
+			throw new SystemException(e);
+		} catch (SystemException se) {
+			se.printStackTrace();
+		}
+	} finally {
+		closeSession(session);
+	}
+	return null;
+}
+
+
+
+
 	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	
