@@ -148,4 +148,7 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileInboxList(long userPostId);
 
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileMovementDTOListByUserPostId(long senderId);
+
 }

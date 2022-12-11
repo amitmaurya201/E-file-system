@@ -93,6 +93,10 @@ public interface MasterdataService extends BaseService {
 	public List<FileMovementDTO> getFileInboxList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileMovementDTO> getFileMovementDTOListByUserPostId(
+		long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getOrganizationByIdMasterdata(long organizationId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

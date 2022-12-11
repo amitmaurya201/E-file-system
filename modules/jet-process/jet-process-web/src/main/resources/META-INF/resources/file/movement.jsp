@@ -1,4 +1,12 @@
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="io.jetprocess.masterdata.model.FileMovementDTO"%>
 <%@ include file="../init.jsp"%>
+
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/file/created-file-list.jsp" />
+</liferay-portlet:renderURL>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -11,7 +19,28 @@
 		<%-- <%@ include file="file-view.jsp" %> --%>
 
 		<div class="m-2 border boredr border-dark">
-			<h1 class="text-warning">This is Movement page Inside file.</h1>
+			<%
+			 SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+			 simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+			%>
+			<div class="m-2 border boredr border-dark">
+				<liferay-ui:search-container delta="5" emptyResultsMessage="No Record Found" iteratorURL="${fileMovementDisplayContext.getCurrentURL()}" >
+					<liferay-ui:search-container-results>
+						<%
+							List<FileMovementDTO> fileMovementList = (List<FileMovementDTO>) request.getAttribute("fileMovementList");
+							searchContainer.setResultsAndTotal(fileMovementList);
+							searchContainer.setTotalVar("" + fileMovementList.size() + "");
+						%>
+					</liferay-ui:search-container-results>
+					<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="fileMovementDTO" keyProperty="fileMovementId">
+						<liferay-ui:search-container-column-text value="<%=simpleformat.format(fileMovementDTO.getSentOn())%>" name="label-sent-on"/>
+						<liferay-ui:search-container-column-text property="sentBy" name="label-sent-by"/>
+						<liferay-ui:search-container-column-text property="sentTo" name="label-sent-to"/>
+						<liferay-ui:search-container-column-text property="remark" name="label-remarks"/>
+					</liferay-ui:search-container-row>
+					<liferay-ui:search-iterator markupView="lexicon"/>
+				</liferay-ui:search-container>
+			</div>
 		</div>
 	</div>
 </div>

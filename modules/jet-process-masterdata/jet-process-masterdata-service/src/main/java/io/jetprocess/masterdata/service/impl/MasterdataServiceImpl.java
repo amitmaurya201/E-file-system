@@ -193,6 +193,9 @@ public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
     public  List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId){
 		return masterdataLocalService.getReceiptMovementDTOListByUserPostId(userPostId);
 	}
+    public  List<FileMovementDTO> getFileMovementDTOListByUserPostId(long userPostId){
+    	return masterdataLocalService.getFileMovementDTOListByUserPostId(userPostId);
+    }
 
     public List<FileMovementDTO> getFileInboxList(long userPostId){
 		
