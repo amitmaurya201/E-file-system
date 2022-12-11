@@ -132,6 +132,9 @@ public interface MasterdataService extends BaseService {
 		long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getReceiptSubCategoryByIdMasterdata(
 		long receiptSubCategoryId);
 

@@ -259,10 +259,8 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		}
 
 
-		@Override
 		public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
-			// TODO Auto-generated method stub
-			return null;
+			return masterdataFinder.getReceiptSentListByFinder(userPostId) ;
 		}
 		
 		public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId) {

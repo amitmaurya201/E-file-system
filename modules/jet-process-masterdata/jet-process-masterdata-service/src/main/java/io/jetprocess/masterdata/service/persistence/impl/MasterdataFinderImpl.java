@@ -1141,25 +1141,26 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 	
 	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
+		System.out.println("-----======================");
 		Session session = null;
-//		try {
-//			session = openSession();
-//			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
-//			SQLQuery sqlQuery = session.createSQLQuery(sql);
-//			sqlQuery.setCacheable(false);
-//			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-//			queryPos.add(userPostId);
-//			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-//
-//		} catch (Exception e) {
-//			try {
-//				throw new SystemException(e);
-//			} catch (SystemException se) {
-//				se.printStackTrace();
-//			}
-//		} finally {
-//			closeSession(session);
-//		}
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptSentList");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
 		return null;
 	}
 

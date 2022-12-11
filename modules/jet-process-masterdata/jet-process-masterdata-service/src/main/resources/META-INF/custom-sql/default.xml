@@ -363,7 +363,7 @@ SELECT rmid as rmId, duedate as dueDate , remark as remark , senderid as senderI
 </sql>
 
 
-<sql id="getReceiptSentListQuery">
+<sql id="getReceiptSentList">
 <![CDATA[
 
 SELECT rm.rmid as receiptMovementId, r.receiptnumber ,r.subject , r.name as sender ,
