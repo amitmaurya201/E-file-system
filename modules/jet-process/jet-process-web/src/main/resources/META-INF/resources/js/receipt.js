@@ -131,7 +131,7 @@ var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var receiptId= $('#<portlet:namespace/>receiptId').val();
 var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
 
-/* for if nature is elcetronic*/
+/* if nature is elcetronic*/
 var errorLabel= false;
 $("#<portlet:namespace />nature").on('change',mySeletedNature);
 	function mySeletedNature(){
@@ -267,12 +267,7 @@ $('#doc-select-btn').on('click',function(){
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
 	var file = e.target.files[0];
-	console.log(file.size);
-	if(file.size > 26,214,400){
 	displayPreview(file);
-	}else{
-		 $('.dropzone-wrapper').append('<p class="text-danger">File size could be max then 25MB.<p>');
-	}
 });
 
 	$('.dropzone-wrapper').on('dragover', function(e) {
