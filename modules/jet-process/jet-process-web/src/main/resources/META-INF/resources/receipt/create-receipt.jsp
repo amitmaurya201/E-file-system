@@ -63,7 +63,7 @@
 									<span class="btn btn-info" style="font-size: 15px;"
 										id="doc-select-btn"><liferay-ui:message
 											key="label-receipt-pdf-file" /></span> <input name="doc-input"
-										id="doc-input" type="file" hidden accept=".pdf"/>
+										id="doc-input" type="file" hidden accept=".pdf" />
 
 								</div>
 							</div>
@@ -190,13 +190,35 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-reference-no" /></label>
-								<aui:input label="" name="referenceNumber" id="referenceNumber" />
+								<aui:input label="" name="referenceNumber" id="referenceNumber">
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-input-maxlength" />
+									</aui:validator>
+									<aui:validator name="custom"
+										errorMessage="receipt-input-not-special-char-allowed">
+											function(val){
+												var regex=new RegExp(/^[a-z\d\-_\s]+$/i);
+												return regex.test(val);
+											}
+										</aui:validator>
+								</aui:input>
 							</div>
 						</aui:col>
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-mode-no" /></label>
-								<aui:input label="" name="modeNumber" id="modeNumber" />
+								<aui:input label="" name="modeNumber" id="modeNumber">
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-input-maxlength" />
+									</aui:validator>
+									<aui:validator name="custom"
+										errorMessage="receipt-input-not-special-char-allowed">
+											function(val){
+												var regex=new RegExp(/^[a-z\d\-_\s]+$/i);
+												return regex.test(val);
+											}
+										</aui:validator>
+								</aui:input>
 							</div>
 						</aui:col>
 					</aui:row>
@@ -239,6 +261,16 @@
 									class='text-danger'>*</span></label>
 								<aui:input label="" name="name" id="name">
 									<aui:validator name="required" />
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-input-maxlength" />
+									</aui:validator>
+									<aui:validator name="custom"
+										errorMessage="receipt-input-not-special-char-allowed">
+											function(val){
+												var regex=new RegExp(/^[a-z\d\-_\s]+$/i);
+												return regex.test(val);
+											}
+										</aui:validator>
 								</aui:input>
 							</div>
 						</aui:col>
@@ -248,6 +280,16 @@
 										key="label-receipt-designation" /><span class='text-danger'>*</span></label>
 								<aui:input label="" name="designation" id="designation">
 									<aui:validator name="required" />
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-input-maxlength" />
+									</aui:validator>
+									<aui:validator name="custom"
+										errorMessage="receipt-input-not-special-char-allowed">
+											function(val){
+												var regex=new RegExp(/^[a-z\d\-_\s]+$/i);
+												return regex.test(val);
+											}
+										</aui:validator>
 								</aui:input>
 							</div>
 						</aui:col>
@@ -275,7 +317,7 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-email-message">
 											function(val){
-												var regex=new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+												var regex=new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 												return regex.test(val);
 											}
 										</aui:validator>
@@ -323,16 +365,37 @@
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-city" /></label>
-								<aui:input label="" name="city" id="city" />
+								<aui:input label="" name="city" id="city">
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-input-maxlength" />
+									</aui:validator>
+									<aui:validator name="custom"
+										errorMessage="receipt-input-not-special-char-allowed">
+											function(val){
+												var regex=new RegExp(/^[a-z\d\-_\s]+$/i);
+												return regex.test(val);
+											}
+										</aui:validator>
+								</aui:input>
 							</div>
 						</aui:col>
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-pincode" /></label>
 								<aui:input label="" name="pinCode" id="pinCode">
+									<aui:validator name="minLength">
+										<liferay-ui:message key="receipt-pincode-minlength" />
+									</aui:validator>
 									<aui:validator name="maxLength">
 										<liferay-ui:message key="receipt-pincode-maxlength" />
 									</aui:validator>
+									<aui:validator name="custom"
+										errorMessage="receipt-input-not-special-char-allowed">
+											function(val){
+												var regex=new RegExp(/^[a-z\d\-_\s]+$/i);
+												return regex.test(val);
+											}
+										</aui:validator>
 								</aui:input>
 							</div>
 						</aui:col>
@@ -388,7 +451,11 @@
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-remark" /></label>
-								<aui:input label="" name="remarks" id="remarks" />
+								<aui:input label="" name="remarks" id="remarks">
+									<aui:validator name="maxLength">
+										<liferay-ui:message key="receipt-input-maxlength" />
+									</aui:validator>
+								</aui:input>
 							</div>
 						</aui:col>
 					</aui:row>
