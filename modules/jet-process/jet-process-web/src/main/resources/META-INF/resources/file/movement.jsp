@@ -33,9 +33,9 @@
 					</liferay-ui:search-container-results>
 					<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="fileMovementDTO" keyProperty="fileMovementId">
 						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentOn() != null ? simpleformat.format(fileMovementDTO.getSentOn()) : ""%>" name="label-sent-on"/>
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>" property="sentBy" name="label-sent-by"/>
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>" property="sentTo" name="label-sent-to"/>
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>" property="remark" name="label-remarks"/>
+						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>" name="label-sent-by"/>
+						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>" name="label-sent-to"/>
+						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>" name="label-remarks"/>
 					</liferay-ui:search-container-row>
 					<liferay-ui:search-iterator markupView="lexicon"/>
 				</liferay-ui:search-container>
