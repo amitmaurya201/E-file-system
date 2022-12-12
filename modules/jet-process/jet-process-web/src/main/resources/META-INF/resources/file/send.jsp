@@ -26,8 +26,8 @@
 		<portlet:actionURL name="sendFile" var="send" />
 
 		<%
-			DocFile docFile = (DocFile) session.getAttribute("DocFile"); 
-			//DocFile docFile = (DocFile) request.getAttribute("DocFile");
+			//DocFile docFile = (DocFile) session.getAttribute("DocFile"); 
+			DocFile docFile =(DocFile) renderRequest.getAttribute("docFile");
 			
 		
 			String type = (String) docFile.getNature();

@@ -43,9 +43,9 @@
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
-				<portlet:renderURL var="sendURL" windowState="<%=LiferayWindowState.POP_UP.toString()%>">
-					<portlet:param name="mvcPath" value="/file/send.jsp"/>
-					<%-- <portlet:param name="docFileId" value="<%= docFileId %>"/> --%>
+				<portlet:renderURL var="sendURL">
+					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.FILE_SEND_RENDER_COMMAND %>"/>
+					<portlet:param name="docFileId" value="${fileinboxDtoList.getFileId()}"/>
 				</portlet:renderURL>
 
 				<liferay-ui:search-container-column-text name="">
@@ -61,10 +61,8 @@
 					
 					
 				%> --%>
-				<liferay-ui:search-container-column-text name="Sent By"
-					cssClass="hover-tips">
-					<aui:button id="sentBy" value="<%=fileinboxDtoList.getSentBy()%>"></aui:button>
-				</liferay-ui:search-container-column-text>
+				<liferay-ui:search-container-column-text property="sentBy" name="Sent By"
+					cssClass="hover-tips"/>
 
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -76,15 +74,31 @@
 					name="Send On" />
 				<liferay-ui:search-container-column-text property="dueDate"
 					name="Due On" />
-				<liferay-ui:search-container-column-text property="remark"
-					name="Remark" />
+				<liferay-ui:search-container-column-text
+					name="Remark">
+					<c:if test="${not empty fileinboxDtoList.getRemark()}">
+						<%=fileinboxDtoList.getRemark() %>
+					</c:if>
+					</liferay-ui:search-container-column-text>
+					<c:choose>
+					<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 				<liferay-ui:search-container-column-text name="Action"
 					align="center">
-					<span><a href="#">read</a></span>&nbsp;
-						<span><a href="#">received</a></span>&nbsp;
-						<span><aui:button href="${sendURL}" useDialog="true" value="send" /></span>
+					<span><a href="#">read</a></span>&nbsp;						
+						<span><a href="${sendURL}">send</a></span>
 
 				</liferay-ui:search-container-column-text>
+				</c:when>
+				<c:otherwise>
+				<liferay-ui:search-container-column-text name="Action"
+					align="center">
+					
+						<span><a href="#">received</a></span>&nbsp;
+						<span><a href="${sendURL}">send</a></span>
+
+				</liferay-ui:search-container-column-text>
+				</c:otherwise>
+				</c:choose>
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator markupView="lexicon" />
@@ -95,7 +109,7 @@
 	</div>
 
 </div>
-<div id="my-content-div">
+<%-- <div id="my-content-div">
 	<div>
 		DIVContent Is Rendered In The AUI Modal Popup.
 		<%=fileInboxList.getClass().getName() %>
@@ -121,3 +135,4 @@ A.one("#<portlet:namespace />sentBy").on('click',function(event){
 	dialog.render();
 });
 </aui:script>
+ --%>
