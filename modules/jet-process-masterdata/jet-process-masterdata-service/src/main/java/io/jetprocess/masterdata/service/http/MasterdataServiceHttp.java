@@ -1276,6 +1276,40 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileSentListByUserPostId(
+			HttpPrincipal httpPrincipal, long userPostId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getFileSentListByUserPostId",
+				_getFileSentListByUserPostIdParameterTypes37);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.FileMovementDTO>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		MasterdataServiceHttp.class);
 
@@ -1383,5 +1417,7 @@ public class MasterdataServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getReceiptSentListParameterTypes36 =
 		new Class[] {long.class};
+	private static final Class<?>[]
+		_getFileSentListByUserPostIdParameterTypes37 = new Class[] {long.class};
 
 }

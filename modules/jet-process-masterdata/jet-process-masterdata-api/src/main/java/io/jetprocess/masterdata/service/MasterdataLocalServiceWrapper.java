@@ -365,6 +365,13 @@ public class MasterdataLocalServiceWrapper
 			userPostId);
 	}
 
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileSentListByUserPostId(long userPostId) {
+
+		return _masterdataLocalService.getFileSentListByUserPostId(userPostId);
+	}
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *

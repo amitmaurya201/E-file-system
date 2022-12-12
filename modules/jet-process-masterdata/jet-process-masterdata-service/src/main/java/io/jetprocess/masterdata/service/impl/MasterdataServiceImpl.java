@@ -204,6 +204,15 @@ public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
     
     public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
 		return masterdataLocalService.getReceiptSentList(userPostId) ;
+		
 	}
+    
+    // filesent list method 
+    
+    public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId) {
+		return masterdataLocalService.getFileSentListByUserPostId(userPostId);
+		
+	}
+    
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

@@ -265,6 +265,9 @@ public interface MasterdataLocalService
 	public List<FileMovementDTO> getFileMovementDTOListByUserPostId(
 		long userPostId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId);
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *

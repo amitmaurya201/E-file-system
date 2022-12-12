@@ -1241,6 +1241,38 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		return null;
 	}
 	
+	
+
+	public List<FileMovementDTO> getFileSentList(long userPostId){
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getSentFileList");
+			logger.info("Final File Movement List Query : "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
+
+
+
+
+
+
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	

@@ -151,4 +151,7 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileMovementDTOListByUserPostId(long senderId);
 
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileSentList(long userPostId);
+
 }

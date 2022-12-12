@@ -17,7 +17,8 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand{
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
-		return "/file/sentBox.jsp";
+		
+		return "/file/sent-file-list.jsp";
 	}
 
 }
