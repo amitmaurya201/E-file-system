@@ -15,8 +15,7 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 			immediate = true,
 			property = {
 					"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name=/home",
-				"mvc.command.name=/"
+				"mvc.command.name=/home"
 			},
 			service = MVCRenderCommand.class
 		)

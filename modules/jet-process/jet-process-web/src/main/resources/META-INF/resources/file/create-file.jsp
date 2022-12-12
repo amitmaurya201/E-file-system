@@ -126,7 +126,7 @@
 																		<div class="col-md-2 col-sm-6 mt-2">
 																			<aui:input type="text" cssClass="form-control"
 																				id="year" name="year" value=""
-																				label="label-file-year"  disabled="true">
+																				label="label-file-year"  readonly="true">
 																			</aui:input>
 																		</div>
 																		<div class="col-md-2 col-sm-6 mt-2">
@@ -273,7 +273,6 @@
 	</div>
 </div>
 <aui:script>
-
 $('#<portlet:namespace />type').change(function(){
 	console.log("--------------");
   let value =  $('#<portlet:namespace />type').val();
@@ -286,42 +285,5 @@ $('#<portlet:namespace />type').change(function(){
 	
 	}
 	});
-	
-<%-- 	
-   $("#<portlet:namespace />basicHeadId").attr('required','');
-   $("#<portlet:namespace />primaryHeadId").attr('required', ''); 
-   $("#<portlet:namespace />secondaryHeadId").attr('required', ''); 
-   $("#<portlet:namespace />tertiaryHeadId").attr('required', ''); 
-   $("#<portlet:namespace />fileCodeId").attr('required', '');   --%>
-
-
-
-	<%-- 
-AUI().use('aui-io-request', function(A){
-
-
-A.io.request(url, {
-			url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
-	        		    processData: false,
-		      			type: 'POST',
-		      			data: formdata,
-		      			contentType: false,
-	        		  }).on(function(response) {
-	        			  console.log(response);
-	        			  
-	        			
-	                    
-	        	 })
-
-}); --%>
-
-$(document).ready(function(){
-	setUserPostId();
-});
-
 </aui:script>
 <%@ include file="/js/file.js"%>
-
-
-
-

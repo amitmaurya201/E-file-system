@@ -34,8 +34,7 @@ import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 		immediate = true,
 		property = {
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST,
-			"mvc.command.name=/"
+			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST
 			
 			
 		},

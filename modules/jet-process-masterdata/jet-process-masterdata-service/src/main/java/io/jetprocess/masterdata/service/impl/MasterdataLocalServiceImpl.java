@@ -270,6 +270,12 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		public  List<FileMovementDTO> getFileMovementDTOListByUserPostId(long userPostId){
 			return masterdataFinder.getFileMovementDTOListByUserPostId(userPostId);
 		}
+		
+		// filesent list method 
+		public  List<FileMovementDTO> getFileSentListByUserPostId(long userPostId){
+			return masterdataFinder.getFileSentList(userPostId);
+		}
+	
 	
 		private Log logger = LogFactoryUtil.getLog(this.getClass());
 	   

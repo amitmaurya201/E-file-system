@@ -34,6 +34,11 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@page import="com.liferay.portal.kernel.servlet.PortalSessionThreadLocal"%>
  <%@page import="com.liferay.portal.kernel.portlet.LiferayPortletMode"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
+<%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
+
 <!-- Getting the User Post Id from the session -->
 <%
 String selectedUserPostId = "1";
