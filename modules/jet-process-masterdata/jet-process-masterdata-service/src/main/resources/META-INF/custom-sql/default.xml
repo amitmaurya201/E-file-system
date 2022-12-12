@@ -418,7 +418,7 @@ SELECT
 	null as subject ,
 	(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as sentBy ,
 	(SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ,
-	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , null as currentlyWith
+	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith, null as nature
 	FROM jet_process_filemovement as fm 
 	left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid

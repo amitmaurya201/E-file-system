@@ -40,8 +40,8 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		List<FileMovementDTO> fileMovementList = MasterdataLocalServiceUtil.getFileMovementDTOListByUserPostId(1);
-		logger.info("fileMovementList==>"+fileMovementList);
+		setManagementToolbarAttributes(renderRequest, renderResponse);
+		setFileMovementList(renderRequest);
 		return "/file/movement.jsp";
 	}
 	private void setManagementToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
