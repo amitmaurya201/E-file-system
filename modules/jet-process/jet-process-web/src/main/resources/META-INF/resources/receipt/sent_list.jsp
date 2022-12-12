@@ -24,12 +24,15 @@
 				int count = receiptMovementList.size();
 				SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
 				simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+				
+				
 			%>
 			<div class="m-2 border boredr border-dark">
-				<liferay-ui:search-container total="<%=count%>" delta="2"
-					iteratorURL="<%=iteratorURL%>">
+				<liferay-ui:search-container total="<%=count%>" delta="2" 
+					iteratorURL="<%=iteratorURL%>" >
 					<liferay-ui:search-container-results
 						results="<%= receiptMovementList%>" />
+					
 					<liferay-ui:search-container-row
 						className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
 						modelVar="receiptSentMovement" keyProperty="receiptMovementId">
@@ -51,8 +54,12 @@
 							value="<%=simpleformat.format(receiptSentMovement.getSentOn())%>" />
 						<liferay-ui:search-container-column-text property="dueDate" name="Due Date"/>
 						<liferay-ui:search-container-column-text property="remark"
-							name="Remark" />
-						<liferay-ui:search-container-column-text name="Action" />
+							name="Remark" />      
+						<liferay-ui:search-container-column-text name="Action" >
+							<c:if test="${not empty receiptSentMovement.getReadOn() || not empty receiptSentMovement.getReceivedOn() }">
+								<i class="icon-indent-left"></i>
+							</c:if>
+						</liferay-ui:search-container-column-text>
 					</liferay-ui:search-container-row>
 					<liferay-ui:search-iterator markupView="lexicon" />
 				</liferay-ui:search-container>
@@ -60,3 +67,6 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+
+</script>

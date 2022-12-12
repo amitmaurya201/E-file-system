@@ -304,6 +304,12 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileMovementDTOListByUserPostId(userPostId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileSentListByUserPostId(long userPostId) {
+
+		return getService().getFileSentListByUserPostId(userPostId);
+	}
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *
