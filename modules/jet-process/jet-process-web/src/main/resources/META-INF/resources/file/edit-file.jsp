@@ -202,30 +202,44 @@
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
+											      <% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
 												<aui:select cssClass="form-select form-control"
 													id="categoryId" name="categoryId" label="label-file-categoryid">
-													<% if(docFile.getType().equalsIgnoreCase("NON-SFS")){ %>
-													<option value="<%=docFile.getCategoryId()%>"><%=categoryValue%></option>
-													
+													<option value="<%= docFile.getCategoryId() %>"><%=categoryValue%></option>
+														<aui:validator name="required" />
+													</aui:select>
+													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
+													<aui:select cssClass="form-select form-control"
+													id="categoryId" name="categoryId" label="label-file-categoryid">
+													<option value="<%= docFile.getCategoryId() %>"><%= sfsCategoryValue %></option>
+														<aui:validator name="required" />
+													</aui:select>
+												<% } %>
+													<%-- 
 													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
 													<option value="<%=docFile.getCategoryId()%>"><%= sfsCategoryValue %></option>
 													<% } %>
-													
-												</aui:select>
+													<aui:validator name="required" />
+												</aui:select> --%>
 											</div>
 										</aui:fieldset>
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
+											
+											<% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-													<% if(docFile.getType().equalsIgnoreCase("NON-SFS")){ %>
-													<option value="<%=docFile.getSubCategoryId() %>"><%=subcategoryValue%></option>
-													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
-													<option value="<%= docFile.getSubCategoryId()%>"><%= sfsSubCategoryValue %></option>
-													<% } %>
-													
+													<option value="<%= docFile.getSubCategoryId() %>"><%=subcategoryValue%></option>
 												</aui:select>
+												<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
+												
+												<aui:select cssClass="form-select form-control"
+													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
+													<option value="<%= docFile.getSubCategoryId() %>"><%= sfsSubCategoryValue %></option>
+												</aui:select>
+													
+													<% } %>
 											</div>
 										</aui:fieldset>
 									</div>
