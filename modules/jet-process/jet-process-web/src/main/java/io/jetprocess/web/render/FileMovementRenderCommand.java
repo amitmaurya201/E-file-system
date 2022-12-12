@@ -59,7 +59,6 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 3);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-		logger.info("currentPage: "+currentPage+"  delta: "+delta+"  start: "+start+"  end: "+end);
 
 		HttpSession session = themeDisplay.getRequest().getSession();
 		String userPostId =  (String) session.getAttribute("userPostId");
