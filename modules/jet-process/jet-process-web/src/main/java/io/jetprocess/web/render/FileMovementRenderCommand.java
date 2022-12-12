@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.PortletException;
@@ -60,11 +61,17 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 
-		HttpSession session = themeDisplay.getRequest().getSession();
-		String userPostId =  (String) session.getAttribute("userPostId");
-		long userPost = userPostId != null ? Long.parseLong(userPostId) : 1;
-		List<FileMovementDTO>  fileMovementList = masterdataLocalService.getFileMovementDTOListByUserPostId(userPost);  
-		renderRequest.setAttribute("fileMovementList", fileMovementList);
+		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
+		logger.info("Doc File Id : "+docFileId);
+		List<FileMovementDTO>  fileMovementList = new ArrayList<>();
+		if(docFileId != 0) {
+			fileMovementList = masterdataLocalService.getFileMovementListByFileId(docFileId);
+		}
+		logger.info("File Movement List : "+fileMovementList);
+
+		if(fileMovementList != null) {
+			renderRequest.setAttribute("fileMovementList", fileMovementList);
+		}
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileMovementCount",+fileMovementList.size());
 		

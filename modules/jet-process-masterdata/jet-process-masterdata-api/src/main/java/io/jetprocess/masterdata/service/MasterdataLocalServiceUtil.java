@@ -299,9 +299,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileMovementDTOListByUserPostId(long userPostId) {
+		getFileMovementListByFileId(long fileId) {
 
-		return getService().getFileMovementDTOListByUserPostId(userPostId);
+		return getService().getFileMovementListByFileId(fileId);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
@@ -412,9 +412,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptMovementDTOListByUserPostId(long userPostId) {
+		getReceiptMovementListByReceiptId(long receiptId) {
 
-		return getService().getReceiptMovementDTOListByUserPostId(userPostId);
+		return getService().getReceiptMovementListByReceiptId(receiptId);
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>

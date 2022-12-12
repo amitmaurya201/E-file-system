@@ -262,8 +262,7 @@ public interface MasterdataLocalService
 	public int getFileListCount(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileMovementDTOListByUserPostId(
-		long userPostId);
+	public List<FileMovementDTO> getFileMovementListByFileId(long fileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId);
@@ -347,8 +346,8 @@ public interface MasterdataLocalService
 	public int getReceiptListCount(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(
-		long userPostId);
+	public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(
+		long receiptId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId);

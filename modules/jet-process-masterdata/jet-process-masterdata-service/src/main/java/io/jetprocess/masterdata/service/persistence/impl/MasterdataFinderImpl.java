@@ -1164,7 +1164,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 
 
-public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long senderId){
+public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId){
 		Session session = null;
 		try {
 			session = openSession();
@@ -1173,7 +1173,7 @@ public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long sende
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(senderId);
+			queryPos.add(receiptId);
 			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
@@ -1217,7 +1217,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 
 	
 	
-	public List<FileMovementDTO> getFileMovementDTOListByUserPostId(long senderId){
+	public List<FileMovementDTO> getFileMovementListByFileId(long fileId){
 		Session session = null;
 		try {
 			session = openSession();
@@ -1226,7 +1226,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(senderId);
+			queryPos.add(fileId);
 			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
 			
 		} catch (Exception e) {

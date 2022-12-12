@@ -263,12 +263,12 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return masterdataFinder.getReceiptSentListByFinder(userPostId) ;
 		}
 		
-		public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId) {
-			return masterdataFinder.getReceiptMovementDTOListByUserPostId(userPostId);
+		public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId) {
+			return masterdataFinder.getReceiptMovementListByReceiptId(receiptId);
 		}
 
-		public  List<FileMovementDTO> getFileMovementDTOListByUserPostId(long userPostId){
-			return masterdataFinder.getFileMovementDTOListByUserPostId(userPostId);
+		public  List<FileMovementDTO> getFileMovementListByFileId(long fileId){
+			return masterdataFinder.getFileMovementListByFileId(fileId);
 		}
 		
 		// filesent list method 

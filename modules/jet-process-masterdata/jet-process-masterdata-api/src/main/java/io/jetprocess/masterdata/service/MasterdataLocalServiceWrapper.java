@@ -359,10 +359,9 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileMovementDTOListByUserPostId(long userPostId) {
+		getFileMovementListByFileId(long fileId) {
 
-		return _masterdataLocalService.getFileMovementDTOListByUserPostId(
-			userPostId);
+		return _masterdataLocalService.getFileMovementListByFileId(fileId);
 	}
 
 	@Override
@@ -508,10 +507,10 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptMovementDTOListByUserPostId(long userPostId) {
+		getReceiptMovementListByReceiptId(long receiptId) {
 
-		return _masterdataLocalService.getReceiptMovementDTOListByUserPostId(
-			userPostId);
+		return _masterdataLocalService.getReceiptMovementListByReceiptId(
+			receiptId);
 	}
 
 	@Override

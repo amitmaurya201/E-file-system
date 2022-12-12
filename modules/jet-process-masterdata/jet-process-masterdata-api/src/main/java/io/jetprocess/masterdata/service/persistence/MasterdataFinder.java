@@ -143,13 +143,13 @@ public interface MasterdataFinder {
 		getReceiptSentListByFinder(long userPostId);
 
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptMovementDTOListByUserPostId(long senderId);
+		getReceiptMovementListByReceiptId(long receiptId);
 
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileInboxList(long userPostId);
 
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileMovementDTOListByUserPostId(long senderId);
+		getFileMovementListByFileId(long fileId);
 
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileSentList(long userPostId);
