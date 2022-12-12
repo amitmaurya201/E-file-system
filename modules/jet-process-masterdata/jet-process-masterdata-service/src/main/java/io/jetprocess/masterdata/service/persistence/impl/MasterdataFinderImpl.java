@@ -1141,7 +1141,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 	
 	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
-		System.out.println("-----======================");
 		Session session = null;
 		try {
 			session = openSession();
