@@ -4,11 +4,9 @@
 <%@ include file="/common/common.jsp"%>
 <%@page import= "java.util.TimeZone"%>
 
-
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="/file/sent-file-list.jsp" />
 </liferay-portlet:renderURL>
-
 
 
 
@@ -19,6 +17,8 @@ int count = sentFileList.size();
 
 
 <liferay-ui:search-container iteratorURL="<%=iteratorURL%>" delta = "4" deltaConfigurable="true" total="<%= count %>">
+
+
 <liferay-ui:search-container-results results="<%= sentFileList%>" />
 	<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
 		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderable="true" />
