@@ -17,6 +17,7 @@
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="/file/inbox.jsp" />
 </liferay-portlet:renderURL>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -36,12 +37,16 @@
 
 	<div class="col-10">
 		<h1 class=" text-center">File Inbox</h1>
-		<liferay-ui:search-container total="<%=count%>" delta="1"
+		<liferay-ui:search-container total="<%=count%>" delta="5"
 			iteratorURL="<%=iteratorURL%>">
 			<liferay-ui:search-container-results results="<%=fileInboxList %>" />
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
+				<portlet:renderURL var="sendURL" windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+					<portlet:param name="mvcPath" value="/file/send.jsp"/>
+					<%-- <portlet:param name="docFileId" value="<%= docFileId %>"/> --%>
+				</portlet:renderURL>
 
 				<liferay-ui:search-container-column-text name="">
 					<%=fileinboxDtoList.getNature().charAt(0)%>
@@ -58,7 +63,7 @@
 				%> --%>
 				<liferay-ui:search-container-column-text name="Sent By"
 					cssClass="hover-tips">
-					<aui:button id="sentBy" value="<%=fileinboxDtoList.getSentBy()%>"></aui:button>>
+					<aui:button id="sentBy" value="<%=fileinboxDtoList.getSentBy()%>"></aui:button>
 				</liferay-ui:search-container-column-text>
 
 				<%
@@ -77,7 +82,7 @@
 					align="center">
 					<span><a href="#">read</a></span>&nbsp;
 						<span><a href="#">received</a></span>&nbsp;
-						<span><a href="#">send</a></span>
+						<span><aui:button href="${sendURL}" useDialog="true" value="send" /></span>
 
 				</liferay-ui:search-container-column-text>
 			</liferay-ui:search-container-row>

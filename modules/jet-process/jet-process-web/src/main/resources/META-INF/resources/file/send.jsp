@@ -26,7 +26,9 @@
 		<portlet:actionURL name="sendFile" var="send" />
 
 		<%
-			DocFile docFile = (DocFile) session.getAttribute("DocFile");
+			DocFile docFile = (DocFile) session.getAttribute("DocFile"); 
+			//DocFile docFile = (DocFile) request.getAttribute("DocFile");
+			
 		
 			String type = (String) docFile.getNature();
 			char firstChar = type.charAt(0);
@@ -39,8 +41,15 @@
 		<aui:form action="${send}">
 			<input type="hidden" name="<portlet:namespace/>senderId"
 				value="<%=docFile.getUserPostId()%>">
+			<%-- <%
+			long fileId=(long)request.getAttribute("docFileId");
+				out.println(fileId);
+				if(docFile.getDocFileId()==fileId){
+			
+			%> --%>
 			<input type="hidden" name="<portlet:namespace/>fileId"
 				value="<%=docFile.getDocFileId()%>">
+				<%-- <%} %> --%>
 			<div class="row">
 				<div class="col-6">
 					<aui:fieldset-group>
@@ -62,18 +71,30 @@
 
 								<%
 									}
-											}
+									}
 								%>
-
+							
 							</select>
 
 						</div>
 						<div class="fieldset">
 							<h1>
-								<span><b>Duedate</b></span>
+								<span><b>Duedate<span class="text-danger">*</span></b></span>
 							</h1>
-							<input type="date" class="form-control"
-								name="<portlet:namespace/>dueDate" data-date="" data-date-format="DD/MM/YYYY">
+							<aui:input type="date" class="form-control"
+								name="dueDate" data-date="" data-date-format="DD/MM/YYYY" label="">
+								<aui:validator name="required"/>
+								<aui:validator name="custom"
+										errorMessage="Select only current date">
+											function(val){
+												var date=new Date(val);
+												console.log("select value----> "+date);
+												var today = new Date();
+												console.log("current value----> "+today);
+												return (today == date);
+											}
+										</aui:validator>
+							</aui:input>
 						</div>
 						<div class="fieldset">
 							<h1>
@@ -109,6 +130,7 @@
 	$('#receiverId').select2({
 		width : '100%',
 		placeholder : "Select an Option",
+		 required:true,
 		allowClear : true
 	});
 </script>

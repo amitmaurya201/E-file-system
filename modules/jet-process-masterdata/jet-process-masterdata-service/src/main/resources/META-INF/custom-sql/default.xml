@@ -399,7 +399,7 @@ SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subje
 		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy,
 		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ,
 		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn,
-		 f.currentlywith as currentlyWith, f.nature as nature
+		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId
 		FROM jet_process_filemovement as fm 
 		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        
 		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid

@@ -16,88 +16,121 @@ public class FileMovementDTO {
 	private String receivedOn;  // receiveOn from filemovement table
 	private long currentlyWith;  // currentlyWith from docfile table
 	private String nature;		// nature from docFile table
+	
+	private long fileId;
+
 	public long getFileMovementId() {
 		return fileMovementId;
 	}
+
 	public void setFileMovementId(long fileMovementId) {
 		this.fileMovementId = fileMovementId;
 	}
+
 	public String getFileNumber() {
 		return fileNumber;
 	}
+
 	public void setFileNumber(String fileNumber) {
 		this.fileNumber = fileNumber;
 	}
+
 	public String getSubject() {
 		return subject;
 	}
+
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+
 	public String getSentBy() {
 		return sentBy;
 	}
+
 	public void setSentBy(String sentBy) {
 		this.sentBy = sentBy;
 	}
+
 	public String getSentTo() {
 		return sentTo;
 	}
+
 	public void setSentTo(String sentTo) {
 		this.sentTo = sentTo;
 	}
+
 	public Date getSentOn() {
 		return sentOn;
 	}
+
 	public void setSentOn(Date sentOn) {
 		this.sentOn = sentOn;
 	}
+
 	public String getReadOn() {
 		return readOn;
 	}
+
 	public void setReadOn(String readOn) {
 		this.readOn = readOn;
 	}
+
 	public String getDueDate() {
 		return dueDate;
 	}
+
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
+
 	public String getRemark() {
 		return remark;
 	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
 	public String getReceivedOn() {
 		return receivedOn;
 	}
+
 	public void setReceivedOn(String receivedOn) {
 		this.receivedOn = receivedOn;
 	}
+
 	public long getCurrentlyWith() {
 		return currentlyWith;
 	}
+
 	public void setCurrentlyWith(long currentlyWith) {
 		this.currentlyWith = currentlyWith;
 	}
+
 	public String getNature() {
 		return nature;
 	}
+
 	public void setNature(String nature) {
 		this.nature = nature;
 	}
-	@Override
-	public String toString() {
-		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
-				+ subject + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
-				+ ", dueDate=" + dueDate + ", remark=" + remark + ", receivedOn=" + receivedOn + ", currentlyWith="
-				+ currentlyWith + ", nature=" + nature + "]";
+
+	public long getFileId() {
+		return fileId;
 	}
+
+	public void setFileId(long fileId) {
+		this.fileId = fileId;
+	}
+
+	public FileMovementDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public FileMovementDTO(long fileMovementId, String fileNumber, String subject, String sentBy, String sentTo,
 			Date sentOn, String readOn, String dueDate, String remark, String receivedOn, long currentlyWith,
-			String nature) {
+			String nature, long fileId) {
 		super();
 		this.fileMovementId = fileMovementId;
 		this.fileNumber = fileNumber;
@@ -111,7 +144,19 @@ public class FileMovementDTO {
 		this.receivedOn = receivedOn;
 		this.currentlyWith = currentlyWith;
 		this.nature = nature;
+		this.fileId = fileId;
 	}
+
+	@Override
+	public String toString() {
+		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
+				+ subject + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
+				+ ", dueDate=" + dueDate + ", remark=" + remark + ", receivedOn=" + receivedOn + ", currentlyWith="
+				+ currentlyWith + ", nature=" + nature + ", fileId=" + fileId + "]";
+	}
+	
+	
+	
 	
 	
 	
