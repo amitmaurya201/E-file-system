@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -75,7 +76,7 @@
 		<portlet:param name="selectedNav" value="createFile" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdFileList">
-		<portlet:param name="mvcRenderCommandName" value="/createdFileList" />
+		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_FILELIST %>" />
 		<portlet:param name="selectedNav" value="fileList" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createReceipt">

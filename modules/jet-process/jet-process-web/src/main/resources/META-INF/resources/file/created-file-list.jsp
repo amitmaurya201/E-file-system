@@ -9,11 +9,9 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import= "java.util.TimeZone"%>
+
  
-<portlet:renderURL var="urlForData">
-     <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_FILELIST %>" />
-     <portlet:param name="redirect" value="${currentURL}" />
- </portlet:renderURL>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -22,21 +20,20 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 	
 	
 <clay:management-toolbar
-        disabled="${assignmentCount eq 0}"
+        disabled="${fileCount eq 0}"
         displayContext="${fileManagementToolbarDisplayContext}"
-        itemsTotal="${assignmentCount}"
+        itemsTotal="${fileCount}"
         searchContainerId="assignmentEntries"
-        
+        managementToolbarDisplayContext="${fileManagementToolbarDisplayContext}"
     />
 
 <liferay-ui:search-container
-		delta="2"
-        emptyResultsMessage="no-assignments"
+		delta="4"
+        emptyResultsMessage="No-File-List"
         id="assignmentEntries"
-        total="${assignmentCount}"
-        iteratorURL="${fileManagementToolbarDisplayContext._getCurrentURL()}"
+        total="${fileCount}" iteratorURL="${fileManagementToolbarDisplayContext._getCurrentURL()}"
         >
-        <liferay-ui:search-container-results results="${assignments}" />
+        <liferay-ui:search-container-results results="${fileList}" />
 
         <liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.FileListViewDto"
@@ -50,7 +47,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="label-file-list-fileno" property="fileNumber" orderable="true" />
+					name="label-file-list-fileno" property="fileNumber" />
 
 				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"
 					name="label-file-list-subject" />

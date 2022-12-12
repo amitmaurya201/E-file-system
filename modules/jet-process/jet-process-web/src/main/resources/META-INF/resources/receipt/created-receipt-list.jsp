@@ -39,95 +39,21 @@
 	</div>
 	<div class="col-10">
 
-		<liferay-portlet:actionURL name="receiptSearch" var="formAction">
-		</liferay-portlet:actionURL>
-		<%
-			String keyword = "";
-			try {
-				System.out.println("On Jsp ");
-				keyword = (String) request.getAttribute("keywords");
-				System.out.println("On Jsp : " + keyword);
-			} catch (Exception ex) {
-				System.out.println("Error in jsp : " + ex.getMessage());
-			}
-		%>
-		<br>
-		<br>
-		<aui:form action="<%=formAction%>" method="post" name="fm">
-			<div class="search-form">
-				<span class="aui-search-bar"> <aui:input label=""
-						name="keywords" class="keywords" size="30" title="search-entries"
-						type="text" /> <aui:button type="submit" value="search" />
-				</span>
-			</div>
-		</aui:form>
+		<clay:management-toolbar
+        disabled="${receiptCount eq 0}"
+        displayContext="${receiptManagementToolbarDisplayContext}"
+        itemsTotal="${receiptCount}"
+        searchContainerId="recieptId"
+    />
 
-		<%
-			//orderByCol is the column name passed in the request while sorting
-			String orderByCol = ParamUtil.getString(request, "orderByCol");
-
-			//orderByType is passed in the request while sorting. It can be either asc or desc
-			String orderByType = ParamUtil.getString(request, "orderByType");
-			String sortingOrder = orderByType;
-			//Logic for toggle asc and desc
-			if (orderByType.equals("desc")) {
-				orderByType = "asc";
-			} else {
-				orderByType = "desc";
-			}
-
-			if (Validator.isNull(orderByType)) {
-				orderByType = "desc";
-			}
-		%>
-		<h1 class=" text-center">Receipt Created List</h1>
-		<%
-			int count = MasterdataLocalServiceUtil
-					.getReceiptListCount(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-		%>
-
-
-		<liferay-ui:search-container orderByType="<%=orderByType%>" delta="2"
-			total="<%=count%>" iteratorURL="<%=iteratorURL%>">
-
-			<liferay-ui:search-container-results>
-				<%
-					//Get all the results  from file created list
-							List<ReceiptListViewDto> receiptPerList = null;
-							String data = "%" + keyword + "%";
-							System.out.println("After data assigning :- " + data);
-							if (data.equalsIgnoreCase("%%") || data.equalsIgnoreCase("%null%")) {
-								List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil
-										.getReceiptList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-								receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),
-										searchContainer.getEnd());
-								System.out.println("After data fetching inside if :- " + receiptPerList);
-							} else {
-								List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil
-										.getReceiptCreatedListSearchedData(
-												selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1, data);
-								receiptPerList = ListUtil.subList(receiptList, searchContainer.getStart(),
-										searchContainer.getEnd());
-								System.out.println("After data fetching inside else :- " + receiptPerList);
-							}
-							List<ReceiptListViewDto> sortableList = new ArrayList<ReceiptListViewDto>(receiptPerList);
-							if (Validator.isNotNull(orderByCol)) {
-								//Pass the column name to BeanComparator to get comparator object
-								BeanComparator comparator = new BeanComparator(orderByCol);
-								if (sortingOrder.equalsIgnoreCase("asc")) {
-
-									//It will sort in ascending order
-									Collections.sort(sortableList, comparator);
-								} else {
-									//It will sort in descending order
-									Collections.reverse(sortableList);
-								}
-
-							}
-
-							pageContext.setAttribute("results", sortableList);
-				%>
-			</liferay-ui:search-container-results>
+		<liferay-ui:search-container
+		delta="2"
+        emptyResultsMessage="no-Receipt-List"
+        id="recieptId"
+        total="${receiptCount}"
+        iteratorURL="${receiptManagementToolbarDisplayContext._getCurrentURL()}"
+        >
+        <liferay-ui:search-container-results results="${receiptFileList}" />
 
 
 			<liferay-ui:search-container-row
@@ -142,10 +68,10 @@
 
 				<liferay-ui:search-container-column-text
 					href="<%=receiptInnerView%>" property="receiptNumber"
-					name="label-receipt-list-receiptno" orderable="true" />
+					name="label-receipt-list-receiptno"  />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					property="subject" name="label-receipt-list-subject" />
+					property="subject" name="label-receipt-list-subject" orderable="true" />
 
 				<liferay-ui:search-container-column-text property="category"
 					cssClass="hover-tips" name="label-receipt-list-category" />
@@ -170,8 +96,9 @@
 					
 
 			</liferay-ui:search-container-row>
-
-			<liferay-ui:search-iterator markupView="lexicon" />
+			
+			<liferay-ui:search-iterator paginate="false" />
+			<liferay-ui:search-paginator searchContainer="${searchContainer}" markupView="lexicon" />
 		</liferay-ui:search-container>
   
 

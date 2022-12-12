@@ -251,6 +251,30 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			
 			return count;
 		}
+		
+		
+		public List<ReceiptListViewDto> getReceiptBySearchKeywords( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+			
+			return masterdataFinder.getReceiptListSearch(userPostId ,keyword  , start , end , orderBy , order );
+		}
+		
+		public int getReceiptBySearchKeywordsCount( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+			
+			List<ReceiptListViewDto> receiptList =null; /* fileList = getFileList(userPostId); */
+			
+			if(keyword != null && !keyword.isEmpty()) {
+				receiptList = masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword);
+//				fileList=getFileCreatedByKeywords(userPostId,keyword, start, end, orderBy, order);
+				
+			}else {
+				receiptList = getReceiptList(userPostId);
+				System.out.println("File-list : "+receiptList.size());
+			}
+			int count = receiptList.size();
+			System.out.println("File-list : "+count);
+			return receiptList.size();
+		}
+		
 
 		@Override
 		public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {

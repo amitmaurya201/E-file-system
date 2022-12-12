@@ -464,6 +464,25 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptBySearchKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return _masterdataLocalService.getReceiptBySearchKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	@Override
+	public int getReceiptBySearchKeywordsCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
+
+		return _masterdataLocalService.getReceiptBySearchKeywordsCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getReceiptCategory() {
 

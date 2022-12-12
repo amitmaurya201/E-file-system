@@ -1,4 +1,4 @@
-package io.jetprocess.web.display.context;
+ package io.jetprocess.web.display.context;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.BaseManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
@@ -31,49 +31,22 @@ import io.jetprocess.web.constants.MVCCommandNames;
  *
  * @author liferay
  */
-public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
+public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
 
-	public FileManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
+	public ReceiptManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
-	/**
-	 * Returns the creation menu for the toolbar (plus sign on the management
-	 * toolbar).
-	 *
-	 * @return creation menu
-	 */
 	
-	/*
-	 * public CreationMenu getCreationMenu() { //Create the menu. CreationMenu
-	 * creationMenu=new CreationMenu() { { addDropdownItem(dropdownItem -> {
-	 * 
-	 * 
-	 * dropdownItem.setHref(liferayPortletResponse.createRenderURL(),
-	 * "mvcRenderCommandName", MVCCommandNames.EDIT_ASSIGNMENT, "redirect",
-	 * currentURLObj.toString()); dropdownItem.setLabel(LanguageUtil.get(request,
-	 * "add-assignment"));
-	 * 
-	 * }); } };
-	 * 
-	 * return creationMenu; }
-	 */
-	 
 
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
 
-	
-	/**
-	 * Returns the sort order column.
-	 * 
-	 * @return sort column
-	 */
 	public String getOrderByCol() {
 
 		return ParamUtil.getString(request, "orderByCol", "subject");
@@ -99,21 +72,23 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 		PortletURL searchURL = liferayPortletResponse.createActionURL();
 
-//		searchURL.setProperty("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
-		
-		System.out.println("Search IN ");
+//		searchURL.setProperty("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
-		searchURL.setParameter("mvcPath,","./file/created-file-list.jsp" );
-//		searchURL.setParameter("mvcPath", "./file/created-file-list.jsp");
+		searchURL.setParameter("mvcPath,","./receipt/created-receipt-list.jsp");
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
 
 		return searchURL.toString();
 	}
- 
-	
-	
+
+
+	/**
+	 * Return the option items for the sort column menu.
+	 *
+	 * @return options list for the sort column menu
+	 */
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
@@ -126,8 +101,13 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 				add(dropdownItem -> {
 					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "remarks");
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "");
 					dropdownItem.setLabel(LanguageUtil.get(request, "remarks", "remarks"));
+				});
+				add(dropdownItem -> {
+					dropdownItem.setActive("remarks".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "category");
+					dropdownItem.setLabel(LanguageUtil.get(request, "category", "category"));
 				});
 			}
 		};
@@ -143,13 +123,13 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
 
 		// Reset current page.
 
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-		System.out.println("Request for searching.. "+keywords);
+		System.out.println("Request for searching.. "+keywords); 
 
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
@@ -158,13 +138,17 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 		return sortingURL;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
 
 		return sortingURL;
 	}
+	
+	
+	
 
 	private final PortalPreferences _portalPreferences;
 	private final ThemeDisplay _themeDisplay;
