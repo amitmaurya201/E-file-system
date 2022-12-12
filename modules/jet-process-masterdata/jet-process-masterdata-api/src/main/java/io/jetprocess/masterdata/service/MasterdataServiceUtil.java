@@ -91,6 +91,12 @@ public class MasterdataServiceUtil {
 		return getService().getFileInboxList(userPostId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileMovementDTOListByUserPostId(long userPostId) {
+
+		return getService().getFileMovementDTOListByUserPostId(userPostId);
+	}
+
 	public static Masterdata getOrganizationByIdMasterdata(
 		long organizationId) {
 
@@ -144,6 +150,12 @@ public class MasterdataServiceUtil {
 		getReceiptMovementDTOListByUserPostId(long userPostId) {
 
 		return getService().getReceiptMovementDTOListByUserPostId(userPostId);
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptSentList(long userPostId) {
+
+		return getService().getReceiptSentList(userPostId);
 	}
 
 	public static Masterdata getReceiptSubCategoryByIdMasterdata(

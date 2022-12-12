@@ -357,6 +357,14 @@ public class MasterdataLocalServiceWrapper
 		return _masterdataLocalService.getFileListCount(userPostId);
 	}
 
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileMovementDTOListByUserPostId(long userPostId) {
+
+		return _masterdataLocalService.getFileMovementDTOListByUserPostId(
+			userPostId);
+	}
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *

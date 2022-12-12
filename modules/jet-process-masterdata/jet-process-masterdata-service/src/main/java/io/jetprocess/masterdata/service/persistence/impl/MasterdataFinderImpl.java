@@ -1141,25 +1141,26 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 	
 	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
+		System.out.println("-----======================");
 		Session session = null;
-//		try {
-//			session = openSession();
-//			String sql = customSQL.get(getClass(), "getReceiptSentListQuery");
-//			SQLQuery sqlQuery = session.createSQLQuery(sql);
-//			sqlQuery.setCacheable(false);
-//			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-//			queryPos.add(userPostId);
-//			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-//
-//		} catch (Exception e) {
-//			try {
-//				throw new SystemException(e);
-//			} catch (SystemException se) {
-//				se.printStackTrace();
-//			}
-//		} finally {
-//			closeSession(session);
-//		}
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getReceiptSentList");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
 		return null;
 	}
 
@@ -1169,6 +1170,7 @@ public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long sende
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptMovementList");
+			logger.info("Final Receipt Movement List Query : "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1215,6 +1217,32 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 
 
 	
+	
+	public List<FileMovementDTO> getFileMovementDTOListByUserPostId(long senderId){
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getFileMovementList");
+			logger.info("Final File Movement List Query : "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(senderId);
+			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	
 }

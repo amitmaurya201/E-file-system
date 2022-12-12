@@ -119,6 +119,14 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileMovementDTOListByUserPostId(long userPostId) {
+
+		return _masterdataService.getFileMovementDTOListByUserPostId(
+			userPostId);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata
 		getOrganizationByIdMasterdata(long organizationId) {
 
@@ -191,6 +199,13 @@ public class MasterdataServiceWrapper
 
 		return _masterdataService.getReceiptMovementDTOListByUserPostId(
 			userPostId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptSentList(long userPostId) {
+
+		return _masterdataService.getReceiptSentList(userPostId);
 	}
 
 	@Override

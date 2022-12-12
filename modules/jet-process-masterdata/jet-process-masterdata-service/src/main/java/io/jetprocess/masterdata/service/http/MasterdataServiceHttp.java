@@ -1175,12 +1175,14 @@ public class MasterdataServiceHttp {
 	}
 
 	public static java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(HttpPrincipal httpPrincipal, long userPostId) {
+		getFileMovementDTOListByUserPostId(
+			HttpPrincipal httpPrincipal, long userPostId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				MasterdataServiceUtil.class, "getFileInboxList",
-				_getFileInboxListParameterTypes34);
+				MasterdataServiceUtil.class,
+				"getFileMovementDTOListByUserPostId",
+				_getFileMovementDTOListByUserPostIdParameterTypes34);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userPostId);
@@ -1197,6 +1199,73 @@ public class MasterdataServiceHttp {
 
 			return (java.util.List
 				<io.jetprocess.masterdata.model.FileMovementDTO>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileInboxList(HttpPrincipal httpPrincipal, long userPostId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getFileInboxList",
+				_getFileInboxListParameterTypes35);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.FileMovementDTO>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<io.jetprocess.masterdata.model.ReceiptMovementDTO> getReceiptSentList(
+			HttpPrincipal httpPrincipal, long userPostId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getReceiptSentList",
+				_getReceiptSentListParameterTypes36);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userPostId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.ReceiptMovementDTO>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -1306,7 +1375,13 @@ public class MasterdataServiceHttp {
 		_getReceiptMovementDTOListByUserPostIdParameterTypes33 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getFileInboxListParameterTypes34 =
+	private static final Class<?>[]
+		_getFileMovementDTOListByUserPostIdParameterTypes34 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[] _getFileInboxListParameterTypes35 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getReceiptSentListParameterTypes36 =
 		new Class[] {long.class};
 
 }

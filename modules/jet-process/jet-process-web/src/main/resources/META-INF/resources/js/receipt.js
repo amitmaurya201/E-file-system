@@ -131,17 +131,23 @@ var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var receiptId= $('#<portlet:namespace/>receiptId').val();
 var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
 
+/* if nature is elcetronic*/
 var errorLabel= false;
-$("#<portlet:namespace />nature").on('change', function(e){
+$("#<portlet:namespace />nature").on('change',mySeletedNature);
+	function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
      if(nature == 'Electronic' && tempFileId == 0 ){
     	 if(($("#error").length) == 0){
+    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
     		 errorLabel=true;
+    		 return true;
     	 }
+    	 return true;
      }else{
-    		$("#error ").remove();
+    	 errorLabel=false;    		
+    	 $("#error ").remove();
      }
-});
+}
 
 /* create receipt */
 $("#<portlet:namespace />receiptForm").on('submit', function(e){
@@ -150,10 +156,8 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
      var jsonData = bindFormDataJson(formObj);
      var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
-     if(errorLabel == true && ($("#error").length) == 0){
-    	 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
-    	 return true;
-     }
+     if(!mySeletedNature()){
+    	 
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
@@ -192,7 +196,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 				  icon: "error",  
 				});  
 		 })
-     
+     }
 });
 
 /* update receipt*/
@@ -263,12 +267,7 @@ $('#doc-select-btn').on('click',function(){
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
 	var file = e.target.files[0];
-	console.log(file.size);
-	if(file.size > 26,214,400){
 	displayPreview(file);
-	}else{
-		 $('.dropzone-wrapper').append('<p class="text-danger">File size could be max then 25MB.<p>');
-	}
 });
 
 	$('.dropzone-wrapper').on('dragover', function(e) {
