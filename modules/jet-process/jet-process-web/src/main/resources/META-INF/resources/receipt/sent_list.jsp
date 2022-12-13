@@ -2,7 +2,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@ include file="../init.jsp"%>
-
+<%@ include file="/common/common.jsp"%>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -61,9 +61,8 @@
 			<portlet:param name="mvcPath" value="/receipt/pull_back.jsp" />
 		</liferay-portlet:renderURL>
 
-		<h1 class=" text-center">Receipt Sent List</h1>
+		<h1 class=" text-center"><liferay-ui:message key="label-receipt-sent-heading" /></h1>
 
-		<div class="m-2 border boredr border-dark">
 			<%
 				List<ReceiptMovementDTO> receiptMovementList = MasterdataLocalServiceUtil
 						.getReceiptSentList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
@@ -71,9 +70,8 @@
 				SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
 				simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 			%>
-			<div class="m-2 border boredr border-dark">
 				<liferay-ui:search-container total="<%=count%>" delta="2"
-					iteratorURL="<%=iteratorURL%>">
+					iteratorURL="<%=iteratorURL%>" cssClass="text-align: center;">
 					<liferay-ui:search-container-results
 						results="<%= receiptMovementList%>" />
 
@@ -84,23 +82,26 @@
 							String nature = receiptSentMovement.getNature();
 									char currentNature = nature.charAt(0);
 						%>
-						<liferay-ui:search-container-column-text name="Nature"
+						<liferay-ui:search-container-column-text
+							name="label-receipt-sent-nature"
 							value="<%=Character.toString(currentNature)%>" />
 						<liferay-ui:search-container-column-text property="receiptNumber"
-							name="Receipt Number" />
+							name="label-receipt-sent-receipt-number" />
 						<liferay-ui:search-container-column-text property="subject"
-							name="Subject" />
+							name="label-receipt-sent-subject" />
 						<liferay-ui:search-container-column-text property="sender"
-							name="Sender" />
-						<liferay-ui:search-container-column-text property="sentTo"
-							name="Sent To" />
-						<liferay-ui:search-container-column-text name="Sent On"
+							name="label-receipt-sent-sender" />
+						<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips"
+							name="label-receipt-sent-sent-to" />
+						<liferay-ui:search-container-column-text
+							name="label-receipt-sent-sent-on"
 							value="<%=simpleformat.format(receiptSentMovement.getSentOn())%>" />
 						<liferay-ui:search-container-column-text property="dueDate"
-							name="Due Date" />
+							name="label-receipt-sent-due-date" />
 						<liferay-ui:search-container-column-text property="remark"
-							name="Remark" />
-						<liferay-ui:search-container-column-text name="Action">
+							name="label-receipt-sent-remark" />
+						<liferay-ui:search-container-column-text
+							name="label-receipt-sent-action">
 							<c:if
 								test="${(empty receiptSentMovement.getReadOn()) and (empty receiptSentMovement.getReceivedOn())}">
 
@@ -116,34 +117,6 @@
 				</liferay-ui:search-container>
 			</div>
 		</div>
-	</div>
-</div>
-
-<%-- 
-
-			</div> -->
-	<aui:form>
-		<div class="receipt textOnInput">
-			<label><liferay-ui:message key="label-receipt-remark" /><span
-				class='text-danger'>*</span></label>
-			<aui:input label="" name="remarks" id="remarks">
-				<aui:validator name="required"></aui:validator>
-				<aui:validator name="maxLength">
-					<liferay-ui:message key="receipt-input-maxlength" />
-				</aui:validator>
-			</aui:input>
-		</div>
-		<aui:button-row>
-			<aui:button type="cancel" value="Cancel" />
-			<aui:button type="submit" value="Ok" />
-		</aui:button-row>
-	</aui:form>
-</aui:container> --%>
-
-
-
-
-
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -153,7 +126,9 @@
 			<!-- Modal Header -->
 			<div class="modal-header"
 				style="background-color: #96b4d6 !important;">
-				<h4 class="modal-title">Reason For Pull-Back</h4>
+				<h4 class="modal-title">
+					<liferay-ui:message key="label-receipt-sent-popup-heading" />
+				</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
 
@@ -166,16 +141,20 @@
 						<aui:input label="" name="remarks" id="remarks">
 							<aui:validator name="required"></aui:validator>
 							<aui:validator name="maxLength">
-								<liferay-ui:message key="receipt-input-maxlength" />
+								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
 							</aui:validator>
 						</aui:input>
 					</div>
 
 					<hr style="margin: 1rem -14px;" />
 					<div style="text-align: right;">
-						<button type="submit" class="btn btn-primary">Ok</button>
+						<button type="submit" class="btn btn-primary">
+							<liferay-ui:message key="label-receipt-sent-button-submit" />
+						</button>
 						<button type="button" class="btn btn-primary"
-							data-bs-dismiss="modal">Close</button>
+							data-bs-dismiss="modal">
+							<liferay-ui:message key="label-receipt-sent-button-cancel" />
+						</button>
 					</div>
 				</aui:form>
 			</div>

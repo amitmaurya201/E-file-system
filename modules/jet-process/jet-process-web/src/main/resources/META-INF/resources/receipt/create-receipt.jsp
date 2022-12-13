@@ -453,7 +453,7 @@
 								<label><liferay-ui:message key="label-receipt-remark" /></label>
 								<aui:input label="" name="remarks" id="remarks">
 									<aui:validator name="maxLength">
-										<liferay-ui:message key="receipt-input-maxlength" />
+										<liferay-ui:message key="receipt-remarks-maxlength" />
 									</aui:validator>
 								</aui:input>
 							</div>
