@@ -1,12 +1,10 @@
 package io.jetprocess.web.render;
 import com.liferay.counter.kernel.service.CounterLocalService;
-import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import java.util.List;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.servlet.http.HttpSession;
@@ -14,10 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.Receipt;
-import io.jetprocess.service.FileCorrReceiptLocalService;
-import io.jetprocess.service.FileCorrReceiptLocalServiceUtil;
 import io.jetprocess.service.ReceiptLocalServiceUtil;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
@@ -49,8 +44,9 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		}
 	@Reference
 	private CounterLocalService counterLocalService;
-	@Reference
-	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
+	/*
+	 * @Reference private FileCorrReceiptLocalService fileCorrReceiptLocalService;
+	 */
 		
 	}
 
