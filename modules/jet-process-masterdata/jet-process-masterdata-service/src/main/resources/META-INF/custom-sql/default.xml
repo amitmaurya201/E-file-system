@@ -186,12 +186,13 @@ SELECT  docfileid, filenumber as filenumber , subject as subject , categoryvalue
 
 
 
+
 <sql id="receiptCreatedListQuery">
 <![CDATA[
 
 
-SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
-	FROM jet_process_receipt INNER JOIN 
+SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl,
+	nature FROM jet_process_receipt INNER JOIN 
 	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 order by createDate desc  ;
 ]]>
 
