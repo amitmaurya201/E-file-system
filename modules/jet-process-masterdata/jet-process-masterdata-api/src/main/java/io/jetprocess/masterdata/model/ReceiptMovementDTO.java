@@ -16,13 +16,21 @@ public class ReceiptMovementDTO {
 	private String remark;
 	private String receivedOn;
 	private String nature;
+	private long receiptId;
 	private long currentlyWith;
 	private int active;
-	private String receiptId;
 
 	public ReceiptMovementDTO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public long getReceiptMovementId() {
+		return receiptMovementId;
+	}
+
+	public void setReceiptMovementId(long receiptMovementId) {
+		this.receiptMovementId = receiptMovementId;
 	}
 
 	public String getReceiptNumber() {
@@ -97,14 +105,6 @@ public class ReceiptMovementDTO {
 		this.remark = remark;
 	}
 
-	public long getReceiptMovementId() {
-		return receiptMovementId;
-	}
-
-	public void setReceiptMovementId(long receiptMovementId) {
-		this.receiptMovementId = receiptMovementId;
-	}
-
 	public String getReceivedOn() {
 		return receivedOn;
 	}
@@ -119,6 +119,14 @@ public class ReceiptMovementDTO {
 
 	public void setNature(String nature) {
 		this.nature = nature;
+	}
+
+	public long getReceiptId() {
+		return receiptId;
+	}
+
+	public void setReceiptId(long receiptId) {
+		this.receiptId = receiptId;
 	}
 
 	public long getCurrentlyWith() {
@@ -137,26 +145,9 @@ public class ReceiptMovementDTO {
 		this.active = active;
 	}
 
-	public String getReceiptId() {
-		return receiptId;
-	}
-
-	public void setReceiptId(String receiptId) {
-		this.receiptId = receiptId;
-	}
-
-	@Override
-	public String toString() {
-		return "ReceiptMovementDTO [receiptMovementId=" + receiptMovementId + ", receiptNumber=" + receiptNumber
-				+ ", subject=" + subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo
-				+ ", sentOn=" + sentOn + ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark
-				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", currentlyWith=" + currentlyWith + ", active="
-				+ active + ", receiptId=" + receiptId + "]";
-	}
-
 	public ReceiptMovementDTO(long receiptMovementId, String receiptNumber, String subject, String sender,
 			String sentBy, String sentTo, Date sentOn, String readOn, String dueDate, String remark, String receivedOn,
-			String nature, long currentlyWith, int active, String receiptId) {
+			String nature, long receiptId, long currentlyWith, int active) {
 		super();
 		this.receiptMovementId = receiptMovementId;
 		this.receiptNumber = receiptNumber;
@@ -170,10 +161,18 @@ public class ReceiptMovementDTO {
 		this.remark = remark;
 		this.receivedOn = receivedOn;
 		this.nature = nature;
+		this.receiptId = receiptId;
 		this.currentlyWith = currentlyWith;
 		this.active = active;
-		this.receiptId = receiptId;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "ReceiptMovementDTO [receiptMovementId=" + receiptMovementId + ", receiptNumber=" + receiptNumber
+				+ ", subject=" + subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo
+				+ ", sentOn=" + sentOn + ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark
+				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", receiptId=" + receiptId + ", currentlyWith="
+				+ currentlyWith + ", active=" + active + "]";
+	}
+
 }
