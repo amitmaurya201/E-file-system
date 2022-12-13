@@ -36,6 +36,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptInboxList");
+			logger.info("Get Receipt Inbox List Query: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1010,7 +1011,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		
 			if(!keyword.isEmpty() && keyword != null ) {
 //				OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)
-				sql = sql+"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
+				sql = sql+"And currentstate = 1 AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
@@ -1054,6 +1055,62 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 	
 	
+	public List<ReceiptListViewDto> getReceiptListSearch(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
+
+		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
+		Session session = null;
+		try {
+			session = openSession();
+			//String sql = customSQL.get(getClass(), "getFileCreatedListData");
+			
+			 
+
+			
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl" + 
+					"			FROM jet_process_receipt INNER JOIN" + 
+					"			md_category  ON categorydataid = receiptcategoryid where userpostid = ?";
+			
+		
+			if(!keyword.isEmpty() && keyword != null ) {
+
+//				"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)
+				
+				sql = sql+"AND  currentstate = 1 AND (receiptnumber ilike ? OR subject ilike ? OR categoryvalue ilike ?)";
+				
+			}
+			
+			if(orderBy!=null && !orderBy.isEmpty()) {
+				sql = sql + " order by "+orderBy;
+				sql = sql + " ASC";
+				System.out.println("order by ---"+orderBy);			
+			}
+
+			
+			sql = sql + " offset "+ start + " limit "+ end;
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+	
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
 	
 	
 	
@@ -1164,7 +1221,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	}
 
 
-public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long senderId){
+public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId){
 		Session session = null;
 		try {
 			session = openSession();
@@ -1173,7 +1230,7 @@ public List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long sende
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(senderId);
+			queryPos.add(receiptId);
 			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
@@ -1217,7 +1274,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 
 	
 	
-	public List<FileMovementDTO> getFileMovementDTOListByUserPostId(long senderId){
+	public List<FileMovementDTO> getFileMovementListByFileId(long fileId){
 		Session session = null;
 		try {
 			session = openSession();
@@ -1226,7 +1283,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(senderId);
+			queryPos.add(fileId);
 			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
 			
 		} catch (Exception e) {

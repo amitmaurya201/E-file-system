@@ -1140,17 +1140,17 @@ public class MasterdataServiceHttp {
 
 	public static java.util.List
 		<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-			getReceiptMovementDTOListByUserPostId(
-				HttpPrincipal httpPrincipal, long userPostId) {
+			getReceiptMovementListByReceiptId(
+				HttpPrincipal httpPrincipal, long receiptId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				MasterdataServiceUtil.class,
-				"getReceiptMovementDTOListByUserPostId",
-				_getReceiptMovementDTOListByUserPostIdParameterTypes33);
+				"getReceiptMovementListByReceiptId",
+				_getReceiptMovementListByReceiptIdParameterTypes33);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, userPostId);
+				methodKey, receiptId);
 
 			Object returnObj = null;
 
@@ -1175,17 +1175,14 @@ public class MasterdataServiceHttp {
 	}
 
 	public static java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileMovementDTOListByUserPostId(
-			HttpPrincipal httpPrincipal, long userPostId) {
+		getFileMovementListByFileId(HttpPrincipal httpPrincipal, long fileId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				MasterdataServiceUtil.class,
-				"getFileMovementDTOListByUserPostId",
-				_getFileMovementDTOListByUserPostIdParameterTypes34);
+				MasterdataServiceUtil.class, "getFileMovementListByFileId",
+				_getFileMovementListByFileIdParameterTypes34);
 
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, userPostId);
+			MethodHandler methodHandler = new MethodHandler(methodKey, fileId);
 
 			Object returnObj = null;
 
@@ -1406,13 +1403,11 @@ public class MasterdataServiceHttp {
 			long.class
 		};
 	private static final Class<?>[]
-		_getReceiptMovementDTOListByUserPostIdParameterTypes33 = new Class[] {
+		_getReceiptMovementListByReceiptIdParameterTypes33 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getFileMovementDTOListByUserPostIdParameterTypes34 = new Class[] {
-			long.class
-		};
+		_getFileMovementListByFileIdParameterTypes34 = new Class[] {long.class};
 	private static final Class<?>[] _getFileInboxListParameterTypes35 =
 		new Class[] {long.class};
 	private static final Class<?>[] _getReceiptSentListParameterTypes36 =

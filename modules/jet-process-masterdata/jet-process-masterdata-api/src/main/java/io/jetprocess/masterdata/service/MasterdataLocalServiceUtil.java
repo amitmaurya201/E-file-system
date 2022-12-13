@@ -299,9 +299,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileMovementDTOListByUserPostId(long userPostId) {
+		getFileMovementListByFileId(long fileId) {
 
-		return getService().getFileMovementDTOListByUserPostId(userPostId);
+		return getService().getFileMovementListByFileId(fileId);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
@@ -381,6 +381,23 @@ public class MasterdataLocalServiceUtil {
 		return getService().getPrimaryHead(basicHeadId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptBySearchKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getReceiptBySearchKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public static int getReceiptBySearchKeywordsCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
+
+		return getService().getReceiptBySearchKeywordsCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
 	public static List<Masterdata> getReceiptCategory() {
 		return getService().getReceiptCategory();
 	}
@@ -412,9 +429,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptMovementDTOListByUserPostId(long userPostId) {
+		getReceiptMovementListByReceiptId(long receiptId) {
 
-		return getService().getReceiptMovementDTOListByUserPostId(userPostId);
+		return getService().getReceiptMovementListByReceiptId(receiptId);
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>

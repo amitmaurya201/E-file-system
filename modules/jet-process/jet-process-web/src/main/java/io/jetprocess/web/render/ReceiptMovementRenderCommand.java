@@ -13,6 +13,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.PortletException;
@@ -67,11 +68,18 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		int end = delta;
 		logger.info("currentPage: "+currentPage+"  delta: "+delta+"  start: "+start+"  end: "+end);
 
-		HttpSession session = themeDisplay.getRequest().getSession();
-		String userPostId =  (String) session.getAttribute("userPostId");
-		long userPost = userPostId != null ? Long.parseLong(userPostId) : 1;
-		List<ReceiptMovementDTO>  receiptMovementList = masterdataLocalService.getReceiptMovementDTOListByUserPostId(userPost);  
-		renderRequest.setAttribute("receiptMovementList", receiptMovementList);
+		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
+		logger.info("Receipt Id: "+receiptId);
+		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
+		if(receiptId != 0) {
+			receiptMovementList = masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
+		}
+		logger.info("Receipt Movement List: "+receiptMovementList);
+		
+		if(receiptMovementList != null) {
+			renderRequest.setAttribute("receiptMovementList", receiptMovementList);
+		}
+		
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("receiptMovementCount",+receiptMovementList.size());
 		

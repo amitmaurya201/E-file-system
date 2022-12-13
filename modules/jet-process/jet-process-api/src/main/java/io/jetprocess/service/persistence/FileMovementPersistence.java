@@ -390,6 +390,50 @@ public interface FileMovementPersistence extends BasePersistence<FileMovement> {
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the file movement where fileId = &#63; or throws a <code>NoSuchFileMovementException</code> if it could not be found.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file movement
+	 * @throws NoSuchFileMovementException if a matching file movement could not be found
+	 */
+	public FileMovement findByfileId(long fileId)
+		throws NoSuchFileMovementException;
+
+	/**
+	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	public FileMovement fetchByfileId(long fileId);
+
+	/**
+	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	public FileMovement fetchByfileId(long fileId, boolean useFinderCache);
+
+	/**
+	 * Removes the file movement where fileId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 * @return the file movement that was removed
+	 */
+	public FileMovement removeByfileId(long fileId)
+		throws NoSuchFileMovementException;
+
+	/**
+	 * Returns the number of file movements where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the number of matching file movements
+	 */
+	public int countByfileId(long fileId);
+
+	/**
 	 * Caches the file movement in the entity cache if it is enabled.
 	 *
 	 * @param fileMovement the file movement

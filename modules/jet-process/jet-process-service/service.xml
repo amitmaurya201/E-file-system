@@ -184,6 +184,10 @@
 		<column type="String" name="readOn"/>		
 		<column type="String" name="receivedOn"/>		
 		
+		<finder name="fileId" return-type="FileMovement">
+			<finder-column name="fileId"></finder-column>
+		</finder>
+		
 	   <!-- 	Group Reference  -->
 	   <reference entity="Group" package-path="com.liferay.portal" />
 

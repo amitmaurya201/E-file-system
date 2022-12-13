@@ -38,7 +38,7 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 	
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
-		return masterdataFinder.getReceiptInboxList(userPostId);
+		return masterdataLocalService.getReceiptInboxList(userPostId);
 	}
 	
 	public List<Masterdata> getCategoryMasterdata() {
@@ -190,11 +190,11 @@ public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
     	
     	return masterdataLocalService.getReceiptSubCategoryById(receiptSubCategoryId);
     }
-    public  List<ReceiptMovementDTO> getReceiptMovementDTOListByUserPostId(long userPostId){
-		return masterdataLocalService.getReceiptMovementDTOListByUserPostId(userPostId);
+    public  List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId){
+		return masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
 	}
-    public  List<FileMovementDTO> getFileMovementDTOListByUserPostId(long userPostId){
-    	return masterdataLocalService.getFileMovementDTOListByUserPostId(userPostId);
+    public  List<FileMovementDTO> getFileMovementListByFileId(long fileId){
+    	return masterdataLocalService.getFileMovementListByFileId(fileId);
     }
 
     public List<FileMovementDTO> getFileInboxList(long userPostId){

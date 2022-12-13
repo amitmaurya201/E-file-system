@@ -29,44 +29,39 @@ import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
+import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
 @Component(
 		immediate = true,
 		property = {
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST,
+			"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST
-			
-			
 		},
 		service = MVCRenderCommand.class
 	)
 public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	
 	
-	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
+	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
 		// Add assignment list related attributes.
-logger.info("View Render...");
-	String keywords = ParamUtil.getString(renderRequest, "keywords");
-	System.out.println("CreatedFileListRenderCommand.render() keywords : " + keywords);
+		logger.info("View Render...");
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		System.out.println("CreatedFileListRenderCommand.render() keywords : " + keywords);
 		addAssignmentListAttributes(renderRequest);
 		addManagementToolbarAttributes(renderRequest, renderResponse);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
-		
-		
-		// Add Clay management toolbar related attributes.
-//		logger.info("======>View Render...2"+userPost);
-
 		return "/file/created-file-list.jsp";
 	}
 
 	/***
 	 * 
-	 * Adds assigment list related attributes to the request.**
+	 * Adds File list related attributes to the request.**
 	 * 
 	 * @param renderRequest
 	 */
@@ -76,7 +71,7 @@ logger.info("View Render...");
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-				2);
+				4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 
@@ -88,35 +83,35 @@ logger.info("View Render...");
 		// stored in XML. In real world this search would be integrated to the
 		// search engine
 		// to get localized sort options.
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "subject");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "fileNumber");
 
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
 		// Create comparator
-		OrderByComparator<?> comparator = OrderByComparatorFactoryUtil.create("DocFile", orderByCol,
+		OrderByComparator<?> comparator = OrderByComparatorFactoryUtil.create("fileNumber", orderByCol,
 				!("asc").equals(orderByType));
 		// Get keywords.
 		// Notice that cleaning keywords is not implemented.
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		// Call the service to get the list of assignments.
+		// Call the service to get the list of assignments.   
 //		List<FileListViewDto>  assignments = masterdataLocalService.getFileCreatedByKeywords(userPost,
 //				keywords, start, end, orderByCol,orderByType);
 		
 		
 		System.out.println("keywords on create render : "+keywords);
-		List<FileListViewDto>  assignments = masterdataLocalService.getFileCreatedByKeywords(userPost,
+		List<FileListViewDto>  fileList = masterdataLocalService.getFileCreatedByKeywords(userPost,
 				keywords, start, end, orderByCol,orderByType);  
 		
 		
 		
 		// Set request attributes.
-		logger.info("assignments :=============== "+assignments.size());
+		logger.info("File :=============== "+fileList.size());
 //		logger.info("assignments : "+assignments);
-		renderRequest.setAttribute("assignments", assignments);
+		renderRequest.setAttribute("fileList", fileList);
 		
-		renderRequest.setAttribute("assignmentCount",+masterdataLocalService.getFileCreatedByKeywordCount(userPost,
-				keywords, start, end, "docfileid","asc"));
+		renderRequest.setAttribute("fileCount",+masterdataLocalService.getFileCreatedByKeywordCount(userPost,
+				keywords, start, end, "fileNumber","asc"));
 		logger.info("count : "+masterdataLocalService.getFileCreatedByKeywordCount(userPost,
-				keywords, start, end, "docfileid","asc"));
+				keywords, start, end, "fileNumber","asc"));
 	}
 
 	/**
@@ -135,6 +130,7 @@ logger.info("View Render...");
 		
 	}
 	
+	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;
 	@Reference

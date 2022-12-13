@@ -359,10 +359,9 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileMovementDTOListByUserPostId(long userPostId) {
+		getFileMovementListByFileId(long fileId) {
 
-		return _masterdataLocalService.getFileMovementDTOListByUserPostId(
-			userPostId);
+		return _masterdataLocalService.getFileMovementListByFileId(fileId);
 	}
 
 	@Override
@@ -465,6 +464,25 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptBySearchKeywords(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return _masterdataLocalService.getReceiptBySearchKeywords(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	@Override
+	public int getReceiptBySearchKeywordsCount(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order) {
+
+		return _masterdataLocalService.getReceiptBySearchKeywordsCount(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getReceiptCategory() {
 
@@ -508,10 +526,10 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptMovementDTOListByUserPostId(long userPostId) {
+		getReceiptMovementListByReceiptId(long receiptId) {
 
-		return _masterdataLocalService.getReceiptMovementDTOListByUserPostId(
-			userPostId);
+		return _masterdataLocalService.getReceiptMovementListByReceiptId(
+			receiptId);
 	}
 
 	@Override

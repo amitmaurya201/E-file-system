@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1457,6 +1459,217 @@ public class FileMovementPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"fileMovement.companyId = ?";
 
+	private FinderPath _finderPathFetchByfileId;
+	private FinderPath _finderPathCountByfileId;
+
+	/**
+	 * Returns the file movement where fileId = &#63; or throws a <code>NoSuchFileMovementException</code> if it could not be found.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file movement
+	 * @throws NoSuchFileMovementException if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement findByfileId(long fileId)
+		throws NoSuchFileMovementException {
+
+		FileMovement fileMovement = fetchByfileId(fileId);
+
+		if (fileMovement == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("fileId=");
+			sb.append(fileId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileMovementException(sb.toString());
+		}
+
+		return fileMovement;
+	}
+
+	/**
+	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement fetchByfileId(long fileId) {
+		return fetchByfileId(fileId, true);
+	}
+
+	/**
+	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement fetchByfileId(long fileId, boolean useFinderCache) {
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {fileId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByfileId, finderArgs);
+		}
+
+		if (result instanceof FileMovement) {
+			FileMovement fileMovement = (FileMovement)result;
+
+			if (fileId != fileMovement.getFileId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_FILEMOVEMENT_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEID_FILEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileId);
+
+				List<FileMovement> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByfileId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {fileId};
+							}
+
+							_log.warn(
+								"FileMovementPersistenceImpl.fetchByfileId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					FileMovement fileMovement = list.get(0);
+
+					result = fileMovement;
+
+					cacheResult(fileMovement);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (FileMovement)result;
+		}
+	}
+
+	/**
+	 * Removes the file movement where fileId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 * @return the file movement that was removed
+	 */
+	@Override
+	public FileMovement removeByfileId(long fileId)
+		throws NoSuchFileMovementException {
+
+		FileMovement fileMovement = findByfileId(fileId);
+
+		return remove(fileMovement);
+	}
+
+	/**
+	 * Returns the number of file movements where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the number of matching file movements
+	 */
+	@Override
+	public int countByfileId(long fileId) {
+		FinderPath finderPath = _finderPathCountByfileId;
+
+		Object[] finderArgs = new Object[] {fileId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_FILEMOVEMENT_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEID_FILEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FILEID_FILEID_2 =
+		"fileMovement.fileId = ?";
+
 	public FileMovementPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1485,6 +1698,10 @@ public class FileMovementPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {fileMovement.getUuid(), fileMovement.getGroupId()},
+			fileMovement);
+
+		finderCache.putResult(
+			_finderPathFetchByfileId, new Object[] {fileMovement.getFileId()},
 			fileMovement);
 	}
 
@@ -1566,6 +1783,12 @@ public class FileMovementPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, fileMovementModelImpl);
+
+		args = new Object[] {fileMovementModelImpl.getFileId()};
+
+		finderCache.putResult(_finderPathCountByfileId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByfileId, args, fileMovementModelImpl);
 	}
 
 	/**
@@ -2080,6 +2303,15 @@ public class FileMovementPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByfileId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByfileId",
+			new String[] {Long.class.getName()}, new String[] {"fileId"}, true);
+
+		_finderPathCountByfileId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByfileId",
+			new String[] {Long.class.getName()}, new String[] {"fileId"},
+			false);
 
 		_setFileMovementUtilPersistence(this);
 	}
