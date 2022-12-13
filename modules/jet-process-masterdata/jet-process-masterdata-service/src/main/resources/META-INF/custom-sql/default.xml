@@ -342,7 +342,7 @@ FROM jet_process_docfile  INNER JOIN
 <sql id="getReceiptCreatedListData">
 <![CDATA[
 
-SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature
+SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
 	FROM jet_process_receipt INNER JOIN 
 	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) order by createDate desc ;
 
@@ -447,7 +447,7 @@ where fm.fileId = ?
 SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
 		null as sendBy,
         (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ,
-		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId
+		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid
 		FROM jet_process_filemovement as fm 
 		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        
 		 left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
