@@ -25,12 +25,13 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 
 		List<ReceiptMovementDTO> inboxList = MasterdataLocalServiceUtil.getReceiptInboxList(1);
 		
-		logger.info("inboxList :  "+inboxList);
-		
-		
-		for (ReceiptMovementDTO receiptMovementDTO : inboxList) {
-			System.out.println("receipt id" + receiptMovementDTO.getSentBy());
-		}
+		/*
+		 * logger.info("inboxList :  "+inboxList);
+		 * 
+		 * 
+		 * for (ReceiptMovementDTO receiptMovementDTO : inboxList) {
+		 * System.out.println("receipt id" + receiptMovementDTO.getSentBy()); }
+		 */
 
 		return "/receipt/inbox.jsp";
 	}

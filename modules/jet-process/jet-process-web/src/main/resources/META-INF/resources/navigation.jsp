@@ -149,10 +149,10 @@
 			});
 		}
 		
-		var navId = "${param.selectedNav}";
+		/* var navId = "${param.selectedNav}";
 		var nav = document.getElementById(navId);
 
-		nav.style.background = '#1f161e';
+		nav.style.color = 'blue'; */
 	</script>
 
 </body>
