@@ -19,6 +19,8 @@ public class FileMovementDTO {
 	
 	private long fileId;
 
+	private long senderId;
+
 	public long getFileMovementId() {
 		return fileMovementId;
 	}
@@ -123,6 +125,14 @@ public class FileMovementDTO {
 		this.fileId = fileId;
 	}
 
+	public long getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(long senderId) {
+		this.senderId = senderId;
+	}
+
 	public FileMovementDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -130,7 +140,7 @@ public class FileMovementDTO {
 
 	public FileMovementDTO(long fileMovementId, String fileNumber, String subject, String sentBy, String sentTo,
 			Date sentOn, String readOn, String dueDate, String remark, String receivedOn, long currentlyWith,
-			String nature, long fileId) {
+			String nature, long fileId, long senderId) {
 		super();
 		this.fileMovementId = fileMovementId;
 		this.fileNumber = fileNumber;
@@ -145,6 +155,7 @@ public class FileMovementDTO {
 		this.currentlyWith = currentlyWith;
 		this.nature = nature;
 		this.fileId = fileId;
+		this.senderId = senderId;
 	}
 
 	@Override
@@ -152,10 +163,8 @@ public class FileMovementDTO {
 		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
 				+ subject + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
 				+ ", dueDate=" + dueDate + ", remark=" + remark + ", receivedOn=" + receivedOn + ", currentlyWith="
-				+ currentlyWith + ", nature=" + nature + ", fileId=" + fileId + "]";
+				+ currentlyWith + ", nature=" + nature + ", fileId=" + fileId + ", senderId=" + senderId + "]";
 	}
-	
-	
 	
 	
 	

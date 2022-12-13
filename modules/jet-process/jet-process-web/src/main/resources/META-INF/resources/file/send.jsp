@@ -12,6 +12,9 @@
 	rel="stylesheet" />
 
 
+
+
+<%=selectedUserPostId %>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -49,7 +52,7 @@
 			%> --%>
 			<input type="hidden" name="<portlet:namespace/>fileId"
 				value="<%=docFile.getDocFileId()%>">
-				<%-- <%} %> --%>
+			<%-- 	<%} %> --%>
 			<div class="row">
 				<div class="col-6">
 					<aui:fieldset-group>
@@ -63,15 +66,20 @@
 
 								<option value="chooseOne">choose One</option>
 								<%
+								
 									List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);
 											if (userPostList != null) {
 												for (UserPost userPost : userPostList) {
+													
+													
+													
 								%>
-								<option value="<%=userPost.getUserPostId()%>"><%=userPost.getShortName()%></option>
+								<option value="<%=userPost.getUserPostId()%>"><%= userPost.getUserName()%>&nbsp;<%=userPost.getShortName()%>&nbsp;<%=userPost.getSectionName() %>&nbsp;<%=userPost.getDepartmentName() %></option>
 
 								<%
 									}
 									}
+											
 								%>
 							
 							</select>
@@ -85,13 +93,20 @@
 								name="dueDate" data-date="" data-date-format="DD/MM/YYYY" label="">
 								<aui:validator name="required"/>
 								<aui:validator name="custom"
-										errorMessage="Select only current date">
+										errorMessage="Don't past date">
 											function(val){
 												var date=new Date(val);
 												console.log("select value----> "+date);
 												var today = new Date();
 												console.log("current value----> "+today);
-												return (today == date);
+												if(today=date){
+												console.log("equal date");
+												return date;
+												}
+												else if(today < date){
+												console.log("date is greater than");
+												return date;
+												}
 											}
 										</aui:validator>
 							</aui:input>
