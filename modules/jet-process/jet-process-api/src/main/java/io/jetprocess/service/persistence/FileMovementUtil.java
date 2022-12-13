@@ -532,6 +532,64 @@ public class FileMovementUtil {
 	}
 
 	/**
+	 * Returns the file movement where fileId = &#63; or throws a <code>NoSuchFileMovementException</code> if it could not be found.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file movement
+	 * @throws NoSuchFileMovementException if a matching file movement could not be found
+	 */
+	public static FileMovement findByfileId(long fileId)
+		throws io.jetprocess.exception.NoSuchFileMovementException {
+
+		return getPersistence().findByfileId(fileId);
+	}
+
+	/**
+	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	public static FileMovement fetchByfileId(long fileId) {
+		return getPersistence().fetchByfileId(fileId);
+	}
+
+	/**
+	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	public static FileMovement fetchByfileId(
+		long fileId, boolean useFinderCache) {
+
+		return getPersistence().fetchByfileId(fileId, useFinderCache);
+	}
+
+	/**
+	 * Removes the file movement where fileId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 * @return the file movement that was removed
+	 */
+	public static FileMovement removeByfileId(long fileId)
+		throws io.jetprocess.exception.NoSuchFileMovementException {
+
+		return getPersistence().removeByfileId(fileId);
+	}
+
+	/**
+	 * Returns the number of file movements where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the number of matching file movements
+	 */
+	public static int countByfileId(long fileId) {
+		return getPersistence().countByfileId(fileId);
+	}
+
+	/**
 	 * Caches the file movement in the entity cache if it is enabled.
 	 *
 	 * @param fileMovement the file movement
