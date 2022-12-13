@@ -38,7 +38,7 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 	
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
-		return masterdataFinder.getReceiptInboxList(userPostId);
+		return masterdataLocalService.getReceiptInboxList(userPostId);
 	}
 	
 	public List<Masterdata> getCategoryMasterdata() {

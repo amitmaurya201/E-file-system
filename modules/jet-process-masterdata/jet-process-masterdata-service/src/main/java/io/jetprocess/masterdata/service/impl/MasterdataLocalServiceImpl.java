@@ -278,8 +278,7 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 		@Override
 		public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
-			// TODO Auto-generated method stub
-			return null;
+			return masterdataFinder.getReceiptInboxList(userPostId) ;
 		}
 
 
