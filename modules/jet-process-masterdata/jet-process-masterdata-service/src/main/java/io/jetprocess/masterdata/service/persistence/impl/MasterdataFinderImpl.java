@@ -36,6 +36,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptInboxList");
+			logger.info("Get Receipt Inbox List Query: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);

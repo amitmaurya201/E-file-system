@@ -350,19 +350,6 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 
 </sql>
 
-
-
-
-<sql id="getReceiptInboxList">
-<![CDATA[
-
-SELECT rmid as rmId, duedate as dueDate , remark as remark , senderid as senderID , receiptid as receiptID , readon as readOn , receivedon as receivedOn , createdate as createDate , receiverid as receiverId    
-	FROM public.jet_process_receiptmovement where senderid = ?;
-
-]]>
-</sql>
-
-
 <sql id="getReceiptSentList">
 <![CDATA[
 
@@ -409,6 +396,31 @@ SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subje
 ]]>
 </sql>
 
+<sql id="getReceiptInboxList">
+<![CDATA[
+
+SELECT 
+	rm.rmid AS receiptMovementId,
+	r.receiptnumber AS receiptNumber,
+	r.subject AS subject,
+	null as sender,
+	(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy,
+	(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS sentTo ,
+	rm.createdate AS sentOn, 
+	rm.readon AS readOn,
+	rm.duedate AS dueDate,
+	rm.remark AS remark,
+	rm.receivedon as receiveOn,
+	
+	r.nature as nature
+	
+	FROM jet_process_receiptmovement as rm 
+	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
+	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid
+	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
+where r.userpostid = ? order by rm.createdate desc; 
+]]>
+</sql>
 
 <sql id="getFileMovementList">
 <![CDATA[
