@@ -5,12 +5,16 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -20,8 +24,14 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.osgi.service.component.annotations.Reference;
+
+import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.MVCCommandNames;
+import io.jetprocess.web.render.CreatedReceiptListRenderCommand;
 
 /**
  * Assigments management toolbar display context.
@@ -70,16 +80,19 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	@Override
 	public String getSearchActionURL() {
 
-		PortletURL searchURL = liferayPortletResponse.createActionURL();
+		
+		PortletURL searchURL = liferayPortletResponse.createRenderURL();
+		System.out.println("searchURL.getRenderParameters() : - ");
 
-//		searchURL.setProperty("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
-
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
-		searchURL.setParameter("mvcPath,","./receipt/created-receipt-list.jsp");
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
+		
 
+		
+		
 		return searchURL.toString();
 	}
 
@@ -149,7 +162,9 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	
 	
 	
-
+	private static Log logger = LogFactoryUtil.getLog(ReceiptManagementToolbarDisplayContext.class);
+	@Reference
+	private MasterdataLocalService masterdataLocalService;
 	private final PortalPreferences _portalPreferences;
 	private final ThemeDisplay _themeDisplay;
 

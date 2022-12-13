@@ -40,28 +40,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
-	/**
-	 * Returns the creation menu for the toolbar (plus sign on the management
-	 * toolbar).
-	 *
-	 * @return creation menu
-	 */
 	
-	/*
-	 * public CreationMenu getCreationMenu() { //Create the menu. CreationMenu
-	 * creationMenu=new CreationMenu() { { addDropdownItem(dropdownItem -> {
-	 * 
-	 * 
-	 * dropdownItem.setHref(liferayPortletResponse.createRenderURL(),
-	 * "mvcRenderCommandName", MVCCommandNames.EDIT_ASSIGNMENT, "redirect",
-	 * currentURLObj.toString()); dropdownItem.setLabel(LanguageUtil.get(request,
-	 * "add-assignment"));
-	 * 
-	 * }); } };
-	 * 
-	 * return creationMenu; }
-	 */
-	 
 
 	@Override
 	public String getClearResultsURL() {
@@ -97,18 +76,13 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	@Override
 	public String getSearchActionURL() {
 
-		PortletURL searchURL = liferayPortletResponse.createActionURL();
+		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-//		searchURL.setProperty("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
-		
-		System.out.println("Search IN ");
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
-		searchURL.setParameter("mvcPath,","./file/created-file-list.jsp" );
-//		searchURL.setParameter("mvcPath", "./file/created-file-list.jsp");
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
-
 		return searchURL.toString();
 	}
  

@@ -1002,7 +1002,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		Session session = null;
 		try {
 			session = openSession();
-			//String sql = customSQL.get(getClass(), "getFileCreatedListData");
 			
 			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
 					"FROM jet_process_docfile  INNER JOIN " + 
@@ -1010,7 +1009,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
-//				OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)
 				sql = sql+"And currentstate = 1 AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
 			
@@ -1019,15 +1017,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 				sql = sql + " ASC";
 				System.out.println("order by ---"+orderBy);			
 			}
-			
-			
-			
-			/*
-			 * if(order!=null && !order.isEmpty()) { sql = sql + " order "+ order;
-			 * 
-			 * } else { sql = sql + "ASC"; }
-			 */
-			
+
 			sql = sql + " offset "+ start + " limit "+ end;
 			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
@@ -1061,19 +1051,14 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		Session session = null;
 		try {
 			session = openSession();
-			//String sql = customSQL.get(getClass(), "getFileCreatedListData");
-			
-			 
-
-			
-			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl" + 
+	
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature" + 
 					"			FROM jet_process_receipt INNER JOIN" + 
 					"			md_category  ON categorydataid = receiptcategoryid where userpostid = ?";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
 
-//				"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)
 				
 				sql = sql+"AND  currentstate = 1 AND (receiptnumber ilike ? OR subject ilike ? OR categoryvalue ilike ?)";
 				
@@ -1081,7 +1066,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				sql = sql + " ASC";
+				sql = sql + " DESC";
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1129,21 +1114,10 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
-//				OR (CONCAT(filenumber ,subject, categoryvalue) LIKE ?)
 				sql = sql+"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
 				
 				
-			
-			
-			
-			/*
-			 * if(order!=null && !order.isEmpty()) { sql = sql + " order "+ order;
-			 * 
-			 * } else { sql = sql + "ASC"; }
-			 */
-			
-//			sql = sql + " offset "+ start + " limit "+ end;
 			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
@@ -1172,17 +1146,30 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	
 	
 
-	public List<ReceiptListViewDto> getReceiptCreatedListSearch(long userPostId, String data) {
+	public List<ReceiptListViewDto> getReceiptCreatedListSearch(long userPostId, String keyword) {
 
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = customSQL.get(getClass(), "getReceiptCreatedListData");
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature" + 
+					"	FROM jet_process_receipt INNER JOIN " + 
+					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? " + 
+					"";
+			if(!keyword.isEmpty() && keyword != null ) {
+				sql = sql+"AND (receiptnumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
+			}
+				
+				
+			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			queryPos.add(data);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
 			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
 
 		} catch (Exception e) {

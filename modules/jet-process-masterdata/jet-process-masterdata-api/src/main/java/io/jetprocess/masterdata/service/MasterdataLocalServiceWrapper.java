@@ -302,12 +302,9 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
-	public int getFileCreatedByKeywordCount(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order) {
-
+	public int getFileCreatedByKeywordCount(long userPostId, String keyword) {
 		return _masterdataLocalService.getFileCreatedByKeywordCount(
-			userPostId, keyword, start, end, orderBy, order);
+			userPostId, keyword);
 	}
 
 	@Override
@@ -475,11 +472,10 @@ public class MasterdataLocalServiceWrapper
 
 	@Override
 	public int getReceiptBySearchKeywordsCount(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order) {
+		long userPostId, String keyword) {
 
 		return _masterdataLocalService.getReceiptBySearchKeywordsCount(
-			userPostId, keyword, start, end, orderBy, order);
+			userPostId, keyword);
 	}
 
 	@Override

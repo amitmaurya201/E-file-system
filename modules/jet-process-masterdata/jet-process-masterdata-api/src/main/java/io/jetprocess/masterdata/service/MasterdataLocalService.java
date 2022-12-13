@@ -234,9 +234,7 @@ public interface MasterdataLocalService
 	public Masterdata getFileById(long fileCodeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getFileCreatedByKeywordCount(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
+	public int getFileCreatedByKeywordCount(long userPostId, String keyword);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileListViewDto> getFileCreatedByKeywords(
@@ -332,9 +330,7 @@ public interface MasterdataLocalService
 		String order);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getReceiptBySearchKeywordsCount(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
+	public int getReceiptBySearchKeywordsCount(long userPostId, String keyword);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptCategory();
