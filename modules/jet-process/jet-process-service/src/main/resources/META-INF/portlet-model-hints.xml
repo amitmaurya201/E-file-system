@@ -21,7 +21,9 @@
 		<field name="fileNumber" type="String" />
 		<field name="categoryId" type="long" />
 		<field name="subCategoryId" type="long" />
-		<field name="remarks" type="String" />
+		<field name="remarks" type="String">
+			<hint name="max-length">500</hint>
+		</field>
 		<field name="reference" type="String" />
 		<field name="year" type="long" />
 		<field name="userPostId" type="long" />
@@ -65,7 +67,9 @@
 		<field name="subject" type="String">
 			<hint name="max-length">500</hint>
 		</field>
-		<field name="remarks" type="String" />
+		<field name="remarks" type="String">
+			<hint name="max-length">500</hint>
+		</field>
 		<field name="name" type="String" />
 		<field name="designation" type="String" />
 		<field name="mobile" type="String" />

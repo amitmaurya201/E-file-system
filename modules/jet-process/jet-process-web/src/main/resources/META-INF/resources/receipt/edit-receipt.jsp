@@ -487,7 +487,7 @@ input[type='file'] {
 								<aui:input label="" name="remarks" id="remarks"
 									value="${receipt.remarks}">
 									<aui:validator name="maxLength">
-										<liferay-ui:message key="receipt-input-maxlength" />
+										<liferay-ui:message key="receipt-remarks-maxlength" />
 									</aui:validator>
 								</aui:input>
 							</div>
