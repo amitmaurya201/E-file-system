@@ -67,36 +67,36 @@
 		</div>
 
 
- <div class="row m-1">       
-<table>
-
-  <tr >
-    <th><liferay-ui:message key="label-file-fileno" />:</th>
-    <td><%=docFile.getFileNumber()%></td>
-    <th class="category"><liferay-ui:message key="label-file-categoryid" />:</th>
-    <td><%=categoryValue%></td>
-  </tr>
- 
-  <tr>
-   <th><liferay-ui:message key="label-file-reference" />:</th>
-    <td><%=docFile.getReference()%></td>
-    <th><liferay-ui:message key="label-file-nature" />:</th>
-    <td><%=docFile.getNature()%></td>
-  </tr>
-  <tr>
-    <th><liferay-ui:message key="label-file-subject" />:</th>
-    <td><%=docFile.getSubject()%></td>
-    <th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
-    <td><%=subCategoryValue%></td>
-  </tr>
-  <tr>
-    <th><liferay-ui:message key="label-file-remark" />:</th>
-    <td><%=docFile.getRemarks()%></td>
-    <th><liferay-ui:message key="label-file-nature-type" />:</th>
-    <td><%=docFile.getType()%></td>
-  </tr>
- 
-</table>
+ <div>       
+	<table>
+	
+	  <tr >
+	    <th class="td-size-25"><liferay-ui:message key="label-file-fileno" />:</th>
+	    <td class="td-size-25"><%=docFile.getFileNumber()%></td>
+	    <th class="category td-size-25"><liferay-ui:message key="label-file-categoryid" />:</th>
+	    <td><%=categoryValue%></td>
+	  </tr>
+	 
+	  <tr>
+	   <th><liferay-ui:message key="label-file-reference" />:</th>
+	    <td><%=docFile.getReference()%></td>
+	    <th><liferay-ui:message key="label-file-nature" />:</th>
+	    <td><%=docFile.getNature()%></td>
+	  </tr>
+	  <tr>
+	    <th><liferay-ui:message key="label-file-subject" />:</th>
+	    <td><%=docFile.getSubject()%></td>
+	    <th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
+	    <td><%=subCategoryValue%></td>
+	  </tr>
+	  <tr>
+	    <th><liferay-ui:message key="label-file-remark" />:</th>
+	    <td><%=docFile.getRemarks()%></td>
+	    <th><liferay-ui:message key="label-file-nature-type" />:</th>
+	    <td><%=docFile.getType()%></td>
+	  </tr>
+	 
+	</table>
 </div>
         
 <style>
