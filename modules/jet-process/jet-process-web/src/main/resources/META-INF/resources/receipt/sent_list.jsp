@@ -138,7 +138,7 @@
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-receipt-remark" /><span
 							class='text-danger'>*</span></label>
-						<aui:input label="" name="remarks" id="remarks">
+						<aui:input label="" name="remarks" id="remarks" type="textarea">
 							<aui:validator name="required"></aui:validator>
 							<aui:validator name="maxLength">
 								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
