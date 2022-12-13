@@ -89,7 +89,7 @@ margin-top: -22%;
 					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.FILE_SEND_RENDER_COMMAND %>"/>
 					<portlet:param name="docFileId" value="${fileinboxDtoList.getFileId()}"/>
 				</portlet:renderURL>
-
+					
 				<liferay-ui:search-container-column-text name="">
 					<%=fileinboxDtoList.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
@@ -105,7 +105,7 @@ margin-top: -22%;
 				%> --%>
 				<liferay-ui:search-container-column-text name="Sent By"
 					cssClass="hover-tips">
-					<a href="#" class="button open" onclick=" showModal(${fileinboxDtoList.getFileId()})"><%=fileinboxDtoList.getSentBy() %></a>
+					<a href="#" class="button open" onclick=" showModal(${fileinboxDtoList.getFileId()})"><%=fileinboxDtoList.getSentBy() %>,<%=fileinboxDtoList.getSenderId() %></a>
 						
 					
 					</liferay-ui:search-container-column-text>
