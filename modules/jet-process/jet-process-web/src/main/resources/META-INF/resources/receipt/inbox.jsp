@@ -210,16 +210,12 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text name="Action"
 										align="center">
-										<span><a href="#" class="button open"
-											onclick="readModal(${receiptMovementDTO.getReceiptId()})">Read</a></span>
 										<span><a href="${sendURL}">Send</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
 									<liferay-ui:search-container-column-text name="Action"
 										align="center">
-										<span><a href="#" class="button open"
-											onclick="receiveModal(${receiptMovementDTO.getReceiptId()})">Receive</a></span>
 										<span><a href="${sendURL}">Send</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
