@@ -412,8 +412,11 @@ SELECT
 	rm.duedate AS dueDate,
 	rm.remark AS remark,
 	rm.receivedon as receiveOn,
+	r.nature as nature,
 	
-	r.nature as nature
+	r.receiptid as receiptId,
+	r.currentlywith as currentlyWith,
+	0 as active
 	
 	FROM jet_process_receiptmovement as rm 
 	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId

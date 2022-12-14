@@ -36,7 +36,7 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="send">
-	<portlet:param name="mvcPath" value="/receipt/send.jsp" />
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND %>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendBack">

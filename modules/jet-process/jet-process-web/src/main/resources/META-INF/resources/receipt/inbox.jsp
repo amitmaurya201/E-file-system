@@ -34,10 +34,10 @@
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 			
 				
-				<%-- <portlet:renderURL var="send">
-					<portlet:param name="mvcPath" value="/receipt/send.jsp" />
+				<portlet:renderURL var="sendURL">
+					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND %>" />
 					<portlet:param name="receiptId" value="${receiptMovementDTO.getReceiptId()}" />
-				</portlet:renderURL> --%>
+				</portlet:renderURL>
 
 				<liferay-ui:search-container-column-text name="">
 					<%=receiptMovementDTO.getNature().charAt(0)%>
@@ -74,20 +74,20 @@
 						<%=receiptMovementDTO.getRemark() %>
 					</c:if>
 				</liferay-ui:search-container-column-text>
-
+				
 				<c:choose>
 					<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 						<liferay-ui:search-container-column-text name="Action"
 							align="center">
 							<span><a href="#">Read</a></span>&nbsp;						
-							<span><a href="#">Send</a></span>
+							<span><a href="${sendURL}">Send</a></span>
 						</liferay-ui:search-container-column-text>
 					</c:when>
 					<c:otherwise>
 						<liferay-ui:search-container-column-text name="Action"
 							align="center">
 							<span><a href="#">Received</a></span>&nbsp;
-							<span><a href="#">Send</a></span>
+							<span><a href="${sendURL}">Send</a></span>
 						</liferay-ui:search-container-column-text>
 					</c:otherwise>
 				</c:choose>

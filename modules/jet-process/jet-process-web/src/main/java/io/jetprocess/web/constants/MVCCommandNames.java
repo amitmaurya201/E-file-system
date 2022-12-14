@@ -9,5 +9,6 @@ public class MVCCommandNames {
 	public static final String RECEIPT_MOVEMENT_RENDER_COMMAND = "/receipt/movement/command";
 	public static final String FILE_MOVEMENT_RENDER_COMMAND = "/file/movement/command";
 	public static final String FILE_SEND_RENDER_COMMAND = "/file/send/command";
+	public static final String RECEIPT_SEND_RENDER_COMMAND = "/receipt/send/command";
 
 }

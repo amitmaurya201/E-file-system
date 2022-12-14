@@ -24,7 +24,7 @@
 
 
 		<%
-			Receipt receipt = (Receipt) session.getAttribute("receipt");
+			Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 		String type = (String) receipt.getNature();
 		char firstChar = type.charAt(0);
 		%>
