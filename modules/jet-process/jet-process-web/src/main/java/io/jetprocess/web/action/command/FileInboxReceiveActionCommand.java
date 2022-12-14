@@ -13,6 +13,7 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=receiveAction" }, service = MVCActionCommand.class)
@@ -37,7 +38,7 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 			fileMovementLocalService.updateFileMovement(fileMovement);
 		}
 		
-		actionResponse.setRenderParameter("mvcPath", "/file/inbox.jsp");
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 
 		return false;
 		
