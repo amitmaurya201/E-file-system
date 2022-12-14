@@ -29,6 +29,7 @@
 		<field name="userPostId" type="long" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
+		<field name="active" type="String" />
 	</model>
 	<model name="io.jetprocess.model.FileMovement">
 		<field name="uuid" type="String" />
@@ -46,6 +47,9 @@
 		<field name="remark" type="String" />
 		<field name="readOn" type="String" />
 		<field name="receivedOn" type="String" />
+		<field name="pullBackRemark" type="String">
+			<hint name="max-length">500</hint>
+		</field>
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />
@@ -92,6 +96,7 @@
 		<field name="nature" type="String" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
+		<field name="active" type="String" />
 	</model>
 	<model name="io.jetprocess.model.ReceiptMovement">
 		<field name="uuid" type="String" />
@@ -109,5 +114,8 @@
 		<field name="remark" type="String" />
 		<field name="readOn" type="String" />
 		<field name="receivedOn" type="String" />
+		<field name="pullBackRemark" type="String">
+			<hint name="max-length">500</hint>
+		</field>
 	</model>
 </model-hints>

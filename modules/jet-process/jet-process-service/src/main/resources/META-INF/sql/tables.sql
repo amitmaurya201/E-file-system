@@ -23,7 +23,8 @@ create table JET_PROCESS_DocFile (
 	year LONG,
 	userPostId LONG,
 	currentlyWith LONG,
-	currentState INTEGER
+	currentState INTEGER,
+	active_ VARCHAR(75) null
 );
 
 create table JET_PROCESS_FileMovement (
@@ -41,7 +42,8 @@ create table JET_PROCESS_FileMovement (
 	dueDate VARCHAR(75) null,
 	remark VARCHAR(75) null,
 	readOn VARCHAR(75) null,
-	receivedOn VARCHAR(75) null
+	receivedOn VARCHAR(75) null,
+	pullBackRemark VARCHAR(500) null
 );
 
 create table JET_PROCESS_Receipt (
@@ -80,7 +82,8 @@ create table JET_PROCESS_Receipt (
 	dmFileId LONG,
 	nature VARCHAR(75) null,
 	currentlyWith LONG,
-	currentState INTEGER
+	currentState INTEGER,
+	active_ VARCHAR(75) null
 );
 
 create table JET_PROCESS_ReceiptMovement (
@@ -98,5 +101,6 @@ create table JET_PROCESS_ReceiptMovement (
 	dueDate VARCHAR(75) null,
 	remark VARCHAR(75) null,
 	readOn VARCHAR(75) null,
-	receivedOn VARCHAR(75) null
+	receivedOn VARCHAR(75) null,
+	pullBackRemark VARCHAR(500) null
 );

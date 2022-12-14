@@ -79,6 +79,7 @@ public class ReceiptWrapper
 		attributes.put("nature", getNature());
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
+		attributes.put("active", getActive());
 
 		return attributes;
 	}
@@ -301,11 +302,27 @@ public class ReceiptWrapper
 		if (currentState != null) {
 			setCurrentState(currentState);
 		}
+
+		String active = (String)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
+		}
 	}
 
 	@Override
 	public Receipt cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the active of this receipt.
+	 *
+	 * @return the active of this receipt
+	 */
+	@Override
+	public String getActive() {
+		return model.getActive();
 	}
 
 	/**
@@ -691,6 +708,16 @@ public class ReceiptWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the active of this receipt.
+	 *
+	 * @param active the active of this receipt
+	 */
+	@Override
+	public void setActive(String active) {
+		model.setActive(active);
 	}
 
 	/**

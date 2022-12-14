@@ -86,7 +86,7 @@ public class DocFileModelImpl
 		{"subCategoryId", Types.BIGINT}, {"remarks", Types.VARCHAR},
 		{"reference", Types.VARCHAR}, {"year", Types.BIGINT},
 		{"userPostId", Types.BIGINT}, {"currentlyWith", Types.BIGINT},
-		{"currentState", Types.INTEGER}
+		{"currentState", Types.INTEGER}, {"active_", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -118,10 +118,11 @@ public class DocFileModelImpl
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("currentState", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("active_", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(500) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER)";
+		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(500) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER,active_ VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocFile";
@@ -364,6 +365,9 @@ public class DocFileModelImpl
 		attributeSetterBiConsumers.put(
 			"currentState",
 			(BiConsumer<DocFile, Integer>)DocFile::setCurrentState);
+		attributeGetterFunctions.put("active", DocFile::getActive);
+		attributeSetterBiConsumers.put(
+			"active", (BiConsumer<DocFile, String>)DocFile::setActive);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -855,6 +859,26 @@ public class DocFileModelImpl
 		_currentState = currentState;
 	}
 
+	@JSON
+	@Override
+	public String getActive() {
+		if (_active == null) {
+			return "";
+		}
+		else {
+			return _active;
+		}
+	}
+
+	@Override
+	public void setActive(String active) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_active = active;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -942,6 +966,7 @@ public class DocFileModelImpl
 		docFileImpl.setUserPostId(getUserPostId());
 		docFileImpl.setCurrentlyWith(getCurrentlyWith());
 		docFileImpl.setCurrentState(getCurrentState());
+		docFileImpl.setActive(getActive());
 
 		docFileImpl.resetOriginalValues();
 
@@ -994,6 +1019,7 @@ public class DocFileModelImpl
 			this.<Long>getColumnOriginalValue("currentlyWith"));
 		docFileImpl.setCurrentState(
 			this.<Integer>getColumnOriginalValue("currentState"));
+		docFileImpl.setActive(this.<String>getColumnOriginalValue("active_"));
 
 		return docFileImpl;
 	}
@@ -1189,6 +1215,14 @@ public class DocFileModelImpl
 
 		docFileCacheModel.currentState = getCurrentState();
 
+		docFileCacheModel.active = getActive();
+
+		String active = docFileCacheModel.active;
+
+		if ((active != null) && (active.length() == 0)) {
+			docFileCacheModel.active = null;
+		}
+
 		return docFileCacheModel;
 	}
 
@@ -1307,6 +1341,7 @@ public class DocFileModelImpl
 	private long _userPostId;
 	private long _currentlyWith;
 	private int _currentState;
+	private String _active;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1362,6 +1397,7 @@ public class DocFileModelImpl
 		_columnOriginalValues.put("userPostId", _userPostId);
 		_columnOriginalValues.put("currentlyWith", _currentlyWith);
 		_columnOriginalValues.put("currentState", _currentState);
+		_columnOriginalValues.put("active_", _active);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1371,6 +1407,7 @@ public class DocFileModelImpl
 
 		attributeNames.put("uuid_", "uuid");
 		attributeNames.put("type_", "type");
+		attributeNames.put("active_", "active");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1435,6 +1472,8 @@ public class DocFileModelImpl
 		columnBitmasks.put("currentlyWith", 8388608L);
 
 		columnBitmasks.put("currentState", 16777216L);
+
+		columnBitmasks.put("active_", 33554432L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

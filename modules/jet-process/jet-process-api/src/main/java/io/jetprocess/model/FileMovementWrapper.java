@@ -58,6 +58,7 @@ public class FileMovementWrapper
 		attributes.put("remark", getRemark());
 		attributes.put("readOn", getReadOn());
 		attributes.put("receivedOn", getReceivedOn());
+		attributes.put("pullBackRemark", getPullBackRemark());
 
 		return attributes;
 	}
@@ -152,6 +153,12 @@ public class FileMovementWrapper
 
 		if (receivedOn != null) {
 			setReceivedOn(receivedOn);
+		}
+
+		String pullBackRemark = (String)attributes.get("pullBackRemark");
+
+		if (pullBackRemark != null) {
+			setPullBackRemark(pullBackRemark);
 		}
 	}
 
@@ -248,6 +255,16 @@ public class FileMovementWrapper
 	@Override
 	public String getPriority() {
 		return model.getPriority();
+	}
+
+	/**
+	 * Returns the pull back remark of this file movement.
+	 *
+	 * @return the pull back remark of this file movement
+	 */
+	@Override
+	public String getPullBackRemark() {
+		return model.getPullBackRemark();
 	}
 
 	/**
@@ -423,6 +440,16 @@ public class FileMovementWrapper
 	@Override
 	public void setPriority(String priority) {
 		model.setPriority(priority);
+	}
+
+	/**
+	 * Sets the pull back remark of this file movement.
+	 *
+	 * @param pullBackRemark the pull back remark of this file movement
+	 */
+	@Override
+	public void setPullBackRemark(String pullBackRemark) {
+		model.setPullBackRemark(pullBackRemark);
 	}
 
 	/**

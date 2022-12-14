@@ -81,7 +81,7 @@ public class FileMovementModelImpl
 		{"senderId", Types.BIGINT}, {"fileId", Types.BIGINT},
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
-		{"receivedOn", Types.VARCHAR}
+		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -103,10 +103,11 @@ public class FileMovementModelImpl
 		TABLE_COLUMNS_MAP.put("remark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("pullBackRemark", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null)";
+		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileMovement";
@@ -321,6 +322,11 @@ public class FileMovementModelImpl
 		attributeSetterBiConsumers.put(
 			"receivedOn",
 			(BiConsumer<FileMovement, String>)FileMovement::setReceivedOn);
+		attributeGetterFunctions.put(
+			"pullBackRemark", FileMovement::getPullBackRemark);
+		attributeSetterBiConsumers.put(
+			"pullBackRemark",
+			(BiConsumer<FileMovement, String>)FileMovement::setPullBackRemark);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -642,6 +648,26 @@ public class FileMovementModelImpl
 		_receivedOn = receivedOn;
 	}
 
+	@JSON
+	@Override
+	public String getPullBackRemark() {
+		if (_pullBackRemark == null) {
+			return "";
+		}
+		else {
+			return _pullBackRemark;
+		}
+	}
+
+	@Override
+	public void setPullBackRemark(String pullBackRemark) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_pullBackRemark = pullBackRemark;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -719,6 +745,7 @@ public class FileMovementModelImpl
 		fileMovementImpl.setRemark(getRemark());
 		fileMovementImpl.setReadOn(getReadOn());
 		fileMovementImpl.setReceivedOn(getReceivedOn());
+		fileMovementImpl.setPullBackRemark(getPullBackRemark());
 
 		fileMovementImpl.resetOriginalValues();
 
@@ -755,6 +782,8 @@ public class FileMovementModelImpl
 			this.<String>getColumnOriginalValue("readOn"));
 		fileMovementImpl.setReceivedOn(
 			this.<String>getColumnOriginalValue("receivedOn"));
+		fileMovementImpl.setPullBackRemark(
+			this.<String>getColumnOriginalValue("pullBackRemark"));
 
 		return fileMovementImpl;
 	}
@@ -913,6 +942,14 @@ public class FileMovementModelImpl
 			fileMovementCacheModel.receivedOn = null;
 		}
 
+		fileMovementCacheModel.pullBackRemark = getPullBackRemark();
+
+		String pullBackRemark = fileMovementCacheModel.pullBackRemark;
+
+		if ((pullBackRemark != null) && (pullBackRemark.length() == 0)) {
+			fileMovementCacheModel.pullBackRemark = null;
+		}
+
 		return fileMovementCacheModel;
 	}
 
@@ -1021,6 +1058,7 @@ public class FileMovementModelImpl
 	private String _remark;
 	private String _readOn;
 	private String _receivedOn;
+	private String _pullBackRemark;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1066,6 +1104,7 @@ public class FileMovementModelImpl
 		_columnOriginalValues.put("remark", _remark);
 		_columnOriginalValues.put("readOn", _readOn);
 		_columnOriginalValues.put("receivedOn", _receivedOn);
+		_columnOriginalValues.put("pullBackRemark", _pullBackRemark);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1118,6 +1157,8 @@ public class FileMovementModelImpl
 		columnBitmasks.put("readOn", 8192L);
 
 		columnBitmasks.put("receivedOn", 16384L);
+
+		columnBitmasks.put("pullBackRemark", 32768L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

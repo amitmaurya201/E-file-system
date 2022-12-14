@@ -611,6 +611,21 @@ public interface ReceiptModel
 	 */
 	public void setCurrentState(int currentState);
 
+	/**
+	 * Returns the active of this receipt.
+	 *
+	 * @return the active of this receipt
+	 */
+	@AutoEscape
+	public String getActive();
+
+	/**
+	 * Sets the active of this receipt.
+	 *
+	 * @param active the active of this receipt
+	 */
+	public void setActive(String active);
+
 	@Override
 	public Receipt cloneWithOriginalValues();
 

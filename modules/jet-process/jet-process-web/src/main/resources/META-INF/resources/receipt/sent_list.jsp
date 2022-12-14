@@ -56,67 +56,76 @@
 			<portlet:param name="mvcPath" value="/receipt/sent_list.jsp" />
 		</liferay-portlet:renderURL>
 
-		<liferay-portlet:renderURL var="pullBackURL"
-			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
-			<portlet:param name="mvcPath" value="/receipt/pull_back.jsp" />
-		</liferay-portlet:renderURL>
+		<h1 class=" text-center">
+			<liferay-ui:message key="label-receipt-sent-heading" />
+		</h1>
 
-		<h1 class=" text-center"><liferay-ui:message key="label-receipt-sent-heading" /></h1>
+		<%
+			List<ReceiptMovementDTO> receiptMovementList = MasterdataLocalServiceUtil
+					.getReceiptSentList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
+			int count = receiptMovementList.size();
+			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
+			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+		%>
+		<liferay-ui:search-container total="<%=count%>" delta="2"
+			iteratorURL="<%=iteratorURL%>" cssClass="text-align: center;">
+			<liferay-ui:search-container-results
+				results="<%= receiptMovementList%>" />
 
-			<%
-				List<ReceiptMovementDTO> receiptMovementList = MasterdataLocalServiceUtil
-						.getReceiptSentList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-				int count = receiptMovementList.size();
-				SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
-				simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-			%>
-				<liferay-ui:search-container total="<%=count%>" delta="2"
-					iteratorURL="<%=iteratorURL%>" cssClass="text-align: center;">
-					<liferay-ui:search-container-results
-						results="<%= receiptMovementList%>" />
+			<liferay-ui:search-container-row
+				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
+				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
-					<liferay-ui:search-container-row
-						className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
-						modelVar="receiptSentMovement" keyProperty="receiptMovementId">
-						<%
-							String nature = receiptSentMovement.getNature();
-									char currentNature = nature.charAt(0);
-						%>
-						<liferay-ui:search-container-column-text
-							name="label-receipt-sent-nature"
-							value="<%=Character.toString(currentNature)%>" />
-						<liferay-ui:search-container-column-text property="receiptNumber"
-							name="label-receipt-sent-receipt-number" />
-						<liferay-ui:search-container-column-text property="subject"
-							name="label-receipt-sent-subject" />
-						<liferay-ui:search-container-column-text property="sender"
-							name="label-receipt-sent-sender" />
-						<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips"
-							name="label-receipt-sent-sent-to" />
-						<liferay-ui:search-container-column-text
-							name="label-receipt-sent-sent-on"
-							value="<%=simpleformat.format(receiptSentMovement.getSentOn())%>" />
-						<liferay-ui:search-container-column-text property="dueDate"
-							name="label-receipt-sent-due-date" />
-						<liferay-ui:search-container-column-text property="remark"
-							name="label-receipt-sent-remark" />
-						<liferay-ui:search-container-column-text
-							name="label-receipt-sent-action">
-							<c:if
-								test="${(empty receiptSentMovement.getReadOn()) and (empty receiptSentMovement.getReceivedOn())}">
+				<portlet:actionURL var="receiptSentActionURL"
+					name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>">
+					<portlet:param name="receiptId" value="${receiptSentMovement.receiptId}" />
+				</portlet:actionURL>
+				<%
+					String nature = receiptSentMovement.getNature();
+							char currentNature = nature.charAt(0);
+				%>
+				<liferay-ui:search-container-column-text
+					name="label-receipt-sent-nature"
+					value="<%=Character.toString(currentNature)%>" />
+				<liferay-ui:search-container-column-text property="receiptNumber"
+					name="label-receipt-sent-receipt-number" />
+				<liferay-ui:search-container-column-text property="subject"
+					name="label-receipt-sent-subject" />
+				<liferay-ui:search-container-column-text property="sender"
+					name="label-receipt-sent-sender" />
+				<liferay-ui:search-container-column-text property="sentTo"
+					cssClass="hover-tips" name="label-receipt-sent-sent-to" />
+				<liferay-ui:search-container-column-text
+					name="label-receipt-sent-sent-on"
+					value="<%=simpleformat.format(receiptSentMovement.getSentOn())%>" />
+				<liferay-ui:search-container-column-text property="dueDate"
+					name="label-receipt-sent-due-date" />
+				<liferay-ui:search-container-column-text property="remark"
+					name="label-receipt-sent-remark" />
+				<%-- <liferay-ui:search-container-column-text property="receiptId"
+					name="receiptId" />
+				<liferay-ui:search-container-column-text property="currentlyWith"
+					name="currentlyWith" />
+				<liferay-ui:search-container-column-text property="active"
+					name="active" /> --%>
+				<liferay-ui:search-container-column-text
+					name="label-receipt-sent-action">
+					<c:if
+						test="${(empty receiptSentMovement.getReadOn()) and (empty receiptSentMovement.getReceivedOn())}">
 
-								<button type="button" class="btn" data-bs-toggle="modal"
-									data-bs-target="#myModal">
-									<i class="icon-indent-left"></i>
-								</button>
+						<button type="button" class="btn" data-bs-toggle="modal"
+							data-bs-target="#myModal">
+							<i class="icon-indent-left"></i>
+						</button>
+					</c:if>
+				</liferay-ui:search-container-column-text>
+			</liferay-ui:search-container-row>
+			<liferay-ui:search-iterator markupView="lexicon" />
+		</liferay-ui:search-container>
+	</div>
+</div>
 
-							</c:if>
-						</liferay-ui:search-container-column-text>
-					</liferay-ui:search-container-row>
-					<liferay-ui:search-iterator markupView="lexicon" />
-				</liferay-ui:search-container>
-			</div>
-		</div>
+
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -134,7 +143,7 @@
 
 			<!-- Modal body -->
 			<div class="modal-body">
-				<aui:form>
+				<aui:form action="${ receiptSentActionURL}">
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-receipt-remark" /><span
 							class='text-danger'>*</span></label>
@@ -148,7 +157,8 @@
 
 					<hr style="margin: 1rem -14px;" />
 					<div style="text-align: right;">
-						<button type="submit" class="btn btn-primary">
+						<button type="submit" class="btn btn-primary"
+							id="submit_pull_back">
 							<liferay-ui:message key="label-receipt-sent-button-submit" />
 						</button>
 						<button type="button" class="btn btn-primary"
@@ -161,3 +171,11 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$("#submit_pull_back").click(function() {
+		$("#myModal").modal("hide");
+		var rem = $("#<portlet:namespace />remarks").val();
+		
+	});
+</script>
