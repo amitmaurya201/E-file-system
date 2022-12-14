@@ -372,7 +372,7 @@ SELECT
 	null as receiptnumber ,null as subject , null as sender ,
 	(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as Sent_By ,
 	(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as Sent_To,
-	rm.createdate as Sent_On, null as readOn , null as duedate , remark as remark, null as receivedOn, null as nature, 0 as currentlyWith, 0 as active, null as receiptId
+	rm.createdate as Sent_On, null as readOn , null as duedate , remark as remark, null as receivedOn, null as nature, 0 as receiptId, 0 as currentlyWith, 0 as active
 	FROM jet_process_receiptmovement as rm 
 	left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
