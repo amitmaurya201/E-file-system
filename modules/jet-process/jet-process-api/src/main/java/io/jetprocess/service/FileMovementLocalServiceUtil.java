@@ -237,6 +237,10 @@ public class FileMovementLocalServiceUtil {
 		return getService().getExportActionableDynamicQuery(portletDataContext);
 	}
 
+	public static FileMovement getFileByFileId(long fileId) {
+		return getService().getFileByFileId(fileId);
+	}
+
 	/**
 	 * Returns the file movement with the primary key.
 	 *
