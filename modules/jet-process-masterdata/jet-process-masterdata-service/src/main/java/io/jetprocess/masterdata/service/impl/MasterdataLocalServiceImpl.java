@@ -293,7 +293,7 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		}
 		
 		
-		// this method is Created By Ashwani Rao Start 
+		// Start 
 		
 		
 		public int getFileSentList( long userPostId  , String keyword){
@@ -315,7 +315,32 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			
 			return masterdataFinder.getFileSentList(userPostId ,keyword  , start , end , orderBy , order );
 		}
-	
+		
+		
+		public List<FileMovementDTO> getFileInboxList(long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+			
+			
+			return masterdataFinder.getFileInboxList(userPostId ,keyword  , start , end , orderBy , order );
+		}
+		
+		public int  getFileInboxList( long userPostId  , String keyword){
+			
+			
+			List<FileMovementDTO> receiptList =null; 
+			
+			if(keyword != null && !keyword.isEmpty()) {
+				receiptList = masterdataFinder.getFileInboxList(userPostId, keyword);
+			}else {
+				receiptList = getFileInboxList(userPostId);
+			}
+			int count = receiptList.size();
+			logger.info("total file number inside service : "+count);
+
+			return count;			
+		}
+		
+		
+		
 		
 		// End 
 	

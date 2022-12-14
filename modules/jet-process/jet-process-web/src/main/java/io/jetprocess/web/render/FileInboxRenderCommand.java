@@ -46,33 +46,24 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	
 	
 	private void addFileInboxListAttributes(RenderRequest renderRequest) {
-		logger.info("1------------");
-		
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		logger.info("2------------");
-		//int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
-		logger.info("3 current page------------ " +currentPage);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 1);
-		logger.info("4------------");
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
-		logger.info("5------------");
 		int end = delta;
-		logger.info("6------------");
 		HttpSession session = themeDisplay.getRequest().getSession();
-		logger.info("7------------ "+session.getAttribute("userPostId"));
-		long userPostId =Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("8------------");
+		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+		String tt = (String) session.getAttribute("userPostId");
 		logger.info("user post id inside render : --" + userPostId);
-		/* long userPost = userPostId; */
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
+		long userPost = Long.parseLong(tt);
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "fm.receivedon");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
-		List<FileMovementDTO> FileInboxList = masterdataLocalService.getFileInboxList(userPostId);
-//		logger.info("FileInboxList :=============== " + FileInboxList.size());
-		renderRequest.setAttribute("fileInboxList",FileInboxList);
-		renderRequest.setAttribute("fileInboxCount",+FileInboxList.size());
+		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
+		logger.info("===========  Later ==========>" + fileInboxList);
+		renderRequest.setAttribute("fileInboxList",fileInboxList);
+		renderRequest.setAttribute("fileInboxCount",+masterdataLocalService.getFileInboxList(userPost, keywords));
 	}
 
 	/**
@@ -99,3 +90,5 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	private Portal _portal;
 
 }
+
+

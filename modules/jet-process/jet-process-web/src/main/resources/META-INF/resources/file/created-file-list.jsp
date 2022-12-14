@@ -51,12 +51,12 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="label-file-list-fileno" property="fileNumber" />
+					name="fileNumber" property="fileNumber" orderable="true" />
 
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"
-					name="label-file-list-subject" />
+				<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="hover-tips"
+					name="subject" />
 
-				<liferay-ui:search-container-column-text property="category" name="label-file-list-category" cssClass="hover-tips" />
+				<liferay-ui:search-container-column-text property="category" name="category" cssClass="hover-tips" />
 
 <%
 			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -64,10 +64,10 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 		%>
 		
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(filedto.getCreateDate())%>"
-					orderable="true" name="label-file-list-createon" orderableProperty="createDate" />
+					 name="label-file-list-createon"  />
 
-				<liferay-ui:search-container-column-text property="remark"
-					name="label-file-list-remark" />
+				<liferay-ui:search-container-column-text property="remark" orderable="true"
+					name="remark" />
 
 
 			</liferay-ui:search-container-row>
@@ -75,7 +75,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
         <%-- Iterator / Paging --%>
         
         <liferay-ui:search-iterator paginate="false" />
-        <liferay-ui:search-paginator searchContainer="${searchContainer}" markupView="lexicon" />
+        <liferay-ui:search-paginator searchContainer="<%=new SearchContainer() %>" markupView="lexicon" />
         
     </liferay-ui:search-container>
 	</div>

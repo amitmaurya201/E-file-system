@@ -69,18 +69,32 @@ font-weight: bold;
 		<%@ include file="../navigation.jsp"%>
 	</div>
 
-	<%
-		List<FileMovementDTO> fileInboxList = MasterdataLocalServiceUtil
-				.getFileInboxList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-		int count = fileInboxList.size();
-	%>
+	
+ 
+ 
 
+		
+ 
+ 
+ 
 
 	<div class="col-10">
 		<h1 class=" text-center">File Inbox</h1>
-		<liferay-ui:search-container total="<%=count%>" delta="5"
-			iteratorURL="<%=iteratorURL%>">
-			<liferay-ui:search-container-results results="<%=fileInboxList %>" />
+		 <clay:management-toolbar
+        disabled="${fileInboxCount eq 0}"
+        displayContext="${fileInboxManagementToolbarDisplayContext}"
+        itemsTotal="${fileInboxCount}"
+        searchContainerId="FileInboxEntries"
+        managementToolbarDisplayContext="${fileInboxManagementToolbarDisplayContext}"
+    />
+		
+		<liferay-ui:search-container
+		delta="4"
+        emptyResultsMessage="No-File-List"
+        id="FileInboxEntries"
+        total="${fileInboxCount}" iteratorURL="${fileInboxManagementToolbarDisplayContext._getCurrentURL()}"
+        >
+        <liferay-ui:search-container-results results="${fileInboxList}" />
 
 
 			<liferay-ui:search-container-row
@@ -112,10 +126,10 @@ font-weight: bold;
 								<%=fileinboxDtoList.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 							
-							<liferay-ui:search-container-column-text  property="fileNumber"
-								name="File No." cssClass="bold"/>
-							<liferay-ui:search-container-column-text property="subject"
-								name="Subject" cssClass="bold"/>
+							<liferay-ui:search-container-column-text orderable="true"  property="fileNumber"
+								name="fileNumber" cssClass="bold"/>
+							<liferay-ui:search-container-column-text orderable="true"  property="subject"
+								name="subject" cssClass="bold"/>
 							<liferay-ui:search-container-column-text name="Sent By"
 							cssClass="hover-tips bold">
 								<%
@@ -224,7 +238,8 @@ font-weight: bold;
 				
 			</liferay-ui:search-container-row>
 
-			<liferay-ui:search-iterator markupView="lexicon" />
+			 <liferay-ui:search-iterator paginate="false" />
+        <liferay-ui:search-paginator searchContainer="<%=new SearchContainer() %>" markupView="lexicon" />
 
 
 		</liferay-ui:search-container>

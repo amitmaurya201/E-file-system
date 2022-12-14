@@ -55,7 +55,7 @@
         managementToolbarDisplayContext="${sendFileManagementToolbarDisplayContext}"
     />
 <liferay-ui:search-container
-		delta="1"
+		delta="4"
         emptyResultsMessage="No-Sent-File-List"
         id="sendFileListEntries"
         total="${sendFileCount}" iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}" >
@@ -64,8 +64,8 @@
 
 	<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderable="true" />
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="Subject" />
+		<liferay-ui:search-container-column-text name="fileNumber" property="fileNumber" orderable="true" />
+				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" orderable="true" name="subject" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Sent To" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -78,14 +78,11 @@
 					<%-- <c:if test="${not empty FileMovementDTO.getReadOn() || not empty FileMovementDTO.getReceivedOn() }"> --%>
 	                  <a href="#" class="button open"><i class="icon-indent-left"></i></a>
 	
-	
-		
-						<%-- 	</c:if> --%>
 				</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
 
 	 <liferay-ui:search-iterator paginate="false" />
-        <liferay-ui:search-paginator searchContainer="${searchContainer}" markupView="lexicon" />
+        <liferay-ui:search-paginator  searchContainer="${searchContainer}" markupView="lexicon" />
 	
 </liferay-ui:search-container>
 </div>

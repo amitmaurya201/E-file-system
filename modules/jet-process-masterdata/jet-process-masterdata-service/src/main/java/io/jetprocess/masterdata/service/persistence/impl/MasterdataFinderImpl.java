@@ -1005,11 +1005,11 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
 					"FROM jet_process_docfile  INNER JOIN " + 
-					"md_category  ON categorydataid = categoryid where userpostid = ?";
+					"md_category  ON categorydataid = categoryid where userpostid = ? And currentstate = 1";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"And currentstate = 1 AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
+				sql = sql+" AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
@@ -1110,7 +1110,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
 					"FROM jet_process_docfile  INNER JOIN " + 
-					"md_category  ON categorydataid = categoryid where userpostid = ?";
+					"md_category  ON categorydataid = categoryid where userpostid = ?  AND  currentstate = 1";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
@@ -1420,6 +1420,125 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword){
+		Session session = null;
+		try {
+			session = openSession();
+//			String sql = customSQL.get(getClass(), "getSentFileList");
+			
+			
+			
+			String sql="SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject," + 
+					"		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
+					"		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ," + 
+					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
+					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId" + 
+					"		FROM jet_process_filemovement as fm " + 
+					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
+					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
+					"		left outer JOIN masterdata_userpost as up2" + 
+					"		ON fm.receiverid = up2.userpostid " + 
+					"	where f.userpostid = ?";
+			
+			logger.info("Final File Movement List Query : "+sql);
+			
+			if(!keyword.isEmpty() && keyword != null ) {
+				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
+			}
+				
+				
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
+
+		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
+		Session session = null;
+		try {
+			session = openSession();
+	
+			String sql="SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject," + 
+					"		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
+					"		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ," + 
+					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
+					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId" + 
+					"		FROM jet_process_filemovement as fm " + 
+					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
+					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
+					"		left outer JOIN masterdata_userpost as up2" + 
+					"		ON fm.receiverid = up2.userpostid " + 
+					"	where f.userpostid = ? ";
+			
+		
+			if(!keyword.isEmpty() && keyword != null ) {
+
+				
+				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
+				
+			}
+			
+			if(orderBy!=null && !orderBy.isEmpty()) {
+				sql = sql + " order by "+orderBy;
+				sql = sql + " DESC";
+				System.out.println("order by ---"+orderBy);			
+			}
+
+			
+			sql = sql + " offset "+ start + " limit "+ end;
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+//				queryPos.add("%"+keyword+"%");
+			}
+	
+			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
 	
 
 

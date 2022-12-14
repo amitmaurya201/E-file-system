@@ -29,7 +29,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.SendFileManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-"mvc.command.name="+MVCCommandNames.FILE_SEND_RENDER_COMMAND }, service = MVCRenderCommand.class)
+"mvc.command.name="+MVCCommandNames.FILE_SENT_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class FileSentBoxRenderCommand implements MVCRenderCommand{
 
 	
@@ -47,7 +47,7 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand{
 	private void addSendFileListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 1);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();

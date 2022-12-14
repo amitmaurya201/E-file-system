@@ -286,6 +286,19 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileInboxList(userPostId);
 	}
 
+	public static int getFileInboxList(long userPostId, String keyword) {
+		return getService().getFileInboxList(userPostId, keyword);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileInboxList(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileInboxList(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileList(long userPostId) {
 

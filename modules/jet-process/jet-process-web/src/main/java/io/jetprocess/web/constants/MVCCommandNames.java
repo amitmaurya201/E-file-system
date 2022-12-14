@@ -16,5 +16,9 @@ public class MVCCommandNames {
 	public static final String FILE_INBOX_RENDER_COMMAND = "/fileInBox";
 	public static final String RECEIPT_INBOX_RENDER_COMMAND = "/receiptInBox";
 	
+
+	public static final String FILE_SENT_RENDER_COMMAND = "/fileSentBox";
+	public static final String RECEIPT_SENT_RENDER_COMMAND = "/receiptSentList";
+	
 	
 }

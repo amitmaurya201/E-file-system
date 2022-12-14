@@ -68,7 +68,7 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-		searchURL.setParameter("mvcRenderCommandName",MVCCommandNames.FILE_SEND_RENDER_COMMAND);
+		searchURL.setParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
@@ -107,7 +107,7 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_SEND_RENDER_COMMAND);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 
 		// Reset current page.
 
@@ -125,7 +125,7 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName",MVCCommandNames.FILE_SEND_RENDER_COMMAND);
+		sortingURL.setParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 
 		return sortingURL;
 	}
