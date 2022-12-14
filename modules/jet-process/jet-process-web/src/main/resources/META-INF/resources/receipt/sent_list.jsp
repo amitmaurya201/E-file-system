@@ -77,9 +77,9 @@
 				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
 				<portlet:actionURL var="receiptSentActionURL"
-					name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>">
-					<portlet:param name="receiptId" value="${receiptSentMovement.receiptId}" />
-				</portlet:actionURL>
+					name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>" />
+					<%-- <portlet:param name="receiptId" value="${receiptSentMovement.receiptId}" />
+				</portlet:actionURL> --%>
 				<%
 					String nature = receiptSentMovement.getNature();
 							char currentNature = nature.charAt(0);
@@ -102,19 +102,13 @@
 					name="label-receipt-sent-due-date" />
 				<liferay-ui:search-container-column-text property="remark"
 					name="label-receipt-sent-remark" />
-				<%-- <liferay-ui:search-container-column-text property="receiptId"
-					name="receiptId" />
-				<liferay-ui:search-container-column-text property="currentlyWith"
-					name="currentlyWith" />
-				<liferay-ui:search-container-column-text property="active"
-					name="active" /> --%>
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-action">
 					<c:if
 						test="${(empty receiptSentMovement.getReadOn()) and (empty receiptSentMovement.getReceivedOn())}">
 
 						<button type="button" class="btn" data-bs-toggle="modal"
-							data-bs-target="#myModal">
+							data-bs-target="#myModal" onclick="openModal(${receiptSentMovement.getReceiptId()})">
 							<i class="icon-indent-left"></i>
 						</button>
 					</c:if>
@@ -144,6 +138,7 @@
 			<!-- Modal body -->
 			<div class="modal-body">
 				<aui:form action="${ receiptSentActionURL}">
+					<input type="text" name="<portlet:namespace />receiptId" id="receiptId" readOnly>
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-receipt-remark" /><span
 							class='text-danger'>*</span></label>
@@ -173,9 +168,13 @@
 </div>
 
 <script type="text/javascript">
-	$("#submit_pull_back").click(function() {
+function openModal(receiptId){
+	alert(receiptId);
+document.getElementById("receiptId").value=receiptId;
+	$("#submit_pull_back").success(function() {
 		$("#myModal").modal("hide");
 		var rem = $("#<portlet:namespace />remarks").val();
 		
 	});
+}
 </script>
