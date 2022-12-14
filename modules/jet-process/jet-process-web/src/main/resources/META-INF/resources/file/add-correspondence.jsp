@@ -1,6 +1,6 @@
 <%@ include file="../init.jsp"%>
 <%
-List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(1);
+List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(selectedUserPostId != null ? Long.parseLong(selectedUserPostId) : 1);
 %>
 <portlet:actionURL var = "attachReceipt" name="AttachFileCorrespondence">
 <portlet:param name="redirect" value="/file/correspondence-list.jsp"/>
