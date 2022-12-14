@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -48,10 +49,16 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 	}
 
 	public UserPost getUserPostById(long userPostId) {
-		UserPost userPost = userPostLocalService.getUserPostById(1);
+		
 		
 
-		return userPost;
+		try {
+			return  userPostLocalService.getUserPost(userPostId) ;
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<UserPost> getUserPostSearchedData(String data) {
