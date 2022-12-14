@@ -17,33 +17,40 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 		immediate = true, 
 		property = { 
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name=readAction" 
+				"mvc.command.name=readActionreceipt" 
 		}, 
 		service = MVCActionCommand.class
 )
 public class ReceiptInboxReadActionCommand  implements MVCActionCommand {
 
 	@Reference
-	private ReceiptMovementLocalService receiptMovementLocalService; 
-	
-	// for read electronic receipt
+	private ReceiptMovementLocalService receiptMovementLocalService;
 	
 	
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		
-		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
+long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
 		
-		System.out.println("ReceiptId of read --:"+receiptId);
+		System.out.println("ReceiptId at read--:"+receiptId);
+		
 		
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
-        if(receiptMovement.getReceiptId() == receiptId) {
-        	receiptMovement.setReadOn("read");
-        	receiptMovementLocalService.updateReceiptMovement(receiptMovement);	
-        	
-        }
+		if(receiptMovement.getReceiptId() == receiptId ) {
+			receiptMovement.setReadOn("read");
+			receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+		}
 		
 		actionResponse.setRenderParameter("mvcPath", "/receipt/inbox.jsp");
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return false;
 	}
 
