@@ -58,6 +58,7 @@ public class ReceiptMovementWrapper
 		attributes.put("remark", getRemark());
 		attributes.put("readOn", getReadOn());
 		attributes.put("receivedOn", getReceivedOn());
+		attributes.put("pullBackRemark", getPullBackRemark());
 
 		return attributes;
 	}
@@ -153,6 +154,12 @@ public class ReceiptMovementWrapper
 		if (receivedOn != null) {
 			setReceivedOn(receivedOn);
 		}
+
+		String pullBackRemark = (String)attributes.get("pullBackRemark");
+
+		if (pullBackRemark != null) {
+			setPullBackRemark(pullBackRemark);
+		}
 	}
 
 	@Override
@@ -228,6 +235,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public String getPriority() {
 		return model.getPriority();
+	}
+
+	/**
+	 * Returns the pull back remark of this receipt movement.
+	 *
+	 * @return the pull back remark of this receipt movement
+	 */
+	@Override
+	public String getPullBackRemark() {
+		return model.getPullBackRemark();
 	}
 
 	/**
@@ -403,6 +420,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public void setPriority(String priority) {
 		model.setPriority(priority);
+	}
+
+	/**
+	 * Sets the pull back remark of this receipt movement.
+	 *
+	 * @param pullBackRemark the pull back remark of this receipt movement
+	 */
+	@Override
+	public void setPullBackRemark(String pullBackRemark) {
+		model.setPullBackRemark(pullBackRemark);
 	}
 
 	/**

@@ -296,6 +296,21 @@ public interface ReceiptMovementModel
 	 */
 	public void setReceivedOn(String receivedOn);
 
+	/**
+	 * Returns the pull back remark of this receipt movement.
+	 *
+	 * @return the pull back remark of this receipt movement
+	 */
+	@AutoEscape
+	public String getPullBackRemark();
+
+	/**
+	 * Sets the pull back remark of this receipt movement.
+	 *
+	 * @param pullBackRemark the pull back remark of this receipt movement
+	 */
+	public void setPullBackRemark(String pullBackRemark);
+
 	@Override
 	public ReceiptMovement cloneWithOriginalValues();
 

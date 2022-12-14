@@ -68,6 +68,7 @@ public class DocFileWrapper
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
+		attributes.put("active", getActive());
 
 		return attributes;
 	}
@@ -223,11 +224,27 @@ public class DocFileWrapper
 		if (currentState != null) {
 			setCurrentState(currentState);
 		}
+
+		String active = (String)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
+		}
 	}
 
 	@Override
 	public DocFile cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the active of this doc file.
+	 *
+	 * @return the active of this doc file
+	 */
+	@Override
+	public String getActive() {
+		return model.getActive();
 	}
 
 	/**
@@ -503,6 +520,16 @@ public class DocFileWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the active of this doc file.
+	 *
+	 * @param active the active of this doc file
+	 */
+	@Override
+	public void setActive(String active) {
+		model.setActive(active);
 	}
 
 	/**

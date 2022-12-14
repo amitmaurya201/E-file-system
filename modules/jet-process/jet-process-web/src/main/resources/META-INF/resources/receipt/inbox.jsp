@@ -7,47 +7,44 @@
 .table thead th {
 	border-right: 1px solid white;
 }
-.popup{
-  /*Hides pop-up when there is no "active" class*/
-  visibility: hidden; 
-  position: absolute;
-  background: #ffffff;
-  border: 3px solid #666666;
-  width: 50%;
-  height: 50%;
-margin-top: -22%;
-    left: 25%;
-  
-  
+
+.popup {
+	/*Hides pop-up when there is no "active" class*/
+	visibility: hidden;
+	position: absolute;
+	background: #ffffff;
+	border: 3px solid #666666;
+	width: 50%;
+	height: 50%;
+	margin-top: -22%;
+	left: 25%;
 }
 
 .popup.active {
-  /*displays pop-up when "active" class is present*/
-  visibility: visible;
-  text-align: center;
+	/*displays pop-up when "active" class is present*/
+	visibility: visible;
+	text-align: center;
 }
 
 .popup-content {
-  /*Hides pop-up content when there is no "active" class */
-  visibility: hidden;
+	/*Hides pop-up content when there is no "active" class */
+	visibility: hidden;
 }
 
 .popup-content.active {
-  /*Shows pop-up content when "active" class is present */
-  visibility: visible;
+	/*Shows pop-up content when "active" class is present */
+	visibility: visible;
 }
 
 .button {
-/*   display: inline-block;
+	/*   display: inline-block;
   vertical-align: middle;
   border-radius: 30px;
   margin: .20rem;
   font-size: 1rem;
   color: #666666; */
-  border:none;
-  /*margin-bottom:-40px;*/
-  
-  
+	border: none;
+	/*margin-bottom:-40px;*/
 }
 </style>
 
@@ -74,16 +71,18 @@ margin-top: -22%;
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
-			
-				
+
+
 				<portlet:renderURL var="sendURL">
-					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND %>" />
-					<portlet:param name="receiptId" value="${receiptMovementDTO.getReceiptId()}" />
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
+					<portlet:param name="receiptId"
+						value="${receiptMovementDTO.getReceiptId()}" />
 				</portlet:renderURL>
 
-<portlet:actionURL name="receiveAction" var="formAction">
+				<portlet:actionURL name="receiveActionreceipt" var="formAction">
 				</portlet:actionURL>
-				<portlet:actionURL name="readAction" var="formAction1">
+				<portlet:actionURL name="readActionreceipt" var="formAction1">
 				</portlet:actionURL>
 
 				<liferay-ui:search-container-column-text name="">
@@ -92,13 +91,15 @@ margin-top: -22%;
 
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="Receipt No." />
-					
+
 				<liferay-ui:search-container-column-text property="subject"
 					name="Subject" />
-					
-				<liferay-ui:search-container-column-text name="Sent By" cssClass="hover-tips" >
+
+				<liferay-ui:search-container-column-text name="Sent By"
+					cssClass="hover-tips">
 					<a href="#" class="button open"
-						onclick=" showModal(${receiptMovementDTO.getReceiptId()})"><%=receiptMovementDTO.getSentBy()%></a>				</liferay-ui:search-container-column-text>
+						onclick=" showModal(${receiptMovementDTO.getReceiptId()})"><%=receiptMovementDTO.getSentBy()%></a>
+				</liferay-ui:search-container-column-text>
 
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -112,17 +113,18 @@ margin-top: -22%;
 				<%-- <liferay-ui:search-container-column-text property="readOn"
 					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 					name="Read On" /> --%>
-					
+
 				<liferay-ui:search-container-column-text property="dueDate"
 					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 					name="Due On" />
-					
-				<liferay-ui:search-container-column-text property="remark" name="Remarks">
+
+				<liferay-ui:search-container-column-text property="remark"
+					name="Remarks">
 					<c:if test="${not empty fileinboxDtoList.getRemark()}">
-						<%=receiptMovementDTO.getRemark() %>
+						<%=receiptMovementDTO.getRemark()%>
 					</c:if>
 				</liferay-ui:search-container-column-text>
-				 
+
 				<c:choose>
 					<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 						<liferay-ui:search-container-column-text name="Action"
@@ -189,7 +191,7 @@ margin-top: -22%;
 				style="float: right; margin-top: -5%; font-size: 25px;">
 				<span aria-hidden="true">&times;</span>
 			</button>
-			<input type="text" name='<portlet:namespace/>receiptId'
+			<input type="text" name='<portlet:namespace/>receiptId1'
 				id="read-receiptId" />
 			<button type="submit">Read</button>
 		</aui:form>

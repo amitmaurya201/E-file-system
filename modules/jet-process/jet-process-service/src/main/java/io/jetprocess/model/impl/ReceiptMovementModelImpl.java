@@ -81,7 +81,7 @@ public class ReceiptMovementModelImpl
 		{"senderId", Types.BIGINT}, {"receiptId", Types.BIGINT},
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
-		{"receivedOn", Types.VARCHAR}
+		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -103,10 +103,11 @@ public class ReceiptMovementModelImpl
 		TABLE_COLUMNS_MAP.put("remark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("pullBackRemark", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null)";
+		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_ReceiptMovement";
@@ -333,6 +334,12 @@ public class ReceiptMovementModelImpl
 			"receivedOn",
 			(BiConsumer<ReceiptMovement, String>)
 				ReceiptMovement::setReceivedOn);
+		attributeGetterFunctions.put(
+			"pullBackRemark", ReceiptMovement::getPullBackRemark);
+		attributeSetterBiConsumers.put(
+			"pullBackRemark",
+			(BiConsumer<ReceiptMovement, String>)
+				ReceiptMovement::setPullBackRemark);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -655,6 +662,26 @@ public class ReceiptMovementModelImpl
 		_receivedOn = receivedOn;
 	}
 
+	@JSON
+	@Override
+	public String getPullBackRemark() {
+		if (_pullBackRemark == null) {
+			return "";
+		}
+		else {
+			return _pullBackRemark;
+		}
+	}
+
+	@Override
+	public void setPullBackRemark(String pullBackRemark) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_pullBackRemark = pullBackRemark;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -732,6 +759,7 @@ public class ReceiptMovementModelImpl
 		receiptMovementImpl.setRemark(getRemark());
 		receiptMovementImpl.setReadOn(getReadOn());
 		receiptMovementImpl.setReceivedOn(getReceivedOn());
+		receiptMovementImpl.setPullBackRemark(getPullBackRemark());
 
 		receiptMovementImpl.resetOriginalValues();
 
@@ -771,6 +799,8 @@ public class ReceiptMovementModelImpl
 			this.<String>getColumnOriginalValue("readOn"));
 		receiptMovementImpl.setReceivedOn(
 			this.<String>getColumnOriginalValue("receivedOn"));
+		receiptMovementImpl.setPullBackRemark(
+			this.<String>getColumnOriginalValue("pullBackRemark"));
 
 		return receiptMovementImpl;
 	}
@@ -929,6 +959,14 @@ public class ReceiptMovementModelImpl
 			receiptMovementCacheModel.receivedOn = null;
 		}
 
+		receiptMovementCacheModel.pullBackRemark = getPullBackRemark();
+
+		String pullBackRemark = receiptMovementCacheModel.pullBackRemark;
+
+		if ((pullBackRemark != null) && (pullBackRemark.length() == 0)) {
+			receiptMovementCacheModel.pullBackRemark = null;
+		}
+
 		return receiptMovementCacheModel;
 	}
 
@@ -1037,6 +1075,7 @@ public class ReceiptMovementModelImpl
 	private String _remark;
 	private String _readOn;
 	private String _receivedOn;
+	private String _pullBackRemark;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1082,6 +1121,7 @@ public class ReceiptMovementModelImpl
 		_columnOriginalValues.put("remark", _remark);
 		_columnOriginalValues.put("readOn", _readOn);
 		_columnOriginalValues.put("receivedOn", _receivedOn);
+		_columnOriginalValues.put("pullBackRemark", _pullBackRemark);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1134,6 +1174,8 @@ public class ReceiptMovementModelImpl
 		columnBitmasks.put("readOn", 8192L);
 
 		columnBitmasks.put("receivedOn", 16384L);
+
+		columnBitmasks.put("pullBackRemark", 32768L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

@@ -41,8 +41,9 @@
 		<column name="reference" type="String" />
 		<column name="year" type="long" />
 		<column name="userPostId" type="long" />
-		<column name="currentlyWith" type="long"/>
-		<column name="currentState" type="int"/>
+		<column name="currentlyWith" type="long" />
+		<column name="currentState" type="int" />
+		<column name="active" type="String" />
 		<!-- Order -->
 
 		<order by="asc">
@@ -124,7 +125,7 @@
 		<column name="nature" type="String" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-
+		<column name="active" type="String" />
 
 		<!-- Order -->
 
@@ -157,13 +158,14 @@
 		<reference entity="AssetTag"
 			package-path="com.liferay.portlet.asset" />
 	</entity>
-	
-	<!-- fileMovement Entity  -->
-	<entity name="FileMovement" local-service="true" remote-service="true" uuid="true">
+
+	<!-- fileMovement Entity -->
+	<entity name="FileMovement" local-service="true"
+		remote-service="true" uuid="true">
 
 		<!-- PK fields -->
 		<column name="fmId" primary="true" type="long" />
-		
+
 		<!-- Group instance -->
 		<column name="groupId" type="long" />
 
@@ -181,28 +183,32 @@
 		<column name="priority" type="String" />
 		<column name="dueDate" type="String" />
 		<column name="remark" type="String" />
-		<column type="String" name="readOn"/>		
-		<column type="String" name="receivedOn"/>		
-		
+		<column type="String" name="readOn" />
+		<column type="String" name="receivedOn" />
+		<column name="pullBackRemark" type="String" />
+
 		<finder name="fileId" return-type="FileMovement">
 			<finder-column name="fileId"></finder-column>
 		</finder>
-		
-	   <!-- 	Group Reference  -->
-	   <reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->
 
-		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
-		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
 	</entity>
-	
-	<!-- ReceiptMovement Entity  -->
-	<entity name="ReceiptMovement" local-service="true" remote-service="true" uuid="true">
+
+	<!-- ReceiptMovement Entity -->
+	<entity name="ReceiptMovement" local-service="true"
+		remote-service="true" uuid="true">
 
 		<!-- PK fields -->
 		<column name="rmId" primary="true" type="long" />
-		
+
 		<!-- Group instance -->
 		<column name="groupId" type="long" />
 
@@ -219,20 +225,23 @@
 		<column name="receiptId" type="long" />
 		<column name="priority" type="String" />
 		<column name="dueDate" type="String" />
-		<column name="remark" type="String" />	
-		<column type="String" name="readOn"/>		
-		<column type="String" name="receivedOn"/>		
-		
+		<column name="remark" type="String" />
+		<column type="String" name="readOn" />
+		<column type="String" name="receivedOn" />
+		<column name="pullBackRemark" type="String" />
+
 		<finder name="receiptId" return-type="ReceiptMovement">
 			<finder-column name="receiptId"></finder-column>
 		</finder>
-		
-	   <!-- 	Group Reference  -->
-	   <reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->
 
-		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
-		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
 	</entity>
 </service-builder>

@@ -296,6 +296,21 @@ public interface FileMovementModel
 	 */
 	public void setReceivedOn(String receivedOn);
 
+	/**
+	 * Returns the pull back remark of this file movement.
+	 *
+	 * @return the pull back remark of this file movement
+	 */
+	@AutoEscape
+	public String getPullBackRemark();
+
+	/**
+	 * Sets the pull back remark of this file movement.
+	 *
+	 * @param pullBackRemark the pull back remark of this file movement
+	 */
+	public void setPullBackRemark(String pullBackRemark);
+
 	@Override
 	public FileMovement cloneWithOriginalValues();
 

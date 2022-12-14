@@ -447,6 +447,21 @@ public interface DocFileModel
 	 */
 	public void setCurrentState(int currentState);
 
+	/**
+	 * Returns the active of this doc file.
+	 *
+	 * @return the active of this doc file
+	 */
+	@AutoEscape
+	public String getActive();
+
+	/**
+	 * Sets the active of this doc file.
+	 *
+	 * @param active the active of this doc file
+	 */
+	public void setActive(String active);
+
 	@Override
 	public DocFile cloneWithOriginalValues();
 
