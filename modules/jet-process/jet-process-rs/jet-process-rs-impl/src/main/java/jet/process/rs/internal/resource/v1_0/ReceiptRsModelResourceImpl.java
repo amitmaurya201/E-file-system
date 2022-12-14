@@ -24,7 +24,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		Receipt receipt = receiptLocalService.getReceipt();
-		System.out.println("name"+receiptRsModel.getName());
 		if(receiptRsModel.getSubject().isEmpty()||receiptRsModel.getName().isEmpty()||receiptRsModel.getAddress().isEmpty()||receiptRsModel.getDesignation().isEmpty()) {
 			return null;	
 		}
@@ -62,6 +61,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setRemarks(receiptRsModel.getRemarks());
 		receipt.setStateId(receiptRsModel.getStateId());
 		receipt.setCurrentState(FileStatus.CREADTED);
+		receipt.setActive("true");
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}
