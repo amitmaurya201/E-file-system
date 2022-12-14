@@ -94,12 +94,11 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			logger.info("UserPostId from session : "+userPostIdFromUrl);
 			if(userPostIdFromUrl == null) {
 				List<UserPost> userPostList = userPostService.getUserPostList(user.getUserId());
-				logger.info("UserPostList: "+userPostList);
 				if(!userPostList.isEmpty()) {
 					UserPost userPost = userPostList.get(0);
-					logger.info("userPost--> "+userPost);
 					long postId = userPost.getPostId();
 					session.setAttribute("userPostId", String.valueOf(postId));
+					logger.info("User post id in session : "+String.valueOf(postId));
 					super.doView(renderRequest, renderResponse);
 				}
 				else {

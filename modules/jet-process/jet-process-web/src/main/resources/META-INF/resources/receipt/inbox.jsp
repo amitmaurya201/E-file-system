@@ -7,6 +7,48 @@
 .table thead th {
 	border-right: 1px solid white;
 }
+.popup-overlay {
+  /*Hides pop-up when there is no "active" class*/
+  visibility: hidden; 
+  position: absolute;
+  background: #ffffff;
+  border: 3px solid #666666;
+  width: 50%;
+  height: 50%;
+margin-top: -22%;
+    left: 25%;
+  
+  
+}
+
+.popup-overlay.active {
+  /*displays pop-up when "active" class is present*/
+  visibility: visible;
+  text-align: center;
+}
+
+.popup-content {
+  /*Hides pop-up content when there is no "active" class */
+  visibility: hidden;
+}
+
+.popup-content.active {
+  /*Shows pop-up content when "active" class is present */
+  visibility: visible;
+}
+
+.button {
+/*   display: inline-block;
+  vertical-align: middle;
+  border-radius: 30px;
+  margin: .20rem;
+  font-size: 1rem;
+  color: #666666; */
+  border:none;
+  /*margin-bottom:-40px;*/
+  
+  
+}
 </style>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
@@ -49,8 +91,9 @@
 				<liferay-ui:search-container-column-text property="subject"
 					name="Subject" />
 					
-				<liferay-ui:search-container-column-text property="sentBy"
-					name="Sent By" cssClass="hover-tips" />
+				<liferay-ui:search-container-column-text name="Sent By" cssClass="hover-tips" >
+					<a href="#" class="button open" onclick=" showModal(${receiptMovementDTO.getReceiptId()})"><%=receiptMovementDTO.getSentBy() %></a>
+				</liferay-ui:search-container-column-text>
 
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -74,7 +117,7 @@
 						<%=receiptMovementDTO.getRemark() %>
 					</c:if>
 				</liferay-ui:search-container-column-text>
-				
+				 
 				<c:choose>
 					<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 						<liferay-ui:search-container-column-text name="Action"
@@ -98,3 +141,151 @@
 
 	</div>
 </div>
+
+
+
+<!--Sent By details popup code start  -->
+<!--Creates the popup body-->
+ <div class="popup-overlay"> 
+<!--   Creates the popup content-->  
+<div class="popup-content">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
+          <span aria-hidden="true">&times;</span>
+     </button>
+    
+   <div class="container mt-5">
+			<input type="text" name="receiptId" id="receiptId" readOnly>
+			<div class="row ">
+				<div class="col-6">
+					<table>
+						<tr class="mt-1">
+							<th>Name :</th>
+							<td> </td>
+						</tr>
+						<tr class="mt-1">
+							<th>Marking Abbr. :</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Section :</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Email :</th>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-6">
+					<table>
+						<tr>
+							<th>Designation :</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Post :</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Department :</th>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			  </div>
+			</div>
+		</div>
+	</div> 
+   
+   
+   
+   
+<!-- Receive pop up -->
+<div id="receive" class="popup-overlay receive"> 
+<!--   Creates the popup content-->  
+<div class="popup-content">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
+          <span aria-hidden="true">&times;</span>
+     </button>   		
+	 <aui:form action="${formAction}" method="POST" name="fm">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;
+    margin-top: -5%;
+    font-size: 25px;">
+    
+          <span aria-hidden="true">&times;</span>      
+        </button>
+        <input type="hidden" name='<portlet:namespace/>fileId' id="fileId" />
+					
+    <button type="submit">Receive</button>  
+      </aui:form>
+	</div> 
+	</div>
+
+
+<!-- Read pop up -->
+<div id="read" class="popup-overlay read"> 
+<!--   Creates the popup content-->  
+<div class="popup-content">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
+          <span aria-hidden="true">&times;</span>
+     </button>
+    
+			
+	 <aui:form action="${formAction1}" method="POST" name="fm">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;
+    margin-top: -5%;
+    font-size: 25px;">
+    
+          <span aria-hidden="true">&times;</span>
+          
+          
+         
+        </button>
+        <input type="text" name='<portlet:namespace/>fileId1' id="fileId1" />
+		
+    <button type="submit">Read</button>  
+      </aui:form>
+	</div> 
+	</div>
+
+      
+  
+
+
+<script type="text/javascript">
+
+function receiveModal(fileId){
+	alert(fileId);
+	document.getElementById("fileId").value=fileId;
+	$("#receive,.popup-overlay,.receive, .popup-content").addClass("active");
+	$(".close, .popup-overlay, .receive").on("click", function() {
+		  $("#receive,.popup-overlay, .receive, .popup-content").removeClass("active");
+		});
+
+		
+	}
+
+function readModal(fileId){
+	alert(fileId);
+	document.getElementById("fileId1").value=fileId;
+	$("#read,.popup-overlay, .read, .popup-content").addClass("active");
+	$(".close, .popup-overlay, .read").on("click", function() {
+		  $("#read,.popup-overlay, .read, .popup-content").removeClass("active");
+		});
+
+		
+	}
+
+
+function showModal(receiptId){
+	alert(receiptId);
+	document.getElementById("receiptId").value=receiptId;
+	$(".popup-overlay, .popup-content").addClass("active");
+	$(".close, .popup-overlay").on("click", function() {
+		  $(".popup-overlay, .popup-content").removeClass("active");
+		});
+	}
+
+</script>
+
+<!--end  -->

@@ -1,20 +1,10 @@
 <%@page import="io.jetprocess.model.DocFile"%>
 <%@ include file="../init.jsp"%>
-
          
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
-	rel="stylesheet" />
-
-
-
-
-<%=selectedUserPostId %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -66,16 +56,17 @@
 
 								<option value="chooseOne">choose One</option>
 								<%
-								
 									List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);
-											if (userPostList != null) {
-												for (UserPost userPost : userPostList) {
-													
-													
-													
+									List<UserPost> newUserPostList = new ArrayList<>(userPostList);
+									UserPost selectedUserPost =  UserPostLocalServiceUtil.getUserPost(Long.parseLong(selectedUserPostId));
+									boolean isUserPostAvailable = newUserPostList.contains(selectedUserPost);
+									if(isUserPostAvailable){
+										newUserPostList.remove(selectedUserPost);
+									}	
+									if (newUserPostList != null) {
+										for (UserPost userPost : newUserPostList) {
 								%>
 								<option value="<%=userPost.getUserPostId()%>"><%= userPost.getUserName()%>&nbsp;<%=userPost.getShortName()%>&nbsp;<%=userPost.getSectionName() %>&nbsp;<%=userPost.getDepartmentName() %></option>
-
 								<%
 									}
 									}
