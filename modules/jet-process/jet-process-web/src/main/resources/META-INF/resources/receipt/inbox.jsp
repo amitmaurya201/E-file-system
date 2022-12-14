@@ -79,6 +79,11 @@
 				</portlet:actionURL>
 				<portlet:actionURL name="readActionreceipt" var="formAction1">
 				</portlet:actionURL>
+				
+				<portlet:renderURL var="receiptInnerView">
+						<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+						<portlet:param name="receiptId" value="${receiptMovementDTO.getReceiptId()}" />
+						</portlet:renderURL>
 
 				<c:choose>
 					<c:when
@@ -159,7 +164,7 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber"
+							<liferay-ui:search-container-column-text property="receiptNumber" href="<%=receiptInnerView %>"
 								name="Receipt No." />
 
 							<liferay-ui:search-container-column-text property="subject"
