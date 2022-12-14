@@ -1014,7 +1014,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				sql = sql + " ASC";
+				sql = sql + " DESC";
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1404,7 +1404,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			if(!keyword.isEmpty() && keyword != null) {
 				queryPos.add("%"+keyword+"%");
 				queryPos.add("%"+keyword+"%");
-//				queryPos.add("%"+keyword+"%");
 			}
 	
 			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
