@@ -309,6 +309,14 @@ public class ReceiptMovementLocalServiceWrapper
 		return _receiptMovementLocalService.getReceiptMovement(rmId);
 	}
 
+	@Override
+	public io.jetprocess.model.ReceiptMovement getReceiptMovementByReceiptId(
+		long receiptId) {
+
+		return _receiptMovementLocalService.getReceiptMovementByReceiptId(
+			receiptId);
+	}
+
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *

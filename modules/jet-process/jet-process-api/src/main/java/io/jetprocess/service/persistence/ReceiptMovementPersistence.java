@@ -391,6 +391,51 @@ public interface ReceiptMovementPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the receipt movement where receiptId = &#63; or throws a <code>NoSuchReceiptMovementException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	public ReceiptMovement findByreceiptId(long receiptId)
+		throws NoSuchReceiptMovementException;
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public ReceiptMovement fetchByreceiptId(long receiptId);
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public ReceiptMovement fetchByreceiptId(
+		long receiptId, boolean useFinderCache);
+
+	/**
+	 * Removes the receipt movement where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the receipt movement that was removed
+	 */
+	public ReceiptMovement removeByreceiptId(long receiptId)
+		throws NoSuchReceiptMovementException;
+
+	/**
+	 * Returns the number of receipt movements where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the number of matching receipt movements
+	 */
+	public int countByreceiptId(long receiptId);
+
+	/**
 	 * Caches the receipt movement in the entity cache if it is enabled.
 	 *
 	 * @param receiptMovement the receipt movement

@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1463,6 +1465,219 @@ public class ReceiptMovementPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"receiptMovement.companyId = ?";
 
+	private FinderPath _finderPathFetchByreceiptId;
+	private FinderPath _finderPathCountByreceiptId;
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or throws a <code>NoSuchReceiptMovementException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement findByreceiptId(long receiptId)
+		throws NoSuchReceiptMovementException {
+
+		ReceiptMovement receiptMovement = fetchByreceiptId(receiptId);
+
+		if (receiptMovement == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("receiptId=");
+			sb.append(receiptId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchReceiptMovementException(sb.toString());
+		}
+
+		return receiptMovement;
+	}
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement fetchByreceiptId(long receiptId) {
+		return fetchByreceiptId(receiptId, true);
+	}
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement fetchByreceiptId(
+		long receiptId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {receiptId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByreceiptId, finderArgs);
+		}
+
+		if (result instanceof ReceiptMovement) {
+			ReceiptMovement receiptMovement = (ReceiptMovement)result;
+
+			if (receiptId != receiptMovement.getReceiptId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_RECEIPTMOVEMENT_WHERE);
+
+			sb.append(_FINDER_COLUMN_RECEIPTID_RECEIPTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(receiptId);
+
+				List<ReceiptMovement> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByreceiptId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {receiptId};
+							}
+
+							_log.warn(
+								"ReceiptMovementPersistenceImpl.fetchByreceiptId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					ReceiptMovement receiptMovement = list.get(0);
+
+					result = receiptMovement;
+
+					cacheResult(receiptMovement);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (ReceiptMovement)result;
+		}
+	}
+
+	/**
+	 * Removes the receipt movement where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the receipt movement that was removed
+	 */
+	@Override
+	public ReceiptMovement removeByreceiptId(long receiptId)
+		throws NoSuchReceiptMovementException {
+
+		ReceiptMovement receiptMovement = findByreceiptId(receiptId);
+
+		return remove(receiptMovement);
+	}
+
+	/**
+	 * Returns the number of receipt movements where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the number of matching receipt movements
+	 */
+	@Override
+	public int countByreceiptId(long receiptId) {
+		FinderPath finderPath = _finderPathCountByreceiptId;
+
+		Object[] finderArgs = new Object[] {receiptId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_RECEIPTMOVEMENT_WHERE);
+
+			sb.append(_FINDER_COLUMN_RECEIPTID_RECEIPTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(receiptId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_RECEIPTID_RECEIPTID_2 =
+		"receiptMovement.receiptId = ?";
+
 	public ReceiptMovementPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1495,6 +1710,10 @@ public class ReceiptMovementPersistenceImpl
 				receiptMovement.getUuid(), receiptMovement.getGroupId()
 			},
 			receiptMovement);
+
+		finderCache.putResult(
+			_finderPathFetchByreceiptId,
+			new Object[] {receiptMovement.getReceiptId()}, receiptMovement);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1578,6 +1797,13 @@ public class ReceiptMovementPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, receiptMovementModelImpl);
+
+		args = new Object[] {receiptMovementModelImpl.getReceiptId()};
+
+		finderCache.putResult(
+			_finderPathCountByreceiptId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByreceiptId, args, receiptMovementModelImpl);
 	}
 
 	/**
@@ -2099,6 +2325,16 @@ public class ReceiptMovementPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByreceiptId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByreceiptId",
+			new String[] {Long.class.getName()}, new String[] {"receiptId"},
+			true);
+
+		_finderPathCountByreceiptId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByreceiptId",
+			new String[] {Long.class.getName()}, new String[] {"receiptId"},
+			false);
 
 		_setReceiptMovementUtilPersistence(this);
 	}

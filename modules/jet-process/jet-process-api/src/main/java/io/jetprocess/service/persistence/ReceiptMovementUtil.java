@@ -534,6 +534,64 @@ public class ReceiptMovementUtil {
 	}
 
 	/**
+	 * Returns the receipt movement where receiptId = &#63; or throws a <code>NoSuchReceiptMovementException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement findByreceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().findByreceiptId(receiptId);
+	}
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement fetchByreceiptId(long receiptId) {
+		return getPersistence().fetchByreceiptId(receiptId);
+	}
+
+	/**
+	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement fetchByreceiptId(
+		long receiptId, boolean useFinderCache) {
+
+		return getPersistence().fetchByreceiptId(receiptId, useFinderCache);
+	}
+
+	/**
+	 * Removes the receipt movement where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the receipt movement that was removed
+	 */
+	public static ReceiptMovement removeByreceiptId(long receiptId)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().removeByreceiptId(receiptId);
+	}
+
+	/**
+	 * Returns the number of receipt movements where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @return the number of matching receipt movements
+	 */
+	public static int countByreceiptId(long receiptId) {
+		return getPersistence().countByreceiptId(receiptId);
+	}
+
+	/**
 	 * Caches the receipt movement in the entity cache if it is enabled.
 	 *
 	 * @param receiptMovement the receipt movement
