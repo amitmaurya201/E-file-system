@@ -18,7 +18,7 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 		immediate = true, 
 		property = { 
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name=" 
+				"mvc.command.name=receiveAction" 
 		}, 
 		service = MVCActionCommand.class
 )
@@ -34,6 +34,9 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand{
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
+		
+		System.out.println("ReceiptId at Receive--:"+receiptId);
+		
 		
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
 		if(receiptMovement.getReceiptId() == receiptId ) {
