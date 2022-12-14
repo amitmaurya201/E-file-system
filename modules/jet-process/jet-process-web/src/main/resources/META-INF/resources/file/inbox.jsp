@@ -70,18 +70,27 @@ margin-top: -22%;
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	
-	<%
-		List<FileMovementDTO> fileInboxList = MasterdataLocalServiceUtil
-				.getFileInboxList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-		int count = fileInboxList.size();
-	%>
+
 
 
 	<div class="col-10">
 		<h1 class=" text-center">File Inbox</h1>
-		<liferay-ui:search-container total="<%=count%>" delta="5"
-			iteratorURL="<%=iteratorURL%>">
-			<liferay-ui:search-container-results results="<%=fileInboxList %>" />
+		
+		<clay:management-toolbar
+        disabled="${fileInboxList eq 0}"
+        displayContext="${fileInboxManagementToolbarDisplayContext}"
+        itemsTotal="${fileInboxList}"
+        searchContainerId="FileInboxEntries"
+        managementToolbarDisplayContext="${fileInboxManagementToolbarDisplayContext}"
+    />
+		
+		<liferay-ui:search-container
+		delta="1"
+        emptyResultsMessage="No-File-List"
+        id="FileInboxEntries"
+        total="${fileInboxList}" iteratorURL="${fileInboxManagementToolbarDisplayContext._getCurrentURL()}"
+        >
+        <liferay-ui:search-container-results results="${fileInboxList}" />
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">

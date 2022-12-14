@@ -302,6 +302,19 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileMovementListByFileId(fileId);
 	}
 
+	public static int getFileSentList(long userPostId, String keyword) {
+		return getService().getFileSentList(userPostId, keyword);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileSentList(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileSentList(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileSentListByUserPostId(long userPostId) {
 

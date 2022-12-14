@@ -291,7 +291,33 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		public  List<FileMovementDTO> getFileSentListByUserPostId(long userPostId){
 			return masterdataFinder.getFileSentList(userPostId);
 		}
+		
+		
+		// this method is Created By Ashwani Rao Start 
+		
+		
+		public int getFileSentList( long userPostId  , String keyword){
+			
+			List<FileMovementDTO> receiptList =null; 
+			
+			if(keyword != null && !keyword.isEmpty()) {
+				receiptList = masterdataFinder.getFileSentList(userPostId, keyword);
+			}else {
+				receiptList = getFileSentListByUserPostId(userPostId);
+			}
+			int count = receiptList.size();
+			logger.info("total file number inside service : "+count);
+			return receiptList.size();
+		}
+		
+		
+		public List<FileMovementDTO> getFileSentList( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+			
+			return masterdataFinder.getFileSentList(userPostId ,keyword  , start , end , orderBy , order );
+		}
 	
+		
+		// End 
 	
 		private Log logger = LogFactoryUtil.getLog(this.getClass());
 	   
