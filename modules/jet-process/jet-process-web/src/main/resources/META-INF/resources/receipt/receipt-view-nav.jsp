@@ -24,7 +24,7 @@
 <%
 	String receiptId = renderRequest.getParameter("receiptId");
 %>
-<portlet:renderURL var="home">
+<portlet:renderURL var="details">
 	<portlet:param name="mvcRenderCommandName" value="/receiptView" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
@@ -36,7 +36,7 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="send">
-	<portlet:param name="mvcPath" value="/receipt/send.jsp" />
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND %>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendBack">
@@ -69,9 +69,9 @@
 		</button>
 		<div class="collapse navbar-collapse" id="main_nav">
 			<ul class="navbar-nav">
-				<li class="nav-item "><a id="home" class="nav-link text-black"
+				<li class="nav-item "><a id="details" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=home%>">Home </a></li>
+					href="<%=details%>">Details </a></li>
 				<li class="nav-item"><a id="movement" class="nav-link text-black"
 					style="font-weight: 700; border-right: 1px solid #a19c9c;"
 					href="<%=movementRenderURL%>"> Movement </a></li>

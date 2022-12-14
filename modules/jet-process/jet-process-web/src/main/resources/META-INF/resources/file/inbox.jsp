@@ -12,52 +12,44 @@
 	border-right: 1px solid white;
 }
 
-.popup-overlay {
-  /*Hides pop-up when there is no "active" class*/
-  visibility: hidden; 
-  position: absolute;
-  background: #ffffff;
-  border: 3px solid #666666;
-  width: 50%;
-  height: 50%;
-margin-top: -22%;
-    left: 25%;
-  
-  
+.popup {
+	/*Hides pop-up when there is no "active" class*/
+	visibility: hidden;
+	position: absolute;
+	background: #ffffff;
+	border: 3px solid #666666;
+	width: 50%;
+	height: 50%;
+	margin-top: -35%;
+	left: 30%;
 }
 
-.popup-overlay.active {
-  /*displays pop-up when "active" class is present*/
-  visibility: visible;
-  text-align: center;
+.popup.active {
+	/*displays pop-up when "active" class is present*/
+	visibility: visible;
+	text-align: center;
 }
 
 .popup-content {
-  /*Hides pop-up content when there is no "active" class */
-  visibility: hidden;
+	/*Hides pop-up content when there is no "active" class */
+	visibility: hidden;
 }
 
 .popup-content.active {
-  /*Shows pop-up content when "active" class is present */
-  visibility: visible;
+	/*Shows pop-up content when "active" class is present */
+	visibility: visible;
 }
 
 .button {
-/*   display: inline-block;
+	/*   display: inline-block;
   vertical-align: middle;
   border-radius: 30px;
   margin: .20rem;
   font-size: 1rem;
   color: #666666; */
-  border:none;
-  /*margin-bottom:-40px;*/
-  
-  
+	border: none;
+	/*margin-bottom:-40px;*/
 }
-
-
-
-
 </style>
 
 
@@ -65,11 +57,16 @@ margin-top: -22%;
 	<portlet:param name="mvcPath" value="/file/inbox.jsp" />
 </liferay-portlet:renderURL>
 
+<%-- <liferay-portlet:actionURL name="inbox" var="formAction">
+							
+	                    </liferay-portlet:actionURL> --%>
+
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	
+
 	<%
 		List<FileMovementDTO> fileInboxList = MasterdataLocalServiceUtil
 				.getFileInboxList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
@@ -82,14 +79,25 @@ margin-top: -22%;
 		<liferay-ui:search-container total="<%=count%>" delta="5"
 			iteratorURL="<%=iteratorURL%>">
 			<liferay-ui:search-container-results results="<%=fileInboxList %>" />
+
+
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 				<portlet:renderURL var="sendURL">
-					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.FILE_SEND_RENDER_COMMAND %>"/>
-					<portlet:param name="docFileId" value="${fileinboxDtoList.getFileId()}"/>
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
+					<portlet:param name="docFileId"
+						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:renderURL>
-					
+
+
+				<%-- <portlet:actionURL name="receiveAction" var="formAction">
+				</portlet:actionURL>
+				<portlet:actionURL name="readAction" var="formAction1">
+				</portlet:actionURL> --%>
+
+
 				<liferay-ui:search-container-column-text name="">
 					<%=fileinboxDtoList.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
@@ -105,12 +113,15 @@ margin-top: -22%;
 				%> --%>
 				<liferay-ui:search-container-column-text name="Sent By"
 					cssClass="hover-tips">
-					<a href="#" class="button open" onclick=" showModal(${fileinboxDtoList.getFileId()})"><%=fileinboxDtoList.getSentBy() %>,<%=fileinboxDtoList.getSenderId() %></a>
-						
-					
-					</liferay-ui:search-container-column-text>
-					
-					
+
+					<a href="#" class="button open"
+						onclick=" showModal(${fileinboxDtoList.getFileId()})"><%=fileinboxDtoList.getSentBy()%></a>
+
+
+				</liferay-ui:search-container-column-text>
+
+
+
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
@@ -121,38 +132,35 @@ margin-top: -22%;
 					name="Send On" />
 				<liferay-ui:search-container-column-text property="dueDate"
 					name="Due On" />
-				<liferay-ui:search-container-column-text
-					name="Remark">
+				<liferay-ui:search-container-column-text name="Remark">
 					<c:if test="${not empty fileinboxDtoList.getRemark()}">
-						<%=fileinboxDtoList.getRemark() %>
+						<%=fileinboxDtoList.getRemark()%>
 					</c:if>
-					</liferay-ui:search-container-column-text>
-					<c:choose>
+				</liferay-ui:search-container-column-text>
+				<c:choose>
 					<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-				<liferay-ui:search-container-column-text name="Action"
-					align="center">
-					<span><a href="#">read</a></span>&nbsp;						
-						<span><a href="${sendURL}">send</a></span>
-
-				</liferay-ui:search-container-column-text>
-				</c:when>
-				<c:otherwise>
-				<liferay-ui:search-container-column-text name="Action"
-					align="center">
-					
-						<span><a href="#">received</a></span>&nbsp;
-						<span><a href="${sendURL}">send</a></span>
-
-				</liferay-ui:search-container-column-text>
-				</c:otherwise>
+						<liferay-ui:search-container-column-text name="Action"
+							align="center">
+							<span><a href="#" class="button open"
+								onclick="readModal(${fileinboxDtoList.getFileId()})">read</a></span>
+							<span><a href="${sendURL}">send</a></span>
+						</liferay-ui:search-container-column-text>
+					</c:when>
+					<c:otherwise>
+						<liferay-ui:search-container-column-text name="Action"
+							align="center">
+							<span><a href="#" class="button open"
+								onclick="receiveModal(${fileinboxDtoList.getFileId()})">receive</a></span>
+							<span><a href="${sendURL}">send</a></span>
+						</liferay-ui:search-container-column-text>
+					</c:otherwise>
 				</c:choose>
 			</liferay-ui:search-container-row>
- 
+
 			<liferay-ui:search-iterator markupView="lexicon" />
-			
+
+
 		</liferay-ui:search-container>
-
-
 
 	</div>
 
@@ -160,24 +168,63 @@ margin-top: -22%;
 
 
 
+<!-- Receive pop up -->
+<div id="receive" class="popup">
+	<!--   Creates the popup content-->
+	<div class="receive popup-content">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close"
+			style="float: right; margin-top: -5%; font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<aui:form action="${formAction}" method="POST" name="fm">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close"
+				style="float: right; margin-top: -5%; font-size: 25px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<input type="text" name='<portlet:namespace/>fileId'
+				id="receive-fileId" />
+			<button type="submit">Receive</button>
+		</aui:form>
+	</div>
+</div>
 
+
+<!-- Read pop up -->
+<div id="read" class="popup">
+	<!--   Creates the popup content-->
+	<div class="read popup-content">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close"
+			style="float: right; margin-top: -5%; font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<aui:form action="${formAction1}" method="POST" name="fm">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close"
+				style="float: right; margin-top: -5%; font-size: 25px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<input type="text" name='<portlet:namespace/>fileId1'
+				id="read-fileId" />
+			<button type="submit">Read</button>
+		</aui:form>
+	</div>
+</div>
 
 <!--popup code start  -->
-
 <!--Creates the popup body-->
- <div class="popup-overlay"> 
-<!--   Creates the popup content-->  
-<div class="popup-content">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
-          <span aria-hidden="true">&times;</span>
-     </button>
-    
-   <div class="container mt-5">
-			<input type="text" name="fileId" id="fileId" readOnly>
-			<%
-				
-			
-			%>
+<div id="sender-dtls" class="popup">
+	<!--   Creates the popup content-->
+	<div class="dtls popup-content">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close"
+			style="float: right; margin-top: -5%; font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<div class="container mt-5">
+			<input type="text" name="fileId" id="dtls-fileId" readOnly>
 			<div class="row ">
 				<div class="col-6">
 					<table>
@@ -215,41 +262,51 @@ margin-top: -22%;
 						</tr>
 					</table>
 				</div>
-			  </div>
 			</div>
 		</div>
-	</div> 
-   
-      
-  
+	</div>
+</div>
+
+
 
 
 <script type="text/javascript">
 
-function showModal(fileId){
+ function receiveModal(fileId){
 	alert(fileId);
-	document.getElementById("fileId").value=fileId;
-	$(".popup-overlay, .popup-content").addClass("active");
-	$(".close, .popup-overlay").on("click", function() {
-		  $(".popup-overlay, .popup-content").removeClass("active");
+	document.getElementById("receive-fileId").value=fileId;
+	$("#receive, .receive").addClass("active");
+	$(".close").on("click", function() {
+		  $("#receive, .receive").removeClass("active");
 		});
 
 		
 	}
 
-/* 
-//appends an "active" class to .popup and .popup-content when the "Open" button is clicked
-$(".open").on("click", function() {
-  $(".popup-overlay, .popup-content").addClass("active");
-});
+function readModal(fileId){
+	alert(fileId);
+	document.getElementById("read-fileId").value=fileId;
+	$("#read, .read").addClass("active");
+	$(".close").on("click", function() {
+		  $("#read, .read").removeClass("active");
+		});
 
-//removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
-$(".close, .popup-overlay").on("click", function() {
-  $(".popup-overlay, .popup-content").removeClass("active");
-});
- */
+		
+	}
+
+function showModal(fileId){
+	alert(fileId);
+	document.getElementById("dtls-fileId").value=fileId;
+	$("#sender-dtls, .dtls").addClass("active");
+	$(".close").on("click", function() {
+		  $("#sender-dtls, .dtls").removeClass("active");
+		});
+
+		
+	}
+
+
 </script>
-
 
 <!--end  -->
 

@@ -15,9 +15,10 @@ import org.osgi.service.component.annotations.Component;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=/receiptInBox" }, service = MVCRenderCommand.class)
+		"mvc.command.name="+MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 
 	@Override
@@ -25,12 +26,13 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 
 		List<ReceiptMovementDTO> inboxList = MasterdataLocalServiceUtil.getReceiptInboxList(1);
 		
-		logger.info("inboxList :  "+inboxList);
-		
-		
-		for (ReceiptMovementDTO receiptMovementDTO : inboxList) {
-			System.out.println("receipt id" + receiptMovementDTO.getSentBy());
-		}
+		/*
+		 * logger.info("inboxList :  "+inboxList);
+		 * 
+		 * 
+		 * for (ReceiptMovementDTO receiptMovementDTO : inboxList) {
+		 * System.out.println("receipt id" + receiptMovementDTO.getSentBy()); }
+		 */
 
 		return "/receipt/inbox.jsp";
 	}

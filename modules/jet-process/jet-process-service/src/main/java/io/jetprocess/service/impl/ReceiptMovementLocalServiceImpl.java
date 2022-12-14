@@ -31,7 +31,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(property = "model.class.name=io.jetprocess.model.ReceiptMovement", service = AopService.class)
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
-	
+
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
 			String remark) {
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
@@ -45,15 +45,15 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		receiptMovement.setDueDate(dueDate);
 
 		try {
-			Receipt receipt=receiptLocalService.getReceiptByReceiptId(receiptId);
-			if(receiptId==receipt.getReceiptId()) {
+			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+			if (receiptId == receipt.getReceiptId()) {
 				receipt.setCurrentlyWith(receiverId);
 				receiptLocalService.updateReceipt(receipt);
-				if(Validator.isNotNull(receipt.getCurrentState())) {
+				if (Validator.isNotNull(receipt.getCurrentState())) {
 					receipt.setCurrentState(2);
 					receiptLocalService.updateReceipt(receipt);
 				}
-			}else {
+			} else {
 				System.out.println("ReceiptId not valid");
 			}
 		} catch (PortalException e) {
@@ -63,6 +63,14 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	}
 
+	public ReceiptMovement getReceiptMovementByReceiptId(long receiptId) {
+	  
+	  return receiptMovementPersistence.fetchByreceiptId(receiptId);
+	  
+	  
+	  
+	  }
+
 	@Reference
-	ReceiptLocalService  receiptLocalService;
+	ReceiptLocalService receiptLocalService;
 }

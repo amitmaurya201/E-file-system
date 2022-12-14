@@ -97,11 +97,11 @@
 		<portlet:param name="selectedNav" value="receiptInbox" />
 	</portlet:renderURL>
 	<portlet:renderURL var="fileSent">
-		<portlet:param name="mvcRenderCommandName" value="/fileSentBox" />
+		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND %>" />
 		<portlet:param name="selectedNav" value="fileSent" />
 	</portlet:renderURL>
 	<portlet:renderURL var="receiptSent">
-		<portlet:param name="mvcRenderCommandName" value="/receiptSentList" />
+		  <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_SENT_LIST %>" />
 		<portlet:param name="selectedNav" value="receiptSent" />
 	</portlet:renderURL>
 
@@ -149,10 +149,10 @@
 			});
 		}
 		
-		var navId = "${param.selectedNav}";
+		/* var navId = "${param.selectedNav}";
 		var nav = document.getElementById(navId);
 
-		nav.style.background = '#1f161e';
+		nav.style.color = 'blue'; */
 	</script>
 
 </body>

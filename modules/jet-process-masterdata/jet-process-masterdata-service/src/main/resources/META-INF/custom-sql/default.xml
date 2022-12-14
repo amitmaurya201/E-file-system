@@ -354,10 +354,10 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 <sql id="getReceiptSentList">
 <![CDATA[
 
-SELECT rm.rmid as receiptMovementId, r.receiptnumber ,r.subject , r.name as sender ,
-		null as Sent_By,
-		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as Sent_To ,
-		rm.createdate as Sent_On, rm.readOn , rm.duedate , rm.remark , rm.receivedon, r.nature
+SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ,
+		null as sentBy,
+		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ,
+		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid ,r.currentlyWith , 0 as active
 		FROM jet_process_receiptmovement as rm 
 		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
 		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid
@@ -372,7 +372,7 @@ SELECT
 	null as receiptnumber ,null as subject , null as sender ,
 	(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as Sent_By ,
 	(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as Sent_To,
-	rm.createdate as Sent_On, null as readOn , null as duedate , remark as remark, null as receivedOn, null as nature
+	rm.createdate as Sent_On, null as readOn , null as duedate , remark as remark, null as receivedOn, null as nature, 0 as receiptId, 0 as currentlyWith, 0 as active
 	FROM jet_process_receiptmovement as rm 
 	left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
@@ -412,8 +412,11 @@ SELECT
 	rm.duedate AS dueDate,
 	rm.remark AS remark,
 	rm.receivedon as receiveOn,
+	r.nature as nature,
 	
-	r.nature as nature
+	r.receiptid as receiptId,
+	r.currentlywith as currentlyWith,
+	0 as active
 	
 	FROM jet_process_receiptmovement as rm 
 	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
@@ -431,7 +434,7 @@ SELECT
 	null as subject ,
 	(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as sentBy ,
 	(SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ,
-	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith, null as nature, 0 as fileId
+	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith, null as nature, 0 as fileId, 0 as senderId
 	FROM jet_process_filemovement as fm 
 	left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
@@ -447,7 +450,7 @@ where fm.fileId = ?
 SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
 		null as sendBy,
         (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ,
-		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId
+		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid
 		FROM jet_process_filemovement as fm 
 		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        
 		 left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 

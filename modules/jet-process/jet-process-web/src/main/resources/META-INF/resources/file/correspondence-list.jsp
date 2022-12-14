@@ -1,5 +1,5 @@
+<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@page import="io.jetprocess.model.Receipt"%>
-<%@ page import="io.jetprocess.model.FileCorrReceipt" %>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <style>
 .crList th{
@@ -18,9 +18,6 @@
 	  out.print(nature);
   }
   out.print(receipt); %>  --%>
-  <% List<FileCorrReceipt> fileCorrReceipt = (List<FileCorrReceipt>)session.getAttribute("fileCorrReceiptList"); 
-  out.print(fileCorrReceipt);
-  %>
 <h3>List Of Correspondence</h3>
 <table class="table col-12">
 	<thead>

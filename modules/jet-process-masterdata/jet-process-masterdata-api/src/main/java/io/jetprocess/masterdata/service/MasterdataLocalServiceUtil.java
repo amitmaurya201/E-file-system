@@ -251,11 +251,9 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static int getFileCreatedByKeywordCount(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order) {
+		long userPostId, String keyword) {
 
-		return getService().getFileCreatedByKeywordCount(
-			userPostId, keyword, start, end, orderBy, order);
+		return getService().getFileCreatedByKeywordCount(userPostId, keyword);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
@@ -302,6 +300,19 @@ public class MasterdataLocalServiceUtil {
 		getFileMovementListByFileId(long fileId) {
 
 		return getService().getFileMovementListByFileId(fileId);
+	}
+
+	public static int getFileSentList(long userPostId, String keyword) {
+		return getService().getFileSentList(userPostId, keyword);
+	}
+
+	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
+		getFileSentList(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getFileSentList(
+			userPostId, keyword, start, end, orderBy, order);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
@@ -391,11 +402,10 @@ public class MasterdataLocalServiceUtil {
 	}
 
 	public static int getReceiptBySearchKeywordsCount(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order) {
+		long userPostId, String keyword) {
 
 		return getService().getReceiptBySearchKeywordsCount(
-			userPostId, keyword, start, end, orderBy, order);
+			userPostId, keyword);
 	}
 
 	public static List<Masterdata> getReceiptCategory() {

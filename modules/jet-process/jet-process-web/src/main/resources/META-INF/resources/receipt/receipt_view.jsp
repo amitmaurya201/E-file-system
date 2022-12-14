@@ -19,7 +19,7 @@
 
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
-			<liferay-util:param name="selectedNav" value="home" />
+			<liferay-util:param name="selectedNav" value="details" />
 			<%-- <liferay-util:param name="userPostId" value="${id}" /> --%>
 		</liferay-util:include>
 		<%-- <%}

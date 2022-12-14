@@ -71,6 +71,13 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 
 	}
+	
+	
+	public FileMovement getFileByFileId(long fileId) {
+		
+		return fileMovementPersistence.fetchByfileId(fileId);
+	}
+	
 
 	@Reference
 	DocFileLocalService docFileLocalService;

@@ -34,7 +34,7 @@ import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 		immediate = true ,
 		property = {
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-			"mvc.command.name="+MVCCommandNames.VIEW_RECEIPT_LIST
+			"mvc.command.name="+MVCCommandNames.VIEW_RECEIPT_LIST,
 			
 		},
 		service = MVCRenderCommand.class
@@ -43,8 +43,8 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		System.out.println("created-recipt-list.jsp -- called");
-		System.out.println("created-recipt-list.jsp -- called");
+		logger.info("created-recipt-list.jsp -- called");
+		logger.info("created-recipt-list.jsp -- called");
 		addAssignmentListAttributes(renderRequest);
 		addManagementToolbarAttributes(renderRequest, renderResponse);
 			
@@ -52,62 +52,26 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 	}
 	
 	
-	
-	
-	
-	/***
-	 * 
-	 * Adds File list related attributes to the request.**
-	 * 
-	 * @param renderRequest
-	 */
+
 	private void addAssignmentListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		// Resolve start and end for the search.
-		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
-				SearchContainer.DEFAULT_CUR);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-				2);
+		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,2);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-
 		HttpSession session = themeDisplay.getRequest().getSession();
-		 String userPostId =  (String) session.getAttribute("userPostId");
-		 long userPost = 1;  
-		// Get sorting options.
-		// Notice that this doesn't really sort on title because the field is
-		// stored in XML. In real world this search would be integrated to the
-		// search engine
-		// to get localized sort options.
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "receiptNumber");
-
+		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+		logger.info("user post id inside receipt render : --" + userPostId);
+		long userPost = userPostId;
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
-		// Create comparator
-		OrderByComparator<?> comparator = OrderByComparatorFactoryUtil.create("receiptNumber", orderByCol,
-				!("asc").equals(orderByType));
-		// Get keywords.
-		// Notice that cleaning keywords is not implemented.
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		// Call the service to get the list of assignments.   
-//		List<FileListViewDto>  assignments = masterdataLocalService.getFileCreatedByKeywords(userPost,
-//				keywords, start, end, orderByCol,orderByType);
-		
-		
-		System.out.println("keywords on create render : "+keywords);
-		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,
-				keywords, start, end, orderByCol,orderByType);  
-		
-		
-		
-		// Set request attributes.
-		logger.info("receiptList :=============== "+receiptList.size());
+		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
 		renderRequest.setAttribute("receiptFileList", receiptList);
+		renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 		
-		renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,
-				keywords, start, end, "receiptNumber","asc"));
+		logger.info("count number: -  "+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 		
-		logger.info("count : "+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,
-				keywords, start, end, "receiptNumber","asc"));
 	}
 
 	/**
@@ -127,9 +91,6 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 	}
 	
 	private static Log logger = LogFactoryUtil.getLog(CreatedReceiptListRenderCommand.class);
-	
-	@Reference
-	private MasterdataService masterData;
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
 	@Reference

@@ -121,7 +121,7 @@ public class DocFileModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(75) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER)";
+		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(500) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocFile";

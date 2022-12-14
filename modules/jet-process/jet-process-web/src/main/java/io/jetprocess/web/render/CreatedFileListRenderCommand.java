@@ -31,31 +31,18 @@ import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
-@Component(
-		immediate = true,
-		property = {
-				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST,
-			"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-			"mvc.command.name="+MVCCommandNames.VIEW_FILELIST
-		},
-		service = MVCRenderCommand.class
-	)
+@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+		"mvc.command.name=" + MVCCommandNames.VIEW_FILELIST,
+
+}, service = MVCRenderCommand.class)
 public class CreatedFileListRenderCommand implements MVCRenderCommand {
-	
-	
-	
+
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
-		// Add assignment list related attributes.
 		logger.info("View Render...");
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		System.out.println("CreatedFileListRenderCommand.render() keywords : " + keywords);
-		addAssignmentListAttributes(renderRequest);
-		addManagementToolbarAttributes(renderRequest, renderResponse);
-
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		addFileListAttributes(renderRequest);
+		addFileToolbarAttributes(renderRequest, renderResponse);
 		return "/file/created-file-list.jsp";
 	}
 
@@ -65,53 +52,25 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	 * 
 	 * @param renderRequest
 	 */
-	private void addAssignmentListAttributes(RenderRequest renderRequest) {
+	private void addFileListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		// Resolve start and end for the search.
-		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
-				SearchContainer.DEFAULT_CUR);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-				4);
+		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-
 		HttpSession session = themeDisplay.getRequest().getSession();
-		 String userPostId =  (String) session.getAttribute("userPostId");
-		 long userPost = 1;  
-		// Get sorting options.
-		// Notice that this doesn't really sort on title because the field is
-		// stored in XML. In real world this search would be integrated to the
-		// search engine
-		// to get localized sort options.
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "fileNumber");
-
+		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+		logger.info("user post id inside render : --" + userPostId);
+		long userPost = userPostId;
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
-		// Create comparator
-		OrderByComparator<?> comparator = OrderByComparatorFactoryUtil.create("fileNumber", orderByCol,
-				!("asc").equals(orderByType));
-		// Get keywords.
-		// Notice that cleaning keywords is not implemented.
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		// Call the service to get the list of assignments.   
-//		List<FileListViewDto>  assignments = masterdataLocalService.getFileCreatedByKeywords(userPost,
-//				keywords, start, end, orderByCol,orderByType);
-		
-		
-		System.out.println("keywords on create render : "+keywords);
-		List<FileListViewDto>  fileList = masterdataLocalService.getFileCreatedByKeywords(userPost,
-				keywords, start, end, orderByCol,orderByType);  
-		
-		
-		
-		// Set request attributes.
-		logger.info("File :=============== "+fileList.size());
-//		logger.info("assignments : "+assignments);
+		System.out.println("keywords on create render : " + keywords);
+		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
+		logger.info("File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
-		
-		renderRequest.setAttribute("fileCount",+masterdataLocalService.getFileCreatedByKeywordCount(userPost,
-				keywords, start, end, "fileNumber","asc"));
-		logger.info("count : "+masterdataLocalService.getFileCreatedByKeywordCount(userPost,
-				keywords, start, end, "fileNumber","asc"));
+		renderRequest.setAttribute("fileCount",+masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
+		logger.info("File count : " + masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
 	}
 
 	/**
@@ -120,16 +79,15 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void addManagementToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		FileManagementToolbarDisplayContext fileManagementToolbarDisplayContext = new FileManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-		renderRequest.setAttribute("fileManagementToolbarDisplayContext",
-				fileManagementToolbarDisplayContext);
-		
+		renderRequest.setAttribute("fileManagementToolbarDisplayContext", fileManagementToolbarDisplayContext);
+
 	}
-	
+
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;

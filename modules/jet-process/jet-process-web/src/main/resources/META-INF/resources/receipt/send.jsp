@@ -24,7 +24,7 @@
 
 
 		<%
-			Receipt receipt = (Receipt) session.getAttribute("receipt");
+			Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 		String type = (String) receipt.getNature();
 		char firstChar = type.charAt(0);
 		%>
@@ -49,14 +49,19 @@
 									<option>choose One</option>
 								<%
 									List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);
-											if (userPostList != null) {
-												for (UserPost userPost : userPostList) {
+									List<UserPost> newUserPostList = new ArrayList<>(userPostList);
+									UserPost selectedUserPost =  UserPostLocalServiceUtil.getUserPost(Long.parseLong(selectedUserPostId));
+									boolean isUserPostAvailable = newUserPostList.contains(selectedUserPost);
+									if(isUserPostAvailable){
+										newUserPostList.remove(selectedUserPost);
+									}	
+									if (newUserPostList != null) {
+										for (UserPost userPost : newUserPostList) {
 								%>
 								<option value="<%=userPost.getUserPostId()%>"><%=userPost.getShortName()%></option>
-
 								<%
+										}
 									}
-											}
 								%>
 
 							</select>

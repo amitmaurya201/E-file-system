@@ -279,6 +279,12 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovement(rmId);
 	}
 
+	public static ReceiptMovement getReceiptMovementByReceiptId(
+		long receiptId) {
+
+		return getService().getReceiptMovementByReceiptId(receiptId);
+	}
+
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *

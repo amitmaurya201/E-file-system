@@ -232,22 +232,16 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			
 		}
 
-		public int getFileCreatedByKeywordCount(long userPostId  , String keyword,  int start, int end , String orderBy ,  String order) {
+		public int getFileCreatedByKeywordCount(long userPostId  , String keyword) {
 			
-		List<FileListViewDto> fileList =null; /* fileList = getFileList(userPostId); */
+		List<FileListViewDto> fileList =null; 
 			
-			
-			System.out.println(" masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword) : : ---"+ getFileCreatedByKeywords(userPostId,keyword, start, end, orderBy, order));
-			if(keyword != null && !keyword.isEmpty()) {
+		if(keyword != null && !keyword.isEmpty()) {
 				fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword);
-//				fileList=getFileCreatedByKeywords(userPostId,keyword, start, end, orderBy, order);
-				
 			}else {
 				fileList = getFileList(userPostId);
-				System.out.println("File-list : "+fileList.size());
 			}
 			int count = fileList.size();
-			System.out.println("File-list : "+count);
 			
 			return count;
 		}
@@ -258,20 +252,19 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return masterdataFinder.getReceiptListSearch(userPostId ,keyword  , start , end , orderBy , order );
 		}
 		
-		public int getReceiptBySearchKeywordsCount( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+		public int getReceiptBySearchKeywordsCount( long userPostId  , String keyword){
 			
-			List<ReceiptListViewDto> receiptList =null; /* fileList = getFileList(userPostId); */
+			List<ReceiptListViewDto> receiptList =null; 
 			
 			if(keyword != null && !keyword.isEmpty()) {
 				receiptList = masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword);
-//				fileList=getFileCreatedByKeywords(userPostId,keyword, start, end, orderBy, order);
-				
+				receiptList.forEach(c->System.out.println("Key : -"+c.getCategory()));
 			}else {
 				receiptList = getReceiptList(userPostId);
-				System.out.println("File-list : "+receiptList.size());
+				receiptList.forEach(c->System.out.println(": - "+c.getCategory()));
 			}
 			int count = receiptList.size();
-			System.out.println("File-list : "+count);
+			logger.info("total file number inside service : "+count);
 			return receiptList.size();
 		}
 		
@@ -298,7 +291,33 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		public  List<FileMovementDTO> getFileSentListByUserPostId(long userPostId){
 			return masterdataFinder.getFileSentList(userPostId);
 		}
+		
+		
+		// this method is Created By Ashwani Rao Start 
+		
+		
+		public int getFileSentList( long userPostId  , String keyword){
+			
+			List<FileMovementDTO> receiptList =null; 
+			
+			if(keyword != null && !keyword.isEmpty()) {
+				receiptList = masterdataFinder.getFileSentList(userPostId, keyword);
+			}else {
+				receiptList = getFileSentListByUserPostId(userPostId);
+			}
+			int count = receiptList.size();
+			logger.info("total file number inside service : "+count);
+			return receiptList.size();
+		}
+		
+		
+		public List<FileMovementDTO> getFileSentList( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+			
+			return masterdataFinder.getFileSentList(userPostId ,keyword  , start , end , orderBy , order );
+		}
 	
+		
+		// End 
 	
 		private Log logger = LogFactoryUtil.getLog(this.getClass());
 	   

@@ -6,7 +6,7 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
-		<liferay-util:include page="/file/file-view-nav.jsp" servletContext="<%=application%>">
+		<liferay-util:include page="/receipt/receipt-view-nav.jsp" servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
 		<div class="m-2 border boredr border-dark">

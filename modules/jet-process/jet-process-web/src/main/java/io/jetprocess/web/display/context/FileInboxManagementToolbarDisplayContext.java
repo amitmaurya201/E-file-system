@@ -1,20 +1,18 @@
- package io.jetprocess.web.display.context;
+package io.jetprocess.web.display.context;
+
+
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.BaseManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -24,26 +22,12 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.osgi.service.component.annotations.Reference;
-
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
-import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.MVCCommandNames;
-import io.jetprocess.web.render.CreatedReceiptListRenderCommand;
 
-/**
- * Assigments management toolbar display context.
- *
- * This class passes contextual information to the user interface for the Clay
- * management toolbar.
- *
- * @author liferay
- */
-public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
+public class FileInboxManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext{
 
-	public ReceiptManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
+	public FileInboxManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
@@ -57,6 +41,12 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 		return getSearchActionURL();
 	}
 
+	
+	/**
+	 * Returns the sort order column.
+	 * 
+	 * @return sort column
+	 */
 	public String getOrderByCol() {
 
 		return ParamUtil.getString(request, "orderByCol", "subject");
@@ -80,28 +70,18 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	@Override
 	public String getSearchActionURL() {
 
-		
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-		System.out.println("searchURL.getRenderParameters() : - ");
 
-		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
-		
-
-		
-		
 		return searchURL.toString();
 	}
-
-
-	/**
-	 * Return the option items for the sort column menu.
-	 *
-	 * @return options list for the sort column menu
-	 */
+ 
+	
+	
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
@@ -114,13 +94,8 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 
 				add(dropdownItem -> {
 					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "");
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "remarks");
 					dropdownItem.setLabel(LanguageUtil.get(request, "remarks", "remarks"));
-				});
-				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "category");
-					dropdownItem.setLabel(LanguageUtil.get(request, "category", "category"));
 				});
 			}
 		};
@@ -136,13 +111,13 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 
 		// Reset current page.
 
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-		System.out.println("Request for searching.. "+keywords); 
+		System.out.println("Request for searching.. "+keywords);
 
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
@@ -151,21 +126,16 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 		return sortingURL;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 
 		return sortingURL;
 	}
-	
-	
-	
-	private static Log logger = LogFactoryUtil.getLog(ReceiptManagementToolbarDisplayContext.class);
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
+
 	private final PortalPreferences _portalPreferences;
 	private final ThemeDisplay _themeDisplay;
-
+	
+	
 }
