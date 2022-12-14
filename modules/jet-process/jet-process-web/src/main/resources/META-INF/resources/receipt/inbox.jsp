@@ -7,7 +7,7 @@
 .table thead th {
 	border-right: 1px solid white;
 }
-.popup-overlay {
+.popup{
   /*Hides pop-up when there is no "active" class*/
   visibility: hidden; 
   position: absolute;
@@ -21,7 +21,7 @@ margin-top: -22%;
   
 }
 
-.popup-overlay.active {
+.popup.active {
   /*displays pop-up when "active" class is present*/
   visibility: visible;
   text-align: center;
@@ -81,6 +81,11 @@ margin-top: -22%;
 					<portlet:param name="receiptId" value="${receiptMovementDTO.getReceiptId()}" />
 				</portlet:renderURL>
 
+<portlet:actionURL name="receiveAction" var="formAction">
+				</portlet:actionURL>
+				<portlet:actionURL name="readAction" var="formAction1">
+				</portlet:actionURL>
+
 				<liferay-ui:search-container-column-text name="">
 					<%=receiptMovementDTO.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
@@ -92,8 +97,8 @@ margin-top: -22%;
 					name="Subject" />
 					
 				<liferay-ui:search-container-column-text name="Sent By" cssClass="hover-tips" >
-					<a href="#" class="button open" onclick=" showModal(${receiptMovementDTO.getReceiptId()})"><%=receiptMovementDTO.getSentBy() %></a>
-				</liferay-ui:search-container-column-text>
+					<a href="#" class="button open"
+						onclick=" showModal(${receiptMovementDTO.getReceiptId()})"><%=receiptMovementDTO.getSentBy()%></a>				</liferay-ui:search-container-column-text>
 
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -122,14 +127,16 @@ margin-top: -22%;
 					<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 						<liferay-ui:search-container-column-text name="Action"
 							align="center">
-							<span><a href="#">Read</a></span>&nbsp;						
+							<span><a href="#" class="button open"
+								onclick="readModal(${receiptMovementDTO.getReceiptId()})">Read</a></span>
 							<span><a href="${sendURL}">Send</a></span>
 						</liferay-ui:search-container-column-text>
 					</c:when>
 					<c:otherwise>
 						<liferay-ui:search-container-column-text name="Action"
 							align="center">
-							<span><a href="#">Received</a></span>&nbsp;
+							<span><a href="#" class="button open"
+								onclick="receiveModal(${receiptMovementDTO.getReceiptId()})">Receive</a></span>
 							<span><a href="${sendURL}">Send</a></span>
 						</liferay-ui:search-container-column-text>
 					</c:otherwise>
@@ -144,23 +151,69 @@ margin-top: -22%;
 
 
 
-<!--Sent By details popup code start  -->
+<!-- Receive pop up -->
+<div id="receive" class="popup">
+	<!--   Creates the popup content-->
+	<div class="receive popup-content">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close"
+			style="float: right; margin-top: -5%; font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<aui:form action="${formAction}" method="POST" name="fm">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close"
+				style="float: right; margin-top: -5%; font-size: 25px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<input type="text" name='<portlet:namespace/>receiptId'
+				id="receive-receiptId" />
+			<button type="submit">Receive</button>
+		</aui:form>
+	</div>
+</div>
+
+
+<!-- Read pop up -->
+<div id="read" class="popup">
+	<!--   Creates the popup content-->
+	<div class="read popup-content">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close"
+			style="float: right; margin-top: -5%; font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<aui:form action="${formAction1}" method="POST" name="fm">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close"
+				style="float: right; margin-top: -5%; font-size: 25px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<input type="text" name='<portlet:namespace/>receiptId'
+				id="read-receiptId" />
+			<button type="submit">Read</button>
+		</aui:form>
+	</div>
+</div>
+
+<!--popup code start  -->
 <!--Creates the popup body-->
- <div class="popup-overlay"> 
-<!--   Creates the popup content-->  
-<div class="popup-content">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
-          <span aria-hidden="true">&times;</span>
-     </button>
-    
-   <div class="container mt-5">
-			<input type="text" name="receiptId" id="receiptId" readOnly>
+<div id="sender-dtls" class="popup">
+	<!--   Creates the popup content-->
+	<div class="dtls popup-content">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close"
+			style="float: right; margin-top: -5%; font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<div class="container mt-5">
+			<input type="text" name="receiptId" id="dtls-receiptId" readOnly>
 			<div class="row ">
 				<div class="col-6">
 					<table>
 						<tr class="mt-1">
 							<th>Name :</th>
-							<td> </td>
+							<td></td>
 						</tr>
 						<tr class="mt-1">
 							<th>Marking Abbr. :</th>
@@ -192,99 +245,49 @@ margin-top: -22%;
 						</tr>
 					</table>
 				</div>
-			  </div>
 			</div>
 		</div>
-	</div> 
-   
-   
-   
-   
-<!-- Receive pop up -->
-<div id="receive" class="popup-overlay receive"> 
-<!--   Creates the popup content-->  
-<div class="popup-content">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
-          <span aria-hidden="true">&times;</span>
-     </button>   		
-	 <aui:form action="${formAction}" method="POST" name="fm">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;
-    margin-top: -5%;
-    font-size: 25px;">
-    
-          <span aria-hidden="true">&times;</span>      
-        </button>
-        <input type="hidden" name='<portlet:namespace/>fileId' id="fileId" />
-					
-    <button type="submit">Receive</button>  
-      </aui:form>
-	</div> 
 	</div>
+</div>
 
 
-<!-- Read pop up -->
-<div id="read" class="popup-overlay read"> 
-<!--   Creates the popup content-->  
-<div class="popup-content">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right; margin-top: -5%;font-size: 25px;">
-          <span aria-hidden="true">&times;</span>
-     </button>
-    
-			
-	 <aui:form action="${formAction1}" method="POST" name="fm">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;
-    margin-top: -5%;
-    font-size: 25px;">
-    
-          <span aria-hidden="true">&times;</span>
-          
-          
-         
-        </button>
-        <input type="text" name='<portlet:namespace/>fileId1' id="fileId1" />
-		
-    <button type="submit">Read</button>  
-      </aui:form>
-	</div> 
-	</div>
-
-      
-  
 
 
 <script type="text/javascript">
 
-function receiveModal(fileId){
-	alert(fileId);
-	document.getElementById("fileId").value=fileId;
-	$("#receive,.popup-overlay,.receive, .popup-content").addClass("active");
-	$(".close, .popup-overlay, .receive").on("click", function() {
-		  $("#receive,.popup-overlay, .receive, .popup-content").removeClass("active");
+ function receiveModal(receiptId){
+	alert(receiptId);
+	document.getElementById("receive-receiptId").value=receiptId;
+	$("#receive, .receive").addClass("active");
+	$(".close").on("click", function() {
+		  $("#receive, .receive").removeClass("active");
 		});
 
 		
 	}
 
-function readModal(fileId){
-	alert(fileId);
-	document.getElementById("fileId1").value=fileId;
-	$("#read,.popup-overlay, .read, .popup-content").addClass("active");
-	$(".close, .popup-overlay, .read").on("click", function() {
-		  $("#read,.popup-overlay, .read, .popup-content").removeClass("active");
+function readModal(receiptId){
+	alert(receiptId);
+	document.getElementById("read-receiptId").value=receiptId;
+	$("#read, .read").addClass("active");
+	$(".close").on("click", function() {
+		  $("#read, .read").removeClass("active");
 		});
 
 		
 	}
-
 
 function showModal(receiptId){
 	alert(receiptId);
-	document.getElementById("receiptId").value=receiptId;
-	$(".popup-overlay, .popup-content").addClass("active");
-	$(".close, .popup-overlay").on("click", function() {
-		  $(".popup-overlay, .popup-content").removeClass("active");
+	document.getElementById("dtls-receiptId").value=receiptId;
+	$("#sender-dtls, .dtls").addClass("active");
+	$(".close").on("click", function() {
+		  $("#sender-dtls, .dtls").removeClass("active");
 		});
+
+		
 	}
+
 
 </script>
 
