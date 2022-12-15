@@ -441,6 +441,19 @@ public class MasterdataLocalServiceUtil {
 		return getService().getReceiptInboxList(userPostId);
 	}
 
+	public static int getReceiptInboxList(long userPostId, String keyword) {
+		return getService().getReceiptInboxList(userPostId, keyword);
+	}
+
+	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
+		getReceiptInboxList(
+			long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return getService().getReceiptInboxList(
+			userPostId, keyword, start, end, orderBy, order);
+	}
+
 	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptList(long userPostId) {
 

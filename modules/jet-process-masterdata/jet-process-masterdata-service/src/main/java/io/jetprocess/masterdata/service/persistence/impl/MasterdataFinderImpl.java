@@ -1313,7 +1313,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 
 	
 
-	// this method is created by Ashwani rao start
+	// ---------------------------
 	
 	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword){
 		Session session = null;
@@ -1521,7 +1521,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			if(!keyword.isEmpty() && keyword != null) {
 				queryPos.add("%"+keyword+"%");
 				queryPos.add("%"+keyword+"%");
-//				queryPos.add("%"+keyword+"%");
 			}
 	
 			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
@@ -1539,9 +1538,151 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 	}
 	
 	
+	
+	
+	
+	
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword){
+		Session session = null;
+		try {
+			session = openSession();
+//			String sql = customSQL.get(getClass(), "getSentFileList");
+			
+			
+			
+
+			String sql="SELECT " + 
+					"	rm.rmid AS receiptMovementId," + 
+					"    r.receiptnumber AS receiptNumber," + 
+					"	r.subject AS subject,	" + 
+					"    null as sender,	" + 
+					"    (SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
+					"	null AS sentTo ,	" + 
+					"    rm.createdate AS sentOn,	" + 
+					"    rm.readon AS readOn," + 
+					"	rm.duedate AS dueDate,	" + 
+					"    rm.remark AS remark,	" + 
+					"    rm.receivedon as receiveOn,	" + 
+					"    r.nature as nature," + 
+					"	r.receiptid as receiptId" + 
+					"	FROM jet_process_receiptmovement as rm " + 
+					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
+					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
+					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
+					"    where rm.receiverid = ? and r.active_ = true ";
+			
+			logger.info("Final Receipt Movement List Query : "+sql);
+			
+			if(!keyword.isEmpty() && keyword != null ) {
+				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+			}
+				
+				
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
+
+		Session session = null;
+		try {
+			session = openSession();
+	
+			String sql="SELECT " + 
+					"	rm.rmid AS receiptMovementId," + 
+					"    r.receiptnumber AS receiptNumber," + 
+					"	r.subject AS subject,	" + 
+					"    null as sender,	" + 
+					"    (SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
+					"	null AS sentTo ,	" + 
+					"    rm.createdate AS sentOn,	" + 
+					"    rm.readon AS readOn," + 
+					"	rm.duedate AS dueDate,	" + 
+					"    rm.remark AS remark,	" + 
+					"    rm.receivedon as receiveOn,	" + 
+					"    r.nature as nature," + 
+					"	r.receiptid as receiptId" + 
+					"	FROM jet_process_receiptmovement as rm " + 
+					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
+					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
+					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
+					"    where rm.receiverid = ? and r.active_ = true ";
+			
+		
+			if(!keyword.isEmpty() && keyword != null ) {
+
+				
+				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				
+			}
+			
+			if(orderBy!=null && !orderBy.isEmpty()) {
+				sql = sql + " order by "+"r."+orderBy;
+				sql = sql + " DESC";
+				System.out.println("order by ---"+orderBy);			
+			}
+
+			
+			sql = sql + " offset "+ start + " limit "+ end;
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+	
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
-// ashwani rao End
+// ------------
 
 
 

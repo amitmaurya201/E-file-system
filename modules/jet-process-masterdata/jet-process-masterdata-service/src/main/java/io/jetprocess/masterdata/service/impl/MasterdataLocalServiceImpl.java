@@ -293,7 +293,7 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		}
 		
 		
-		// Start 
+		// -------------- Start ------------------ 
 		
 		
 		public int getFileSentList( long userPostId  , String keyword){
@@ -340,9 +340,35 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		}
 		
 		
+		public List<ReceiptMovementDTO> getReceiptInboxList( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
+			
+			return masterdataFinder.getReceiptInboxList(userPostId ,keyword  , start , end , orderBy , order );
+			
+		}
 		
 		
-		// End 
+		
+		public int  getReceiptInboxList( long userPostId  , String keyword){
+			
+			List<ReceiptMovementDTO> receiptList =null; 
+			
+			if(keyword != null && !keyword.isEmpty()) {
+				receiptList = masterdataFinder.getReceiptInboxList(userPostId, keyword);
+			}else {
+				receiptList = getReceiptInboxList(userPostId);
+			}
+			int count = receiptList.size();
+			logger.info("total file number inside service : "+count);
+
+			return count;			
+			
+		}
+		
+		
+		
+		
+		
+		// ---------------- End ----------------- 
 	
 		private Log logger = LogFactoryUtil.getLog(this.getClass());
 	   

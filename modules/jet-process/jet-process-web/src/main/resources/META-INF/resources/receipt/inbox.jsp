@@ -60,9 +60,21 @@
 	<div class="col-10">
 		<h1 class=" text-center">Receipt InBox</h1>
 
-		<liferay-ui:search-container total="<%=count%>" delta="5"
-			iteratorURL="<%=iteratorURL%>">
-			<liferay-ui:search-container-results results="<%=receiptInboxList %>" />
+		<clay:management-toolbar
+		        disabled="${inboxReceiptCount eq 0}"
+		        displayContext="${receiptInboxManagementToolbarDisplayContext}"
+		        itemsTotal="${inboxReceiptCount}"
+		        searchContainerId="assignmentEntries"
+		        managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}"
+		    />
+			
+		<liferay-ui:search-container
+		delta="4"
+        emptyResultsMessage="No-RECEIPT-INBOX"
+        id="assignmentEntries"
+        total="${inboxReceiptCount}" iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}"
+        >
+        <liferay-ui:search-container-results results="${receiptInboxList}" />
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
@@ -84,7 +96,6 @@
 						<portlet:param name="mvcRenderCommandName" value="/receiptView" />
 						<portlet:param name="receiptId" value="${receiptMovementDTO.getReceiptId()}" />
 						</portlet:renderURL>
-
 				<c:choose>
 					<c:when
 						test="${receiptMovementDTO.getNature()=='Electronic' || receiptMovementDTO.getNature()=='Physical'}">
@@ -225,7 +236,8 @@
 					</c:when>
 				</c:choose>
 			</liferay-ui:search-container-row>
-			<liferay-ui:search-iterator markupView="lexicon" />
+			<liferay-ui:search-iterator paginate="false" />
+        <liferay-ui:search-paginator searchContainer="<%=new SearchContainer() %>" markupView="lexicon" />
 		</liferay-ui:search-container>
 
 	</div>

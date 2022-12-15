@@ -362,6 +362,14 @@ public interface MasterdataLocalService
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getReceiptInboxList(long userPostId, String keyword);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovementDTO> getReceiptInboxList(
+		long userPostId, String keyword, int start, int end, String orderBy,
+		String order);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptListViewDto> getReceiptList(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
