@@ -18,6 +18,10 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.List;
+
+import io.jetprocess.masterdata.model.ReceiptMovementDTO;
+import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptLocalService;
@@ -64,13 +68,34 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	public ReceiptMovement getReceiptMovementByReceiptId(long receiptId) {
-	  
-	  return receiptMovementPersistence.fetchByreceiptId(receiptId);
-	  
-	  
-	  
-	  }
+		return receiptMovementPersistence.fetchByreceiptId(receiptId);
+	}
+
+	/*
+	 * public boolean pullBackByCurrentState(long movementId, long receiptId) throws
+	 * PortalException {
+	 * 
+	 * ReceiptMovement receiptMovement = getReceiptMovement(movementId);
+	 * 
+	 * List<ReceiptMovementDTO> receiptMovementList=
+	 * masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
+	 * 
+	 * for (ReceiptMovementDTO receiptMovementDTO : receiptMovementList) {
+	 * receiptMovement = receiptMovementDTO ;
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * return true;
+	 * 
+	 * }
+	 */
 
 	@Reference
 	ReceiptLocalService receiptLocalService;
+	
+	@Reference
+	MasterdataLocalService masterdataLocalService;
+
 }

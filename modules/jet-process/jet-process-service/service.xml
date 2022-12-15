@@ -125,7 +125,7 @@
 		<column name="nature" type="String" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-		<column name="active" type="String" />
+		<column name="active" type="Boolean" />
 
 		<!-- Order -->
 

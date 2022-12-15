@@ -92,7 +92,7 @@ public class ReceiptModelImpl
 		{"subOrganizationId", Types.BIGINT}, {"userPostId", Types.BIGINT},
 		{"viewPdfUrl", Types.VARCHAR}, {"dmFileId", Types.BIGINT},
 		{"nature", Types.VARCHAR}, {"currentlyWith", Types.BIGINT},
-		{"currentState", Types.INTEGER}, {"active_", Types.VARCHAR}
+		{"currentState", Types.INTEGER}, {"active_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -135,11 +135,11 @@ public class ReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("nature", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("currentState", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("active_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn VARCHAR(75) null,letterDate VARCHAR(75) null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(500) null,remarks VARCHAR(500) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(500) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG,nature VARCHAR(75) null,currentlyWith LONG,currentState INTEGER,active_ VARCHAR(75) null)";
+		"create table JET_PROCESS_Receipt (uuid_ VARCHAR(75) null,receiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeId LONG,deliveryModeId LONG,receivedOn VARCHAR(75) null,letterDate VARCHAR(75) null,referenceNumber VARCHAR(75) null,modeNumber VARCHAR(75) null,receiptCategoryId LONG,receiptSubCategoryId LONG,subject VARCHAR(500) null,remarks VARCHAR(500) null,name VARCHAR(75) null,designation VARCHAR(75) null,mobile VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(500) null,countryId LONG,stateId LONG,pinCode VARCHAR(75) null,receiptNumber VARCHAR(75) null,organizationId LONG,city VARCHAR(75) null,subOrganizationId LONG,userPostId LONG,viewPdfUrl VARCHAR(1024) null,dmFileId LONG,nature VARCHAR(75) null,currentlyWith LONG,currentState INTEGER,active_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_Receipt";
@@ -425,7 +425,7 @@ public class ReceiptModelImpl
 			(BiConsumer<Receipt, Integer>)Receipt::setCurrentState);
 		attributeGetterFunctions.put("active", Receipt::getActive);
 		attributeSetterBiConsumers.put(
-			"active", (BiConsumer<Receipt, String>)Receipt::setActive);
+			"active", (BiConsumer<Receipt, Boolean>)Receipt::setActive);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -1125,17 +1125,12 @@ public class ReceiptModelImpl
 
 	@JSON
 	@Override
-	public String getActive() {
-		if (_active == null) {
-			return "";
-		}
-		else {
-			return _active;
-		}
+	public Boolean getActive() {
+		return _active;
 	}
 
 	@Override
-	public void setActive(String active) {
+	public void setActive(Boolean active) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -1309,7 +1304,7 @@ public class ReceiptModelImpl
 			this.<Long>getColumnOriginalValue("currentlyWith"));
 		receiptImpl.setCurrentState(
 			this.<Integer>getColumnOriginalValue("currentState"));
-		receiptImpl.setActive(this.<String>getColumnOriginalValue("active_"));
+		receiptImpl.setActive(this.<Boolean>getColumnOriginalValue("active_"));
 
 		return receiptImpl;
 	}
@@ -1587,12 +1582,10 @@ public class ReceiptModelImpl
 
 		receiptCacheModel.currentState = getCurrentState();
 
-		receiptCacheModel.active = getActive();
+		Boolean active = getActive();
 
-		String active = receiptCacheModel.active;
-
-		if ((active != null) && (active.length() == 0)) {
-			receiptCacheModel.active = null;
+		if (active != null) {
+			receiptCacheModel.active = active;
 		}
 
 		return receiptCacheModel;
@@ -1724,7 +1717,7 @@ public class ReceiptModelImpl
 	private String _nature;
 	private long _currentlyWith;
 	private int _currentState;
-	private String _active;
+	private Boolean _active;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);

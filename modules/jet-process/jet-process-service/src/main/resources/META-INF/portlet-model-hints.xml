@@ -96,7 +96,7 @@
 		<field name="nature" type="String" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
-		<field name="active" type="String" />
+		<field name="active" type="Boolean" />
 	</model>
 	<model name="io.jetprocess.model.ReceiptMovement">
 		<field name="uuid" type="String" />

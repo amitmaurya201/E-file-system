@@ -616,15 +616,14 @@ public interface ReceiptModel
 	 *
 	 * @return the active of this receipt
 	 */
-	@AutoEscape
-	public String getActive();
+	public Boolean getActive();
 
 	/**
 	 * Sets the active of this receipt.
 	 *
 	 * @param active the active of this receipt
 	 */
-	public void setActive(String active);
+	public void setActive(Boolean active);
 
 	@Override
 	public Receipt cloneWithOriginalValues();

@@ -303,7 +303,7 @@ public class ReceiptWrapper
 			setCurrentState(currentState);
 		}
 
-		String active = (String)attributes.get("active");
+		Boolean active = (Boolean)attributes.get("active");
 
 		if (active != null) {
 			setActive(active);
@@ -321,7 +321,7 @@ public class ReceiptWrapper
 	 * @return the active of this receipt
 	 */
 	@Override
-	public String getActive() {
+	public Boolean getActive() {
 		return model.getActive();
 	}
 
@@ -716,7 +716,7 @@ public class ReceiptWrapper
 	 * @param active the active of this receipt
 	 */
 	@Override
-	public void setActive(String active) {
+	public void setActive(Boolean active) {
 		model.setActive(active);
 	}
 

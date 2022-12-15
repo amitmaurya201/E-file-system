@@ -1,6 +1,7 @@
 dependencies {
 	compile project(":modules:jet-process:jet-process-api")
 	compile project(":modules:jet-process-docs:jet-process-docs-api")
+	compile project(":modules:jet-process-masterdata:jet-process-masterdata-api")
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 
 }

@@ -83,7 +83,7 @@ create table JET_PROCESS_Receipt (
 	nature VARCHAR(75) null,
 	currentlyWith LONG,
 	currentState INTEGER,
-	active_ VARCHAR(75) null
+	active_ BOOLEAN
 );
 
 create table JET_PROCESS_ReceiptMovement (

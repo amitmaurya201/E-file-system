@@ -17,8 +17,6 @@ public class ReceiptMovementDTO {
 	private String receivedOn;
 	private String nature;
 	private long receiptId;
-	private long currentlyWith;
-	private int active;
 
 	public ReceiptMovementDTO() {
 		super();
@@ -129,25 +127,9 @@ public class ReceiptMovementDTO {
 		this.receiptId = receiptId;
 	}
 
-	public long getCurrentlyWith() {
-		return currentlyWith;
-	}
-
-	public void setCurrentlyWith(long currentlyWith) {
-		this.currentlyWith = currentlyWith;
-	}
-
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
-	}
-
 	public ReceiptMovementDTO(long receiptMovementId, String receiptNumber, String subject, String sender,
 			String sentBy, String sentTo, Date sentOn, String readOn, String dueDate, String remark, String receivedOn,
-			String nature, long receiptId, long currentlyWith, int active) {
+			String nature, long receiptId) {
 		super();
 		this.receiptMovementId = receiptMovementId;
 		this.receiptNumber = receiptNumber;
@@ -162,8 +144,6 @@ public class ReceiptMovementDTO {
 		this.receivedOn = receivedOn;
 		this.nature = nature;
 		this.receiptId = receiptId;
-		this.currentlyWith = currentlyWith;
-		this.active = active;
 	}
 
 	@Override
@@ -171,8 +151,8 @@ public class ReceiptMovementDTO {
 		return "ReceiptMovementDTO [receiptMovementId=" + receiptMovementId + ", receiptNumber=" + receiptNumber
 				+ ", subject=" + subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo
 				+ ", sentOn=" + sentOn + ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark
-				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", receiptId=" + receiptId + ", currentlyWith="
-				+ currentlyWith + ", active=" + active + "]";
+				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", receiptId=" + receiptId + "]";
 	}
 
+	
 }
