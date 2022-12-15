@@ -49,6 +49,8 @@ import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.service.ReceiptMovementLocalServiceUtil;
 import io.jetprocess.service.persistence.DocFilePersistence;
+import io.jetprocess.service.persistence.FileCorrPersistence;
+import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
 import io.jetprocess.service.persistence.FileMovementPersistence;
 import io.jetprocess.service.persistence.ReceiptMovementPersistence;
 import io.jetprocess.service.persistence.ReceiptPersistence;
@@ -603,6 +605,12 @@ public abstract class ReceiptMovementLocalServiceBaseImpl
 
 	@Reference
 	protected DocFilePersistence docFilePersistence;
+
+	@Reference
+	protected FileCorrPersistence fileCorrPersistence;
+
+	@Reference
+	protected FileCorrReceiptPersistence fileCorrReceiptPersistence;
 
 	@Reference
 	protected FileMovementPersistence fileMovementPersistence;
