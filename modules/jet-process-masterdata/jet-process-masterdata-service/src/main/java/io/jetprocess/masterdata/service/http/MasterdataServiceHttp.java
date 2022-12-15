@@ -1307,6 +1307,40 @@ public class MasterdataServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<io.jetprocess.masterdata.model.ReceiptListViewDto>
+			getFileCorrespondenceReceipt(
+				HttpPrincipal httpPrincipal, long fileId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				MasterdataServiceUtil.class, "getFileCorrespondenceReceipt",
+				_getFileCorrespondenceReceiptParameterTypes38);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, fileId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<io.jetprocess.masterdata.model.ReceiptListViewDto>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		MasterdataServiceHttp.class);
 
@@ -1414,5 +1448,9 @@ public class MasterdataServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[]
 		_getFileSentListByUserPostIdParameterTypes37 = new Class[] {long.class};
+	private static final Class<?>[]
+		_getFileCorrespondenceReceiptParameterTypes38 = new Class[] {
+			long.class
+		};
 
 }

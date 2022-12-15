@@ -126,6 +126,8 @@
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
 		<column name="active" type="Boolean" />
+		<column name="attachStatus" type="String" />
+		
 
 		<!-- Order -->
 
@@ -244,4 +246,65 @@
 		<reference entity="AssetTag"
 			package-path="com.liferay.portlet.asset" />
 	</entity>
+	<entity name="FileCorr" local-service="true"
+		remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="fileCorrId" primary="true" type="long" />
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="docFileId" type="long" />
+		<column name="receiptId" type="long" />
+		<column name="userPostId" type="long" />
+		<column name="correspondenceType" type="String" />
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- References -->
+
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
+	</entity>
+	<entity name="FileCorrReceipt" local-service="true"
+		remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="fileCorrReceiptId" primary="true" type="long" />
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="docFileId" type="long" />
+		<column name="receiptId" type="long" />
+		<column name="userPostId" type="long" />
+		<column name="correspondenceType" type="String" />
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- References -->
+
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
+	</entity>
+	
 </service-builder>

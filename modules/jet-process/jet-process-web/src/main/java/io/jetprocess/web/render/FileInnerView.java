@@ -36,14 +36,14 @@ public class FileInnerView implements MVCRenderCommand {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 				//System.out.println(docFile.getNature());
 				renderRequest.setAttribute("nature",docFile.getNature() );
+				renderRequest.setAttribute("docFileId",docFileId);
 			} catch (PortalException e) {
 				
 			}
-			
+		
 		return "/file/file-inner-view.jsp";
 	}
-	
-	
+
 	
 
 }

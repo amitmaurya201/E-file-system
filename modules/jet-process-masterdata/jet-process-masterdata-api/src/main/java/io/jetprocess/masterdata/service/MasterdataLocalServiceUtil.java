@@ -250,6 +250,12 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileById(fileCodeId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getFileCorrespondenceReceipt(long fileId) {
+
+		return getService().getFileCorrespondenceReceipt(fileId);
+	}
+
 	public static int getFileCreatedByKeywordCount(
 		long userPostId, String keyword) {
 

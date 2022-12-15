@@ -625,6 +625,21 @@ public interface ReceiptModel
 	 */
 	public void setActive(Boolean active);
 
+	/**
+	 * Returns the attach status of this receipt.
+	 *
+	 * @return the attach status of this receipt
+	 */
+	@AutoEscape
+	public String getAttachStatus();
+
+	/**
+	 * Sets the attach status of this receipt.
+	 *
+	 * @param attachStatus the attach status of this receipt
+	 */
+	public void setAttachStatus(String attachStatus);
+
 	@Override
 	public Receipt cloneWithOriginalValues();
 

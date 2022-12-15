@@ -106,6 +106,8 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"currentState", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Boolean> active = createColumn(
 		"active_", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
+	public final Column<ReceiptTable, String> attachStatus = createColumn(
+		"attachStatus", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private ReceiptTable() {
 		super("JET_PROCESS_Receipt", ReceiptTable::new);

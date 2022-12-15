@@ -87,6 +87,9 @@ public interface MasterdataService extends BaseService {
 	public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

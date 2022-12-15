@@ -234,6 +234,9 @@ public interface MasterdataLocalService
 	public Masterdata getFileById(long fileCodeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getFileCreatedByKeywordCount(long userPostId, String keyword);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

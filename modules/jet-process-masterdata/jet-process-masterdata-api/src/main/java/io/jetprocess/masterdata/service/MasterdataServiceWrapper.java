@@ -105,6 +105,13 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getFileCorrespondenceReceipt(long fileId) {
+
+		return _masterdataService.getFileCorrespondenceReceipt(fileId);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileCreatedListMasterdata(long userPostId) {
 

@@ -1,12 +1,15 @@
 <%@ include file="../init.jsp"%>
 <%
-List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(selectedUserPostId != null ? Long.parseLong(selectedUserPostId) : 1);
+List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(1);
+ long docFileId = (Long)request.getAttribute("docFileId");
+out.print("docFileId-------->"+docFileId);
 %>
 <portlet:actionURL var = "attachReceipt" name="AttachFileCorrespondence">
-<portlet:param name="redirect" value="/file/correspondence-list.jsp"/>
+<portlet:param name="redirect" value="/file/file-inner-view.jsp"/>
 </portlet:actionURL>
 <aui:form action ="${attachReceipt} " method="post" name="attachReceipt">
-
+ <aui:input name="docFileId" value= "${docFileId }" type = "hidden"></aui:input> 
+  <aui:input name="userPostId" value= "1" type = "hidden"></aui:input> 
 	<liferay-ui:search-container total="<%=receiptList.size()%>"
 		delta="5" deltaConfigurable="true"
 		emptyResultsMessage="No Results Found">

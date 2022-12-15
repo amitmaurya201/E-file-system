@@ -80,6 +80,7 @@ public class ReceiptWrapper
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
 		attributes.put("active", getActive());
+		attributes.put("attachStatus", getAttachStatus());
 
 		return attributes;
 	}
@@ -308,6 +309,12 @@ public class ReceiptWrapper
 		if (active != null) {
 			setActive(active);
 		}
+
+		String attachStatus = (String)attributes.get("attachStatus");
+
+		if (attachStatus != null) {
+			setAttachStatus(attachStatus);
+		}
 	}
 
 	@Override
@@ -333,6 +340,16 @@ public class ReceiptWrapper
 	@Override
 	public String getAddress() {
 		return model.getAddress();
+	}
+
+	/**
+	 * Returns the attach status of this receipt.
+	 *
+	 * @return the attach status of this receipt
+	 */
+	@Override
+	public String getAttachStatus() {
+		return model.getAttachStatus();
 	}
 
 	/**
@@ -728,6 +745,16 @@ public class ReceiptWrapper
 	@Override
 	public void setAddress(String address) {
 		model.setAddress(address);
+	}
+
+	/**
+	 * Sets the attach status of this receipt.
+	 *
+	 * @param attachStatus the attach status of this receipt
+	 */
+	@Override
+	public void setAttachStatus(String attachStatus) {
+		model.setAttachStatus(attachStatus);
 	}
 
 	/**

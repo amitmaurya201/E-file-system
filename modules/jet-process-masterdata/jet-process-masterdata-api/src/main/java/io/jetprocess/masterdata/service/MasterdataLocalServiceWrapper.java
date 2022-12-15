@@ -302,6 +302,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getFileCorrespondenceReceipt(long fileId) {
+
+		return _masterdataLocalService.getFileCorrespondenceReceipt(fileId);
+	}
+
+	@Override
 	public int getFileCreatedByKeywordCount(long userPostId, String keyword) {
 		return _masterdataLocalService.getFileCreatedByKeywordCount(
 			userPostId, keyword);

@@ -1673,7 +1673,30 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 	}
 	
 	
-	
+	public List<ReceiptListViewDto> getFileCorrespondenceReceiptList(long fileId){
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getFileCorrespondenceReceiptList");
+			logger.info("Final File Movement List Query : "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(fileId);
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+
 	
 	
 	

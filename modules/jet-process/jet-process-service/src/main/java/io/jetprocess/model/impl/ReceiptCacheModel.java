@@ -61,7 +61,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(75);
+		StringBundler sb = new StringBundler(77);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -137,6 +137,8 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		sb.append(currentState);
 		sb.append(", active=");
 		sb.append(active);
+		sb.append(", attachStatus=");
+		sb.append(attachStatus);
 		sb.append("}");
 
 		return sb.toString();
@@ -311,6 +313,13 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		receiptImpl.setCurrentState(currentState);
 		receiptImpl.setActive(active);
 
+		if (attachStatus == null) {
+			receiptImpl.setAttachStatus("");
+		}
+		else {
+			receiptImpl.setAttachStatus(attachStatus);
+		}
+
 		receiptImpl.resetOriginalValues();
 
 		return receiptImpl;
@@ -372,6 +381,7 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		currentState = objectInput.readInt();
 
 		active = objectInput.readBoolean();
+		attachStatus = objectInput.readUTF();
 	}
 
 	@Override
@@ -538,6 +548,13 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 		objectOutput.writeInt(currentState);
 
 		objectOutput.writeBoolean(active);
+
+		if (attachStatus == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(attachStatus);
+		}
 	}
 
 	public String uuid;
@@ -577,5 +594,6 @@ public class ReceiptCacheModel implements CacheModel<Receipt>, Externalizable {
 	public long currentlyWith;
 	public int currentState;
 	public boolean active;
+	public String attachStatus;
 
 }

@@ -27,6 +27,34 @@ create table JET_PROCESS_DocFile (
 	active_ VARCHAR(75) null
 );
 
+create table JET_PROCESS_FileCorr (
+	uuid_ VARCHAR(75) null,
+	fileCorrId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	docFileId LONG,
+	receiptId LONG,
+	userPostId LONG,
+	correspondenceType VARCHAR(75) null
+);
+
+create table JET_PROCESS_FileCorrReceipt (
+	uuid_ VARCHAR(75) null,
+	fileCorrReceiptId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	docFileId LONG,
+	receiptId LONG,
+	userPostId LONG,
+	correspondenceType VARCHAR(75) null
+);
+
 create table JET_PROCESS_FileMovement (
 	uuid_ VARCHAR(75) null,
 	fmId LONG not null primary key,
@@ -83,7 +111,8 @@ create table JET_PROCESS_Receipt (
 	nature VARCHAR(75) null,
 	currentlyWith LONG,
 	currentState INTEGER,
-	active_ BOOLEAN
+	active_ BOOLEAN,
+	attachStatus VARCHAR(75) null
 );
 
 create table JET_PROCESS_ReceiptMovement (

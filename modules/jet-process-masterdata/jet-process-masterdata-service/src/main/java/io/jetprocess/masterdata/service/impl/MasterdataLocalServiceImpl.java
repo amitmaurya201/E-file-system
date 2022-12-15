@@ -363,7 +363,10 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			return count;			
 			
 		}
-		
+		public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId){
+			return masterdataFinder.getFileCorrespondenceReceiptList(fileId);
+		}
+
 		
 		
 		

@@ -79,6 +79,12 @@ public class MasterdataServiceUtil {
 		return getService().getFileCodeValueByIdMasterdata(fileCodeId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getFileCorrespondenceReceipt(long fileId) {
+
+		return getService().getFileCorrespondenceReceipt(fileId);
+	}
+
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>
 		getFileCreatedListMasterdata(long userPostId) {
 

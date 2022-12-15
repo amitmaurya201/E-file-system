@@ -213,6 +213,10 @@ public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
 		return masterdataLocalService.getFileSentListByUserPostId(userPostId);
 		
 	}
+    public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId){
+		return masterdataFinder.getFileCorrespondenceReceiptList(fileId);
+	}
+
     
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }
