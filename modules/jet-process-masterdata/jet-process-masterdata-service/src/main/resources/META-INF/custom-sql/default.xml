@@ -344,7 +344,7 @@ FROM jet_process_docfile  INNER JOIN
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
 	FROM jet_process_receipt INNER JOIN 
-	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) order by createDate desc ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) AND active_ = true order by createDate desc ;
 
 
 ]]>
