@@ -68,7 +68,7 @@ public class DocFileWrapper
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
-		attributes.put("active", getActive());
+		attributes.put("active", isActive());
 
 		return attributes;
 	}
@@ -225,7 +225,7 @@ public class DocFileWrapper
 			setCurrentState(currentState);
 		}
 
-		String active = (String)attributes.get("active");
+		Boolean active = (Boolean)attributes.get("active");
 
 		if (active != null) {
 			setActive(active);
@@ -243,7 +243,7 @@ public class DocFileWrapper
 	 * @return the active of this doc file
 	 */
 	@Override
-	public String getActive() {
+	public boolean getActive() {
 		return model.getActive();
 	}
 
@@ -517,18 +517,28 @@ public class DocFileWrapper
 		return model.getYear();
 	}
 
+	/**
+	 * Returns <code>true</code> if this doc file is active.
+	 *
+	 * @return <code>true</code> if this doc file is active; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isActive() {
+		return model.isActive();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
 	}
 
 	/**
-	 * Sets the active of this doc file.
+	 * Sets whether this doc file is active.
 	 *
 	 * @param active the active of this doc file
 	 */
 	@Override
-	public void setActive(String active) {
+	public void setActive(boolean active) {
 		model.setActive(active);
 	}
 

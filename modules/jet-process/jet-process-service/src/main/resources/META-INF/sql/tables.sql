@@ -24,7 +24,7 @@ create table JET_PROCESS_DocFile (
 	userPostId LONG,
 	currentlyWith LONG,
 	currentState INTEGER,
-	active_ VARCHAR(75) null
+	active_ BOOLEAN
 );
 
 create table JET_PROCESS_FileCorr (

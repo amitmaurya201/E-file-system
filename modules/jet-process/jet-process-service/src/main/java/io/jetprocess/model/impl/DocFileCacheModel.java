@@ -212,13 +212,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		docFileImpl.setUserPostId(userPostId);
 		docFileImpl.setCurrentlyWith(currentlyWith);
 		docFileImpl.setCurrentState(currentState);
-
-		if (active == null) {
-			docFileImpl.setActive("");
-		}
-		else {
-			docFileImpl.setActive(active);
-		}
+		docFileImpl.setActive(active);
 
 		docFileImpl.resetOriginalValues();
 
@@ -267,7 +261,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		currentlyWith = objectInput.readLong();
 
 		currentState = objectInput.readInt();
-		active = objectInput.readUTF();
+
+		active = objectInput.readBoolean();
 	}
 
 	@Override
@@ -361,12 +356,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 		objectOutput.writeInt(currentState);
 
-		if (active == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(active);
-		}
+		objectOutput.writeBoolean(active);
 	}
 
 	public String uuid;
@@ -394,6 +384,6 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 	public long userPostId;
 	public long currentlyWith;
 	public int currentState;
-	public String active;
+	public boolean active;
 
 }

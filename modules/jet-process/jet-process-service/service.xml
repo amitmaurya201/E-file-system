@@ -43,7 +43,7 @@
 		<column name="userPostId" type="long" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-		<column name="active" type="String" />
+		<column name="active" type="boolean" />
 		<!-- Order -->
 
 		<order by="asc">

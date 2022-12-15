@@ -29,7 +29,7 @@
 		<field name="userPostId" type="long" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
-		<field name="active" type="String" />
+		<field name="active" type="boolean" />
 	</model>
 	<model name="io.jetprocess.model.FileCorr">
 		<field name="uuid" type="String" />
