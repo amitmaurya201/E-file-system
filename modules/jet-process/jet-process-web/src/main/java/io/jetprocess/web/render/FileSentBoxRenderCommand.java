@@ -35,59 +35,50 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
-		/*
-		 * addSendFileListAttributes(renderRequest);
-		 * addSendFileToolbarAttributes(renderRequest, renderResponse);
-		 */
+		addSendFileListAttributes(renderRequest);
+		addSendFileToolbarAttributes(renderRequest, renderResponse);
+
 		return "/file/sent-file-list.jsp";
 	}
 
-	/*
-	 * private void addSendFileListAttributes(RenderRequest renderRequest) {
-	 * ThemeDisplay themeDisplay = (ThemeDisplay)
-	 * renderRequest.getAttribute(WebKeys.THEME_DISPLAY); int currentPage =
-	 * ParamUtil.getInteger(renderRequest,
-	 * SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR); int delta =
-	 * ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
-	 * int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta; int end =
-	 * delta; HttpSession session = themeDisplay.getRequest().getSession(); long
-	 * userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-	 * logger.info("user post id inside render : --" + userPostId); long userPost =
-	 * userPostId; String orderByCol = ParamUtil.getString(renderRequest,
-	 * "orderByCol", "fileMovementId"); String orderByType =
-	 * ParamUtil.getString(renderRequest, "orderByType", "asc"); String keywords =
-	 * ParamUtil.getString(renderRequest, "keywords");
-	 * System.out.println("keywords on create render : " + keywords);
-	 * List<FileMovementDTO> sendFileList =
-	 * masterdataLocalService.getFileSentList(userPost, keywords, start,
-	 * end,orderByCol, orderByType); logger.info("File :=============== " +
-	 * sendFileList.size());
+	private void addSendFileListAttributes(RenderRequest renderRequest) {
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
+				SearchContainer.DEFAULT_CUR);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
+		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
+		int end = delta;
+		HttpSession session = themeDisplay.getRequest().getSession();
+		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+		logger.info("user post id inside render : --" + userPostId);
+		long userPost = userPostId;
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "fileMovementId");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		System.out.println("keywords on create render : " + keywords);
+		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
+				orderByCol, orderByType);
+		logger.info("File :=============== " + sendFileList.size());
+
+		renderRequest.setAttribute("sentFileList", sendFileList);
+		renderRequest.setAttribute("sendFileCount", +masterdataLocalService.getFileSentList(userPostId, keywords));
+		logger.info("File count : " + masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
+	}
+
+	/**
+	 * Adds Clay management toolbar context object to the request.*
 	 * 
-	 * renderRequest.setAttribute("sentFileList", sendFileList);
-	 * renderRequest.setAttribute("sendFileCount",+masterdataLocalService.
-	 * getFileSentList(userPostId, keywords)); logger.info("File count : " +
-	 * masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords)); }
-	 * 
-	 *//**
-		 * Adds Clay management toolbar context object to the request.*
-		 * 
-		 * @param renderRequest
-		 * @param renderResponse
-		 *//*
-			 * private void addSendFileToolbarAttributes(RenderRequest renderRequest,
-			 * RenderResponse renderResponse) { LiferayPortletRequest liferayPortletRequest
-			 * = _portal.getLiferayPortletRequest(renderRequest); LiferayPortletResponse
-			 * liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
-			 * SendFileManagementToolbarDisplayContext
-			 * sendFileManagementToolbarDisplayContext = new
-			 * SendFileManagementToolbarDisplayContext( liferayPortletRequest,
-			 * liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-			 * renderRequest.setAttribute("sendFileManagementToolbarDisplayContext",
-			 * sendFileManagementToolbarDisplayContext);
-			 * 
-			 * }
-			 * 
-			 */
+	 * @param renderRequest
+	 * @param renderResponse
+	 */
+	private void addSendFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
+		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
+		SendFileManagementToolbarDisplayContext sendFileManagementToolbarDisplayContext = new SendFileManagementToolbarDisplayContext(
+				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
+		renderRequest.setAttribute("sendFileManagementToolbarDisplayContext", sendFileManagementToolbarDisplayContext);
+
+	}
 
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference

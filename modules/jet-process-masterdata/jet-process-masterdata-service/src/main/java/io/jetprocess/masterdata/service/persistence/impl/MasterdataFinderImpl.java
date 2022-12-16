@@ -1327,7 +1327,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			String sql="SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ," + 
 					"		null as sendBy," + 
 					"        (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ," + 
-					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid" + 
+					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as currentState , f.docfileid as docFileId" + 
 					"		FROM jet_process_filemovement as fm " + 
 					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
 					"		 left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid " + 
@@ -1375,7 +1375,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			String sql="SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ," + 
 					"		null as sendBy," + 
 					"        (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ," + 
-					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid" + 
+					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as currentState , f.docfileid as docFileId" + 
 					"		FROM jet_process_filemovement as fm " + 
 					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
 					"		 left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid " + 
@@ -1438,7 +1438,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
 					"		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ," + 
 					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
-					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId" + 
+					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId , f.currentstate as currentState , f.docfileid as docFileId"+ 
 					"		FROM jet_process_filemovement as fm " + 
 					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
 					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
@@ -1490,7 +1490,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
 					"		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ," + 
 					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
-					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId" + 
+					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId , f.currentstate as currentState , f.docfileid as docFileId " + 
 					"		FROM jet_process_filemovement as fm " + 
 					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
 					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 

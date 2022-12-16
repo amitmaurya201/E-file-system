@@ -11,10 +11,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
-<liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="mvcPath" value="/file/sent-file-list.jsp" />
-</liferay-portlet:renderURL>
-
 <style>
 .table thead th {
 	border-right: 1px solid white;
@@ -59,21 +55,34 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 
-<%
-List<FileMovementDTO> sentFileList = MasterdataLocalServiceUtil.getFileSentListByUserPostId(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-int count = sentFileList.size();
-%>
 
 
 <div class="col-10">
+
+<clay:management-toolbar
+        disabled="${sendFileCount eq 0}"
+        displayContext="${sendFileManagementToolbarDisplayContext}"
+        itemsTotal="${sendFileCount}"
+        searchContainerId="sendFileListEntries"
+        managementToolbarDisplayContext="${sendFileManagementToolbarDisplayContext}"
+    />
+
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/file/sent-file-list.jsp" />
+</liferay-portlet:renderURL>
+
 		<h1 class=" text-center">SentFileList</h1>
-<liferay-ui:search-container iteratorURL="<%=iteratorURL%>" delta = "4" deltaConfigurable="true" total="<%= count %>">
-<liferay-ui:search-container-results results="<%= sentFileList%>" />
+<liferay-ui:search-container
+		delta="4"
+        emptyResultsMessage="No-Sent-File-List"
+        id="sendFileListEntries"
+        total="${sendFileCount}" iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}" >
+        <liferay-ui:search-container-results results="${sentFileList}" />
+
 	<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
 	<portlet:actionURL var="fileSentActionUrl" name="sentActionUrl">
 	<portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" />
 				</portlet:actionURL>
-				${sentFileListDTO.docFileId}
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderable="true" />
 				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="Subject" />
@@ -85,8 +94,6 @@ int count = sentFileList.size();
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" orderable="true" name="Sent On" orderableProperty="sentOn" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Currently With" />
 				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due On" />
-				<liferay-ui:search-container-column-text property="fileId" cssClass="hover-tips" name="FileId" />
-				
 				<liferay-ui:search-container-column-text name="Action">
 				
 			    	  
@@ -102,7 +109,8 @@ int count = sentFileList.size();
 	</liferay-ui:search-container-row>
 
 	
-	<liferay-ui:search-iterator markupView="lexicon" />
+	 <liferay-ui:search-iterator paginate="false" />
+        <liferay-ui:search-paginator  searchContainer="${searchContainer}" markupView="lexicon" />
 	
 </liferay-ui:search-container>
 </div>
