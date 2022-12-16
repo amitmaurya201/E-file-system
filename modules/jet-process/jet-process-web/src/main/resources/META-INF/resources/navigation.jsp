@@ -97,10 +97,10 @@
 		<portlet:param name="selectedNav" value="receiptInbox" />
 	</portlet:renderURL>
 	<portlet:renderURL var="fileSent">
-		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND %>" />
+		<portlet:param name="mvcRenderCommandName" value="/sentFileList" />
 		<portlet:param name="selectedNav" value="fileSent" />
 	</portlet:renderURL>
-	<portlet:renderURL var="receiptSent">
+	<portlet:renderURL var="receiptSent"> 
 		  <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_SENT_LIST %>" />
 		<portlet:param name="selectedNav" value="receiptSent" />
 	</portlet:renderURL>
