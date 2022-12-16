@@ -358,11 +358,11 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovementsCount();
 	}
 
-	public static ReceiptMovement pullBackByCurrentState(
+	public static ReceiptMovement pullBackReceiptMovement(
 			long receiptId, long receiptMovementId, String remarks)
 		throws PortalException {
 
-		return getService().pullBackByCurrentState(
+		return getService().pullBackReceiptMovement(
 			receiptId, receiptMovementId, remarks);
 	}
 

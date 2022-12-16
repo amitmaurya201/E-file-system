@@ -57,6 +57,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 				receiptLocalService.updateReceipt(receipt);
 				if (Validator.isNotNull(receipt.getCurrentState())) {
 					receipt.setCurrentState(2);
+					receipt.setActive(true);
 					receiptLocalService.updateReceipt(receipt);
 				}
 			} else {
@@ -73,7 +74,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementPersistence.fetchByreceiptId(receiptId);
 	}
 
-	public ReceiptMovement pullBackByCurrentState(long receiptId, long receiptMovementId, String remarks)
+	public ReceiptMovement pullBackReceiptMovement(long receiptId, long receiptMovementId, String remarks)
 			throws PortalException {
 		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
 		Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
