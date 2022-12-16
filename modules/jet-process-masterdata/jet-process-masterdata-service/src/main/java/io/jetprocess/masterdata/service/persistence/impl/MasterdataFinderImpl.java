@@ -1571,7 +1571,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
 					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and r.active_ = true ";
+					"    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null";
 			
 			logger.info("Final Receipt Movement List Query : "+sql);
 			
@@ -1633,7 +1633,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
 					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and r.active_ = true ";
+					"    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {

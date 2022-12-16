@@ -350,11 +350,11 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ,
 		null as sentBy,
 		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ,
-		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , null as pullBackRemark
+		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark
 		FROM jet_process_receiptmovement as rm 
 		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
 		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid
-	where rm.senderid = ? and r.active_ = true  order by rm.rmid desc ;
+	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null order by rm.rmid desc ;
 ]]>
 </sql>
 
@@ -406,12 +406,12 @@ SELECT
     rm.receivedon as receiveOn,	
     r.nature as nature,
 	r.receiptid as receiptId,
-	null as pullBackRemark
+	pullBackRemark
 	FROM jet_process_receiptmovement as rm 
 	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
 	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid
 	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
-    where rm.receiverid = ? and r.active_ = true order by rm.createdate desc ; 
+    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null order by rm.createdate desc ; 
 ]]>
 </sql>
 
