@@ -51,7 +51,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="fileNumber" property="fileNumber" orderable="true" />
+					name="label-file-list-fileno" property="fileNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="hover-tips"
 					name="subject" />
@@ -67,7 +67,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 					 name="label-file-list-createon"  />
 
 				<liferay-ui:search-container-column-text property="remark" orderable="true"
-					name="remark" />
+					name="label-file-list-remark" />
 
 
 			</liferay-ui:search-container-row>
