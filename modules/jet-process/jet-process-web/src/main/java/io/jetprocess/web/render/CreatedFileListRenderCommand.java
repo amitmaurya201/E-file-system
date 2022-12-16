@@ -32,7 +32,7 @@ import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.VIEW_FILELIST,
+		"mvc.command.name=" + MVCCommandNames.VIEW_FILELIST
 
 }, service = MVCRenderCommand.class)
 public class CreatedFileListRenderCommand implements MVCRenderCommand {

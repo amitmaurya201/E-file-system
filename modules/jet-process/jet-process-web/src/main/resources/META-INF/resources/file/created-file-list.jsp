@@ -45,7 +45,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
 				</portlet:renderURL> --%>
 				<portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/FileInnerViewDetails" />
+					<portlet:param name="mvcRenderCommandName" value="/EditedView" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
 				</portlet:renderURL>
 

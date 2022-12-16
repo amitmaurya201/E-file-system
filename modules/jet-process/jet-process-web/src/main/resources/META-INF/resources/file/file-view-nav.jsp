@@ -45,6 +45,10 @@
     <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND %>"/>
 	<portlet:param name="docFileId" value="<%=docFileId %>"/>
 </portlet:renderURL>
+<portlet:renderURL var="putinfile">
+    <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND %>"/>
+	<portlet:param name="docFileId" value="<%=docFileId %>"/>
+</portlet:renderURL>
 <portlet:renderURL var="sendback">
     <portlet:param name="mvcPath" value="/file/sendback.jsp"/>
 </portlet:renderURL>
@@ -98,6 +102,9 @@
       </li>
       <li class="nav-item border">
         <a id="send" class="nav-link" href="<%= send %>">Send</a>
+      </li>
+      <li class="nav-item border">
+        <a id="putinfile" class="nav-link" href="<%= putinfile %>">Put in a file</a>
       </li>
       <li class="nav-item border">
         <a id="sendback" class="nav-link" href="<%= sendback %>">Send Back</a>

@@ -10,7 +10,7 @@
 	<div class="col-10 border border-dark">
 		<liferay-util:include page="/file/file-view-nav.jsp"
 			servletContext="<%=application%>">
-			<liferay-util:param name="selectedNav" value="details" />
+			<liferay-util:param name="selectedNav" value="putinfile" />
 		</liferay-util:include>
 		<div class="container">
 			<div class="row ">	
