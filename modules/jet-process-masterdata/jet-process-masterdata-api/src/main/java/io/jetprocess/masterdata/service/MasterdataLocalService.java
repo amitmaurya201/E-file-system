@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
@@ -234,7 +235,8 @@ public interface MasterdataLocalService
 	public Masterdata getFileById(long fileCodeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId);
+	public List<FileCorrespondenceReceiptDTO>
+		getFileCorrespondenceReceipteDetail(long fileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getFileCreatedByKeywordCount(long userPostId, String keyword);

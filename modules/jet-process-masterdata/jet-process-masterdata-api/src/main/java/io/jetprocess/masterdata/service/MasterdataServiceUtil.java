@@ -79,10 +79,11 @@ public class MasterdataServiceUtil {
 		return getService().getFileCodeValueByIdMasterdata(fileCodeId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getFileCorrespondenceReceipt(long fileId) {
+	public static List
+		<io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO>
+			getFileCorrespondenceReceipteDetail(long fileId) {
 
-		return getService().getFileCorrespondenceReceipt(fileId);
+		return getService().getFileCorrespondenceReceipteDetail(fileId);
 	}
 
 	public static List<io.jetprocess.masterdata.model.FileListViewDto>

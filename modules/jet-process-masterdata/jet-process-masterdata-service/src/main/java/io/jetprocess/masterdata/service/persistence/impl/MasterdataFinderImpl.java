@@ -15,6 +15,7 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.GenericModelMapper;
@@ -1672,8 +1673,20 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		return null;
 	}
 	
-	
-	public List<ReceiptListViewDto> getFileCorrespondenceReceiptList(long fileId){
+	/*
+	 * public List<ReceiptListViewDto> getFileCorrespondenceReceiptList(long
+	 * fileId){ Session session = null; try { session = openSession(); String sql =
+	 * customSQL.get(getClass(), "getFileCorrespondenceReceiptList");
+	 * logger.info("Final File Movement List Query : "+sql); SQLQuery sqlQuery =
+	 * session.createSQLQuery(sql); sqlQuery.setCacheable(false); QueryPos queryPos
+	 * = QueryPos.getInstance(sqlQuery); queryPos.add(fileId); return
+	 * GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+	 * 
+	 * } catch (Exception e) { try { throw new SystemException(e); } catch
+	 * (SystemException se) { se.printStackTrace(); } } finally {
+	 * closeSession(session); } return null; }
+	 */
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceiptDetails(long fileId){
 		Session session = null;
 		try {
 			session = openSession();
@@ -1683,7 +1696,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(fileId);
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+			return  GenericModelMapper.map(FileCorrespondenceReceiptDTO.class, sqlQuery.list());
 			
 		} catch (Exception e) {
 			try {

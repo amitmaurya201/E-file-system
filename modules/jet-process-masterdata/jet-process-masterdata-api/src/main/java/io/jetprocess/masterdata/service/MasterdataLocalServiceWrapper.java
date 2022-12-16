@@ -302,10 +302,12 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getFileCorrespondenceReceipt(long fileId) {
+	public java.util.List
+		<io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO>
+			getFileCorrespondenceReceipteDetail(long fileId) {
 
-		return _masterdataLocalService.getFileCorrespondenceReceipt(fileId);
+		return _masterdataLocalService.getFileCorrespondenceReceipteDetail(
+			fileId);
 	}
 
 	@Override

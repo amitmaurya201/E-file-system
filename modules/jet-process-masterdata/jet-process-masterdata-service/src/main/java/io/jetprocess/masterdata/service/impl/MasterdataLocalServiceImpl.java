@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
+import io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
@@ -133,246 +134,247 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getTertiaryHeadById(tertiaryHeadId);
 	}
 
-	public List<FileListViewDto> getFileList(long userPostId){
-		
+	public List<FileListViewDto> getFileList(long userPostId) {
+
 		return masterdataFinder.getFileCreatedList(userPostId);
 	}
 
-
 	public List<ReceiptListViewDto> getReceiptList(long userPostId) {
 
-		
-		return masterdataFinder.getReceiptCreatedList(userPostId) ;
+		return masterdataFinder.getReceiptCreatedList(userPostId);
 	}
-	 public int getFileListCount(long userPostId) {
-	        
-		    System.out.println(userPostId);
-			
-			return masterdataFinder.getFileCreatedListCount(userPostId);
-		}
-	   public int getReceiptListCount(long userPostId) {
-	          
-			
-			return masterdataFinder.getReceiptCreatedListCount(userPostId);
-		}
-	   public Masterdata getFileById(long fileCodeId) {
-		   
-		   return masterdataFinder.getFileCodeValueById(fileCodeId);
-	   }
-	   public Masterdata getCategoryById(long categoryId) {
-		   
-		   return masterdataFinder.getCategoryValueById(categoryId);
-		   
-	   }
 
-	   public Masterdata getSubCategoryById(long subCategoryId) {
-		   
-		   return masterdataFinder.getSubCategoryValueById(subCategoryId);
-	   }
-	   public Masterdata getTypeById(long typeId) {
-		   
-		   return masterdataFinder.getTypeValueById(typeId);
-	   }
-	   public Masterdata getDeliveryModeById(long deliveryModeId) {
-		   
-		   return masterdataFinder.getDeliveryModeValueById(deliveryModeId);
-	   }
-	   public Masterdata getOrganizationById(long organizationId) {
-		   
-		   return masterdataFinder.getOrganizationValueById(organizationId);
-	   }
-	   public Masterdata getSubOrganizationById(long subOrganizationId) {
-		   
-		   return masterdataFinder.getSubOrganizationValueById(subOrganizationId);
-	   }
-	   public Masterdata getCountryById(long countryId) {
-		   
-		   return masterdataFinder.getCountryValueById(countryId);
-	   }
-	   public Masterdata getStateById(long stateId) {
-		   
-		   return masterdataFinder.getStateValueById(stateId);
-		   
-	   }
-	   public Masterdata getReceiptCategoryById(long receiptCategoryId) {
-		   
-		   return masterdataFinder.getReceiptCategoryValueById(receiptCategoryId);
-	   }
-	   public Masterdata getReceiptSubCategoryById(long receiptSubCategoryId) {
-		   
-		   return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
-	   }
-	public List<FileMovementDTO> getFileInboxList(long userPostId){
-			
-			return masterdataFinder.getFileInboxList(userPostId);
-		}
-	   
-	   
-	   public List<FileListViewDto> getFileCreatedListSearchedData(long userPostId , String data){
-	    	
-	    	return masterdataFinder.getFileCreatedListSearch(userPostId, data);
-	    }
-	   public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(long userPostId , String data){
-	    	
-	    	return masterdataFinder.getReceiptCreatedListSearch(userPostId, data);
-	    } 
-	   
-	   
-	   public List<FileListViewDto> getFileCreatedListSearchedData1(long userPostId , String keyword , int start , int end , String orderBy , String order  ){
-	    	
-	    	return masterdataFinder.getFileCreatedListSearch1(userPostId, keyword , start , end , orderBy , order );
-	   }
-	    
-	   
-	   public List<FileListViewDto> getFileCreatedByKeywords( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order ) {
-			
-			
-			return getFileCreatedListSearchedData1( userPostId ,keyword  , start , end , orderBy , order );
-			
-			
-		}
+	public int getFileListCount(long userPostId) {
 
-		public int getFileCreatedByKeywordCount(long userPostId  , String keyword) {
-			
-		List<FileListViewDto> fileList =null; 
-			
-		if(keyword != null && !keyword.isEmpty()) {
-				fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword);
-			}else {
-				fileList = getFileList(userPostId);
-			}
-			int count = fileList.size();
-			
-			return count;
-		}
-		
-		
-		public List<ReceiptListViewDto> getReceiptBySearchKeywords( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
-			
-			return masterdataFinder.getReceiptListSearch(userPostId ,keyword  , start , end , orderBy , order );
-		}
-		
-		public int getReceiptBySearchKeywordsCount( long userPostId  , String keyword){
-			
-			List<ReceiptListViewDto> receiptList =null; 
-			
-			if(keyword != null && !keyword.isEmpty()) {
-				receiptList = masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword);
-				receiptList.forEach(c->System.out.println("Key : -"+c.getCategory()));
-			}else {
-				receiptList = getReceiptList(userPostId);
-				receiptList.forEach(c->System.out.println(": - "+c.getCategory()));
-			}
-			int count = receiptList.size();
-			logger.info("total file number inside service : "+count);
-			return receiptList.size();
-		}
-		
+		System.out.println(userPostId);
 
-		@Override
-		public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
-			return masterdataFinder.getReceiptInboxList(userPostId) ;
-		}
+		return masterdataFinder.getFileCreatedListCount(userPostId);
+	}
 
+	public int getReceiptListCount(long userPostId) {
 
-		public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
-			return masterdataFinder.getReceiptSentListByFinder(userPostId) ;
-		}
-		
-		public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId) {
-			return masterdataFinder.getReceiptMovementListByReceiptId(receiptId);
-		}
+		return masterdataFinder.getReceiptCreatedListCount(userPostId);
+	}
 
-		public  List<FileMovementDTO> getFileMovementListByFileId(long fileId){
-			return masterdataFinder.getFileMovementListByFileId(fileId);
-		}
-		
-		// filesent list method 
-		public  List<FileMovementDTO> getFileSentListByUserPostId(long userPostId){
-			return masterdataFinder.getFileSentList(userPostId);
-		}
-		
-		
-		// -------------- Start ------------------ 
-		
-		
-		public int getFileSentList( long userPostId  , String keyword){
-			
-			List<FileMovementDTO> receiptList =null; 
-			
-			if(keyword != null && !keyword.isEmpty()) {
-				receiptList = masterdataFinder.getFileSentList(userPostId, keyword);
-			}else {
-				receiptList = getFileSentListByUserPostId(userPostId);
-			}
-			int count = receiptList.size();
-			logger.info("total file number inside service : "+count);
-			return receiptList.size();
-		}
-		
-		
-		public List<FileMovementDTO> getFileSentList( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
-			
-			return masterdataFinder.getFileSentList(userPostId ,keyword  , start , end , orderBy , order );
-		}
-		
-		
-		public List<FileMovementDTO> getFileInboxList(long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
-			
-			
-			return masterdataFinder.getFileInboxList(userPostId ,keyword  , start , end , orderBy , order );
-		}
-		
-		public int  getFileInboxList( long userPostId  , String keyword){
-			
-			
-			List<FileMovementDTO> receiptList =null; 
-			
-			if(keyword != null && !keyword.isEmpty()) {
-				receiptList = masterdataFinder.getFileInboxList(userPostId, keyword);
-			}else {
-				receiptList = getFileInboxList(userPostId);
-			}
-			int count = receiptList.size();
-			logger.info("total file number inside service : "+count);
+	public Masterdata getFileById(long fileCodeId) {
 
-			return count;			
-		}
-		
-		
-		public List<ReceiptMovementDTO> getReceiptInboxList( long userPostId  , String keyword,  int start, int end , String orderBy ,  String order){
-			
-			return masterdataFinder.getReceiptInboxList(userPostId ,keyword  , start , end , orderBy , order );
-			
-		}
-		
-		
-		
-		public int  getReceiptInboxList( long userPostId  , String keyword){
-			
-			List<ReceiptMovementDTO> receiptList =null; 
-			
-			if(keyword != null && !keyword.isEmpty()) {
-				receiptList = masterdataFinder.getReceiptInboxList(userPostId, keyword);
-			}else {
-				receiptList = getReceiptInboxList(userPostId);
-			}
-			int count = receiptList.size();
-			logger.info("total file number inside service : "+count);
+		return masterdataFinder.getFileCodeValueById(fileCodeId);
+	}
 
-			return count;			
-			
-		}
-		public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId){
-			return masterdataFinder.getFileCorrespondenceReceiptList(fileId);
-		}
+	public Masterdata getCategoryById(long categoryId) {
 
-		
-		
-		
-		
-		// ---------------- End ----------------- 
-	
-		private Log logger = LogFactoryUtil.getLog(this.getClass());
-	   
+		return masterdataFinder.getCategoryValueById(categoryId);
+
+	}
+
+	public Masterdata getSubCategoryById(long subCategoryId) {
+
+		return masterdataFinder.getSubCategoryValueById(subCategoryId);
+	}
+
+	public Masterdata getTypeById(long typeId) {
+
+		return masterdataFinder.getTypeValueById(typeId);
+	}
+
+	public Masterdata getDeliveryModeById(long deliveryModeId) {
+
+		return masterdataFinder.getDeliveryModeValueById(deliveryModeId);
+	}
+
+	public Masterdata getOrganizationById(long organizationId) {
+
+		return masterdataFinder.getOrganizationValueById(organizationId);
+	}
+
+	public Masterdata getSubOrganizationById(long subOrganizationId) {
+
+		return masterdataFinder.getSubOrganizationValueById(subOrganizationId);
+	}
+
+	public Masterdata getCountryById(long countryId) {
+
+		return masterdataFinder.getCountryValueById(countryId);
+	}
+
+	public Masterdata getStateById(long stateId) {
+
+		return masterdataFinder.getStateValueById(stateId);
+
+	}
+
+	public Masterdata getReceiptCategoryById(long receiptCategoryId) {
+
+		return masterdataFinder.getReceiptCategoryValueById(receiptCategoryId);
+	}
+
+	public Masterdata getReceiptSubCategoryById(long receiptSubCategoryId) {
+
+		return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
+	}
+
+	public List<FileMovementDTO> getFileInboxList(long userPostId) {
+
+		return masterdataFinder.getFileInboxList(userPostId);
+	}
+
+	public List<FileListViewDto> getFileCreatedListSearchedData(long userPostId, String data) {
+
+		return masterdataFinder.getFileCreatedListSearch(userPostId, data);
+	}
+
+	public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(long userPostId, String data) {
+
+		return masterdataFinder.getReceiptCreatedListSearch(userPostId, data);
+	}
+
+	public List<FileListViewDto> getFileCreatedListSearchedData1(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+		return masterdataFinder.getFileCreatedListSearch1(userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public List<FileListViewDto> getFileCreatedByKeywords(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+		return getFileCreatedListSearchedData1(userPostId, keyword, start, end, orderBy, order);
+
+	}
+
+	public int getFileCreatedByKeywordCount(long userPostId, String keyword) {
+
+		List<FileListViewDto> fileList = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword);
+		} else {
+			fileList = getFileList(userPostId);
+		}
+		int count = fileList.size();
+
+		return count;
+	}
+
+	public List<ReceiptListViewDto> getReceiptBySearchKeywords(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+		return masterdataFinder.getReceiptListSearch(userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public int getReceiptBySearchKeywordsCount(long userPostId, String keyword) {
+
+		List<ReceiptListViewDto> receiptList = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			receiptList = masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword);
+			receiptList.forEach(c -> System.out.println("Key : -" + c.getCategory()));
+		} else {
+			receiptList = getReceiptList(userPostId);
+			receiptList.forEach(c -> System.out.println(": - " + c.getCategory()));
+		}
+		int count = receiptList.size();
+		logger.info("total file number inside service : " + count);
+		return receiptList.size();
+	}
+
+	@Override
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
+		return masterdataFinder.getReceiptInboxList(userPostId);
+	}
+
+	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
+		return masterdataFinder.getReceiptSentListByFinder(userPostId);
+	}
+
+	public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId) {
+		return masterdataFinder.getReceiptMovementListByReceiptId(receiptId);
+	}
+
+	public List<FileMovementDTO> getFileMovementListByFileId(long fileId) {
+		return masterdataFinder.getFileMovementListByFileId(fileId);
+	}
+
+	// filesent list method
+	public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId) {
+		return masterdataFinder.getFileSentList(userPostId);
+	}
+
+	// -------------- Start ------------------
+
+	public int getFileSentList(long userPostId, String keyword) {
+
+		List<FileMovementDTO> receiptList = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			receiptList = masterdataFinder.getFileSentList(userPostId, keyword);
+		} else {
+			receiptList = getFileSentListByUserPostId(userPostId);
+		}
+		int count = receiptList.size();
+		logger.info("total file number inside service : " + count);
+		return receiptList.size();
+	}
+
+	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return masterdataFinder.getFileSentList(userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword, int start, int end, String orderBy,
+			String order) {
+
+		return masterdataFinder.getFileInboxList(userPostId, keyword, start, end, orderBy, order);
+	}
+
+	public int getFileInboxList(long userPostId, String keyword) {
+
+		List<FileMovementDTO> receiptList = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			receiptList = masterdataFinder.getFileInboxList(userPostId, keyword);
+		} else {
+			receiptList = getFileInboxList(userPostId);
+		}
+		int count = receiptList.size();
+		logger.info("total file number inside service : " + count);
+
+		return count;
+	}
+
+	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+		return masterdataFinder.getReceiptInboxList(userPostId, keyword, start, end, orderBy, order);
+
+	}
+
+	public int getReceiptInboxList(long userPostId, String keyword) {
+
+		List<ReceiptMovementDTO> receiptList = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			receiptList = masterdataFinder.getReceiptInboxList(userPostId, keyword);
+		} else {
+			receiptList = getReceiptInboxList(userPostId);
+		}
+		int count = receiptList.size();
+		logger.info("total file number inside service : " + count);
+
+		return count;
+
+	}
+
+	/*
+	 * public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId) {
+	 * return masterdataFinder.getFileCorrespondenceReceiptList(fileId); }
+	 */
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceipteDetail(long fileId) {
+		return masterdataFinder.getFileCorrespondenceReceiptDetails(fileId);
+	}
+
+	// ---------------- End -----------------
+
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
+
 }
