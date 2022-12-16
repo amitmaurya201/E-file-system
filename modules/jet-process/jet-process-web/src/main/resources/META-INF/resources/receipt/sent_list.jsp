@@ -64,9 +64,18 @@
 			List<ReceiptMovementDTO> receiptMovementList = MasterdataLocalServiceUtil
 					.getReceiptSentList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
 			int count = receiptMovementList.size();
+
+		
+
 			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
 			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
+
+
+
+
+
+
 		<liferay-ui:search-container total="<%=count%>" delta="2"
 			iteratorURL="<%=iteratorURL%>" cssClass="text-align: center;">
 			<liferay-ui:search-container-results
@@ -76,10 +85,6 @@
 				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
 				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
-				<portlet:actionURL var="receiptSentActionURL"
-					name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>" />
-					<%-- <portlet:param name="receiptId" value="${receiptSentMovement.receiptId}" />
-				</portlet:actionURL> --%>
 				<%
 					String nature = receiptSentMovement.getNature();
 							char currentNature = nature.charAt(0);
@@ -108,7 +113,8 @@
 						test="${(empty receiptSentMovement.getReadOn()) and (empty receiptSentMovement.getReceivedOn())}">
 
 						<button type="button" class="btn" data-bs-toggle="modal"
-							data-bs-target="#myModal" onclick="openModal(${receiptSentMovement.getReceiptId()})">
+							data-bs-target="#myModal"
+							onclick="openModal(${ receiptSentMovement.getReceiptMovementId()} , <%=receiptSentMovement.getReceiptId() %>)">
 							<i class="icon-indent-left"></i>
 						</button>
 					</c:if>
@@ -119,7 +125,8 @@
 	</div>
 </div>
 
-
+<portlet:actionURL var="receiptSentActionURL"
+			name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>"/>
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -138,7 +145,10 @@
 			<!-- Modal body -->
 			<div class="modal-body">
 				<aui:form action="${ receiptSentActionURL}">
-					<input type="text" name="<portlet:namespace />receiptId" id="receiptId" readOnly>
+					<input type="text" name="<portlet:namespace />rmId" id="rmId"
+						hidden>
+					<input type="text" name="<portlet:namespace />receiptId"
+						id="receiptId" hidden>
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-receipt-remark" /><span
 							class='text-danger'>*</span></label>
@@ -168,10 +178,11 @@
 </div>
 
 <script type="text/javascript">
-function openModal(receiptId){
-	alert(receiptId);
-document.getElementById("receiptId").value=receiptId;
-	$("#submit_pull_back").success(function() {
+function openModal(receiptMovementId , receiptId){
+	alert(receiptMovementId);
+	document.getElementById("rmId").value=receiptMovementId;
+	document.getElementById("receiptId").value=receiptId; 
+	$("#submit_pull_back").click(function() {
 		$("#myModal").modal("hide");
 		var rem = $("#<portlet:namespace />remarks").val();
 		

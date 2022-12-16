@@ -79,7 +79,7 @@ public class ReceiptWrapper
 		attributes.put("nature", getNature());
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
-		attributes.put("active", getActive());
+		attributes.put("active", isActive());
 		attributes.put("attachStatus", getAttachStatus());
 
 		return attributes;
@@ -328,7 +328,7 @@ public class ReceiptWrapper
 	 * @return the active of this receipt
 	 */
 	@Override
-	public Boolean getActive() {
+	public boolean getActive() {
 		return model.getActive();
 	}
 
@@ -722,18 +722,28 @@ public class ReceiptWrapper
 		return model.getViewPdfUrl();
 	}
 
+	/**
+	 * Returns <code>true</code> if this receipt is active.
+	 *
+	 * @return <code>true</code> if this receipt is active; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isActive() {
+		return model.isActive();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
 	}
 
 	/**
-	 * Sets the active of this receipt.
+	 * Sets whether this receipt is active.
 	 *
 	 * @param active the active of this receipt
 	 */
 	@Override
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		model.setActive(active);
 	}
 

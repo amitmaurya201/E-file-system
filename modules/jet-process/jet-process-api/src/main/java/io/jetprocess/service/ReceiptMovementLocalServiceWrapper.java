@@ -400,6 +400,15 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.model.ReceiptMovement pullBackByCurrentState(
+			long receiptId, long receiptMovementId, String remarks)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptMovementLocalService.pullBackByCurrentState(
+			receiptId, receiptMovementId, remarks);
+	}
+
+	@Override
 	public void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,
 		String dueDate, String remark) {

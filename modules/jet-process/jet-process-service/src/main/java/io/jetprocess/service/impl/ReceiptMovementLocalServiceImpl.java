@@ -19,7 +19,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
@@ -71,30 +73,44 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementPersistence.fetchByreceiptId(receiptId);
 	}
 
-	/*
-	 * public boolean pullBackByCurrentState(long movementId, long receiptId) throws
-	 * PortalException {
-	 * 
-	 * ReceiptMovement receiptMovement = getReceiptMovement(movementId);
-	 * 
-	 * List<ReceiptMovementDTO> receiptMovementList=
-	 * masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
-	 * 
-	 * for (ReceiptMovementDTO receiptMovementDTO : receiptMovementList) {
-	 * receiptMovement = receiptMovementDTO ;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * return true;
-	 * 
-	 * }
-	 */
+	public ReceiptMovement pullBackByCurrentState(long receiptId, long receiptMovementId , String remarks) throws PortalException {
+		System.out.println("--=-=-==-=-=-=-=-==      pullBackByCurrentState");
+
+		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
+
+		System.out.println("--=-=-==-=-=-=-=-==      " + receiptMovement);
+
+		Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+
+		System.out.println("--=-=-==-=-=-receiptId=-=-==      " + receipt);
+
+		List<ReceiptMovementDTO> receiptMovementList = masterdataLocalService
+				.getReceiptMovementListByReceiptId(receiptId);
+
+		for (ReceiptMovementDTO receiptMovementDTO : receiptMovementList) {
+			System.out.println("--=-=-==-=-=-=-=-==      " + receiptMovement);
+			if (receiptMovement.getRmId() == receiptMovementDTO.getReceiptMovementId()) {
+				System.out.println("-=-   " + receiptMovementDTO.getSentOn());
+				System.out.println("-=-   " + receipt.getCreateDate());
+//			if(receiptMovementDTO.getSentOn() <= receipt.getCreateDate())
+				receipt.setCurrentState(FileStatus.CREADTED);
+				/* receiptMovement.set */
+			}
+		}
+//		receipt =receiptLocalService.updateReceipt(receipt);
+//		return receipt;
+
+//		if (receiptMovement.getReceiptId() == receiptId) {
+			receiptMovement.setPullBackRemark(remarks);
+			receiptMovement = receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+			return receiptMovement;
+			
+
+	}
 
 	@Reference
 	ReceiptLocalService receiptLocalService;
-	
+
 	@Reference
 	MasterdataLocalService masterdataLocalService;
 

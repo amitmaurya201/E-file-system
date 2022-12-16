@@ -358,6 +358,14 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovementsCount();
 	}
 
+	public static ReceiptMovement pullBackByCurrentState(
+			long receiptId, long receiptMovementId, String remarks)
+		throws PortalException {
+
+		return getService().pullBackByCurrentState(
+			receiptId, receiptMovementId, remarks);
+	}
+
 	public static void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,
 		String dueDate, String remark) {

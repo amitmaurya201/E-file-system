@@ -314,6 +314,10 @@ public interface ReceiptMovementLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getReceiptMovementsCount();
 
+	public ReceiptMovement pullBackByCurrentState(
+			long receiptId, long receiptMovementId, String remarks)
+		throws PortalException;
+
 	public void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,
 		String dueDate, String remark);

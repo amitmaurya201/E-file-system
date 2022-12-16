@@ -1131,12 +1131,18 @@ public class ReceiptModelImpl
 
 	@JSON
 	@Override
-	public Boolean getActive() {
+	public boolean getActive() {
+		return _active;
+	}
+
+	@JSON
+	@Override
+	public boolean isActive() {
 		return _active;
 	}
 
 	@Override
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -1262,7 +1268,7 @@ public class ReceiptModelImpl
 		receiptImpl.setNature(getNature());
 		receiptImpl.setCurrentlyWith(getCurrentlyWith());
 		receiptImpl.setCurrentState(getCurrentState());
-		receiptImpl.setActive(getActive());
+		receiptImpl.setActive(isActive());
 		receiptImpl.setAttachStatus(getAttachStatus());
 
 		receiptImpl.resetOriginalValues();
@@ -1611,11 +1617,7 @@ public class ReceiptModelImpl
 
 		receiptCacheModel.currentState = getCurrentState();
 
-		Boolean active = getActive();
-
-		if (active != null) {
-			receiptCacheModel.active = active;
-		}
+		receiptCacheModel.active = isActive();
 
 		receiptCacheModel.attachStatus = getAttachStatus();
 
@@ -1754,7 +1756,7 @@ public class ReceiptModelImpl
 	private String _nature;
 	private long _currentlyWith;
 	private int _currentState;
-	private Boolean _active;
+	private boolean _active;
 	private String _attachStatus;
 
 	public <T> T getColumnValue(String columnName) {
