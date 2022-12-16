@@ -446,5 +446,13 @@ SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
 ]]>
 </sql>
 
+<sql id="getFileCorrespondenceReceiptList">
+<![CDATA[
+SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, r.createDate, r.remarks  as remark , null as viewpdfurl,
+	r.nature, fc.correspondenceType as correspondenceType FROM jet_process_receipt r INNER JOIN 
+jet_process_filecorr as fc  ON r.receiptid = fc.receiptid where fc.docfileid = ? order by createDate desc  ;
+     
+]]>
+</sql>
 
 </custom-sql>
