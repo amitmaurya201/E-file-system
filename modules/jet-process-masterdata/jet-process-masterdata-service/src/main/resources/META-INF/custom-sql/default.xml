@@ -337,7 +337,7 @@ FROM jet_process_docfile  INNER JOIN
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl
 	FROM jet_process_receipt INNER JOIN 
-	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?) AND active_ = true order by createDate desc ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND (CONCAT(receiptnumber ,subject, categoryvalue) LIKE ?)  order by createDate desc ;
 
 
 ]]>
@@ -350,11 +350,11 @@ SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subj
 SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ,
 		null as sentBy,
 		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ,
-		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid 
+		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , null as pullBackRemark
 		FROM jet_process_receiptmovement as rm 
 		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
 		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid
-	where rm.senderid = ? and r.active_ = true order by rm.rmid desc ;
+	where rm.senderid = ? and r.active_ = true  order by rm.rmid desc ;
 ]]>
 </sql>
 
@@ -365,12 +365,12 @@ SELECT
 	null as receiptnumber ,null as subject , null as sender ,
 	(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) as Sent_By ,
 	(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as Sent_To,
-	rm.createdate as Sent_On, null as readOn , null as duedate , remark as remark, null as receivedOn, null as nature, 0 as receiptId
+	rm.createdate as Sent_On, null as readOn , null as duedate , remark as remark, null as receivedOn, null as nature, 0 as receiptId , rm.pullBackRemark
 	FROM jet_process_receiptmovement as rm 
 	left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
 	left outer JOIN masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-	where rm.receiptid = ? and r.active_ = true
+	where rm.receiptid = ? 
 ]]>
 </sql>
 
@@ -405,7 +405,8 @@ SELECT
     rm.remark AS remark,	
     rm.receivedon as receiveOn,	
     r.nature as nature,
-	r.receiptid as receiptId
+	r.receiptid as receiptId,
+	null as pullBackRemark
 	FROM jet_process_receiptmovement as rm 
 	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
 	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid

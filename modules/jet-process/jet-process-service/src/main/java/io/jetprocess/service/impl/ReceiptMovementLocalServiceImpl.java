@@ -73,38 +73,23 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementPersistence.fetchByreceiptId(receiptId);
 	}
 
-	public ReceiptMovement pullBackByCurrentState(long receiptId, long receiptMovementId , String remarks) throws PortalException {
-		System.out.println("--=-=-==-=-=-=-=-==      pullBackByCurrentState");
-
+	public ReceiptMovement pullBackByCurrentState(long receiptId, long receiptMovementId, String remarks)
+			throws PortalException {
 		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
-
-		System.out.println("--=-=-==-=-=-=-=-==      " + receiptMovement);
-
 		Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
-
-		System.out.println("--=-=-==-=-=-receiptId=-=-==      " + receipt);
-
 		List<ReceiptMovementDTO> receiptMovementList = masterdataLocalService
 				.getReceiptMovementListByReceiptId(receiptId);
-
 		for (ReceiptMovementDTO receiptMovementDTO : receiptMovementList) {
-			System.out.println("--=-=-==-=-=-=-=-==      " + receiptMovement);
 			if (receiptMovement.getRmId() == receiptMovementDTO.getReceiptMovementId()) {
-				System.out.println("-=-   " + receiptMovementDTO.getSentOn());
-				System.out.println("-=-   " + receipt.getCreateDate());
-//			if(receiptMovementDTO.getSentOn() <= receipt.getCreateDate())
 				receipt.setCurrentState(FileStatus.CREADTED);
-				/* receiptMovement.set */
+				receipt.setActive(false);
+				receiptLocalService.updateReceipt(receipt);
 			}
 		}
-//		receipt =receiptLocalService.updateReceipt(receipt);
-//		return receipt;
+		receiptMovement.setPullBackRemark(remarks);
+		receiptMovementLocalService.updateReceiptMovement(receiptMovement);
 
-//		if (receiptMovement.getReceiptId() == receiptId) {
-			receiptMovement.setPullBackRemark(remarks);
-			receiptMovement = receiptMovementLocalService.updateReceiptMovement(receiptMovement);
-			return receiptMovement;
-			
+		return receiptMovement;
 
 	}
 
