@@ -17,6 +17,7 @@ public class ReceiptMovementDTO {
 	private String receivedOn;
 	private String nature;
 	private long receiptId;
+	private String pullBackRemark;
 
 	public ReceiptMovementDTO() {
 		super();
@@ -127,9 +128,17 @@ public class ReceiptMovementDTO {
 		this.receiptId = receiptId;
 	}
 
+	public String getPullBackRemark() {
+		return pullBackRemark;
+	}
+
+	public void setPullBackRemark(String pullBackRemark) {
+		this.pullBackRemark = pullBackRemark;
+	}
+
 	public ReceiptMovementDTO(long receiptMovementId, String receiptNumber, String subject, String sender,
 			String sentBy, String sentTo, Date sentOn, String readOn, String dueDate, String remark, String receivedOn,
-			String nature, long receiptId) {
+			String nature, long receiptId, String pullBackRemark) {
 		super();
 		this.receiptMovementId = receiptMovementId;
 		this.receiptNumber = receiptNumber;
@@ -144,6 +153,7 @@ public class ReceiptMovementDTO {
 		this.receivedOn = receivedOn;
 		this.nature = nature;
 		this.receiptId = receiptId;
+		this.pullBackRemark = pullBackRemark;
 	}
 
 	@Override
@@ -151,8 +161,8 @@ public class ReceiptMovementDTO {
 		return "ReceiptMovementDTO [receiptMovementId=" + receiptMovementId + ", receiptNumber=" + receiptNumber
 				+ ", subject=" + subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo
 				+ ", sentOn=" + sentOn + ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark
-				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", receiptId=" + receiptId + "]";
+				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", receiptId=" + receiptId + ", pullBackRemark="
+				+ pullBackRemark + "]";
 	}
 
-	
 }

@@ -19,7 +19,7 @@ import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-"mvc.command.name=/FileInnerViewDetails" }, service = MVCRenderCommand.class)
+"mvc.command.name=/PutInFile" }, service = MVCRenderCommand.class)
 public class FileInnerView implements MVCRenderCommand {
 	@Reference
 	private MasterdataLocalService masterdataLocalService;

@@ -29,6 +29,7 @@
 						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentBy() != null ? receiptMovementDTO.getSentBy() : ""%>"  name="label-sent-by"/>
 						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentTo() != null ? receiptMovementDTO.getSentTo() : ""%>"  name="label-sent-to"/>
 						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"  name="label-remarks"/>
+						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getPullBackRemark() != null ? receiptMovementDTO.getPullBackRemark() : ""%>"  name="label-pullback-remark"/>
 					</liferay-ui:search-container-row>
 					<liferay-ui:search-iterator markupView="lexicon" />
 				</liferay-ui:search-container>

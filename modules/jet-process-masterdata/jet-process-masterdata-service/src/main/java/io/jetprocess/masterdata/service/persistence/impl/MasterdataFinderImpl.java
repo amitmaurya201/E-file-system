@@ -1565,7 +1565,8 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.remark AS remark,	" + 
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
-					"	r.receiptid as receiptId" + 
+					"	r.receiptid as receiptId," + 
+					"    null as pullBackRemark " +
 					"	FROM jet_process_receiptmovement as rm " + 
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
@@ -1626,7 +1627,8 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.remark AS remark,	" + 
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
-					"	r.receiptid as receiptId" + 
+					"	r.receiptid as receiptId," + 
+					"    null as pullBackRemark " +
 					"	FROM jet_process_receiptmovement as rm " + 
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
@@ -1672,20 +1674,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
-	
-	/*
-	 * public List<ReceiptListViewDto> getFileCorrespondenceReceiptList(long
-	 * fileId){ Session session = null; try { session = openSession(); String sql =
-	 * customSQL.get(getClass(), "getFileCorrespondenceReceiptList");
-	 * logger.info("Final File Movement List Query : "+sql); SQLQuery sqlQuery =
-	 * session.createSQLQuery(sql); sqlQuery.setCacheable(false); QueryPos queryPos
-	 * = QueryPos.getInstance(sqlQuery); queryPos.add(fileId); return
-	 * GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-	 * 
-	 * } catch (Exception e) { try { throw new SystemException(e); } catch
-	 * (SystemException se) { se.printStackTrace(); } } finally {
-	 * closeSession(session); } return null; }
-	 */
+
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceiptDetails(long fileId){
 		Session session = null;
 		try {
@@ -1709,18 +1698,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
-
-	
-	
-	
-	
-	
-	
-
-
-// ------------
-
-
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	
