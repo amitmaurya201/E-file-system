@@ -85,7 +85,6 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		    System.out.println("currentState [--->"+docFile.getCurrentState());
 		    if(docFile.getCurrentState() == 2) {
 		    	docFile.setCurrentState(1);
-		    	docFile.setActive(true);
 		    	docFileLocalService.updateDocFile(docFile);
 		    	System.out.println("updated Code"+docFileLocalService.updateDocFile(docFile));
 					
