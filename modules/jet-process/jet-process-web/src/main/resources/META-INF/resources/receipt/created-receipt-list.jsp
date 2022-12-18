@@ -39,7 +39,7 @@
 	</div>
 	<div class="col-10">
 
-	<h1 class="text-center">Created File List</h1>
+	<h1 class="text-center">Created Receipt List</h1>
 		<clay:management-toolbar
         disabled="${receiptCount eq 0}"
         displayContext="${receiptManagementToolbarDisplayContext}"
