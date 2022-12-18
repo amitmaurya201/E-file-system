@@ -11,6 +11,7 @@ public class FileListViewDto {
 	private String category;
 	private String remark;
 	private Date createDate;
+	
 	public String getFileNumber() {
 		return fileNumber;
 	}

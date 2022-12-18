@@ -82,17 +82,20 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("fileNumber".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "fileNumber");
+					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber", "File number"));
+				});
+				
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "subject"));
 				});
 
-				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "remarks");
-					dropdownItem.setLabel(LanguageUtil.get(request, "remarks", "remarks"));
-				});
+				
 			}
 		};
 	}

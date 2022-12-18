@@ -59,6 +59,8 @@
 
 <div class="col-10">
 
+		<h1 class=" text-center">Sent File List</h1>
+
 <clay:management-toolbar
         disabled="${sendFileCount eq 0}"
         displayContext="${sendFileManagementToolbarDisplayContext}"
@@ -67,13 +69,9 @@
         managementToolbarDisplayContext="${sendFileManagementToolbarDisplayContext}"
     />
 
-<liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="mvcPath" value="/file/sent-file-list.jsp" />
-</liferay-portlet:renderURL>
 
-		<h1 class=" text-center">SentFileList</h1>
 <liferay-ui:search-container
-		delta="4"
+		delta="${delta }"
         emptyResultsMessage="No-Sent-File-List"
         id="sendFileListEntries"
         total="${sendFileCount}" iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}" >
@@ -84,14 +82,14 @@
 	<portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" />
 				</portlet:actionURL>
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderable="true" />
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="Subject" />
+		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderableProperty="fileNumber" orderable="true" />
+				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" orderable="true" orderableProperty="subject" name="Subject" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Sent To" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 	                simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
-				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" orderable="true" name="Sent On" orderableProperty="sentOn" />
+				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" property="sentOn" name="Sent On"  />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Currently With" />
 				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due On" />
 				<liferay-ui:search-container-column-text name="Action">

@@ -63,7 +63,7 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		logger.info("user post id inside receipt render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
-		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
 		renderRequest.setAttribute("receiptFileList", receiptList);

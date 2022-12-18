@@ -64,8 +64,8 @@
 		    />
 			
 		<liferay-ui:search-container
-		delta="4"
-        emptyResultsMessage="No-RECEIPT-INBOX"
+		delta="${delta }"
+        emptyResultsMessage="no record found"
         id="assignmentEntries"
         total="${inboxReceiptCount}" iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}"
         >
@@ -101,8 +101,8 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" orderable="true"  cssClass="bold"
-								name="receiptNumber" />
+							<liferay-ui:search-container-column-text property="receiptNumber" orderableProperty="receiptNumber" orderable="true"  cssClass="bold"
+								name="Receipt number" />
 
 							<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="bold"
 								name="subject" />

@@ -59,7 +59,7 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 
 	public String getOrderByCol() {
 
-		return ParamUtil.getString(request, "orderByCol", "subject");
+		return ParamUtil.getString(request, "orderByCol", "createDate");
 	}
 
 	/**
@@ -106,22 +106,20 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("receiptNumber".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
+					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt number"));
+				});
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "subject"));
 				});
 
-				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "");
-					dropdownItem.setLabel(LanguageUtil.get(request, "remarks", "remarks"));
-				});
-				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "category");
-					dropdownItem.setLabel(LanguageUtil.get(request, "category", "category"));
-				});
+				
+				
 			}
 		};
 	}

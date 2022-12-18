@@ -29,7 +29,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.SendFileManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=/sentFileList" }, service = MVCRenderCommand.class)
+		"mvc.command.name="+MVCCommandNames.FILE_SENT_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class FileSentBoxRenderCommand implements MVCRenderCommand {
 
 	@Override
@@ -52,8 +52,8 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "fileMovementId");
-		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
 		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
@@ -62,6 +62,7 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 
 		renderRequest.setAttribute("sentFileList", sendFileList);
 		renderRequest.setAttribute("sendFileCount", +masterdataLocalService.getFileSentList(userPostId, keywords));
+		renderRequest.setAttribute("delta",delta);
 		logger.info("File count : " + masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
 	}
 

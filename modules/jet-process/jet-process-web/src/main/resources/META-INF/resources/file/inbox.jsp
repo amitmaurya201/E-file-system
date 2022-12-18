@@ -85,12 +85,11 @@ font-weight: bold;
         displayContext="${fileInboxManagementToolbarDisplayContext}"
         itemsTotal="${fileInboxCount}"
         searchContainerId="FileInboxEntries"
-        managementToolbarDisplayContext="${fileInboxManagementToolbarDisplayContext}"
     />
 		
 		<liferay-ui:search-container
-		delta="4"
-        emptyResultsMessage="No-File-List"
+		delta="${delta}"
+        emptyResultsMessage="No record found"
         id="FileInboxEntries"
         total="${fileInboxCount}" iteratorURL="${fileInboxManagementToolbarDisplayContext._getCurrentURL()}"
         >
@@ -126,9 +125,9 @@ font-weight: bold;
 								<%=fileinboxDtoList.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 							
-							<liferay-ui:search-container-column-text orderable="true"  property="fileNumber"
-								name="fileNumber" cssClass="bold"/>
-							<liferay-ui:search-container-column-text orderable="true"  property="subject"
+							<liferay-ui:search-container-column-text orderable="true" orderableProperty="fileNumber" property="fileNumber"
+								name="File number" cssClass="bold"/>
+							<liferay-ui:search-container-column-text orderable="true" orderableProperty="subject"  property="subject"
 								name="subject" cssClass="bold"/>
 							<liferay-ui:search-container-column-text name="Sent By"
 							cssClass="hover-tips bold">
@@ -182,10 +181,10 @@ font-weight: bold;
 							<%=fileinboxDtoList.getNature().charAt(0)%>
 						</liferay-ui:search-container-column-text>						
 						
-							<liferay-ui:search-container-column-text href="<%=fileInnerView %>" property="fileNumber"
-							name="File No." />
-						<liferay-ui:search-container-column-text property="subject"
-							name="Subject" />
+							<liferay-ui:search-container-column-text href="<%=fileInnerView %>" orderableProperty="fileNumber" orderable="true" property="fileNumber"
+								name="File number" />
+						<liferay-ui:search-container-column-text orderable="true" orderableProperty="subject"  property="subject"
+								name="subject" />
 							<liferay-ui:search-container-column-text name="Sent By"
 						cssClass="hover-tips">
 						<%

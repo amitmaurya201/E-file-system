@@ -18,13 +18,12 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 	</div>
 	<div class="col-10">
 	
-	
+	<h1 class="text-center">File Created List</h1>
 <clay:management-toolbar
         disabled="${fileCount eq 0}"
         displayContext="${fileManagementToolbarDisplayContext}"
         itemsTotal="${fileCount}"
         searchContainerId="assignmentEntries"
-        managementToolbarDisplayContext="${fileManagementToolbarDisplayContext}"
     />
 
 <liferay-ui:search-container
@@ -51,7 +50,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="fileNumber" property="fileNumber" orderable="true" />
+					name="label-file-list-fileno" property="fileNumber" orderableProperty="fileNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="hover-tips"
 					name="subject" />

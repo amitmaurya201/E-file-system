@@ -1389,7 +1389,14 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			}
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
-				sql = sql + " order by "+orderBy;
+				
+				if(orderBy.equals("createdate")) {
+					sql = sql + " order by "+"fm."+orderBy;
+					}
+				else {
+					sql = sql + " order by "+"f."+orderBy;
+					}
+				
 				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
@@ -1505,10 +1512,17 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			}
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
-				sql = sql + " order by "+orderBy;
+				
+				if(orderBy.equals("receivedon")) {
+					sql = sql + " order by "+"fm."+orderBy;
+					}
+				else {
+					sql = sql + " order by "+"f."+orderBy;
+					}
 				sql = sql + " "+order;
+				
 				System.out.println("order by ---"+orderBy);			
-			}
+			}	
 
 			
 			sql = sql + " offset "+ start + " limit "+ end;
@@ -1545,7 +1559,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		Session session = null;
 		try {
 			session = openSession();
-//			String sql = customSQL.get(getClass(), "getSentFileList");
 			
 			
 			
@@ -1564,17 +1577,17 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
 					"	r.receiptid as receiptId," + 
-					"    null as pullBackRemark " +
+					"	pullBackRemark" + 
 					"	FROM jet_process_receiptmovement as rm " + 
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
 					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null";
+					"    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null ";
 			
 			logger.info("Final Receipt Movement List Query : "+sql);
 			
 			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				sql = sql+" AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
 			}
 				
 				
@@ -1626,23 +1639,28 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
 					"	r.receiptid as receiptId," + 
-					"    rm.pullBackRemark as pullBackRemark " +
+					"	pullBackRemark" + 
 					"	FROM jet_process_receiptmovement as rm " + 
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
 					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and r.active_ = true";
+					"    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null ";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
 
 				
-				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				sql = sql+" "+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
 				
 			}
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
-				sql = sql + " order by "+"r."+orderBy;
+				if(orderBy.equals("createdate")) {
+					sql = sql + " order by "+"rm."+orderBy;
+					}
+				else {
+					sql = sql + " order by "+"r."+orderBy;
+					}
 				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
@@ -1693,12 +1711,12 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		FROM jet_process_receiptmovement as rm " + 
 					"		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
 					"		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
-					"	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null";
+					"	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null ";
 			
 			logger.info("Final File Movement List Query : "+sql);
 			
 			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				sql = sql+" AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
 			}
 				
 				
@@ -1742,14 +1760,14 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		FROM jet_process_receiptmovement as rm " + 
 					"		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
 					"		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
-					"	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null";
+					"	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null ";
 		
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
 
 				
-				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				sql = sql+" AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
 				
 			}
 			

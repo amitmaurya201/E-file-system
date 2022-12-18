@@ -68,7 +68,7 @@
 </head>
 <body id="side-nav">
 	<portlet:renderURL var="view">
-		<portlet:param name="mvcRenderCommandName" value="/home" />
+		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_FILELIST %>" />
 		<portlet:param name="selectedNav" value="home" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createFile">
@@ -97,7 +97,7 @@
 		<portlet:param name="selectedNav" value="receiptInbox" />
 	</portlet:renderURL>
 	<portlet:renderURL var="fileSent">
-		<portlet:param name="mvcRenderCommandName" value="/sentFileList" />
+		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_SENT_RENDER_COMMAND %>" />
 		<portlet:param name="selectedNav" value="fileSent" />
 	</portlet:renderURL>
 	<portlet:renderURL var="receiptSent"> 

@@ -72,8 +72,8 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		logger.info("File :=============== " + receiptInboxList.size());
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
 		int count=masterdataLocalService.getReceiptInboxList(userPost, keywords);
-		
 		renderRequest.setAttribute("inboxReceiptCount",count);
+		renderRequest.setAttribute("delta",delta);
 		logger.info("File count : " + masterdataLocalService.getReceiptInboxList(userPost, keywords));
 	}
 

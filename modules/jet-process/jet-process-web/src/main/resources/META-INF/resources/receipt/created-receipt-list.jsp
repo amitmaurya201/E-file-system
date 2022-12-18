@@ -69,10 +69,10 @@
 
 				<liferay-ui:search-container-column-text
 					href="<%=receiptInnerView%>" property="receiptNumber"
-					name="label-receipt-list-receiptno"  />
+					name="label-receipt-list-receiptno" orderableProperty="receiptNumber" orderable="true"  />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					property="subject" name="label-receipt-list-subject" orderable="true" />
+					property="subject" name="label-receipt-list-subject" orderableProperty="subject" orderable="true" />
 
 				<liferay-ui:search-container-column-text property="category"
 					cssClass="hover-tips" name="label-receipt-list-category" />

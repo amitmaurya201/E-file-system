@@ -104,7 +104,7 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 				add(dropdownItem -> {
 					dropdownItem.setActive("remarks".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
-					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "receiptNumber"));
+					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt number"));
 				});
 				
 			
