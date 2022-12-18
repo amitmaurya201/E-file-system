@@ -66,6 +66,7 @@
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
 				</portlet:renderURL>
 
+	<liferay-ui:search-container-column-text name=""  ><%= receipt.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text
 					href="<%=receiptInnerView%>" property="receiptNumber"

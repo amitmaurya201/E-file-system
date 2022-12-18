@@ -1054,7 +1054,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 	
-			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature" + 
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature " + 
 					"			FROM jet_process_receipt INNER JOIN" + 
 					"			md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1";
 			
@@ -1155,7 +1155,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl," + 
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature " + 
 					"	nature FROM jet_process_receipt INNER JOIN " + 
 					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 ";
 			if(!keyword.isEmpty() && keyword != null ) {
