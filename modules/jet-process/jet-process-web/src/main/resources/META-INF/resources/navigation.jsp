@@ -15,6 +15,7 @@
 	margin-right: -12px !important;
 } */
 
+
 .side-nav {
 	padding: 5px;
 	position: sticky;
