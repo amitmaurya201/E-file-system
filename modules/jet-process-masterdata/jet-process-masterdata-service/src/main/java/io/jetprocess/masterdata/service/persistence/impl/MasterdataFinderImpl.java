@@ -1004,7 +1004,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		try {
 			session = openSession();
 			
-			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
+			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn  ,  nature " + 
 					"FROM jet_process_docfile  INNER JOIN " + 
 					"md_category  ON categorydataid = categoryid where userpostid = ? And currentstate = 1";
 			
@@ -1023,6 +1023,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
+			logger.info("List Binded------------1");
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
 			if(!keyword.isEmpty() && keyword != null) {
@@ -1109,7 +1110,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			//String sql = customSQL.get(getClass(), "getFileCreatedListData");
 			
-			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn " + 
+			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn ,  nature " + 
 					"FROM jet_process_docfile  INNER JOIN " + 
 					"md_category  ON categorydataid = categoryid where userpostid = ?  AND  currentstate = 1";
 			
@@ -1122,6 +1123,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
+			logger.info("List Binded------------2");
+
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
 			if(!keyword.isEmpty() && keyword != null) {

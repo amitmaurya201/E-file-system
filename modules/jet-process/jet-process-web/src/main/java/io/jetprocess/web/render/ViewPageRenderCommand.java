@@ -29,7 +29,7 @@ public class ViewPageRenderCommand implements MVCRenderCommand{
 		@Override
 		public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 			System.out.println("view/home page --called");
-			return "/view.jsp";
+			return "/file/created-file-list.jsp";
 		}
 
 		

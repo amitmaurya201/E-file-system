@@ -48,6 +48,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
 				</portlet:renderURL>
 
+	<liferay-ui:search-container-column-text name=""  ><%= filedto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
 					name="label-file-list-fileno" property="fileNumber" orderableProperty="fileNumber" orderable="true" />

@@ -64,6 +64,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("size of File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
+		logger.info("List------------"+ fileList );
 		int count=masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount",count);

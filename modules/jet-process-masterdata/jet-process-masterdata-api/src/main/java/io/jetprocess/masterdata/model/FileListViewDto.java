@@ -11,7 +11,13 @@ public class FileListViewDto {
 	private String category;
 	private String remark;
 	private Date createDate;
-	
+	private String nature;
+	public long getDocFileId() {
+		return docFileId;
+	}
+	public void setDocFileId(long docFileId) {
+		this.docFileId = docFileId;
+	}
 	public String getFileNumber() {
 		return fileNumber;
 	}
@@ -42,14 +48,14 @@ public class FileListViewDto {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public long getDocFileId() {
-		return docFileId;
+	public String getNature() {
+		return nature;
 	}
-	public void setDocFileId(long docFileId) {
-		this.docFileId = docFileId;
+	public void setNature(String nature) {
+		this.nature = nature;
 	}
 	public FileListViewDto(long docFileId, String fileNumber, String subject, String category, String remark,
-			Date createDate) {
+			Date createDate, String nature) {
 		super();
 		this.docFileId = docFileId;
 		this.fileNumber = fileNumber;
@@ -57,9 +63,12 @@ public class FileListViewDto {
 		this.category = category;
 		this.remark = remark;
 		this.createDate = createDate;
+		this.nature = nature;
 	}
-	
-	
+	public FileListViewDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }
