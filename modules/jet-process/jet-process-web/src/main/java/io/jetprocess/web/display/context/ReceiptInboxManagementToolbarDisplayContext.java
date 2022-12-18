@@ -107,12 +107,7 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "receiptNumber"));
 				});
 				
-				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueDate");
-					dropdownItem.setLabel(LanguageUtil.get(request, "remarks", "remarks"));
-				});
-				
+			
 			}
 		};
 	}

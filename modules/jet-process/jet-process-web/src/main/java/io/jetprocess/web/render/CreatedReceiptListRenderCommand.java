@@ -44,7 +44,6 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("created-recipt-list.jsp -- called");
-		logger.info("created-recipt-list.jsp -- called");
 		addAssignmentListAttributes(renderRequest);
 		addManagementToolbarAttributes(renderRequest, renderResponse);
 			
@@ -56,7 +55,7 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 	private void addAssignmentListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,2);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
@@ -68,6 +67,7 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
 		renderRequest.setAttribute("receiptFileList", receiptList);
+		renderRequest.setAttribute("delta",delta);
 		renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 		
 		logger.info("count number: -  "+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));

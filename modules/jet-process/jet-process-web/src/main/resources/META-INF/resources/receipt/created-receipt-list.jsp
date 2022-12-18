@@ -48,7 +48,7 @@
     />
 
 		<liferay-ui:search-container
-		delta="2"
+		delta="${delta }"
         emptyResultsMessage="no-Receipt-List"
         id="recieptId"
         total="${receiptCount}"

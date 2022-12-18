@@ -267,10 +267,8 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 		if (keyword != null && !keyword.isEmpty()) {
 			receiptList = masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword);
-			receiptList.forEach(c -> System.out.println("Key : -" + c.getCategory()));
 		} else {
 			receiptList = getReceiptList(userPostId);
-			receiptList.forEach(c -> System.out.println(": - " + c.getCategory()));
 		}
 		int count = receiptList.size();
 		logger.info("total file number inside service : " + count);
@@ -364,6 +362,34 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return count;
 
 	}
+	
+	
+	
+	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+		
+		return masterdataFinder.getReceiptSendList(userPostId, keyword, start, end, orderBy, order);
+
+	}
+
+	public int getReceiptSendList(long userPostId, String keyword) {
+
+		List<ReceiptMovementDTO> receiptList = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			receiptList = masterdataFinder.getReceiptSendList(userPostId, keyword);
+		} else {
+			receiptList = getReceiptSentList(userPostId);
+		}
+		int count = receiptList.size();
+		logger.info("total file number inside service : " + count);
+
+		return count;
+
+	}
+	
+	
+	
 
 	/*
 	 * public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId) {

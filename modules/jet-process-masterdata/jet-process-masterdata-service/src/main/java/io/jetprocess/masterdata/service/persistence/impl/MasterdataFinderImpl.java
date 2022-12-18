@@ -1015,7 +1015,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				sql = sql + " DESC";
+				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1067,7 +1067,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				sql = sql + " DESC";
+				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1152,10 +1152,9 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		Session session = null;
 		try {
 			session = openSession();
-			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature" + 
-					"	FROM jet_process_receipt INNER JOIN " + 
-					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? " + 
-					"";
+			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl," + 
+					"	nature FROM jet_process_receipt INNER JOIN " + 
+					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 ";
 			if(!keyword.isEmpty() && keyword != null ) {
 				sql = sql+"AND (receiptnumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
@@ -1391,7 +1390,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				sql = sql + " DESC";
+				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1430,7 +1429,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		Session session = null;
 		try {
 			session = openSession();
-//			String sql = customSQL.get(getClass(), "getSentFileList");
 			
 			
 			
@@ -1508,7 +1506,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
-				sql = sql + " DESC";
+				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1628,12 +1626,12 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
 					"	r.receiptid as receiptId," + 
-					"    null as pullBackRemark " +
+					"    rm.pullBackRemark as pullBackRemark " +
 					"	FROM jet_process_receiptmovement as rm " + 
 					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
 					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null";
+					"    where rm.receiverid = ? and r.active_ = true";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
@@ -1645,7 +1643,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+"r."+orderBy;
-				sql = sql + " DESC";
+				sql = sql + " "+order;
 				System.out.println("order by ---"+orderBy);			
 			}
 
@@ -1674,6 +1672,129 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword){
+		Session session = null;
+		try {
+			session = openSession();
+//			String sql = customSQL.get(getClass(), "getSentFileList");
+			
+			
+			
+			String sql="SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ," + 
+					"		null as sentBy," + 
+					"		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ," + 
+					"		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark" + 
+					"		FROM jet_process_receiptmovement as rm " + 
+					"		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
+					"		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
+					"	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null";
+			
+			logger.info("Final File Movement List Query : "+sql);
+			
+			if(!keyword.isEmpty() && keyword != null ) {
+				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+			}
+				
+				
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
+
+		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
+		Session session = null;
+		try {
+			session = openSession();
+			
+			String sql="SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ," + 
+					"		null as sentBy," + 
+					"		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ," + 
+					"		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark" + 
+					"		FROM jet_process_receiptmovement as rm " + 
+					"		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
+					"		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
+					"	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null";
+		
+			
+		
+			if(!keyword.isEmpty() && keyword != null ) {
+
+				
+				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				
+			}
+			
+			if(orderBy!=null && !orderBy.isEmpty()) {
+
+				if(orderBy.equals("createdate")) {
+					sql = sql + " order by "+"rm."+orderBy;
+					}
+				else {
+					sql = sql + " order by "+"r."+orderBy;
+					}
+				sql = sql + " "+order;
+				System.out.println("order by ---"+orderBy);			
+			}
+
+			
+			sql = sql + " offset "+ start + " limit "+ end;
+			System.out.println("final query--Receipt: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+	
+			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceiptDetails(long fileId){
 		Session session = null;

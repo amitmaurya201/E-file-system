@@ -189,10 +189,21 @@ SELECT  docfileid, filenumber as filenumber , subject as subject , categoryvalue
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl,
 	nature FROM jet_process_receipt INNER JOIN 
-	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 AND attachStatus= '' order by createDate desc  ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1  order by createDate desc  ;
 ]]>
 
 </sql>
+
+<!-- <sql id="receiptCreatedListQuery">
+<![CDATA[
+
+
+SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl,
+	nature FROM jet_process_receipt INNER JOIN 
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 AND attachStatus= '' order by createDate desc  ;
+]]>
+
+</sql> -->
 
 <sql id="fileListCount">
 <![CDATA[
@@ -386,7 +397,7 @@ SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subje
 		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		left outer JOIN masterdata_userpost as up2
 		ON fm.receiverid = up2.userpostid 
-	where f.userpostid = ? order by fm.createdate desc ; 
+	where f.userpostid = ?  order by fm.createdate desc ; 
 ]]>
 </sql>
 

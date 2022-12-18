@@ -47,11 +47,6 @@
 	<portlet:param name="mvcPath" value="/receipt/inbox.jsp" />
 </liferay-portlet:renderURL>
 
-<%
-	List<ReceiptMovementDTO> receiptInboxList = MasterdataLocalServiceUtil
-			.getReceiptInboxList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-	int count = receiptInboxList.size();
-%>
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -106,11 +101,11 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" cssClass="bold"
-								name="Receipt No." />
+							<liferay-ui:search-container-column-text property="receiptNumber" orderable="true"  cssClass="bold"
+								name="receiptNumber" />
 
-							<liferay-ui:search-container-column-text property="subject" cssClass="bold"
-								name="Subject" />
+							<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="bold"
+								name="subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil

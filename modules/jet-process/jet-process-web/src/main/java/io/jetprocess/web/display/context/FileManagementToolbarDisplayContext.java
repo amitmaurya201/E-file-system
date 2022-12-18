@@ -55,7 +55,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	 */
 	public String getOrderByCol() {
 
-		return ParamUtil.getString(request, "orderByCol", "subject");
+		return ParamUtil.getString(request, "orderByCol", "fileNumber");
 	}
 
 	/**
@@ -99,9 +99,9 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 				});
 
 				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "remarks");
-					dropdownItem.setLabel(LanguageUtil.get(request, "remarks", "remarks"));
+					dropdownItem.setActive("fileNumber".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "fileNumber");
+					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber", "fileNumber"));
 				});
 			}
 		};

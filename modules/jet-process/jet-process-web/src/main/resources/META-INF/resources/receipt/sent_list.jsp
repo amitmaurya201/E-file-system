@@ -3,6 +3,7 @@
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -60,49 +61,42 @@
 			<liferay-ui:message key="label-receipt-sent-heading" />
 		</h1>
 
-		<%
-			List<ReceiptMovementDTO> receiptMovementList = MasterdataLocalServiceUtil
-					.getReceiptSentList(selectedUserPostId != null ? Integer.parseInt(selectedUserPostId) : 1);
-			int count = receiptMovementList.size();
+		<clay:management-toolbar
+		        disabled="${receiptCount eq 0}"
+		        displayContext="${sendReceiptManagementToolbarDisplayContext}"
+		        itemsTotal="${receiptCount}"
+		        searchContainerId="receiptSendEntries"
+		        managementToolbarDisplayContext="${sendReceiptManagementToolbarDisplayContext}"
+		    />
 
-		
-
-			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
-			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-		%>
-
-
-
-
-
-
-		<liferay-ui:search-container total="<%=count%>" delta="2"
-			iteratorURL="<%=iteratorURL%>" cssClass="text-align: center;">
-			<liferay-ui:search-container-results
-				results="<%= receiptMovementList%>" />
+		<liferay-ui:search-container
+		delta="${delta }"
+        emptyResultsMessage="no record found"
+        id="receiptSendEntries"
+        total="${receiptCount}" iteratorURL="${sendReceiptManagementToolbarDisplayContext._getCurrentURL()}"
+        >
+        <liferay-ui:search-container-results results="${receiptList}" />
 
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
 				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
-				<%
-					String nature = receiptSentMovement.getNature();
-							char currentNature = nature.charAt(0);
-				%>
-				<liferay-ui:search-container-column-text
-					name="label-receipt-sent-nature"
-					value="<%=Character.toString(currentNature)%>" />
+				
+				<c:set var = "firstLetterOfNature" value = "${ receiptSentMovement.nature}" />
+				<c:set var = "nature" value = "${fn:substring(firstLetterOfNature, 0, 1)}" />
+				<liferay-ui:search-container-column-text name="label-receipt-sent-nature" value="${nature }" />
 				<liferay-ui:search-container-column-text property="receiptNumber"
-					name="label-receipt-sent-receipt-number" />
+					name="receiptNumber" orderable="true" />
 				<liferay-ui:search-container-column-text property="subject"
-					name="label-receipt-sent-subject" />
+					name="subject" orderable="true" />
 				<liferay-ui:search-container-column-text property="sender"
 					name="label-receipt-sent-sender" />
 				<liferay-ui:search-container-column-text property="sentTo"
 					cssClass="hover-tips" name="label-receipt-sent-sent-to" />
 				<liferay-ui:search-container-column-text
-					name="label-receipt-sent-sent-on"
-					value="<%=simpleformat.format(receiptSentMovement.getSentOn())%>" />
+					name="label-receipt-sent-sent-on" >
+					<fmt:formatDate type = "both" pattern= "dd-MM-yy hh:mm aa" timeZone = "Asia/Calcutta" value = "${receiptSentMovement.sentOn}" />
+					</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="dueDate"
 					name="label-receipt-sent-due-date" />
 				<liferay-ui:search-container-column-text property="remark"
@@ -110,17 +104,18 @@
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-action">
 					<c:if
-						test="${(empty receiptSentMovement.getReadOn()) and (empty receiptSentMovement.getReceivedOn())}">
+						test="${(empty receiptSentMovement.readOn) and (empty receiptSentMovement.receivedOn)}">
 
 						<button type="button" class="btn" data-bs-toggle="modal"
 							data-bs-target="#myModal"
-							onclick="openModal(${ receiptSentMovement.getReceiptMovementId()} , <%=receiptSentMovement.getReceiptId() %>)">
+							onclick="openModal(${ receiptSentMovement.receiptMovementId} , ${receiptSentMovement.receiptId})">
 							<i class="icon-indent-left"></i>
 						</button>
 					</c:if>
 				</liferay-ui:search-container-column-text>
 			</liferay-ui:search-container-row>
-			<liferay-ui:search-iterator markupView="lexicon" />
+			<liferay-ui:search-iterator paginate="false" />
+        <liferay-ui:search-paginator searchContainer="<%=new SearchContainer() %>" markupView="lexicon" />
 		</liferay-ui:search-container>
 	</div>
 </div>

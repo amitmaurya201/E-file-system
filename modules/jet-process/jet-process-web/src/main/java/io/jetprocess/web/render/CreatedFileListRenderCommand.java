@@ -40,19 +40,15 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
-		logger.info("View Render...");
+		logger.info("File list Render...");
 		addFileListAttributes(renderRequest);
 		addFileToolbarAttributes(renderRequest, renderResponse);
 		return "/file/created-file-list.jsp";
 	}
 
-	/***
-	 * 
-	 * Adds File list related attributes to the request.**
-	 * 
-	 * @param renderRequest
-	 */
+	
 	private void addFileListAttributes(RenderRequest renderRequest) {
+		
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
@@ -63,24 +59,18 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
-		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		System.out.println("keywords on create render : " + keywords);
 		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
-		logger.info("File :=============== " + fileList.size());
+		logger.info("size of File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
 		int count=masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
-		
+		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount",count);
-		logger.info("File count : " + masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
+		System.out.println("orderByType  --> "+orderByType+" ,orderByCol---> "+orderByCol);
 	}
 
-	/**
-	 * Adds Clay management toolbar context object to the request.*
-	 * 
-	 * @param renderRequest
-	 * @param renderResponse
-	 */
+	
 	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
