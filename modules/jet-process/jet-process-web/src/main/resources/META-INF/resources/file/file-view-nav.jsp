@@ -40,11 +40,13 @@
 </portlet:renderURL>
 <portlet:renderURL var="edit">
     <portlet:param name="mvcPath" value="/file/edit-file.jsp"/>
+    <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="send">
     <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND %>"/>
 	<portlet:param name="docFileId" value="<%=docFileId %>"/>
 </portlet:renderURL>
+
 <portlet:renderURL var="putinfile">
     <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND %>"/>
 	<portlet:param name="docFileId" value="<%=docFileId %>"/>
