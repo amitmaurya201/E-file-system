@@ -40,13 +40,14 @@
   padding-top: 7px;
 }
 
-.receipt .border .heading .icon {
+.receipt .border .heading .view_icon {
   margin-right: -20px;
 }
 
 .receipt .button {
   margin: auto 40%;
 }
+
 .hover-tips{
 	white-space: nowrap;
     overflow: hidden;
@@ -62,12 +63,12 @@
      	background: #96b4d6 !important;
      	font-size:18px;
      	color:black;
-     }
+}
 	
 .receipt_view .heading {
   background-color: gainsboro;
-  
 }
+
 .receipt_view th {
   background-color: gainsboro;
   width:140px;
@@ -75,12 +76,23 @@
   vertical-align: top;
   padding-left: 3px;
 }
+
 .receipt_view td {
   font-size:14px;  
   padding-left: 5px !important;
-    text-overflow: ellipsis;
-    max-width: 30ch;
+  text-overflow: ellipsis;
+  max-width: 30ch;
 }
+
+.receipt_view .line_height{ 
+ line-height: 2;
+ }
+.receipt_view .view_icon{
+ padding-top: 5px;
+    padding-left: 15px;
+    margin-right: -10px;
+}
+
 .fieldset {
   border: 2px groove threedface;
   border-top: none;
