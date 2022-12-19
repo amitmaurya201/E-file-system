@@ -88,9 +88,9 @@
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="label-receipt-list-receiptno" orderable="true" orderableProperty="receiptNumber"/>
 				<liferay-ui:search-container-column-text property="subject"
-					name="label-receipt-list-subject" orderable="true" orderableProperty="subject" />
+					name="label-receipt-list-subject" orderable="true" orderableProperty="subject" cssClass="hover-tips"/>
 				<liferay-ui:search-container-column-text property="sender"
-					name="label-receipt-sent-sender" />
+					name="label-receipt-sent-sender" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text property="sentTo"
 					cssClass="hover-tips" name="label-receipt-sent-sent-to" />
 				<liferay-ui:search-container-column-text
@@ -100,12 +100,11 @@
 				<liferay-ui:search-container-column-text property="dueDate"
 					name="label-receipt-sent-due-date" />
 				<liferay-ui:search-container-column-text property="remark"
-					name="label-receipt-sent-remark" />
+					name="label-receipt-sent-remark" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-action">
 					<c:if
 						test="${(empty receiptSentMovement.readOn) and (empty receiptSentMovement.receivedOn)}">
-
 						<button type="button" class="btn" data-bs-toggle="modal"
 							data-bs-target="#myModal"
 							onclick="openModal(${ receiptSentMovement.receiptMovementId} , ${receiptSentMovement.receiptId})">

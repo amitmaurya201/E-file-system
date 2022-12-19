@@ -52,3 +52,5 @@ if(httpSession != null){
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/datepicker/bootstrap-datepicker.min.css"  />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>

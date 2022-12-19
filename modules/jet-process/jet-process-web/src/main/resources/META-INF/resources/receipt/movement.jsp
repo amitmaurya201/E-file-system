@@ -1,6 +1,6 @@
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@include file="../init.jsp"%>
-
+<%@ include file="/common/common.jsp"%>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -26,10 +26,10 @@
 					</liferay-ui:search-container-results>
 					<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.ReceiptMovementDTO" modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
 						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentOn() != null ? simpleformat.format(receiptMovementDTO.getSentOn()) : ""%>" name="label-sent-on"/>
-						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentBy() != null ? receiptMovementDTO.getSentBy() : ""%>"  name="label-sent-by"/>
-						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentTo() != null ? receiptMovementDTO.getSentTo() : ""%>"  name="label-sent-to"/>
-						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"  name="label-remarks"/>
-						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getPullBackRemark() != null ? receiptMovementDTO.getPullBackRemark() : ""%>"  name="label-pullback-remark"/>
+						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentBy() != null ? receiptMovementDTO.getSentBy() : ""%>"  name="label-sent-by" cssClass="hover-tips"/>
+						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getSentTo() != null ? receiptMovementDTO.getSentTo() : ""%>"  name="label-sent-to" cssClass="hover-tips"/>
+						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"  name="label-remarks" cssClass="hover-tips"/>
+						<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getPullBackRemark() != null ? receiptMovementDTO.getPullBackRemark() : ""%>"  name="label-pullback-remark" cssClass="hover-tips"/>
 					</liferay-ui:search-container-row>
 					<liferay-ui:search-iterator markupView="lexicon" />
 				</liferay-ui:search-container>
