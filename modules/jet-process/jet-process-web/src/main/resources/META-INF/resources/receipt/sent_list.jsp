@@ -7,7 +7,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<script
+ <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 #myModal .modal-dialog .modal-content .modal-body .textOnInput {
@@ -173,7 +173,6 @@
 
 <script type="text/javascript">
 function openModal(receiptMovementId , receiptId){
-	alert(receiptMovementId);
 	document.getElementById("rmId").value=receiptMovementId;
 	document.getElementById("receiptId").value=receiptId; 
 	$("#submit_pull_back").click(function() {
