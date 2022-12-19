@@ -22,14 +22,20 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 			<liferay-ui:search-container-column-text>
 			<aui:input type="radio" name="receipt" value="<%=aReceiptListViewDto.getReceiptId() %>" />
 			</liferay-ui:search-container-column-text>
+			<liferay-ui:search-container-column-text name="type" ><%=aReceiptListViewDto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 			<liferay-ui:search-container-column-text property="receiptNumber" />
 		<%-- 	<liferay-ui:search-container-column-text property="remark" /> --%>
 			<liferay-ui:search-container-column-text property="subject" />
-			<liferay-ui:search-container-column-text property="nature" />
+			
 		</liferay-ui:search-container-row>
 
 		<liferay-ui:search-iterator markupView="lexicon" />
 	</liferay-ui:search-container>
-	<textarea name = "remarks" rows="4" cols="100">${aReceiptListViewDto.getRemark()}</textarea>
+	
+		<div class="textOnInput">
+		<label>Remarks</label>
+		<textarea name = "remarks" cols="100">${aReceiptListViewDto.getRemark()}</textarea>
+	</div>
+
 	<input  class="btn btn-primary" style="float: right; " type="submit" value="Attach" />
 </aui:form>

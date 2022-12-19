@@ -66,9 +66,33 @@
     <a href="#">Link 3</a>
   </div>
 </div>
+<liferay-ui:search-container total="<%=receiptCorrList.size()%>"
+		delta="5" deltaConfigurable="true"
+		emptyResultsMessage="No Results Found">
+		<liferay-ui:search-container-results
+			results="<%=ListUtil.subList(receiptCorrList, searchContainer.getStart(), searchContainer.getEnd())%>" />
 
+		<liferay-ui:search-container-row
+			className="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"
+			modelVar="aFileCorrespondenceReceiptDTO">
+			<liferay-ui:search-container-column-text>
+			<i class="fa fa-info-circle" style="color:blue;font-size:16px"></i>
+			</liferay-ui:search-container-column-text>
+		
+			<liferay-ui:search-container-column-text ><%=aFileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
+			<liferay-ui:search-container-column-text name = " Receipt No." property="receiptNumber" />
+			<liferay-ui:search-container-column-text property="subject" />
+		
+		<liferay-ui:search-container-column-text  name="type" property="correspondenceType"/>
+		
+		<liferay-ui:search-container-column-text  name="Attached On" value="<%=simpleformat.format(aFileCorrespondenceReceiptDTO.getCreateDate())%>"/>
+			<liferay-ui:search-container-column-text name = "Remarks" property="remark" />
+		</liferay-ui:search-container-row>
 
- <table class="table">
+		<liferay-ui:search-iterator markupView="lexicon" />
+	</liferay-ui:search-container>
+
+ <%-- <table class="table">
 	<thead>
 		<!-- <tr class="crList row">
 			<th class="col">
@@ -110,12 +134,12 @@
 </c:if>
 	</c:forEach>
 	</tbody>
-</table> 
-<div style="float: right;" >
+</table>  --%>
+<!-- <div style="float: right;" >
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+      <a class="page-link" href="javascript:prevPage()" id="btn_prev" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
@@ -124,14 +148,14 @@
     <li class="page-item"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">3</a></li>
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+      <a class="page-link" href="javascript:nextPage()" id="btn_next"aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>
     </li>
   </ul>
 </nav>
-</div>
+</div> -->
 <div>
 <aui:button  cssClass="btn btn-primary" style="float: right;" name="add_receipt"  id="add_receipt" value="Add Receipt"> </aui:button>
 </div>
@@ -140,7 +164,7 @@
    function(A) {
      A.one('#<portlet:namespace />add_receipt').on('click', function(event){
 	var url = '<%= fileInnerViewPopup %>&<portlet:namespace/>corrFileId=<%= corrFileId %>';
-	alert('URL --> '+url);
+	<!-- alert('URL --> '+url); -->
 	var popUpWindow=Liferay.Util.Window.getWindow(
 		{
 		dialog: {
