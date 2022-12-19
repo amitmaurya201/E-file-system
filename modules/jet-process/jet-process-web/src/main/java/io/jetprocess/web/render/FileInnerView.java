@@ -41,6 +41,7 @@ public class FileInnerView implements MVCRenderCommand {
 				//System.out.println(docFile.getNature());
 				renderRequest.setAttribute("nature",docFile.getNature() );
 				renderRequest.setAttribute("docFileId",docFileId);
+				renderRequest.setAttribute("docFileObj", docFile);
 				
 			} catch (PortalException e) {
 				

@@ -1,7 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%
-HttpSession session = themeDisplay.getRequest().getSession();
-long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+HttpSession session1 = themeDisplay.getRequest().getSession();
+long userPostId = Long.parseLong((String) session1.getAttribute("userPostId"));
+out.print("correspondence" +userPostId);
 List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(userPostId);
  long docFileId = (Long)request.getAttribute("docFileId");
 /* out.print("docFileId-------->"+docFileId); */
@@ -11,13 +12,12 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 </portlet:actionURL>
 <aui:form action ="${attachReceipt} " method="post" name="attachReceipt">
  <aui:input name="docFileId" value= "${docFileId }" type = "hidden"></aui:input> 
-  <aui:input name="userPostId" value= "${userPostId} " type = "hidden"></aui:input> 
+  <aui:input name="userPostId" value= "${userPostId }" type = "hidden"></aui:input> 
 	<liferay-ui:search-container total="<%=receiptList.size()%>"
 		delta="5" deltaConfigurable="true"
 		emptyResultsMessage="No Results Found">
 		<liferay-ui:search-container-results
 			results="<%=ListUtil.subList(receiptList, searchContainer.getStart(), searchContainer.getEnd())%>" />
-
 		<liferay-ui:search-container-row
 			className="io.jetprocess.masterdata.model.ReceiptListViewDto"
 			modelVar="aReceiptListViewDto">
