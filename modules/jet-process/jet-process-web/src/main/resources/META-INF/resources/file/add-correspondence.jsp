@@ -30,6 +30,6 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 
 		<liferay-ui:search-iterator markupView="lexicon" />
 	</liferay-ui:search-container>
-	<textarea name = "remarks" rows="4" cols="50">>${aReceiptListViewDto.getRemark()}</textarea>
-	<input type="submit" value="Attach" />
+	<textarea name = "remarks" rows="4" cols="100">${aReceiptListViewDto.getRemark()}</textarea>
+	<input  class="btn btn-primary" style="float: right; " type="submit" value="Attach" />
 </aui:form>

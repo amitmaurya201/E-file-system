@@ -53,8 +53,8 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
 					name="label-file-list-fileno" property="fileNumber" orderableProperty="fileNumber" orderable="true" />
 
-				<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="hover-tips"
-					name="subject" />
+				<liferay-ui:search-container-column-text property="subject" orderable="true" orderableProperty="subject" cssClass="hover-tips"
+					name="label-file-list-subject" />
 
 				<liferay-ui:search-container-column-text property="category" name="category" cssClass="hover-tips" />
 
