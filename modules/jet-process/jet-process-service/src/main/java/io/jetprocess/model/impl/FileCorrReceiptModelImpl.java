@@ -79,7 +79,7 @@ public class FileCorrReceiptModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"docFileId", Types.BIGINT},
 		{"receiptId", Types.BIGINT}, {"userPostId", Types.BIGINT},
-		{"correspondenceType", Types.VARCHAR}
+		{"correspondenceType", Types.VARCHAR}, {"remarks", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,10 +97,11 @@ public class FileCorrReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("receiptId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("correspondenceType", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileCorrReceipt (uuid_ VARCHAR(75) null,fileCorrReceiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,docFileId LONG,receiptId LONG,userPostId LONG,correspondenceType VARCHAR(75) null)";
+		"create table JET_PROCESS_FileCorrReceipt (uuid_ VARCHAR(75) null,fileCorrReceiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,docFileId LONG,receiptId LONG,userPostId LONG,correspondenceType VARCHAR(75) null,remarks VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileCorrReceipt";
@@ -308,6 +309,10 @@ public class FileCorrReceiptModelImpl
 			"correspondenceType",
 			(BiConsumer<FileCorrReceipt, String>)
 				FileCorrReceipt::setCorrespondenceType);
+		attributeGetterFunctions.put("remarks", FileCorrReceipt::getRemarks);
+		attributeSetterBiConsumers.put(
+			"remarks",
+			(BiConsumer<FileCorrReceipt, String>)FileCorrReceipt::setRemarks);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -540,6 +545,26 @@ public class FileCorrReceiptModelImpl
 		_correspondenceType = correspondenceType;
 	}
 
+	@JSON
+	@Override
+	public String getRemarks() {
+		if (_remarks == null) {
+			return "";
+		}
+		else {
+			return _remarks;
+		}
+	}
+
+	@Override
+	public void setRemarks(String remarks) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_remarks = remarks;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -613,6 +638,7 @@ public class FileCorrReceiptModelImpl
 		fileCorrReceiptImpl.setReceiptId(getReceiptId());
 		fileCorrReceiptImpl.setUserPostId(getUserPostId());
 		fileCorrReceiptImpl.setCorrespondenceType(getCorrespondenceType());
+		fileCorrReceiptImpl.setRemarks(getRemarks());
 
 		fileCorrReceiptImpl.resetOriginalValues();
 
@@ -645,6 +671,8 @@ public class FileCorrReceiptModelImpl
 			this.<Long>getColumnOriginalValue("userPostId"));
 		fileCorrReceiptImpl.setCorrespondenceType(
 			this.<String>getColumnOriginalValue("correspondenceType"));
+		fileCorrReceiptImpl.setRemarks(
+			this.<String>getColumnOriginalValue("remarks"));
 
 		return fileCorrReceiptImpl;
 	}
@@ -774,6 +802,14 @@ public class FileCorrReceiptModelImpl
 			fileCorrReceiptCacheModel.correspondenceType = null;
 		}
 
+		fileCorrReceiptCacheModel.remarks = getRemarks();
+
+		String remarks = fileCorrReceiptCacheModel.remarks;
+
+		if ((remarks != null) && (remarks.length() == 0)) {
+			fileCorrReceiptCacheModel.remarks = null;
+		}
+
 		return fileCorrReceiptCacheModel;
 	}
 
@@ -878,6 +914,7 @@ public class FileCorrReceiptModelImpl
 	private long _receiptId;
 	private long _userPostId;
 	private String _correspondenceType;
+	private String _remarks;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -919,6 +956,7 @@ public class FileCorrReceiptModelImpl
 		_columnOriginalValues.put("receiptId", _receiptId);
 		_columnOriginalValues.put("userPostId", _userPostId);
 		_columnOriginalValues.put("correspondenceType", _correspondenceType);
+		_columnOriginalValues.put("remarks", _remarks);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -963,6 +1001,8 @@ public class FileCorrReceiptModelImpl
 		columnBitmasks.put("userPostId", 512L);
 
 		columnBitmasks.put("correspondenceType", 1024L);
+
+		columnBitmasks.put("remarks", 2048L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

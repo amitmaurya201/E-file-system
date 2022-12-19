@@ -266,6 +266,7 @@
 		<column name="receiptId" type="long" />
 		<column name="userPostId" type="long" />
 		<column name="correspondenceType" type="String" />
+		<column name="remarks" type="String" />
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 
@@ -296,6 +297,7 @@
 		<column name="receiptId" type="long" />
 		<column name="userPostId" type="long" />
 		<column name="correspondenceType" type="String" />
+		<column name="remarks" type="String" />
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 

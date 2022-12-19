@@ -54,6 +54,7 @@ public class FileCorrReceiptWrapper
 		attributes.put("receiptId", getReceiptId());
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("correspondenceType", getCorrespondenceType());
+		attributes.put("remarks", getRemarks());
 
 		return attributes;
 	}
@@ -125,6 +126,12 @@ public class FileCorrReceiptWrapper
 
 		if (correspondenceType != null) {
 			setCorrespondenceType(correspondenceType);
+		}
+
+		String remarks = (String)attributes.get("remarks");
+
+		if (remarks != null) {
+			setRemarks(remarks);
 		}
 	}
 
@@ -221,6 +228,16 @@ public class FileCorrReceiptWrapper
 	@Override
 	public long getReceiptId() {
 		return model.getReceiptId();
+	}
+
+	/**
+	 * Returns the remarks of this file corr receipt.
+	 *
+	 * @return the remarks of this file corr receipt
+	 */
+	@Override
+	public String getRemarks() {
+		return model.getRemarks();
 	}
 
 	/**
@@ -356,6 +373,16 @@ public class FileCorrReceiptWrapper
 	@Override
 	public void setReceiptId(long receiptId) {
 		model.setReceiptId(receiptId);
+	}
+
+	/**
+	 * Sets the remarks of this file corr receipt.
+	 *
+	 * @param remarks the remarks of this file corr receipt
+	 */
+	@Override
+	public void setRemarks(String remarks) {
+		model.setRemarks(remarks);
 	}
 
 	/**

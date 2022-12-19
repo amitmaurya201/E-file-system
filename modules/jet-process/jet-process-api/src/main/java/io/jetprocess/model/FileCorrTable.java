@@ -56,6 +56,8 @@ public class FileCorrTable extends BaseTable<FileCorrTable> {
 		createColumn(
 			"correspondenceType", String.class, Types.VARCHAR,
 			Column.FLAG_DEFAULT);
+	public final Column<FileCorrTable, String> remarks = createColumn(
+		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private FileCorrTable() {
 		super("JET_PROCESS_FileCorr", FileCorrTable::new);

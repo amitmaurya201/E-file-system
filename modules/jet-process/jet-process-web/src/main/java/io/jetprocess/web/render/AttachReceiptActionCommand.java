@@ -30,8 +30,8 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long receiptPK = ParamUtil.getLong(actionRequest, "receipt");
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
-	//	long newRemarks = ParamUtil.getLong(actionRequest, "remarks");
-		//System.out.println("newRemarks"+newRemarks);
+		String remarks = ParamUtil.getString(actionRequest, "remarks");
+		System.out.println("newRemarks"+remarks);
 	//	String redirect = ParamUtil.getString(actionRequest, "redirect");
 		long fileCorrId = counterLocalService.increment();
 		FileCorr fileCorr = fileCorrLocalService.createFileCorr(fileCorrId);
@@ -39,6 +39,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		fileCorr.setDocFileId(docFileId);
 		fileCorr.setUserPostId(userPostId);
 		fileCorr.setCorrespondenceType(FileStatus.RECEIPT_TYPE);
+		fileCorr.setRemarks(remarks);
 		fileCorrLocalService.addFileCorr(fileCorr);	
 		
 		Receipt receipt = receiptLocalService.getReceipt(receiptPK);

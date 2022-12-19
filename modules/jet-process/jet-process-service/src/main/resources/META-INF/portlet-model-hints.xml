@@ -43,6 +43,7 @@
 		<field name="receiptId" type="long" />
 		<field name="userPostId" type="long" />
 		<field name="correspondenceType" type="String" />
+		<field name="remarks" type="String" />
 	</model>
 	<model name="io.jetprocess.model.FileCorrReceipt">
 		<field name="uuid" type="String" />
@@ -56,6 +57,7 @@
 		<field name="receiptId" type="long" />
 		<field name="userPostId" type="long" />
 		<field name="correspondenceType" type="String" />
+		<field name="remarks" type="String" />
 	</model>
 	<model name="io.jetprocess.model.FileMovement">
 		<field name="uuid" type="String" />

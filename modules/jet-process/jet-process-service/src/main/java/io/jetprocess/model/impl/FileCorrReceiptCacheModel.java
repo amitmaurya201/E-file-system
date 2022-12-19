@@ -63,7 +63,7 @@ public class FileCorrReceiptCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -87,6 +87,8 @@ public class FileCorrReceiptCacheModel
 		sb.append(userPostId);
 		sb.append(", correspondenceType=");
 		sb.append(correspondenceType);
+		sb.append(", remarks=");
+		sb.append(remarks);
 		sb.append("}");
 
 		return sb.toString();
@@ -133,6 +135,13 @@ public class FileCorrReceiptCacheModel
 			fileCorrReceiptImpl.setCorrespondenceType(correspondenceType);
 		}
 
+		if (remarks == null) {
+			fileCorrReceiptImpl.setRemarks("");
+		}
+		else {
+			fileCorrReceiptImpl.setRemarks(remarks);
+		}
+
 		fileCorrReceiptImpl.resetOriginalValues();
 
 		return fileCorrReceiptImpl;
@@ -158,6 +167,7 @@ public class FileCorrReceiptCacheModel
 
 		userPostId = objectInput.readLong();
 		correspondenceType = objectInput.readUTF();
+		remarks = objectInput.readUTF();
 	}
 
 	@Override
@@ -191,6 +201,13 @@ public class FileCorrReceiptCacheModel
 		else {
 			objectOutput.writeUTF(correspondenceType);
 		}
+
+		if (remarks == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(remarks);
+		}
 	}
 
 	public String uuid;
@@ -204,5 +221,6 @@ public class FileCorrReceiptCacheModel
 	public long receiptId;
 	public long userPostId;
 	public String correspondenceType;
+	public String remarks;
 
 }

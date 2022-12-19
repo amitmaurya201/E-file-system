@@ -236,6 +236,21 @@ public interface FileCorrModel
 	 */
 	public void setCorrespondenceType(String correspondenceType);
 
+	/**
+	 * Returns the remarks of this file corr.
+	 *
+	 * @return the remarks of this file corr
+	 */
+	@AutoEscape
+	public String getRemarks();
+
+	/**
+	 * Sets the remarks of this file corr.
+	 *
+	 * @param remarks the remarks of this file corr
+	 */
+	public void setRemarks(String remarks);
+
 	@Override
 	public FileCorr cloneWithOriginalValues();
 

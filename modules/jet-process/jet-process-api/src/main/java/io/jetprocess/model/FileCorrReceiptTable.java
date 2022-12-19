@@ -58,6 +58,8 @@ public class FileCorrReceiptTable extends BaseTable<FileCorrReceiptTable> {
 		createColumn(
 			"correspondenceType", String.class, Types.VARCHAR,
 			Column.FLAG_DEFAULT);
+	public final Column<FileCorrReceiptTable, String> remarks = createColumn(
+		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private FileCorrReceiptTable() {
 		super("JET_PROCESS_FileCorrReceipt", FileCorrReceiptTable::new);

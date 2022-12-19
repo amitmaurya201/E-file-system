@@ -236,6 +236,21 @@ public interface FileCorrReceiptModel
 	 */
 	public void setCorrespondenceType(String correspondenceType);
 
+	/**
+	 * Returns the remarks of this file corr receipt.
+	 *
+	 * @return the remarks of this file corr receipt
+	 */
+	@AutoEscape
+	public String getRemarks();
+
+	/**
+	 * Sets the remarks of this file corr receipt.
+	 *
+	 * @param remarks the remarks of this file corr receipt
+	 */
+	public void setRemarks(String remarks);
+
 	@Override
 	public FileCorrReceipt cloneWithOriginalValues();
 
