@@ -2,11 +2,15 @@
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import= "java.util.TimeZone"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <%@ include file="../init.jsp"%> --%>
 <%
 	long corrFileId = (long) request.getAttribute("docFileId");
   	List<FileCorrespondenceReceiptDTO> receiptCorrList=MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
-  	
+		SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+             simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));	
 %>
 <style>
 .crList th{
@@ -73,12 +77,13 @@
 			</th> -->
 			<th><i class="fa fa-window-maximize" style="font-size:24px"></i></th>
 			<th></th>
+			<th></th>
 			<th>Receipt No.</th>
 			<th>Subject</th>
 			<th>Type</th>
-		<!-- 	<th>Marked On</th> -->
+			<th>Marked On</th>
 			<th>Attached</th>
-			<!-- <th>Issued On</th> -->
+			<th>Issued On</th>
 			<th>Remarks</th>
 		</tr>
 	</thead>
@@ -92,12 +97,14 @@
  
 	<tr>
 	<td></td>
+	<td><i class="fa fa-info-circle" style="color:blue;font-size:16px"></i></td>
 	<c:if test = "${correspondenceList.nature == 'Electronic'}"> <td>E</td></c:if>
 	<c:if test = "${correspondenceList.nature == 'Physical'}"> <td>P</td></c:if>
 	<td>${correspondenceList.receiptNumber }</td>
 	<td>${correspondenceList.subject }</td>
 	<td>${correspondenceList.correspondenceType}</td>
-	<td>${correspondenceList.createDate}</td>
+	<td><fmt:formatDate type = "both" pattern= "dd-MM-yy hh:mm aa" timeZone = "Asia/Calcutta" value = "${correspondenceList.createDate}" /></td>
+	
 	<td>${correspondenceList.remark }</td> 
 	</tr>
 </c:if>

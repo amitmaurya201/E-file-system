@@ -2,7 +2,7 @@
 <%
 List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(1);
  long docFileId = (Long)request.getAttribute("docFileId");
-out.print("docFileId-------->"+docFileId);
+/* out.print("docFileId-------->"+docFileId); */
 %>
 <portlet:actionURL var = "attachReceipt" name="AttachFileCorrespondence">
 <portlet:param name="redirect" value="/file/file-inner-view.jsp"/>
@@ -23,12 +23,13 @@ out.print("docFileId-------->"+docFileId);
 			<aui:input type="radio" name="receipt" value="<%=aReceiptListViewDto.getReceiptId() %>" />
 			</liferay-ui:search-container-column-text>
 			<liferay-ui:search-container-column-text property="receiptNumber" />
-			<liferay-ui:search-container-column-text property="remark" />
+		<%-- 	<liferay-ui:search-container-column-text property="remark" /> --%>
 			<liferay-ui:search-container-column-text property="subject" />
 			<liferay-ui:search-container-column-text property="nature" />
 		</liferay-ui:search-container-row>
 
 		<liferay-ui:search-iterator markupView="lexicon" />
 	</liferay-ui:search-container>
+	<textarea name = "remarks" rows="4" cols="50">>${aReceiptListViewDto.getRemark()}</textarea>
 	<input type="submit" value="Attach" />
 </aui:form>

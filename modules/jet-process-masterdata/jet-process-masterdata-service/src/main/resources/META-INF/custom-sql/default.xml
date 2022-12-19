@@ -189,7 +189,7 @@ SELECT  docfileid, filenumber as filenumber , subject as subject , categoryvalue
 
 SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl,
 	nature FROM jet_process_receipt INNER JOIN 
-	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1  order by createDate desc  ;
+	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 AND attachstatus!='Receipt Attach In File'  order by createDate desc  ;
 ]]>
 
 </sql>
@@ -422,7 +422,7 @@ SELECT
 	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
 	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid
 	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
-    where rm.receiverid = ? and r.active_ = true and  rm.pullbackremark is null order by rm.createdate desc ; 
+    where rm.receiverid = ? and r.active_ = true and attachstatus!='Receipt Attach In File' and rm.pullbackremark is null order by rm.createdate desc ; 
 ]]>
 </sql>
 
