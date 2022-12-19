@@ -174,10 +174,10 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 			  var receiptNumber =response.receiptNumber;
 			if(receiptNumber!=null){
 			  swal( {
-                 title: "successfull !",
-                 text: `You Have successfully created Your Receipt!And Your Receipt Number is `+receiptNumber,
+                 title: "Successfull!",
+                 text: `You have successfully created your receipt! and your receipt number is `+receiptNumber,
                  icon: "success",
-                 button: "ok"
+                 button: "Ok"
              }).then(function() {
            	    window.location.href = '<%= createdListReceipt.toString() %>';
              });
@@ -225,13 +225,12 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 			    processData: false,
 		        contentType : 'application/json'
 			  }).done(function(response) {
-				  console.log("------------------------33-------------------------");
 				  console.log(response);
 				  swal( {
-                      title: "successfull !",
-                      text: `You Have successfully created Your Receipt! `,
+                      title: "Successfull!",
+                      text: `You have successfully created your receipt! `,
                       icon: "success",
-                      button: "ok"
+                      button: "Ok"
                   })
 
 		 })
