@@ -53,7 +53,9 @@
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
-		<h1 class=" text-center">Receipt InBox</h1>
+		<h1 class=" text-center">
+			<liferay-ui:message key="label-receipt-inbox-heading" />
+		</h1>
 
 		<clay:management-toolbar
 		        disabled="${inboxReceiptCount eq 0}"
@@ -102,10 +104,10 @@
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text property="receiptNumber" orderableProperty="receiptNumber" orderable="true"  cssClass="bold"
-								name="Receipt number" />
+								name="label-receipt-inbox-receiptno" />
 
-							<liferay-ui:search-container-column-text property="subject" orderable="true" cssClass="bold"
-								name="subject" />
+							<liferay-ui:search-container-column-text property="subject" orderable="true" orderableProperty="subject" cssClass="bold"
+								name="label-receipt-inbox-subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
@@ -113,7 +115,7 @@
 													long senderId = receiptMvmt.getSenderId();
 							%>
 
-							<liferay-ui:search-container-column-text name="Sent By"
+							<liferay-ui:search-container-column-text name="label-receipt-inbox-sentby"
 								cssClass="hover-tips bold">
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
@@ -126,7 +128,7 @@
 
 							<liferay-ui:search-container-column-text cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="Sent On" />
+								name="label-receipt-inbox-senton" />
 
 							<%-- <liferay-ui:search-container-column-text cssClass="bold" property="readOn"
 					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
@@ -134,10 +136,10 @@
 
 							<liferay-ui:search-container-column-text property="dueDate" cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="Due On" />
+								name="label-receipt-inbox-dueon" />
 
 							<liferay-ui:search-container-column-text cssClass="bold" property="remark"
-								name="Remarks">
+								name="label-receipt-inbox-remarks">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark()%>
 								</c:if>
@@ -145,19 +147,27 @@
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text cssClass="bold" name="Action"
+									<liferay-ui:search-container-column-text cssClass="bold" name="label-receipt-inbox-actions"
 										align="center">
 										<span><a href="#" class="button open"
-											onclick="readModal(${receiptMovementDTO.getReceiptId()})">Read</a></span>
-										<span><a href="${sendURL}">Send</a></span>
+											onclick="readModal(${receiptMovementDTO.getReceiptId()})">
+												<liferay-ui:message key="label-receipt-inbox-action-read" />
+											</a></span>
+										<span><a href="${sendURL}">
+											<liferay-ui:message key="label-receipt-inbox-action-send" />
+										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:search-container-column-text cssClass="bold" name="Action"
+									<liferay-ui:search-container-column-text cssClass="bold" name="label-receipt-inbox-actions"
 										align="center">
 										<span><a href="#" class="button open"
-											onclick="receiveModal(${receiptMovementDTO.getReceiptId()})">Receive</a></span>
-										<span><a href="${sendURL}">Send</a></span>
+											onclick="receiveModal(${receiptMovementDTO.getReceiptId()})">
+													<liferay-ui:message key="label-receipt-inbox-action-receive" />
+											</a></span>
+										<span><a href="${sendURL}">
+											<liferay-ui:message key="label-receipt-inbox-action-send" />
+										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
@@ -170,11 +180,11 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" href="<%=receiptInnerView %>"
-								name="Receipt No." />
+							<liferay-ui:search-container-column-text property="receiptNumber" orderableProperty="receiptNumber" href="<%=receiptInnerView %>"
+								name="label-receipt-inbox-receiptno" />
 
-							<liferay-ui:search-container-column-text property="subject"
-								name="Subject" />
+							<liferay-ui:search-container-column-text property="subject" orderableProperty="subject"
+								name="label-receipt-inbox-subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
@@ -182,7 +192,7 @@
 													long senderId = receiptMvmt.getSenderId();
 							%>
 
-							<liferay-ui:search-container-column-text name="Sent By"
+							<liferay-ui:search-container-column-text name="label-receipt-inbox-sentby"
 								cssClass="hover-tips">
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
@@ -195,7 +205,7 @@
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="Sent On" />
+								name="label-receipt-inbox-senton" />
 
 							<%-- <liferay-ui:search-container-column-text property="readOn"
 					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
@@ -203,10 +213,10 @@
 
 							<liferay-ui:search-container-column-text property="dueDate"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="Due On" />
+								name="label-receipt-inbox-dueon" />
 
 							<liferay-ui:search-container-column-text property="remark"
-								name="Remarks">
+								name="label-receipt-inbox-remarks">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark()%>
 								</c:if>
@@ -214,15 +224,19 @@
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text name="Action"
+									<liferay-ui:search-container-column-text name="label-receipt-inbox-actions"
 										align="center">
-										<span><a href="${sendURL}">Send</a></span>
+										<span><a href="${sendURL}">
+												<liferay-ui:message key="label-receipt-inbox-action-send" />
+										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:search-container-column-text name="Action"
+									<liferay-ui:search-container-column-text name="label-receipt-inbox-actions"
 										align="center">
-										<span><a href="${sendURL}">Send</a></span>
+										<span><a href="${sendURL}">
+												<liferay-ui:message key="label-receipt-inbox-action-send" />
+										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>

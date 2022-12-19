@@ -86,9 +86,9 @@
 				<c:set var = "nature" value = "${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text name="label-receipt-sent-nature" value="${nature }" />
 				<liferay-ui:search-container-column-text property="receiptNumber"
-					name="receiptNumber" orderable="true" />
+					name="label-receipt-list-receiptno" orderable="true" orderableProperty="receiptNumber"/>
 				<liferay-ui:search-container-column-text property="subject"
-					name="subject" orderable="true" />
+					name="label-receipt-list-subject" orderable="true" orderableProperty="subject" />
 				<liferay-ui:search-container-column-text property="sender"
 					name="label-receipt-sent-sender" />
 				<liferay-ui:search-container-column-text property="sentTo"
