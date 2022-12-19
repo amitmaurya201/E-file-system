@@ -1452,7 +1452,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
 					"		left outer JOIN masterdata_userpost as up2" + 
 					"		ON fm.receiverid = up2.userpostid " + 
-					"	where f.userpostid = ?";
+					"	where fm.receiverid = ? and f.active_  ";
 			
 			logger.info("Final File Movement List Query : "+sql);
 			
@@ -1504,7 +1504,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
 					"		left outer JOIN masterdata_userpost as up2" + 
 					"		ON fm.receiverid = up2.userpostid " + 
-					"	where f.userpostid = ? ";
+					"	where fm.receiverid = ? and f.active_  ";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
