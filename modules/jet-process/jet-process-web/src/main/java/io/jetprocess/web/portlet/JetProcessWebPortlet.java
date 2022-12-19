@@ -34,6 +34,7 @@ import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
 /**
  * @author Admin
@@ -55,8 +56,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
-		actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
-
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 
 	public void sendReceipt(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -68,8 +68,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
 
-		actionResponse.setRenderParameter("mvcPath", "/receipt/created-receipt-list.jsp");
-	}
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);	}
 
 	// action method for getting  docfileId  and pullback remarks
 	public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
