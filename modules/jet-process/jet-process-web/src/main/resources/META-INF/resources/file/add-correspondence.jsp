@@ -1,6 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%
-List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(1);
+HttpSession session = themeDisplay.getRequest().getSession();
+long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(userPostId);
  long docFileId = (Long)request.getAttribute("docFileId");
 /* out.print("docFileId-------->"+docFileId); */
 %>
@@ -9,7 +11,7 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 </portlet:actionURL>
 <aui:form action ="${attachReceipt} " method="post" name="attachReceipt">
  <aui:input name="docFileId" value= "${docFileId }" type = "hidden"></aui:input> 
-  <aui:input name="userPostId" value= "1" type = "hidden"></aui:input> 
+  <aui:input name="userPostId" value= "${userPostId} " type = "hidden"></aui:input> 
 	<liferay-ui:search-container total="<%=receiptList.size()%>"
 		delta="5" deltaConfigurable="true"
 		emptyResultsMessage="No Results Found">

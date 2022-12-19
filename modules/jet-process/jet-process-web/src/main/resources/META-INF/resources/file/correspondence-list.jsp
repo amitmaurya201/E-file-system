@@ -4,6 +4,7 @@
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import= "java.util.TimeZone"%>
+<%@page import="io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <%@ include file="../init.jsp"%> --%>
 <%
@@ -67,7 +68,7 @@
   </div>
 </div>
 <liferay-ui:search-container total="<%=receiptCorrList.size()%>"
-		delta="5" deltaConfigurable="true"
+		delta="2" deltaConfigurable="true"  iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
 		emptyResultsMessage="No Results Found">
 		<liferay-ui:search-container-results
 			results="<%=ListUtil.subList(receiptCorrList, searchContainer.getStart(), searchContainer.getEnd())%>" />
