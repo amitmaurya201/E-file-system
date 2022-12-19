@@ -69,17 +69,10 @@ font-weight: bold;
 		<%@ include file="../navigation.jsp"%>
 	</div>
 
-	
- 
- 
-
-		
- 
- 
- 
-
 	<div class="col-10">
-		<h1 class=" text-center">File Inbox</h1>
+		<h1 class=" text-center">
+				<liferay-ui:message key="label-file-inbox-heading" />
+		</h1>
 		 <clay:management-toolbar
         disabled="${fileInboxCount eq 0}"
         displayContext="${fileInboxManagementToolbarDisplayContext}"
@@ -126,10 +119,10 @@ font-weight: bold;
 							</liferay-ui:search-container-column-text>
 							
 							<liferay-ui:search-container-column-text orderable="true" orderableProperty="fileNumber" property="fileNumber"
-								name="File number" cssClass="bold"/>
+								name="label-file-inbox-fileno" cssClass="bold"/>
 							<liferay-ui:search-container-column-text orderable="true" orderableProperty="subject"  property="subject"
-								name="subject" cssClass="bold"/>
-							<liferay-ui:search-container-column-text name="Sent By"
+								name="label-file-inbox-subject" cssClass="bold"/>
+							<liferay-ui:search-container-column-text name="label-file-inbox-sentby"
 							cssClass="hover-tips bold">
 								<%
 								FileMovement fileMvmt=FileMovementLocalServiceUtil.getFileMovement(fileinboxDtoList.getFileMovementId());
@@ -142,12 +135,12 @@ font-weight: bold;
 								
 								<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
-								name="Send On" cssClass="bold"/>
+								name="label-file-inbox-senton" cssClass="bold"/>
 								
 								<liferay-ui:search-container-column-text property="dueDate"
-									name="Due On" cssClass="bold" />
+									name="label-file-inbox-dueon" cssClass="bold" />
 								<liferay-ui:search-container-column-text
-									name="Remark" cssClass="bold">
+									name="label-file-inbox-remarks" cssClass="bold">
 									<c:if test="${not empty fileinboxDtoList.getRemark()}">
 										<%=fileinboxDtoList.getRemark() %>
 									</c:if>
@@ -155,20 +148,28 @@ font-weight: bold;
 								
 								<c:choose>
 									<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-										<liferay-ui:search-container-column-text name="Action"
+										<liferay-ui:search-container-column-text name="label-file-inbox-actions"
 											align="center" cssClass="bold">
 											<span><a href="#" class="button open"
-								onclick="readModal(${fileinboxDtoList.getFileId()})">read</a></span>&nbsp;	
-												<span><a href="${sendURL}">send</a></span>
+								onclick="readModal(${fileinboxDtoList.getFileId()})">
+										<liferay-ui:message key="label-file-inbox-action-read" />
+								</a></span>&nbsp;	
+												<span><a href="${sendURL}">
+													<liferay-ui:message key="label-file-inbox-action-send" />
+												</a></span>
 						
 										</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:search-container-column-text name="Action"
+									<liferay-ui:search-container-column-text name="label-file-inbox-actions"
 										align="center" cssClass="bold">
 											<span><a href="#" class="button open"
-								onclick="receiveModal(${fileinboxDtoList.getFileId()})">receive</a></span>&nbsp;
-											<span><a href="${sendURL}">send</a></span>
+								onclick="receiveModal(${fileinboxDtoList.getFileId()})">
+									<liferay-ui:message key="label-file-inbox-action-receive" />
+								</a></span>&nbsp;
+											<span><a href="${sendURL}">
+												<liferay-ui:message key="label-file-inbox-action-send" />
+											</a></span>
 					
 									</liferay-ui:search-container-column-text>
 									</c:otherwise>
@@ -183,9 +184,9 @@ font-weight: bold;
 						
 							<liferay-ui:search-container-column-text href="<%=fileInnerView %>" orderableProperty="fileNumber" orderable="true" property="fileNumber"
 								name="File number" />
-						<liferay-ui:search-container-column-text property="subject"
-							name="Subject" />
-							<liferay-ui:search-container-column-text name="Sent By"
+						<liferay-ui:search-container-column-text property="subject" orderableProperty="subject"
+							name="label-file-inbox-subject" />
+							<liferay-ui:search-container-column-text name="label-file-inbox-sentby"
 						cssClass="hover-tips">
 						<%
 						FileMovement fileMvmt=FileMovementLocalServiceUtil.getFileMovement(fileinboxDtoList.getFileMovementId());
@@ -199,12 +200,12 @@ font-weight: bold;
 	
 					<liferay-ui:search-container-column-text
 						value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
-						name="Send On" />
+						name="label-file-inbox-senton" />
 						
 						<liferay-ui:search-container-column-text property="dueDate"
-						name="Due On" />
+						name="label-file-inbox-dueon" />
 						<liferay-ui:search-container-column-text
-							name="Remark">
+							name="label-file-inbox-remarks">
 							<c:if test="${not empty fileinboxDtoList.getRemark()}">
 								<%=fileinboxDtoList.getRemark() %>
 							</c:if>
@@ -212,16 +213,20 @@ font-weight: bold;
 							
 							<c:choose>
 									<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-										<liferay-ui:search-container-column-text name="Action"
+										<liferay-ui:search-container-column-text name="label-file-inbox-actions"
 											align="center">
-												<span><a href="${sendURL}">send</a></span>
+												<span><a href="${sendURL}">
+													<liferay-ui:message key="label-file-inbox-action-send" />
+												</a></span>
 						
 										</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:search-container-column-text name="Action"
+									<liferay-ui:search-container-column-text name="label-file-inbox-actions"
 										align="center">
-											<span><a href="${sendURL}">send</a></span>
+											<span><a href="${sendURL}">
+												<liferay-ui:message key="label-file-inbox-action-send" />
+											</a></span>
 					
 									</liferay-ui:search-container-column-text>
 									</c:otherwise>
