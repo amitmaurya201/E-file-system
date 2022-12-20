@@ -56,12 +56,6 @@ public class JetProcessWebPortlet extends MVCPortlet {
 				String remark = ParamUtil.getString(actionRequest, "remark");
 				String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 				String priority = ParamUtil.getString(actionRequest, "priorty");
-
-				DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
-				if (docFile.getActive() != true) {
-					docFile.setActive(true);
-					docFileLocalService.updateDocFile(docFile);
-				}
 				fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 				actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
 
@@ -93,9 +87,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			System.out.println("currentState [--->" + docFile.getCurrentState());
 			if (docFile.getCurrentState() == 2) {
 				docFile.setCurrentState(1);
-				docFile.setActive(false);
 				System.out.println("updated Code" + docFileLocalService.updateDocFile(docFile));
-
 			}
 			FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
 			System.out.println("fileMovement Object --->" + fileMovement);

@@ -29,7 +29,6 @@
 		<field name="userPostId" type="long" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
-		<field name="active" type="boolean" />
 	</model>
 	<model name="io.jetprocess.model.FileCorr">
 		<field name="uuid" type="String" />
@@ -78,6 +77,7 @@
 		<field name="pullBackRemark" type="String">
 			<hint name="max-length">500</hint>
 		</field>
+		<field name="active" type="boolean" />
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />
@@ -124,7 +124,6 @@
 		<field name="nature" type="String" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
-		<field name="active" type="boolean" />
 		<field name="attachStatus" type="String" />
 	</model>
 	<model name="io.jetprocess.model.ReceiptMovement">

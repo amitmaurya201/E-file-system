@@ -104,8 +104,6 @@ public class ReceiptTable extends BaseTable<ReceiptTable> {
 		"currentlyWith", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, Integer> currentState = createColumn(
 		"currentState", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
-	public final Column<ReceiptTable, Boolean> active = createColumn(
-		"active_", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 	public final Column<ReceiptTable, String> attachStatus = createColumn(
 		"attachStatus", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 

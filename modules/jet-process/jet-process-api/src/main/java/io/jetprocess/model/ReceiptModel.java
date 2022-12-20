@@ -612,27 +612,6 @@ public interface ReceiptModel
 	public void setCurrentState(int currentState);
 
 	/**
-	 * Returns the active of this receipt.
-	 *
-	 * @return the active of this receipt
-	 */
-	public boolean getActive();
-
-	/**
-	 * Returns <code>true</code> if this receipt is active.
-	 *
-	 * @return <code>true</code> if this receipt is active; <code>false</code> otherwise
-	 */
-	public boolean isActive();
-
-	/**
-	 * Sets whether this receipt is active.
-	 *
-	 * @param active the active of this receipt
-	 */
-	public void setActive(boolean active);
-
-	/**
 	 * Returns the attach status of this receipt.
 	 *
 	 * @return the attach status of this receipt

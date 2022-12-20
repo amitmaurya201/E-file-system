@@ -2390,7 +2390,6 @@ public class DocFilePersistenceImpl
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("type", "type_");
-		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -3140,7 +3139,7 @@ public class DocFilePersistenceImpl
 		DocFilePersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "type", "active"});
+		new String[] {"uuid", "type"});
 
 	@Override
 	protected FinderCache getFinderCache() {
