@@ -10,19 +10,29 @@
 	border-right: 1px solid white;
 }
 
-.popup {
+.popup, .read-popup, .receive-popup {
 	/*Hides pop-up when there is no "active" class*/
 	visibility: hidden;
 	position: absolute;
-	background: #ffffff;
+	background: #bebec1;
 	border: 3px solid #666666;
-	width: 50%;
-	height: 50%;
-	margin-top: -22%;
+	margin-top: -30%;
 	left: 30%;
 }
+.popup{
+	width: 50%;
+	height: 50%;
+}
+.read-popup, .receive-popup{
+	width: 30%;
+	height: 30%;
+	left: 43%;
+	background: #c7d8e2;
+}
 
-.popup.active {
+
+
+.popup.active, .read-popup.active, .receive-popup.active {
 	/*displays pop-up when "active" class is present*/
 	visibility: visible;
 	text-align: center;
@@ -35,6 +45,9 @@
 .tableSender {
 	border-collapse: separate;
 	border-spacing: 0 15px;
+}
+.tableSender td{
+	text-align:left;
 }
 
 .bold {
@@ -255,20 +268,21 @@
 
 
 <!-- Receive pop up -->
-<div id="receive" class="popup">
+<div id="receive" class="receive-popup">
 	<!--   Creates the popup content-->
 	<div class="receive popup-content">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -5%; font-size: 25px;">
+			style="float: right; margin-top: -6%; margin-right: -2%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5">
+		<div class="container mt-3">
+		<h3 class="text-center">Are you sure to receive ?</h3>
 			<aui:form action="${formAction}" method="POST" name="fm">
-
-				<input type="text" name='<portlet:namespace/>receiptId'
-					id="receive-receiptId" />
-				<button type="submit">Receive</button>
+				<text>Receipt Number </text>
+				<input type="text" disabled name='<portlet:namespace/>receiptId'
+					id="receive-receiptId" /><br>
+				<button class="mt-3" type="submit">Receive</button>
 			</aui:form>
 		</div>
 	</div>
@@ -276,20 +290,20 @@
 
 
 <!-- Read pop up -->
-<div id="read" class="popup">
+<div id="read" class="read-popup">
 	<!--   Creates the popup content-->
 	<div class="read popup-content">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -5%; font-size: 25px;">
-			<span aria-hidden="true">&times;</span>
+			style="float: right; margin-top: -6%; margin-right: -2%;  font-size: 25px;">
 		</button>
 		<div class="container mt-5">
+			<h3 class="text-center">Are you sure to read ?</h3>
 			<aui:form action="${formAction1}" method="POST" name="fm">
-
-				<input type="text" name='<portlet:namespace/>receiptId1'
-					id="read-receiptId" />
-				<button type="submit">Read</button>
+				<text>Receipt Number </text>
+				<input type="text" disabled name='<portlet:namespace/>receiptId1'
+					id="read-receiptId" /><br>
+				<button class="mt-3" type="submit">Read</button>
 			</aui:form>
 		</div>
 	</div>
@@ -302,13 +316,13 @@
 	<div class="dtls popup-content">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -5%; font-size: 25px;">
+			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 border">
+		<div class="container mt-5 border" style="background-color:gainsboro;">
 			<div class="row ">
 				<div class="col-6">
-					<table class="tableSender">
+					<table class="tableSender" >
 						<tr class="mt-1">
 							<th class="col-3">Name :</th>
 							<td id="name" class="col-3"></td>
@@ -363,7 +377,7 @@
 }
  */
  function receiveModal(receiptId){
-	alert(receiptId);
+	/* alert(receiptId); */
 	document.getElementById("receive-receiptId").value=receiptId;
 	$("#receive").addClass("active");
 	$(".close").on("click", function() {
@@ -374,7 +388,7 @@
 	}
 
 function readModal(receiptId){
-	alert(receiptId);
+	/* alert(receiptId); */
 	document.getElementById("read-receiptId").value=receiptId;
 	$("#read").addClass("active");
 	$(".close").on("click", function() {
