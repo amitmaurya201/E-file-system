@@ -296,8 +296,9 @@
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
 			style="float: right; margin-top: -6%; margin-right: -2%;  font-size: 25px;">
+			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5">
+		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to read ?</h3>
 			<aui:form action="${formAction1}" method="POST" name="fm">
 				<text>Receipt Number </text>
