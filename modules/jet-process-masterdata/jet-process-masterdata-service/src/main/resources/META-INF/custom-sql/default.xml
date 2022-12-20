@@ -365,7 +365,7 @@ SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as send
 		FROM jet_process_receiptmovement as rm 
 		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
 		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid
-	where rm.senderid = ? and r.active_ = true and rm.pullbackremark is null order by rm.rmid desc ;
+    where rm.senderid = ? and rm.active_ = true and rm.pullbackremark is null order by rm.createdate desc ;
 ]]>
 </sql>
 
@@ -422,7 +422,7 @@ SELECT
 	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
 	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid
 	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
-    where rm.receiverid = ? and r.active_ = true and attachstatus!='Receipt Attach In File' and rm.pullbackremark is null order by rm.createdate desc ; 
+    where rm.receiverid = ? and rm.active_ = true and attachstatus!='Receipt Attach In File' and rm.pullbackremark is null order by rm.createdate desc ;  
 ]]>
 </sql>
 

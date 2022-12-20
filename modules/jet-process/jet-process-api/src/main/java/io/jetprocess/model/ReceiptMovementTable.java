@@ -66,6 +66,8 @@ public class ReceiptMovementTable extends BaseTable<ReceiptMovementTable> {
 	public final Column<ReceiptMovementTable, String> pullBackRemark =
 		createColumn(
 			"pullBackRemark", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReceiptMovementTable, Boolean> active = createColumn(
+		"active_", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 
 	private ReceiptMovementTable() {
 		super("JET_PROCESS_ReceiptMovement", ReceiptMovementTable::new);

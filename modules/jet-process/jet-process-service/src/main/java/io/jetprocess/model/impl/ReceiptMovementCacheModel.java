@@ -63,7 +63,7 @@ public class ReceiptMovementCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -97,6 +97,8 @@ public class ReceiptMovementCacheModel
 		sb.append(receivedOn);
 		sb.append(", pullBackRemark=");
 		sb.append(pullBackRemark);
+		sb.append(", active=");
+		sb.append(active);
 		sb.append("}");
 
 		return sb.toString();
@@ -178,6 +180,8 @@ public class ReceiptMovementCacheModel
 			receiptMovementImpl.setPullBackRemark(pullBackRemark);
 		}
 
+		receiptMovementImpl.setActive(active);
+
 		receiptMovementImpl.resetOriginalValues();
 
 		return receiptMovementImpl;
@@ -208,6 +212,8 @@ public class ReceiptMovementCacheModel
 		readOn = objectInput.readUTF();
 		receivedOn = objectInput.readUTF();
 		pullBackRemark = objectInput.readUTF();
+
+		active = objectInput.readBoolean();
 	}
 
 	@Override
@@ -276,6 +282,8 @@ public class ReceiptMovementCacheModel
 		else {
 			objectOutput.writeUTF(pullBackRemark);
 		}
+
+		objectOutput.writeBoolean(active);
 	}
 
 	public String uuid;
@@ -294,5 +302,6 @@ public class ReceiptMovementCacheModel
 	public String readOn;
 	public String receivedOn;
 	public String pullBackRemark;
+	public boolean active;
 
 }

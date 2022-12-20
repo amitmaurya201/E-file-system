@@ -16,6 +16,8 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
@@ -49,19 +51,19 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		receiptMovement.setRemark(remark);
 		receiptMovement.setPriority(priority);
 		receiptMovement.setDueDate(dueDate);
-
+		receiptMovement.setActive(true);
+		
 		try {
 			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 			if (receiptId == receipt.getReceiptId()) {
 				receipt.setCurrentlyWith(receiverId);
 				receiptLocalService.updateReceipt(receipt);
 				if (Validator.isNotNull(receipt.getCurrentState())) {
-					receipt.setCurrentState(2);
-					receipt.setActive(true);
+					receipt.setCurrentState(FileStatus.IN_MOVEMENT);
 					receiptLocalService.updateReceipt(receipt);
 				}
 			} else {
-				System.out.println("ReceiptId not valid");
+				logger.info( "ReceiptId not valid");
 			}
 		} catch (PortalException e) {
 			e.printStackTrace();
@@ -83,7 +85,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		for (ReceiptMovementDTO receiptMovementDTO : receiptMovementList) {
 			if (receiptMovement.getRmId() == receiptMovementDTO.getReceiptMovementId()) {
 				receipt.setCurrentState(FileStatus.CREADTED);
-				receipt.setActive(false);
+				receiptMovement.setActive(false);
 				receiptLocalService.updateReceipt(receipt);
 			}
 		}
@@ -99,5 +101,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	@Reference
 	MasterdataLocalService masterdataLocalService;
+	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

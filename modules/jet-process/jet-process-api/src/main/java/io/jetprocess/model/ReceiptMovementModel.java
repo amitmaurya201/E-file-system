@@ -311,6 +311,27 @@ public interface ReceiptMovementModel
 	 */
 	public void setPullBackRemark(String pullBackRemark);
 
+	/**
+	 * Returns the active of this receipt movement.
+	 *
+	 * @return the active of this receipt movement
+	 */
+	public boolean getActive();
+
+	/**
+	 * Returns <code>true</code> if this receipt movement is active.
+	 *
+	 * @return <code>true</code> if this receipt movement is active; <code>false</code> otherwise
+	 */
+	public boolean isActive();
+
+	/**
+	 * Sets whether this receipt movement is active.
+	 *
+	 * @param active the active of this receipt movement
+	 */
+	public void setActive(boolean active);
+
 	@Override
 	public ReceiptMovement cloneWithOriginalValues();
 

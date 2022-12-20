@@ -146,5 +146,6 @@
 		<field name="pullBackRemark" type="String">
 			<hint name="max-length">500</hint>
 		</field>
+		<field name="active" type="boolean" />
 	</model>
 </model-hints>

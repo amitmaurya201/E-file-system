@@ -125,7 +125,6 @@
 		<column name="nature" type="String" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-		<column name="active" type="boolean" />
 		<column name="attachStatus" type="String" />
 		
 
@@ -231,6 +230,7 @@
 		<column type="String" name="readOn" />
 		<column type="String" name="receivedOn" />
 		<column name="pullBackRemark" type="String" />
+		<column name="active" type="boolean" />
 
 		<finder name="receiptId" return-type="ReceiptMovement">
 			<finder-column name="receiptId"></finder-column>
