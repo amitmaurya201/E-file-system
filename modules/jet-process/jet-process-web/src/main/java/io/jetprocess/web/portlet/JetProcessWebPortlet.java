@@ -30,6 +30,7 @@ import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.masterdata.service.UserPostService;
 import io.jetprocess.model.DocFile;
+import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
@@ -47,17 +48,24 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user" }, service = Portlet.class)
 public class JetProcessWebPortlet extends MVCPortlet {
+	// for Send file
+			public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException {
+				long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
+				long senderId = ParamUtil.get(actionRequest, "senderId", 0);
+				long fileId = ParamUtil.get(actionRequest, "fileId", 0);
+				String remark = ParamUtil.getString(actionRequest, "remark");
+				String dueDate = ParamUtil.getString(actionRequest, "dueDate");
+				String priority = ParamUtil.getString(actionRequest, "priorty");
 
-	public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) {
-		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
-		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
-		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
-		String remark = ParamUtil.getString(actionRequest, "remark");
-		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
-		String priority = ParamUtil.getString(actionRequest, "priorty");
-		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
-	}
+				DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
+				if (docFile.getActive() != true) {
+					docFile.setActive(true);
+					docFileLocalService.updateDocFile(docFile);
+				}
+				fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
+				actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
+
+			}
 
 	public void sendReceipt(ActionRequest actionRequest, ActionResponse actionResponse) {
 		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
@@ -70,26 +78,34 @@ public class JetProcessWebPortlet extends MVCPortlet {
 
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);	}
 
-	// action method for getting  docfileId  and pullback remarks
-	public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
-			throws IOException, PortletException, PortalException {
-		System.out.println("sentAction url");
-		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
-		System.out.println("DocFile  Id " + docFileId);
-		String remark = ParamUtil.getString(actionRequest, "pullBackRemark");
-		System.out.println("remarks-->" + remark);
-	
-			DocFile docFile =  docFileLocalService.getDocFileByDocFileId(docFileId);
-			System.out.println("docFileid====>"+docFile);
-		    System.out.println("currentState [--->"+docFile.getCurrentState());
-		    if(docFile.getCurrentState() == 2) {
-		    	docFile.setCurrentState(1);
-		    	docFileLocalService.updateDocFile(docFile);
-		    	System.out.println("updated Code"+docFileLocalService.updateDocFile(docFile));
-					
-		    }
-                 actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
-	}
+	// action method for getting docfileId and pullback remarks
+		public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
+				throws IOException, PortletException, PortalException {
+			System.out.println("sentAction url");
+			Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
+			System.out.println("docFileId  Id " + docFileId);
+			Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
+			System.out.println("fileMovement id-->" + fileMovementId);
+			String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
+			System.out.println("remarks-->" + pullBackRemark);
+			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+			System.out.println("DocFile  ====>" + docFile);
+			System.out.println("currentState [--->" + docFile.getCurrentState());
+			if (docFile.getCurrentState() == 2) {
+				docFile.setCurrentState(1);
+				docFile.setActive(false);
+				System.out.println("updated Code" + docFileLocalService.updateDocFile(docFile));
+
+			}
+			FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
+			System.out.println("fileMovement Object --->" + fileMovement);
+			fileMovement.setPullBackRemark(pullBackRemark);
+			fLocalService.updateFileMovement(fileMovement);
+			System.out.println("updated fileMovement class--->" + fLocalService.updateFileMovement(fileMovement));
+
+			actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
+		}
+
 
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)

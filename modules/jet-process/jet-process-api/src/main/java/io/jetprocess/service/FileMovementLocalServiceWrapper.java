@@ -280,6 +280,13 @@ public class FileMovementLocalServiceWrapper
 		return _fileMovementLocalService.getFileMovement(fmId);
 	}
 
+	@Override
+	public io.jetprocess.model.FileMovement getFileMovementById(long fmId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _fileMovementLocalService.getFileMovementById(fmId);
+	}
+
 	/**
 	 * Returns the file movement matching the UUID and group.
 	 *

@@ -36,6 +36,8 @@
 						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>" name="label-sent-by"/>
 						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>" name="label-sent-to"/>
 						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>" name="label-remarks"/>
+					 <liferay-ui:search-container-column-text value="<%=fileMovementDTO.getPullBackRemark() != null ? fileMovementDTO.getPullBackRemark() : ""%>" name="PullBackRemark"/>
+						
 					</liferay-ui:search-container-row>
 					<liferay-ui:search-iterator markupView="lexicon"/>
 				</liferay-ui:search-container>

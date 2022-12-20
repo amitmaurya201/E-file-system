@@ -233,6 +233,9 @@ public interface FileMovementLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FileMovement getFileMovement(long fmId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FileMovement getFileMovementById(long fmId) throws PortalException;
+
 	/**
 	 * Returns the file movement matching the UUID and group.
 	 *

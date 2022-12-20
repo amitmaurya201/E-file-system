@@ -20,6 +20,7 @@ public class FileMovementDTO {
 	private long senderId;
 	private int currentState;
 	private long docFileId;
+	private String pullBackRemark;
 
 	public long getFileMovementId() {
 		return fileMovementId;
@@ -154,9 +155,17 @@ public class FileMovementDTO {
 		this.docFileId = docFileId;
 	}
 
+	public String getPullBackRemark() {
+		return pullBackRemark;
+	}
+
+	public void setPullBackRemark(String pullBackRemark) {
+		this.pullBackRemark = pullBackRemark;
+	}
+
 	public FileMovementDTO(long fileMovementId, String fileNumber, String subject, String sentBy, String sentTo,
 			Date sentOn, String readOn, String dueDate, String remark, String receivedOn, long currentlyWith,
-			String nature, long fileId, long senderId, int currentState, long docFileId) {
+			String nature, long fileId, long senderId, int currentState, long docFileId, String pullBackRemark) {
 		super();
 		this.fileMovementId = fileMovementId;
 		this.fileNumber = fileNumber;
@@ -174,7 +183,18 @@ public class FileMovementDTO {
 		this.senderId = senderId;
 		this.currentState = currentState;
 		this.docFileId = docFileId;
+		this.pullBackRemark = pullBackRemark;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "FileMovementDTO [fileMovementId=" + fileMovementId + ", fileNumber=" + fileNumber + ", subject="
+				+ subject + ", sentBy=" + sentBy + ", sentTo=" + sentTo + ", sentOn=" + sentOn + ", readOn=" + readOn
+				+ ", dueDate=" + dueDate + ", remark=" + remark + ", receivedOn=" + receivedOn + ", currentlyWith="
+				+ currentlyWith + ", nature=" + nature + ", fileId=" + fileId + ", senderId=" + senderId
+				+ ", currentState=" + currentState + ", docFileId=" + docFileId + ", pullBackRemark=" + pullBackRemark
+				+ "]";
+	}
+
 	
 	}

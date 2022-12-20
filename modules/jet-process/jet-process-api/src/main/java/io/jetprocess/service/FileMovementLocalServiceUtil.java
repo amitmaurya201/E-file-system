@@ -254,6 +254,12 @@ public class FileMovementLocalServiceUtil {
 		return getService().getFileMovement(fmId);
 	}
 
+	public static FileMovement getFileMovementById(long fmId)
+		throws PortalException {
+
+		return getService().getFileMovementById(fmId);
+	}
+
 	/**
 	 * Returns the file movement matching the UUID and group.
 	 *

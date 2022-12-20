@@ -78,6 +78,14 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return fileMovementPersistence.fetchByfileId(fileId);
 	}
 	
+	
+	// get Filemovement by fileMovementId 
+		public FileMovement getFileMovementById(long fmId) throws PortalException {
+			
+			  FileMovement fileMovement = fileMovementLocalService.getFileMovement(fmId);
+			  return fileMovement;
+				}
+		
 
 	@Reference
 	DocFileLocalService docFileLocalService;
