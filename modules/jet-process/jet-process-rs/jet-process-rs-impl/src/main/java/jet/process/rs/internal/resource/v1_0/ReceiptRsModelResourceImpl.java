@@ -61,7 +61,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setRemarks(receiptRsModel.getRemarks());
 		receipt.setStateId(receiptRsModel.getStateId());
 		receipt.setCurrentState(FileStatus.CREADTED);
-		receipt.setActive(true);
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}
