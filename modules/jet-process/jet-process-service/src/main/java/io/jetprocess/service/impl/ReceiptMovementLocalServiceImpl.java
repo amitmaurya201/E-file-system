@@ -86,7 +86,12 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 				.getReceiptMovementListByReceiptId(receiptId);
 		for (ReceiptMovementDTO receiptMovementDTO : receiptMovementList) {
 			if (receiptMovement.getRmId() == receiptMovementDTO.getReceiptMovementId()) {
-				receipt.setCurrentState(FileStatus.CREADTED);
+				logger.info(receipt.getCurrentlyWith());
+				logger.info(receiptMovement.getSenderId());
+				if(receipt.getCurrentlyWith() == receiptMovement.getSenderId()) {
+					logger.info("receiptMovement");
+					receipt.setCurrentState(FileStatus.CREADTED);
+				}
 				receiptMovement.setActive(false);
 				receiptLocalService.updateReceipt(receipt);
 			}
