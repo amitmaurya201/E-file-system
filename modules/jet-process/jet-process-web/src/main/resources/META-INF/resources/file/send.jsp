@@ -33,7 +33,7 @@
 
 		<aui:form action="${send}">
 			<input type="hidden" name="<portlet:namespace/>senderId"
-				value="<%=docFile.getUserPostId()%>">
+				value="<%=selectedUserPostId%>">
 			<%-- <%
 			long fileId=(long)request.getAttribute("docFileId");
 				out.println(fileId);
