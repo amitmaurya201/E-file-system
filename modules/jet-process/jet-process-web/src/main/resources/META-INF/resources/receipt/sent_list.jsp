@@ -15,6 +15,14 @@
 	background-color: #fff;
 }
 
+.invisible {
+	visibility: hidden !important;
+}
+
+.visible {
+	visibility: visible !important;
+}
+
 #myModal .modal-dialog .modal-content .modal-body .textOnInput label {
 	position: absolute;
 	background-color: #fff;
@@ -99,7 +107,7 @@
 					</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="dueDate"
 					name="label-receipt-sent-due-date" />
-				<liferay-ui:search-container-column-text property="remark"
+				<liferay-ui:search-container-column-text value="<%=receiptSentMovement.getRemark() != null ? receiptSentMovement.getRemark() : ""%>"
 					name="label-receipt-sent-remark" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-action">
@@ -121,24 +129,21 @@
 
 <portlet:actionURL var="receiptSentActionURL"
 			name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>"/>
-
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-
-			<!-- Modal Header -->
-			<div class="modal-header"
+			
+			
+<%-- 			<div id="myModal" class="modal invisible" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content" style="max-width: 70rem; margin: 0 auto;">
+				
+				    <div class="modal-header"
 				style="background-color: #96b4d6 !important;">
 				<h4 class="modal-title">
 					<liferay-ui:message key="label-receipt-sent-popup-heading" />
 				</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
-
-			<!-- Modal body -->
-			<div class="modal-body">
-				<aui:form action="${ receiptSentActionURL}">
+					<div class="modal-body" style="padding: 0">
+						<aui:form action="<%=receiptSentActionURL %>" method="post" name="fm">
 					<input type="text" name="<portlet:namespace />rmId" id="rmId"
 						hidden>
 					<input type="text" name="<portlet:namespace />receiptId"
@@ -160,7 +165,61 @@
 							id="submit_pull_back">
 							<liferay-ui:message key="label-receipt-sent-button-submit" />
 						</button>
-						<button type="button" class="btn btn-primary"
+						<button type="button" class="btn btn-primary" id="closeModal"
+							data-bs-dismiss="modal">
+							<liferay-ui:message key="label-receipt-sent-button-cancel" />
+						</button>
+					</div>
+				</aui:form>
+					</div>
+
+				</div>
+			</div>
+		</div> --%>
+			
+			
+			
+			
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header"
+				style="background-color: #96b4d6 !important;">
+				<h4 class="modal-title">
+					<liferay-ui:message key="label-receipt-sent-popup-heading" />
+				</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<aui:form action="<%=receiptSentActionURL %>" method="post" name="fm">
+					<input type="text" name="<portlet:namespace />rmId" id="rmId"
+						hidden>
+					<input type="text" name="<portlet:namespace />receiptId"
+						id="receiptId" hidden>
+					<div class="textOnInput">
+						<label><liferay-ui:message key="label-receipt-remark" /><span
+							class='text-danger'>*</span></label>
+						<aui:input label="" name="remarks" id="remarks" type="textarea">
+							<aui:validator name="required"></aui:validator>
+							<aui:validator name="maxLength">
+								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
+							</aui:validator>
+						</aui:input>
+					</div>
+
+					<hr style="margin: 1rem -14px;" />
+					<div style="text-align: right;">
+						<button type="submit" class="btn btn-primary"
+							id="submit_pull_back">
+							<liferay-ui:message key="label-receipt-sent-button-submit" />
+						</button>
+						<button type="button" class="btn btn-primary" id="closeModal"
 							data-bs-dismiss="modal">
 							<liferay-ui:message key="label-receipt-sent-button-cancel" />
 						</button>
@@ -170,15 +229,14 @@
 		</div>
 	</div>
 </div>
-
+ 
 <script type="text/javascript">
+$(document).ready(function(){
+	$(".modal-backdrop").removeClass("show");
+});
 function openModal(receiptMovementId , receiptId){
 	document.getElementById("rmId").value=receiptMovementId;
 	document.getElementById("receiptId").value=receiptId; 
-	$("#submit_pull_back").click(function() {
-		$("#myModal").modal("hide");
-		var rem = $("#<portlet:namespace />remarks").val();
-		
-	});
+	
 }
 </script>
