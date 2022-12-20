@@ -30,6 +30,7 @@ import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
+import io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
@@ -45,8 +46,8 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		System.out.println("id ->>>>>>>"+docFileId);
 		renderRequest.setAttribute("docFileId", docFileId);
 		
-	//addFileToolbarAttributes(renderRequest,renderResponse);
-	//addFileListAttributes(renderRequest);
+	addFileToolbarAttributes(renderRequest,renderResponse);
+	addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";
 	}
 	
@@ -67,7 +68,8 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
-	List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
+	List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);
+	receiptList.forEach(c->System.out.println("--->"+c));
 	renderRequest.setAttribute("receiptFileList", receiptList);
 	renderRequest.setAttribute("delta",delta);
 	renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
@@ -79,9 +81,9 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
-		FileCorrespondenceManagementToolbarDisplayContext fileCorrespondenceManagementToolbarDisplayContext = new FileCorrespondenceManagementToolbarDisplayContext(
+		AddCorrespondenceManagementToolbarDisplayContext addCorrespondenceManagementToolbarDisplayContext = new AddCorrespondenceManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-		renderRequest.setAttribute("fileCorrespondenceManagementToolbarDisplayContext", fileCorrespondenceManagementToolbarDisplayContext);
+		renderRequest.setAttribute("addCorrespondenceManagementToolbarDisplayContext", addCorrespondenceManagementToolbarDisplayContext);
 
 	}
 
