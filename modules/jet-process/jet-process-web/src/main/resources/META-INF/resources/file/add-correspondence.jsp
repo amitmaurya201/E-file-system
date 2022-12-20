@@ -45,7 +45,7 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 	
 		<div >
 		<label>Remarks</label>
-		<textarea name = "<portlet:namespace/>remarks" rows="3" cols="100" ></textarea>
+		<textarea class="form-control" name = "<portlet:namespace/>remarks" rows="3" cols="100" ></textarea>
 	</div>
 
 	<input  class="btn btn-primary" style="float: right; " type="submit" value="Attach" />

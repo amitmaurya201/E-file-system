@@ -1157,7 +1157,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature " + 
 					"	nature FROM jet_process_receipt INNER JOIN " + 
-					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 ";
+					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 AND attachstatus IS NULL";
 			if(!keyword.isEmpty() && keyword != null ) {
 				sql = sql+"AND (receiptnumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
 			}
