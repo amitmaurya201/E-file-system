@@ -16,32 +16,45 @@
 		</liferay-util:include>
 		<%-- <%@ include file="file-view.jsp" %> --%>
 
+		<%
+			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+		%>
 		<div class="m-2 border boredr border-dark">
-			<%
-			 SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-			 simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-			%>
-			<div class="m-2 border boredr border-dark">
-				<liferay-ui:search-container delta="5" emptyResultsMessage="No Record Found" iteratorURL="${fileMovementDisplayContext.getCurrentURL()}" >
-					<liferay-ui:search-container-results>
-						<%
-							List<FileMovementDTO> fileMovementList = new ArrayList();
-							fileMovementList = (List<FileMovementDTO>) request.getAttribute("fileMovementList");
-							searchContainer.setResultsAndTotal(fileMovementList);
-							searchContainer.setTotalVar("" + fileMovementList.size() + "");
-						%>
-					</liferay-ui:search-container-results>
-					<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="fileMovementDTO" keyProperty="fileMovementId">
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentOn() != null ? simpleformat.format(fileMovementDTO.getSentOn()) : ""%>" name="label-sent-on"/>
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>" name="label-sent-by"/>
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>" name="label-sent-to"/>
-						<liferay-ui:search-container-column-text value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>" name="label-remarks"/>
-					 <liferay-ui:search-container-column-text value="<%=fileMovementDTO.getPullBackRemark() != null ? fileMovementDTO.getPullBackRemark() : ""%>" name="PullBackRemark"/>
-						
-					</liferay-ui:search-container-row>
-					<liferay-ui:search-iterator markupView="lexicon"/>
-				</liferay-ui:search-container>
-			</div>
+			<liferay-ui:search-container delta="5"
+				emptyResultsMessage="No Record Found"
+				iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
+				<liferay-ui:search-container-results>
+					<%
+						List<FileMovementDTO> fileMovementList = new ArrayList();
+								fileMovementList = (List<FileMovementDTO>) request.getAttribute("fileMovementList");
+								searchContainer.setResultsAndTotal(fileMovementList);
+								searchContainer.setTotalVar("" + fileMovementList.size() + "");
+					%>
+				</liferay-ui:search-container-results>
+				<liferay-ui:search-container-row
+					className="io.jetprocess.masterdata.model.FileMovementDTO"
+					modelVar="fileMovementDTO" keyProperty="fileMovementId">
+					<liferay-ui:search-container-column-text
+						value="<%=fileMovementDTO.getSentOn() != null ? simpleformat.format(fileMovementDTO.getSentOn())
+							: ""%>"
+						name="label-sent-on" />
+					<liferay-ui:search-container-column-text
+						value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>"
+						name="label-sent-by" />
+					<liferay-ui:search-container-column-text
+						value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>"
+						name="label-sent-to" />
+					<liferay-ui:search-container-column-text
+						value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>"
+						name="label-remarks" />
+					<liferay-ui:search-container-column-text
+						value="<%=fileMovementDTO.getPullBackRemark() != null ? fileMovementDTO.getPullBackRemark() : ""%>"
+						name="PullBackRemark" />
+
+				</liferay-ui:search-container-row>
+				<liferay-ui:search-iterator markupView="lexicon" />
+			</liferay-ui:search-container>
 		</div>
 	</div>
 </div>
