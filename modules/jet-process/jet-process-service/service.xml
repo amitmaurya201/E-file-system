@@ -43,7 +43,7 @@
 		<column name="userPostId" type="long" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-		<column name="active" type="boolean" />
+	
 		<!-- Order -->
 
 		<order by="asc">
@@ -187,6 +187,7 @@
 		<column type="String" name="readOn" />
 		<column type="String" name="receivedOn" />
 		<column name="pullBackRemark" type="String" />
+		<column name="active" type="boolean" />
 
 		<finder name="fileId" return-type="FileMovement">
 			<finder-column name="fileId"></finder-column>

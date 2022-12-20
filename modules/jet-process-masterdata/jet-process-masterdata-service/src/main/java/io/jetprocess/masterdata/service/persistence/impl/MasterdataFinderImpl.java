@@ -1327,11 +1327,11 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			String sql="SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ," + 
 					"		null as sendBy," + 
 					"        (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ," + 
-					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as currentstate , f.docfileid as docfileId , fm.pullbackremark as pullBackRemark" + 
+					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark" + 
 					"		FROM jet_process_filemovement as fm " + 
 					"	      JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
 					"	      JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid " + 
-					"		where fm.senderid = ?  ";
+					"		where fm.senderid = ? AND currentstate = 2  AND fm.active_ = true AND fm.pullbackremark is null ";
 			
 			logger.info("Final File Movement List Query : "+sql);
 			
@@ -1379,7 +1379,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		FROM jet_process_filemovement as fm " + 
 					"		  JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
 					"		  JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid " + 
-					"		where fm.senderid = ?  ";
+					"		where fm.senderid = ? AND currentstate = 2  AND fm.active_ = true AND fm.pullbackremark is null ";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
@@ -1427,7 +1427,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
-	
 	
 	
 	

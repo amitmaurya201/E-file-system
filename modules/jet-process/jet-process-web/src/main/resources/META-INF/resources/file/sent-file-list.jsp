@@ -2,8 +2,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
-<%@page import="java.util.TimeZone"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import= "java.util.TimeZone"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -15,8 +15,8 @@
 .table thead th {
 	border-right: 1px solid white;
 }
-
-#myModal .modal-dialog .modal-content .modal-body .textOnInput {
+	
+	#myModal .modal-dialog .modal-content .modal-body .textOnInput {
 	position: relative;
 	background-color: #fff;
 }
@@ -47,6 +47,7 @@
 	display: inline-block;
 	margin-bottom: .5rem;
 }
+
 </style>
 
 <div class="row">
@@ -56,71 +57,66 @@
 
 
 
-	<div class="col-10">
+<div class="col-10">
 
-		<h1 class=" text-center">Sent File List</h1>
+<h1 class=" text-center">File Sent List</h1>
 
-		<clay:management-toolbar disabled="${sendFileCount eq 0}"
-			displayContext="${sendFileManagementToolbarDisplayContext}"
-			itemsTotal="${sendFileCount}" searchContainerId="sendFileListEntries"
-			managementToolbarDisplayContext="${sendFileManagementToolbarDisplayContext}" />
+<clay:management-toolbar
+        disabled="${sendFileCount eq 0}"
+        displayContext="${sendFileManagementToolbarDisplayContext}"
+        itemsTotal="${sendFileCount}"
+        searchContainerId="sendFileListEntries"
+        managementToolbarDisplayContext="${sendFileManagementToolbarDisplayContext}"
+    />
 
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/file/sent-file-list.jsp" />
+</liferay-portlet:renderURL>
 
-		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="No-Sent-File-List" id="sendFileListEntries"
-			total="${sendFileCount}"
-			iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}">
-			<liferay-ui:search-container-results results="${sentFileList}" />
+		
+<liferay-ui:search-container
+		delta="4"
+        emptyResultsMessage="No-Sent-File-List"
+        id="sendFileListEntries"
+        total="${sendFileCount}" iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}" >
+        <liferay-ui:search-container-results results="${sentFileList}" />
 
-			<liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.FileMovementDTO"
-				modelVar="sentFileListDTO" keyProperty="fileMovementId">
-				<portlet:actionURL var="fileSentActionUrl" name="sentActionUrl">
-					<portlet:param name="docFileId"
-						value="${sentFileListDTO.docFileId}" />
+	<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
+	<portlet:actionURL var="fileSentActionUrl" name="sentActionUrl">
+	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
 				</portlet:actionURL>
-				<liferay-ui:search-container-column-text name=""><%=sentFileListDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text name="File No."
-					property="fileNumber" orderableProperty="fileNumber"
-					orderable="true" />
-				<liferay-ui:search-container-column-text property="subject"
-					cssClass="hover-tips" orderable="true" orderableProperty="subject"
-					name="Subject" />
-				<liferay-ui:search-container-column-text property="sentTo"
-					cssClass="hover-tips" name="Sent To" />
+	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderable="true" />
+				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="Subject" />
+				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Sent To" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+	                simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
-				<liferay-ui:search-container-column-text
-					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
-					property="sentOn" name="Sent On" />
-				<liferay-ui:search-container-column-text property="sentTo"
-					cssClass="hover-tips" name="Currently With" />
-				<liferay-ui:search-container-column-text property="dueDate"
-					cssClass="hover-tips" name="Due On" />
+				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" orderable="true" name="Sent On" orderableProperty="sentOn" />
+				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Currently With" />
+				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due On" />
+				<liferay-ui:search-container-column-text property="docFileId" cssClass="hover-tips" name="DocFileId" />
 				<liferay-ui:search-container-column-text name="Action">
+				
+			    	  
+			<c:if test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
 
-
-					<c:if
-						test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
-
-						<button type="button" class="btn" data-bs-toggle="modal"
+						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" data-bs-toggle="modal"
 							data-bs-target="#myModal">
 							<i class="icon-indent-left"></i>
 						</button>
 					</c:if>
+				
+		</liferay-ui:search-container-column-text>
+	</liferay-ui:search-container-row>
 
-				</liferay-ui:search-container-column-text>
-			</liferay-ui:search-container-row>
-
-
-			<liferay-ui:search-iterator paginate="false" />
-			<liferay-ui:search-paginator searchContainer="${searchContainer}"
-				markupView="lexicon" />
-
-		</liferay-ui:search-container>
-	</div>
+	
+	 <liferay-ui:search-iterator paginate="false" />
+        <liferay-ui:search-paginator  searchContainer="${searchContainer}" markupView="lexicon" />
+	
+</liferay-ui:search-container>
+</div>
 </div>
 
 
@@ -133,32 +129,41 @@
 			<!-- Modal Header -->
 			<div class="modal-header"
 				style="background-color: #96b4d6 !important;">
-				<h4 class="modal-title">Reason for Pull-Back</h4>
+				<h4 class="modal-title">
+					Reason for Pull-Back
+				</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
 
 			<!-- Modal body -->
 			<div class="modal-body">
-				<aui:form action="${fileSentActionUrl}" name="sentActionUrl"
-					method="POST">
-					<div class="textOnInput">
-						<label>Remarks <span class='text-danger'>*</span></label>
-						<aui:input label="" name="pullBackRemark" id="pullBackRemark"
-							type="textarea">
+				<aui:form action="${fileSentActionUrl}" name="sentActionUrl" method="POST" >
+				
+					
+					<div class="textOnInput"> 
+						<label>Remarks
+						<span class='text-danger'>*</span></label>
+						<aui:input label="" name="pullBackRemark" id="pullBackRemark" type="textarea">
 							<aui:validator name="required"></aui:validator>
 							<aui:validator name="maxLength">
 								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
 							</aui:validator>
 						</aui:input>
-
 					</div>
+                     <input type="text" name="<portlet:namespace />docFileId" id="docFileId" hidden />
+                     		<input type="text" name="<portlet:namespace />fileMovementId"
+						id="fileMovementId" hidden >
 
 					<hr style="margin: 1rem -14px;" />
 					<div style="text-align: right;">
 						<button type="submit" class="btn btn-primary" name="sentActionUrl"
-							id="sentActionUrl">OK</button>
+							id="sentActionUrl">
+							OK
+						</button>
 						<button type="button" class="btn btn-primary"
-							data-bs-dismiss="modal">Cancel</button>
+							data-bs-dismiss="modal">
+					 	Cancel
+						</button>
 					</div>
 				</aui:form>
 			</div>
@@ -168,9 +173,24 @@
 
 
 <script type="text/javascript">
+
+function getId(docFileId,fileMovementId){
+	
+	alert(docFileId);
+	alert(fileMovementId);
+	
+	
+	textField = document.getElementById("docFileId");
+	  textField.value = docFileId;
+	  
+		fileMovementIdField = document.getElementById("fileMovementId");
+		  fileMovementIdField.value = fileMovementId; 
+	  
+}
+
 	$("#sentActionUrl").click(function() {
 		$("#myModal").modal("hide");
-
+		
 	});
 </script>
 
@@ -181,5 +201,5 @@
 
 
 
-
+    
 

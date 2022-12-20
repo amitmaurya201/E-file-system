@@ -52,7 +52,13 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		fm.setRemark(remark);
 		fm.setPriority(priority);
 		fm.setDueDate(dueDate);
-		fileMovementLocalService.addFileMovement(fm);
+	  FileMovement fileMovement =	fileMovementLocalService.addFileMovement(fm);
+	System.out.println("Fmid--->"+fileMovement.getFmId());
+		if(fileMovement.getActive() != true) {
+			fileMovement.setActive(true);
+			fileMovementLocalService.updateFileMovement(fileMovement);
+			System.out.println("updated file Active -->"+fileMovementLocalService.updateFileMovement(fileMovement));
+		}
 
 		try {
 			DocFile docFile=docFileLocalService.getDocFileByDocFileId(fileId);

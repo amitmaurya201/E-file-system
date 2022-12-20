@@ -56,7 +56,10 @@ public class JetProcessWebPortlet extends MVCPortlet {
 				String remark = ParamUtil.getString(actionRequest, "remark");
 				String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 				String priority = ParamUtil.getString(actionRequest, "priorty");
+				
+				
 				fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
+				   
 				actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
 
 			}
@@ -79,22 +82,26 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 			System.out.println("docFileId  Id " + docFileId);
 			Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
-			System.out.println("fileMovement id-->" + fileMovementId);
-			String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-			System.out.println("remarks-->" + pullBackRemark);
-			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			System.out.println("DocFile  ====>" + docFile);
-			System.out.println("currentState [--->" + docFile.getCurrentState());
-			if (docFile.getCurrentState() == 2) {
-				docFile.setCurrentState(1);
-				System.out.println("updated Code" + docFileLocalService.updateDocFile(docFile));
-			}
-			FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
-			System.out.println("fileMovement Object --->" + fileMovement);
+			
+			String  pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
+			  System.out.println("remarks-->" + pullBackRemark);
+			
+			FileMovement fileMovement =  fLocalService.getFileMovement(fileMovementId);
+			 System.out.println("fileMovement id-->" + fileMovementId);
+			 System.out.println("--->  pullbackremarks -->"+pullBackRemark);
+			 
 			fileMovement.setPullBackRemark(pullBackRemark);
+			fileMovement.setActive(false);
 			fLocalService.updateFileMovement(fileMovement);
-			System.out.println("updated fileMovement class--->" + fLocalService.updateFileMovement(fileMovement));
-
+			System.out.println("FileMovement data -->"+fLocalService.updateFileMovement(fileMovement));
+			    DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId());
+			  System.out.println("currentState -->"+docFile.getCurrentState());
+			  if(docFile.getCurrentState() == 2 ) {
+				  docFile.setCurrentState(1);
+				  docFileLocalService.updateDocFile(docFile);
+				  System.out.println("--->>>current state --"+docFileLocalService.updateDocFile(docFile));
+			  }
+		
 			actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
 		}
 
