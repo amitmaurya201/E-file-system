@@ -61,11 +61,14 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		int count=masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
+		if(delta*currentPage >count) {
+			start=0;
+		}
 		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("size of File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
 		logger.info("List------------"+ fileList );
-		int count=masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount",count);
 		System.out.println("orderByType  --> "+orderByType+" ,orderByCol---> "+orderByCol);

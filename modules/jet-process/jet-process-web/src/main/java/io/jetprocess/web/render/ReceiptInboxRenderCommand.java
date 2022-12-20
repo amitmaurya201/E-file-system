@@ -68,10 +68,13 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
+		int count=masterdataLocalService.getReceiptInboxList(userPost, keywords);
+		if(delta*currentPage >count) {
+			start=0;
+		}
 		List<ReceiptMovementDTO> receiptInboxList = masterdataLocalService.getReceiptInboxList(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("File :=============== " + receiptInboxList.size());
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
-		int count=masterdataLocalService.getReceiptInboxList(userPost, keywords);
 		renderRequest.setAttribute("inboxReceiptCount",count);
 		renderRequest.setAttribute("delta",delta);
 		logger.info("File count : " + masterdataLocalService.getReceiptInboxList(userPost, keywords));

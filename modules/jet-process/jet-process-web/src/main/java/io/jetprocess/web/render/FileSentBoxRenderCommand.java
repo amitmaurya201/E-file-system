@@ -56,12 +56,16 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
+		int sendFileCount=masterdataLocalService.getFileSentList(userPostId, keywords);
+		if(delta*currentPage >sendFileCount) {
+			start=0;
+		}
 		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
 				orderByCol, orderByType);
 		logger.info("File :=============== " + sendFileList.size());
 
 		renderRequest.setAttribute("sentFileList", sendFileList);
-		renderRequest.setAttribute("sendFileCount", +masterdataLocalService.getFileSentList(userPostId, keywords));
+		renderRequest.setAttribute("sendFileCount", +sendFileCount);
 		renderRequest.setAttribute("delta",delta);
 		logger.info("File count : " + masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
 	}

@@ -65,10 +65,14 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		int receiptCount=masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords);
+		if(delta*currentPage >receiptCount) {
+			start=0;
+		}
 		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
 		renderRequest.setAttribute("receiptFileList", receiptList);
+		renderRequest.setAttribute("receiptCount",+receiptCount);
 		renderRequest.setAttribute("delta",delta);
-		renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 		
 		logger.info("count number: -  "+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 		

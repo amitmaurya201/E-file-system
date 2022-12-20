@@ -60,12 +60,14 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
-//		List<ReceiptMovementDTO> receiptList= MasterdataLocalServiceUtil.getReceiptSentList(userPost);
+		int count=masterdataLocalService.getReceiptSendList(userPost, keywords);
+		if(delta*currentPage >count) {
+			start=0;
+		}
 		List<ReceiptMovementDTO> receiptList = masterdataLocalService.getReceiptSendList(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("receiptList :=============== " + receiptList.size());
 		receiptList.forEach(c->System.out.println(c));
 		renderRequest.setAttribute("receiptList", receiptList);
-		int count=masterdataLocalService.getReceiptSendList(userPost, keywords);
 		renderRequest.setAttribute("receiptCount",count);
 		renderRequest.setAttribute("delta",delta);
 		System.out.println("orderByType-----> "+orderByType);

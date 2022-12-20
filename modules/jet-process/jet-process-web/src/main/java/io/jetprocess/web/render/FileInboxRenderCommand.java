@@ -60,10 +60,14 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		logger.info("order by : " + orderByCol +"  : order type : - "+orderByType);
+		int fileInboxCount=masterdataLocalService.getFileInboxList(userPost, keywords);
+		if(delta*currentPage >fileInboxCount) {
+			start=0;
+		}
 		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("===========  Later ==========>" + fileInboxList);
 		renderRequest.setAttribute("fileInboxList",fileInboxList);
-		renderRequest.setAttribute("fileInboxCount",+masterdataLocalService.getFileInboxList(userPost, keywords));
+		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
 		renderRequest.setAttribute("delta",delta);
 	}
 
