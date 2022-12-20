@@ -1709,8 +1709,8 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ," + 
 					"		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark" + 
 					"		FROM jet_process_receiptmovement as rm " + 
-					"		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
-					"		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
+					"		 JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
+					"		 JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
 					"	where rm.senderid = ? and rm.active_ = true and rm.pullbackremark is null ";
 			
 			logger.info("Final File Movement List Query : "+sql);
@@ -1758,8 +1758,8 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ," + 
 					"		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark" + 
 					"		FROM jet_process_receiptmovement as rm " + 
-					"		left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
-					"		left outer JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
+					"		 JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
+					"		 JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
 					"	where rm.senderid = ? and rm.active_ = true and rm.pullbackremark is null ";
 		
 			
