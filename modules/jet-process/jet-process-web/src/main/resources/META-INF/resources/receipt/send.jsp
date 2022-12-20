@@ -48,7 +48,8 @@
 				</aui:col>
 				<aui:col cssClass="mt-3">
 					<div class="textOnInput">
-						<label><liferay-ui:message key="label-send-to" /></label>
+						<label><liferay-ui:message key="label-send-to" /><span
+							class="text-danger">*</span></label>
 						<aui:select label="" name="receiverId" id="receiverId">
 							<aui:option value=''>
 								<liferay-ui:message key="label-send-default-option" />
@@ -76,7 +77,8 @@
 				</aui:col>
 				<aui:col cssClass="mt-3">
 					<div class="textOnInput">
-						<label><liferay-ui:message key="label-send-due-date" /></label>
+						<label><liferay-ui:message key="label-send-due-date" /><span
+							class="text-danger">*</span></label>
 						<aui:input type="date" name="dueDate" id="dueDate" label="">
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
