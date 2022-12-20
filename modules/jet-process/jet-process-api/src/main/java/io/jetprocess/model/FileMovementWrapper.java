@@ -59,6 +59,7 @@ public class FileMovementWrapper
 		attributes.put("readOn", getReadOn());
 		attributes.put("receivedOn", getReceivedOn());
 		attributes.put("pullBackRemark", getPullBackRemark());
+		attributes.put("active", isActive());
 
 		return attributes;
 	}
@@ -160,11 +161,27 @@ public class FileMovementWrapper
 		if (pullBackRemark != null) {
 			setPullBackRemark(pullBackRemark);
 		}
+
+		Boolean active = (Boolean)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
+		}
 	}
 
 	@Override
 	public FileMovement cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the active of this file movement.
+	 *
+	 * @return the active of this file movement
+	 */
+	@Override
+	public boolean getActive() {
+		return model.getActive();
 	}
 
 	/**
@@ -347,9 +364,29 @@ public class FileMovementWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * Returns <code>true</code> if this file movement is active.
+	 *
+	 * @return <code>true</code> if this file movement is active; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isActive() {
+		return model.isActive();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets whether this file movement is active.
+	 *
+	 * @param active the active of this file movement
+	 */
+	@Override
+	public void setActive(boolean active) {
+		model.setActive(active);
 	}
 
 	/**
