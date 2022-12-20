@@ -76,10 +76,10 @@
 		<portlet:param name="mvcRenderCommandName" value="/addCorrespondence" />
 	</portlet:renderURL>
 
-	<div class="">
-		<h3 class="p-2 float-left put-heading" style="border-radius:0px 100px 0px 0px;">List Of Correspondences     </h3>
-		<div class="p-2 dropdown float-right put-heading" style="border-radius:100px 0px 0px 100px;">
-			<i class="fa fa-bars " style="font-size: 24px">TOC</i>
+	<div class="" style="font-size: 18px">
+		<text class="pr-4 float-left put-heading" style="border-radius:0px 100px 0px 0px; ">List Of Correspondences     </text>
+		<div class="pl-2 pr-2 dropdown float-right put-heading" style="border-radius:100px 0px 0px 100px;">
+			<i class="fa fa-bars " >TOC</i>
 			<div class="dropdown-content">
 				<a href="#">Link 1</a> <a href="#">Link 2</a> <a href="#">Link 3</a>
 			</div>
