@@ -23,7 +23,8 @@ create table JET_PROCESS_DocFile (
 	year LONG,
 	userPostId LONG,
 	currentlyWith LONG,
-	currentState INTEGER
+	currentState INTEGER,
+	active_ BOOLEAN
 );
 
 create table JET_PROCESS_FileCorr (
@@ -72,8 +73,7 @@ create table JET_PROCESS_FileMovement (
 	remark VARCHAR(75) null,
 	readOn VARCHAR(75) null,
 	receivedOn VARCHAR(75) null,
-	pullBackRemark VARCHAR(500) null,
-	active_ BOOLEAN
+	pullBackRemark VARCHAR(500) null
 );
 
 create table JET_PROCESS_Receipt (

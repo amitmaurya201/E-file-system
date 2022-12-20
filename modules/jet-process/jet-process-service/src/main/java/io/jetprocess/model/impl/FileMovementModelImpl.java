@@ -81,8 +81,7 @@ public class FileMovementModelImpl
 		{"senderId", Types.BIGINT}, {"fileId", Types.BIGINT},
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
-		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR},
-		{"active_", Types.BOOLEAN}
+		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -105,11 +104,10 @@ public class FileMovementModelImpl
 		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("pullBackRemark", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN)";
+		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileMovement";
@@ -329,10 +327,6 @@ public class FileMovementModelImpl
 		attributeSetterBiConsumers.put(
 			"pullBackRemark",
 			(BiConsumer<FileMovement, String>)FileMovement::setPullBackRemark);
-		attributeGetterFunctions.put("active", FileMovement::getActive);
-		attributeSetterBiConsumers.put(
-			"active",
-			(BiConsumer<FileMovement, Boolean>)FileMovement::setActive);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -674,27 +668,6 @@ public class FileMovementModelImpl
 		_pullBackRemark = pullBackRemark;
 	}
 
-	@JSON
-	@Override
-	public boolean getActive() {
-		return _active;
-	}
-
-	@JSON
-	@Override
-	public boolean isActive() {
-		return _active;
-	}
-
-	@Override
-	public void setActive(boolean active) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_active = active;
-	}
-
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -773,7 +746,6 @@ public class FileMovementModelImpl
 		fileMovementImpl.setReadOn(getReadOn());
 		fileMovementImpl.setReceivedOn(getReceivedOn());
 		fileMovementImpl.setPullBackRemark(getPullBackRemark());
-		fileMovementImpl.setActive(isActive());
 
 		fileMovementImpl.resetOriginalValues();
 
@@ -812,8 +784,6 @@ public class FileMovementModelImpl
 			this.<String>getColumnOriginalValue("receivedOn"));
 		fileMovementImpl.setPullBackRemark(
 			this.<String>getColumnOriginalValue("pullBackRemark"));
-		fileMovementImpl.setActive(
-			this.<Boolean>getColumnOriginalValue("active_"));
 
 		return fileMovementImpl;
 	}
@@ -980,8 +950,6 @@ public class FileMovementModelImpl
 			fileMovementCacheModel.pullBackRemark = null;
 		}
 
-		fileMovementCacheModel.active = isActive();
-
 		return fileMovementCacheModel;
 	}
 
@@ -1091,7 +1059,6 @@ public class FileMovementModelImpl
 	private String _readOn;
 	private String _receivedOn;
 	private String _pullBackRemark;
-	private boolean _active;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1138,7 +1105,6 @@ public class FileMovementModelImpl
 		_columnOriginalValues.put("readOn", _readOn);
 		_columnOriginalValues.put("receivedOn", _receivedOn);
 		_columnOriginalValues.put("pullBackRemark", _pullBackRemark);
-		_columnOriginalValues.put("active_", _active);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1147,7 +1113,6 @@ public class FileMovementModelImpl
 		Map<String, String> attributeNames = new HashMap<>();
 
 		attributeNames.put("uuid_", "uuid");
-		attributeNames.put("active_", "active");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1194,8 +1159,6 @@ public class FileMovementModelImpl
 		columnBitmasks.put("receivedOn", 16384L);
 
 		columnBitmasks.put("pullBackRemark", 32768L);
-
-		columnBitmasks.put("active_", 65536L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

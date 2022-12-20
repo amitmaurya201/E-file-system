@@ -1674,7 +1674,6 @@ public class FileMovementPersistenceImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
-		dbColumnNames.put("active", "active_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -2396,7 +2395,7 @@ public class FileMovementPersistenceImpl
 		FileMovementPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "active"});
+		new String[] {"uuid"});
 
 	@Override
 	protected FinderCache getFinderCache() {

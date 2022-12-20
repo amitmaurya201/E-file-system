@@ -65,8 +65,6 @@ public class FileMovementTable extends BaseTable<FileMovementTable> {
 	public final Column<FileMovementTable, String> pullBackRemark =
 		createColumn(
 			"pullBackRemark", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<FileMovementTable, Boolean> active = createColumn(
-		"active_", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 
 	private FileMovementTable() {
 		super("JET_PROCESS_FileMovement", FileMovementTable::new);

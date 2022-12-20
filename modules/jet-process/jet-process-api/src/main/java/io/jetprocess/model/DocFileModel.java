@@ -447,6 +447,27 @@ public interface DocFileModel
 	 */
 	public void setCurrentState(int currentState);
 
+	/**
+	 * Returns the active of this doc file.
+	 *
+	 * @return the active of this doc file
+	 */
+	public boolean getActive();
+
+	/**
+	 * Returns <code>true</code> if this doc file is active.
+	 *
+	 * @return <code>true</code> if this doc file is active; <code>false</code> otherwise
+	 */
+	public boolean isActive();
+
+	/**
+	 * Sets whether this doc file is active.
+	 *
+	 * @param active the active of this doc file
+	 */
+	public void setActive(boolean active);
+
 	@Override
 	public DocFile cloneWithOriginalValues();
 

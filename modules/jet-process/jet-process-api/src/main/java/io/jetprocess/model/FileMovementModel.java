@@ -311,27 +311,6 @@ public interface FileMovementModel
 	 */
 	public void setPullBackRemark(String pullBackRemark);
 
-	/**
-	 * Returns the active of this file movement.
-	 *
-	 * @return the active of this file movement
-	 */
-	public boolean getActive();
-
-	/**
-	 * Returns <code>true</code> if this file movement is active.
-	 *
-	 * @return <code>true</code> if this file movement is active; <code>false</code> otherwise
-	 */
-	public boolean isActive();
-
-	/**
-	 * Sets whether this file movement is active.
-	 *
-	 * @param active the active of this file movement
-	 */
-	public void setActive(boolean active);
-
 	@Override
 	public FileMovement cloneWithOriginalValues();
 
