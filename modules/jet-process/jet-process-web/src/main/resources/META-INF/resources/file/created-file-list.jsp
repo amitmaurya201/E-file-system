@@ -39,14 +39,14 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 				keyProperty="fileNumber" modelVar="filedto">
 
 
-				<%-- <portlet:renderURL var="fileInnerView">
+				 <portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
-				</portlet:renderURL> --%>
-				<portlet:renderURL var="fileInnerView">
+				</portlet:renderURL> 
+				<%-- <portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/EditedView" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
-				</portlet:renderURL>
+				</portlet:renderURL> --%>
 
 	<liferay-ui:search-container-column-text name=""  ><%= filedto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 
