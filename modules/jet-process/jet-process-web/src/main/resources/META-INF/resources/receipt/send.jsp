@@ -8,6 +8,20 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
+<style>
+.date-icon {
+	position: absolute;
+	right: 5px;
+	/* bottom: 14px; */
+	margin-top: 15px;
+	z-index: 9;
+}
+
+&
+.date-input-width {
+	width: 48%;
+}
+</style>
 
 
 <div class="send row">
@@ -79,7 +93,9 @@
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-send-due-date" /><span
 							class="text-danger">*</span></label>
-						<aui:input type="date" name="dueDate" id="dueDate" label="">
+						<aui:input type="text" name="dueDate" id="dueDate" label=""
+							placeholder="dd-mm-yyyy">
+							<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
 											function(val){
@@ -144,3 +160,10 @@
 		allowClear : true
 	});
 </script> -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#<portlet:namespace/>dueDate").datepicker({
+			format : 'dd-M-yyyy'
+		});
+	});
+</script>
