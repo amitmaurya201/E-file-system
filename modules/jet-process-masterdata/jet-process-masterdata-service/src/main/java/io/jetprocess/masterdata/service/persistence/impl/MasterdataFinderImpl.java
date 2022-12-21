@@ -1445,13 +1445,13 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
 					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId ,f.currentstate as currentState , f.docfileid as docFileId , null as pullBackRemark"+ 
 					"		FROM jet_process_filemovement as fm " + 
-					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
-					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
-					"		left outer JOIN masterdata_userpost as up2" + 
+					"		JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
+					"		 JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
+					"		 JOIN masterdata_userpost as up2" + 
 					"		ON fm.receiverid = up2.userpostid " + 
-					"	where fm.receiverid = ? and f.active_ = true  ";
+					"	where fm.receiverid = ?";
 			
-			logger.info("Final File Movement List Query : "+sql);
+			logger.info("Final File inbox List Query : "+sql);
 			
 			if(!keyword.isEmpty() && keyword != null ) {
 				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
@@ -1497,11 +1497,11 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
 					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId ,f.currentstate as currentState , f.docfileid as docFileId , null as pullBackRemark" + 
 					"		FROM jet_process_filemovement as fm " + 
-					"		 left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
-					"		left outer JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
-					"		left outer JOIN masterdata_userpost as up2" + 
+					"		 JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
+					"		JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
+					"		JOIN masterdata_userpost as up2" + 
 					"		ON fm.receiverid = up2.userpostid " + 
-					"	where fm.receiverid = ? and f.active_ = true  ";
+					"	where fm.receiverid = ?";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
