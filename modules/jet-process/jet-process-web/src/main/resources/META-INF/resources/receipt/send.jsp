@@ -43,11 +43,10 @@
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid m-1" style="background-color: #E8E8E8;">
-			<span><%=firstChar%></span><span>| ${receipt.receiptNumber} </span><span>|
-				${receiptCategoryValue}</span>
+			<span><%=firstChar%></span><span>| ${receipt.receiptNumber} </span>
 		</div>
 
-		<aui:container cssClass="row">
+		<aui:container cssClass="row"> 
 			<aui:form action="${send}" cssClass="border border-dark col-6">
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">

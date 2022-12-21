@@ -51,24 +51,17 @@
 }
 </style>
 
-
-
-
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
-
-
 		<liferay-portlet:renderURL varImpl="iteratorURL">
 			<portlet:param name="mvcPath" value="/receipt/sent_list.jsp" />
 		</liferay-portlet:renderURL>
-
 		<h1 class=" text-center">
 			<liferay-ui:message key="label-receipt-sent-heading" />
 		</h1>
-
 		<clay:management-toolbar
 		        disabled="${receiptCount eq 0}"
 		        displayContext="${sendReceiptManagementToolbarDisplayContext}"
@@ -76,7 +69,6 @@
 		        searchContainerId="receiptSendEntries"
 		        managementToolbarDisplayContext="${sendReceiptManagementToolbarDisplayContext}"
 		    />
-
 		<liferay-ui:search-container
 		delta="${delta }"
         emptyResultsMessage="no record found"
@@ -113,8 +105,8 @@
 					name="label-receipt-sent-action">
 					<c:if
 						test="${(empty receiptSentMovement.readOn) and (empty receiptSentMovement.receivedOn)}">
-						<button type="button" class="btn" data-bs-toggle="modal"
-							data-bs-target="#myModal"
+						<button type="button" class="btn"  data-bs-toggle="modal"
+							data-bs-target="#myModal" 
 							onclick="openModal(${ receiptSentMovement.receiptMovementId} , ${receiptSentMovement.receiptId})">
 							<i class="icon-indent-left"></i>
 						</button>
@@ -129,57 +121,6 @@
 
 <portlet:actionURL var="receiptSentActionURL"
 			name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>"/>
-			
-			
-<%-- 			<div id="myModal" class="modal invisible" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content" style="max-width: 70rem; margin: 0 auto;">
-				
-				    <div class="modal-header"
-				style="background-color: #96b4d6 !important;">
-				<h4 class="modal-title">
-					<liferay-ui:message key="label-receipt-sent-popup-heading" />
-				</h4>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-			</div>
-					<div class="modal-body" style="padding: 0">
-						<aui:form action="<%=receiptSentActionURL %>" method="post" name="fm">
-					<input type="text" name="<portlet:namespace />rmId" id="rmId"
-						hidden>
-					<input type="text" name="<portlet:namespace />receiptId"
-						id="receiptId" hidden>
-					<div class="textOnInput">
-						<label><liferay-ui:message key="label-receipt-remark" /><span
-							class='text-danger'>*</span></label>
-						<aui:input label="" name="remarks" id="remarks" type="textarea">
-							<aui:validator name="required"></aui:validator>
-							<aui:validator name="maxLength">
-								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
-							</aui:validator>
-						</aui:input>
-					</div>
-
-					<hr style="margin: 1rem -14px;" />
-					<div style="text-align: right;">
-						<button type="submit" class="btn btn-primary"
-							id="submit_pull_back">
-							<liferay-ui:message key="label-receipt-sent-button-submit" />
-						</button>
-						<button type="button" class="btn btn-primary" id="closeModal"
-							data-bs-dismiss="modal">
-							<liferay-ui:message key="label-receipt-sent-button-cancel" />
-						</button>
-					</div>
-				</aui:form>
-					</div>
-
-				</div>
-			</div>
-		</div> --%>
-			
-			
-			
-			
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -197,7 +138,7 @@
 
 			<!-- Modal body -->
 			<div class="modal-body">
-				<aui:form action="<%=receiptSentActionURL %>" method="post" name="fm">
+				<aui:form action="<%=receiptSentActionURL %>" method="post" name="fm" onsubmit="return closeSelf(this)">
 					<input type="text" name="<portlet:namespace />rmId" id="rmId"
 						hidden>
 					<input type="text" name="<portlet:namespace />receiptId"
@@ -231,12 +172,13 @@
 </div>
  
 <script type="text/javascript">
-$(document).ready(function(){
-	$(".modal-backdrop").removeClass("show");
-});
+function closeSelf (form) {
+    form.submit();
+    window.close();
+ }
 function openModal(receiptMovementId , receiptId){
 	document.getElementById("rmId").value=receiptMovementId;
 	document.getElementById("receiptId").value=receiptId; 
-	
+	 $("#<portlet:namespace />remarks").val("");
 }
 </script>
