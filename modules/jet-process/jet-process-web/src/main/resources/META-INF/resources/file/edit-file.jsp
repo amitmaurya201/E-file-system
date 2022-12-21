@@ -203,7 +203,7 @@
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
 											      <% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
-												<aui:select cssClass="form-select form-control"
+												<aui:select cssClass="form-select form-control master_drop_category"
 													id="categoryId" name="categoryId" label="label-file-categoryid">
 													<option value="<%= docFile.getCategoryId() %>"><%=categoryValue%></option>
 														<aui:validator name="required" />
@@ -287,6 +287,14 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(".master_drop_category").on("click",function(){
+	
+	$(".master_drop_category").find("option").eq(0).hide();
+})
+
+</script>
+
  <%@ include file="/js/file.js"%>
 
 

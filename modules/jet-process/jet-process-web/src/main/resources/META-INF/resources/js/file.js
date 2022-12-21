@@ -5,7 +5,11 @@
      /* get current year */
 	    var currentTime = new Date();
 		var year = currentTime.getFullYear();
-     	var currentYear = document.getElementById("<portlet:namespace/>year").value=year;
+        if(document.getElementById("<portlet:namespace/>year")!= null)
+        {
+            currentYear = document.getElementById("<portlet:namespace/>year").value=year;
+        }
+
      	
       /* get basicHead data */
 	 AUI().use('aui-base', function(A){
@@ -111,8 +115,9 @@
 /* get subcategory data */
 	       $("#<portlet:namespace />categoryId").on('change', function(){
 	var categoryId = $("#<portlet:namespace />categoryId").val();
-	
-	
+    $("#<portlet:namespace />subCategoryId").empty();
+    $("#<portlet:namespace />subCategoryId").append(new Option("Select",""));
+
 	  AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-sub-category-masterdata`,

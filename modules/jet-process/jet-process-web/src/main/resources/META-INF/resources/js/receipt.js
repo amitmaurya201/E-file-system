@@ -2,7 +2,6 @@
 
 var tempFileId=0;
 
-/ masterdata call /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-receipt-category-masterdata',
@@ -15,9 +14,12 @@ AUI().use('aui-base', function(A){
 	});
 });	
 
-/ receipt subcategory masterdata /
+
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
+    $("#<portlet:namespace />receiptSubCategoryId").empty();
+    $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",""));
+
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
@@ -33,7 +35,7 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 		 });
 	});
 });
-/ type masterdata /
+
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-type-masterdata',
@@ -46,7 +48,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-/ delivery mode masterdata /
+
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-delivery-mode-masterdata',
@@ -60,7 +62,7 @@ AUI().use('aui-base', function(A){
 	 });
 });
 
-/ Country Masterdata /
+
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-countries-masterdata',
@@ -74,9 +76,11 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-/ State Masterdata /
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
+    $("#<portlet:namespace />stateId").empty();
+    $("#<portlet:namespace />stateId").append(new Option("Select",""));
+
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-states-masterdata',
@@ -94,7 +98,6 @@ $("#<portlet:namespace />countryId").on('change', function(){
 	});
 });
 
-/ Organization Masterdata /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-organization-masterdata',
@@ -107,9 +110,12 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-/ Suborganization Masterdata /
+
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
+    $("#<portlet:namespace />subOrganizationId").empty();
+    $("#<portlet:namespace />subOrganizationId").append(new Option("Select",""));
+
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-sub-organization-masterdata',
@@ -149,7 +155,7 @@ $("#<portlet:namespace />nature").on('change',mySeletedNature);
      }
 }
 
-/ create receipt /
+
 $("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 e.preventDefault();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
@@ -200,10 +206,10 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 });
 
 /* update receipt*/
-$("#<portlet:namespace />receiptForm").on('submit', function(e){
+$("#<portlet:namespace />editReceiptForm").on('submit', function(e){
 	 e.preventDefault();
 	 var dmFileId = $('#<portlet:namespace/>dmFileId').val();
-	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
+	 var formObj= $('#<portlet:namespace/>editReceiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
     var userPostId= getUserPostId();
     jsonData["userPostId"] = userPostId;

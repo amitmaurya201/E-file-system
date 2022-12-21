@@ -93,7 +93,7 @@ input[type='file'] {
 					</aui:col>
 				</aui:form>
 				<aui:form cssClass="scroll border border-dark col-6"
-					name="receiptForm" id="receiptForm">
+					name="editReceiptForm" id="editReceiptForm">
 					<aui:input name="receiptId" id="receiptId" type="hidden"
 						value="${receipt.receiptId}" />
 					<%-- <aui:input label="" name="dmFileId" id="dmFileId"
@@ -126,13 +126,13 @@ input[type='file'] {
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-type" /><span
 									class='text-danger'>*</span></label>
-								<aui:select label="" name="typeId" id="typeId">
+								<aui:select cssClass = "master_drop_type" label="" name="typeId" id="typeId">
 									<c:if test="${receipt.typeId != null}">
 										<aui:option value="${receipt.typeId}">${typeValue}</aui:option>
 									</c:if>
-									<aui:option value="">
+									<%-- <aui:option value="">
 										<liferay-ui:message key="receipt-deafult-option" />
-									</aui:option>
+									</aui:option> --%>
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -246,34 +246,37 @@ input[type='file'] {
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
-							<div class="textOnInput">
+							<div class="textOnInput" >
 								<label><liferay-ui:message
 										key="label-receipt-organization" /><span class='text-danger'>*</span></label>
-								<aui:select label="" name="organizationId" id="organizationId">
-									<c:if test="${receipt.organizationId != null}">
-										<aui:option value="${receipt.organizationId}">${organizationValue}</aui:option>
-									</c:if>
-									<aui:option value="">
+								<aui:select cssClass = "master_drop_organization" label="" name="organizationId" id="organizationId">
+								 
+									<c:if test="${receipt.organizationId != null}"> 
+								 	<aui:option value="${receipt.organizationId}" >${organizationValue}</aui:option>
+									</c:if> 
+								<%-- <aui:option value="">
 										<liferay-ui:message key="receipt-default-option" />
-									</aui:option>
+									</aui:option> --%>
+									
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
+							
 						</aui:col>
 						<aui:col md="6" cssClass="mt-3">
-							<div class="textOnInput">
+							<div class="textOnInput" id = "editOrganizationDiv">
 								<label><liferay-ui:message
 										key="label-receipt-sub-organization" /></label>
 								<aui:select label="" name="subOrganizationId"
 									id="subOrganizationId">
 									<c:if test="${receipt.subOrganizationId != null}">
-										<aui:option value="${receipt.subOrganizationId}">${subOrganizationValue}</aui:option>
+										<aui:option value="${receipt.subOrganizationId}" >${subOrganizationValue}</aui:option>
+			
 									</c:if>
-									<aui:option value="">
-										<liferay-ui:message key="receipt-default-option" />
-									</aui:option>
+									
 								</aui:select>
 							</div>
+							
 						</aui:col>
 					</aui:row>
 					<aui:row>
@@ -370,13 +373,13 @@ input[type='file'] {
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-country" /></label>
-								<aui:select label="" name="countryId" id="countryId">
+								<aui:select cssClass = "master_drop_country" label="" name="countryId" id="countryId">
 									<c:if test="${receipt.countryId != null}">
 										<aui:option value="${receipt.countryId}">${countryValue}</aui:option>
 									</c:if>
-									<aui:option value="">
+									<%-- <aui:option value="">
 										<liferay-ui:message key="receipt-default-option" />
-									</aui:option>
+									</aui:option> --%>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -446,32 +449,31 @@ input[type='file'] {
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-category" /><span
 									class='text-danger'>*</span></label>
-								<aui:select label="" name="receiptCategoryId"
+								<aui:select cssClass ="master_drop_receipt_category" label="" name="receiptCategoryId"
 									id="receiptCategoryId">
 									<c:if test="${receipt.receiptCategoryId != null}">
 										<aui:option value="${receipt.receiptCategoryId}">${receiptCategoryValue}</aui:option>
 									</c:if>
-									<aui:option value="">
-										<liferay-ui:message key="receipt-default-option" />
-									</aui:option>
+									
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
 						</aui:col>
 						<aui:col md="6" cssClass="mt-3">
-							<div class="textOnInput">
+							<div class="textOnInput" id="editReceiptSubCategoryDiv">
 								<label><liferay-ui:message
 										key="label-receipt-sub-category" /></label>
-								<aui:select label="" name="receiptSubCategoryId"
+								<aui:select  label="" name="receiptSubCategoryId"
 									id="receiptSubCategoryId">
 									<c:if test="${receipt.receiptSubCategoryId != null}">
 										<aui:option value="${receipt.receiptSubCategoryId}">${receiptSubCategoryValue}</aui:option>
 									</c:if>
-									<aui:option value="">
-										<liferay-ui:message key="receipt-default-option" />
-									</aui:option>
+									
 								</aui:select>
+								
+								
 							</div>
+						
 						</aui:col>
 					</aui:row>
 					<aui:row>
@@ -516,7 +518,9 @@ input[type='file'] {
 </div>
 
 <script type="text/javascript">
+	
 	$(document).ready(function() {
+	
 		$("#<portlet:namespace/>letterDate").datepicker({
 			format : 'dd-M-yyyy'
 		});
@@ -526,5 +530,21 @@ input[type='file'] {
 		});
 
 	});
+	$(".master_drop_type").on("click" ,function() {
+	    $(".master_drop_type").find("option").eq(0).hide();
+	});
+	
+	$(".master_drop_receipt_category").on("click" ,function() {
+	    $(".master_drop_receipt_category").find("option").eq(0).hide();
+		
+	});
+	$(".master_drop_organization").on("click" ,function() {
+		
+	    $(".master_drop_organization").find("option").eq(0).hide();
+	});
+	$(".master_drop_country").on("click" ,function() {
+	    $(".master_drop_country").find("option").eq(0).hide();
+	});
 </script>
+
 <%@ include file="/js/receipt.js"%>
