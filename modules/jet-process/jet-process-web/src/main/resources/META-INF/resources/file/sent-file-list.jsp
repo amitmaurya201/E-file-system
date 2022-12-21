@@ -86,7 +86,7 @@
 	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
 				</portlet:actionURL>
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-text name="File No." property="fileNumber" orderable="true" />
+		<liferay-ui:search-container-column-text name="File Number" property="fileNumber" orderable="true" />
 				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="Subject" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Sent To" />
 				<%
@@ -95,11 +95,8 @@
 				%>
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" orderable="true" name="Sent On" orderableProperty="sentOn" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Currently With" />
-				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due On" />
-				<liferay-ui:search-container-column-text property="docFileId" cssClass="hover-tips" name="DocFileId" />
-				<liferay-ui:search-container-column-text name="Action">
-				
-			    	  
+				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due Date" />
+				<liferay-ui:search-container-column-text name="Action">	  
 			<c:if test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
 
 						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" data-bs-toggle="modal"
