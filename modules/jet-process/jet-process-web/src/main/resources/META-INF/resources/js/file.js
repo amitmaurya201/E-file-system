@@ -166,8 +166,8 @@
 	        			  console.log(response);
 	        			  if(response!=null){
 	        			  swal( {
-	                          title: "successfull !",
-	                          text: `You Have successfully created Your File! And Your File Number is`+response.fileNumber,
+	                          title: "Successfull !",
+	                          text: `You Have successfully created Your File ! And Your File Number is `+response.fileNumber,
 	                          icon: "success",
 	                          button: "ok"
 	                      }).then(function() {

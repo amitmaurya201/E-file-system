@@ -154,6 +154,9 @@
 																	<aui:input class="form-control" type="text"
 																		name="fileNumber" id="fileNumber" value=""
 																		label="">
+																		<aui:validator name="maxLength">
+												                  	<liferay-ui:message key="file-filenumber-maxlength" />
+												                       </aui:validator>
 																		<aui:validator name="required" />
 																	</aui:input>
 																</aui:fieldset>
