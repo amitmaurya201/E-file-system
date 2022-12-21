@@ -12,6 +12,7 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(
 		immediate = true, 
@@ -41,7 +42,7 @@ long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
 			receiptMovementLocalService.updateReceiptMovement(receiptMovement);
 		}
 		
-		actionResponse.setRenderParameter("mvcPath", "/receipt/inbox.jsp");
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		
 		
 		

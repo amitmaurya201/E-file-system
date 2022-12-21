@@ -16,7 +16,7 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=readAction" }, service = MVCActionCommand.class)
+		"mvc.command.name=fileReadAction" }, service = MVCActionCommand.class)
 public class FileInboxReadActionCommand implements MVCActionCommand {
 
 	@Reference

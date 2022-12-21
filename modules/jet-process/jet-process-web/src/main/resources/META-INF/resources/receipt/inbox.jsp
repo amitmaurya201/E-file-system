@@ -12,30 +12,32 @@
 
 .popup, .read-popup, .receive-popup {
 	/*Hides pop-up when there is no "active" class*/
-	visibility: hidden;
+	/* visibility: hidden; */
 	position: absolute;
 	background: #bebec1;
 	border: 3px solid #666666;
 	margin-top: -30%;
 	left: 30%;
+	display: none;
 }
-.popup{
+
+.popup {
 	width: 50%;
 	height: 50%;
 }
-.read-popup, .receive-popup{
+
+.read-popup, .receive-popup {
 	width: 30%;
 	height: 30%;
 	left: 43%;
 	background: #c7d8e2;
 }
 
-
-
 .popup.active, .read-popup.active, .receive-popup.active {
 	/*displays pop-up when "active" class is present*/
-	visibility: visible;
+	/* visibility: visible; */
 	text-align: center;
+	display: block;
 }
 
 .button {
@@ -46,8 +48,9 @@
 	border-collapse: separate;
 	border-spacing: 0 15px;
 }
-.tableSender td{
-	text-align:left;
+
+.tableSender td {
+	text-align: left;
 }
 
 .bold {
@@ -70,21 +73,17 @@
 			<liferay-ui:message key="label-receipt-inbox-heading" />
 		</h1>
 
-		<clay:management-toolbar
-		        disabled="${inboxReceiptCount eq 0}"
-		        displayContext="${receiptInboxManagementToolbarDisplayContext}"
-		        itemsTotal="${inboxReceiptCount}"
-		        searchContainerId="assignmentEntries"
-		        managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}"
-		    />
-			
-		<liferay-ui:search-container
-		delta="${delta }"
-        emptyResultsMessage="no record found"
-        id="assignmentEntries"
-        total="${inboxReceiptCount}" iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}"
-        >
-        <liferay-ui:search-container-results results="${receiptInboxList}" />
+		<clay:management-toolbar disabled="${inboxReceiptCount eq 0}"
+			displayContext="${receiptInboxManagementToolbarDisplayContext}"
+			itemsTotal="${inboxReceiptCount}"
+			searchContainerId="assignmentEntries"
+			managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}" />
+
+		<liferay-ui:search-container delta="${delta }"
+			emptyResultsMessage="no record found" id="assignmentEntries"
+			total="${inboxReceiptCount}"
+			iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}">
+			<liferay-ui:search-container-results results="${receiptInboxList}" />
 			<liferay-ui:search-container-row
 				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
@@ -97,15 +96,17 @@
 						value="${receiptMovementDTO.getReceiptId()}" />
 				</portlet:renderURL>
 
-				<portlet:actionURL name="receiveActionreceipt" var="formAction">
+				<portlet:actionURL name="receiveActionreceipt"
+					var="receiptReceiveAction">
 				</portlet:actionURL>
-				<portlet:actionURL name="readActionreceipt" var="formAction1">
+				<portlet:actionURL name="readActionreceipt" var="receiptReadAction">
 				</portlet:actionURL>
-				
+
 				<portlet:renderURL var="receiptInnerView">
-						<portlet:param name="mvcRenderCommandName" value="/receiptView" />
-						<portlet:param name="receiptId" value="${receiptMovementDTO.getReceiptId()}" />
-						</portlet:renderURL>
+					<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+					<portlet:param name="receiptId"
+						value="${receiptMovementDTO.getReceiptId()}" />
+				</portlet:renderURL>
 				<c:choose>
 					<c:when
 						test="${receiptMovementDTO.getNature()=='Electronic' || receiptMovementDTO.getNature()=='Physical'}">
@@ -116,10 +117,12 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" orderableProperty="receiptNumber" orderable="true"  cssClass="bold"
-								name="label-receipt-inbox-receiptno" />
+							<liferay-ui:search-container-column-text property="receiptNumber"
+								orderableProperty="receiptNumber" orderable="true"
+								cssClass="bold" name="label-receipt-inbox-receiptno" />
 
-							<liferay-ui:search-container-column-text property="subject" orderable="true" orderableProperty="subject" cssClass="bold"
+							<liferay-ui:search-container-column-text property="subject"
+								orderable="true" orderableProperty="subject" cssClass="bold"
 								name="label-receipt-inbox-subject" />
 
 							<%
@@ -128,8 +131,8 @@
 													long senderId = receiptMvmt.getSenderId();
 							%>
 
-							<liferay-ui:search-container-column-text name="label-receipt-inbox-sentby"
-								cssClass="hover-tips bold">
+							<liferay-ui:search-container-column-text
+								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
@@ -147,12 +150,13 @@
 					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 					name="Read On" /> --%>
 
-							<liferay-ui:search-container-column-text property="dueDate" cssClass="bold"
+							<liferay-ui:search-container-column-text property="dueDate"
+								cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
 
-							<liferay-ui:search-container-column-text cssClass="bold" property="remark"
-								name="label-receipt-inbox-remarks">
+							<liferay-ui:search-container-column-text cssClass="bold"
+								property="remark" name="label-receipt-inbox-remarks">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark()%>
 								</c:if>
@@ -160,26 +164,26 @@
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text cssClass="bold" name="label-receipt-inbox-actions"
-										align="center">
+									<liferay-ui:search-container-column-text cssClass="bold"
+										name="label-receipt-inbox-actions" align="center">
 										<span><a href="#" class="button open"
 											onclick="readModal(${receiptMovementDTO.getReceiptId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-read" />
-											</a></span>
-										<span><a href="${sendURL}">
-											<liferay-ui:message key="label-receipt-inbox-action-send" />
+										</a></span>
+										<span><a href="${sendURL}"> <liferay-ui:message
+													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:search-container-column-text cssClass="bold" name="label-receipt-inbox-actions"
-										align="center">
+									<liferay-ui:search-container-column-text cssClass="bold"
+										name="label-receipt-inbox-actions" align="center">
 										<span><a href="#" class="button open"
 											onclick="receiveModal(${receiptMovementDTO.getReceiptId()})">
-													<liferay-ui:message key="label-receipt-inbox-action-receive" />
-											</a></span>
-										<span><a href="${sendURL}">
-											<liferay-ui:message key="label-receipt-inbox-action-send" />
+												<liferay-ui:message key="label-receipt-inbox-action-receive" />
+										</a></span>
+										<span><a href="${sendURL}"> <liferay-ui:message
+													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
@@ -193,11 +197,12 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" orderableProperty="receiptNumber" href="<%=receiptInnerView %>"
+							<liferay-ui:search-container-column-text property="receiptNumber"
+								orderableProperty="receiptNumber" href="<%=receiptInnerView%>"
 								name="label-receipt-inbox-receiptno" />
 
-							<liferay-ui:search-container-column-text property="subject" orderableProperty="subject"
-								name="label-receipt-inbox-subject" />
+							<liferay-ui:search-container-column-text property="subject"
+								orderableProperty="subject" name="label-receipt-inbox-subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
@@ -205,8 +210,8 @@
 													long senderId = receiptMvmt.getSenderId();
 							%>
 
-							<liferay-ui:search-container-column-text name="label-receipt-inbox-sentby"
-								cssClass="hover-tips">
+							<liferay-ui:search-container-column-text
+								name="label-receipt-inbox-sentby" cssClass="hover-tips">
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
@@ -237,18 +242,18 @@
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text name="label-receipt-inbox-actions"
-										align="center">
-										<span><a href="${sendURL}">
-												<liferay-ui:message key="label-receipt-inbox-action-send" />
+									<liferay-ui:search-container-column-text
+										name="label-receipt-inbox-actions" align="center">
+										<span><a href="${sendURL}"> <liferay-ui:message
+													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
-									<liferay-ui:search-container-column-text name="label-receipt-inbox-actions"
-										align="center">
-										<span><a href="${sendURL}">
-												<liferay-ui:message key="label-receipt-inbox-action-send" />
+									<liferay-ui:search-container-column-text
+										name="label-receipt-inbox-actions" align="center">
+										<span><a href="${sendURL}"> <liferay-ui:message
+													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
@@ -259,7 +264,8 @@
 				</c:choose>
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
-        <liferay-ui:search-paginator searchContainer="<%=new SearchContainer() %>" markupView="lexicon" />
+			<liferay-ui:search-paginator
+				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 		</liferay-ui:search-container>
 
 	</div>
@@ -277,12 +283,13 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-3">
-		<h3 class="text-center">Are you sure to receive ?</h3>
-			<aui:form action="${formAction}" method="POST" name="fm">
+			<h3 class="text-center">Are you sure to receive ?</h3>
+			<aui:form action="${receiptReceiveAction}" method="POST" name="fm">
 				<text>Receipt Number </text>
-				<input type="text" disabled name='<portlet:namespace/>receiptId'
-					id="receive-receiptId" /><br>
-				<button class="mt-3" type="submit">Receive</button>
+				<input type="text" readonly name='<portlet:namespace/>receiptId'
+					id="receive-receiptId" />
+				<br>
+				<button class="mt-3 btn btn-success" type="submit">Receive</button>
 			</aui:form>
 		</div>
 	</div>
@@ -292,19 +299,20 @@
 <!-- Read pop up -->
 <div id="read" class="read-popup">
 	<!--   Creates the popup content-->
-	<div class="read popup-content">
+	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -6%; margin-right: -2%;  font-size: 25px;">
+			style="float: right; margin-top: -6%; margin-right: -2%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to read ?</h3>
-			<aui:form action="${formAction1}" method="POST" name="fm">
+			<aui:form action="${receiptReadAction}" method="POST" name="fm">
 				<text>Receipt Number </text>
-				<input type="text" disabled name='<portlet:namespace/>receiptId1'
-					id="read-receiptId" /><br>
-				<button class="mt-3" type="submit">Read</button>
+				<input type="text" readonly name='<portlet:namespace/>receiptId1'
+					id="read-receiptId" />
+				<br>
+				<button class="mt-3 btn btn-success" type="submit">Read</button>
 			</aui:form>
 		</div>
 	</div>
@@ -314,16 +322,17 @@
 <!--Creates the popup body-->
 <div id="sender-dtls" class="popup">
 	<!--   Creates the popup content-->
-	<div class="dtls popup-content">
+	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 border" style="background-color:gainsboro;">
+		<div class="container mt-5 border"
+			style="background-color: gainsboro;">
 			<div class="row ">
 				<div class="col-6">
-					<table class="tableSender" >
+					<table class="tableSender">
 						<tr class="mt-1">
 							<th class="col-3">Name :</th>
 							<td id="name" class="col-3"></td>
@@ -368,15 +377,6 @@
 
 <script type="text/javascript">
 
-/* $(document).ready(function(){
-	console.log("----");
-	if(${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null}){
-		console.log("--inside--");
-		//var elem = document.getElementsByTagName("liferay-ui:search-container-column-text");
-		$("liferay-ui:search-container-column-text").attr("cssClass","bold");
-	}
-}
- */
  function receiveModal(receiptId){
 	/* alert(receiptId); */
 	document.getElementById("receive-receiptId").value=receiptId;
