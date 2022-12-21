@@ -296,8 +296,7 @@
 		</button>
 		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to read ?</h3>
-			<aui:form action="${fileReadAction}" method="POST" name="fm"
-				cssClass="mt-5">
+			<aui:form action="${fileReadAction}" method="POST" name="fm">
 				<text>Receipt Number </text>
 				<input type="text" readonly name='<portlet:namespace/>fileId1'
 					id="file-read-fileId" />
@@ -314,10 +313,10 @@
 	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -5%; font-size: 25px;">
+			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5">
+		<div class="container mt-5 border" style="background-color: gainsboro;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
