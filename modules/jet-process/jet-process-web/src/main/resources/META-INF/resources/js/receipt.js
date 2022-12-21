@@ -2,7 +2,7 @@
 
 var tempFileId=0;
 
-/* masterdata call */
+/ masterdata call /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-receipt-category-masterdata',
@@ -15,7 +15,7 @@ AUI().use('aui-base', function(A){
 	});
 });	
 
-/* receipt subcategory masterdata */
+/ receipt subcategory masterdata /
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
 		 AUI().use('aui-base', function(A){
@@ -33,7 +33,7 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 		 });
 	});
 });
-/* type masterdata */
+/ type masterdata /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-type-masterdata',
@@ -46,7 +46,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-/* delivery mode masterdata */
+/ delivery mode masterdata /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-delivery-mode-masterdata',
@@ -60,7 +60,7 @@ AUI().use('aui-base', function(A){
 	 });
 });
 
-/* Country Masterdata */
+/ Country Masterdata /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-countries-masterdata',
@@ -74,7 +74,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-/* State Masterdata */
+/ State Masterdata /
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
 		 AUI().use('aui-base', function(A){
@@ -94,7 +94,7 @@ $("#<portlet:namespace />countryId").on('change', function(){
 	});
 });
 
-/* Organization Masterdata */
+/ Organization Masterdata /
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-organization-masterdata',
@@ -107,7 +107,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-/* Suborganization Masterdata */
+/ Suborganization Masterdata /
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
 		 AUI().use('aui-base', function(A){
@@ -149,7 +149,7 @@ $("#<portlet:namespace />nature").on('change',mySeletedNature);
      }
 }
 
-/* create receipt */
+/ create receipt /
 $("#<portlet:namespace />receiptForm").on('submit', function(e){
 	 e.preventDefault();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
@@ -251,7 +251,7 @@ $('#removeFileUpload').on('click',function(e){
  $('#removeFileUpload').css("display", "none");
 	console.log("if ------>>>>>");
 	$("#editpdfurl").remove();
-
+	$(sizeValidation).css('display', 'none'); 
 	
 });
 
@@ -266,7 +266,8 @@ $('#doc-select-btn').on('click',function(){
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
 	var file = e.target.files[0];
-	displayPreview(file);
+//	displayPreview(file);
+	validateSize(file);
 });
 
 	$('.dropzone-wrapper').on('dragover', function(e) {
@@ -286,7 +287,8 @@ $('#doc-input').on('change',function(e){
 	  
 	  
 	  console.log("drop drag area.."+e.originalEvent.dataTransfer.files[0].name)
-		displayPreview(e.originalEvent.dataTransfer.files[0]);
+//		displayPreview(e.originalEvent.dataTransfer.files[0]);
+	  validateSize(e.originalEvent.dataTransfer.files[0])
 	});
 	
 function displayPreview(file){
@@ -323,6 +325,15 @@ function displayPreview(file){
 		  }); 
 }
 
+
+function validateSize(file) {
+	  const fileSize = file.size ;
+	  if (fileSize > 1024*1024* 25) {
+	     $(sizeValidation).css('display', 'block'); 
+	  } else {
+		  displayPreview(file);
+	  }
+	}
 
 
 

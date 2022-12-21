@@ -22,7 +22,7 @@ input[type='file'] {
 .date-icon {
 	position: absolute;
 	right: 5px;
-	/* bottom: 14px; */
+	/ bottom: 14px; /
 	margin-top: 15px;
 	z-index: 9;
 }
@@ -58,10 +58,18 @@ input[type='file'] {
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6">
 					<aui:col cssClass="border ">
-						<button class="btn text-danger" id="removeFileUpload">
-							<liferay-ui:message key="receipt-remove-button" />
-						</button>
-						<div id="targetDiv" class="targetDiv text-center">
+					
+					<c:set var="url" value="${receipt.viewPdfUrl}"></c:set>
+
+							<c:if test="${url ne ''}">
+					         		 	<button class="btn text-danger" id="removeFileUpload">
+												<liferay-ui:message key="receipt-remove-button" />
+											</button>
+											
+					      	</c:if>
+					<div id="targetDiv" class="targetDiv text-center">
+					
+						
 
 
 
@@ -75,6 +83,7 @@ input[type='file'] {
 									id="doc-select-btn"><liferay-ui:message
 										key="label-receipt-pdf-file" /></span> <input name="doc-input"
 									id="doc-input" type="file" hidden accept=".pdf" />
+									<p id="sizeValidation" style="display:none; color:red;">size must be less then 25 mb</p>
 
 							</div>
 

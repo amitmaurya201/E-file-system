@@ -13,7 +13,7 @@
 .date-icon {
 	position: absolute;
 	right: 5px;
-	/* bottom: 14px; */
+	/ bottom: 14px; /
 	margin-top: 15px;
 	z-index: 9;
 }
@@ -57,13 +57,14 @@
 							<div id="targetDiv" class="targetDiv text-center">
 								<div class="dropzone-wrapper ">
 									<i class="glyphicon glyphicon-download-alt"></i>
-									<p>
+									<p >
 										<liferay-ui:message key="label-receipt-pdf-drag" />
 									</p>
 									<span class="btn btn-info" style="font-size: 15px;"
 										id="doc-select-btn"><liferay-ui:message
 											key="label-receipt-pdf-file" /></span> <input name="doc-input"
 										id="doc-input" type="file" hidden accept=".pdf" />
+										<p id="sizeValidation" style="display:none; color:red;">size must be less then 25 mb</p>
 
 								</div>
 							</div>
