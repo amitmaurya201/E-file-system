@@ -363,7 +363,7 @@
 <script type="text/javascript">
 
  function receiveModal(fileId){
-	 alert("inside receive"+fileId);
+	 
 	document.getElementById("file-receive-fileId").value=fileId;
 	$("#file-receive").addClass("active");
 	$(".close").on("click", function() {
@@ -374,7 +374,7 @@
 	}
 
 function readModal(fileId){
-	alert("inside read"+fileId);
+	
 	document.getElementById("file-read-fileId").value=fileId;
 	$("#file-read").addClass("active");
 	$(".close").on("click", function() {
