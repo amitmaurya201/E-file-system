@@ -209,7 +209,7 @@
 														<aui:validator name="required" />
 													</aui:select>
 													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
-													<aui:select cssClass="form-select form-control"
+													<aui:select cssClass="form-select form-control master_drop_category"
 													id="categoryId" name="categoryId" label="label-file-categoryid">
 													<option value="<%= docFile.getCategoryId() %>"><%= sfsCategoryValue %></option>
 														<aui:validator name="required" />

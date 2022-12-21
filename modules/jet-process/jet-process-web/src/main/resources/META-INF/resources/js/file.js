@@ -50,20 +50,17 @@
 	            });   
 	        });
 	            
-	            
-	           /* get secondary head data */
-	     
-	  $("#<portlet:namespace />primaryHeadId").on('change', function(){
+  
+/* get secondary head data */
+$("#<portlet:namespace />primaryHeadId").on('change', function(){
 	 var primaryHeadId = $("#<portlet:namespace />primaryHeadId").val();
-	        
-	      AUI().use('aui-base', function(A){
+	         AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-secondary-head-masterdata`,
 	        		{
 	        		 primaryHeadId: primaryHeadId
 	        		},
-                function(obj) {
-               
+                   function(obj) {
                console.log(obj);
             $.each(obj,function(key,value){
            secondaryHeadText = value.value;
@@ -71,17 +68,13 @@
             $("#<portlet:namespace/>secondaryHeadId").append(new Option( secondaryHeadText ,  secondaryHeadValue));
             });          
      })
-	            });   
-	       
-	       
-	       });
-	           
-	/* get tertiary head data */       
-	  $("#<portlet:namespace />secondaryHeadId").on('change', function(){
-			 var secondarHeadId = $("#<portlet:namespace />secondaryHeadId").val();
-			 console.log(secondarHeadId);
-			   
-	      AUI().use('aui-base', function(A){
+});   
+});
+/* get tertiary head data */       
+$("#<portlet:namespace />secondaryHeadId").on('change', function(){
+	var secondarHeadId = $("#<portlet:namespace />secondaryHeadId").val();
+	 console.log(secondarHeadId);
+		   AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-teritary-head-masterdata`,
 	        		{
@@ -95,11 +88,11 @@
             $("#<portlet:namespace/>tertiaryHeadId").append(new Option( secondaryHeadText ,  secondaryHeadValue));
             });          
      })
-	            });   
+ });   
 	      
-	       });
+});
 /* get category data */
-	       AUI().use('aui-base', function(A){
+AUI().use('aui-base', function(A){
 	        Liferay.Service(
 	        		`/masterdata.masterdata/get-category-masterdata`,
                 function(obj) {
@@ -110,15 +103,14 @@
             $("#<portlet:namespace/>categoryId").append(new Option(categoryText,categoryValue));
             });          
      })
-	            });
+});
 	            
 /* get subcategory data */
-	       $("#<portlet:namespace />categoryId").on('change', function(){
+$("#<portlet:namespace />categoryId").on('change', function(){
 	var categoryId = $("#<portlet:namespace />categoryId").val();
     $("#<portlet:namespace />subCategoryId").empty();
     $("#<portlet:namespace />subCategoryId").append(new Option("Select",""));
-
-	  AUI().use('aui-base', function(A){
+    AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-sub-category-masterdata`,
 	        		{
@@ -133,14 +125,14 @@
             });          
      })
  });   
-	});
-	        
-	        /* get filecode data */
-	         AUI().use('aui-base', function(A){
-	        Liferay.Service(
-	        		`/masterdata.masterdata/get-file-code-masterdata`,
-                function(obj) {
-               console.log(obj);
+    
+});
+/* get filecode data */
+AUI().use('aui-base', function(A){
+	 Liferay.Service(
+	       `/masterdata.masterdata/get-file-code-masterdata`,
+              function(obj) {
+             console.log(obj);
             $.each(obj,function(key,value){
             fileCodeText = value.value;
             fileCodeValue = value.masterdataId;
@@ -149,24 +141,22 @@
      });
 });
 	
-	        /*   Add docFile   */
-	                          
-	$("#<portlet:namespace />formId").on('submit', function(e){
-	        	 e.preventDefault();
-	        	 var formObj= $('#<portlet:namespace/>formId')[0];
-	             var jsonData = bindFormDataJson(formObj);
-	             var userPostId=  getUserPostId();
-	             jsonData["userPostId"] = userPostId;
-	           
-	          var jsonObj = JSON.stringify(jsonData);  
-	        	 $.ajax({
-	        		    type: "POST",
-	        		    url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
-	        		    data: jsonObj,
-	        		    dataType: 'json',
-	        		    cache : false,
-	        		    processData: false,
-	        	        contentType : 'application/json'
+ /*   Add docFile   */
+$("#<portlet:namespace />formId").on('submit', function(e){
+	 e.preventDefault();
+	  var formObj= $('#<portlet:namespace/>formId')[0];
+	   var jsonData = bindFormDataJson(formObj);
+	   var userPostId=  getUserPostId();
+	     jsonData["userPostId"] = userPostId;
+	     var jsonObj = JSON.stringify(jsonData);  
+	        $.ajax({
+	        	 type: "POST",
+	        	url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
+	        	data: jsonObj,
+	        	dataType: 'json',
+	        	 cache : false,
+	        	 processData: false,
+	        	  contentType : 'application/json'
 	        		  }).done(function(response) {
 	        			  console.log(response);
 	        			  if(response!=null){
