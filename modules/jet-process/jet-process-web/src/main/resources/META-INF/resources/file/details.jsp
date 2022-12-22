@@ -17,7 +17,7 @@
 }
 
 .file-dtls td {
-	font-size: 14px; 
+	font-size: 14px;
 	width: 25%;
 	padding-left: 5px !important;
 	text-overflow: ellipsis;
@@ -130,7 +130,7 @@
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
-						<td><%=subCategoryValue%></td>
+						<td><%=subCategoryValue != null ? subCategoryValue : ""%></td>
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-nature-type" />:</th>
@@ -139,10 +139,6 @@
 
 				</table>
 			</div>
-
-
-
 		</div>
-
-	</div>
+		</div>
 </div>
