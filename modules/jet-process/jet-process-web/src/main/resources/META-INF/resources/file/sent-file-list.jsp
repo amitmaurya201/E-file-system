@@ -4,12 +4,14 @@
 <%@ include file="/common/common.jsp"%>
 <%@page import= "java.util.TimeZone"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
 .table thead th {
@@ -86,8 +88,8 @@
 	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
 				</portlet:actionURL>
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-text name="File Number" property="fileNumber" orderable="true" />
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="Subject" />
+		<liferay-ui:search-container-column-text name="File Number" property="fileNumber" orderableProperty="fileNumber" orderable="true" />
+				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"  name="Subject" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Sent To" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -99,8 +101,8 @@
 				<liferay-ui:search-container-column-text name="Action">	  
 			<c:if test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
 
-						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" data-bs-toggle="modal"
-							data-bs-target="#myModal">
+						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" data-toggle="modal"
+							data-target="#myModal">
 							<i class="icon-indent-left"></i>
 						</button>
 					</c:if>
@@ -129,14 +131,12 @@
 				<h4 class="modal-title">
 					Reason for Pull-Back
 				</h4>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 
 			<!-- Modal body -->
 			<div class="modal-body">
 				<aui:form action="${fileSentActionUrl}" name="sentActionUrl" method="POST" >
-				
-					
 					<div class="textOnInput"> 
 						<label>Remarks
 						<span class='text-danger'>*</span></label>
@@ -158,7 +158,7 @@
 							OK
 						</button>
 						<button type="button" class="btn btn-primary"
-							data-bs-dismiss="modal">
+							data-dismiss="modal">
 					 	Cancel
 						</button>
 					</div>
