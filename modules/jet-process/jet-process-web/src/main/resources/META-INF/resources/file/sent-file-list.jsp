@@ -133,7 +133,6 @@
 				</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-
 			<!-- Modal body -->
 			<div class="modal-body">
 				<aui:form action="${fileSentActionUrl}" name="sentActionUrl" method="POST" >

@@ -22,7 +22,7 @@ input[type='file'] {
 .date-icon {
 	position: absolute;
 	right: 5px;
-	/ bottom: 14px; /
+	bottom: 14px;
 	margin-top: 15px;
 	z-index: 9;
 }
