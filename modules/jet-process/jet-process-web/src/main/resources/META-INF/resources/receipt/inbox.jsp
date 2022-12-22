@@ -122,7 +122,7 @@
 								cssClass="bold" name="label-receipt-inbox-receiptno" />
 
 							<liferay-ui:search-container-column-text property="subject"
-								orderable="true" orderableProperty="subject" cssClass="bold"
+								orderable="true" orderableProperty="subject" cssClass="hover-tips bold"
 								name="label-receipt-inbox-subject" />
 
 							<%
@@ -155,7 +155,7 @@
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
 
-							<liferay-ui:search-container-column-text cssClass="bold"
+							<liferay-ui:search-container-column-text cssClass="hover-tips bold"
 								property="remark" name="label-receipt-inbox-remarks">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark()%>

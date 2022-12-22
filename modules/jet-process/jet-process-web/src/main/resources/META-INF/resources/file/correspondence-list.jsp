@@ -102,7 +102,7 @@
 			<liferay-ui:search-container-column-text><%=aFileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 			<liferay-ui:search-container-column-text name=" Receipt No."
 				property="receiptNumber" />
-			<liferay-ui:search-container-column-text property="subject" />
+			<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" />
 
 			<liferay-ui:search-container-column-text name="type"
 				property="correspondenceType" />

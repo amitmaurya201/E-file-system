@@ -10,12 +10,12 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 <portlet:actionURL var = "attachReceipt" name="AttachFileCorrespondence">
 <portlet:param name="redirect" value="/file/file-inner-view.jsp"/>
 </portlet:actionURL>
-<clay:management-toolbar
+<%-- <clay:management-toolbar
         disabled="${receiptCount eq 0}"
         displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
         itemsTotal="${receiptCount}"
         searchContainerId="assignmentEntries"
-    />
+    /> --%>
 <aui:form action ="${attachReceipt} " method="post" name="attachReceipt">
  <aui:input name="docFileId" value= "${docFileId }" type = "hidden"></aui:input> 
   <aui:input name="userPostId" value= "${userPostId }" type = "hidden"></aui:input> 

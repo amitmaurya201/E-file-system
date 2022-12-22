@@ -126,7 +126,7 @@
 								name="label-file-inbox-fileno" cssClass="bold" />
 							<liferay-ui:search-container-column-text orderable="true"
 								orderableProperty="subject" property="subject"
-								name="label-file-inbox-subject" cssClass="bold" />
+								name="label-file-inbox-subject" cssClass="hover-tips bold" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips bold">
 								<%
@@ -146,7 +146,7 @@
 							<liferay-ui:search-container-column-text property="dueDate"
 								name="label-file-inbox-dueon" cssClass="bold" />
 							<liferay-ui:search-container-column-text
-								name="label-file-inbox-remarks" cssClass="bold">
+								name="label-file-inbox-remarks" cssClass="hover-tips bold">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=fileinboxDtoList.getRemark()%>
 								</c:if>
@@ -193,7 +193,7 @@
 								href="<%=fileInnerView%>" orderableProperty="fileNumber"
 								orderable="true" property="fileNumber" name="File number" />
 							<liferay-ui:search-container-column-text property="subject"
-								orderableProperty="subject" name="label-file-inbox-subject" />
+								orderableProperty="subject" name="label-file-inbox-subject" cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
 								<%
@@ -214,7 +214,7 @@
 							<liferay-ui:search-container-column-text property="dueDate"
 								name="label-file-inbox-dueon" />
 							<liferay-ui:search-container-column-text
-								name="label-file-inbox-remarks">
+								name="label-file-inbox-remarks" cssClass="hover-tips">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=fileinboxDtoList.getRemark()%>
 								</c:if>

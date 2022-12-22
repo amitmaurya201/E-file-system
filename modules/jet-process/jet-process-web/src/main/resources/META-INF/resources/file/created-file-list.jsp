@@ -51,23 +51,24 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 	<liferay-ui:search-container-column-text name=""  ><%= filedto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="label-file-list-fileno" property="fileNumber" orderableProperty="fileNumber" orderable="true" />
+					name="label-file-list-fileno" value="<%=filedto.getFileNumber() != null ? filedto.getFileNumber() : ""%>" orderableProperty="fileNumber" orderable="true" />
 
-				<liferay-ui:search-container-column-text property="subject" orderable="true" orderableProperty="subject" cssClass="hover-tips"
+				<liferay-ui:search-container-column-text value="<%=filedto.getSubject() != null ? filedto.getSubject() : ""%>" orderable="true" orderableProperty="subject" cssClass="hover-tips"
 					name="label-file-list-subject" />
 
-				<liferay-ui:search-container-column-text property="category" name="category" cssClass="hover-tips" />
+				<liferay-ui:search-container-column-text value="<%=filedto.getCategory() != null ? filedto.getCategory() : ""%>" name="category" cssClass="hover-tips" />
 
 <%
 			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
                 simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
 		
-				<liferay-ui:search-container-column-text value="<%=simpleformat.format(filedto.getCreateDate())%>"
+				<liferay-ui:search-container-column-text value="<%=filedto.getCreateDate() != null ? simpleformat.format(filedto.getCreateDate())
+									: ""%>"
 					 name="label-file-list-createon"  />
 
-				<liferay-ui:search-container-column-text property="remark" 
-					name="label-file-list-remark" />
+				<liferay-ui:search-container-column-text  value="<%=filedto.getRemark() != null ? filedto.getRemark() : ""%>"
+					name="label-file-list-remark" cssClass="hover-tips" />
 
 
 			</liferay-ui:search-container-row>
