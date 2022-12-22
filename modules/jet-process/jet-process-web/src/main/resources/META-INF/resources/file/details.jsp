@@ -9,12 +9,19 @@
 
 <style>
 .file-dtls th {
-	background-color: #E8E8E8;
-	width:20%;
+	background-color: gainsboro;
+	width: 20%;
+	font-size: 14px;
+	vertical-align: top;
+	padding-left: 3px;
 }
+
 .file-dtls td {
-	padding-left:5px;
-	width:25%;
+	font-size: 14px; 
+	width: 25%;
+	padding-left: 5px !important;
+	text-overflow: ellipsis;
+	max-width: 30ch;
 }
 </style>
 
@@ -80,39 +87,62 @@
 		</div>
 
 
+		<div class="row">
+			<div class="col-6">
+				<table class="mt-2 file-dtls">
 
-		<table class="mt-2 file-dtls">
+					<tr>
+						<th class=""><liferay-ui:message key="label-file-fileno" />:</th>
+						<td class=""><%=docFile.getFileNumber()%></td>
 
-			<tr>
-				<th class=""><liferay-ui:message
-						key="label-file-fileno" />:</th>
-				<td class=""><%=docFile.getFileNumber()%></td>
-				<th class="category"><liferay-ui:message
-						key="label-file-categoryid" />:</th>
-				<td><%=categoryValue%></td>
-			</tr>
+					</tr>
 
-			<tr>
-				<th><liferay-ui:message key="label-file-reference" />:</th>
-				<td><%=docFile.getReference()%></td>
-				<th><liferay-ui:message key="label-file-nature" />:</th>
-				<td><%=docFile.getNature()%></td>
-			</tr>
-			<tr>
-				<th><liferay-ui:message key="label-file-subject" />:</th>
-				<td><%=docFile.getSubject()%></td>
-				<th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
-				<td><%=subCategoryValue%></td>
-			</tr>
-			<tr>
-				<th><liferay-ui:message key="label-file-remark" />:</th>
-				<td><%=docFile.getRemarks()%></td>
-				<th><liferay-ui:message key="label-file-nature-type" />:</th>
-				<td><%=docFile.getType()%></td>
-			</tr>
+					<tr>
+						<th><liferay-ui:message key="label-file-reference" />:</th>
+						<td><%=docFile.getReference()%></td>
 
-		</table>
+					</tr>
+					<tr>
+						<th><liferay-ui:message key="label-file-subject" />:</th>
+						<td><%=docFile.getSubject()%></td>
 
+					</tr>
+					<tr>
+						<th><liferay-ui:message key="label-file-remark" />:</th>
+						<td><%=docFile.getRemarks()%></td>
+
+					</tr>
+
+				</table>
+			</div>
+
+			<div class="col-6">
+				<table class="mt-2 file-dtls">
+
+					<tr>
+						<th class="category"><liferay-ui:message
+								key="label-file-categoryid" />:</th>
+						<td><%=categoryValue%></td>
+					</tr>
+					<tr>
+						<th><liferay-ui:message key="label-file-nature" />:</th>
+						<td><%=docFile.getNature()%></td>
+					</tr>
+					<tr>
+						<th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
+						<td><%=subCategoryValue%></td>
+					</tr>
+					<tr>
+						<th><liferay-ui:message key="label-file-nature-type" />:</th>
+						<td><%=docFile.getType()%></td>
+					</tr>
+
+				</table>
+			</div>
+
+
+
+		</div>
 
 	</div>
 </div>
