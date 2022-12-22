@@ -38,7 +38,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!-- Getting the User Post Id from the session -->
 <%
 String selectedUserPostId = "1";
@@ -54,3 +54,5 @@ if(httpSession != null){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import= "java.util.TimeZone"%>

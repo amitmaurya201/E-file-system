@@ -6,6 +6,7 @@
   <%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ include file="/common/common.jsp"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import= "java.util.TimeZone"%>
@@ -48,7 +49,9 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
 				</portlet:renderURL> --%>
 
-	<liferay-ui:search-container-column-text name=""  ><%= filedto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
+<c:set var = "firstLetterOfNature" value = "${ filedto.nature}" />
+				<c:set var = "nature" value = "${fn:substring(firstLetterOfNature, 0, 1)}" />
+	<liferay-ui:search-container-column-text name=" " value="${nature }" > </liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
 					name="label-file-list-fileno" value="<%=filedto.getFileNumber() != null ? filedto.getFileNumber() : ""%>" orderableProperty="fileNumber" orderable="true" />

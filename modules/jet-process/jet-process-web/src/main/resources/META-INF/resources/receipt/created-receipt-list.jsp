@@ -66,16 +66,19 @@
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
 				</portlet:renderURL>
 
-	<liferay-ui:search-container-column-text name=""  ><%= receipt.getNature().charAt(0) %></liferay-ui:search-container-column-text>
+<c:set var = "firstLetterOfNature" value = "${ receipt.nature}" />
+				<c:set var = "nature" value = "${fn:substring(firstLetterOfNature, 0, 1)}" />
+	<liferay-ui:search-container-column-text name="" value="${nature }"  />
+
 
 				<liferay-ui:search-container-column-text
-					href="<%=receiptInnerView%>" property="receiptNumber"
+					href="<%=receiptInnerView%>" value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
 					name="label-receipt-list-receiptno" orderableProperty="receiptNumber" orderable="true"  />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					property="subject" name="label-receipt-list-subject" orderableProperty="subject" orderable="true" />
+					value="<%=receipt.getSubject() != null ? receipt.getSubject() : ""%>" name="label-receipt-list-subject" orderableProperty="subject" orderable="true" />
 
-				<liferay-ui:search-container-column-text property="category"
+				<liferay-ui:search-container-column-text value="<%=receipt.getCategory() != null ? receipt.getCategory() : ""%>"
 					cssClass="hover-tips" name="label-receipt-list-category" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -83,11 +86,12 @@
 				%>
 
 				<liferay-ui:search-container-column-text
-					value="<%=simpleformat.format(receipt.getCreateDate())%>"
+					value="<%=receipt.getCreateDate() != null ? simpleformat.format(receipt.getCreateDate())
+									: ""%>"
 					orderable="true" name="label-receipt-list-create-date"
 					orderableProperty="createDate" />
 
-				<liferay-ui:search-container-column-text property="remark"
+				<liferay-ui:search-container-column-text value="<%=receipt.getRemark() != null ? receipt.getRemark() : ""%>"
 					cssClass="hover-tips remark" name="label-receipt-list-remark" />
 
 				<liferay-ui:search-container-column-text name="label-receipt-list-pdf">
