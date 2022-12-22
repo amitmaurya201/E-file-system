@@ -12,7 +12,7 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 .table thead th {
 	border-right: 1px solid white;
@@ -141,13 +141,15 @@
 					<div class="textOnInput"> 
 						<label>Remarks
 						<span class='text-danger'>*</span></label>
-						<aui:input label="" name="pullBackRemark" id="pullBackRemark" type="textarea" onkeypress="textareaLengthCheck(this)">
+						<aui:input label="" name="pullBackRemark" id="pullBackRemark" type="textarea" onkeyup="countChar(this)" >
 							<aui:validator name="required"></aui:validator>
 							<aui:validator name="maxLength">
 								<liferay-ui:message key="file-sent-remarks-maxlength" />
 							</aui:validator>
 						</aui:input>
-						<p id="lblRemainingCount"></p>
+						<p >
+						Total 500 | <span id="lblRemainingCount">500</span><span> Character left</span>
+						</p>
 					</div>
                      <input type="text" name="<portlet:namespace />docFileId" id="docFileId" hidden />
                      		<input type="text" name="<portlet:namespace />fileMovementId"
@@ -185,14 +187,16 @@ function getId(docFileId,fileMovementId){
 		
 	});
 	
+	function countChar(val) {
+		  var len = val.value.length;
+		  if (len >= 500) {
+			
+		    val.value = val.value.substring(0, 500);
+		  } else {
+		   var count = $('#lblRemainingCount').text(500 - len);
+		  }
+		};
 
-	function textareaLengthCheck(el) {
-		  var textArea = el.value.length;
-		  var charactersLeft = 500 - textArea;
-		  var count = document.getElementById('lblRemainingCount');
-		  count.innerHTML = "Total 500 " + " | " + charactersLeft + " Characters left ";
-		}
-	
 	
 	
 </script>
