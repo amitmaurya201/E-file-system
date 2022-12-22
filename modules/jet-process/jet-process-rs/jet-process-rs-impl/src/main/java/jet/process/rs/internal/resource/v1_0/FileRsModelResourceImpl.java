@@ -23,6 +23,10 @@ import jet.process.rs.resource.v1_0.FileRsModelResource;
 public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	@Override
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
+		
+		contextHttpServletResponse.setHeader("status", "success");
+		contextHttpServletResponse.setHeader("result", "Successfully Created");
+		
 		DocFile docFile = docFileLocalService.getDocFile();
 		String fileNumber = null;
 		String subject = fileRsModel.getSubject();
@@ -42,13 +46,16 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			docFile.setFileCodeId(0);
 			fileNumber=fileRsModel.getFileNumber();
 			if(fileNumber.isEmpty()) {
-				
+				contextHttpServletResponse.setHeader("status", "error");
+				contextHttpServletResponse.setHeader("result", "File Number Cannot Be Empty");
 				return null;
 			}
 			List<DocFile> docFileList = docFileLocalService.getDocFileList();
 			 for (DocFile docFileObj : docFileList) {
 				if(fileNumber.equals(docFileObj.getFileNumber())) {
 					System.out.println("Already exist number");
+					contextHttpServletResponse.setHeader("status", "error");
+					contextHttpServletResponse.setHeader("result", "File Number Already Exists!");
 					return null;
 				}else {
 					docFile.setFileNumber(fileNumber);
@@ -66,6 +73,8 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			docFile.setFileNumber(fileNumber);
 		}
 		if(subject.isEmpty()) {
+			contextHttpServletResponse.setHeader("status", "error");
+			contextHttpServletResponse.setHeader("result", "Subject Cannot be empty");
 			return null;
 		}
 		
@@ -76,8 +85,13 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCategoryId(fileRsModel.getCategoryId());
 		System.out.println("CategoryID --->"+fileRsModel.getCategoryId());
 		System.out.println("categoryId --->"+docFile.getCategoryId());
-		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		System.out.println("subcategory "+fileRsModel.getSubCategoryId());
+		if(fileRsModel.getSubCategoryId() == null) {
 		System.out.println("subcategoryId--->"+docFile.getSubCategoryId());
+		docFile.setSubCategoryId(0);
+		}else {
+			docFile.setSubCategoryId(docFile.getSubCategoryId());	
+		}
 		docFile.setRemarks(fileRsModel.getRemarks());
 		docFile.setReference(fileRsModel.getReference());
 		fileRsModel.setFileNumber(fileNumber);
@@ -85,6 +99,8 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setUserPostId(fileRsModel.getUserPostId());
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFileLocalService.addDocFile(docFile);
+		contextHttpServletResponse.setHeader("status", "success");
+		contextHttpServletResponse.setHeader("result", "File Created Successfully");
 		return fileRsModel;
 	}
 

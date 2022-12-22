@@ -142,51 +142,56 @@ AUI().use('aui-base', function(A){
 });
 	
  /*   Add docFile   */
+
 $("#<portlet:namespace />formId").on('submit', function(e){
-	 e.preventDefault();
-	  var formObj= $('#<portlet:namespace/>formId')[0];
-	   var jsonData = bindFormDataJson(formObj);
-	   var userPostId=  getUserPostId();
-	     jsonData["userPostId"] = userPostId;
-	     var jsonObj = JSON.stringify(jsonData);  
-	        $.ajax({
-	        	 type: "POST",
-	        	url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
-	        	data: jsonObj,
-	        	dataType: 'json',
-	        	 cache : false,
-	        	 processData: false,
-	        	  contentType : 'application/json'
-	        		  }).done(function(response) {
-	        			  console.log(response);
-	        			  if(response!=null){
-	        			  swal( {
-	                          title: "Successfull !",
-	                          text: `You Have successfully created Your File ! And Your File Number is `+response.fileNumber,
-	                          icon: "success",
-	                          button: "ok"
-	                      }).then(function() {
-	                    	    window.location.href = "<%=createdFileList.toString()%>";
-	                      });
-	        			  }else{
-	        				  swal({  
-	    	    				  title: " Oops!",  
-	    	    				  text: " Something went wrong, you should choose again!",  
-	    	    				  icon: "error",  
-	    	    				});  	  
-	        			  }		  
-	    		 })
-	    		 .fail(function(error){
-	    			 swal({  
-	    				  title: " Oops!",  
-	    				  text: " Something went wrong, you should choose again!",  
-	    				  icon: "error",  
-	    				});  
-	    		 })
-	        	
-	        });
-	             
-	
+        	 e.preventDefault();
+        	 var formObj= $('#<portlet:namespace/>formId')[0];
+             var jsonData = bindFormDataJson(formObj);
+             var userPostId=  getUserPostId();
+             jsonData["userPostId"] = userPostId;
+           
+          var jsonObj = JSON.stringify(jsonData);  
+        	 $.ajax({
+        		    type: "POST",
+        		    url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
+        		    data: jsonObj,
+        		    dataType: 'json',
+        		    cache : false,
+        		    processData: false,
+        	        contentType : 'application/json'
+        		  }).done(function(response, status, xhr) {
+        			  console.log("response-->"+response);
+        			  console.log(xhr.getResponseHeader("status"));
+        			  console.log(xhr.getResponseHeader("result"));
+        			  if(xhr.getResponseHeader("status") === "success"){
+        			  swal( {
+                          title: "Successfull !",
+                          text: xhr.getResponseHeader("result")+" "+response.fileNumber,
+                          icon: "success",
+                          button: "ok"
+                      }).then(function() {
+                    	    window.location.href = "<%=createdFileList.toString()%>";
+                      });
+        			  }if(xhr.getResponseHeader("status") === "error"){
+        				  swal({  
+    	    				  title: " Oops!",  
+    	    				  text: xhr.getResponseHeader("result"),  
+    	    				  icon: "error",  
+    	    				});  	  
+        			  }		  
+    		 })
+    		 .fail(function(error){
+    			 swal({  
+    				  title: " Oops!",  
+    				  text: " Something went wrong, you should choose again!",  
+    				  icon: "error",  
+    				});  
+    		 })
+        	
+        });
+             
+
+
 	
 	/* update docFile */
 	
