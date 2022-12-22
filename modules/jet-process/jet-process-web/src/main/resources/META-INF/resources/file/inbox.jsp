@@ -110,6 +110,10 @@
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
+				<%
+					SimpleDateFormat simpleformat1 = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+							simpleformat1.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+				%>
 
 				<c:choose>
 					<c:when
@@ -122,10 +126,10 @@
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text orderable="true"
-								orderableProperty="fileNumber" property="fileNumber"
+								orderableProperty="fileNumber" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>"
 								name="label-file-inbox-fileno" cssClass="bold" />
 							<liferay-ui:search-container-column-text orderable="true"
-								orderableProperty="subject" property="subject"
+								orderableProperty="subject" value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
 								name="label-file-inbox-subject" cssClass="hover-tips bold" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips bold">
@@ -139,12 +143,15 @@
 
 							</liferay-ui:search-container-column-text>
 
+
+
 							<liferay-ui:search-container-column-text
-								value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
+								value="<%=fileinboxDtoList.getSentOn() != null ? simpleformat.format(fileinboxDtoList.getSentOn())
+									: ""%>"
 								name="label-file-inbox-senton" cssClass="bold" />
 
 							<liferay-ui:search-container-column-text property="dueDate"
-								name="label-file-inbox-dueon" cssClass="bold" />
+								name="label-file-inbox-dueon" cssClass="bold" /> 
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-remarks" cssClass="hover-tips bold">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
@@ -191,8 +198,8 @@
 
 							<liferay-ui:search-container-column-text
 								href="<%=fileInnerView%>" orderableProperty="fileNumber"
-								orderable="true" property="fileNumber" name="File number" />
-							<liferay-ui:search-container-column-text property="subject"
+								orderable="true" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" name="File number" />
+							<liferay-ui:search-container-column-text value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
 								orderableProperty="subject" name="label-file-inbox-subject" cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
