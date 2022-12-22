@@ -67,7 +67,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 
 		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 
 	}
 
