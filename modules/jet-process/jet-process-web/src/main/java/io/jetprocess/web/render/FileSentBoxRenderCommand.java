@@ -57,9 +57,37 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
 		int sendFileCount=masterdataLocalService.getFileSentList(userPostId, keywords);
-		if(delta*currentPage >sendFileCount) {
-			start=0;
+		
+		int preDelta=0;
+		String d=(String) session.getAttribute("oldDelta");
+		if(d!=null) {
+			preDelta=Integer.parseInt(d);
+			
 		}
+		if(delta !=preDelta) {
+			if(delta*currentPage  > sendFileCount) {
+				if(delta*(currentPage-1)  > sendFileCount) {
+					currentPage = getCurrentPage(currentPage, preDelta, sendFileCount);
+				}
+				start = delta*(currentPage-1);
+			} else if(delta <preDelta) {
+					start = delta*(currentPage-1);
+			}else {
+				
+				start=0;
+			}
+			
+		} else if(delta*(currentPage-1)  > sendFileCount) {
+			currentPage = getCurrentPage(currentPage, preDelta, sendFileCount);
+			start = delta*(currentPage-1);
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+		
+		session.setAttribute("oldDelta", ""+delta+"");
+		
 		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
 				orderByCol, orderByType);
 		logger.info("File :=============== " + sendFileList.size());
@@ -69,6 +97,20 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("delta",delta);
 		logger.info("File count : " + masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords));
 	}
+	
+	
+	
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage-1;
+		
+		if(delta*currentPage  < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
+	
+}
+	
 
 	/**
 	 * Adds Clay management toolbar context object to the request.*

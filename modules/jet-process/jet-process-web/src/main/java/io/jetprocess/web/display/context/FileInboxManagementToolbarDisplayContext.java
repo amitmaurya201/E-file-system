@@ -95,7 +95,7 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
-					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "subject"));
+					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
 
 				

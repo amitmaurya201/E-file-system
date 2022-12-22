@@ -92,7 +92,7 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
-					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "subject"));
+					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
 
 				

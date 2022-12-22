@@ -61,10 +61,41 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		
+		
+		
 		int count=masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
-		if(delta*currentPage >count) {
-			start=0;
+		int preDelta=0;
+		String d=(String) session.getAttribute("oldDelta");
+		if(d!=null) {
+			preDelta=Integer.parseInt(d);
+			
 		}
+		if(delta !=preDelta) {
+			if(delta*currentPage  > count) {
+				if(delta*(currentPage-1)  > count) {
+					currentPage = getCurrentPage(currentPage, preDelta, count);
+				}
+				start = delta*(currentPage-1);
+			} else if(delta <preDelta) {
+					start = delta*(currentPage-1);
+			}else {
+				
+				start=0;
+			}
+			
+		} else if(delta*(currentPage-1)  > count) {
+			currentPage = getCurrentPage(currentPage, preDelta, count);
+			start = delta*(currentPage-1);
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+		
+		session.setAttribute("oldDelta", ""+delta+"");
+		
+		
 		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("size of File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
@@ -74,6 +105,21 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		System.out.println("orderByType  --> "+orderByType+" ,orderByCol---> "+orderByCol);
 	}
 
+	
+	
+	
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage-1;
+		
+		if(delta*currentPage  < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
+	
+}
+	
+	
 	
 	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);

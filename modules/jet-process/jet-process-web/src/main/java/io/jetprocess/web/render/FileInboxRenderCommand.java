@@ -61,15 +61,53 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		logger.info("order by : " + orderByCol +"  : order type : - "+orderByType);
 		int fileInboxCount=masterdataLocalService.getFileInboxList(userPost, keywords);
-		if(delta*currentPage >fileInboxCount) {
-			start=0;
+		
+		int preDelta=0;
+		String d=(String) session.getAttribute("oldDelta");
+		if(d!=null) {
+			preDelta=Integer.parseInt(d);
+			
 		}
+		if(delta !=preDelta) {
+			if(delta*currentPage  > fileInboxCount) {
+				if(delta*(currentPage-1)  > fileInboxCount) {
+					currentPage = getCurrentPage(currentPage, preDelta, fileInboxCount);
+				}
+				start = delta*(currentPage-1);
+			} else if(delta <preDelta) {
+					start = delta*(currentPage-1);
+			}else {
+				
+				start=0;
+			}
+			
+		} else if(delta*(currentPage-1)  > fileInboxCount) {
+			currentPage = getCurrentPage(currentPage, preDelta, fileInboxCount);
+			start = delta*(currentPage-1);
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+		
+		session.setAttribute("oldDelta", ""+delta+"");
 		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
 		logger.info("===========  Later ==========>" + fileInboxList);
 		renderRequest.setAttribute("fileInboxList",fileInboxList);
 		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
 		renderRequest.setAttribute("delta",delta);
 	}
+	
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage-1;
+		
+		if(delta*currentPage  < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
+	
+}
 
 	/**
 	 * Adds Clay management toolbar context object to the request.*

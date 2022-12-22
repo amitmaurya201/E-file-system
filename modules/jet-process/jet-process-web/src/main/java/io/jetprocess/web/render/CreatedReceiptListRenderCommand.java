@@ -66,9 +66,41 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int receiptCount=masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords);
-		if(delta*currentPage >receiptCount) {
-			start=0;
+
+
+		int preDelta=0;
+		String d=(String) session.getAttribute("oldDelta");
+		if(d!=null) {
+			preDelta=Integer.parseInt(d);
+			
 		}
+		if(delta !=preDelta) {
+			if(delta*currentPage  > receiptCount) {
+				if(delta*(currentPage-1)  > receiptCount) {
+					currentPage = getCurrentPage(currentPage, preDelta, receiptCount);
+				}
+				start = delta*(currentPage-1);
+			} else if(delta <preDelta) {
+					start = delta*(currentPage-1);
+			}else {
+				
+				start=0;
+			}
+			
+		} else if(delta*(currentPage-1)  > receiptCount) {
+			currentPage = getCurrentPage(currentPage, preDelta, receiptCount);
+			start = delta*(currentPage-1);
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+		
+		session.setAttribute("oldDelta", ""+delta+"");
+
+
+		
+		
 		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
 		renderRequest.setAttribute("receiptFileList", receiptList);
 		renderRequest.setAttribute("receiptCount",+receiptCount);
@@ -77,6 +109,17 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		logger.info("count number: -  "+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 		
 	}
+	
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage-1;
+		
+		if(delta*currentPage  < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
+	
+}
 
 	/**
 	 * Adds Clay management toolbar context object to the request.*
