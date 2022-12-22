@@ -1578,12 +1578,15 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
 					"	r.receiptid as receiptId," + 
-					"	pullBackRemark" + 
+					"	rm.pullbackremark as pullBackRemark" + 
 					"	FROM jet_process_receiptmovement as rm " + 
-					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
-					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
-					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and rm.active_ = true and  rm.pullbackremark is null ";
+					"    " + 
+					"    Join (select max(mov.rmid) as mreceiptId from jet_process_receiptmovement mov where mov.active_ = true group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  " + 
+					"    " + 
+					"	JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
+					"	JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
+					"	JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
+					"    where rm.receiverid = ? ";
 			
 			logger.info("Final Receipt Movement List Query : "+sql);
 			
@@ -1640,12 +1643,15 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"    rm.receivedon as receiveOn,	" + 
 					"    r.nature as nature," + 
 					"	r.receiptid as receiptId," + 
-					"	pullBackRemark" + 
+					"	rm.pullbackremark as pullBackRemark" + 
 					"	FROM jet_process_receiptmovement as rm " + 
-					"	LEFT OUTER JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
-					"	left outer JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
-					"	left outer JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? and rm.active_ = true and  rm.pullbackremark is null ";
+					"    " + 
+					"    Join (select max(mov.rmid) as mreceiptId from jet_process_receiptmovement mov where mov.active_ = true group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  " + 
+					"    " + 
+					"	JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
+					"	JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
+					"	JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
+					"    where rm.receiverid = ? ";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
