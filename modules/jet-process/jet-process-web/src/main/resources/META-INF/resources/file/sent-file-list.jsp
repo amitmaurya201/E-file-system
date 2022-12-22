@@ -88,9 +88,9 @@
 	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
 				</portlet:actionURL>
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-text name="File Number" property="fileNumber" orderableProperty="fileNumber" orderable="true" />
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"  name="Subject" />
-				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Sent To" />
+		<liferay-ui:search-container-column-text name="File Number" value="<%=sentFileListDTO.getFileNumber() != null ? sentFileListDTO.getFileNumber() : ""%>" orderableProperty="fileNumber" orderable="true" />
+				<liferay-ui:search-container-column-text value="<%=sentFileListDTO.getSubject() != null ? sentFileListDTO.getSubject() : ""%>" cssClass="hover-tips"  name="Subject" />
+				<liferay-ui:search-container-column-text value="<%=sentFileListDTO.getSentTo() != null ? sentFileListDTO.getSentTo() : ""%>" cssClass="hover-tips" name="Sent To" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 	                simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
