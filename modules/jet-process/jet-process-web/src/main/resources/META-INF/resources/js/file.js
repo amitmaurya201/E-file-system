@@ -165,7 +165,7 @@ $("#<portlet:namespace />formId").on('submit', function(e){
         			  console.log(xhr.getResponseHeader("result"));
         			  if(xhr.getResponseHeader("status") === "success"){
         			  swal( {
-                          title: "Successfull !",
+                          title: "Successfull!",
                           text: xhr.getResponseHeader("result")+" "+response.fileNumber,
                           icon: "success",
                           button: "ok"
@@ -217,7 +217,7 @@ $("#<portlet:namespace />formId").on('submit', function(e){
    		  }).done(function(response) {
    			  console.log(response);
    			  swal( {
-                  title: "successful !",
+                  title: "Successfull!",
                   text: `You Have successfully Updated Your File! `,
                   icon: "success",
                   button: "ok"
