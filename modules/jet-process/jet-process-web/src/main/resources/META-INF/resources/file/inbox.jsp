@@ -102,7 +102,7 @@
 
 				<portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName"
-						value="/FileInnerViewDetails" />
+						value="/FileViewDetails" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:renderURL>
