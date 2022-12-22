@@ -67,7 +67,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 
 		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 
 	}
 
@@ -80,7 +80,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
 
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 	}
 
 	// action method for getting docfileId and pullback remarks

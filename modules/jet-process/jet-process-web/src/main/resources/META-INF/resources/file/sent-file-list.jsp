@@ -131,20 +131,23 @@
 				<h4 class="modal-title">
 					Reason for Pull-Back
 				</h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
 				<aui:form action="${fileSentActionUrl}" name="sentActionUrl" method="POST" >
+				
+					
 					<div class="textOnInput"> 
 						<label>Remarks
 						<span class='text-danger'>*</span></label>
-						<aui:input label="" name="pullBackRemark" id="pullBackRemark" type="textarea">
+						<aui:input label="" name="pullBackRemark" id="pullBackRemark" type="textarea" onkeypress="textareaLengthCheck(this)">
 							<aui:validator name="required"></aui:validator>
 							<aui:validator name="maxLength">
-								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
+								<liferay-ui:message key="file-sent-remarks-maxlength" />
 							</aui:validator>
 						</aui:input>
+						<p id="lblRemainingCount"></p>
 					</div>
                      <input type="text" name="<portlet:namespace />docFileId" id="docFileId" hidden />
                      		<input type="text" name="<portlet:namespace />fileMovementId"
@@ -157,7 +160,7 @@
 							OK
 						</button>
 						<button type="button" class="btn btn-primary"
-							data-dismiss="modal">
+							data-bs-dismiss="modal">
 					 	Cancel
 						</button>
 					</div>
@@ -171,25 +174,28 @@
 <script type="text/javascript">
 
 function getId(docFileId,fileMovementId){
-	
-	alert(docFileId);
-	alert(fileMovementId);
-	
-	
 	textField = document.getElementById("docFileId");
 	  textField.value = docFileId;
-	  
 		fileMovementIdField = document.getElementById("fileMovementId");
 		  fileMovementIdField.value = fileMovementId; 
-	  
 }
 
 	$("#sentActionUrl").click(function() {
 		$("#myModal").modal("hide");
 		
 	});
-</script>
+	
 
+	function textareaLengthCheck(el) {
+		  var textArea = el.value.length;
+		  var charactersLeft = 500 - textArea;
+		  var count = document.getElementById('lblRemainingCount');
+		  count.innerHTML = "Total 500 " + " | " + charactersLeft + " Characters left ";
+		}
+	
+	
+	
+</script>
 
 
 
