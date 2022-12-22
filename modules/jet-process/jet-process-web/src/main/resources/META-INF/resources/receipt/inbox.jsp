@@ -129,7 +129,7 @@
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
 															.getReceiptMovement(receiptMovementDTO.getReceiptMovementId());
 													long senderId = receiptMvmt.getSenderId();
-							%>
+							%>	
 
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
@@ -156,10 +156,13 @@
 								name="label-receipt-inbox-dueon" />
 
 							<liferay-ui:search-container-column-text cssClass="hover-tips bold"
-								property="remark" name="label-receipt-inbox-remarks">
-								<c:if test="${not empty fileinboxDtoList.getRemark()}">
-									<%=receiptMovementDTO.getRemark()%>
-								</c:if>
+								
+								 name="label-receipt-inbox-remarks"
+								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
+								 >
+								<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
+									<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>
+								</c:if> --%>
 							</liferay-ui:search-container-column-text>
 
 							<c:choose>
@@ -233,12 +236,12 @@
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
 
-							<liferay-ui:search-container-column-text property="remark"
-								name="label-receipt-inbox-remarks">
-								<c:if test="${not empty fileinboxDtoList.getRemark()}">
+							<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
+								name="label-receipt-inbox-remarks" /> 
+								<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark()%>
-								</c:if>
-							</liferay-ui:search-container-column-text>
+								</c:if> 
+							</liferay-ui:search-container-column-text>--%>
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
