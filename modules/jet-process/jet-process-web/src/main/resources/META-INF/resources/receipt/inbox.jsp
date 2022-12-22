@@ -40,6 +40,11 @@
 	display: block;
 }
 
+#rec_inbox.active{
+	pointer-events: none;
+	 opacity: 0.5;
+}
+
 .button {
 	border: none;
 }
@@ -64,11 +69,11 @@
 </liferay-portlet:renderURL>
 
 
-<div class="row">
+<div id="rec_inbox" class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-10">
+	<div  class="col-10">
 		<h1 class=" text-center">
 			<liferay-ui:message key="label-receipt-inbox-heading" />
 		</h1>
@@ -170,7 +175,7 @@
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
 										<span><a href="#" class="button open"
-											onclick="readModal(${receiptMovementDTO.getReceiptId()})">
+											onclick="receiptReadModal(${receiptMovementDTO.getReceiptId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-read" />
 										</a></span>
 										<span><a href="${sendURL}"> <liferay-ui:message
@@ -182,7 +187,7 @@
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
 										<span><a href="#" class="button open"
-											onclick="receiveModal(${receiptMovementDTO.getReceiptId()})">
+											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
 										<span><a href="${sendURL}"> <liferay-ui:message
@@ -380,23 +385,25 @@
 
 <script type="text/javascript">
 
- function receiveModal(receiptId){
+ function receiptReceiveModal(receiptId){
 	/* alert(receiptId); */
 	document.getElementById("receive-receiptId").value=receiptId;
 	$("#receive").addClass("active");
+	$("#rec_inbox").addClass("active");
 	$(".close").on("click", function() {
 		  $("#receive").removeClass("active");
+		  $("#rec_inbox").removeClass("active");
 		});
-
-		
 	}
 
-function readModal(receiptId){
+function receiptReadModal(receiptId){
 	/* alert(receiptId); */
 	document.getElementById("read-receiptId").value=receiptId;
 	$("#read").addClass("active");
+	$("#rec_inbox").addClass("active");
 	$(".close").on("click", function() {
 		  $("#read").removeClass("active");
+		  $("#rec_inbox").removeClass("active");
 		});
 
 		
@@ -436,8 +443,10 @@ function showModal(id){
 			}
 			);
 	$("#sender-dtls").addClass("active");
+	$("#rec_inbox").addClass("active");
 	$(".close").on("click", function() {
 		  $("#sender-dtls").removeClass("active");
+		  $("#rec_inbox").removeClass("active");
 		});
 		
 	}
