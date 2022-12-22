@@ -102,17 +102,23 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");
 		return fileRsModel;
-	}
+	}	
 
 	// update method for file update
 	@Override
 	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
 
+		System.out.println("docFile id --->"+fileRsModel.getDocFileId());
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileRsModel.getDocFileId());
 
 		docFile.setSubject(fileRsModel.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
+		System.out.println("subcategory ---> "+fileRsModel.getSubCategoryId());
+		if(fileRsModel.getSubCategoryId() == null) {
+			docFile.setSubCategoryId(0);	
+		} else if(fileRsModel.getSecondaryHeadId() != null) {
 		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		}
 		docFile.setRemarks(fileRsModel.getRemarks());
 		docFile.setReference(fileRsModel.getReference());
 		docFileLocalService.updateDocFile(docFile);

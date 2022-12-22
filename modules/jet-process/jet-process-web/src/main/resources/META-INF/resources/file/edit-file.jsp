@@ -98,7 +98,7 @@
                                                           <% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
 															<div class="row mt-3 " id="non-sfs">
 																<aui:input name="docFileId" label=""
-																	value="<%=docFile.getDocFileId()%>" type="hidden" />
+																	value="<%=docFile.getDocFileId()%>" type="hidden"/>
 																<legend class="child-scheduler-border"><liferay-ui:message key="label-file-fileno" /></legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">

@@ -35,7 +35,17 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setViewPdfUrl(viewFileUrl);
 		receipt.setDmFileId(dmFileId);
 		}
+		System.out.println("Suborganization --->"+receiptRsModel.getSubOrganizationId());
+		if(receiptRsModel.getSubOrganizationId() == null) {
+			receipt.setSubOrganizationId(0);
+		}else if(receiptRsModel.getSubOrganizationId() != null) {
 		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
+		}
+		if(receiptRsModel.getStateId() == null ) {
+			receipt.setStateId(0); 
+		}else if(receiptRsModel.getStateId() != null) {
+			receipt.setStateId(receiptRsModel.getStateId());
+		}
 		receipt.setSubject(receiptRsModel.getSubject());
 		receipt.setTypeId(receiptRsModel.getTypeId());
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
@@ -46,12 +56,25 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
 		receipt.setDesignation(receiptRsModel.getDesignation());
 		receipt.setName(receiptRsModel.getName());
+		System.out.println("orginazation id -->"+receiptRsModel.getOrganizationId());
 		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
 		receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
 		receipt.setReceivedOn(receiptRsModel.getReceivedOn());
 		receipt.setLetterDate(receiptRsModel.getLetterDate());
-		receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());	
-		receipt.setCountryId(receiptRsModel.getCountryId());
+		System.out.println("receiptSubtegory --->"+receiptRsModel.getReceiptSubCategoryId());
+		if(receiptRsModel.getReceiptSubCategoryId() == null) {
+			receipt.setReceiptSubCategoryId(0);	
+					
+		}else {
+			receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());	
+		}
+		
+		if(receiptRsModel.getCountryId() == null) {
+			receipt.setCountryId(0);	
+					
+		}else {
+			receipt.setCountryId(receiptRsModel.getCountryId());	
+		}
 		receipt.setCity(receiptRsModel.getCity());
 		receipt.setMobile(receiptRsModel.getMobile());
 		receipt.setModeNumber(receiptRsModel.getModeNumber());
@@ -59,7 +82,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setReferenceNumber(receiptRsModel.getReferenceNumber());
 		receipt.setPinCode(receiptRsModel.getPinCode());
 		receipt.setRemarks(receiptRsModel.getRemarks());
-		receipt.setStateId(receiptRsModel.getStateId());
 		receipt.setCurrentState(FileStatus.CREADTED);
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;

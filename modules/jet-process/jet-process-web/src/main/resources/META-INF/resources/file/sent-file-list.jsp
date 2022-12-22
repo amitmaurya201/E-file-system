@@ -186,7 +186,7 @@ function getId(docFileId,fileMovementId){
 		$("#myModal").modal("hide");
 		
 	});
-	
+	// set total character 
 	function countChar(val) {
 		  var len = val.value.length;
 		  if (len >= 500) {
@@ -197,8 +197,6 @@ function getId(docFileId,fileMovementId){
 		  }
 		};
 
-	
-	
 </script>
 
 
