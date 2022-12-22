@@ -131,7 +131,7 @@
 				<h4 class="modal-title">
 					Reason for Pull-Back
 				</h4>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
@@ -160,7 +160,7 @@
 							OK
 						</button>
 						<button type="button" class="btn btn-primary"
-							data-bs-dismiss="modal">
+							data-dismiss="modal">
 					 	Cancel
 						</button>
 					</div>
