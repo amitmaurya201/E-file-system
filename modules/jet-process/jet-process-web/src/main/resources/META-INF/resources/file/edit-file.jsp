@@ -37,6 +37,7 @@
         	 
         	   %>
      	<div class="container">
+     	 <h2 style="text-align: center;"><u>Edit File</u></h2>
 			<div class="card">
 
 				<aui:form name="updateformId">
