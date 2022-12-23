@@ -1,6 +1,17 @@
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
+<style>
+<!--
+.text-secondary{
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    font-size: 25px;
+    margin-right: 15px;
+}
+-->
+</style>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -14,9 +25,14 @@
 			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
-		<div class="m-2 border boredr border-dark">
+		
+			<h2 style="text-align: center; text-decoration: underline; margin-top: 20px;">
+				<liferay-ui:message key="label-receipt-movement-heading" />
+			</h2>
+
+		
 			<liferay-ui:search-container delta="5"
-				emptyResultsMessage="No Record Found"
+				emptyResultsMessage="label-no-record-found" 
 				iteratorURL="${receiptMovementDisplayContext.getCurrentURL()}">
 				<liferay-ui:search-container-results>
 					<%
@@ -49,6 +65,5 @@
 				</liferay-ui:search-container-row>
 				<liferay-ui:search-iterator markupView="lexicon" />
 			</liferay-ui:search-container>
-		</div>
 	</div>
 </div>
