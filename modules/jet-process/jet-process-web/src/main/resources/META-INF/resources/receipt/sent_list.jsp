@@ -22,8 +22,8 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 52%;
-	left: 40%;
+	height: 54%;
+	left: 37%;
 	background: #afc6e0;
 }
 
@@ -117,65 +117,10 @@
 
 <portlet:actionURL var="receiptSentActionURL"
 	name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>" />
-<%-- 
-<!-- The Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-
-			<!-- Modal Header -->
-			<div class="modal-header"
-				style="background-color: #96b4d6 !important;">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">
-					<liferay-ui:message key="label-receipt-sent-popup-heading" />
-				</h4>
-			</div>
-
-			<!-- Modal body -->
-			<div class="modal-body">
-				<aui:form action="<%	=receiptSentActionURL%>" method="post"
-					name="fm" onsubmit="return closeSelf(this)">
-					<input type="text" name="<portlet:namespace />rmId" id="rmId"
-						hidden>
-					<input type="text" name="<portlet:namespace />receiptId"
-						id="receiptId" hidden>
-					<div class="textOnInput">
-						<label><liferay-ui:message key="label-receipt-remark" /><span
-							class='text-danger'>*</span></label>
-						<aui:input label="" name="remarks" id="remarks" type="textarea">
-							<aui:validator name="required"></aui:validator>
-							<aui:validator name="maxLength">
-								<liferay-ui:message key="receipt-sent-remarks-maxlength" />
-							</aui:validator>
-						</aui:input>
-					</div>
-
-					<hr style="margin: 1rem -14px;" />
-					<div style="text-align: right;">
-						<button type="submit" class="btn btn-primary"
-							id="submit_pull_back">
-							<liferay-ui:message key="label-receipt-sent-button-submit" />
-						</button>
-						<button type="button" class="btn btn-primary"
-							data-dismiss="modal">
-							<liferay-ui:message key="label-receipt-sent-button-cancel" />
-						</button>
-					</div>
-				</aui:form>
-			</div>
-		</div>
-	</div>
-</div>
- --%>
-
-
-
 
 <!-- pull_back pop up -->
 <div id="pull_back" class="pull_back-popup">
 	<!--   Creates the popup content-->
-
 	<div class="container mt-3">
 		<div>
 			<button type="button" class="close popup_close"
@@ -191,7 +136,7 @@
 			<input type="text" name="<portlet:namespace />rmId" id="rmId" hidden>
 			<input type="text" name="<portlet:namespace />receiptId"
 				id="receiptId" hidden>
-			<div style="text-align: left;">
+			<div style="text-align: left; height:100px;">
 				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
 					type="textarea">
 					<aui:validator name="required"></aui:validator>
@@ -219,15 +164,12 @@
 
 
 <script type="text/javascript">
-/* function closeSelf (form) {
-    form.submit();
-    window.close();
- } */
+
 function openModal(receiptMovementId , receiptId){
 	
 	document.getElementById("rmId").value=receiptMovementId;
 	document.getElementById("receiptId").value=receiptId; 
-	/*  $("#<portlet:namespace />remarks").val(""); */
+	$("#<portlet:namespace />remarks").val("");
 	$("#pull_back").addClass("active");
 	$("#rec_inbox").addClass("active");
 	$(".popup_close").on("click", function() {
