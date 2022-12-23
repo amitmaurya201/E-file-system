@@ -4,58 +4,47 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
-#myModal .modal-dialog .modal-content .modal-body .textOnInput {
-	position: relative;
-	background-color: #fff;
-}
-
-.invisible {
-	visibility: hidden !important;
-}
-
-.visible {
-	visibility: visible !important;
-}
-
-#myModal .modal-dialog .modal-content .modal-body .textOnInput label {
+.popup, .pull_back-popup {
 	position: absolute;
-	background-color: #fff;
-	top: -15px;
-	left: 10px;
-	padding: 2px;
-	z-index: 1;
+	background: #bebec1;
+	border: 3px solid #666666;
+	margin-top: -30%;
+	left: 30%;
+	display: none;
 }
 
-#myModal .modal-dialog .modal-content .modal-body .textOnInput label:after
-	{
-	content: " ";
-	width: 100%;
-	height: 13px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	z-index: -1;
+.popup {
+	width: 50%;
+	height: 50%;
 }
 
-#myModal .modal-dialog .modal-content .modal-body label {
-	font-size: 16px;
-	font-weight: 500;
-	display: inline-block;
-	margin-bottom: .5rem;
+.pull_back-popup {
+	width: 35%;
+	height: 52%;
+	left: 40%;
+	background: #afc6e0;
+}
+
+.popup.active, .pull_back-popup.active {
+	text-align: center;
+	display: block;
+}
+
+#rec_inbox.active {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.button {
+	border: none;
 }
 </style>
 
-<div class="row">
+
+
+<div class="row" id="rec_inbox">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
@@ -111,8 +100,8 @@
 					name="label-receipt-sent-action">
 					<c:if
 						test="${(empty receiptSentMovement.readOn) and (empty receiptSentMovement.receivedOn)}">
-						<button type="button" class="btn" data-toggle="modal"
-							data-target="#myModal"
+
+						<button type="button" class="btn" id="myBtn"
 							onclick="openModal(${ receiptSentMovement.receiptMovementId} , ${receiptSentMovement.receiptId})">
 							<i class="icon-indent-left"></i>
 						</button>
@@ -128,24 +117,24 @@
 
 <portlet:actionURL var="receiptSentActionURL"
 	name="<%=MVCCommandNames.RECEIPT_SENT_LIST%>" />
-
+<%-- 
 <!-- The Modal -->
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 
 			<!-- Modal Header -->
 			<div class="modal-header"
 				style="background-color: #96b4d6 !important;">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">
 					<liferay-ui:message key="label-receipt-sent-popup-heading" />
 				</h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 
 			<!-- Modal body -->
 			<div class="modal-body">
-				<aui:form action="<%=receiptSentActionURL%>" method="post"
+				<aui:form action="<%	=receiptSentActionURL%>" method="post"
 					name="fm" onsubmit="return closeSelf(this)">
 					<input type="text" name="<portlet:namespace />rmId" id="rmId"
 						hidden>
@@ -168,7 +157,7 @@
 							id="submit_pull_back">
 							<liferay-ui:message key="label-receipt-sent-button-submit" />
 						</button>
-						<button type="button" class="btn btn-primary" id="closeModal"
+						<button type="button" class="btn btn-primary"
 							data-dismiss="modal">
 							<liferay-ui:message key="label-receipt-sent-button-cancel" />
 						</button>
@@ -178,15 +167,72 @@
 		</div>
 	</div>
 </div>
+ --%>
+
+
+
+
+<!-- pull_back pop up -->
+<div id="pull_back" class="pull_back-popup">
+	<!--   Creates the popup content-->
+
+	<div class="container mt-3">
+		<div>
+			<button type="button" class="close popup_close"
+				style="float: right; font-size: 25px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h3>
+				<liferay-ui:message key="label-receipt-sent-popup-heading" />
+			</h3>
+		</div>
+		<hr style="margin: 1rem -14px;" />
+		<aui:form action="<%=receiptSentActionURL%>" method="post" name="fm">
+			<input type="text" name="<portlet:namespace />rmId" id="rmId" hidden>
+			<input type="text" name="<portlet:namespace />receiptId"
+				id="receiptId" hidden>
+			<div style="text-align: left;">
+				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
+					type="textarea">
+					<aui:validator name="required"></aui:validator>
+					<aui:validator name="maxLength">
+						<liferay-ui:message key="receipt-sent-remarks-maxlength" />
+					</aui:validator>
+				</aui:input>
+			</div>
+
+			<hr style="margin: 1rem -14px;" />
+			<div style="text-align: right;">
+				<button type="submit" class="btn btn-primary" id="submit_pull_back">
+					<liferay-ui:message key="label-receipt-sent-button-submit" />
+				</button>
+				<button type="button" class="btn btn-primary popup_close" id="close">
+					<liferay-ui:message key="label-receipt-sent-button-cancel" />
+				</button>
+			</div>
+		</aui:form>
+	</div>
+</div>
+
+
+
+
 
 <script type="text/javascript">
-function closeSelf (form) {
+/* function closeSelf (form) {
     form.submit();
     window.close();
- }
+ } */
 function openModal(receiptMovementId , receiptId){
+	
 	document.getElementById("rmId").value=receiptMovementId;
 	document.getElementById("receiptId").value=receiptId; 
-	 $("#<portlet:namespace />remarks").val("");
+	/*  $("#<portlet:namespace />remarks").val(""); */
+	$("#pull_back").addClass("active");
+	$("#rec_inbox").addClass("active");
+	$(".popup_close").on("click", function() {
+		  $("#pull_back").removeClass("active");
+		  $("#rec_inbox").removeClass("active");
+		});
 }
 </script>
