@@ -1515,7 +1515,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				
-				if(orderBy.equals("receivedon")) {
+				if(orderBy.equals("createdate")) {
 					sql = sql + " order by "+"fm."+orderBy;
 					}
 				else {

@@ -56,7 +56,7 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		String tt = (String) session.getAttribute("userPostId");
 		logger.info("user post id inside render : --" + userPostId);
 		long userPost = Long.parseLong(tt);
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "receivedon");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		logger.info("order by : " + orderByCol +"  : order type : - "+orderByType);
