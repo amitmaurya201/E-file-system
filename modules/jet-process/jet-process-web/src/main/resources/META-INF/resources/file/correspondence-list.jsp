@@ -210,7 +210,7 @@
 		autoLoad: false
 		}).render();
 		popUpWindow.show();
-		popUpWindow.titleNode.html("Put in file");
+		popUpWindow.titleNode.html("Put In File");
 		popUpWindow.io.set('uri',url);
 		popUpWindow.io.start();
 

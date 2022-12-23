@@ -2,7 +2,7 @@
 <%
 HttpSession session1 = themeDisplay.getRequest().getSession();
 long userPostId = Long.parseLong((String) session1.getAttribute("userPostId"));
-out.print("correspondence" +userPostId);
+/* out.print("correspondence" +userPostId); */
 List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList(userPostId);
  long docFileId = (Long)request.getAttribute("docFileId");
 /* out.print("docFileId-------->"+docFileId); */
@@ -31,12 +31,12 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 			className="io.jetprocess.masterdata.model.ReceiptListViewDto"
 			modelVar="aReceiptListViewDto">
 			<liferay-ui:search-container-column-text>
-			<aui:input type="radio" label = "" name="receipt" value="<%=aReceiptListViewDto.getReceiptId() %>" />
+			<aui:input type="radio" label = "" name="Receipt" value="<%=aReceiptListViewDto.getReceiptId() %>" />
 			</liferay-ui:search-container-column-text>
-			<liferay-ui:search-container-column-text name="type" ><%=aReceiptListViewDto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
-			<liferay-ui:search-container-column-text property="receiptNumber" />
+			<liferay-ui:search-container-column-text name="Type" ><%=aReceiptListViewDto.getNature().charAt(0) %></liferay-ui:search-container-column-text>
+			<liferay-ui:search-container-column-text property="receiptNumber" name="Receipt Number"/>
 		<%-- 	<liferay-ui:search-container-column-text property="remark" /> --%>
-			<liferay-ui:search-container-column-text property="subject" />
+			<liferay-ui:search-container-column-text property="subject" name="Subject"/>
 			
 		</liferay-ui:search-container-row>
 		 <liferay-ui:search-iterator paginate="false" />
@@ -44,9 +44,9 @@ List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getReceiptList
 	</liferay-ui:search-container>
 	
 		<div >
-		<label>Remarks</label>
+		<label>Remarks<span class="text-danger">*</span> </label>
 		<textarea class="form-control" name = "<portlet:namespace/>remarks" rows="3" cols="100" ></textarea>
 	</div>
 
-	<input  class="btn btn-primary" style="float: right; " type="submit" value="Attach" />
+	<input  class="btn btn-primary" style="float: right; margin-top: 10px;" type="submit" value="Attach" />
 </aui:form>
