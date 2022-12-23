@@ -426,7 +426,7 @@ SELECT
 	JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId
 	JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid
 	JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
-    where rm.receiverid = ? order by rm.createdate desc ; 
+    where rm.receiverid = ? and r.attachstatus is null order by rm.createdate desc ; 
 ]]>
 </sql>
 
@@ -469,6 +469,24 @@ SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, 
 	r.nature, fc.correspondenceType as correspondenceType FROM jet_process_receipt r INNER JOIN 
 jet_process_filecorr as fc  ON r.receiptid = fc.receiptid where fc.docfileid = ? order by createDate desc  ;
      
+]]>
+</sql>
+
+<sql id = "getCreatedReceiptAndInboxList">
+<![CDATA[
+
+
+SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
+FROM jet_process_receipt r INNER JOIN md_category c ON c.categorydataid = r.receiptcategoryid where r.userpostid=? and r.attachstatus is null
+union
+SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
+FROM jet_process_receipt r INNER JOIN md_category c ON c.categorydataid = r.receiptcategoryid
+ join(select rm.receiptid as rmreceiptid from jet_process_receiptmovement rm
+	 Join (select max(mov.rmid) as mreceiptId from jet_process_receiptmovement
+		   mov where mov.active_ = true group by mov.receiptId) rmov 
+	 on rmov.mreceiptId = rm.rmid where rm.receiverid =?)
+as t on t.rmreceiptid =r.receiptid where r.attachstatus is null;
+
 ]]>
 </sql>
 

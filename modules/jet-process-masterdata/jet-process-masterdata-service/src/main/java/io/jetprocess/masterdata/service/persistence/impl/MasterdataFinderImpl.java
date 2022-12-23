@@ -1816,11 +1816,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		return null;
 	}
 	
-	
-	
-	
-	
-
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceiptDetails(long fileId){
 		Session session = null;
 		try {
@@ -1844,7 +1839,33 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
+	
+	public List<ReceiptListViewDto> getCreatedListAndInboxList(long userpostId, long receiverId){
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
+			logger.info("Final created receipt and inbox List Query : "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userpostId);
+			queryPos.add(receiverId);
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
+
 	
 }

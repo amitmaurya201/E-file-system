@@ -234,6 +234,13 @@ public class MasterdataLocalServiceUtil {
 		return getService().getCountryById(countryId);
 	}
 
+	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getCreatedReceiptAndInboxList(long userpostId, long receiverId) {
+
+		return getService().getCreatedReceiptAndInboxList(
+			userpostId, receiverId);
+	}
+
 	public static Masterdata getDeliveryModeById(long deliveryModeId) {
 		return getService().getDeliveryModeById(deliveryModeId);
 	}

@@ -62,7 +62,6 @@ AUI().use('aui-base', function(A){
 	 });
 });
 
-
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-countries-masterdata',
@@ -254,6 +253,7 @@ $("#<portlet:namespace />editReceiptForm").on('submit', function(e){
 $('#removeFileUpload').on('click',function(e){	
 	e.preventDefault();
  $('.dropzone-wrapper').css("display", "block");
+
  $('#removeFileUpload').css("display", "none");
 	console.log("if ------>>>>>");
 	$("#editpdfurl").remove();

@@ -223,6 +223,10 @@ public interface MasterdataLocalService
 	public Masterdata getCountryById(long countryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(
+		long userpostId, long receiverId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getDeliveryModeById(long deliveryModeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

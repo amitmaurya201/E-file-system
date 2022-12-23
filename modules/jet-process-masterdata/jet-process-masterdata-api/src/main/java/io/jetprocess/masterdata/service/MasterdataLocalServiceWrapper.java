@@ -276,6 +276,14 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getCreatedReceiptAndInboxList(long userpostId, long receiverId) {
+
+		return _masterdataLocalService.getCreatedReceiptAndInboxList(
+			userpostId, receiverId);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata getDeliveryModeById(
 		long deliveryModeId) {
 

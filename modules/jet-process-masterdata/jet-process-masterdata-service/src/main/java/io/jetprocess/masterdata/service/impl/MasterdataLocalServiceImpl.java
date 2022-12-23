@@ -388,17 +388,16 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 	}
 	
-	
-	
-
-	/*
-	 * public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId) {
-	 * return masterdataFinder.getFileCorrespondenceReceiptList(fileId); }
-	 */
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceipteDetail(long fileId) {
 		return masterdataFinder.getFileCorrespondenceReceiptDetails(fileId);
 	}
 
+	
+	public List<ReceiptListViewDto>getCreatedReceiptAndInboxList(long userpostId,long receiverId){ 
+		return masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId);
+	  
+	  }
+	 
 	// ---------------- End -----------------
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());

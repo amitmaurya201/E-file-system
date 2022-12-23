@@ -195,4 +195,7 @@ public interface MasterdataFinder {
 		<io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO>
 			getFileCorrespondenceReceiptDetails(long fileId);
 
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getCreatedListAndInboxList(long userpostId, long receiverId);
+
 }
