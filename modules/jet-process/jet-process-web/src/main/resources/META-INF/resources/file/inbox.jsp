@@ -16,7 +16,7 @@
 
 .popup, .read-popup, .receive-popup {
 	/*Hides pop-up when there is no "active" class*/
-	/* visibility: hidden; */
+	/ visibility: hidden; /
 	position: absolute;
 	background: #bebec1;
 	border: 3px solid #666666;
@@ -39,7 +39,7 @@
 
 .popup.active, .read-popup.active, .receive-popup.active {
 	/*displays pop-up when "active" class is present*/
-	/* visibility: visible; */
+	/ visibility: visible; /
 	text-align: center;
 	display: block;
 }
@@ -97,8 +97,12 @@
 						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:renderURL>
 
-				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction" />
-				<portlet:actionURL name="fileReadAction" var="fileReadAction" />
+				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction" >
+				<portlet:param name="fileId" value="${fileinboxDtoList.getFileId()}"/>
+				</portlet:actionURL>
+				<portlet:actionURL name="fileReadAction" var="fileReadAction" >
+				<portlet:param name="fileId1" value="${fileinboxDtoList.getFileId()}"  />
+				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName"
@@ -119,16 +123,25 @@
 					<c:when
 						test="${fileinboxDtoList.getNature()=='Electronic' || fileinboxDtoList.getNature()=='Physical'}">
 						<c:if
-							test="${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null}">
+							test="${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null }"  >
 
 							<liferay-ui:search-container-column-text name="" cssClass="bold">
 								<%=fileinboxDtoList.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
+							
+							   <c:choose>
+             <c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
+             <liferay-ui:search-container-column-text href="${fileReadAction }"
+										name="label-file-inbox-fileno"  cssClass="bold" orderableProperty="fileNumber" orderable="true" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
+								</c:when>
+								<c:otherwise>
+									  <liferay-ui:search-container-column-text href="${fileReceiveAction }"
+										name="label-file-inbox-fileno"  cssClass="bold" orderableProperty="fileNumber" orderable="true" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
 
-							<liferay-ui:search-container-column-text orderable="true"
-								orderableProperty="fileNumber" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>"
-								name="label-file-inbox-fileno" cssClass="bold" />
-							<liferay-ui:search-container-column-text orderable="true"
+             </c:otherwise>             
+             </c:choose>
+							
+														<liferay-ui:search-container-column-text orderable="true"
 								orderableProperty="subject" value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
 								name="label-file-inbox-subject" cssClass="hover-tips bold" />
 							<liferay-ui:search-container-column-text
