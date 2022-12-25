@@ -310,8 +310,8 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.ReceiptMovement getReceiptMovementByReceiptId(
-		long receiptId) {
+	public java.util.List<io.jetprocess.model.ReceiptMovement>
+		getReceiptMovementByReceiptId(long receiptId) {
 
 		return _receiptMovementLocalService.getReceiptMovementByReceiptId(
 			receiptId);

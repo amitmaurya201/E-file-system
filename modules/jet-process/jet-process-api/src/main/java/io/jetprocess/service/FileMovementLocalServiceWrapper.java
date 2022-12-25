@@ -261,11 +261,6 @@ public class FileMovementLocalServiceWrapper
 			portletDataContext);
 	}
 
-	@Override
-	public io.jetprocess.model.FileMovement getFileByFileId(long fileId) {
-		return _fileMovementLocalService.getFileByFileId(fileId);
-	}
-
 	/**
 	 * Returns the file movement with the primary key.
 	 *
@@ -278,6 +273,13 @@ public class FileMovementLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _fileMovementLocalService.getFileMovement(fmId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.model.FileMovement>
+		getFileMovementByFileId(long fileId) {
+
+		return _fileMovementLocalService.getFileMovementByFileId(fileId);
 	}
 
 	@Override

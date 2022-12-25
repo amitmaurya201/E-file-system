@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
+import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.DocFileLocalService;
@@ -50,53 +51,63 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, String dueDate,
 			String remark) {
 
+		
+		
 		List<FileMovement> fileList = fileMovementLocalService.getFileMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-		int i = 1;
-		for (FileMovement fileMovement : fileList) {
-			System.out.println("fileMovement -->" + ": id :" + i + " : " + fileMovement);
-			i++;
-		}
 
 		FileMovement fileMov = fileList.stream().filter(file -> file.getFileId() == fileId).findAny().orElse(null);
-
-		System.out.println("fileMov :  --" + fileMov);
-
+	
 		if (fileMov == null) {
-			
-			saveFileMovement(receiverId,senderId, fileId, priority, dueDate, remark, "", "");
-			
+
+			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
+
 		} else {
-
-			System.out.println("Start---5");
-			if (fileMov.getReceivedOn().isEmpty() && fileMov.getReadOn().isEmpty()) {
-				DocFile docFile;
+			
+			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
+			try {
+				FileMovement fm;
 				try {
-					docFile = docFileLocalService.getDocFile(fileId);
-					if (docFile.getNature().equals("Electronic")) {
+					fm = fileMovementLocalService.getFileMovement(maxFmId);
+					if (fm.getReceivedOn().isEmpty() && fm.getReadOn().isEmpty()) {
+						
+						DocFile docFile;
+						try {
+							docFile = docFileLocalService.getDocFile(fileId);
+							if (docFile.getNature().equals("Electronic")) {
 
-						saveFileMovement(receiverId,senderId, fileId, priority, dueDate, remark, "read", "");
+								fm.setReadOn("read");
+								fileMovementLocalService.updateFileMovement(fm);
+								saveFileMovement(receiverId,senderId, fileId, priority, dueDate, remark);
 
-					} else if (docFile.getNature().equals("Physical")) {
+							} else if (docFile.getNature().equals("Physical")) {
 
-						saveFileMovement(receiverId,senderId, fileId, priority, dueDate, remark, "", "receive");
+								fm.setReceivedOn("receive");
+								fileMovementLocalService.updateFileMovement(fm);
+								saveFileMovement(receiverId,senderId, fileId, priority, dueDate, remark);
 
-					}
-				} catch (PortalException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+							}
+						} catch (PortalException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
 				}
-
+				}catch (PortalException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}finally {
+				
 			}
-
-		}
-
+			}
 	}
-
-	public FileMovement getFileByFileId(long fileId) {
-
-		return fileMovementPersistence.fetchByfileId(fileId);
-	}
-
+			
+       public List<FileMovement> getFileMovementByFileId(long fileId){
+		
+		return fileMovementPersistence.findByfileId(fileId);
+	
+       }
+	
 	// get Filemovement by fileMovementId
 	public FileMovement getFileMovementById(long fmId) throws PortalException {
 
@@ -104,9 +115,9 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return fileMovement;
 	}
 
-	 void saveFileMovement(long receiverId, long senderId, long fileId, String priority, String dueDate,
-			String remark, String read, String receive) {
-		
+	void saveFileMovement(long receiverId, long senderId, long fileId, String priority, String dueDate, String remark
+			) {
+
 		long fmId = counterLocalService.increment(FileMovement.class.getName());
 		FileMovement fm = fileMovementLocalService.createFileMovement(fmId);
 		fm.setFmId(fmId);
@@ -116,15 +127,11 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		fm.setRemark(remark);
 		fm.setPriority(priority);
 		fm.setDueDate(dueDate);
-		fm.setReceivedOn(receive);
-		fm.setReadOn(read);
+		
 		FileMovement fileMovement = fileMovementLocalService.addFileMovement(fm);
-		System.out.println("Fmid--->" + fileMovement.getFmId());
 		if (fileMovement.getActive() != true) {
 			fileMovement.setActive(true);
 			fileMovementLocalService.updateFileMovement(fileMovement);
-			System.out
-					.println("updated file Active -->" + fileMovementLocalService.updateFileMovement(fileMovement));
 		}
 
 		try {
@@ -138,30 +145,17 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 				}
 			} else {
-				System.out.println("fileId not valid");
 			}
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	
+
 	@Reference
 	DocFileLocalService docFileLocalService;
+
+	@Reference
+	MasterdataLocalService masterdataLocalService;
 }
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-	
-
-	

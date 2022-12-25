@@ -37,7 +37,6 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -55,7 +54,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1465,91 +1463,139 @@ public class ReceiptMovementPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"receiptMovement.companyId = ?";
 
-	private FinderPath _finderPathFetchByreceiptId;
+	private FinderPath _finderPathWithPaginationFindByreceiptId;
+	private FinderPath _finderPathWithoutPaginationFindByreceiptId;
 	private FinderPath _finderPathCountByreceiptId;
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or throws a <code>NoSuchReceiptMovementException</code> if it could not be found.
+	 * Returns all the receipt movements where receiptId = &#63;.
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the matching receipt movement
-	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 * @return the matching receipt movements
 	 */
 	@Override
-	public ReceiptMovement findByreceiptId(long receiptId)
-		throws NoSuchReceiptMovementException {
-
-		ReceiptMovement receiptMovement = fetchByreceiptId(receiptId);
-
-		if (receiptMovement == null) {
-			StringBundler sb = new StringBundler(4);
-
-			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			sb.append("receiptId=");
-			sb.append(receiptId);
-
-			sb.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(sb.toString());
-			}
-
-			throw new NoSuchReceiptMovementException(sb.toString());
-		}
-
-		return receiptMovement;
+	public List<ReceiptMovement> findByreceiptId(long receiptId) {
+		return findByreceiptId(
+			receiptId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @return the range of matching receipt movements
 	 */
 	@Override
-	public ReceiptMovement fetchByreceiptId(long receiptId) {
-		return fetchByreceiptId(receiptId, true);
+	public List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end) {
+
+		return findByreceiptId(receiptId, start, end, null);
 	}
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
 	 *
 	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching receipt movements
+	 */
+	@Override
+	public List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end,
+		OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return findByreceiptId(receiptId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 * @return the ordered range of matching receipt movements
 	 */
 	@Override
-	public ReceiptMovement fetchByreceiptId(
-		long receiptId, boolean useFinderCache) {
+	public List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end,
+		OrderByComparator<ReceiptMovement> orderByComparator,
+		boolean useFinderCache) {
 
+		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if (useFinderCache) {
-			finderArgs = new Object[] {receiptId};
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByreceiptId;
+				finderArgs = new Object[] {receiptId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByreceiptId;
+			finderArgs = new Object[] {
+				receiptId, start, end, orderByComparator
+			};
 		}
 
-		Object result = null;
+		List<ReceiptMovement> list = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByreceiptId, finderArgs);
-		}
+			list = (List<ReceiptMovement>)finderCache.getResult(
+				finderPath, finderArgs);
 
-		if (result instanceof ReceiptMovement) {
-			ReceiptMovement receiptMovement = (ReceiptMovement)result;
+			if ((list != null) && !list.isEmpty()) {
+				for (ReceiptMovement receiptMovement : list) {
+					if (receiptId != receiptMovement.getReceiptId()) {
+						list = null;
 
-			if (receiptId != receiptMovement.getReceiptId()) {
-				result = null;
+						break;
+					}
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler sb = new StringBundler(3);
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
 
 			sb.append(_SQL_SELECT_RECEIPTMOVEMENT_WHERE);
 
 			sb.append(_FINDER_COLUMN_RECEIPTID_RECEIPTID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(ReceiptMovementModelImpl.ORDER_BY_JPQL);
+			}
 
 			String sql = sb.toString();
 
@@ -1564,35 +1610,13 @@ public class ReceiptMovementPersistenceImpl
 
 				queryPos.add(receiptId);
 
-				List<ReceiptMovement> list = query.list();
+				list = (List<ReceiptMovement>)QueryUtil.list(
+					query, getDialect(), start, end);
 
-				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByreceiptId, finderArgs, list);
-					}
-				}
-				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
+				cacheResult(list);
 
-						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {receiptId};
-							}
-
-							_log.warn(
-								"ReceiptMovementPersistenceImpl.fetchByreceiptId(long, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
-					ReceiptMovement receiptMovement = list.get(0);
-
-					result = receiptMovement;
-
-					cacheResult(receiptMovement);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
 			catch (Exception exception) {
@@ -1603,27 +1627,288 @@ public class ReceiptMovementPersistenceImpl
 			}
 		}
 
-		if (result instanceof List<?>) {
+		return list;
+	}
+
+	/**
+	 * Returns the first receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement findByreceiptId_First(
+			long receiptId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
+		throws NoSuchReceiptMovementException {
+
+		ReceiptMovement receiptMovement = fetchByreceiptId_First(
+			receiptId, orderByComparator);
+
+		if (receiptMovement != null) {
+			return receiptMovement;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("receiptId=");
+		sb.append(receiptId);
+
+		sb.append("}");
+
+		throw new NoSuchReceiptMovementException(sb.toString());
+	}
+
+	/**
+	 * Returns the first receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement fetchByreceiptId_First(
+		long receiptId, OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		List<ReceiptMovement> list = findByreceiptId(
+			receiptId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement findByreceiptId_Last(
+			long receiptId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
+		throws NoSuchReceiptMovementException {
+
+		ReceiptMovement receiptMovement = fetchByreceiptId_Last(
+			receiptId, orderByComparator);
+
+		if (receiptMovement != null) {
+			return receiptMovement;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("receiptId=");
+		sb.append(receiptId);
+
+		sb.append("}");
+
+		throw new NoSuchReceiptMovementException(sb.toString());
+	}
+
+	/**
+	 * Returns the last receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	@Override
+	public ReceiptMovement fetchByreceiptId_Last(
+		long receiptId, OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		int count = countByreceiptId(receiptId);
+
+		if (count == 0) {
 			return null;
 		}
+
+		List<ReceiptMovement> list = findByreceiptId(
+			receiptId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the receipt movements before and after the current receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param rmId the primary key of the current receipt movement
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next receipt movement
+	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
+	 */
+	@Override
+	public ReceiptMovement[] findByreceiptId_PrevAndNext(
+			long rmId, long receiptId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
+		throws NoSuchReceiptMovementException {
+
+		ReceiptMovement receiptMovement = findByPrimaryKey(rmId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ReceiptMovement[] array = new ReceiptMovementImpl[3];
+
+			array[0] = getByreceiptId_PrevAndNext(
+				session, receiptMovement, receiptId, orderByComparator, true);
+
+			array[1] = receiptMovement;
+
+			array[2] = getByreceiptId_PrevAndNext(
+				session, receiptMovement, receiptId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ReceiptMovement getByreceiptId_PrevAndNext(
+		Session session, ReceiptMovement receiptMovement, long receiptId,
+		OrderByComparator<ReceiptMovement> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
 		else {
-			return (ReceiptMovement)result;
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_RECEIPTMOVEMENT_WHERE);
+
+		sb.append(_FINDER_COLUMN_RECEIPTID_RECEIPTID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(ReceiptMovementModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(receiptId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						receiptMovement)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ReceiptMovement> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
 		}
 	}
 
 	/**
-	 * Removes the receipt movement where receiptId = &#63; from the database.
+	 * Removes all the receipt movements where receiptId = &#63; from the database.
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the receipt movement that was removed
 	 */
 	@Override
-	public ReceiptMovement removeByreceiptId(long receiptId)
-		throws NoSuchReceiptMovementException {
+	public void removeByreceiptId(long receiptId) {
+		for (ReceiptMovement receiptMovement :
+				findByreceiptId(
+					receiptId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
-		ReceiptMovement receiptMovement = findByreceiptId(receiptId);
-
-		return remove(receiptMovement);
+			remove(receiptMovement);
+		}
 	}
 
 	/**
@@ -1711,10 +1996,6 @@ public class ReceiptMovementPersistenceImpl
 				receiptMovement.getUuid(), receiptMovement.getGroupId()
 			},
 			receiptMovement);
-
-		finderCache.putResult(
-			_finderPathFetchByreceiptId,
-			new Object[] {receiptMovement.getReceiptId()}, receiptMovement);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1798,13 +2079,6 @@ public class ReceiptMovementPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, receiptMovementModelImpl);
-
-		args = new Object[] {receiptMovementModelImpl.getReceiptId()};
-
-		finderCache.putResult(
-			_finderPathCountByreceiptId, args, Long.valueOf(1));
-		finderCache.putResult(
-			_finderPathFetchByreceiptId, args, receiptMovementModelImpl);
 	}
 
 	/**
@@ -2327,8 +2601,16 @@ public class ReceiptMovementPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathFetchByreceiptId = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByreceiptId",
+		_finderPathWithPaginationFindByreceiptId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByreceiptId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"receiptId"}, true);
+
+		_finderPathWithoutPaginationFindByreceiptId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByreceiptId",
 			new String[] {Long.class.getName()}, new String[] {"receiptId"},
 			true);
 

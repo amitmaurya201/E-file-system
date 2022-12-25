@@ -391,41 +391,139 @@ public interface ReceiptMovementPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or throws a <code>NoSuchReceiptMovementException</code> if it could not be found.
+	 * Returns all the receipt movements where receiptId = &#63;.
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the matching receipt movement
+	 * @return the matching receipt movements
+	 */
+	public java.util.List<ReceiptMovement> findByreceiptId(long receiptId);
+
+	/**
+	 * Returns a range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @return the range of matching receipt movements
+	 */
+	public java.util.List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching receipt movements
+	 */
+	public java.util.List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching receipt movements
+	 */
+	public java.util.List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement findByreceiptId(long receiptId)
+	public ReceiptMovement findByreceiptId_First(
+			long receiptId,
+			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+				orderByComparator)
 		throws NoSuchReceiptMovementException;
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the first receipt movement in the ordered set where receiptId = &#63;.
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement fetchByreceiptId(long receiptId);
+	public ReceiptMovement fetchByreceiptId_First(
+		long receiptId,
+		com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+			orderByComparator);
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the last receipt movement in the ordered set where receiptId = &#63;.
 	 *
 	 * @param receiptId the receipt ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement fetchByreceiptId(
-		long receiptId, boolean useFinderCache);
-
-	/**
-	 * Removes the receipt movement where receiptId = &#63; from the database.
-	 *
-	 * @param receiptId the receipt ID
-	 * @return the receipt movement that was removed
-	 */
-	public ReceiptMovement removeByreceiptId(long receiptId)
+	public ReceiptMovement findByreceiptId_Last(
+			long receiptId,
+			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+				orderByComparator)
 		throws NoSuchReceiptMovementException;
+
+	/**
+	 * Returns the last receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public ReceiptMovement fetchByreceiptId_Last(
+		long receiptId,
+		com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+			orderByComparator);
+
+	/**
+	 * Returns the receipt movements before and after the current receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param rmId the primary key of the current receipt movement
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next receipt movement
+	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
+	 */
+	public ReceiptMovement[] findByreceiptId_PrevAndNext(
+			long rmId, long receiptId,
+			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+				orderByComparator)
+		throws NoSuchReceiptMovementException;
+
+	/**
+	 * Removes all the receipt movements where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 */
+	public void removeByreceiptId(long receiptId);
 
 	/**
 	 * Returns the number of receipt movements where receiptId = &#63;.

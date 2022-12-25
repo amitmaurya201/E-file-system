@@ -189,7 +189,7 @@
 		<column name="pullBackRemark" type="String" />
 		<column name="active" type="boolean" />
 
-		<finder name="fileId" return-type="FileMovement">
+		<finder name="fileId" return-type="Collection">
 			<finder-column name="fileId"></finder-column>
 		</finder>
 
@@ -233,7 +233,7 @@
 		<column name="pullBackRemark" type="String" />
 		<column name="active" type="boolean" />
 
-		<finder name="receiptId" return-type="ReceiptMovement">
+		<finder name="receiptId" return-type="Collection">
 			<finder-column name="receiptId"></finder-column>
 		</finder>
 

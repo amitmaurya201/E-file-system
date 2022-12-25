@@ -534,51 +534,164 @@ public class ReceiptMovementUtil {
 	}
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or throws a <code>NoSuchReceiptMovementException</code> if it could not be found.
+	 * Returns all the receipt movements where receiptId = &#63;.
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the matching receipt movement
-	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 * @return the matching receipt movements
 	 */
-	public static ReceiptMovement findByreceiptId(long receiptId)
-		throws io.jetprocess.exception.NoSuchReceiptMovementException {
-
+	public static List<ReceiptMovement> findByreceiptId(long receiptId) {
 		return getPersistence().findByreceiptId(receiptId);
 	}
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @return the range of matching receipt movements
 	 */
-	public static ReceiptMovement fetchByreceiptId(long receiptId) {
-		return getPersistence().fetchByreceiptId(receiptId);
+	public static List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end) {
+
+		return getPersistence().findByreceiptId(receiptId, start, end);
 	}
 
 	/**
-	 * Returns the receipt movement where receiptId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
 	 *
 	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching receipt movements
+	 */
+	public static List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end,
+		OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return getPersistence().findByreceiptId(
+			receiptId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the receipt movements where receiptId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param receiptId the receipt ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 * @return the ordered range of matching receipt movements
 	 */
-	public static ReceiptMovement fetchByreceiptId(
-		long receiptId, boolean useFinderCache) {
+	public static List<ReceiptMovement> findByreceiptId(
+		long receiptId, int start, int end,
+		OrderByComparator<ReceiptMovement> orderByComparator,
+		boolean useFinderCache) {
 
-		return getPersistence().fetchByreceiptId(receiptId, useFinderCache);
+		return getPersistence().findByreceiptId(
+			receiptId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Removes the receipt movement where receiptId = &#63; from the database.
+	 * Returns the first receipt movement in the ordered set where receiptId = &#63;.
 	 *
 	 * @param receiptId the receipt ID
-	 * @return the receipt movement that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public static ReceiptMovement removeByreceiptId(long receiptId)
+	public static ReceiptMovement findByreceiptId_First(
+			long receiptId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
 		throws io.jetprocess.exception.NoSuchReceiptMovementException {
 
-		return getPersistence().removeByreceiptId(receiptId);
+		return getPersistence().findByreceiptId_First(
+			receiptId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement fetchByreceiptId_First(
+		long receiptId, OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return getPersistence().fetchByreceiptId_First(
+			receiptId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement findByreceiptId_Last(
+			long receiptId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().findByreceiptId_Last(
+			receiptId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement fetchByreceiptId_Last(
+		long receiptId, OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return getPersistence().fetchByreceiptId_Last(
+			receiptId, orderByComparator);
+	}
+
+	/**
+	 * Returns the receipt movements before and after the current receipt movement in the ordered set where receiptId = &#63;.
+	 *
+	 * @param rmId the primary key of the current receipt movement
+	 * @param receiptId the receipt ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next receipt movement
+	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
+	 */
+	public static ReceiptMovement[] findByreceiptId_PrevAndNext(
+			long rmId, long receiptId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().findByreceiptId_PrevAndNext(
+			rmId, receiptId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the receipt movements where receiptId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 */
+	public static void removeByreceiptId(long receiptId) {
+		getPersistence().removeByreceiptId(receiptId);
 	}
 
 	/**

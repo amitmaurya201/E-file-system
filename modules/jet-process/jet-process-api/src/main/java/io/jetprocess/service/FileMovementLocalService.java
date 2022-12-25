@@ -220,9 +220,6 @@ public interface FileMovementLocalService
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public FileMovement getFileByFileId(long fileId);
-
 	/**
 	 * Returns the file movement with the primary key.
 	 *
@@ -232,6 +229,9 @@ public interface FileMovementLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FileMovement getFileMovement(long fmId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileMovement> getFileMovementByFileId(long fileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FileMovement getFileMovementById(long fmId) throws PortalException;

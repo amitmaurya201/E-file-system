@@ -37,7 +37,6 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -55,7 +54,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1459,89 +1457,134 @@ public class FileMovementPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"fileMovement.companyId = ?";
 
-	private FinderPath _finderPathFetchByfileId;
+	private FinderPath _finderPathWithPaginationFindByfileId;
+	private FinderPath _finderPathWithoutPaginationFindByfileId;
 	private FinderPath _finderPathCountByfileId;
 
 	/**
-	 * Returns the file movement where fileId = &#63; or throws a <code>NoSuchFileMovementException</code> if it could not be found.
+	 * Returns all the file movements where fileId = &#63;.
 	 *
 	 * @param fileId the file ID
-	 * @return the matching file movement
-	 * @throws NoSuchFileMovementException if a matching file movement could not be found
+	 * @return the matching file movements
 	 */
 	@Override
-	public FileMovement findByfileId(long fileId)
-		throws NoSuchFileMovementException {
-
-		FileMovement fileMovement = fetchByfileId(fileId);
-
-		if (fileMovement == null) {
-			StringBundler sb = new StringBundler(4);
-
-			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			sb.append("fileId=");
-			sb.append(fileId);
-
-			sb.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(sb.toString());
-			}
-
-			throw new NoSuchFileMovementException(sb.toString());
-		}
-
-		return fileMovement;
+	public List<FileMovement> findByfileId(long fileId) {
+		return findByfileId(fileId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the file movements where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileMovementModelImpl</code>.
+	 * </p>
 	 *
 	 * @param fileId the file ID
-	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 * @param start the lower bound of the range of file movements
+	 * @param end the upper bound of the range of file movements (not inclusive)
+	 * @return the range of matching file movements
 	 */
 	@Override
-	public FileMovement fetchByfileId(long fileId) {
-		return fetchByfileId(fileId, true);
+	public List<FileMovement> findByfileId(long fileId, int start, int end) {
+		return findByfileId(fileId, start, end, null);
 	}
 
 	/**
-	 * Returns the file movement where fileId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the file movements where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileMovementModelImpl</code>.
+	 * </p>
 	 *
 	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file movements
+	 * @param end the upper bound of the range of file movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file movements
+	 */
+	@Override
+	public List<FileMovement> findByfileId(
+		long fileId, int start, int end,
+		OrderByComparator<FileMovement> orderByComparator) {
+
+		return findByfileId(fileId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the file movements where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file movements
+	 * @param end the upper bound of the range of file movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching file movement, or <code>null</code> if a matching file movement could not be found
+	 * @return the ordered range of matching file movements
 	 */
 	@Override
-	public FileMovement fetchByfileId(long fileId, boolean useFinderCache) {
+	public List<FileMovement> findByfileId(
+		long fileId, int start, int end,
+		OrderByComparator<FileMovement> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if (useFinderCache) {
-			finderArgs = new Object[] {fileId};
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByfileId;
+				finderArgs = new Object[] {fileId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByfileId;
+			finderArgs = new Object[] {fileId, start, end, orderByComparator};
 		}
 
-		Object result = null;
+		List<FileMovement> list = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByfileId, finderArgs);
-		}
+			list = (List<FileMovement>)finderCache.getResult(
+				finderPath, finderArgs);
 
-		if (result instanceof FileMovement) {
-			FileMovement fileMovement = (FileMovement)result;
+			if ((list != null) && !list.isEmpty()) {
+				for (FileMovement fileMovement : list) {
+					if (fileId != fileMovement.getFileId()) {
+						list = null;
 
-			if (fileId != fileMovement.getFileId()) {
-				result = null;
+						break;
+					}
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler sb = new StringBundler(3);
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
 
 			sb.append(_SQL_SELECT_FILEMOVEMENT_WHERE);
 
 			sb.append(_FINDER_COLUMN_FILEID_FILEID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(FileMovementModelImpl.ORDER_BY_JPQL);
+			}
 
 			String sql = sb.toString();
 
@@ -1556,35 +1599,13 @@ public class FileMovementPersistenceImpl
 
 				queryPos.add(fileId);
 
-				List<FileMovement> list = query.list();
+				list = (List<FileMovement>)QueryUtil.list(
+					query, getDialect(), start, end);
 
-				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByfileId, finderArgs, list);
-					}
-				}
-				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
+				cacheResult(list);
 
-						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {fileId};
-							}
-
-							_log.warn(
-								"FileMovementPersistenceImpl.fetchByfileId(long, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
-					FileMovement fileMovement = list.get(0);
-
-					result = fileMovement;
-
-					cacheResult(fileMovement);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
 			catch (Exception exception) {
@@ -1595,27 +1616,283 @@ public class FileMovementPersistenceImpl
 			}
 		}
 
-		if (result instanceof List<?>) {
+		return list;
+	}
+
+	/**
+	 * Returns the first file movement in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file movement
+	 * @throws NoSuchFileMovementException if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement findByfileId_First(
+			long fileId, OrderByComparator<FileMovement> orderByComparator)
+		throws NoSuchFileMovementException {
+
+		FileMovement fileMovement = fetchByfileId_First(
+			fileId, orderByComparator);
+
+		if (fileMovement != null) {
+			return fileMovement;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("fileId=");
+		sb.append(fileId);
+
+		sb.append("}");
+
+		throw new NoSuchFileMovementException(sb.toString());
+	}
+
+	/**
+	 * Returns the first file movement in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement fetchByfileId_First(
+		long fileId, OrderByComparator<FileMovement> orderByComparator) {
+
+		List<FileMovement> list = findByfileId(fileId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last file movement in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file movement
+	 * @throws NoSuchFileMovementException if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement findByfileId_Last(
+			long fileId, OrderByComparator<FileMovement> orderByComparator)
+		throws NoSuchFileMovementException {
+
+		FileMovement fileMovement = fetchByfileId_Last(
+			fileId, orderByComparator);
+
+		if (fileMovement != null) {
+			return fileMovement;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("fileId=");
+		sb.append(fileId);
+
+		sb.append("}");
+
+		throw new NoSuchFileMovementException(sb.toString());
+	}
+
+	/**
+	 * Returns the last file movement in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file movement, or <code>null</code> if a matching file movement could not be found
+	 */
+	@Override
+	public FileMovement fetchByfileId_Last(
+		long fileId, OrderByComparator<FileMovement> orderByComparator) {
+
+		int count = countByfileId(fileId);
+
+		if (count == 0) {
 			return null;
 		}
+
+		List<FileMovement> list = findByfileId(
+			fileId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the file movements before and after the current file movement in the ordered set where fileId = &#63;.
+	 *
+	 * @param fmId the primary key of the current file movement
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file movement
+	 * @throws NoSuchFileMovementException if a file movement with the primary key could not be found
+	 */
+	@Override
+	public FileMovement[] findByfileId_PrevAndNext(
+			long fmId, long fileId,
+			OrderByComparator<FileMovement> orderByComparator)
+		throws NoSuchFileMovementException {
+
+		FileMovement fileMovement = findByPrimaryKey(fmId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			FileMovement[] array = new FileMovementImpl[3];
+
+			array[0] = getByfileId_PrevAndNext(
+				session, fileMovement, fileId, orderByComparator, true);
+
+			array[1] = fileMovement;
+
+			array[2] = getByfileId_PrevAndNext(
+				session, fileMovement, fileId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected FileMovement getByfileId_PrevAndNext(
+		Session session, FileMovement fileMovement, long fileId,
+		OrderByComparator<FileMovement> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
 		else {
-			return (FileMovement)result;
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_FILEMOVEMENT_WHERE);
+
+		sb.append(_FINDER_COLUMN_FILEID_FILEID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(FileMovementModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(fileId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(fileMovement)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<FileMovement> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
 		}
 	}
 
 	/**
-	 * Removes the file movement where fileId = &#63; from the database.
+	 * Removes all the file movements where fileId = &#63; from the database.
 	 *
 	 * @param fileId the file ID
-	 * @return the file movement that was removed
 	 */
 	@Override
-	public FileMovement removeByfileId(long fileId)
-		throws NoSuchFileMovementException {
+	public void removeByfileId(long fileId) {
+		for (FileMovement fileMovement :
+				findByfileId(
+					fileId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
-		FileMovement fileMovement = findByfileId(fileId);
-
-		return remove(fileMovement);
+			remove(fileMovement);
+		}
 	}
 
 	/**
@@ -1700,10 +1977,6 @@ public class FileMovementPersistenceImpl
 			_finderPathFetchByUUID_G,
 			new Object[] {fileMovement.getUuid(), fileMovement.getGroupId()},
 			fileMovement);
-
-		finderCache.putResult(
-			_finderPathFetchByfileId, new Object[] {fileMovement.getFileId()},
-			fileMovement);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1784,12 +2057,6 @@ public class FileMovementPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, fileMovementModelImpl);
-
-		args = new Object[] {fileMovementModelImpl.getFileId()};
-
-		finderCache.putResult(_finderPathCountByfileId, args, Long.valueOf(1));
-		finderCache.putResult(
-			_finderPathFetchByfileId, args, fileMovementModelImpl);
 	}
 
 	/**
@@ -2305,8 +2572,16 @@ public class FileMovementPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathFetchByfileId = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByfileId",
+		_finderPathWithPaginationFindByfileId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByfileId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"fileId"}, true);
+
+		_finderPathWithoutPaginationFindByfileId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByfileId",
 			new String[] {Long.class.getName()}, new String[] {"fileId"}, true);
 
 		_finderPathCountByfileId = new FinderPath(

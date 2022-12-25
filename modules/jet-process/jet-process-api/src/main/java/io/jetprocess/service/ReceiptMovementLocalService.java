@@ -251,7 +251,7 @@ public interface ReceiptMovementLocalService
 	public ReceiptMovement getReceiptMovement(long rmId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ReceiptMovement getReceiptMovementByReceiptId(long receiptId);
+	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId);
 
 	/**
 	 * Returns the receipt movement matching the UUID and group.

@@ -74,8 +74,8 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		logger.info( "ReceiptId ");
 	}
 
-	public ReceiptMovement getReceiptMovementByReceiptId(long receiptId) {
-		return receiptMovementPersistence.fetchByreceiptId(receiptId);
+	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
+		return receiptMovementPersistence.findByreceiptId(receiptId);
 	}
 
 	public ReceiptMovement pullBackReceiptMovement(long receiptId, long receiptMovementId, String remarks)
