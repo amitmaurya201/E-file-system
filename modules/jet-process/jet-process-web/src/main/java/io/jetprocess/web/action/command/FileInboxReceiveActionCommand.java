@@ -3,6 +3,8 @@ package io.jetprocess.web.action.command;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.List;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -31,11 +33,13 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 
 		System.out.println("fileId1 --:" + fileId);
 
-		FileMovement fileMovement = fileMovementLocalService.getFileByFileId(fileId);
-	
-		if (fileMovement.getFileId() == fileId) {
-			fileMovement.setReceivedOn("receive");
-			fileMovementLocalService.updateFileMovement(fileMovement);
+		 List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
+		  for (FileMovement fileMovement2 : fileMovement) {
+			  if(fileMovement2.getFileId() == fileId) {
+				  fileMovement2.setReceivedOn("receive");
+				  fileMovementLocalService.updateFileMovement(fileMovement2);
+				  
+			  }
 		}
 		
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);

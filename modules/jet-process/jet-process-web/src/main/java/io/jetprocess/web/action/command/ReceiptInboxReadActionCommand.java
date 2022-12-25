@@ -2,6 +2,8 @@ package io.jetprocess.web.action.command;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.List;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -36,12 +38,13 @@ long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
 		System.out.println("ReceiptId at read--:"+receiptId);
 		
 		
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
-		if(receiptMovement.getReceiptId() == receiptId ) {
-			receiptMovement.setReadOn("read");
-			receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+		List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
+		for (ReceiptMovement receiptMovement2 : receiptMovement) {
+			if(receiptMovement2.getReceiptId() == receiptId) {
+				receiptMovement2.setReadOn("read");
+				receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+			}
 		}
-		
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		
 		
