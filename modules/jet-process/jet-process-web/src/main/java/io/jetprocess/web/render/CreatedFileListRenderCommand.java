@@ -40,7 +40,6 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
-		logger.info("File list Render...");
 		addFileListAttributes(renderRequest);
 		addFileToolbarAttributes(renderRequest, renderResponse);
 		return "/file/created-file-list.jsp";
@@ -56,7 +55,6 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
@@ -97,12 +95,9 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		
 		
 		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
-		logger.info("size of File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
-		logger.info("List------------"+ fileList );
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount",count);
-		System.out.println("orderByType  --> "+orderByType+" ,orderByCol---> "+orderByCol);
 	}
 
 	

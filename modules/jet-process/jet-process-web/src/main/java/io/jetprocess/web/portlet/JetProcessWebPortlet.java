@@ -87,24 +87,17 @@ public class JetProcessWebPortlet extends MVCPortlet {
 	// action method for getting docfileId and pullback remarks
 	public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException, PortalException {
-		System.out.println("sentAction url");
 		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
-		System.out.println("docFileId  Id " + docFileId);
 		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
 
 		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-		System.out.println("remarks-->" + pullBackRemark);
 
 		FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
-		System.out.println("fileMovement id-->" + fileMovementId);
-		System.out.println("--->  pullbackremarks -->" + pullBackRemark);
 
 		fileMovement.setPullBackRemark(pullBackRemark);
 		fileMovement.setActive(false);
 		fLocalService.updateFileMovement(fileMovement);
-		System.out.println("FileMovement data -->" + fLocalService.updateFileMovement(fileMovement));
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId());
-		System.out.println("currentState -->" + docFile.getCurrentState());
 		if (docFile.getCurrentState() == 2) {
 			docFile.setCurrentState(1);
 			docFileLocalService.updateDocFile(docFile);
@@ -169,9 +162,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
-		System.out.println("userpostid by amit" + userPost);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
@@ -181,12 +172,9 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		}
 		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,
 				orderByCol, orderByType);
-		logger.info("size of File :=============== " + fileList.size());
 		renderRequest.setAttribute("fileList", fileList);
-		logger.info("List------------" + fileList);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount", count);
-		System.out.println("orderByType  --> " + orderByType + " ,orderByCol---> " + orderByCol);
 	}
 
 	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
