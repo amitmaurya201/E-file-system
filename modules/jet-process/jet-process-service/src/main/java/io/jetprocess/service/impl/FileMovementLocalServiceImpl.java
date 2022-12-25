@@ -68,7 +68,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				FileMovement fm;
 				try {
 					fm = fileMovementLocalService.getFileMovement(maxFmId);
-					if (fm.getReceivedOn().isEmpty() && fm.getReadOn().isEmpty()) {
+					if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 						
 						DocFile docFile;
 						try {
