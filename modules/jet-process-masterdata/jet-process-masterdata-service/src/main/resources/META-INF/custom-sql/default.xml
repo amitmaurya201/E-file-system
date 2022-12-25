@@ -490,4 +490,13 @@ as t on t.rmreceiptid =r.receiptid where r.attachstatus is null;
 ]]>
 </sql>
 
+<sql id="getMaximumFmIdByFileId">
+<![CDATA[
+SELECT   MAX(fmid) AS fmid FROM jet_process_filemovement
+WHERE fileid = ? ;
+
+]]>
+
+</sql>
+
 </custom-sql>

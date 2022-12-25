@@ -398,6 +398,12 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 	  
 	  }
 	 
+	
+	
+	public long getMaximumFmIdByFileIdData(long fileId) {
+		
+		return masterdataFinder.getMaximumFmIdByFileId(fileId);
+	}
 	// ---------------- End -----------------
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());

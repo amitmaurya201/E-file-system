@@ -323,6 +323,9 @@ public interface MasterdataLocalService
 	public int getMasterdatasCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getMaximumFmIdByFileIdData(long fileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getOrganizationById(long organizationId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

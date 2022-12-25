@@ -385,6 +385,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getMasterdatasCount();
 	}
 
+	public static long getMaximumFmIdByFileIdData(long fileId) {
+		return getService().getMaximumFmIdByFileIdData(fileId);
+	}
+
 	public static Masterdata getOrganizationById(long organizationId) {
 		return getService().getOrganizationById(organizationId);
 	}

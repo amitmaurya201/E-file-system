@@ -198,4 +198,6 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getCreatedListAndInboxList(long userpostId, long receiverId);
 
+	public long getMaximumFmIdByFileId(long fileId);
+
 }

@@ -459,6 +459,11 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public long getMaximumFmIdByFileIdData(long fileId) {
+		return _masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata getOrganizationById(
 		long organizationId) {
 
