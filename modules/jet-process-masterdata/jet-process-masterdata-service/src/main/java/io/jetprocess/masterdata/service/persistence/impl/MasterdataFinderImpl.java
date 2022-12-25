@@ -1651,14 +1651,11 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					"	JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
 					"	JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
 					"	JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? ";
+					"    where r.attachstatus is null and rm.receiverid = ? ";
 			
 		
 			if(!keyword.isEmpty() && keyword != null ) {
-
-				
-				sql = sql+" "+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
-				
+				sql = sql+" "+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";	
 			}
 			
 			if(orderBy!=null && !orderBy.isEmpty()) {
