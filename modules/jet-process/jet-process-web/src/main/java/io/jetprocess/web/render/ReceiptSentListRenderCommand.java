@@ -56,7 +56,7 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
-		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		System.out.println("keywords on create render : " + keywords);
