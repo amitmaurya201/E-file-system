@@ -60,6 +60,9 @@
 	text-align: left;
 	background-color: white;
 }
+.tableSender th{
+vertical-align: top;
+}
 
 .bold {
 	font-size: 15px;
@@ -104,10 +107,14 @@
 						value="${receiptMovementDTO.getReceiptId()}" />
 				</portlet:renderURL>
 
-				<portlet:actionURL name="receiveActionreceipt"
+				<portlet:actionURL name="receiptReceiveAction"
 					var="receiptReceiveAction">
+					<portlet:param name="receiptId"
+						value="${receiptMovementDTO.receiptId}" />
 				</portlet:actionURL>
-				<portlet:actionURL name="readActionreceipt" var="receiptReadAction">
+				<portlet:actionURL name="receiptReadAction" var="receiptReadAction">
+					<portlet:param name="receiptId1"
+						value="${receiptMovementDTO.receiptId}" />
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptInnerView">
@@ -128,23 +135,24 @@
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
-										href="${receiptReadAction }" name="label-receipt-inbox-receiptno"
-										cssClass="bold" orderableProperty="receiptNumber"
-										orderable="true"
+										href="${receiptReadAction }"
+										name="label-receipt-inbox-receiptno" cssClass="bold"
+										orderableProperty="receiptNumber" orderable="true"
 										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
 								</c:when>
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
-										 name="label-receipt-inbox-receiptno"
-										cssClass="bold" orderableProperty="receiptNumber"
-										orderable="true"
-										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
+										name="label-receipt-inbox-receiptno" cssClass="bold"
+										orderableProperty="receiptNumber" orderable="true"
+										value="<%=receiptMovementDTO.getReceiptNumber() != null
+												? receiptMovementDTO.getReceiptNumber()
+												: ""%>" />
 
 								</c:otherwise>
 							</c:choose>
-							
-							<liferay-ui:search-container-column-text 
-							value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
+
+							<liferay-ui:search-container-column-text
+								value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
 								orderable="true" orderableProperty="subject"
 								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
 
@@ -169,7 +177,7 @@
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" />
 
-							
+
 
 							<liferay-ui:search-container-column-text property="dueDate"
 								cssClass="bold"
@@ -316,7 +324,7 @@
 				<br>
 				<button class="mt-3 btn btn-success " style="width: 90px;"
 					type="submit">Receive</button>
-				<div class="mt-3 btn btn-danger cancle" style="width: 90px;">Cancle</div>
+				<div class="mt-3 btn btn-danger cancel" style="width: 90px;">Cancel</div>
 			</aui:form>
 		</div>
 	</div>
@@ -412,7 +420,7 @@
 	document.getElementById("receive-receiptId").value=receiptId;
 	$("#receive").addClass("active");
 	$("#rec_inbox").addClass("active");
-	$(".close, .cancle").on("click", function() {
+	$(".close, .cancel").on("click", function() {
 		  $("#receive").removeClass("active");
 		  $("#rec_inbox").removeClass("active");
 		});

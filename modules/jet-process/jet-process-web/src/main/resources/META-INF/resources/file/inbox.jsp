@@ -64,6 +64,9 @@
 	text-align: left;
 	background-color: white;
 }
+.tableSender th{
+vertical-align: top;
+}
 
 .bold {
 	font-size: 15px;
@@ -327,7 +330,7 @@
 				<input type="text" hidden name='<portlet:namespace/>fileId'
 					id="file-receive-fileId" />
 				<button class="mt-3 btn btn-success" type="submit" style="width: 90px;">Receive</button>
-				<div class="mt-3 btn btn-danger cancle" style="width: 90px;">Cancle</div>
+				<div class="mt-3 btn btn-danger cancel" style="width: 90px;">Cancel</div>
 			</aui:form>
 		</div>
 	</div>
@@ -416,7 +419,7 @@
 	document.getElementById("file-receive-fileId").value=fileId;
 	$("#file-receive").addClass("active");
 	$("#file_inbox").addClass("active");
-	$(".close, .cancle").on("click", function() {
+	$(".close, .cancel").on("click", function() {
 		$("#file-receive").removeClass("active");
 		  $("#file_inbox").removeClass("active");
 		});

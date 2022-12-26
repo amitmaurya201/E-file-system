@@ -21,7 +21,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		immediate = true, 
 		property = { 
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name=receiveActionreceipt" 
+				"mvc.command.name=receiptReceiveAction" 
 		}, 
 		service = MVCActionCommand.class
 )
