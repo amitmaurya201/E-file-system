@@ -20,7 +20,7 @@
 }
 
 .btn-close {
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -39,22 +39,16 @@
 	</div>
 	<div class="col-10">
 
-	<h1 class="text-center">Created Receipt List</h1>
-		<clay:management-toolbar
-        disabled="${receiptCount eq 0}"
-        displayContext="${receiptManagementToolbarDisplayContext}"
-        itemsTotal="${receiptCount}"
-        searchContainerId="recieptId"
-    />
+		<h1 class="text-center">Created Receipt List</h1>
+		<clay:management-toolbar disabled="${receiptCount eq 0}"
+			displayContext="${receiptManagementToolbarDisplayContext}"
+			itemsTotal="${receiptCount}" searchContainerId="recieptId" />
 
-		<liferay-ui:search-container
-		delta="${delta }"
-        emptyResultsMessage="no-Receipt-List"
-        id="recieptId"
-        total="${receiptCount}"
-        iteratorURL="${receiptManagementToolbarDisplayContext._getCurrentURL()}"
-        >
-        <liferay-ui:search-container-results results="${receiptFileList}" />
+		<liferay-ui:search-container delta="${delta }"
+			emptyResultsMessage="no-Receipt-List" id="recieptId"
+			total="${receiptCount}"
+			iteratorURL="${receiptManagementToolbarDisplayContext._getCurrentURL()}">
+			<liferay-ui:search-container-results results="${receiptFileList}" />
 
 
 			<liferay-ui:search-container-row
@@ -66,19 +60,25 @@
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
 				</portlet:renderURL>
 
-<c:set var = "firstLetterOfNature" value = "${ receipt.nature}" />
-				<c:set var = "nature" value = "${fn:substring(firstLetterOfNature, 0, 1)}" />
-	<liferay-ui:search-container-column-text name="" value="${nature }"  />
+				<c:set var="firstLetterOfNature" value="${ receipt.nature}" />
+				<c:set var="nature"
+					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
+				<liferay-ui:search-container-column-text name="" value="${nature }" />
 
 
 				<liferay-ui:search-container-column-text
-					href="<%=receiptInnerView%>" value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
-					name="label-receipt-list-receiptno" orderableProperty="receiptNumber" orderable="true"  />
+					href="<%=receiptInnerView%>"
+					value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
+					name="label-receipt-list-receiptno"
+					orderableProperty="receiptNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					value="<%=receipt.getSubject() != null ? receipt.getSubject() : ""%>" name="label-receipt-list-subject" orderableProperty="subject" orderable="true" />
+					value="<%=receipt.getSubject() != null ? receipt.getSubject() : ""%>"
+					name="label-receipt-list-subject" orderableProperty="subject"
+					orderable="true" />
 
-				<liferay-ui:search-container-column-text value="<%=receipt.getCategory() != null ? receipt.getCategory() : ""%>"
+				<liferay-ui:search-container-column-text
+					value="<%=receipt.getCategory() != null ? receipt.getCategory() : ""%>"
 					cssClass="hover-tips" name="label-receipt-list-category" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -86,27 +86,30 @@
 				%>
 
 				<liferay-ui:search-container-column-text
-					value="<%=receipt.getCreateDate() != null ? simpleformat.format(receipt.getCreateDate())
-									: ""%>"
+					value="<%=receipt.getCreateDate() != null ? simpleformat.format(receipt.getCreateDate()) : ""%>"
 					orderable="true" name="label-receipt-list-create-date"
 					orderableProperty="createDate" />
 
-				<liferay-ui:search-container-column-text value="<%=receipt.getRemark() != null ? receipt.getRemark() : ""%>"
+				<liferay-ui:search-container-column-text
+					value="<%=receipt.getRemark() != null ? receipt.getRemark() : ""%>"
 					cssClass="hover-tips remark" name="label-receipt-list-remark" />
 
-				<liferay-ui:search-container-column-text name="label-receipt-list-pdf">
+				<liferay-ui:search-container-column-text cssClass="text-center"
+					name="label-receipt-list-pdf">
 					<c:if test="${not empty receipt.viewPdfUrl}">
-						<i class="fa fa-file-pdf openPdf"  data-url="${receipt.viewPdfUrl}"></i>
+						<i style="cursor: pointer;" class="fa fa-file-pdf openPdf"
+							data-url="${receipt.viewPdfUrl}"></i>
 					</c:if>
 				</liferay-ui:search-container-column-text>
-					
+
 
 			</liferay-ui:search-container-row>
-			
+
 			<liferay-ui:search-iterator paginate="false" />
-			<liferay-ui:search-paginator searchContainer="${searchContainer}" markupView="lexicon" />
+			<liferay-ui:search-paginator searchContainer="${searchContainer}"
+				markupView="lexicon" />
 		</liferay-ui:search-container>
-  
+
 
 		<portlet:renderURL var="viewPdf"
 			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
