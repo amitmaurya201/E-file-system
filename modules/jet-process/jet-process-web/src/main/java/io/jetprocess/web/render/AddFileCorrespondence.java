@@ -36,7 +36,7 @@ import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-"mvc.command.name="+MVCCommandNames.CORRESPONCE_FILE_RENDER }, service = MVCRenderCommand.class)
+		"mvc.command.name=/addCorrespondence"}, service = MVCRenderCommand.class)
 public class AddFileCorrespondence implements MVCRenderCommand{
 	
 	@Override
@@ -44,8 +44,8 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		long docFileId = ParamUtil.getLong(renderRequest, "corrFileId");
 		renderRequest.setAttribute("docFileId", docFileId);
 		
-	addFileToolbarAttributes(renderRequest,renderResponse);
-	addFileListAttributes(renderRequest);
+	//addFileToolbarAttributes(renderRequest,renderResponse);
+	//addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";
 	}
 	
