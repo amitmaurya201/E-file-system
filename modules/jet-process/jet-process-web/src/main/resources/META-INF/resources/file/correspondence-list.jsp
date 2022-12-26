@@ -68,14 +68,12 @@
 	background-color: #3e8e41;
 }
 </style>
-
-
-<div>
-	<portlet:renderURL var="fileInnerViewPopup"
+<portlet:renderURL var="fileInnerViewPopup"
 		windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 		<portlet:param name="mvcRenderCommandName" value="/addCorrespondence" />
 	</portlet:renderURL>
 
+<div>
 	<div class="" style="font-size: 18px">
 		<text class="pr-4 float-left put-heading" style="border-radius:0px 100px 0px 0px; ">List Of Correspondences     </text>
 		<div class="pl-2 pr-2 dropdown float-right put-heading" style="border-radius:100px 0px 0px 100px;">
@@ -182,28 +180,30 @@
 </div> -->
 	<div>
 		<aui:button cssClass="btn btn-primary" style="float: right;"
-			name="add_receipt" id="add_receipt" value="Add Receipt">
+			name="add_receipt" id="add_receipt" value="Add Receipt" >
 		</aui:button>
+		
 	</div>
 
 </div>
-
-
-<aui:script>
+ <aui:script>
   AUI().use('aui-base','aui-io-plugin-deprecated','liferay-util-window',
    function(A) {
      A.one('#<portlet:namespace />add_receipt').on('click', function(event){
 	var url = '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>';
+	console.log("url----> "+url);
 	<!-- alert('URL --> '+url); -->
 	var popUpWindow=Liferay.Util.Window.getWindow(
 		{
 		dialog: {
 		centered: true,
+		destroyOnClose: true,
 		modal: true,
 		height:800,
 		width: 900
 				}
 		}
+	
 		).plug(
 		A.Plugin.IO,
 		{
@@ -215,7 +215,38 @@
 		popUpWindow.io.start();
 
 		});
+		
+	});
+	
+
+</aui:script>
+ <aui:script use="aui-base">
+	A.one('#<portlet:namespace />closeDialog').on('click', function(event) {
+		Liferay.Util.getOpener().closePopup('dialog');
 	});
 </aui:script>
 
-
+ <%-- <aui:script use="liferay-util-window">	
+	Liferay.provide(window,'showPopUp',function() {
+	
+              var renderUrl = "<%=fileInnerViewPopup%>"+"&<portlet:namespace />corrFileId=<%=corrFileId%>";
+              alert(renderUrl);
+              var popupTitle = "Put in file";    
+              Liferay.Util.openWindow({ 
+					dialog: { 														 
+							height: 800,														 
+							destroyOnClose: true,														 
+							destroyOnHide: true, 														 
+							modal: true, 														 
+							width: 700														 
+						}, 														 
+						id: '<portlet:namespace />dialog',														 
+						title: popupTitle, 														 
+						uri: renderUrl 														 
+				}); 
+          },
+          ['liferay-util-list-fields', 'liferay-portlet-url']
+);						
+		 
+</aui:script>
+ --%>
