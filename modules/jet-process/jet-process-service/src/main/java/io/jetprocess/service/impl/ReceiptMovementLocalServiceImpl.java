@@ -15,13 +15,16 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
@@ -31,9 +34,6 @@ import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
 /**
  * @author Brian Wing Shun Chan
  */
@@ -42,7 +42,66 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
 			String remark) {
-		logger.info("save send receipt");
+		
+	List<ReceiptMovement> receiptMovementList  = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	
+	ReceiptMovement receiptMovement = receiptMovementList.stream().filter(receipt -> receipt.getReceiptId() == receiptId).findAny().orElse(null);
+	
+	if(receiptMovement == null) {
+		
+		saveReceiptMovement(receiverId , senderId , receiptId , priority , dueDate , remark);
+		
+	}else {
+		
+		Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
+		
+		
+		try {
+			ReceiptMovement rm;
+			try {
+				rm = receiptMovementLocalService.getReceiptMovement(rmId);
+				if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
+					
+					Receipt receipt;
+					try {
+						receipt = receiptLocalService.getReceipt(receiptId);
+						if (receipt.getNature().equals("Electronic")) {
+
+							rm.setReadOn("read");
+							receiptMovementLocalService.updateReceiptMovement(rm);	
+							saveReceiptMovement(receiverId , senderId , receiptId , priority , dueDate , remark);
+
+						} else if (receipt.getNature().equals("Physical")) {
+
+							rm.setReceivedOn("receive");
+							receiptMovementLocalService.updateReceiptMovement(rm);
+							saveReceiptMovement(receiverId , senderId , receiptId , priority , dueDate , remark);
+
+						}
+					} catch (PortalException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+			}
+			}catch (PortalException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		finally {
+			
+			
+		}
+		
+	}
+	
+	}
+
+	void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, String dueDate,
+			String remark) {
+		
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
 		ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(rmId);
 		receiptMovement.setRmId(rmId);
@@ -69,11 +128,10 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
-		logger.info( "ReceiptId  valid");
 		receiptMovementLocalService.addReceiptMovement(receiptMovement);
-		logger.info( "ReceiptId ");
+		
 	}
-
+	
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
 		return receiptMovementPersistence.findByreceiptId(receiptId);
 	}
