@@ -33,7 +33,7 @@
 .read-popup, .receive-popup {
 	width: 30%;
 	height: 30%;
-	left: 43%;
+	left: 40%;
 	background: #96b4d6;
 }
 
@@ -461,7 +461,7 @@ function showModal(id){
 				name.append(obj.userName);
 				marking.append(obj.postMarking);
 				section.append(obj.sectionName);
-				email.append("");
+				email.append(obj.email);
 				design.append(obj.designation);
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
