@@ -33,11 +33,9 @@ public class viewSendFileRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		logger.info("docFileId---> "+docFileId);
 		
 		try {
 			DocFile docFile=DocFileLocalServiceUtil.getDocFile(docFileId);
-			logger.info("-docFile-> : "+docFile);
 			renderRequest.setAttribute("docFile", docFile);
 		} catch (PortalException e) {
 			e.printStackTrace();

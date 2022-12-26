@@ -31,7 +31,6 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		System.out.println("newRemarks"+remarks);
 	//	String redirect = ParamUtil.getString(actionRequest, "redirect");
 		long fileCorrId = counterLocalService.increment();
 		FileCorr fileCorr = fileCorrLocalService.createFileCorr(fileCorrId);

@@ -66,15 +66,12 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 3);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-		logger.info("currentPage: "+currentPage+"  delta: "+delta+"  start: "+start+"  end: "+end);
 
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
-		logger.info("Receipt Id: "+receiptId);
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		if(receiptId != 0) {
 			receiptMovementList = masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
 		}
-		logger.info("Receipt Movement List: "+receiptMovementList);
 		
 		if(receiptMovementList != null) {
 			renderRequest.setAttribute("receiptMovementList", receiptMovementList);

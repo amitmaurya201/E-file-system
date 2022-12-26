@@ -32,7 +32,6 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		System.out.println("mvcRenderCommand" + docFileId);
 
 		try {
 

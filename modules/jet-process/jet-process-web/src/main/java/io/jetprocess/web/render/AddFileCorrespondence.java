@@ -41,9 +41,7 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		System.out.println("testrerer");
 		long docFileId = ParamUtil.getLong(renderRequest, "corrFileId");
-		System.out.println("id ->>>>>>>"+docFileId);
 		renderRequest.setAttribute("docFileId", docFileId);
 		
 	addFileToolbarAttributes(renderRequest,renderResponse);
@@ -63,7 +61,6 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	int end = delta;
 	HttpSession session = themeDisplay.getRequest().getSession();
 	long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-	logger.info("user post id inside receipt render : --" + userPostId);
 	long userPost = userPostId;
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
@@ -74,7 +71,6 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	renderRequest.setAttribute("delta",delta);
 	renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 	
-	logger.info("count number: -  "+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
 	}
 
 	

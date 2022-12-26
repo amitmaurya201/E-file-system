@@ -54,12 +54,10 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		String tt = (String) session.getAttribute("userPostId");
-		logger.info("user post id inside render : --" + userPostId);
 		long userPost = Long.parseLong(tt);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		logger.info("order by : " + orderByCol +"  : order type : - "+orderByType);
 		int fileInboxCount=masterdataLocalService.getFileInboxList(userPost, keywords);
 		
 		int preDelta=0;
@@ -92,7 +90,6 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
-		logger.info("===========  Later ==========>" + fileInboxList);
 		renderRequest.setAttribute("fileInboxList",fileInboxList);
 		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
 		renderRequest.setAttribute("delta",delta);

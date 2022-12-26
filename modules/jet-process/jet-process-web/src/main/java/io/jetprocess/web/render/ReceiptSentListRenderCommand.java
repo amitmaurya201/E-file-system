@@ -53,13 +53,11 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		System.out.println("keywords on create render : " + keywords);
 		int count=masterdataLocalService.getReceiptSendList(userPost, keywords);
 		
 		int preDelta=0;
@@ -92,12 +90,10 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 		List<ReceiptMovementDTO> receiptList = masterdataLocalService.getReceiptSendList(userPost, keywords, start, end,orderByCol, orderByType);
-		logger.info("receiptList :=============== " + receiptList.size());
 		receiptList.forEach(c->System.out.println(c));
 		renderRequest.setAttribute("receiptList", receiptList);
 		renderRequest.setAttribute("receiptCount",count);
 		renderRequest.setAttribute("delta",delta);
-		System.out.println("orderByType-----> "+orderByType);
 	}
 	
 	private static int getCurrentPage(int currentPage, int delta, int count) {

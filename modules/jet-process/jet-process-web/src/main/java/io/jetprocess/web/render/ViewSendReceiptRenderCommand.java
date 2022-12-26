@@ -40,7 +40,6 @@ public class ViewSendReceiptRenderCommand implements MVCRenderCommand {
 		
 		try {
 			Receipt receiptId1=ReceiptLocalServiceUtil.getReceipt(receiptId);
-			logger.info("-receiptId-> : "+receiptId1);
 			renderRequest.setAttribute("receipt", receiptId1);
 		} catch (PortalException e) {
 			e.printStackTrace();

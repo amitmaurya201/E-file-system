@@ -22,7 +22,6 @@ public class CreateFileRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		System.out.println("create-file.jsp --called");
 		return "/file/create-file.jsp";
 	}
 

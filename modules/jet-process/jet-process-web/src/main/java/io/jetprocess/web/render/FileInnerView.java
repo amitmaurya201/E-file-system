@@ -33,8 +33,6 @@ public class FileInnerView implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		System.out.println("docFileid   "+docFileId);
-		System.out.println("mvcRenderCommand" + docFileId);
 
 			try {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);

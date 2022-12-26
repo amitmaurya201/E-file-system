@@ -32,9 +32,7 @@ public class FileSearchRenderCommand implements MVCActionCommand{
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
-		System.out.println("Method invoke");
 		String keywords =ParamUtil.getString(actionRequest, "keywords");
-		System.out.println("Method invoke 1 " + keywords);
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		try {
 			String portletName = (String) actionRequest.getAttribute(WebKeys.PORTLET_ID);

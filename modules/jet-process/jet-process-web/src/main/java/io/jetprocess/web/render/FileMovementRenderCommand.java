@@ -62,12 +62,10 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		int end = delta;
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
-		logger.info("Doc File Id : "+docFileId);
 		List<FileMovementDTO>  fileMovementList = new ArrayList<>();
 		if(docFileId != 0) {
 			fileMovementList = masterdataLocalService.getFileMovementListByFileId(docFileId);
 		}
-		logger.info("File Movement List : "+fileMovementList);
 
 		if(fileMovementList != null) {
 			renderRequest.setAttribute("fileMovementList", fileMovementList);

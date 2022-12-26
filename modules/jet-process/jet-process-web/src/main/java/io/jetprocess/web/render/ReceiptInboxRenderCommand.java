@@ -62,12 +62,10 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		System.out.println("keywords on create render : " + keywords);
 		int count=masterdataLocalService.getReceiptInboxList(userPost, keywords);
 		
 		int preDelta=0;
@@ -101,12 +99,9 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		session.setAttribute("oldDelta", ""+delta+"");
 		
 		List<ReceiptMovementDTO> receiptInboxList = masterdataLocalService.getReceiptInboxList(userPost, keywords, start, end,orderByCol, orderByType);
-		logger.info("File :=============== " + receiptInboxList.size());
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
-		System.out.println("count of receipt inbox list : "+count);
 		renderRequest.setAttribute("inboxReceiptCount",count);
 		renderRequest.setAttribute("delta",delta);
-		logger.info("File count : " + masterdataLocalService.getReceiptInboxList(userPost, keywords));
 	}
 	
 	
