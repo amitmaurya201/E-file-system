@@ -41,7 +41,7 @@ long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
 		List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
 		for (ReceiptMovement receiptMovement2 : receiptMovement) {
 			if(receiptMovement2.getReceiptId() == receiptId) {
-				receiptMovement2.setReadOn("read");
+				receiptMovement2.setReceivedOn("checked");
 				receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
 			}
 		}

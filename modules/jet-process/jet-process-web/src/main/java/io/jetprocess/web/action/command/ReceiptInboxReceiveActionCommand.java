@@ -44,7 +44,7 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand{
 		List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
 		for (ReceiptMovement receiptMovement2 : receiptMovement) {
 			if(receiptMovement2.getReceiptId() == receiptId) {
-				receiptMovement2.setReceivedOn("receive");
+				receiptMovement2.setReadOn("checked");
 				receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
 			}
 		}
