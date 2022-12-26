@@ -15,10 +15,10 @@
 }
 
 .popup, .read-popup, .receive-popup {
-	/*Hides pop-up when there is no "active" class*/
-	/ visibility: hidden; /
+	/*Hides pop-up when there is no "active" class*/ 
+	/* visibility: hidden; */ 
 	position: absolute;
-	background: #bebec1;
+	background: #96b4d6;
 	border: 3px solid #666666;
 	margin-top: -30%;
 	left: 30%;
@@ -34,14 +34,21 @@
 	width: 30%;
 	height: 30%;
 	left: 43%;
-	background: #c7d8e2;
+	background: #96b4d6;
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
-	/*displays pop-up when "active" class is present*/
-	/ visibility: visible; /
+	/*displays pop-up when "active" class is present*/ 
+	/* visibility: visible; */ 
 	text-align: center;
 	display: block;
+	border-radius: 5px;
+    border: double;
+}
+
+#file_inbox.active{
+	pointer-events: none;
+	 opacity: 0.5;
 }
 
 .button {
@@ -51,6 +58,11 @@
 .tableSender {
 	border-collapse: separate;
 	border-spacing: 0 15px;
+}
+
+.tableSender td {
+	text-align: left;
+	background-color: white;
 }
 
 .bold {
@@ -66,7 +78,7 @@
 
 
 
-<div class="row">
+<div id="file_inbox" class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
@@ -97,16 +109,17 @@
 						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:renderURL>
 
-				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction" >
-				<portlet:param name="fileId" value="${fileinboxDtoList.getFileId()}"/>
+				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction">
+					<portlet:param name="fileId"
+						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:actionURL>
-				<portlet:actionURL name="fileReadAction" var="fileReadAction" >
-				<portlet:param name="fileId1" value="${fileinboxDtoList.getFileId()}"  />
+				<portlet:actionURL name="fileReadAction" var="fileReadAction">
+					<portlet:param name="fileId1"
+						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName"
-						value="/FileViewDetails" />
+					<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:renderURL>
@@ -123,26 +136,33 @@
 					<c:when
 						test="${fileinboxDtoList.getNature()=='Electronic' || fileinboxDtoList.getNature()=='Physical'}">
 						<c:if
-							test="${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null }"  >
+							test="${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null }">
 
 							<liferay-ui:search-container-column-text name="" cssClass="bold">
 								<%=fileinboxDtoList.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
-							
-							   <c:choose>
-             <c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-             <liferay-ui:search-container-column-text href="${fileReadAction }"
-										name="label-file-inbox-fileno"  cssClass="bold" orderableProperty="fileNumber" orderable="true" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
+
+							<c:choose>
+								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
+									<liferay-ui:search-container-column-text
+										href="${fileReadAction }" name="label-file-inbox-fileno"
+										cssClass="bold" orderableProperty="fileNumber"
+										orderable="true"
+										value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
 								</c:when>
 								<c:otherwise>
-									  <liferay-ui:search-container-column-text href="${fileReceiveAction }"
-										name="label-file-inbox-fileno"  cssClass="bold" orderableProperty="fileNumber" orderable="true" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
+									<liferay-ui:search-container-column-text
+										 name="label-file-inbox-fileno"
+										cssClass="bold phfile" orderableProperty="fileNumber"
+										orderable="true"
+										value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
 
-             </c:otherwise>             
-             </c:choose>
-							
-														<liferay-ui:search-container-column-text orderable="true"
-								orderableProperty="subject" value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
+								</c:otherwise>
+							</c:choose>
+
+							<liferay-ui:search-container-column-text orderable="true"
+								orderableProperty="subject"
+								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
 								name="label-file-inbox-subject" cssClass="hover-tips bold" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips bold">
@@ -159,12 +179,13 @@
 
 
 							<liferay-ui:search-container-column-text
-								value="<%=fileinboxDtoList.getSentOn() != null ? simpleformat.format(fileinboxDtoList.getSentOn())
-									: ""%>"
+								value="<%=fileinboxDtoList.getSentOn() != null
+										? simpleformat.format(fileinboxDtoList.getSentOn())
+										: ""%>"
 								name="label-file-inbox-senton" cssClass="bold" />
 
 							<liferay-ui:search-container-column-text property="dueDate"
-								name="label-file-inbox-dueon" cssClass="bold" /> 
+								name="label-file-inbox-dueon" cssClass="bold" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-remarks" cssClass="hover-tips bold">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
@@ -176,10 +197,10 @@
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
-										<span><a href="#" class="button open"
+										<%-- <span><a href="#" class="button open"
 											onclick="readModal(${fileinboxDtoList.getFileId()})"> <liferay-ui:message
 													key="label-file-inbox-action-read" />
-										</a></span>&nbsp;	
+										</a></span>&nbsp;	 --%>
 												<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span>
@@ -211,9 +232,15 @@
 
 							<liferay-ui:search-container-column-text
 								href="<%=fileInnerView%>" orderableProperty="fileNumber"
-								orderable="true" value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" name="File number" />
-							<liferay-ui:search-container-column-text value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
-								orderableProperty="subject" name="label-file-inbox-subject" cssClass="hover-tips" />
+								orderable="true"
+								value="<%=fileinboxDtoList.getFileNumber() != null
+										? fileinboxDtoList.getFileNumber()
+										: ""%>"
+								name="File number" />
+							<liferay-ui:search-container-column-text
+								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
+								orderableProperty="subject" name="label-file-inbox-subject"
+								cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
 								<%
@@ -296,17 +323,18 @@
 		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to receive ?</h3>
 			<aui:form action="${fileReceiveAction}" method="POST" name="fm">
-				<text>Receipt Number </text>
-				<input type="text" readonly name='<portlet:namespace/>fileId'
+				<!-- <text>Receipt Number </text> -->
+				<input type="text" hidden name='<portlet:namespace/>fileId'
 					id="file-receive-fileId" />
-				<button class="mt-3 btn btn-success" type="submit">Receive</button>
+				<button class="mt-3 btn btn-success" type="submit" style="width: 90px;">Receive</button>
+				<div class="mt-3 btn btn-danger cancle" style="width: 90px;">Cancle</div>
 			</aui:form>
 		</div>
 	</div>
 </div>
 
 <!-- Read pop up -->
-<div id="file-read" class="read-popup">
+<%-- <div id="file-read" class="read-popup">
 	<!--   Creates the popup content-->
 	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
@@ -324,7 +352,7 @@
 			</aui:form>
 		</div>
 	</div>
-</div>
+</div> --%>
 
 <!--popup code start  -->
 <!--Creates the popup body-->
@@ -336,15 +364,16 @@
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 border" style="background-color: gainsboro;">
+		<div class="container mt-5 border"
+			style="background-color: gainsboro;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
-						<tr class="mt-1">
+						<tr>
 							<th class="col-3">Name :</th>
 							<td id="name" class="col-3"></td>
 						</tr>
-						<tr class="mt-1">
+						<tr>
 							<th class="col-3">Marking Abbr :</th>
 							<td id="marking" class="col-3"></td>
 						</tr>
@@ -386,14 +415,16 @@
 	 
 	document.getElementById("file-receive-fileId").value=fileId;
 	$("#file-receive").addClass("active");
-	$(".close").on("click", function() {
-		  $("#file-receive").removeClass("active");
+	$("#file_inbox").addClass("active");
+	$(".close, .cancle").on("click", function() {
+		$("#file-receive").removeClass("active");
+		  $("#file_inbox").removeClass("active");
 		});
 
 		
 	}
 
-function readModal(fileId){
+/* function readModal(fileId){
 	
 	document.getElementById("file-read-fileId").value=fileId;
 	$("#file-read").addClass("active");
@@ -402,7 +433,7 @@ function readModal(fileId){
 		});
 
 		
-	}
+	} */
 
 function showModal(id){
 	Liferay.Service(
@@ -431,15 +462,17 @@ function showModal(id){
 				marking.append(obj.postMarking);
 				section.append(obj.sectionName);
 				email.append("");
-				design.append("");
+				design.append(obj.designation);
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
 				
 			}
 			);
-	$("#sender-dtls, .dtls").addClass("active");
+	$("#sender-dtls").addClass("active");
+	$("#file_inbox").addClass("active");
 	$(".close").on("click", function() {
-		  $("#sender-dtls, .dtls").removeClass("active");
+		  $("#sender-dtls").removeClass("active");
+		  $("#file_inbox").removeClass("active");
 		});
 
 		
