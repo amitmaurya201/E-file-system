@@ -23,7 +23,8 @@
 }
 </style>
 
-<% String docFileId = renderRequest.getParameter("docFileId"); 
+<%
+String docFileId = renderRequest.getParameter("docFileId"); 
 
 
 %>
@@ -35,7 +36,7 @@
     <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="details">
-    <portlet:param name="mvcRenderCommandName" value="/EditedView"/>
+    <portlet:param name="mvcRenderCommandName" value="/FileViewDetails"/>
     <portlet:param name="docFileId" value="<%= docFileId %>"/>
 </portlet:renderURL>
 <portlet:renderURL var="edit">
