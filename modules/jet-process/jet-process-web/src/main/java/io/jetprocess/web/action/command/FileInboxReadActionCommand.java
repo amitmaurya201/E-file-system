@@ -34,7 +34,7 @@ public class FileInboxReadActionCommand implements MVCActionCommand {
 		 List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId1);
 		  for (FileMovement fileMovement2 : fileMovement) {
 			  if(fileMovement2.getFileId() == fileId1) {
-				  fileMovement2.setReceivedOn("checked");
+				  fileMovement2.setReadOn("read");
 				  fileMovementLocalService.updateFileMovement(fileMovement2);
 				  
 			  }
