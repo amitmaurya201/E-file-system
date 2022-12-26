@@ -200,4 +200,6 @@ public interface MasterdataFinder {
 
 	public long getMaximumFmIdByFileId(long fileId);
 
+	public long getMaximumRmIdByReceiptId(long receiptId);
+
 }

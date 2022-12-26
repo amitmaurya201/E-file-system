@@ -389,6 +389,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getMaximumFmIdByFileIdData(fileId);
 	}
 
+	public static long getMaximumRmIdByReceiptId(long receiptId) {
+		return getService().getMaximumRmIdByReceiptId(receiptId);
+	}
+
 	public static Masterdata getOrganizationById(long organizationId) {
 		return getService().getOrganizationById(organizationId);
 	}

@@ -499,4 +499,14 @@ WHERE fileid = ? ;
 
 </sql>
 
+<sql id="getMaximumRmIdByReceiptId">
+<![CDATA[
+
+SELECT   MAX(rmid) AS fmid FROM jet_process_receiptmovement
+WHERE receiptid = ? ;
+
+]]>
+
+</sql>
+
 </custom-sql>

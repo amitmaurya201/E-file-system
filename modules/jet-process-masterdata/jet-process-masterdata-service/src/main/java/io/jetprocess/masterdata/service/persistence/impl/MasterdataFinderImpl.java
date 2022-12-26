@@ -1893,6 +1893,37 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		return (Long) null;
 	}
 
+	public long getMaximumRmIdByReceiptId(long receiptId) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getMaximumRmIdByReceiptId");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			System.out.println("query---"+sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(receiptId);
+			List  count = sqlQuery.list();
+			BigInteger b1 = null;
+			for (Object object : count) {
+				b1 = (BigInteger) object;
+			}
+			 int i1 = b1.intValue();
+			 return i1;
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return (Long) null;
+	}
+
 	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
