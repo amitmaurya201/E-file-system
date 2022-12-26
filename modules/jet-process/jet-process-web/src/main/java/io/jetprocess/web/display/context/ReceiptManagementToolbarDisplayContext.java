@@ -82,7 +82,6 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 
 		
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-		System.out.println("searchURL.getRenderParameters() : - ");
 
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
@@ -140,7 +139,6 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-		System.out.println("Request for searching.. "+keywords); 
 
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);

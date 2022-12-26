@@ -128,7 +128,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-		System.out.println("Request for searching.. "+keywords); 
 
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
