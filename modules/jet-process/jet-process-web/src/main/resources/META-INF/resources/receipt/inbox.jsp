@@ -14,7 +14,7 @@
 	/*Hides pop-up when there is no "active" class*/
 	/* visibility: hidden; */
 	position: absolute;
-	background: #bebec1;
+	background: #96b4d6;
 	border: 3px solid #666666;
 	margin-top: -30%;
 	left: 30%;
@@ -29,8 +29,8 @@
 .read-popup, .receive-popup {
 	width: 30%;
 	height: 30%;
-	left: 43%;
-	background: #c7d8e2;
+	left: 40%;
+	background: #96b4d6;
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
@@ -38,11 +38,13 @@
 	/* visibility: visible; */
 	text-align: center;
 	display: block;
+	border-radius: 5px;
+	border: double;
 }
 
-#rec_inbox.active{
+#rec_inbox.active {
 	pointer-events: none;
-	 opacity: 0.5;
+	opacity: 0.5;
 }
 
 .button {
@@ -56,6 +58,7 @@
 
 .tableSender td {
 	text-align: left;
+	background-color: white;
 }
 
 .bold {
@@ -73,7 +76,7 @@
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div  class="col-10">
+	<div class="col-10">
 		<h1 class=" text-center">
 			<liferay-ui:message key="label-receipt-inbox-heading" />
 		</h1>
@@ -122,19 +125,34 @@
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber"
-								orderableProperty="receiptNumber" orderable="true"
-								cssClass="bold" name="label-receipt-inbox-receiptno" />
+							<c:choose>
+								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
+									<liferay-ui:search-container-column-text
+										href="${receiptReadAction }" name="label-receipt-inbox-receiptno"
+										cssClass="bold" orderableProperty="receiptNumber"
+										orderable="true"
+										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
+								</c:when>
+								<c:otherwise>
+									<liferay-ui:search-container-column-text
+										 name="label-receipt-inbox-receiptno"
+										cssClass="bold" orderableProperty="receiptNumber"
+										orderable="true"
+										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
 
-							<liferay-ui:search-container-column-text property="subject"
-								orderable="true" orderableProperty="subject" cssClass="hover-tips bold"
-								name="label-receipt-inbox-subject" />
+								</c:otherwise>
+							</c:choose>
+							
+							<liferay-ui:search-container-column-text 
+							value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
+								orderable="true" orderableProperty="subject"
+								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
 															.getReceiptMovement(receiptMovementDTO.getReceiptMovementId());
 													long senderId = receiptMvmt.getSenderId();
-							%>	
+							%>
 
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
@@ -151,20 +169,18 @@
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" />
 
-							<%-- <liferay-ui:search-container-column-text cssClass="bold" property="readOn"
-					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-					name="Read On" /> --%>
+							
 
 							<liferay-ui:search-container-column-text property="dueDate"
 								cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
 
-							<liferay-ui:search-container-column-text cssClass="hover-tips bold"
-								
-								 name="label-receipt-inbox-remarks"
-								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
-								 >
+							<liferay-ui:search-container-column-text
+								cssClass="hover-tips bold" name="label-receipt-inbox-remarks"
+								value="<%=receiptMovementDTO.getRemark() != null
+											? receiptMovementDTO.getRemark()
+											: ""%>">
 								<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>
 								</c:if> --%>
@@ -174,10 +190,10 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="#" class="button open"
+										<%-- <span><a href="#" class="button open"
 											onclick="receiptReadModal(${receiptMovementDTO.getReceiptId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-read" />
-										</a></span>
+										</a></span> --%>
 										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
@@ -241,9 +257,10 @@
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
 
-							<liferay-ui:search-container-column-text value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
-								name="label-receipt-inbox-remarks" /> 
-								<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
+							<liferay-ui:search-container-column-text
+								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
+								name="label-receipt-inbox-remarks" />
+							<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
 									<%=receiptMovementDTO.getRemark()%>
 								</c:if> 
 							</liferay-ui:search-container-column-text>--%>
@@ -293,11 +310,13 @@
 		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to receive ?</h3>
 			<aui:form action="${receiptReceiveAction}" method="POST" name="fm">
-				<text>Receipt Number </text>
-				<input type="text" readonly name='<portlet:namespace/>receiptId'
+				<!-- <text>Receipt Number </text> -->
+				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
 				<br>
-				<button class="mt-3 btn btn-success" type="submit">Receive</button>
+				<button class="mt-3 btn btn-success " style="width: 90px;"
+					type="submit">Receive</button>
+				<div class="mt-3 btn btn-danger cancle" style="width: 90px;">Cancle</div>
 			</aui:form>
 		</div>
 	</div>
@@ -305,7 +324,7 @@
 
 
 <!-- Read pop up -->
-<div id="read" class="read-popup">
+<%-- <div id="read" class="read-popup">
 	<!--   Creates the popup content-->
 	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
@@ -316,15 +335,17 @@
 		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to read ?</h3>
 			<aui:form action="${receiptReadAction}" method="POST" name="fm">
-				<text>Receipt Number </text>
-				<input type="text" readonly name='<portlet:namespace/>receiptId1'
+				<!-- <text>Receipt Number </text> -->
+				<input type="text" hidden name='<portlet:namespace/>receiptId1'
 					id="read-receiptId" />
 				<br>
-				<button class="mt-3 btn btn-success" type="submit">Read</button>
+				<button class="mt-3 btn btn-success" style="width: 90px;"
+					type="submit">Read</button>
+				<div class="mt-3 btn btn-danger cancle" style="width: 90px;">Cancle</div>
 			</aui:form>
 		</div>
 	</div>
-</div>
+</div> --%>
 
 <!--popup code start  -->
 <!--Creates the popup body-->
@@ -341,11 +362,11 @@
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
-						<tr class="mt-1">
+						<tr>
 							<th class="col-3">Name :</th>
 							<td id="name" class="col-3"></td>
 						</tr>
-						<tr class="mt-1">
+						<tr>
 							<th class="col-3">Marking Abbr :</th>
 							<td id="marking" class="col-3"></td>
 						</tr>
@@ -383,31 +404,31 @@
 
 
 
+
+
 <script type="text/javascript">
 
  function receiptReceiveModal(receiptId){
-	/* alert(receiptId); */
 	document.getElementById("receive-receiptId").value=receiptId;
 	$("#receive").addClass("active");
 	$("#rec_inbox").addClass("active");
-	$(".close").on("click", function() {
+	$(".close, .cancle").on("click", function() {
 		  $("#receive").removeClass("active");
 		  $("#rec_inbox").removeClass("active");
 		});
 	}
 
-function receiptReadModal(receiptId){
-	/* alert(receiptId); */
+/* function receiptReadModal(receiptId){
 	document.getElementById("read-receiptId").value=receiptId;
 	$("#read").addClass("active");
 	$("#rec_inbox").addClass("active");
-	$(".close").on("click", function() {
+	$(".close, .cancle").on("click", function() {
 		  $("#read").removeClass("active");
 		  $("#rec_inbox").removeClass("active");
 		});
 
 		
-	}
+	} */
 
 function showModal(id){
 	Liferay.Service(
@@ -435,8 +456,8 @@ function showModal(id){
 				name.append(obj.userName);
 				marking.append(obj.postMarking);
 				section.append(obj.sectionName);
-				email.append("");
-				design.append("");
+				email.append(obj.email);
+				design.append(obj.designation);
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
 				
