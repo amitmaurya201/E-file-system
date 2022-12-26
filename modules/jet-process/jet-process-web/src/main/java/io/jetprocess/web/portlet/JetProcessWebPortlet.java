@@ -68,7 +68,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 
 	
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
 	
 	}
 
@@ -81,7 +81,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
 
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 	}
 
 	// action method for getting docfileId and pullback remarks
@@ -97,12 +97,33 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		fileMovement.setPullBackRemark(pullBackRemark);
 		fileMovement.setActive(false);
 		fLocalService.updateFileMovement(fileMovement);
+		
+		
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId());
-		if (docFile.getCurrentState() == 2) {
-			docFile.setCurrentState(1);
-			docFileLocalService.updateDocFile(docFile);
-			System.out.println("--->>>current state --" + docFileLocalService.updateDocFile(docFile));
+		List<FileMovement> fileMovementList = fLocalService.getFileMovementByFileId(fileMovement.getFileId());
+		for (FileMovement fileMovement2 : fileMovementList) {
+		     if(fileMovement2.getReadOn().equals("read") || fileMovement2.getReceivedOn().equals("receive")) {
+		    	 if (docFile.getCurrentState() == 2) {
+		    		System.out.println("fist case done");
+		    	   docFile.setCurrentState(2);
+		    	   System.out.println("updated --->"+docFileLocalService.updateDocFile(docFile));
+		    	 }
+			} 
+		     
+		     
+		     
+		     
+		        
 		}
+		
+		
+		/*
+		 * if (docFile.getCurrentState() == 2) {
+		 * 
+		 * docFile.setCusssrrentState(1); docFileLocalService.updateDocFile(docFile);
+		 * System.out.println("--->>>current state --" +
+		 * docFileLocalService.updateDocFile(docFile)); }
+		 */
 
 		actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
 	}
