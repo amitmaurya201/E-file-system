@@ -24,6 +24,7 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileMovement;
@@ -119,6 +120,28 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return fileMovementPersistence.findByfileId(fileId);
 
 	}
+	
+	
+	
+	// create a method for pull back 
+	
+	public FileMovement pullBackFileMovement(long fileId,long fileMovementId,String remarks) throws PortalException {
+	
+	FileMovement fileMovement = getFileMovement(fileMovementId);
+    List<FileMovement> fileMovementByFileIdList = fileMovementLocalService.getFileMovementByFileId(fileId);
+    for(FileMovement fileMovementByFileId : fileMovementByFileIdList) {
+    	
+    if(fileMovement.getFmId() == fileMovementByFileId.getFmId()) {
+    	
+    	fileMovement.setActive(false);
+    	fileMovement.setPullBackRemark(remarks);
+    	fileMovementLocalService.updateFileMovement(fileMovement);
+    	System.out.println("Updated pull back remarks -->"+fileMovementLocalService.updateFileMovement(fileMovement));
+    }
+    }
+		return fileMovement;	
+		
+	}
 
 	// get Filemovement by fileMovementId
 	public FileMovement getFileMovementById(long fmId) throws PortalException {
@@ -151,7 +174,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				docFile.setCurrentlyWith(receiverId);
 				docFileLocalService.updateDocFile(docFile);
 				if (Validator.isNotNull(docFile.getCurrentState())) {
-					docFile.setCurrentState(2);
+					docFile.setCurrentState(FileStatus.IN_MOVEMENT);
 					docFileLocalService.updateDocFile(docFile);
 
 				}

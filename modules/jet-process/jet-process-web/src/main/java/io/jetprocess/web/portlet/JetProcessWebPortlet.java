@@ -78,7 +78,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long receiptId = ParamUtil.get(actionRequest, "receiptId", 0);
 		String remark = ParamUtil.getString(actionRequest, "remark");
-		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
+		String dueDate = ParamUtil.getString(actionRequest,  "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
 
@@ -91,21 +91,52 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
     	String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-		FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
-		fileMovement.setPullBackRemark(pullBackRemark);
-		System.out.println("pull back remarks"+pullBackRemark);
-		fileMovement.setActive(false);
-		fLocalService.updateFileMovement(fileMovement);
-		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId());
-		if (docFile.getCurrentState() == FileStatus.IN_MOVEMENT) {
-			docFile.setCurrentState(FileStatus.CREADTED);
-			docFileLocalService.updateDocFile(docFile);
-			System.out.println("--->>>current state --" + docFileLocalService.updateDocFile(docFile));
-		}
-
-		actionResponse.setRenderParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
+    	
+       DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+       System.out.println("DocFileId--->"+docFile);
+        fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
+        
+    	Boolean active = isActive(docFileId);
+    	if(!active) {
+    		docFile.setCurrentState(FileStatus.CREADTED);
+    		docFileLocalService.updateDocFile(docFile);
+    	}
+        
+		/*
+		 * FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
+		 * fileMovement.setPullBackRemark(pullBackRemark);
+		 * System.out.println("pull back remarks"+pullBackRemark);
+		 * fileMovement.setActive(false);
+		 * fLocalService.updateFileMovement(fileMovement); DocFile docFile =
+		 * docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId()); if
+		 * (docFile.getCurrentState() == FileStatus.IN_MOVEMENT) {
+		 * docFile.setCurrentState(FileStatus.CREADTED);
+		 * docFileLocalService.updateDocFile(docFile);
+		 * System.out.println("--->>>current state --" +
+		 * docFileLocalService.updateDocFile(docFile)); }
+		 */
+		actionResponse.setRenderParameter("mvcRenderCommandName",MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 	}
 
+	// method for getting active
+	
+	public Boolean isActive(long docFileId) {
+		boolean state = false;
+	 List<FileMovement> fileMovementByDocFileIdList = 	fLocalService.getFileMovementByFileId(docFileId);
+	for(FileMovement fileMovement : fileMovementByDocFileIdList) {
+		if(!fileMovement.getActive()) {
+			state = false;
+			
+		}else {
+			state = true;
+			break;
+		}
+		
+	}
+		return state;
+	}
+	
+	
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
@@ -162,7 +193,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int count = masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);

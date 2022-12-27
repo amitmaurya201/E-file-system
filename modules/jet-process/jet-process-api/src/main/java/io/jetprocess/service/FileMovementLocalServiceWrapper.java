@@ -398,6 +398,15 @@ public class FileMovementLocalServiceWrapper
 		return _fileMovementLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public io.jetprocess.model.FileMovement pullBackFileMovement(
+			long fileId, long fileMovementId, String remarks)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _fileMovementLocalService.pullBackFileMovement(
+			fileId, fileMovementId, remarks);
+	}
+
 	/**
 	 * create save send file method
 	 *

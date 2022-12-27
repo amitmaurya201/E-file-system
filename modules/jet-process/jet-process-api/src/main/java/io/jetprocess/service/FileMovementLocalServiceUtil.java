@@ -355,6 +355,14 @@ public class FileMovementLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static FileMovement pullBackFileMovement(
+			long fileId, long fileMovementId, String remarks)
+		throws PortalException {
+
+		return getService().pullBackFileMovement(
+			fileId, fileMovementId, remarks);
+	}
+
 	/**
 	 * create save send file method
 	 *
