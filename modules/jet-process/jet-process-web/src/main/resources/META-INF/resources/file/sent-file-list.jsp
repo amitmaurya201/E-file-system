@@ -4,52 +4,41 @@
 <%@ include file="/common/common.jsp"%>
 <%@page import= "java.util.TimeZone"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-.table thead th {
-	border-right: 1px solid white;
-}
-	
-	#myModal .modal-dialog .modal-content .modal-body .textOnInput {
-	position: relative;
-	background-color: #fff;
-}
-
-#myModal .modal-dialog .modal-content .modal-body .textOnInput label {
+.popup, .pull_back-popup {
 	position: absolute;
-	background-color: #fff;
-	top: -15px;
-	left: 10px;
-	padding: 2px;
-	z-index: 1;
+	background: #bebec1;
+	border: 3px solid #666666;
+	margin-top: -30%;
+	left: 30%;
+	display: none;
 }
 
-#myModal .modal-dialog .modal-content .modal-body .textOnInput label:after
-	{
-	content: " ";
-	width: 100%;
-	height: 13px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	z-index: -1;
+.popup {
+	width: 50%;
+	height: 50%;
 }
 
-#myModal .modal-dialog .modal-content .modal-body label {
-	font-size: 16px;
-	font-weight: 500;
-	display: inline-block;
-	margin-bottom: .5rem;
+.pull_back-popup {
+	width: 35%;
+	height: 54%;
+	left: 37%;
+	background: #afc6e0;
 }
 
+.popup.active, .pull_back-popup.active {
+	text-align: center;
+	display: block;
+}
+
+#rec_inbox.active {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.button {
+	border: none;
+}
 </style>
 
 <div class="row">
@@ -98,11 +87,11 @@
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" orderable="true" name="Sent On" orderableProperty="sentOn" />
 				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Currently With" />
 				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due Date" />
-				<liferay-ui:search-container-column-text name="Action">	  
+				<liferay-ui:search-container-column-text name="Actions">	  
 			<c:if test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
 
-						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" data-toggle="modal"
-							data-target="#myModal">
+						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" 
+							>
 							<i class="icon-indent-left"></i>
 						</button>
 					</c:if>
@@ -118,59 +107,51 @@
 </div>
 </div>
 
-
-
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-
-			<!-- Modal Header -->
-			<div class="modal-header"
-				style="background-color: #96b4d6 !important;">
-				<h4 class="modal-title">
-					Reason for Pull-Back
-				</h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-				<aui:form action="${fileSentActionUrl}" name="sentActionUrl" method="POST" >
-				
+<!-- pull_back pop up -->
+<div id="pull_back" class="pull_back-popup">
+	<!--   Creates the popup content-->
+	<div class="container mt-3">
+		<div>
+			<button type="button" class="close popup_close"
+				style="float: right; font-size: 25px; color:white;font-weight: bold;">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h3 style="color:white; text-align: left;">
+				<liferay-ui:message key="label-file-sent-popup-heading" />
+			</h3>
+		</div>
+		<hr style="margin: 1rem -14px;" />
+		<aui:form action="${fileSentActionUrl}" method="post" name="sentActionUrl">
+			
+			<div style="text-align: left; height: 100px;">
+				<aui:input label="label-file-remark" name="pullBackRemark" id="pullBackRemarks"
+					type="textarea" onkeyup="countChar(this)">
+					<aui:validator name="required"></aui:validator>
+					<aui:validator name="maxLength">
+						<liferay-ui:message key="file-sent-remarks-maxlength" />
+					</aui:validator>
 					
-					<div class="textOnInput"> 
-						<label>Remarks
-						<span class='text-danger'>*</span></label>
-						<aui:input label="" name="pullBackRemark" id="pullBackRemark" type="textarea" onkeyup="countChar(this)" >
-							<aui:validator name="required"></aui:validator>
-							<aui:validator name="maxLength">
-								<liferay-ui:message key="file-sent-remarks-maxlength" />
-							</aui:validator>
-						</aui:input>
-						<p >
-						Total 500 | <span id="lblRemainingCount">500</span><span> Character left</span>
-						</p>
-					</div>
-                     <input type="text" name="<portlet:namespace />docFileId" id="docFileId" hidden />
+				</aui:input>
+				<p>Total 500 | <span id="lblRemainingCount">500</span><span> Character left</span></p>
+				
+			</div>
+                   <input type="text" name="<portlet:namespace />docFileId" id="docFileId" hidden />
                      		<input type="text" name="<portlet:namespace />fileMovementId"
 						id="fileMovementId" hidden >
-
-					<hr style="margin: 1rem -14px;" />
-					<div style="text-align: right;">
-						<button type="submit" class="btn btn-primary" name="sentActionUrl"
-							id="sentActionUrl">
-							OK
-						</button>
-						<button type="button" class="btn btn-primary"
-							data-dismiss="modal">
-					 	Cancel
-						</button>
-					</div>
-				</aui:form>
+                  
+			<hr style="margin: 1.4rem -14px;" />
+			<div style="text-align: right;">
+				<button type="submit" class="btn btn-primary" id="submit_pull_back">
+					<liferay-ui:message key="label-file-sent-button-submit" />
+				</button>
+				<button type="button" class="btn btn-primary popup_close" id="close">
+					<liferay-ui:message key="label-file-sent-button-cancel" />
+				</button>
 			</div>
-		</div>
+		</aui:form>
 	</div>
 </div>
+
 
 
 <script type="text/javascript">
@@ -180,12 +161,14 @@ function getId(docFileId,fileMovementId){
 	  textField.value = docFileId;
 		fileMovementIdField = document.getElementById("fileMovementId");
 		  fileMovementIdField.value = fileMovementId; 
+		  $("#<portlet:namespace />pullBackRemarks").val("");
+		  $("#pull_back").addClass("active");
+			$("#rec_inbox").addClass("active");
+			$(".popup_close").on("click", function() {
+				  $("#pull_back").removeClass("active");
+				  $("#rec_inbox").removeClass("active");
+				});
 }
-
-	$("#sentActionUrl").click(function() {
-		$("#myModal").modal("hide");
-		
-	});
 	// set total character 
 	function countChar(val) {
 		  var len = val.value.length;
@@ -197,6 +180,9 @@ function getId(docFileId,fileMovementId){
 		  }
 		};
 
+		
+		
+		
 </script>
 
 

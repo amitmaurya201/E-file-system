@@ -28,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.UserPost;
@@ -68,7 +69,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 
 	
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 	
 	}
 
@@ -89,43 +90,20 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			throws IOException, PortletException, PortalException {
 		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
-
-		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-
+    	String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
 		FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
-
 		fileMovement.setPullBackRemark(pullBackRemark);
+		System.out.println("pull back remarks"+pullBackRemark);
 		fileMovement.setActive(false);
 		fLocalService.updateFileMovement(fileMovement);
-		
-		
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId());
-		List<FileMovement> fileMovementList = fLocalService.getFileMovementByFileId(fileMovement.getFileId());
-		for (FileMovement fileMovement2 : fileMovementList) {
-		     if(fileMovement2.getReadOn().equals("read") || fileMovement2.getReceivedOn().equals("receive")) {
-		    	 if (docFile.getCurrentState() == 2) {
-		    		System.out.println("fist case done");
-		    	   docFile.setCurrentState(2);
-		    	   System.out.println("updated --->"+docFileLocalService.updateDocFile(docFile));
-		    	 }
-			} 
-		     
-		     
-		     
-		     
-		        
+		if (docFile.getCurrentState() == FileStatus.IN_MOVEMENT) {
+			docFile.setCurrentState(FileStatus.CREADTED);
+			docFileLocalService.updateDocFile(docFile);
+			System.out.println("--->>>current state --" + docFileLocalService.updateDocFile(docFile));
 		}
-		
-		
-		/*
-		 * if (docFile.getCurrentState() == 2) {
-		 * 
-		 * docFile.setCusssrrentState(1); docFileLocalService.updateDocFile(docFile);
-		 * System.out.println("--->>>current state --" +
-		 * docFileLocalService.updateDocFile(docFile)); }
-		 */
 
-		actionResponse.setRenderParameter("mvcPath", "/file/created-file-list.jsp");
+		actionResponse.setRenderParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 
 	@Override
