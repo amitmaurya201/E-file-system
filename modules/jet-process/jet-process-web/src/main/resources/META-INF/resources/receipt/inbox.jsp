@@ -30,7 +30,7 @@
 	width: 30%;
 	height: 30%;
 	left: 40%;
-	background: #96b4d6;
+	background: #afc6e0;
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
@@ -312,19 +312,19 @@ vertical-align: top;
 	<div class="receive popup-content">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -6%; margin-right: -2%; font-size: 25px;">
+			style="float: right; margin-top: -4%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-3">
-			<h3 class="text-center">Are you sure to receive ?</h3>
-			<aui:form action="${receiptReceiveAction}" method="POST" name="fm">
+			<h3 class="text-center">Are you sure to receive?</h3>
+			<aui:form action="${receiptReceiveAction}" method="POST" name="fm" style=" margin-top: -5%;">
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
 				<br>
-				<button class="mt-3 btn btn-success " style="width: 90px;"
+				<button class="mt-3 btn btn-primary " style="width: 90px;"
 					type="submit">Receive</button>
-				<div class="mt-3 btn btn-danger cancel" style="width: 90px;">Cancel</div>
+				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
 			</aui:form>
 		</div>
 	</div>
@@ -366,7 +366,7 @@ vertical-align: top;
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-5 border"
-			style="background-color: gainsboro;">
+			style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
@@ -384,7 +384,7 @@ vertical-align: top;
 						</tr>
 						<tr>
 							<th class="col-3">Email :</th>
-							<td id="email"></td>
+							<td id="email" class="col-3"></td>
 						</tr>
 					</table>
 				</div>
