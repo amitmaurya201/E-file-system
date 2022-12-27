@@ -22,7 +22,7 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 54%;
+	height: 51%;
 	left: 37%;
 	background: #bcd0e7;
 }

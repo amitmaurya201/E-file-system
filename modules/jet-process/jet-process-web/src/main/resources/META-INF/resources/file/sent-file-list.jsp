@@ -21,7 +21,7 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 56%;
+	height: 55%;
 	left: 37%;
 	background: #bcd0e7;
 }
@@ -116,7 +116,7 @@
 				style="float: right; font-size: 25px; font-weight: bold;">
 				<span aria-hidden="true">&times;</span>
 			</button>
-			<h3 style="text-align: left;">
+			<h3>
 				<liferay-ui:message key="label-file-sent-popup-heading" />
 			</h3>
 		</div>
@@ -132,7 +132,7 @@
 					</aui:validator>
 					
 				</aui:input>
-				<p>Total 500 | <span id="lblRemainingCount">500</span><span> Character left</span></p>
+				<!-- <p>Total 500 | <span id="lblRemainingCount">500</span><span> Character left</span></p> -->
 				
 			</div>
                    <input type="text" name="<portlet:namespace />docFileId" id="docFileId" hidden />
@@ -170,7 +170,7 @@ function getId(docFileId,fileMovementId){
 				});
 }
 	// set total character 
-	function countChar(val) {
+/* 	function countChar(val) {
 		  var len = val.value.length;
 		  if (len >= 500) {
 			
@@ -179,7 +179,7 @@ function getId(docFileId,fileMovementId){
 		   var count = $('#lblRemainingCount').text(500 - len);
 		  }
 		};
-
+ */
 		
 		
 		
