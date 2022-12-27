@@ -115,7 +115,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		 * System.out.println("--->>>current state --" +
 		 * docFileLocalService.updateDocFile(docFile)); }
 		 */
-		actionResponse.setRenderParameter("mvcRenderCommandName",MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
+		actionResponse.setRenderParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 
 	// method for getting active
