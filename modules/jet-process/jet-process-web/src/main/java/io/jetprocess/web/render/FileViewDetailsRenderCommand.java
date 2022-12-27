@@ -51,7 +51,7 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 				if (docFile.getCategoryId() != 0) {
 					Masterdata masterdata5 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
 					renderRequest.setAttribute("CategoryValue", masterdata5.getValue());
-				}
+				} 
 				if (docFile.getSubCategoryId() != 0) {
 					Masterdata masterdata6 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
 					renderRequest.setAttribute("SubCategoryValue", masterdata6.getValue());

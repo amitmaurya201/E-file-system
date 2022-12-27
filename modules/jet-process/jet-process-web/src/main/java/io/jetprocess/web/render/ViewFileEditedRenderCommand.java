@@ -49,21 +49,25 @@ public class ViewFileEditedRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("TertiaryHeadValue", masterdata3.getValue());
 			Masterdata masterdata4 = masterdataLocalService.getFileById(docFile.getFileCodeId());
 			renderRequest.setAttribute("FileCodeValue", masterdata4.getValue());
-			Masterdata masterdata5 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
-			renderRequest.setAttribute("CategoryValue", masterdata5.getValue());
-			Masterdata masterdata6 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
-			renderRequest.setAttribute("SubCategoryValue", masterdata6.getValue());
-			} else {
-				
+			if (docFile.getCategoryId() != 0) {
+				Masterdata masterdata5 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
+				renderRequest.setAttribute("CategoryValue", masterdata5.getValue());
+			} 
+			if (docFile.getSubCategoryId() != 0) {
+				Masterdata masterdata6 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
+				renderRequest.setAttribute("SubCategoryValue", masterdata6.getValue());
+			}
+		} else {
+			if (docFile.getCategoryId() != 0) {
 				Masterdata masterdata7 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
-				System.out.println("docFile categoryId"+docFile.getCategoryId());
 				renderRequest.setAttribute("SfsCategoryValue", masterdata7.getValue());
+			}
+			if (docFile.getSubCategoryId() != 0) {
 				Masterdata masterdata8 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
 				renderRequest.setAttribute("SfsSubCategoryValue", masterdata8.getValue());
-				
-				
-				
 			}
+
+		}
 		} catch (PortalException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}

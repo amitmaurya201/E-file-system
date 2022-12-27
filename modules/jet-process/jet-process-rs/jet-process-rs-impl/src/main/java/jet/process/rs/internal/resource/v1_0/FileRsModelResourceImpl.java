@@ -80,17 +80,11 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		
 		docFile.setType(fileRsModel.getType());
 		docFile.setSubject(fileRsModel.getSubject());
-		System.out.println("fileRSModesubject --->"+fileRsModel.getSubject());
-		System.out.println("subject ---->"+docFile.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
-		System.out.println("CategoryID --->"+fileRsModel.getCategoryId());
-		System.out.println("categoryId --->"+docFile.getCategoryId());
-		System.out.println("subcategory "+fileRsModel.getSubCategoryId());
 		if(fileRsModel.getSubCategoryId() == null) {
-		System.out.println("subcategoryId--->"+docFile.getSubCategoryId());
 		docFile.setSubCategoryId(0);
-		}else {
-			docFile.setSubCategoryId(docFile.getSubCategoryId());	
+		}else if(fileRsModel.getSubCategoryId() != null) {
+			docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
 		}
 		docFile.setRemarks(fileRsModel.getRemarks());
 		docFile.setReference(fileRsModel.getReference());
@@ -108,15 +102,13 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	@Override
 	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
 
-		System.out.println("docFile id --->"+fileRsModel.getDocFileId());
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileRsModel.getDocFileId());
 
 		docFile.setSubject(fileRsModel.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
-		System.out.println("subcategory ---> "+fileRsModel.getSubCategoryId());
 		if(fileRsModel.getSubCategoryId() == null) {
-			docFile.setSubCategoryId(0);	
-		} else if(fileRsModel.getSecondaryHeadId() != null) {
+			docFile.setSubCategoryId(0);				
+		} else if(fileRsModel.getSubCategoryId() != null) {
 		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
 		}
 		docFile.setRemarks(fileRsModel.getRemarks());

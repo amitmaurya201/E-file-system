@@ -130,7 +130,7 @@
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
-						<td><%=subCategoryValue != null ? subCategoryValue : ""%></td>
+						<td><%= subCategoryValue !=null ? subCategoryValue : "" %></td>
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-nature-type" />:</th>

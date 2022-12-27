@@ -37,7 +37,6 @@
         	 
         	   %>
      	<div class="container">
-     	 <h2 style="text-align: center;"><u>Edit File</u></h2>
 			<div class="card">
 
 				<aui:form name="updateformId">
@@ -74,6 +73,8 @@
 																		<option value="Electronic"><%=docFile.getNature()%></option>
 
 																	</aui:select>
+																	<aui:input name="docFileId" label=""
+																	value="<%=docFile.getDocFileId()%>"  type="hidden"/>
 																</div>
 															</div>
 															<div class="row">
@@ -98,8 +99,7 @@
 
                                                           <% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
 															<div class="row mt-3 " id="non-sfs">
-																<aui:input name="docFileId" label=""
-																	value="<%=docFile.getDocFileId()%>" type="hidden"/>
+																
 																<legend class="child-scheduler-border"><liferay-ui:message key="label-file-fileno" /></legend>
 																<aui:fieldset
 																	cssClass="col-md-12 p-0 child-scheduler-border">
@@ -216,12 +216,6 @@
 														<aui:validator name="required" />
 													</aui:select>
 												<% } %>
-													<%-- 
-													<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
-													<option value="<%=docFile.getCategoryId()%>"><%= sfsCategoryValue %></option>
-													<% } %>
-													<aui:validator name="required" />
-												</aui:select> --%>
 											</div>
 										</aui:fieldset>
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
@@ -231,13 +225,13 @@
 											<% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-													<option value="<%= docFile.getSubCategoryId() %>"><%=subcategoryValue%></option>
+													<option value="<%= docFile.getSubCategoryId() %>"><%=subcategoryValue != null ? subcategoryValue : ""%></option>
 												</aui:select>
 												<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
 												
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-													<option value="<%= docFile.getSubCategoryId() %>"><%= sfsSubCategoryValue %></option>
+													<option value="<%= docFile.getSubCategoryId() %>"><%= sfsSubCategoryValue !=null ? sfsSubCategoryValue : ""%></option>
 												</aui:select>
 													
 													<% } %>
