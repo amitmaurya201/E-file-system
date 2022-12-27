@@ -53,7 +53,7 @@
 									src="${receipt.viewPdfUrl} " width="100%" height="450" />
 							</c:when>
 							<c:otherwise>
-								<img alt="physical_pdf" src='<%=request.getContextPath() + "/image/Physical_Pdf.png" %>'  width="100%" height="450" />
+								<img alt="physical_pdf" src='<%=request.getContextPath() + "/image/physical_pdf.png" %>'  width="100%" height="450" />
 							</c:otherwise>
 						</c:choose>
 				

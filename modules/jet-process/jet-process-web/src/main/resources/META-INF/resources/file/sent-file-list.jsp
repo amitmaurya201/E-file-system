@@ -92,7 +92,8 @@
 
 						<button type="button" class="btn" onClick="getId(${sentFileListDTO.docFileId} , ${sentFileListDTO.fileMovementId} )" 
 							>
-							<i class="icon-indent-left"></i>
+							<!-- <i class="icon-indent-left"></i> -->
+							<img alt="pullback" src='<%=request.getContextPath() + "/image/pullback.png" %>' width="100%" height="35" />
 						</button>
 					</c:if>
 				
