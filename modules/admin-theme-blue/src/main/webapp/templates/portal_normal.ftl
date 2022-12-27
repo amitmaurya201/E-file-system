@@ -11,29 +11,28 @@
 
 	<@liferay_util["include"] page=top_head_include />
 	
-		<@liferay.css file_name="${css_folder}/custom/fonts/font-awesome/css/font-awesome.min.css" />
-		<@liferay.css file_name="${css_folder}/custom/jquery-ui.css" />
-		<@liferay.css file_name="${css_folder}/custom/stylesheet.css" />
 		
 		<@liferay.css file_name="${css_folder}/custom/style.css" />
-		<@liferay.css file_name="${css_folder}/icon/all.css" />
+		
+		<@liferay.css file_name="${css_folder}/custom/stylesheet.css" />
+	<#-- <@liferay.css file_name="${css_folder}/custom/fonts/font-awesome/css/font-awesome.min.css" />
+		<@liferay.css file_name="${css_folder}/custom/jquery-ui.css" />
 		<@liferay.css file_name="${css_folder}/fonts/stylesheet.css" />
 		
-	<#-- <@liferay.css file_name="${css_folder}/custom/fullcalendar-5.10.2.css" />
-		
+		<@liferay.css file_name="${css_folder}/icon/all.css" />
 		<@liferay.css file_name="${css_folder}/owl-carousel/owl.theme.default.min.css" />
 		<@liferay.css file_name="${css_folder}/owl-carousel/animate.min.css" />
 		<@liferay.css file_name="${css_folder}/owl-carousel/owl.carousel.css" />
 		<@liferay.css file_name="${css_folder}/magnify-image-hover/jquery.jqZoom.css" />
-		
+		<@liferay.css file_name="${css_folder}/custom/fullcalendar-5.10.2.css" />
+		<@liferay.js file_name = "${javascript_folder}/custom/fullcalendar-5.10.2.js" /> 
+		<@liferay.js file_name = "${javascript_folder}/custom/jquery.slimscroll.min.js" />
+		<@liferay.js file_name = "${javascript_folder}/custom/jquery-ui.min.js" />
 		<@liferay.js file_name = "${javascript_folder}/popper.min.js" />
 	    <@liferay.js file_name = "${javascript_folder}/owl-carousel/owl.carousel.js" />
 	    <@liferay.js file_name = "${javascript_folder}/chart/chart.min.js" />
-	    <@liferay.js file_name = "${javascript_folder}/magnify-image-hover/jquery.jqZoom.js" />
+	    <@liferay.js file_name = "${javascript_folder}/magnify-image-hover/jquery.jqZoom.js" /> -->
 		
-		<@liferay.js file_name = "${javascript_folder}/custom/jquery.slimscroll.min.js" />
-		<@liferay.js file_name = "${javascript_folder}/custom/jquery-ui.min.js" />
-		<@liferay.js file_name = "${javascript_folder}/custom/fullcalendar-5.10.2.js" /> -->
 </head>
 
 
@@ -41,24 +40,27 @@
 
 <@liferay_ui["quick-access"] contentId="#main-content" />
 
+<@liferay_util["include"] page=body_top_include />
+
+
+	<#assign roleLocalService = serviceLocator.findService("com.liferay.portal.kernel.service.RoleLocalService")/>
+	<#assign userLocalService = serviceLocator.findService("com.liferay.portal.kernel.service.UserLocalService")/>
+	<#assign owner = roleLocalService.getRole(company_id, "Owner")/>
+	<#assign site_owner = roleLocalService.getRole(company_id, "Site Owner")/>
+	<#assign site_admin = roleLocalService.getRole(company_id, "Administrator")/>
+	<#assign isAdmin = userLocalService.hasRoleUser(site_admin.getRoleId(), user_id)/>
+	<#if isAdmin>
+		<@liferay.control_menu />
+	</#if>
+	
+	
 <div id="header" class="">
 	<div id="liferay-control-menu" class="">
-		<#assign roleLocalService = serviceLocator.findService("com.liferay.portal.kernel.service.RoleLocalService")/>
-		<#assign userLocalService = serviceLocator.findService("com.liferay.portal.kernel.service.UserLocalService")/>
-		<#assign owner = roleLocalService.getRole(company_id, "Owner")/>
-		<#assign site_owner = roleLocalService.getRole(company_id, "Site Owner")/>
-		<#assign site_admin = roleLocalService.getRole(company_id, "Administrator")/>
-		<#assign isAdmin = userLocalService.hasRoleUser(site_admin.getRoleId(), user_id)/>
-		<#if isAdmin>
-			<@liferay.control_menu />
-		</#if>
+		<div id="custom-control-menu" class="" style="z-index:2 !important;"></div>
 	</div>
-	<div id="custom-control-menu" class="" style="z-index:2 !important;"><#include "${full_templates_path}/header.ftl" /></div>
 </div>
-<#if isAdmin>
-	<@liferay_util["include"] page=body_top_include />
-</#if> 
 
+<#include "${full_templates_path}/header.ftl" />
 
 <section class="${portal_content_css_class}" >
 	<#if selectable>

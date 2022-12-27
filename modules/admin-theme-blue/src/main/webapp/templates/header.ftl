@@ -2,7 +2,7 @@
 
   <div class="theme-header row" >
 	<!-- Logo -->
-	<div class="col-md-8">
+	<div class="col-8">
 	    <div class="header-left">
 	        <a href="#" class="logo">
 				<img src="${site_logo}" width="40" height="40" alt="">
@@ -19,7 +19,7 @@
     </div>
     
 	<!-- Header Menu -->
-	<div class="col-md-4">
+	<div class="col-4">
 		<ul class="mt-2 mr-2 nav user-menu flex-row">
 
 			<!-- User Post & user -->
@@ -42,19 +42,14 @@
 							<div class="dropdown">
 								<button class="dropdown-toggle btn btn-unstyled" type="button" aria-label="Personal Menu" id="personal-menu-user-icon">
 									<span>
-										<span>
-											<span>
-												<#assign profilePic = user.getPortraitURL(themeDisplay)/>
-												<#if profilePic??>
-													<@liferay.user_personal_bar /> 
-												<#else>
-													<svg class="lexicon-icon lexicon-icon-user" role="presentation"><use xlink:href="${themeDisplay.getPortalURL()}/o/admin-theme-blue/images/clay/icons.svg#user"></use></svg>
-												</#if>
-											</span>
-										</span>
+										<#assign profilePic = user.getPortraitURL(themeDisplay)/>
+										<#if profilePic??>
+											<@liferay.user_personal_bar /> 
+										<#else>
+											<svg class="lexicon-icon lexicon-icon-user" role="presentation"><use xlink:href="${themeDisplay.getPortalURL()}/o/admin-theme-blue/images/clay/icons.svg#user"></use></svg>
+										</#if>
 									</span>
 								</button>
-								
 							</div>
 						</div>
 					</span>

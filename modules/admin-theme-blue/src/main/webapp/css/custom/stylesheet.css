@@ -1,6 +1,6 @@
-html {
+/* html {
 	height: 100%;
-}
+} */
 
 .checkhere .portlet-topper, #addpage-view .portlet-topper {
 	display: none !important;
@@ -252,6 +252,6 @@ div.personal-menu-dropdown .dropdown-item {
 }
 
 .lexicon-icon-user {
-    color: white;
+    /* color: white; */
     font-size: larger;
 }

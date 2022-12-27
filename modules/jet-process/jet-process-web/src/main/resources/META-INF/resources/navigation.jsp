@@ -128,7 +128,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button> -->
 
-		<div class="side-nav " id="sideNav">
+		<div class="side-nav " >
 			<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i>
 				Home</a> <a class="dropdown-btn"><i class="fa fa-file"
 				aria-hidden="true"></i>File <i class="fa fa-caret-down"></i> </a>

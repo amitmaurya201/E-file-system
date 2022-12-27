@@ -89,6 +89,10 @@ body {
 	min-height: 100%;
 	/* overflow-x: hidden; */
 }
+.row{
+	padding-left:0px !important;
+	padding-right:0px !important;
+}
 
 /* span {
 	font-family: sans-serif;
@@ -1561,6 +1565,9 @@ background
 /*-----------------
 	8. Header
 -----------------------*/
+.portlet-title-text {
+	display: none;
+}
 .theme-header {
 	background: #00c5fb;
 	background: -moz-linear-gradient(left, #00c5fb 0%, #0253cc 100%);
