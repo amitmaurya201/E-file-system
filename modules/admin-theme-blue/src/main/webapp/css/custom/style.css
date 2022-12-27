@@ -87,10 +87,10 @@ body {
 	color: #1f1f1f;
 	background-color: #f7f7f7;
 	min-height: 100%;
-	overflow-x: hidden;
+	/* overflow-x: hidden; */
 }
 
-span {
+/* span {
 	font-family: sans-serif;
 }
 
@@ -230,12 +230,12 @@ select.form-control[multiple], select.form-control[size] {
 
 .table>:not (:first-child ) {
 	border: 0;
-}
+} */
 
 /*-----------------
 	2. Table
 -----------------------*/
-.table-responsive {
+/* .table-responsive {
 	white-space: nowrap;
 	width: 100%;
 }
@@ -333,12 +333,12 @@ table.table td, table.table th {
 
 .dataTables_length select {
 	appearance: auto;
-}
+} */
 
 /*-----------------
 	3. Helper Class
 -----------------------*/
-.p-20 {
+/* .p-20 {
 	padding: 20px !important;
 }
 
@@ -460,12 +460,12 @@ table.table td, table.table th {
 
 .btn.btn-rounded {
 	border-radius: 50px;
-}
+} */
 
 /*-----------------
 	4. Bootstrap Classes
 -----------------------*/
-.btn {
+/* .btn {
 	border-radius: 5px;
 }
 
@@ -490,10 +490,10 @@ table.table td, table.table th {
 .bg-purple, .badge-purple {
 	background-color: #7460ee !important;
 }
-/* .bg-primary,
+.bg-primary,
 .badge-primary {
 	background-color: #00c5fb !important;
-} */
+}
 .bg-success, .badge-success {
 	background-color: #55ce63 !important;
 }
@@ -915,12 +915,12 @@ table.table td, table.table th {
 
 .bg-gradient-purple {
 	background: linear-gradient(to right, #8a56e6 0, #6f3cca 100%);
-}
+} */
 
 /*-----------------
 	5. Animation
 -----------------------*/
-@
+/* @
 -moz-keyframes pulse { 0% {
 	-moz-transform: scale(0);
 	opacity: 0.0;
@@ -1117,12 +1117,12 @@ background
 
 	
 }
-}
+} */
 
 /*-----------------
 	6. Toggle Button
 -----------------------*/
-.check {
+/* .check {
 	display: block;
 	margin: 0;
 	padding: 0;
@@ -1476,11 +1476,11 @@ background
 	resize: none;
 	height: 44px !important;
 	padding-top: 10px !important;
-}
+} */
 /*-----------------
 	7. Modal
 -----------------------*/
-.modal {
+/* .modal {
 	-webkit-overflow-scrolling: touch;
 }
 
@@ -1556,7 +1556,7 @@ background
 
 .modal .card {
 	box-shadow: unset;
-}
+} */
 
 /*-----------------
 	8. Header
@@ -1589,29 +1589,6 @@ background
 .theme-header .header-left .logo {
 	display: inline-block;
 	line-height: 60px;
-}
-
-.bar-icon {
-	display: inline-block;
-	width: 21px;
-}
-
-.bar-icon span {
-	background-color: #fff;
-	border-radius: 500px;
-	display: block;
-	float: left;
-	height: 2px;
-	margin-bottom: 5px;
-	width: 21px;
-}
-
-.bar-icon span:nth-child(2) {
-	width: 15px;
-}
-
-.bar-icon span:nth-child(3) {
-	margin-bottom: 0;
 }
 
 .theme-header .navbar-nav .badge {
@@ -1755,7 +1732,7 @@ background
 /*-----------------
 	9. Sidebar
 -----------------------*/
-.sidebar {
+/* .sidebar {
 	background-color: #34444c;
 	border-right: 1px solid transparent;
 	bottom: 0;
@@ -2036,15 +2013,15 @@ background
 
 .sidebar-menu-left li a>.badge {
 	color: #fff;
-}
+} */
 
 /*-----------------
 	10. Content
 -----------------------*/
-.page-wrapper {
+/* .page-wrapper {
 	left: 0;
-	/*margin-left: 230px;
-	padding-top: 60px;*/
+	margin-left: 230px;
+	padding-top: 60px;
 	position: relative;
 	transition: all 0.2s ease-in-out;
 }
@@ -2069,7 +2046,7 @@ background
 .page-header .breadcrumb a {
 	color: #333;
 }
-/* .card {
+.card {
 	border: 1px solid #ededed;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
 	margin-bottom: 30px;
@@ -2085,7 +2062,7 @@ background
 }
 .card-footer {
     background-color: #fff;
-} */
+}
 .page-title {
 	color: #1f1f1f;
 	font-size: 26px;
@@ -2139,12 +2116,12 @@ background
 
 .form-focus .cal-icon:after {
 	top: 15px;
-}
+} */
 
 /*-----------------
 	11. Login
 -----------------------*/
-.account-page {
+/* .account-page {
 	align-items: center;
 	display: flex;
 }
@@ -2261,12 +2238,12 @@ background
 .mandatory {
 	margin-left: 5px;
 	color: red;
-}
+} */
 
 /*-----------------
 	12. Dashboard
 -----------------------*/
-.card-table .card-header {
+/* .card-table .card-header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	padding: 15px;
@@ -2383,12 +2360,12 @@ background
 	display: inline-block;
 	font-size: 14px;
 	padding: 5px 15px;
-}
+} */
 
 /*-----------------
 	13. Activity
 -----------------------*/
-.activity-box {
+/* .activity-box {
 	position: relative;
 }
 
@@ -2503,12 +2480,12 @@ background
 	color: #bdbdbd;
 	display: block;
 	font-size: 13px;
-}
+} */
 
 /*-----------------
 	14. Select2
 -----------------------*/
-.select2-container .select2-selection--single {
+/* .select2-container .select2-selection--single {
 	border: 1px solid #e3e3e3;
 	border-radius: 0.25rem;
 	height: 44px;
@@ -2561,12 +2538,12 @@ background
 
 .select2-dropdown {
 	z-index: 1055;
-}
+} */
 
 /*-----------------
 	15. Nav Tabs
 -----------------------*/
-.nav-tabs .nav-link {
+/* .nav-tabs .nav-link {
 	border-radius: 0;
 }
 
@@ -2634,12 +2611,12 @@ background
 
 .tab-content {
 	padding-top: 20px;
-}
+} */
 
 /*-----------------
 	16. Holidays
 -----------------------*/
-.custom-table tr.holiday-completed {
+/* .custom-table tr.holiday-completed {
 	color: #aaa;
 }
 
@@ -2654,12 +2631,12 @@ background
 
 .action-label .btn-sm {
 	padding: 4px;
-}
+} */
 
 /*-----------------
 	17. Delete Modal
 -----------------------*/
-.form-header {
+/* .form-header {
 	text-align: center;
 	margin-bottom: 30px;
 }
@@ -2721,12 +2698,12 @@ background
 	background-color: #00c5fb;
 	border: 1px solid #00c5fb;
 	color: #fff;
-}
+} */
 
 /*-----------------
 	18. Edit Profile
 -----------------------*/
-.profile-img-wrap {
+/* .profile-img-wrap {
 	height: 120px;
 	position: absolute;
 	width: 120px;
@@ -2801,12 +2778,12 @@ background
 
 .profile-img-wrap.edit-img .fileupload.btn {
 	left: 0;
-}
+} */
 
 /*-----------------
 	19. Chat
 -----------------------*/
-.chat-avatar-sm {
+/* .chat-avatar-sm {
 	display: inline-block;
 	float: left;
 	margin-left: 0 !important;
@@ -3613,12 +3590,12 @@ background
 	border-radius: 4px;
 	margin-bottom: 20px;
 	padding: 15px;
-}
+} */
 
 /*-----------------
 	20. Focus Label
 -----------------------*/
-.form-focus {
+/* .form-focus {
 	height: 50px;
 	position: relative;
 }
@@ -3734,12 +3711,12 @@ background
 .form-focus .select2-container--default .select2-results__option--highlighted[aria-selected]
 	{
 	background-color: #fc6075;
-}
+} */
 
 /*-----------------
 	21. Leave
 -----------------------*/
-.filter-row .btn {
+/* .filter-row .btn {
 	min-height: 50px;
 	padding: 12px;
 	text-transform: uppercase;
@@ -3757,12 +3734,12 @@ background
 
 .action-label .dropdown-menu .dropdown-item {
 	padding: 5px 10px;
-}
+} */
 
 /*-----------------
 	22. Employee
 -----------------------*/
-.action-icon {
+/* .action-icon {
 	color: #777;
 	font-size: 18px;
 	display: inline-block;
@@ -3860,17 +3837,17 @@ background
 .view-icons .btn.active {
 	color: #333;
 }
-
+ */
 /*-----------------
 	23. Events
 -----------------------*/
-.calendar {
+/* .calendar {
 	float: left;
 	margin-bottom: 0;
 }
-/* .fc-view {
+.fc-view {
 	margin-top: 30px;
-} */
+}
 .none-border .modal-footer {
 	border-top: none;
 }
@@ -4034,12 +4011,12 @@ background
 
 .event-form .input-group .form-control {
 	height: 40px;
-}
+} */
 
 /*-----------------
 	24. Profile
 -----------------------*/
-.profile-details {
+/* .profile-details {
 	text-align: center;
 }
 
@@ -4258,12 +4235,12 @@ background
 
 .profile-box {
 	min-height: 250px;
-}
+} */
 
 /*-----------------
 	25. Notifications
 -----------------------*/
-.notifications {
+/* .notifications {
 	padding: 0;
 }
 
@@ -4403,12 +4380,12 @@ background
 
 .noti-time {
 	margin: 0;
-}
+} */
 
 /*-----------------
 	26. Roles & Permissions
 -----------------------*/
-.roles-menu {
+/* .roles-menu {
 	margin-top: 20px;
 }
 
@@ -4454,12 +4431,12 @@ background
 
 .slide-nav .sidebar {
 	margin-left: 0;
-}
+} */
 
 /*-----------------
 	27. Chat Right Sidebar
 -----------------------*/
-.fixed-header .custom-menu {
+/* .fixed-header .custom-menu {
 	margin: 1px 0 0;
 }
 
@@ -4535,12 +4512,12 @@ background
 .files-action .dropdown-menu {
 	left: auto;
 	right: 0;
-}
+} */
 
 /*-----------------
 	28. Projects
 -----------------------*/
-.team-members {
+/* .team-members {
 	display: inline-flex;
 	flex-wrap: wrap;
 	list-style: none;
@@ -4625,12 +4602,12 @@ background
 
 .avatar-dropdown .dropdown-toggle::after {
 	display: none;
-}
+} */
 
 /*-----------------
 	29. Invoice
 -----------------------*/
-.invoice-details, .invoice-payment-details>li span {
+/* .invoice-details, .invoice-payment-details>li span {
 	float: right;
 	text-align: right;
 }
@@ -4680,12 +4657,12 @@ background
 	margin-bottom: 20px;
 	max-height: 100px;
 	width: auto;
-}
+} */
 
 /*-----------------
 	30. Task
 -----------------------*/
-.task-chat-contents {
+/* .task-chat-contents {
 	background-color: #fff;
 }
 
@@ -5460,12 +5437,12 @@ html.menu-opened body {
 	background-color: #35ba67;
 	border-color: #2fa65c;
 	color: #fff;
-}
+} */
 
 /*-----------------
 	31. Project View
 -----------------------*/
-.project-user .list-box {
+/* .project-user .list-box {
 	margin: 0;
 }
 
@@ -5508,22 +5485,22 @@ html.menu-opened body {
 	color: #333;
 	padding: 9px;
 	text-align: center;
-}
+} */
 
 /*-----------------
 	32. Payslip
 -----------------------*/
-.payslip-title {
+/* .payslip-title {
 	margin-bottom: 20px;
 	text-align: center;
 	text-decoration: underline;
 	text-transform: uppercase;
-}
+} */
 
 /*-----------------
 	33. Attendance
 -----------------------*/
-.first-off {
+/* .first-off {
 	white-space: pre-wrap;
 }
 
@@ -5718,12 +5695,12 @@ html.menu-opened body {
 
 .half-day {
 	width: 15px;
-}
+} */
 
 /*-----------------
 	34. Ticket
 -----------------------*/
-.ticket-header {
+/* .ticket-header {
 	padding: 6px 0;
 }
 
@@ -5738,12 +5715,12 @@ html.menu-opened body {
 .dataTables_wrapper.container-fluid {
 	padding-left: 0;
 	padding-right: 0;
-}
+} */
 
 /*-----------------
 	35. Client Profile
 -----------------------*/
-.tab-box {
+/* .tab-box {
 	border-bottom: 0;
 	margin-bottom: 10px;
 	padding: 0;
@@ -5760,12 +5737,12 @@ html.menu-opened body {
 	line-height: 30px;
 	text-align: center;
 	width: 30px;
-}
+} */
 
 /*-----------------
 	36. Inbox
 -----------------------*/
-.table-inbox input[type="radio"], .table-inbox input[type="checkbox"] {
+/* .table-inbox input[type="radio"], .table-inbox input[type="checkbox"] {
 	cursor: pointer;
 }
 
@@ -5846,12 +5823,12 @@ table.table-inbox tbody tr.checked {
 .mail-label {
 	font-size: 16px !important;
 	margin-right: 5px;
-}
+} */
 
 /*-----------------
 	37. Mail View
 -----------------------*/
-.attachments {
+/* .attachments {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -5943,12 +5920,12 @@ table.table-inbox tbody tr.checked {
 
 .mail-sent-time {
 	float: right;
-}
+} */
 
 /*-----------------
 	38. Voice call
 -----------------------*/
-.voice-call-avatar {
+/* .voice-call-avatar {
 	flex-direction: column;
 	display: flex;
 	align-items: center;
@@ -6165,12 +6142,12 @@ table.table-inbox tbody tr.checked {
 	margin-top: 1px;
 	overflow: hidden;
 	white-space: pre;
-}
+} */
 
 /*-----------------
 	39. Video Call
 -----------------------*/
-.content-full {
+/* .content-full {
 	height: 100%;
 	position: relative;
 	width: 100%;
@@ -6183,12 +6160,12 @@ table.table-inbox tbody tr.checked {
 
 .video-window .fixed-header .nav>li>a {
 	padding: 18px 15px;
-}
+} */
 
 /*-----------------
 	40. Outgoing Call
 -----------------------*/
-.call-box {
+/* .call-box {
 	display: block;
 	background: #00c5fb;
 	background: -moz-linear-gradient(left, #00c5fb 0%, #0253cc 100%);
@@ -6364,19 +6341,19 @@ rgba
 0,
 0);
 }
-}
+} */
 
 /*-----------------
 	41. Incoming Call
 -----------------------*/
-.incoming-btns {
+/* .incoming-btns {
 	margin-top: 20px;
 }
-
+ */
 /*-----------------
 	42. Contacts
 -----------------------*/
-.contacts-header {
+/* .contacts-header {
 	background-color: #fff;
 	border-bottom: 1px solid #eaeaea;
 	padding: 10px 15px;
@@ -6512,12 +6489,12 @@ rgba
 	text-align: center;
 	padding: 2px;
 	color: #333;
-}
+} */
 
 /*-----------------
 	43. Chat Sidebar
 -----------------------*/
-.chat-sidebar {
+/* .chat-sidebar {
 	background-color: #fff;
 	border-left: 1px solid #eaeaea;
 	width: 300px;
@@ -6575,12 +6552,12 @@ rgba
 
 .chat-sidebar.opened {
 	margin-right: 0;
-}
+} */
 
 /*-----------------
 	44. Jobs
 -----------------------*/
-.apply-btn {
+/* .apply-btn {
 	background: #00c5fb;
 	background: -moz-linear-gradient(left, #00c5fb 0%, #0253cc 100%);
 	background: -webkit-linear-gradient(left, #00c5fb 0%, #0253cc 100%);
@@ -6670,12 +6647,12 @@ rgba
 	display: inline-block;
 	padding: 6px 12px;
 	text-align: center;
-}
+} */
 
 /*-----------------
 	45. Job Details
 -----------------------*/
-.job-info {
+/* .job-info {
 	background-color: #fff;
 	border: 1px solid #efefef;
 	float: left;
@@ -6834,23 +6811,23 @@ rgba
 
 .text-blue {
 	color: #009ce7;
-}
+} */
 
 /*-----------------
 	46. Notification Settings
 -----------------------*/
-.notification-list .list-group-item {
+/* .notification-list .list-group-item {
 	padding: 15px;
 }
 
 .notification-list .status-toggle {
 	float: right;
 }
-
+ */
 /*-----------------
 	47. Leave Settings
 -----------------------*/
-.leave-item {
+/* .leave-item {
 	max-width: 653px;
 }
 
@@ -6966,12 +6943,12 @@ rgba
 	margin-left: 10px;
 	min-height: 30px;
 	padding: 2px 15px;
-}
+} */
 
 /*-----------------
 	48. Termination
 -----------------------*/
-.add-group-btn {
+/* .add-group-btn {
 	display: flex;
 }
 
@@ -6989,12 +6966,12 @@ rgba
 	.bootstrap-datetimepicker-widget table td.active:hover {
 	background-color: #00c5fb;
 	text-shadow: unset;
-}
+} */
 
 /*-----------------
 	49. Loader
 -----------------------*/
-#loader-wrapper {
+/* #loader-wrapper {
 	background-color: #fff;
 	bottom: 0;
 	height: 100%;
@@ -7090,12 +7067,12 @@ keyframes slide {to { transform:translateX(1.5em)
 
 .loader-ellips__dot:nth-child(4) {
 	background: #404040;
-}
+} */
 
 /*-----------------
 	50. Payroll Items
 -----------------------*/
-.page-menu .nav-tabs>li>a {
+/* .page-menu .nav-tabs>li>a {
 	font-size: 18px;
 }
 
@@ -7114,7 +7091,7 @@ keyframes slide {to { transform:translateX(1.5em)
 
 .table-radius.table tbody td, .table-radius.table tbody th {
 	padding: 15px 20px !important;
-}
+} */
 
 /*-----------------
 	51. Error
@@ -7161,7 +7138,7 @@ keyframes slide {to { transform:translateX(1.5em)
 /*-----------------
 	52. Lock Screen
 -----------------------*/
-.lock-user {
+/* .lock-user {
 	margin-bottom: 20px;
 	text-align: center;
 }
@@ -7170,11 +7147,11 @@ keyframes slide {to { transform:translateX(1.5em)
 	margin-bottom: 15px;
 	width: 100px;
 }
-
+ */
 /*-----------------
 	53. OTP
 -----------------------*/
-.otp-wrap {
+/* .otp-wrap {
 	margin-bottom: 30px;
 	text-align: center;
 }
@@ -7195,12 +7172,12 @@ keyframes slide {to { transform:translateX(1.5em)
 
 .otp-input:last-child {
 	margin-right: 0;
-}
+} */
 
 /*-----------------
 	54. Salary Settings
 -----------------------*/
-.settings-widget+.settings-widget {
+/* .settings-widget+.settings-widget {
 	margin-top: 30px;
 }
 
@@ -7216,12 +7193,12 @@ keyframes slide {to { transform:translateX(1.5em)
 
 .set-btn {
 	min-height: 44px;
-}
+} */
 
 /*-----------------
 	55. Components
 -----------------------*/
-.comp-buttons .btn {
+/* .comp-buttons .btn {
 	margin-bottom: 5px;
 }
 
@@ -7274,11 +7251,11 @@ keyframes slide {to { transform:translateX(1.5em)
 	text-decoration: underline;
 	text-transform: uppercase;
 }
-
+ */
 /*-----------------
 	56. Search
 -----------------------*/
-.main-search {
+/* .main-search {
 	margin-bottom: 20px;
 }
 
@@ -7359,12 +7336,12 @@ keyframes slide {to { transform:translateX(1.5em)
 	display: block;
 	left: 0;
 	position: absolute;
-}
+} */
 
 /*-----------------
 	57. Knowledgebase
 -----------------------*/
-.topics {
+/* .topics {
 	background-color: #fff;
 	border: 1px solid #ededed;
 	border-radius: 4px;
@@ -7697,12 +7674,12 @@ ul.comment-list li ul.children {
 
 .comment-reply .form-control:focus {
 	box-shadow: unset;
-}
+} */
 
 /*-----------------
 	58. FAQ
 -----------------------*/
-.faq-card .card-header {
+/* .faq-card .card-header {
 	background-color: #fff;
 	padding: 20px;
 	position: relative;
@@ -7781,12 +7758,12 @@ ul.comment-list li ul.children {
 
 .inner-header {
 	margin-bottom: 30px;
-}
+} */
 
 /*-----------------
 	59. Employee Dashboard
 -----------------------*/
-.welcome-box {
+/* .welcome-box {
 	background-color: #fff;
 	border-bottom: 1px solid #ededed;
 	display: flex;
@@ -7953,12 +7930,12 @@ ul.comment-list li ul.children {
 	font-weight: 700;
 	line-height: 1.5;
 	margin-bottom: 0;
-}
+} */
 
 /*-----------------
 	60. Performance Review
 -----------------------*/
-.review-table tr {
+/* .review-table tr {
 	background-color: #fff;
 }
 
@@ -8008,12 +7985,12 @@ ul.comment-list li ul.children {
 .review-table .select2-container--default .select2-selection--single .select2-selection__arrow
 	{
 	height: 34px;
-}
+} */
 
 /*-----------------
 	61. Kanban Board
 -----------------------*/
-.card>.task-header {
+/* .card>.task-header {
 	line-height: 15px;
 	display: flex;
 	justify-content: space-between;
@@ -8746,13 +8723,13 @@ ul.comment-list li ul.children {
 	top: 10px;
 	left: 10px;
 	background-color: #f2f2f2;
-	z-index: 300; /* make sure its in front */
+	z-index: 300; make sure its in front
 	border: solid 1px #7986cb;
-}
+} */
 /*-----------------
 	62. File Manager
 -----------------------*/
-.wday-box input {
+/* .wday-box input {
 	opacity: 0;
 }
 
@@ -9162,12 +9139,12 @@ ul.comment-list li ul.children {
 	line-height: inherit;
 	font-family: 'FontAwesome';
 	transform: translateY(-50%);
-}
+} */
 
 /*-----------------
 	63. Subscriptions
 -----------------------*/
-.pricing-box {
+/* .pricing-box {
 	text-align: center;
 }
 
@@ -9193,12 +9170,12 @@ ul.comment-list li ul.children {
 
 .mb-30 {
 	margin-bottom: 30px !important;
-}
+} */
 
 /*-----------------
 	64. Responsive
 -----------------------*/
-@media only screen and (min-width: 991px) {
+/* @media only screen and (min-width: 991px) {
 	#toggle_btn {
 		color: #999;
 		float: left;
@@ -9864,7 +9841,7 @@ ul.comment-list li ul.children {
 		min-width: inherit;
 	}
 }
-/*Project Board*/
+Project Board
 .page-header .page-title i {
 	color: #e6e9ef;
 }
@@ -9876,7 +9853,7 @@ ul.comment-list li ul.children {
 [contenteditable="true"]:active, [contenteditable="true"]:focus {
 	border: 1px dashed #e6e9ef;
 	outline: none;
-	/*  padding:5px;*/
+	 padding:5px;
 }
 
 .page-header .text-truncate {
@@ -9922,7 +9899,7 @@ ul.comment-list li ul.children {
 	font-size: 11px;
 }
 
-/* BUY ADJECTI SANJEEV START */
+BUY ADJECTI SANJEEV START
 .fs12 {
 	font-size: 12px;
 }
@@ -9947,11 +9924,11 @@ ul.comment-list li ul.children {
 	background: #f5e1a4;
 }
 
-/* OVERRIGHT THEME CSS START */
+OVERRIGHT THEME CSS START
 .page-wrapper>.content {
 	padding-right: 40px;
 }
-/* OVERRIGHT THEME CSS END */
+OVERRIGHT THEME CSS END
 .newSideBarRight {
 	height: 100vh;
 	width: 35px;
@@ -9989,13 +9966,13 @@ ul.comment-list li ul.children {
 
 .submenu ul li a span {
 	margin-left: 10px;
-}
+} */
 
 /* BUY ADJECTI SANJEEV END*/
 /* CODE START PORTLET THEME OVERRIDE */
-.autofit-float
+/* .autofit-float
 .autofit-row
-.portlet-header
+.portlet-header */
 , /* 	.cadmin.control-menu-container
 	{display:none;} */
 

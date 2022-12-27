@@ -19,6 +19,11 @@
 		margin-top: 0;
 	}
 }
+
+.border li a {
+	border-right: 1px solid #a19c9c;
+	font-weight: 700;
+}
 </style>
 
 <%
@@ -30,13 +35,15 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="movementRenderURL">
-<%-- 	<portlet:param name="mvcPath" value="/receipt/movement.jsp" /> --%>
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND %>" />
+	<%-- 	<portlet:param name="mvcPath" value="/receipt/movement.jsp" /> --%>
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="send">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND %>" />
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendBack">
@@ -61,70 +68,55 @@
 
 <nav class="navbar navbar-expand-lg navbar-light mt-1"
 	style="background-color: #ddd; border-top: 2px solid #a19c9c; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-	<div class="container-fluid">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#main_nav" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="main_nav">
-			<ul class="navbar-nav">
-				<li class="nav-item "><a id="details" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=details%>">Details </a></li>
-				<li class="nav-item"><a id="movement" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=movementRenderURL%>"> Movement </a></li>
-				<li class="nav-item"><a id="send" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=send%>"> Send </a></li>
-				<li class="nav-item"><a id="sendback" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=sendBack%>"> Send Back </a></li>
-				<li class="nav-item"><a id="putFile" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=putFile%>"> Put in a file </a></li>
-				<li class="nav-item"><a id="dispatch" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=dispatch%>">Dispatch</a></li>
-				<li class="nav-item"><a id="edit" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=edit%>"> Edit </a></li>
-				<li class="nav-item"><a id="actionDetails" class="nav-link text-black"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;"
-					href="<%=actionDetails%>"> Action Details </a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link  dropdown-toggle" href="#"
-					data-bs-toggle="dropdown"
-					style="font-weight: 700; border-right: 1px solid #a19c9c;">
-						Attach<i class="fa fa-caret-down"></i>
+	<!-- <div class="container-fluid"> -->
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#main_nav" aria-controls="main_nav" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class=" navbar-collapse" id="main_nav">
+		<ul class="navbar-nav border">
+			<li class="nav-item "><a id="details" class="nav-link "
+				href="<%=details%>">Details </a></li>
+			<li class="nav-item"><a id="movement" class="nav-link "
+				href="<%=movementRenderURL%>"> Movement </a></li>
+			<li class="nav-item"><a id="send" class="nav-link "
+				href="<%=send%>"> Send </a></li>
+			<li class="nav-item"><a id="sendback" class="nav-link "
+				href="<%=sendBack%>"> Send Back </a></li>
+			<li class="nav-item"><a id="putFile" class="nav-link "
+				href="<%=putFile%>"> Put in a file </a></li>
+			<li class="nav-item"><a id="dispatch" class="nav-link "
+				href="<%=dispatch%>">Dispatch</a></li>
+			<li class="nav-item"><a id="edit" class="nav-link "
+				href="<%=edit%>"> Edit </a></li>
+			<li class="nav-item"><a id="actionDetails" class="nav-link "
+				href="<%=actionDetails%>"> Action Details </a></li>
+			<li class="nav-item dropdown"><a
+				class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Attach<i
+					class="fa fa-caret-down"></i>
 
+			</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="<%=attach%>"> Submenu
+							item 1</a></li>
+					<li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
+					<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
+				</ul></li>
 
-
-
-				</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="<%=attach%>"> Submenu
-								item 1</a></li>
-						<li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
-						<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
-					</ul></li>
-
-			</ul>
-			<div class="nav-item d-flex ">
-				<a class="nav-link  align-end bg-primary"
-					Style="border-radius: 5px;" href="#"><i class="fa fa-print"
-					style="color: white;" aria-hidden="true"></i></a>
-			</div>
+		</ul>
+		<div class="nav-item d-flex ">
+			<a class="nav-link  align-end bg-primary" Style="border-radius: 5px;"
+				href="#"><i class="fa fa-print" style="color: white;"
+				aria-hidden="true"></i></a>
 		</div>
 	</div>
+	<!-- </div> -->
 </nav>
 
 <script>
-var navId = "${param.selectedNav}";
-var nav = document.getElementById(navId);
+	var navId = "${param.selectedNav}";
+	var nav = document.getElementById(navId);
 
-nav.style.color = 'blue';
-
-
+	nav.style.color = 'blue';
 </script>

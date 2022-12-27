@@ -1,22 +1,15 @@
-<!DOCTYPE html>
 <%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+ -->
+<!-- <link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
 <style>
-/* body {font-family: "Lato", sans-serif;} */
-
-/* #side-nav{
-	margin-right: -12px !important;
-} */
-
-
-.side-nav {
+#sideNav{
 	padding: 5px;
 	position: sticky;
 	top: 0;
@@ -65,11 +58,27 @@
           .sidebar a {font-size: 18px;}
         }
  */
+/*  @media all and (max-height: 450px) {
+	.side-nav a .dropdown-btn {
+		display: none;
+	}
+	.side-nav a:hover .nav-link {
+		
+	}
+	.side-nav a:hover .dropdown-container  {
+		display: block;
+	}
+	.side-nav .a .dropdown-container  {
+		margin-top: 0;
+	}
+}  */
 </style>
-</head>
-<body id="side-nav">
+<!-- </head>
+<body id="side-nav"> -->
+<div id="sideNav">
 	<portlet:renderURL var="view">
-		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_FILELIST%>" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.VIEW_FILELIST%>" />
 		<portlet:param name="selectedNav" value="home" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createFile">
@@ -77,7 +86,8 @@
 		<portlet:param name="selectedNav" value="createFile" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdFileList">
-		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_FILELIST%>" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.VIEW_FILELIST%>" />
 		<portlet:param name="selectedNav" value="fileList" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createReceipt">
@@ -88,7 +98,7 @@
 		<portlet:param name="mvcRenderCommandName" value="/createdListReceipt" />
 		<portlet:param name="selectedNav" value="receiptList" />
 	</portlet:renderURL>
-	
+
 	<portlet:renderURL var="fileInbox">
 		<portlet:param name="mvcRenderCommandName" value="/fileInBox" />
 		<portlet:param name="selectedNav" value="fileInbox" />
@@ -98,63 +108,76 @@
 		<portlet:param name="selectedNav" value="receiptInbox" />
 	</portlet:renderURL>
 	<portlet:renderURL var="fileSent">
-		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILE_SENT_RENDER_COMMAND %>" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.FILE_SENT_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="fileSent" />
 	</portlet:renderURL>
-	<portlet:renderURL var="receiptSent"> 
-		  <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.RECEIPT_SENT_LIST %>" />
+	<portlet:renderURL var="receiptSent">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.RECEIPT_SENT_LIST%>" />
 		<portlet:param name="selectedNav" value="receiptSent" />
 	</portlet:renderURL>
 
-	<div class="side-nav">
-		<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i> Home</a> <a
-			class="dropdown-btn"><i class="fa fa-file" aria-hidden="true"></i>File
-			<i class="fa fa-caret-down"></i> </a>
-		<div class="dropdown-container ">
-			<a id="createFile" href="<%=createFile%>">Create File</a>
-			<a id="fileList" href="<%=createdFileList%>">Created List</a>
-			<a id="fileInbox" href="<%=fileInbox%>">Inbox</a>
-			<a id="fileSent" href="<%=fileSent%>">Sent</a>
+
+
+	<!-- <nav class="navbar navbar-expand-lg"> -->
+		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#sideNav"
+			aria-controls="sideNav" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button> -->
+
+		<div class="side-nav " id="sideNav">
+			<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i>
+				Home</a> <a class="dropdown-btn"><i class="fa fa-file"
+				aria-hidden="true"></i>File <i class="fa fa-caret-down"></i> </a>
+			<div class="dropdown-container ">
+				<a id="createFile" href="<%=createFile%>">Create File</a> <a
+					id="fileList" href="<%=createdFileList%>">Created List</a> <a
+					id="fileInbox" href="<%=fileInbox%>">Inbox</a> <a id="fileSent"
+					href="<%=fileSent%>">Sent</a>
+
+			</div>
+			<a class="dropdown-btn"><i class='fas fa-receipt'
+				style='font-size: 24px'></i> Receipt <i class="fa fa-caret-down"></i>
+			</a>
+			<div class="dropdown-container ">
+				<a id="createReceipt" href="<%=createReceipt%>">Create Receipt</a> <a
+					id="receiptList" href="<%=createdListReceipt%>">Created List</a> <a
+					id="receiptInbox" href="<%=receiptInbox%>">Inbox</a> <a
+					id="receiptSent" href="<%=receiptSent%>">Sent</a>
+
+			</div>
 
 		</div>
-		<a class="dropdown-btn"><i class='fas fa-receipt'
-			style='font-size: 24px'></i> Receipt <i class="fa fa-caret-down"></i>
-		</a>
-		<div class="dropdown-container ">
-			<a id="createReceipt" href="<%=createReceipt%>">Create Receipt</a>
-			<a id="receiptList" href="<%=createdListReceipt%>">Created List</a>
-			<a id="receiptInbox" href="<%=receiptInbox%>">Inbox</a>
-			<a id="receiptSent" href="<%=receiptSent%>">Sent</a>
 
-		</div>
+	<!-- </nav> -->
+</div>
 
-	</div>
+<script>
+	/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+	var dropdown = document.getElementsByClassName("dropdown-btn");
+	var i;
 
+	for (i = 0; i < dropdown.length; i++) {
+		dropdown[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var dropdownContent = this.nextElementSibling;
+			if (dropdownContent.style.display == "block") {
+				dropdownContent.style.display = "none";
+			} else {
+				dropdownContent.style.display = "block";
 
+			}
+		});
+	}
 
-	<script>
-		/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-		var dropdown = document.getElementsByClassName("dropdown-btn");
-		var i;
+	/* var navId = "${param.selectedNav}";
+	var nav = document.getElementById(navId);
 
-		for (i = 0; i < dropdown.length; i++) {
-			dropdown[i].addEventListener("click", function() {
-				this.classList.toggle("active");
-				var dropdownContent = this.nextElementSibling;
-				if (dropdownContent.style.display == "block") {
-					dropdownContent.style.display = "none";
-				} else {
-					dropdownContent.style.display = "block";
+	nav.style.color = 'blue'; */
+</script>
 
-				}
-			});
-		}
-		
-		/* var navId = "${param.selectedNav}";
-		var nav = document.getElementById(navId);
-
-		nav.style.color = 'blue'; */
-	</script>
-
-</body>
-</html>
+<!-- </body>
+</html> -->

@@ -76,18 +76,18 @@
 			String type = (String) docFile.getNature();
 			char firstChar = type.charAt(0);
 		%>
-		<div class="container-fluid m-1" style="background-color: #E8E8E8;">
+		<div class=" m-1" style="background-color: #E8E8E8;">
 			<span><%=firstChar%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span><br />
 
 		</div>
 
-		<div class="container-fluid m-1" style="background-color: #E8E8E8;">
+		<%-- <div class="container-fluid m-1" style="background-color: #E8E8E8;">
 			<span style="font-weight: 500"><liferay-ui:message
 					key="file-details-heading" /></span><br />
-		</div>
+		</div> --%>
 
 
-		<div class="row">
+		<div class="row mt-2 p-2 border border-dark">
 			<div class="col-6">
 				<table class="mt-2 file-dtls">
 
