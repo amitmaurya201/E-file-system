@@ -21,9 +21,9 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 54%;
+	height: 56%;
 	left: 37%;
-	background: #afc6e0;
+	background: #bcd0e7;
 }
 
 .popup.active, .pull_back-popup.active {
@@ -113,10 +113,10 @@
 	<div class="container mt-3">
 		<div>
 			<button type="button" class="close popup_close"
-				style="float: right; font-size: 25px; color:white;font-weight: bold;">
+				style="float: right; font-size: 25px; font-weight: bold;">
 				<span aria-hidden="true">&times;</span>
 			</button>
-			<h3 style="color:white; text-align: left;">
+			<h3 style="text-align: left;">
 				<liferay-ui:message key="label-file-sent-popup-heading" />
 			</h3>
 		</div>
