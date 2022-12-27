@@ -15,8 +15,8 @@
 }
 
 .popup, .read-popup, .receive-popup {
-	/*Hides pop-up when there is no "active" class*/ 
-	/* visibility: hidden; */ 
+	/*Hides pop-up when there is no "active" class*/
+	/* visibility: hidden; */
 	position: absolute;
 	background: #96b4d6;
 	border: 3px solid #666666;
@@ -34,21 +34,21 @@
 	width: 30%;
 	height: 30%;
 	left: 40%;
-	background: #96b4d6;
+	background: #bcd0e7;
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
-	/*displays pop-up when "active" class is present*/ 
-	/* visibility: visible; */ 
+	/*displays pop-up when "active" class is present*/
+	/* visibility: visible; */
 	text-align: center;
 	display: block;
 	border-radius: 5px;
-    border: double;
+	border: double;
 }
 
-#file_inbox.active{
+#file_inbox.active {
 	pointer-events: none;
-	 opacity: 0.5;
+	opacity: 0.5;
 }
 
 .button {
@@ -64,8 +64,9 @@
 	text-align: left;
 	background-color: white;
 }
-.tableSender th{
-vertical-align: top;
+
+.tableSender th {
+	vertical-align: top;
 }
 
 .bold {
@@ -155,10 +156,11 @@ vertical-align: top;
 								</c:when>
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
-										 name="label-file-inbox-fileno"
-										cssClass="bold phfile" orderableProperty="fileNumber"
-										orderable="true"
-										value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
+										name="label-file-inbox-fileno" cssClass="bold phfile"
+										orderableProperty="fileNumber" orderable="true"
+										value="<%=fileinboxDtoList.getFileNumber() != null
+												? fileinboxDtoList.getFileNumber()
+												: ""%>" />
 
 								</c:otherwise>
 							</c:choose>
@@ -204,7 +206,7 @@ vertical-align: top;
 											onclick="readModal(${fileinboxDtoList.getFileId()})"> <liferay-ui:message
 													key="label-file-inbox-action-read" />
 										</a></span>&nbsp;	 --%>
-												<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span>
 
@@ -320,17 +322,18 @@ vertical-align: top;
 	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close"
-			style="float: right; margin-top: -6%; margin-right: -2%; font-size: 25px;">
+			style="float: right; margin-top: -4%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-3">
-			<h3 class="text-center">Are you sure to receive ?</h3>
+			<h3 class="text-center">Are you sure to receive?</h3>
 			<aui:form action="${fileReceiveAction}" method="POST" name="fm">
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" hidden name='<portlet:namespace/>fileId'
 					id="file-receive-fileId" />
-				<button class="mt-3 btn btn-success" type="submit" style="width: 90px;">Receive</button>
-				<div class="mt-3 btn btn-danger cancel" style="width: 90px;">Cancel</div>
+				<button class="mt-3 btn btn-primary" type="submit"
+					style="width: 90px;">Receive</button>
+				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
 			</aui:form>
 		</div>
 	</div>
@@ -368,7 +371,7 @@ vertical-align: top;
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-5 border"
-			style="background-color: gainsboro;">
+			style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
@@ -386,7 +389,7 @@ vertical-align: top;
 						</tr>
 						<tr>
 							<th class="col-3">Email :</th>
-							<td id="email"></td>
+							<td id="email" class="col-3"></td>
 						</tr>
 					</table>
 				</div>

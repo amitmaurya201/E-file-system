@@ -24,7 +24,7 @@
 	width: 35%;
 	height: 54%;
 	left: 37%;
-	background: #afc6e0;
+	background: #bcd0e7;
 }
 
 .popup.active, .pull_back-popup.active {

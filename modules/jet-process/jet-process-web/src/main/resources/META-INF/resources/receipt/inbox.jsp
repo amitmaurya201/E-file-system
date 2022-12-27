@@ -30,7 +30,7 @@
 	width: 30%;
 	height: 30%;
 	left: 40%;
-	background: #afc6e0;
+	background: #bcd0e7;
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
