@@ -18,7 +18,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
     $("#<portlet:namespace />receiptSubCategoryId").empty();
-    $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",""));
+    $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select","0"));
 
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
@@ -249,20 +249,17 @@ $("#<portlet:namespace />editReceiptForm").on('submit', function(e){
 	 }
 });
 
-
 $('#removeFileUpload').on('click',function(e){	
 	e.preventDefault();
  $('.dropzone-wrapper').css("display", "block");
-
  $('#removeFileUpload').css("display", "none");
 	console.log("if ------>>>>>");
 	$("#editpdfurl").remove();
+	$("#doc-input").val('0');
+	
 	$(sizeValidation).css('display', 'none'); 
 	
 });
-
-
-
 
 $('#doc-select-btn').on('click',function(){	
 		 $("#doc-input").trigger('click');
@@ -341,6 +338,22 @@ function validateSize(file) {
 	  }
 	}
 
+$(document).ready(function(){
+	console.log(".................");
+	console.log('${receipt.viewPdfUrl}');
+	let url='${receipt.viewPdfUrl}';
+	if(url == '' || url == null || url == undefined){
+		$('.dropzone-wrapper').css('display', 'block');
+		/*$(sizeValidation).css('display', 'block');*/
+	}
+	else{
+		$('#editpdfurl').css('display', 'block');
+		if($('#editpdfurl').css('display', 'block')){
+			$('#removeFileUpload').css('display', 'block');
+		}
+		
+	}
+});
 
 
 

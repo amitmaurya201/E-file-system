@@ -1,7 +1,4 @@
-
 <aui:script use= "aui-base">
-
-
      /* get current year */
 	    var currentTime = new Date();
 		var year = currentTime.getFullYear();
@@ -109,7 +106,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />categoryId").on('change', function(){
 	var categoryId = $("#<portlet:namespace />categoryId").val();
     $("#<portlet:namespace />subCategoryId").empty();
-    $("#<portlet:namespace />subCategoryId").append(new Option("Select",""));
+    $("#<portlet:namespace />subCategoryId").append(new Option("Select","0"));
     AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-sub-category-masterdata`,

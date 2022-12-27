@@ -35,7 +35,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setViewPdfUrl(viewFileUrl);
 		receipt.setDmFileId(dmFileId);
 		}
-		System.out.println("Suborganization --->"+receiptRsModel.getSubOrganizationId());
+	
 		if(receiptRsModel.getSubOrganizationId() == null) {
 			receipt.setSubOrganizationId(0);
 		}else if(receiptRsModel.getSubOrganizationId() != null) {
@@ -56,16 +56,18 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
 		receipt.setDesignation(receiptRsModel.getDesignation());
 		receipt.setName(receiptRsModel.getName());
-		System.out.println("orginazation id -->"+receiptRsModel.getOrganizationId());
+	
 		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
 		receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
 		receipt.setReceivedOn(receiptRsModel.getReceivedOn());
 		receipt.setLetterDate(receiptRsModel.getLetterDate());
-		System.out.println("receiptSubtegory --->"+receiptRsModel.getReceiptSubCategoryId());
+	
 		if(receiptRsModel.getReceiptSubCategoryId() == null) {
+			System.out.println("if subcategory-------");
 			receipt.setReceiptSubCategoryId(0);	
 					
 		}else {
+			System.out.println("else subcategory-------");
 			receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());	
 		}
 		
@@ -121,11 +123,17 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setTypeId(receiptRsModel.getTypeId());
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		long tempFileId = receiptRsModel.getTempFileId();
+		System.out.println("tempFileId"+tempFileId);
 		if(tempFileId!=0) {
 			 dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
 			 viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 			 receipt.setViewPdfUrl(viewFileUrl);
 			 receipt.setDmFileId(dmFileId);
+		}
+		else {
+			receipt.setViewPdfUrl("");
+			receipt.setDmFileId(0);
+			
 		}
 		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;

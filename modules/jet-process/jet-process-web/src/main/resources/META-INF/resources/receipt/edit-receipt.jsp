@@ -58,50 +58,27 @@ input[type='file'] {
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6">
 					<aui:col cssClass="border ">
+					<button class="btn text-danger" id="removeFileUpload" style="display: none">
+						<liferay-ui:message key="receipt-remove-button" />
+					</button>
 					<c:set var="url" value="${receipt.viewPdfUrl}"></c:set> 
-						<c:choose>
-							<c:when test = "${url ne ''}">
-							<button class="btn text-danger" id="removeFileUpload" >
-								<liferay-ui:message key="receipt-remove-button" />
-							</button>
-							<div id="targetDiv" class="targetDiv text-center">
+					<div id="targetDiv" class="targetDiv text-center">
 							<embed id="editpdfurl" type="application/pdf"
-								src="${receipt.viewPdfUrl}" width="100%" height="450">
-								</embed>
-								</div>
-							</c:when>
-							<c:otherwise>
-							<div id="targetDiv" class="targetDiv text-center">
-							<div class="dropzone-wrapper" >
-								<i class="glyphicon glyphicon-download-alt"></i>
-								<p>
-									<liferay-ui:message key="label-receipt-pdf-drag" />
-								</p>
-								<span class="btn btn-info" style="font-size: 15px;"
-									id="doc-select-btn"><liferay-ui:message
+								src="${receipt.viewPdfUrl}" width="100%" height="450" style = "display:none">
+							</embed>
+						<div class="dropzone-wrapper" style = "display:none">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<p>
+							<liferay-ui:message key="label-receipt-pdf-drag" />
+							</p>
+							<span class="btn btn-info" style="font-size: 15px;"
+							id="doc-select-btn"><liferay-ui:message
 										key="label-receipt-pdf-file" /></span> <input name="doc-input"
-									id="doc-input" type="file" hidden accept=".pdf" />
-									<p id="sizeValidation" style="display:none; color:red;">size must be less then 25 mb</p>
-
-							</div>
-							</div>
-							</c:otherwise>
-						</c:choose>
-						<%-- 
-						<div id="targetDiv" class="targetDiv text-center">
-								<div class="dropzone-wrapper ">
-									<i class="glyphicon glyphicon-download-alt"></i>
-									<p >
-										<liferay-ui:message key="label-receipt-pdf-drag" />
-									</p>
-									<span class="btn btn-info" style="font-size: 15px;"
-										id="doc-select-btn"><liferay-ui:message
-											key="label-receipt-pdf-file" /></span> <input name="doc-input"
-										id="doc-input" type="file" hidden accept=".pdf" />
-										<p id="sizeValidation" style="display:none; color:red;">size must be less then 25 mb</p>
-
-								</div>
-							</div> --%>
+							id="doc-input" type="file" hidden accept=".pdf" />
+							<p id="sizeValidation" style="display:none; color:red;">size must be less then 25 mb</p>
+						</div>
+						</div>
+				
 					</aui:col>
 				</aui:form>
 			
