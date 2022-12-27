@@ -32,7 +32,7 @@
 	display: block;
 }
 
-#rec_inbox.active {
+#bg_blur.active {
 	pointer-events: none;
 	opacity: 0.5;
 }
@@ -44,7 +44,7 @@
 
 
 
-<div class="row" id="rec_inbox">
+<div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
@@ -104,7 +104,9 @@
 						<button type="button" class="btn" id="myBtn"
 							onclick="openModal(${ receiptSentMovement.receiptMovementId} , ${receiptSentMovement.receiptId})">
 							<!-- <i class="icon-indent-left"></i> -->
-							<img alt="pullback" src='<%=request.getContextPath() + "/image/pullback.png" %>' width="100%" height="35" />
+							<img alt="pullback"
+								src='<%=request.getContextPath() + "/image/pullback.png"%>'
+								width="100%" height="35" />
 						</button>
 					</c:if>
 				</liferay-ui:search-container-column-text>
@@ -125,7 +127,7 @@
 	<div class="container mt-3">
 		<div>
 			<button type="button" class="close popup_close"
-				style="float: right; font-size: 25px;">
+				style="float: right; font-size: 25px; margin-top: -4%; margin-right: -3%;">
 				<span aria-hidden="true">&times;</span>
 			</button>
 			<h3>
@@ -137,7 +139,7 @@
 			<input type="text" name="<portlet:namespace />rmId" id="rmId" hidden>
 			<input type="text" name="<portlet:namespace />receiptId"
 				id="receiptId" hidden>
-			<div style="text-align: left; height:100px;">
+			<div style="text-align: left; height: 100px;">
 				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
 					type="textarea">
 					<aui:validator name="required"></aui:validator>
@@ -167,15 +169,14 @@
 <script type="text/javascript">
 
 function openModal(receiptMovementId , receiptId){
-	
 	document.getElementById("rmId").value=receiptMovementId;
 	document.getElementById("receiptId").value=receiptId; 
 	$("#<portlet:namespace />remarks").val("");
 	$("#pull_back").addClass("active");
-	$("#rec_inbox").addClass("active");
+	$("#bg_blur").addClass("active");
 	$(".popup_close").on("click", function() {
 		  $("#pull_back").removeClass("active");
-		  $("#rec_inbox").removeClass("active");
+		  $("#bg_blur").removeClass("active");
 		});
 }
 </script>

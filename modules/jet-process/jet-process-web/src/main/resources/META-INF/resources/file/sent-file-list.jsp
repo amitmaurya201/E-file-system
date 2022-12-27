@@ -31,7 +31,7 @@
 	display: block;
 }
 
-#rec_inbox.active {
+#bg_blur.active {
 	pointer-events: none;
 	opacity: 0.5;
 }
@@ -41,7 +41,7 @@
 }
 </style>
 
-<div class="row">
+<div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
@@ -114,7 +114,7 @@
 	<div class="container mt-3">
 		<div>
 			<button type="button" class="close popup_close"
-				style="float: right; font-size: 25px; font-weight: bold;">
+				style="float: right; font-size: 25px;  margin-top: -4%; margin-right: -3%; font-weight: bold;">
 				<span aria-hidden="true">&times;</span>
 			</button>
 			<h3>
@@ -164,10 +164,10 @@ function getId(docFileId,fileMovementId){
 		  fileMovementIdField.value = fileMovementId; 
 		  $("#<portlet:namespace />pullBackRemarks").val("");
 		  $("#pull_back").addClass("active");
-			$("#rec_inbox").addClass("active");
+			$("#bg_blur").addClass("active");
 			$(".popup_close").on("click", function() {
 				  $("#pull_back").removeClass("active");
-				  $("#rec_inbox").removeClass("active");
+				  $("#bg_blur").removeClass("active");
 				});
 }
 	// set total character 
