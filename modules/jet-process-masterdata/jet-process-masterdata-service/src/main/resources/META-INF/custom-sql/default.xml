@@ -381,7 +381,7 @@ SELECT
 	left outer JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
 	left outer JOIN masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-	where rm.receiptid = ? 
+	where rm.receiptid = ? order by rm.createdate desc 
 ]]>
 </sql>
 
@@ -443,7 +443,7 @@ SELECT
 	left outer JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
 	left outer JOIN masterdata_userpost as up2 ON fm.senderid = up2.userpostid 
-where fm.fileId = ?
+where fm.fileId = ? order by fm.createdate desc 
 ]]>
 </sql>
 <!-- lllll -->
