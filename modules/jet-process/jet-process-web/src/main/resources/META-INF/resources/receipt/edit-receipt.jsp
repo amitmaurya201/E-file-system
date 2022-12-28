@@ -14,29 +14,12 @@
 <%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-<style>
-input[type='file'] {
-	color: rgba(0, 0, 0, 0)
-}
 
-.date-icon {
-	position: absolute;
-	right: 5px;
-	bottom: 14px;
-	margin-top: 15px;
-	z-index: 9;
-}
-
-&
-.date-input-width {
-	width: 48%;
-}
-</style>
 <%
 	Receipt receipt = (Receipt) session.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <div class="row">
@@ -83,11 +66,9 @@ input[type='file'] {
 				</aui:form>
 			
 				<aui:form cssClass="scroll border border-dark col-6"
-					name="editReceiptForm" id="editReceiptForm">
+					name="receiptForm">
 					<aui:input name="receiptId" id="receiptId" type="hidden"
 						value="${receipt.receiptId}" />
-					<%-- <aui:input label="" name="dmFileId" id="dmFileId"
-									value="${receipt.dmFileId}" type="hidden" /> --%>
 					<div class="border heading">
 						<h4>
 							<aui:icon cssClass="fas fa-file-alt icon" />
@@ -120,9 +101,6 @@ input[type='file'] {
 									<c:if test="${receipt.typeId != null}">
 										<aui:option value="${receipt.typeId}">${typeValue}</aui:option>
 									</c:if>
-									<%-- <aui:option value="">
-										<liferay-ui:message key="receipt-deafult-option" />
-									</aui:option> --%>
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -144,13 +122,12 @@ input[type='file'] {
 								<aui:input type="text" label="" name="letterDate"
 									id="letterDate" value="${receipt.letterDate}"
 									placeholder="dd-mm-yyyy">
-									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
-												var date=new Date(val);
-												var today = new Date();
-												return (today > date);
+												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
+												console.log(val    +"     "+createdOn);
+												return (createdOn >= val);
 											}
 										</aui:validator>
 								</aui:input>
@@ -163,26 +140,19 @@ input[type='file'] {
 								<aui:input type="text" label="" name="receivedOn"
 									id="receivedOn" value="${receipt.receivedOn}"
 									placeholder="dd-mm-yyyy">
-									<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 									<aui:validator name="required" />
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												var receivedDate=new Date(val);	
-												if(letterDate != ""){
-													var newLetterDate=new Date(letterDate);
-													return (newLetterDate <= receivedDate);
-												}
-												return "letter date null";
+												return (letterDate <= val);
 											}
 										</aui:validator>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message2">
 											function(val){
-												var date=new Date(val);
-												var today = new Date();
-												return (today > date);
+												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
+												return (createdOn >= val);
 											}
 										</aui:validator>
 								</aui:input>
@@ -497,7 +467,7 @@ input[type='file'] {
 
 					<%--	Action Buttons--%>
 					<aui:button-row>
-						<aui:button cssClass="btn btn-primary button" type="submit"
+						<aui:button cssClass="btn btn-primary button" type="button"
 							name="update" value="receipt-edit-button" />
 					</aui:button-row>
 				</aui:form>
@@ -508,18 +478,6 @@ input[type='file'] {
 </div>
 
 <script type="text/javascript">
-	
-	$(document).ready(function() {
-	
-		$("#<portlet:namespace/>letterDate").datepicker({
-			format : 'dd-M-yyyy'
-		});
-
-		$("#<portlet:namespace/>receivedOn").datepicker({
-			format : 'dd-M-yyyy'
-		});
-
-	});
 	$(".master_drop_type").on("click" ,function() {
 	    $(".master_drop_type").find("option").eq(0).hide();
 	});
@@ -536,5 +494,32 @@ input[type='file'] {
 	    $(".master_drop_country").find("option").eq(0).hide();
 	});
 </script>
+
+<aui:script>
+ AUI().use(
+        'aui-datepicker',
+        function(A) {
+            new A.DatePicker({
+                trigger: '#<portlet:namespace />letterDate',
+                mask: '%d-%m-%Y',
+                popover: {
+                    zIndex: 1000
+                }
+            });
+        }
+   );
+   AUI().use(
+        'aui-datepicker',
+         function(B) {
+            new B.DatePicker({
+                trigger:'#<portlet:namespace />receivedOn',
+                mask: '%d-%m-%Y',
+                popover: {
+                    zIndex: 1000
+                }
+            });
+        }
+    );
+</aui:script>
 
 <%@ include file="/js/receipt.js"%>

@@ -141,6 +141,7 @@ var errorLabel= false;
 $("#<portlet:namespace />nature").on('change',mySeletedNature);
 	function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
+	 console.log('--   '+nature);
      if(nature == 'Electronic' && tempFileId == 0 ){
     	 if(($("#error").length) == 0){
     		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
@@ -153,19 +154,32 @@ $("#<portlet:namespace />nature").on('change',mySeletedNature);
     	 $("#error ").remove();
      }
 }
-
-
-$("#<portlet:namespace />receiptForm").on('submit', function(e){
+	// for validation
+	function validateForm(receiptForm) {
+		var liferayForm = Liferay.Form.get(receiptForm);
+	    if (liferayForm) {
+	        var validator = liferayForm.formValidator;
+	        validator.validate();
+	        var hasErrors = validator.hasErrors();
+	        if (hasErrors) {
+	        	validator.focusInvalidField();
+	                return false;
+	            }
+	   	}
+	    return true;
+	}
+	
+$("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
      var userPostId=  getUserPostId();
      jsonData["userPostId"] = userPostId;
-     if(!mySeletedNature()){
-    	 
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
+     if(validateForm('<portlet:namespace/>receiptForm')){
+    	 if(!mySeletedNature()){
 		 $.ajax({
 			    type: "POST",
 			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
@@ -175,9 +189,7 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 			    processData: false,
 		        contentType : 'application/json'
 		 }) .done(function(response) {
-			  console.log("response : - "+response);
 			  var receiptNumber =response.receiptNumber;
-			if(receiptNumber!=null){
 			  swal( {
                  title: "Successfull!",
                  text: `You have successfully created your receipt! and your receipt number is `+receiptNumber,
@@ -186,14 +198,6 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
              }).then(function() {
            	    window.location.href = '<%= createdListReceipt.toString() %>';
              });
-			}else{
-				swal({  
-					  title: " Oops!",  
-					  text: " Something went wrong, you should choose again!",  
-					  icon: "error",  
-					}); 
-				
-			}
 	 }).fail(function(error){
 			 swal({  
 				  title: " Oops!",  
@@ -201,14 +205,20 @@ $("#<portlet:namespace />receiptForm").on('submit', function(e){
 				  icon: "error",  
 				});  
 		 })
+		}else{
+			 return false;
+		}
+		
+     }else{
+    	 return false;
      }
 });
 
 /* update receipt*/
-$("#<portlet:namespace />editReceiptForm").on('submit', function(e){
-	 e.preventDefault();
-	 var dmFileId = $('#<portlet:namespace/>dmFileId').val();
-	 var formObj= $('#<portlet:namespace/>editReceiptForm')[0];
+$("#<portlet:namespace />update").on('click', function(e){
+	e.preventDefault();
+	var dmFileId = $('#<portlet:namespace/>dmFileId').val();
+	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
     var userPostId= getUserPostId();
     jsonData["userPostId"] = userPostId;
@@ -220,7 +230,8 @@ $("#<portlet:namespace />editReceiptForm").on('submit', function(e){
     }
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
-	 if(receiptId != null){
+    if(validateForm('<portlet:namespace/>receiptForm')){
+    	if(!mySeletedNature()){
 		  $.ajax({
 			    type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -246,7 +257,13 @@ $("#<portlet:namespace />editReceiptForm").on('submit', function(e){
 				  icon: "error",  
 				});  
 		 })
-	 }
+    	}else{
+    		console.log("=-   ");
+	    	return false;
+	    }
+    }else{
+    	return false;
+    }
 });
 
 $('#removeFileUpload').on('click',function(e){	
