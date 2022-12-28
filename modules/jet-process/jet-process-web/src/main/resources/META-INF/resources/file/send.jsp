@@ -9,20 +9,7 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
-<style>
-.date-icon {
-	position: absolute;
-	right: 5px;
-	/* bottom: 14px; */
-	margin-top: 15px;
-	z-index: 9;
-}
 
-&
-.date-input-width {
-	width: 48%;
-}
-</style>
 <div class="send row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -95,15 +82,24 @@
 							class="text-danger">*</span></label>
 						<aui:input type="text" name="dueDate" id="dueDate" label=""
 							placeholder="dd-mm-yyyy">
-							<aui:icon cssClass="fas fa-calendar-alt date-icon"></aui:icon>
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
 											function(val){
-												var date=new Date(val);
-												var today = new Date();
-												const yesterday = new Date(today)
-												yesterday.setDate(yesterday.getDate() - 1)
-												return (yesterday < date);
+												function formatDate() {
+												    var d = new Date(),
+												        month = '' + (d.getMonth() + 1),
+												        day = '' + d.getDate(),
+												        year = d.getFullYear();
+												
+												    if (month.length < 2) 
+												        month = '0' + month;
+												    if (day.length < 2) 
+												        day = '0' + day;
+												
+												    return [day, month,year].join('-');
+												}
+												var today =formatDate(new Date)
+												return (today <= val);
 											}
 										</aui:validator>
 						</aui:input>
@@ -160,10 +156,17 @@
 	});
 </script>
  -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#<portlet:namespace/>dueDate").datepicker({
-			format : 'dd-M-yyyy'
-		});
-	});
-</script>
+<aui:script>
+	AUI().use(
+        'aui-datepicker',
+        function(A) {
+            new A.DatePicker({
+                trigger: '#<portlet:namespace />dueDate',
+                mask: '%d-%m-%Y',
+                popover: {
+                    zIndex: 1000
+                }
+            });
+        }
+    );
+</aui:script>
