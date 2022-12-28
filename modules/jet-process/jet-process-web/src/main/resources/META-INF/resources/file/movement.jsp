@@ -1,5 +1,6 @@
 <%@page import="io.jetprocess.masterdata.model.FileMovementDTO"%>
 <%@ include file="../init.jsp"%>
+<%@ include file="/common/common.jsp"%>
 <style>
 <!--
 .text-secondary {
@@ -34,7 +35,7 @@
 		<h2 style="text-align: center; text-decoration: underline; margin-top: 20px;">
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
-		<liferay-ui:search-container delta="5"
+		<liferay-ui:search-container delta="4"
 			emptyResultsMessage="label-no-record-found"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
 			<liferay-ui:search-container-results>
@@ -54,16 +55,16 @@
 						name="label-sent-on" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>"
-					name="label-sent-by" />
+					name="label-sent-by"  cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>"
-					name="label-sent-to" />
+					name="label-sent-to"  cssClass="hover-tips"  />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>"
-					name="label-remarks" />
+					name="label-remarks"  cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getPullBackRemark() != null ? fileMovementDTO.getPullBackRemark() : ""%>"
-					name="label-pullback-remark" />
+					name="label-pullback-remark"  cssClass="hover-tips" />
 
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator markupView="lexicon" />
