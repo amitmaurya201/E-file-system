@@ -54,13 +54,10 @@
 	</#if>
 	
 	
-<div id="header" class="">
-	<div id="liferay-control-menu" class="">
-		<div id="custom-control-menu" class="" style="z-index:2 !important;"></div>
-	</div>
-</div>
 
-<#include "${full_templates_path}/header.ftl" />
+<div id="header">
+	<#include "${full_templates_path}/header.ftl" />
+</div>
 
 <section class="${portal_content_css_class}" >
 	<#if selectable>
