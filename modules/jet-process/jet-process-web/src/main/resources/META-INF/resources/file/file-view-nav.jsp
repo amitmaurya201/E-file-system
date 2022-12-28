@@ -32,6 +32,8 @@
 
 <%
 	String docFileId = renderRequest.getParameter("docFileId");
+String curr = (String)session.getAttribute("currentURL");
+
 %>
 
 
@@ -40,25 +42,35 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	        <portlet:param name="backPageURL" value="<%= curr %>"/>
+	
 </portlet:renderURL>
 <portlet:renderURL var="details">
 	<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	        <portlet:param name="backPageURL" value="<%= curr %>"/>
+	
 </portlet:renderURL>
 <portlet:renderURL var="edit">
 	<portlet:param name="mvcPath" value="/file/edit-file.jsp" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	        <portlet:param name="backPageURL" value="<%= curr %>"/>
+	
 </portlet:renderURL>
 <portlet:renderURL var="send">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	        <portlet:param name="backPageURL" value="<%= curr %>"/>
+	
 </portlet:renderURL>
 
 <portlet:renderURL var="putinfile">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	        <portlet:param name="backPageURL" value="<%= curr %>"/>
+	
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
 	<portlet:param name="mvcPath" value="/file/sendback.jsp" />

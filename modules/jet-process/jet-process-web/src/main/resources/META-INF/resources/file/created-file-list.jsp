@@ -11,6 +11,12 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import= "java.util.TimeZone"%>
 
+
+ <%
+String backURL = themeDisplay.getURLCurrent();
+
+
+%> 
  
 
 <div class="row">
@@ -43,6 +49,8 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 				 <portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
+					<portlet:param name="backPageURL" value="<%= backURL %>"></portlet:param>
+					
 				</portlet:renderURL> 
 				<%-- <portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/EditedView" />

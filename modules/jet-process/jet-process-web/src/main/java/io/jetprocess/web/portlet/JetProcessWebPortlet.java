@@ -59,6 +59,10 @@ import io.jetprocess.web.render.CreatedFileListRenderCommand;
 public class JetProcessWebPortlet extends MVCPortlet {
 	// for Send file
 	public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException {
+		
+		 String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
+
+		
 		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
@@ -68,9 +72,12 @@ public class JetProcessWebPortlet extends MVCPortlet {
 
 		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 
-	
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
-	
+		try {
+			actionResponse.sendRedirect(urlvalue);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void sendReceipt(ActionRequest actionRequest, ActionResponse actionResponse) {

@@ -32,11 +32,14 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
+		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
 
 		try {
 
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 			renderRequest.setAttribute("DocFile", docFile);
+			renderRequest.setAttribute("CurrentURL", currentURL);
+
 			if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
 				Masterdata masterdata = masterdataLocalService.getBasic(docFile.getBasicHeadId());
 				renderRequest.setAttribute("BasicHeadValue", masterdata.getValue());

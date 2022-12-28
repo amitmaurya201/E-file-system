@@ -7,6 +7,14 @@
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="../init.jsp"%>
 
+
+ <%
+String currentURL = (String)renderRequest.getAttribute("CurrentURL");
+
+ session.setAttribute("currentURL", currentURL);
+%>
+
+
 <style>
 .file-dtls th {
 	background-color: gainsboro;
