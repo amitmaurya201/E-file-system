@@ -11,12 +11,12 @@ import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
-import io.jetprocess.list.api.FileLists;
+import io.jetprocess.list.api.FileList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 
-@Component(immediate = true, service=FileLists.class)
-public class FileListsImpl implements FileLists{
+@Component(immediate = true, service=FileList.class)
+public class FileListImpl implements FileList{
 
 
 public  int getCountOfFileList(long postId, String keyword) {
@@ -102,13 +102,13 @@ public List<FileListViewDto> getFileList(long userPostId, String keyword, int st
 
 
 @Override
-public int getFileInboxListCount(long postId, String keyword) {
+public int getFileInboxListCount(long userpostId, String keyword) {
 	Connection con=null;
 	int count=0;
 	 try {
 		con = DataAccess.getConnection();
 		CallableStatement prepareCall = con.prepareCall("select get_file_inbox_lists_count(?,?)");
-		prepareCall.setLong(1, postId);
+		prepareCall.setLong(1, userpostId);
 		prepareCall.setString(2, keyword);
 		boolean execute = prepareCall.execute();
 		

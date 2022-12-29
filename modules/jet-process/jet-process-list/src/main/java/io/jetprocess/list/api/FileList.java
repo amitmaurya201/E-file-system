@@ -6,7 +6,7 @@ import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 
 
-public interface FileLists {
+public interface FileList {
 
 
 	public  int getCountOfFileList(long postId, String keyword);
