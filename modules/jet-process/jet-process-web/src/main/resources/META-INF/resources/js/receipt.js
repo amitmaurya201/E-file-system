@@ -244,7 +244,7 @@ $("#<portlet:namespace />update").on('click', function(e){
 				  console.log(response);
 				  swal( {
                       title: "Successfull!",
-                      text: `You have successfully created your receipt! `,
+                      text: `You have successfully update your receipt! `,
                       icon: "success",
                       button: "Ok"
                   })
