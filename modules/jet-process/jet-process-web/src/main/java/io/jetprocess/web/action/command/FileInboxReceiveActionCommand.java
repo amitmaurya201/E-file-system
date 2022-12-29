@@ -1,5 +1,6 @@
 package io.jetprocess.web.action.command;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -30,18 +31,35 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 
 		long fileId = ParamUtil.getLong(actionRequest, "fileId");
-
-		System.out.println("fileId1 --:" + fileId);
-
-		 List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
-		  for (FileMovement fileMovement2 : fileMovement) {
-			  if(fileMovement2.getFileId() == fileId) {
-				  fileMovement2.setReceivedOn("receive");
-				  fileMovementLocalService.updateFileMovement(fileMovement2);
-				  
-			  }
-		}
+		long fmId = ParamUtil.getLong(actionRequest, "fmId");
+		System.out.println("fileMovement Id"+fmId);
 		
+	   try {
+		boolean state =	fileMovementLocalService.pullBackedAlready(fmId);
+		if(state==false) {
+			System.out.println("you can not receive this file ");
+			actionResponse.setRenderParameter("receiveStatus", "error");
+			actionResponse.setRenderParameter("receiveResult", "You can not receive this file.");
+		}else if(state==true) {
+			System.out.println("fileId1 --:" + fileId);
+
+			 List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
+			  for (FileMovement fileMovement2 : fileMovement) {
+				  if(fileMovement2.getFileId() == fileId) {
+					  fileMovement2.setReceivedOn("receive");
+					  fileMovementLocalService.updateFileMovement(fileMovement2);
+					  
+				  }
+			}
+			
+		}
+	} catch (PortalException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+
+	
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 
 		return false;

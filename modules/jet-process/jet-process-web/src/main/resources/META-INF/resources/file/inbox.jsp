@@ -16,6 +16,9 @@ String backURL1 = backURL+"&a=12";
 String status = ParamUtil.getString(renderRequest, "status");
 String result = ParamUtil.getString(renderRequest, "result");
 
+String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
+String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
+
 %>
 
 
@@ -128,6 +131,8 @@ String result = ParamUtil.getString(renderRequest, "result");
 				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
+              <portlet:param name="fmId" value="${fileinboxDtoList.getFileMovementId()}" />
+						
 				</portlet:actionURL>
 				<portlet:actionURL name="fileReadAction" var="fileReadAction">
 					<portlet:param name="fileId1"
@@ -230,7 +235,7 @@ String result = ParamUtil.getString(renderRequest, "result");
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
 										<span><a href="#" class="button open"
-											onclick="receiveModal(${fileinboxDtoList.getFileId()})">
+											onclick="receiveModal(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()} )">
 												<liferay-ui:message key="label-file-inbox-action-receive" />
 										</a></span>&nbsp;
 											<span><a href="${sendURL}"> <liferay-ui:message
@@ -335,6 +340,13 @@ String result = ParamUtil.getString(renderRequest, "result");
   </div>
 		<%} %>
 
+<% if(receiveStatus.equalsIgnoreCase("error")){ %>
+		 <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= receiveResult %></strong>
+  </div>
+		<%} %>
+
 
 <!-- Receive pop up -->
 <div id="file-receive" class="receive-popup">
@@ -349,8 +361,10 @@ String result = ParamUtil.getString(renderRequest, "result");
 			<h3 class="text-center">Are you sure to receive?</h3>
 			<aui:form action="${fileReceiveAction}" method="POST" name="fm">
 				<!-- <text>Receipt Number </text> -->
-				<input type="text" hidden name='<portlet:namespace/>fileId'
-					id="file-receive-fileId" />
+				<input type="text"  name='<portlet:namespace/>fileId'
+					id="file-receive-fileId" hidden />
+						<input type="text"  name='<portlet:namespace/>fmId'
+					id="fmId" hidden />
 				<button class="mt-3 btn btn-primary" type="submit"
 					style="width: 90px;">Receive</button>
 				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
@@ -437,9 +451,10 @@ String result = ParamUtil.getString(renderRequest, "result");
 
 <script type="text/javascript">
 
- function receiveModal(fileId){
+ function receiveModal(fileId,fmId){
 	 
 	document.getElementById("file-receive-fileId").value=fileId;
+	document.getElementById("fmId").value=fmId;
 	$("#file-receive").addClass("active");
 	$("#file_inbox").addClass("active");
 	$(".close, .cancel").on("click", function() {
