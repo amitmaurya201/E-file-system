@@ -355,6 +355,10 @@ public class FileMovementLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static boolean pullBackedAlready(long fmId) throws PortalException {
+		return getService().pullBackedAlready(fmId);
+	}
+
 	public static FileMovement pullBackFileMovement(
 			long fileId, long fileMovementId, String remarks)
 		throws PortalException {

@@ -315,6 +315,8 @@ public interface FileMovementLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public boolean pullBackedAlready(long fmId) throws PortalException;
+
 	public FileMovement pullBackFileMovement(
 			long fileId, long fileMovementId, String remarks)
 		throws PortalException;

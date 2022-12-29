@@ -399,6 +399,13 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
+	public boolean pullBackedAlready(long fmId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _fileMovementLocalService.pullBackedAlready(fmId);
+	}
+
+	@Override
 	public io.jetprocess.model.FileMovement pullBackFileMovement(
 			long fileId, long fileMovementId, String remarks)
 		throws com.liferay.portal.kernel.exception.PortalException {
