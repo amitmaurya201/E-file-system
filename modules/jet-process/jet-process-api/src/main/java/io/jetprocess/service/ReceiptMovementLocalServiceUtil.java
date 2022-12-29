@@ -370,6 +370,10 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().isPullBackAvailable(rmId);
 	}
 
+	public static boolean pullBackedAlready(long rmId) throws PortalException {
+		return getService().pullBackedAlready(rmId);
+	}
+
 	public static ReceiptMovement pullBackReceiptMovement(
 			long receiptId, long receiptMovementId, String remarks)
 		throws PortalException {

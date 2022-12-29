@@ -1,5 +1,6 @@
 package io.jetprocess.web.action.command;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -37,17 +38,30 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand{
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
+	    long rmId =ParamUtil.getLong(actionRequest, "rmId");
 		
-		System.out.println("ReceiptId at Receive--:"+receiptId);
-		
-		
-		List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
-		for (ReceiptMovement receiptMovement2 : receiptMovement) {
-			if(receiptMovement2.getReceiptId() == receiptId) {
-				receiptMovement2.setReceivedOn("receive");
-				receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+	   try {
+		boolean state =  receiptMovementLocalService.pullBackedAlready(rmId);
+		if(state == false) {
+			
+			System.out.println("you can not receive this Receipt ");
+			actionResponse.setRenderParameter("receiveStatus", "error");
+			actionResponse.setRenderParameter("receiveResult", "Receipt Already Pull Backed You can not receive this Receipt.");
+		} else if(state == true) {
+			System.out.println("ReceiptId at Receive--:"+receiptId);
+			List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
+			for (ReceiptMovement receiptMovement2 : receiptMovement) {
+				if(receiptMovement2.getReceiptId() == receiptId) {
+					receiptMovement2.setReceivedOn("receive");
+					receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+				}
 			}
 		}
+	} catch (PortalException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
 	
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		

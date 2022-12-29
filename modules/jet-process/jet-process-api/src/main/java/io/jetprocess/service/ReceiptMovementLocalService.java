@@ -323,6 +323,8 @@ public interface ReceiptMovementLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isPullBackAvailable(long rmId);
 
+	public boolean pullBackedAlready(long rmId) throws PortalException;
+
 	public ReceiptMovement pullBackReceiptMovement(
 			long receiptId, long receiptMovementId, String remarks)
 		throws PortalException;
