@@ -6,6 +6,13 @@
 
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
+
+ <%
+String backURL = themeDisplay.getURLCurrent();
+
+
+%> 
+ 
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="/receipt/created-receipt-list.jsp" />
 </liferay-portlet:renderURL>
@@ -58,6 +65,8 @@
 				<portlet:renderURL var="receiptInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/receiptView" />
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
+					<portlet:param name="backPageURL" value="<%= backURL %>"></portlet:param>
+					
 				</portlet:renderURL>
 
 				<c:set var="firstLetterOfNature" value="${ receipt.nature}" />

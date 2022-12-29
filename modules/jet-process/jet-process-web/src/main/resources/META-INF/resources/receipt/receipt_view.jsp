@@ -11,6 +11,14 @@
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
 
+
+
+ <%
+String currentURL = (String)renderRequest.getAttribute("CurrentURL");
+
+ session.setAttribute("currentURL", currentURL);
+%>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>

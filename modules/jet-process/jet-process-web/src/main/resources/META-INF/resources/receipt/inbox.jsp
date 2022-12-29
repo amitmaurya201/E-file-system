@@ -5,6 +5,13 @@
 <%@ include file="/common/common.jsp"%>
 
 
+<%
+String backURL = themeDisplay.getURLCurrent();
+
+String backURL1 = backURL+"&a=12";
+%>
+
+
 <style>
 .table thead th {
 	border-right: 1px solid white;
@@ -105,6 +112,8 @@ vertical-align: top;
 						value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
+						<portlet:param name="backPageURL" value="<%=backURL1 %>"></portlet:param>						
+						
 				</portlet:renderURL>
 
 				<portlet:actionURL name="receiptReceiveAction"

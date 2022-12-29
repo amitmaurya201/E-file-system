@@ -9,6 +9,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
 
+<%
+String currURL = (String)renderRequest.getAttribute("currentURL");
+
+%>
+
 <div class="send row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -38,6 +43,8 @@
 				<input type="hidden" name="<portlet:namespace/>receiptId"
 					value="<%=receipt.getReceiptId()%>">
 				<aui:col cssClass="mt-3">
+				<input type="hidden" name="<portlet:namespace/>pageURL"
+					value="<%=currURL %>">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
 							<liferay-ui:message key="label-send-heading" />

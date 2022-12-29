@@ -26,10 +26,14 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
+
 		Receipt receipt;
 		try {
 			receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 			renderRequest.setAttribute("receipt", receipt);
+			renderRequest.setAttribute("CurrentURL", currentURL);
+
 			
 			Masterdata typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
 			renderRequest.setAttribute("typeValue", typeById.getValue());
