@@ -341,7 +341,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 		<%} %>
 
 <% if(receiveStatus.equalsIgnoreCase("error")){ %>
-		 <div class="alert alert-danger alert-dismissible">
+		 <div class="alert alert-danger alert-dismissible" id="error-alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong><%= receiveResult %></strong>
   </div>
@@ -465,6 +465,12 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 		
 	}
 
+ /* auto close alert */
+ 
+$("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#error-alert").slideUp(500);
+});
+ 
 /* function readModal(fileId){
 	
 	document.getElementById("file-read-fileId").value=fileId;
