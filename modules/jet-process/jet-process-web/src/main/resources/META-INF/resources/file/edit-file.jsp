@@ -39,7 +39,7 @@
      	<div class="container">
 			<div class="card">
 
-				<aui:form name="updateformId">
+				<aui:form name="updateformId" onSubmit="editFile(event)">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-12 col-sm-12">
@@ -226,12 +226,18 @@
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
 													<option value="<%= docFile.getSubCategoryId() %>"><%=subcategoryValue != null ? subcategoryValue : ""%></option>
+													<%-- <option value='0'><liferay-ui:message
+															key="file-default-option" /></option> --%>
+													
 												</aui:select>
 												<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
 												
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-													<option value="<%= docFile.getSubCategoryId() %>"><%= sfsSubCategoryValue !=null ? sfsSubCategoryValue : ""%></option>
+													<option value="<%= docFile.getSubCategoryId() %>" selected><%= sfsSubCategoryValue !=null ? sfsSubCategoryValue : ""%></option>
+													<%-- <option value='0'><liferay-ui:message
+															key="file-default-option" /></option> --%>
+													
 												</aui:select>
 													
 													<% } %>

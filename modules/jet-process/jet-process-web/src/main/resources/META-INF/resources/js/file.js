@@ -191,9 +191,8 @@ $("#<portlet:namespace />formId").on('submit', function(e){
 
 	
 	/* update docFile */
-	
-	$("#<portlet:namespace />updateformId").on('submit', function(e){
-   	 e.preventDefault();
+Liferay.provide(window,'editFile',function(event) {
+		event.preventDefault();
    	 var formObj= $('#<portlet:namespace/>updateformId')[0];
    	 console.log("formObj"+formObj);
         var jsonData = bindFormDataJson(formObj);
@@ -218,9 +217,15 @@ $("#<portlet:namespace />formId").on('submit', function(e){
                   text: `You Have successfully Updated Your File! `,
                   icon: "success",
                   button: "ok"
-              })
-   			
+              })		
    	 })
-   });
+   	 
+	});
+	
+/*$(document).ready(function(){
+	console.log("categoryId test");
+	var id = $('#<portlet:namespace/>categoryId').val();
+	console.log(id);
+})*/
 
 </aui:script>
