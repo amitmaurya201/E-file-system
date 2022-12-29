@@ -285,6 +285,10 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovementByReceiptId(receiptId);
 	}
 
+	public static ReceiptMovement getReceiptMovementByRmId(long rmId) {
+		return getService().getReceiptMovementByRmId(rmId);
+	}
+
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *
@@ -356,6 +360,14 @@ public class ReceiptMovementLocalServiceUtil {
 	 */
 	public static int getReceiptMovementsCount() {
 		return getService().getReceiptMovementsCount();
+	}
+
+	public static Boolean isActive(long receiptId) {
+		return getService().isActive(receiptId);
+	}
+
+	public static Boolean isPullBackAvailable(long rmId) {
+		return getService().isPullBackAvailable(rmId);
 	}
 
 	public static ReceiptMovement pullBackReceiptMovement(

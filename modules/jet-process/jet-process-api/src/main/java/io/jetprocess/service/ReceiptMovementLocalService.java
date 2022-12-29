@@ -253,6 +253,9 @@ public interface ReceiptMovementLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ReceiptMovement getReceiptMovementByRmId(long rmId);
+
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *
@@ -313,6 +316,12 @@ public interface ReceiptMovementLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getReceiptMovementsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Boolean isActive(long receiptId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Boolean isPullBackAvailable(long rmId);
 
 	public ReceiptMovement pullBackReceiptMovement(
 			long receiptId, long receiptMovementId, String remarks)

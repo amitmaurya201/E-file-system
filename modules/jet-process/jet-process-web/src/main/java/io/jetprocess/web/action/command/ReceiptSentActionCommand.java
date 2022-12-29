@@ -28,33 +28,28 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+		logger.info("action of pull back");
+		
 		Long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		Long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
-		receiptMovementLocalService.pullBackReceiptMovement(receiptId, rmId, remarks);
-		Boolean active = isActive(receiptId);
-		if (!active) {
-			receipt.setCurrentState(FileStatus.CREADTED);
-			receiptLocalService.updateReceipt(receipt);
+		Boolean pullBackAvailable = receiptMovementLocalService.isPullBackAvailable(rmId);
+
+		if (pullBackAvailable) {
+			logger.info("working");
+			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+			receiptMovementLocalService.pullBackReceiptMovement(receiptId, rmId, remarks);
+			Boolean active = receiptMovementLocalService.isActive(receiptId);
+			if (!active) {
+				receipt.setCurrentState(FileStatus.CREADTED);
+				receiptLocalService.updateReceipt(receipt);
+			}
+		}else {
+			actionResponse.setRenderParameter("status", "Warning");
+			actionResponse.setRenderParameter("result", "You can not read this file.");
+			logger.info("not working");
 		}
 		actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);
-	}
-
-	public Boolean isActive(long receiptId) {
-		boolean state = false;
-		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
-				.getReceiptMovementByReceiptId(receiptId);
-
-		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
-			if (!receiptMovementByReceiptId.getActive()) {
-				  state = false;
-			} else {
-				state=true;
-				break;
-			}
-		}
-		return state;
 	}
 
 	@Reference

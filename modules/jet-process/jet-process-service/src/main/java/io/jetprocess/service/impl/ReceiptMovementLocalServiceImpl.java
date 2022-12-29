@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -147,13 +149,36 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	}
 
+	
+	public ReceiptMovement getReceiptMovementByRmId(long rmId) {
+		return receiptMovementPersistence.fetchByPrimaryKey(rmId);
+	}
+	
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
 		return receiptMovementPersistence.findByreceiptId(receiptId);
 	}
-
+	
+	public Boolean isPullBackAvailable(long rmId) {
+		logger.info("isPullBackAvailable");
+		logger.info("rmId  "+rmId);
+		boolean pullable=false;
+		ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
+		logger.info("receiptMovement  "+receiptMovement);
+		if((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
+			logger.info("in loop of null ");
+			pullable=true; 
+		}
+		else {
+			logger.info("else loop of pull back");
+			pullable=false;
+		}
+		return pullable;
+		
+	}
+	
 	public ReceiptMovement pullBackReceiptMovement(long receiptId, long receiptMovementId, String remarks)
 			throws PortalException {
-		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
+		ReceiptMovement receiptMovement = getReceiptMovementByRmId(receiptMovementId);
 		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
 				.getReceiptMovementByReceiptId(receiptId);
 		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
@@ -165,6 +190,25 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return receiptMovement;
 	}
+	
+	public Boolean isActive(long receiptId) {
+		boolean state = false;
+		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
+				.getReceiptMovementByReceiptId(receiptId);
+
+		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
+			if (!receiptMovementByReceiptId.getActive()) {
+				  state = false;
+			} else {
+				state=true;
+				break;
+			}
+		}
+		return state;
+	}
+	
+	
+	
 	
 	@Reference
 	ReceiptLocalService receiptLocalService;

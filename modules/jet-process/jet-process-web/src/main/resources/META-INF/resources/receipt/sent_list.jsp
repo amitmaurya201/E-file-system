@@ -42,7 +42,11 @@
 }
 </style>
 
+<%
+	String status = ParamUtil.getString(renderRequest, "status");
 
+	String result = ParamUtil.getString(renderRequest, "result");
+%>
 
 <div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
@@ -115,6 +119,20 @@
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 		</liferay-ui:search-container>
+
+
+
+		<%
+			if (status.equalsIgnoreCase("Warning")) {
+		%>
+		<div class="alert alert-warning alert-dismissible" id="error-alert"
+			style="width: 28%;">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong style="padding-left: 30px;"><%=result%></strong>
+		</div>
+		<%
+			}
+		%>
 	</div>
 </div>
 
@@ -162,11 +180,11 @@
 	</div>
 </div>
 
-
-
-
-
 <script type="text/javascript">
+
+$("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#error-alert").slideUp(500);
+});	
 
 function openModal(receiptMovementId , receiptId){
 	document.getElementById("rmId").value=receiptMovementId;

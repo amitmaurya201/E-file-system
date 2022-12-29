@@ -317,6 +317,13 @@ public class ReceiptMovementLocalServiceWrapper
 			receiptId);
 	}
 
+	@Override
+	public io.jetprocess.model.ReceiptMovement getReceiptMovementByRmId(
+		long rmId) {
+
+		return _receiptMovementLocalService.getReceiptMovementByRmId(rmId);
+	}
+
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *
@@ -397,6 +404,16 @@ public class ReceiptMovementLocalServiceWrapper
 	@Override
 	public int getReceiptMovementsCount() {
 		return _receiptMovementLocalService.getReceiptMovementsCount();
+	}
+
+	@Override
+	public Boolean isActive(long receiptId) {
+		return _receiptMovementLocalService.isActive(receiptId);
+	}
+
+	@Override
+	public Boolean isPullBackAvailable(long rmId) {
+		return _receiptMovementLocalService.isPullBackAvailable(rmId);
 	}
 
 	@Override
