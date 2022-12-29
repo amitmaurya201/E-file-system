@@ -184,6 +184,19 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			e.printStackTrace();
 		}
 	}
+	
+	
+	// Create a method for check  Is File able to Read or Received 
+	public boolean pullBackedAlready(long fmId) throws PortalException {
+        FileMovement fileMovement = 	getFileMovement(fmId);
+	   boolean state =	fileMovement.getActive();
+	   System.out.println("state -->"+state);
+		return state;
+		
+	}
+	
+	
+	
 
 	@Reference
 	DocFileLocalService docFileLocalService;

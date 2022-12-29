@@ -13,6 +13,9 @@
 String backURL = themeDisplay.getURLCurrent();
 
 String backURL1 = backURL+"&a=12";
+String status = ParamUtil.getString(renderRequest, "status");
+String result = ParamUtil.getString(renderRequest, "result");
+
 %>
 
 
@@ -129,6 +132,8 @@ String backURL1 = backURL+"&a=12";
 				<portlet:actionURL name="fileReadAction" var="fileReadAction">
 					<portlet:param name="fileId1"
 						value="${fileinboxDtoList.getFileId()}" />
+                         <portlet:param name="fmId" value="${fileinboxDtoList.getFileMovementId()}" />
+                        
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
@@ -323,6 +328,12 @@ String backURL1 = backURL+"&a=12";
 
 </div>
 
+<% if(status.equalsIgnoreCase("error")){ %>
+		 <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= result %></strong>
+  </div>
+		<%} %>
 
 
 <!-- Receive pop up -->
