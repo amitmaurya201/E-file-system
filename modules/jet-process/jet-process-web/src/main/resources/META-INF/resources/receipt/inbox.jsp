@@ -9,6 +9,11 @@
 String backURL = themeDisplay.getURLCurrent();
 
 String backURL1 = backURL+"&a=12";
+
+String readStatus = ParamUtil.getString(renderRequest, "readStatus");
+String readResult = ParamUtil.getString(renderRequest, "readResult");
+String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
+String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 %>
 
 
@@ -120,10 +125,15 @@ vertical-align: top;
 					var="receiptReceiveAction">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
+							<portlet:param name="rmId"
+						value="${receiptMovementDTO.receiptMovementId}" />
 				</portlet:actionURL>
 				<portlet:actionURL name="receiptReadAction" var="receiptReadAction">
 					<portlet:param name="receiptId1"
 						value="${receiptMovementDTO.receiptId}" />
+					<portlet:param name="rmId"
+						value="${receiptMovementDTO.receiptMovementId}" />
+							
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptInnerView">
@@ -220,7 +230,7 @@ vertical-align: top;
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
 										<span><a href="#" class="button open"
-											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()})">
+											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()} )">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
 										<span><a href="${sendURL}"> <liferay-ui:message
@@ -313,7 +323,19 @@ vertical-align: top;
 	</div>
 </div>
 
+<% if(readStatus.equalsIgnoreCase("error")){ %>
+		 <div class="alert alert-danger alert-dismissible" id="error-alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= readResult %></strong>
+  </div>
+		<%} %>
 
+<% if(receiveStatus.equalsIgnoreCase("error")){ %>
+		 <div class="alert alert-danger alert-dismissible" id="error-alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= receiveResult %></strong>
+  </div>
+		<%} %>
 
 <!-- Receive pop up -->
 <div id="receive" class="receive-popup">
@@ -331,6 +353,8 @@ vertical-align: top;
 				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
 				<br>
+				<input type="text"  name='<portlet:namespace/>rmId'
+					id="rmId"  />
 				<button class="mt-3 btn btn-primary " style="width: 90px;"
 					type="submit">Receive</button>
 				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
@@ -425,8 +449,9 @@ vertical-align: top;
 
 <script type="text/javascript">
 
- function receiptReceiveModal(receiptId){
+ function receiptReceiveModal(receiptId,rmId){
 	document.getElementById("receive-receiptId").value=receiptId;
+	document.getElementById("rmId").value=rmId;
 	$("#receive").addClass("active");
 	$("#rec_inbox").addClass("active");
 	$(".close, .cancel").on("click", function() {
@@ -446,6 +471,13 @@ vertical-align: top;
 
 		
 	} */
+	
+
+	 /* auto close alert */
+	 
+	$("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#error-alert").slideUp(500);
+	});
 
 function showModal(id){
 	Liferay.Service(

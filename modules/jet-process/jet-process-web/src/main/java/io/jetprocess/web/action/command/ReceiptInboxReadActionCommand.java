@@ -1,4 +1,5 @@
 package io.jetprocess.web.action.command;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -33,18 +34,33 @@ public class ReceiptInboxReadActionCommand  implements MVCActionCommand {
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		
-long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
-		
-		System.out.println("ReceiptId at read--:"+receiptId);
-		
-		
-		List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
-		for (ReceiptMovement receiptMovement2 : receiptMovement) {
-			if(receiptMovement2.getReceiptId() == receiptId) {
-				receiptMovement2.setReadOn("read");
-				receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+     long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
+     long rmId = ParamUtil.getLong(actionRequest, "rmId");
+     
+     try {
+		boolean state =  receiptMovementLocalService.pullBackedAlready(rmId);
+		if(state == false) {
+			
+			System.out.println("you can not read this Receipt ");
+			actionResponse.setRenderParameter("readStatus", "error");
+			actionResponse.setRenderParameter("readResult", "You can not read this Receipt.");
+		}else if(state == true) {
+			System.out.println("ReceiptId at read--:"+receiptId);
+			List<ReceiptMovement> receiptMovement = receiptMovementLocalService.getReceiptMovementByReceiptId(receiptId);
+			for (ReceiptMovement receiptMovement2 : receiptMovement) {
+				if(receiptMovement2.getReceiptId() == receiptId) {
+					receiptMovement2.setReadOn("read");
+					receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+				}
 			}
 		}
+		
+	} catch (PortalException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+		
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		
 		

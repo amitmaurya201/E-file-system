@@ -417,6 +417,13 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
+	public boolean pullBackedAlready(long rmId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptMovementLocalService.pullBackedAlready(rmId);
+	}
+
+	@Override
 	public io.jetprocess.model.ReceiptMovement pullBackReceiptMovement(
 			long receiptId, long receiptMovementId, String remarks)
 		throws com.liferay.portal.kernel.exception.PortalException {
