@@ -12,8 +12,7 @@
 
 
 <%
-String currURL = (String)renderRequest.getAttribute("currentURL");
-
+	String currURL = (String) renderRequest.getAttribute("currentURL");
 %>
 
 
@@ -47,8 +46,8 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>fileId"
 					value="<%=docFile.getDocFileId()%>">
-					<input type="hidden" name="<portlet:namespace/>pageURL"
-					value="<%=currURL %>">
+				<input type="hidden" name="<portlet:namespace/>pageURL"
+					value="<%=currURL%>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
@@ -93,22 +92,12 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 							placeholder="dd-mm-yyyy">
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
-											function(val){
-												function formatDate() {
-												    var d = new Date(),
-												        month = '' + (d.getMonth() + 1),
-												        day = '' + d.getDate(),
-												        year = d.getFullYear();
-												
-												    if (month.length < 2) 
-												        month = '0' + month;
-												    if (day.length < 2) 
-												        day = '0' + day;
-												
-												    return [day, month,year].join('-');
-												}
-												var today =formatDate(new Date)
-												return (today <= val);
+									function(val){
+												var date=new Date(val);
+												var today = new Date();
+												const yesterday = new Date(today)
+												yesterday.setDate(yesterday.getDate() - 1)
+												return (yesterday < date);
 											}
 										</aui:validator>
 						</aui:input>
@@ -165,17 +154,10 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 	});
 </script>
  -->
-<aui:script>
-	AUI().use(
-        'aui-datepicker',
-        function(A) {
-            new A.DatePicker({
-                trigger: '#<portlet:namespace />dueDate',
-                mask: '%d-%m-%Y',
-                popover: {
-                    zIndex: 1000
-                }
-            });
-        }
-    );
-</aui:script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#<portlet:namespace/>dueDate").datepicker({
+			format : 'dd-M-yyyy'
+		});
+	});
+</script>

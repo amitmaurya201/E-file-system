@@ -19,7 +19,7 @@
 	Receipt receipt = (Receipt) session.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MMM-yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <div class="row">
@@ -125,9 +125,10 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
+												var date=new Date(val);
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												console.log(val    +"     "+createdOn);
-												return (createdOn >= val);
+												var createdOnValue= new Date(createdOn);
+												return (createdOnValue >= date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -144,15 +145,23 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
-												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												return (letterDate <= val);
-											}
+													var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
+													var receivedDate=new Date(val);	
+													if(letterDate != ""){
+														var newLetterDate=new Date(letterDate);
+														return (newLetterDate <= receivedDate);
+													}
+													return "letter date null";
+												}
 										</aui:validator>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message2">
 											function(val){
+												var date=new Date(val);
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												return (createdOn >= val);
+												var createdOnValue= new Date(createdOn);
+												console.log(date+"   "+createdOnValue);
+												return (createdOnValue >= date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -493,33 +502,17 @@
 	$(".master_drop_country").on("click" ,function() {
 	    $(".master_drop_country").find("option").eq(0).hide();
 	});
-</script>
 
-<aui:script>
- AUI().use(
-        'aui-datepicker',
-        function(A) {
-            new A.DatePicker({
-                trigger: '#<portlet:namespace />letterDate',
-                mask: '%d-%m-%Y',
-                popover: {
-                    zIndex: 1000
-                }
-            });
-        }
-   );
-   AUI().use(
-        'aui-datepicker',
-         function(B) {
-            new B.DatePicker({
-                trigger:'#<portlet:namespace />receivedOn',
-                mask: '%d-%m-%Y',
-                popover: {
-                    zIndex: 1000
-                }
-            });
-        }
-    );
-</aui:script>
+	$(document).ready(function() {
+		$("#<portlet:namespace/>letterDate").datepicker({
+			format : 'dd-M-yyyy'
+		});
+
+		$("#<portlet:namespace/>receivedOn").datepicker({
+			format : 'dd-M-yyyy'
+		});
+
+	});
+</script>
 
 <%@ include file="/js/receipt.js"%>

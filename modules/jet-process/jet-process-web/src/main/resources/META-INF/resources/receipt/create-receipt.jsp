@@ -14,7 +14,7 @@
 	String setURl = serviceContext.getPortalURL();
 
 	/* for current date*/
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yyyy");
+	SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MMM-yyyy");
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="createdListReceipt">
@@ -133,8 +133,10 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
+												var date=new Date(val);
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												return (createdOn >= val);
+												var createdOnValue= new Date(createdOn);
+												return (createdOnValue >= date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -150,15 +152,23 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
-												var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-												return (letterDate <= val);
-											}
+													var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
+													var receivedDate=new Date(val);	
+													if(letterDate != ""){
+														var newLetterDate=new Date(letterDate);
+														return (newLetterDate <= receivedDate);
+													}
+													return "letter date null";
+												}
 										</aui:validator>
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message2">
 											function(val){
+												var date=new Date(val);
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												return (createdOn >= val);
+												var createdOnValue= new Date(createdOn);
+												console.log(date+"   "+createdOnValue);
+												return (createdOnValue >= date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -449,7 +459,19 @@
 		</div>
 	</div>
 </div>
-<aui:script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#<portlet:namespace/>letterDate").datepicker({
+			format : 'dd-M-yyyy'
+		});
+
+		$("#<portlet:namespace/>receivedOn").datepicker({
+			format : 'dd-M-yyyy'
+		});
+
+	});
+</script>
+<%-- <aui:script>
  AUI().use(
         'aui-datepicker',
         function(A) {
@@ -474,6 +496,6 @@
             });
         }
     );
-</aui:script>
+</aui:script> --%>
 
 <%@ include file="/js/receipt.js"%>

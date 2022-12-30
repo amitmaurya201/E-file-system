@@ -10,8 +10,7 @@
 	rel="stylesheet" />
 
 <%
-String currURL = (String)renderRequest.getAttribute("currentURL");
-
+	String currURL = (String) renderRequest.getAttribute("currentURL");
 %>
 
 <div class="send row">
@@ -43,8 +42,8 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 				<input type="hidden" name="<portlet:namespace/>receiptId"
 					value="<%=receipt.getReceiptId()%>">
 				<aui:col cssClass="mt-3">
-				<input type="hidden" name="<portlet:namespace/>pageURL"
-					value="<%=currURL %>">
+					<input type="hidden" name="<portlet:namespace/>pageURL"
+						value="<%=currURL%>">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
 							<liferay-ui:message key="label-send-heading" />
@@ -88,22 +87,12 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 							placeholder="dd-mm-yyyy">
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
-											function(val){
-												function formatDate() {
-												    var d = new Date(),
-												        month = '' + (d.getMonth() + 1),
-												        day = '' + d.getDate(),
-												        year = d.getFullYear();
-												
-												    if (month.length < 2) 
-												        month = '0' + month;
-												    if (day.length < 2) 
-												        day = '0' + day;
-												
-												    return [day, month,year].join('-');
-												}
-												var today =formatDate(new Date)
-												return (today <= val);
+										function(val){
+												var date=new Date(val);
+												var today = new Date();
+												const yesterday = new Date(today)
+												yesterday.setDate(yesterday.getDate() - 1)
+												return (yesterday < date);
 											}
 										</aui:validator>
 						</aui:input>
@@ -151,6 +140,14 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 	</div>
 </div>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#<portlet:namespace/>dueDate").datepicker({
+			format : 'dd-M-yyyy'
+		});
+	});
+</script>
+
 
 <!-- <script>
 	$('#<portlet:namespace/>receiverId').select2({
@@ -160,7 +157,7 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
 		allowClear : true
 	});
 </script> -->
-<aui:script>
+<%-- <aui:script>
 	AUI().use(
         'aui-datepicker',
         function(A) {
@@ -173,4 +170,4 @@ String currURL = (String)renderRequest.getAttribute("currentURL");
             });
         }
     );
-</aui:script>
+</aui:script> --%>
