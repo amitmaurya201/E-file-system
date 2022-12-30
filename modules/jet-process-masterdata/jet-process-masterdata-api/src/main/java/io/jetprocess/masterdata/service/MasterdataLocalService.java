@@ -227,6 +227,11 @@ public interface MasterdataLocalService
 		long userpostId, long receiverId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(
+		long userpostId, long receiverId, String keywords, int start, int end,
+		String orderByCol, String orderByType);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getDeliveryModeById(long deliveryModeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -372,6 +377,10 @@ public interface MasterdataLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(
 		long userPostId, String data);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getReceiptInboxAndCreatedListSearchKeywordsCount(
+		long userPostId, String keyword);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId);

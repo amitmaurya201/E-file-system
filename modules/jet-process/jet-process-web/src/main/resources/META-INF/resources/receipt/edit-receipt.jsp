@@ -238,10 +238,27 @@
 										key="label-receipt-sub-organization" /></label>
 								<aui:select label="" name="subOrganizationId"
 									id="subOrganizationId">
-									<c:if test="${receipt.subOrganizationId != null}">
-										<aui:option value="${receipt.subOrganizationId}" >${subOrganizationValue}</aui:option>
+									
+								<%-- 	<c:if test="${receipt.subOrganizationId != null}"> --%>
+									<%-- <c:forEach items = "${subOrganizationList }" var = "value">
+									<c:choose>
+									<c:when test = "${value.masterdataId == subOrganizationIdCheck} ">
+									<aui:option selected> ${value.value }</aui:option>
+									</c:when>
+									<c:otherwise>
+									<aui:option > ${value.value }</aui:option>
+									</c:otherwise>
+									</c:choose> --%>
+									<%-- <c:if test = "${subOrganizationValue eq value.value }">
+										<aui:option value="${receipt.subOrganizationId}" selected = "selected" >${subOrganizationValue}</aui:option> 
+										
+										</c:if>
+										<c:if test="${subOrganizationValue ne value.value }">
+										<aui:option >${value.value}</aui:option>
+										</c:if> --%>
+									<%-- 	</c:forEach>  --%>
 			
-									</c:if>
+								<%-- 	</c:if> --%>
 									
 								</aui:select>
 							</div>
@@ -343,9 +360,9 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-country" /></label>
 								<aui:select cssClass = "master_drop_country" label="" name="countryId" id="countryId">
-									<c:if test="${receipt.countryId != null}">
+									<%-- <c:if test="${receipt.countryId != null}">
 										<aui:option value="${receipt.countryId}">${countryValue}</aui:option>
-									</c:if>
+									</c:if> --%>
 									<%-- <aui:option value="">
 										<liferay-ui:message key="receipt-default-option" />
 									</aui:option> --%>
@@ -356,12 +373,12 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-state" /></label>
 								<aui:select label="" name="stateId" id="stateId">
-									<c:if test="${receipt.stateId != null}">
+									<%-- <c:if test="${receipt.stateId != null}">
 										<aui:option value="${receipt.stateId}">${stateValue}</aui:option>
 									</c:if>
 									<aui:option value="">
 										<liferay-ui:message key="receipt-default-option" />
-									</aui:option>
+									</aui:option> --%>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -434,9 +451,9 @@
 										key="label-receipt-sub-category" /></label>
 								<aui:select  label="" name="receiptSubCategoryId"
 									id="receiptSubCategoryId">
-									<c:if test="${receipt.receiptSubCategoryId != null}">
+									<%-- <c:if test="${receipt.receiptSubCategoryId != null}">
 										<aui:option value="${receipt.receiptSubCategoryId}">${receiptSubCategoryValue}</aui:option>
-									</c:if>
+									</c:if> --%>
 									
 								</aui:select>
 								
@@ -445,6 +462,7 @@
 						
 						</aui:col>
 					</aui:row>
+
 					<aui:row>
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">

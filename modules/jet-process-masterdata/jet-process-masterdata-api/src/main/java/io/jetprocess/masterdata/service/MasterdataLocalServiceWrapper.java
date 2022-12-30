@@ -284,6 +284,17 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getCreatedReceiptAndInboxList(
+			long userpostId, long receiverId, String keywords, int start,
+			int end, String orderByCol, String orderByType) {
+
+		return _masterdataLocalService.getCreatedReceiptAndInboxList(
+			userpostId, receiverId, keywords, start, end, orderByCol,
+			orderByType);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata getDeliveryModeById(
 		long deliveryModeId) {
 
@@ -556,6 +567,15 @@ public class MasterdataLocalServiceWrapper
 
 		return _masterdataLocalService.getReceiptCreatedListSearchedData(
 			userPostId, data);
+	}
+
+	@Override
+	public int getReceiptInboxAndCreatedListSearchKeywordsCount(
+		long userPostId, String keyword) {
+
+		return _masterdataLocalService.
+			getReceiptInboxAndCreatedListSearchKeywordsCount(
+				userPostId, keyword);
 	}
 
 	@Override

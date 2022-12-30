@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@page
 	import="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
@@ -70,7 +71,7 @@
 </style>
 <portlet:renderURL var="fileInnerViewPopup"
 		windowState="<%=LiferayWindowState.POP_UP.toString()%>">
-		<portlet:param name="mvcRenderCommandName" value="/addCorrespondence" />
+		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.CORRESPONCE_FILE_RENDER %>" />
 	</portlet:renderURL>
 
 <div>
@@ -111,8 +112,56 @@
 				property="remark" />
 		</liferay-ui:search-container-row>
 
-		<liferay-ui:search-iterator markupView="lexicon" />
+		<liferay-ui:search-iterator  markupView="lexicon" />
 	</liferay-ui:search-container>
+
+	<div>
+		<aui:button cssClass="btn btn-primary" style="float: right;"
+			name="add_receipt" id="add_receipt" value="Add Receipt" >
+		</aui:button>
+		
+	</div>
+
+</div>
+ <aui:script>
+  AUI().use('aui-base','aui-io-plugin-deprecated','liferay-util-window',
+   function(A) {
+     A.one('#<portlet:namespace />add_receipt').on('click', function(event){
+	var url = '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>';
+	console.log("url----> "+url);
+	<!-- alert('URL --> '+url); -->
+	var popUpWindow=Liferay.Util.Window.getWindow(
+		{
+		dialog: {
+		centered: true,
+		destroyOnClose: true,
+		modal: true,
+		height:800,
+		width: 900
+				}
+		}
+	
+		).plug(
+		A.Plugin.IO,
+		{
+		autoLoad: false
+		}).render();
+		popUpWindow.show();
+		popUpWindow.titleNode.html("Put In File");
+		popUpWindow.io.set('uri',url);
+		popUpWindow.io.start();
+
+		});
+		
+	});
+	
+
+</aui:script>
+ <aui:script use="aui-base">
+	A.one('#<portlet:namespace />closeDialog').on('click', function(event) {
+		Liferay.Util.getOpener().closePopup('dialog');
+	});
+</aui:script>
 
 	<%-- <table class="table">
 	<thead>
@@ -178,75 +227,4 @@
   </ul>
 </nav>
 </div> -->
-	<div>
-		<aui:button cssClass="btn btn-primary" style="float: right;"
-			name="add_receipt" id="add_receipt" value="Add Receipt" >
-		</aui:button>
-		
-	</div>
 
-</div>
- <aui:script>
-  AUI().use('aui-base','aui-io-plugin-deprecated','liferay-util-window',
-   function(A) {
-     A.one('#<portlet:namespace />add_receipt').on('click', function(event){
-	var url = '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>';
-	console.log("url----> "+url);
-	<!-- alert('URL --> '+url); -->
-	var popUpWindow=Liferay.Util.Window.getWindow(
-		{
-		dialog: {
-		centered: true,
-		destroyOnClose: true,
-		modal: true,
-		height:800,
-		width: 900
-				}
-		}
-	
-		).plug(
-		A.Plugin.IO,
-		{
-		autoLoad: false
-		}).render();
-		popUpWindow.show();
-		popUpWindow.titleNode.html("Put In File");
-		popUpWindow.io.set('uri',url);
-		popUpWindow.io.start();
-
-		});
-		
-	});
-	
-
-</aui:script>
- <aui:script use="aui-base">
-	A.one('#<portlet:namespace />closeDialog').on('click', function(event) {
-		Liferay.Util.getOpener().closePopup('dialog');
-	});
-</aui:script>
-
- <%-- <aui:script use="liferay-util-window">	
-	Liferay.provide(window,'showPopUp',function() {
-	
-              var renderUrl = "<%=fileInnerViewPopup%>"+"&<portlet:namespace />corrFileId=<%=corrFileId%>";
-              alert(renderUrl);
-              var popupTitle = "Put in file";    
-              Liferay.Util.openWindow({ 
-					dialog: { 														 
-							height: 800,														 
-							destroyOnClose: true,														 
-							destroyOnHide: true, 														 
-							modal: true, 														 
-							width: 700														 
-						}, 														 
-						id: '<portlet:namespace />dialog',														 
-						title: popupTitle, 														 
-						uri: renderUrl 														 
-				}); 
-          },
-          ['liferay-util-list-fields', 'liferay-portlet-url']
-);						
-		 
-</aui:script>
- --%>

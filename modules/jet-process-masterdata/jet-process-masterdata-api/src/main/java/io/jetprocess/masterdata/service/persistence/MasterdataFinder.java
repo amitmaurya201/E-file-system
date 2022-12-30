@@ -144,6 +144,10 @@ public interface MasterdataFinder {
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getReceiptCreatedListSearch(long userPostId, String keyword);
 
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getReceiptInboxAndCreatedListSearch(
+			long userPostId, long receiverId, String keyword);
+
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptSentListByFinder(long userPostId);
 
@@ -197,6 +201,11 @@ public interface MasterdataFinder {
 
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
 		getCreatedListAndInboxList(long userpostId, long receiverId);
+
+	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
+		getCreatedListAndInboxList(
+			long userpostId, long receiverId, String keyword, int start,
+			int end, String orderByCol, String orderByType);
 
 	public long getMaximumFmIdByFileId(long fileId);
 

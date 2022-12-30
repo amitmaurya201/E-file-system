@@ -275,6 +275,21 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return receiptList.size();
 	}
 
+	public int getReceiptInboxAndCreatedListSearchKeywordsCount(long userPostId, String keyword) {
+	  
+	  List<ReceiptListViewDto> receiptList = null;
+	  
+	  if (keyword != null && !keyword.isEmpty()) { 
+		  receiptList = masterdataFinder.getReceiptInboxAndCreatedListSearch(userPostId, userPostId, keyword); 
+		} 
+	  else { 
+		  receiptList = masterdataFinder.getCreatedListAndInboxList(userPostId, userPostId);
+		  } 
+	  int count = receiptList.size(); 
+	  logger.info("total receipt number inside service of put in file : " + count); 
+	  return count;
+	  }
+
 	@Override
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 		return masterdataFinder.getReceiptInboxList(userPostId);
@@ -362,12 +377,10 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return count;
 
 	}
-	
-	
-	
+
 	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
-		
+
 		return masterdataFinder.getReceiptSendList(userPostId, keyword, start, end, orderBy, order);
 
 	}
@@ -387,26 +400,28 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return count;
 
 	}
-	
+
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceipteDetail(long fileId) {
 		return masterdataFinder.getFileCorrespondenceReceiptDetails(fileId);
 	}
-
 	
-	public List<ReceiptListViewDto>getCreatedReceiptAndInboxList(long userpostId,long receiverId){ 
+	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(long userpostId, long receiverId) {
 		return masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId);
-	  
-	  }
-	 
-	
-	
+
+	}
+	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(long userpostId, long receiverId,String keywords, int start, int end, String orderByCol, String orderByType) {
+		masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId, keywords, start, end , orderByCol, orderByType).forEach(c->System.out.println(c));
+		return masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId, keywords, start, end , orderByCol, orderByType);
+
+	}
+
 	public long getMaximumFmIdByFileIdData(long fileId) {
-		
+
 		return masterdataFinder.getMaximumFmIdByFileId(fileId);
 	}
-	
+
 	public long getMaximumRmIdByReceiptId(long receiptId) {
-		
+
 		return masterdataFinder.getMaximumRmIdByReceiptId(receiptId);
 	}
 	// ---------------- End -----------------

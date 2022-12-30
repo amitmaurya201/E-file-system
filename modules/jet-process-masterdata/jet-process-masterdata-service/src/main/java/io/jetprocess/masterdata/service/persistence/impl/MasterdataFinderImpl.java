@@ -1073,6 +1073,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			}
 
 			
+			System.out.println("inside get receipt--------persistence method....");
 			sql = sql + " offset "+ start + " limit "+ end;
 			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
@@ -1170,6 +1171,40 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			queryPos.add(userPostId);
 			if(!keyword.isEmpty() && keyword != null) {
 				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+			}
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	public List<ReceiptListViewDto> getReceiptInboxAndCreatedListSearch(long userPostId,long receiverId, String keyword) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
+			if(!keyword.isEmpty() && keyword != null ) {
+				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+			}
+				
+				
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userPostId);
+			queryPos.add(receiverId);
+			if(!keyword.isEmpty() && keyword != null) {
 				queryPos.add("%"+keyword+"%");
 				queryPos.add("%"+keyword+"%");
 			}
@@ -1861,9 +1896,53 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
+	public List<ReceiptListViewDto> getCreatedListAndInboxList(long userpostId, long receiverId, String keyword, int start, int end, String orderByCol, String orderByType ){
+		Session session = null;
+		System.out.println("--0-0-0-0-0-0-->");
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
+			logger.info("Final created receipt and inbox List Query : "+sql);
+			if(!keyword.isEmpty() && keyword != null ) {
+				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
+				
+			}
+			if(orderByCol!=null && !orderByCol.isEmpty()) {
+				sql = sql + " order by "+orderByCol;
+				sql = sql + " "+orderByType;
+				System.out.println("order by ---"+orderByCol);			
+			}
+			sql = sql + " offset "+ start + " limit "+ end;
+			System.out.println("final query--: "+sql);
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(userpostId);
+			queryPos.add("%"+keyword+"%");
+			queryPos.add("%"+keyword+"%");
+			queryPos.add(receiverId);
+			
+			if(!keyword.isEmpty() && keyword != null) {
+				queryPos.add("%"+keyword+"%");
+				queryPos.add("%"+keyword+"%");
+				
+			}
+			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
+			
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return null;
+	}
+	
 
 	public long getMaximumFmIdByFileId(long fileId) {
-
 		Session session = null;
 		try {
 			session = openSession();

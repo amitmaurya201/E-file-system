@@ -62,18 +62,36 @@ AUI().use('aui-base', function(A){
 	 });
 });
 
-AUI().use('aui-base', function(A){
-	 Liferay.Service(
-			 '/masterdata.masterdata/get-countries-masterdata',
-			 function(response) {
-			     $.each(response, function(key, value) {
-						optionText = value.value;
-						optionValue = value.masterdataId;
-						$("#<portlet:namespace />countryId").append(new Option(optionText,optionValue));
+$('document').ready(function(e){
+	var editCountryId =$("#<portlet:namespace />countryId").val();
+	 $("#<portlet:namespace />countryId").append(new Option("Select",0));
+	AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-countries-masterdata',
+				 function(response) {
+				     $.each(response, function(key, value) {
+							optionText = value.value;
+							optionValue = value.masterdataId;
+							 if(optionValue==editCountryId){
+								
+						    	 $('#<portlet:namespace />countryId').append(new Option(optionText,optionValue));
+						 		
+						    	 $("select option").each(function(){
+						    		  if ($(this).text() == optionText)
+						    		    $(this).attr("selected","selected");
+						    		});  	
+						    	 
+						     		}
+						     else{
+						    	
+						     $("#<portlet:namespace />countryId").append(new Option(optionText,optionValue));
+						     }
 
-			});
+				});
+		});
 	});
-});
+	
+})
 
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
@@ -371,6 +389,104 @@ $(document).ready(function(){
 		
 	}
 });
+
+$(document).ready(function(e){
+	var orgId = '${receipt.organizationId }';
+	var subOrgId = '${receipt.subOrganizationId}';
+	 $("#<portlet:namespace />subOrganizationId").append(new Option("Select",""));
+	 AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-sub-organization-masterdata',
+				 {
+					 organizationId: orgId
+				 },
+				 function(response) {
+				     $.each(response, function(key, value) {
+				     optionText = value.value;
+				     optionValue = value.masterdataId;
+				     if(optionValue.toString() === subOrgId){
+				    	  $('#<portlet:namespace />subOrganizationId').append(new Option(optionText,optionValue));
+		
+				    	 $("select option").each(function(){
+				    		  if ($(this).text() == optionText)
+				    		    $(this).attr("selected","selected");
+				    		});  	
+				     }
+				     else{
+				  
+				    	 $("#<portlet:namespace />subOrganizationId").append(new Option(optionText,optionValue));
+				    	 
+				     }
+				    
+				     });
+				 });
+	 	});
+	
+})
+$(document).ready(function(e){
+	var receiptCategoryId = '${receipt.receiptCategoryId}';
+	var receiptSubCategoryId = '${receipt.receiptSubCategoryId}';
+	console.log("receiptCategoryId"+receiptCategoryId + "....."+receiptSubCategoryId);
+	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",""));
+	 AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
+				 {
+				     receiptCategoryId: receiptCategoryId
+				 },
+				 function(response) {
+				     $.each(response, function(key, value) {
+				     optionText = value.value;
+				     optionValue = value.masterdataId;
+				     if(optionValue==receiptSubCategoryId){
+				    	 $('#<portlet:namespace />receiptSubCategoryId').append(new Option(optionText,optionValue));
+				 		
+				    	 $("select option").each(function(){
+				    		  if ($(this).text() == optionText)
+				    		    $(this).attr("selected","selected");
+				    		});  	
+				    	 
+				     		}
+				     else{
+				     $("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
+				     }
+				 });	
+	 });
+});
+});
+
+$(document).ready(function(e){
+	var countryId = '${receipt.countryId}';
+	var stateId = '${receipt.stateId}';
+	console.log("countryId"+countryId + "....."+stateId);
+	 $("#<portlet:namespace />stateId").append(new Option("Select",""));
+	 AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-states-masterdata',
+				 {
+					 countryId: countryId
+				 },
+				 function(response) {
+				     $.each(response, function(key, value) {
+				     optionText = value.value;
+				     optionValue = value.masterdataId;
+				     if(optionValue==stateId){
+				    	 $('#<portlet:namespace />stateId').append(new Option(optionText,optionValue));
+				 		
+				    	 $("select option").each(function(){
+				    		  if ($(this).text() == optionText)
+				    		    $(this).attr("selected","selected");
+				    		});  	
+				    	 
+				     		}
+				     else{
+				     $("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
+				     }
+				 });	
+	 });
+});
+});
+
 
 
 

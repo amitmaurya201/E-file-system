@@ -217,8 +217,8 @@
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId"
 													label="label-file-sub-categoryid">
-												<%-- 	<option value='0'><liferay-ui:message
-															key="file-default-option" /></option> --%>
+													<option value='0'><liferay-ui:message
+															key="file-default-option" /></option>
 
 
 												</aui:select>

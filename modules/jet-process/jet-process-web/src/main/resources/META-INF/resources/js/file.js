@@ -106,7 +106,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />categoryId").on('change', function(){
 	var categoryId = $("#<portlet:namespace />categoryId").val();
     $("#<portlet:namespace />subCategoryId").empty();
-    $("#<portlet:namespace />subCategoryId").append(new Option("Select","0"));
+    $("#<portlet:namespace />subCategoryId").append(new Option("Select",""));
     AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-sub-category-masterdata`,
@@ -221,11 +221,41 @@ Liferay.provide(window,'editFile',function(event) {
    	 })
    	 
 	});
+$(document).ready(function(e){
+
+	var editCategoryId = $('#<portlet:namespace />categoryId').val();
+	var sCategoryId = $('#<portlet:namespace />inputSubCategoryId').val();
+	console.log("sCategoryId"+sCategoryId);
+	 $("#<portlet:namespace />subCategoryId").append(new Option("Select","0"));
 	
-/*$(document).ready(function(){
-	console.log("categoryId test");
-	var id = $('#<portlet:namespace/>categoryId').val();
-	console.log(id);
-})*/
+	  AUI().use('aui-base', function(A){
+	       Liferay.Service(
+	        		`/masterdata.masterdata/get-sub-category-masterdata`,
+	        		{
+	        		categoryId: editCategoryId
+	        		},
+               function(obj) {
+              console.log(obj);
+           $.each(obj,function(key,value){
+          subCategoryText = value.value;
+           subCategoryValue = value.masterdataId;
+           if(subCategoryValue==sCategoryId){  
+        	   $("#<portlet:namespace />subCategoryId").append(new Option( subCategoryText, subCategoryValue));
+        	   $("select option").each(function(){
+		    		  if ($(this).text() == subCategoryText)
+		    		    $(this).attr("selected","selected");
+		    		});  
+        	   
+           }else{
+        	
+        	   $("#<portlet:namespace />subCategoryId").append(new Option( subCategoryText, subCategoryValue));
+        	   
+           }
+         
+           });          
+    })
+}); 
+	
+});
 
 </aui:script>

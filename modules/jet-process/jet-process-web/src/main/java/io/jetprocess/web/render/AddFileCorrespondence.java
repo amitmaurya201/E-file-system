@@ -35,8 +35,13 @@ import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisp
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
-@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=/addCorrespondence"}, service = MVCRenderCommand.class)
+@Component(
+	immediate = true, 
+	property = { 
+		"javax.portlet.name="+JetProcessWebPortletKeys.JETPROCESSWEB,
+		"mvc.command.name="+MVCCommandNames.CORRESPONCE_FILE_RENDER
+	}, 
+	service = MVCRenderCommand.class)
 public class AddFileCorrespondence implements MVCRenderCommand{
 	
 	@Override
@@ -44,8 +49,8 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		long docFileId = ParamUtil.getLong(renderRequest, "corrFileId");
 		renderRequest.setAttribute("docFileId", docFileId);
 		
-	//addFileToolbarAttributes(renderRequest,renderResponse);
-	//addFileListAttributes(renderRequest);
+		addFileToolbarAttributes(renderRequest,renderResponse);
+		addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";
 	}
 	
@@ -60,20 +65,25 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 	int end = delta;
 	HttpSession session = themeDisplay.getRequest().getSession();
-	long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-	long userPost = userPostId;
+//	long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+	long userPost = 1;
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
-	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
+	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
-	List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);
+	List<ReceiptListViewDto> receiptList = masterdataLocalService.getCreatedReceiptAndInboxList(userPost , userPost,keywords, start, end, orderByCol,orderByType);
+	for (ReceiptListViewDto receiptListViewDto : receiptList) {
+		System.out.println("List in addfilecorrespondence -->"+receiptListViewDto.getReceiptId());
+	}
+	
+//	List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);
 	receiptList.forEach(c->System.out.println("--->"+c));
 	renderRequest.setAttribute("receiptFileList", receiptList);
 	renderRequest.setAttribute("delta",delta);
-	renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords));
+	System.out.println("count in addfile--render--"+masterdataLocalService.getReceiptInboxAndCreatedListSearchKeywordsCount(userPost, keywords));
+	renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptInboxAndCreatedListSearchKeywordsCount(userPost, keywords));
 	
 	}
 
-	
 	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
@@ -83,7 +93,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 
 	}
 
-	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
+	private static Log logger = LogFactoryUtil.getLog(AddFileCorrespondence.class);
 	@Reference
 	private MasterdataService masterData;
 	@Reference

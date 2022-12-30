@@ -475,9 +475,9 @@ jet_process_filecorr as fc  ON r.receiptid = fc.receiptid where fc.docfileid = ?
 <sql id = "getCreatedReceiptAndInboxList">
 <![CDATA[
 
-
-SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
-FROM jet_process_receipt r INNER JOIN md_category c ON c.categorydataid = r.receiptcategoryid where r.userpostid=? and r.attachstatus is null
+SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
+FROM jet_process_receipt r INNER JOIN md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=? and r.attachstatus is null and r.currentstate=1
+<!-- AND (r.receiptnumber ilike ? OR r.subject ilike ?)  -->
 union
 SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
 FROM jet_process_receipt r INNER JOIN md_category c ON c.categorydataid = r.receiptcategoryid
@@ -485,7 +485,7 @@ FROM jet_process_receipt r INNER JOIN md_category c ON c.categorydataid = r.rece
 	 Join (select max(mov.rmid) as mreceiptId from jet_process_receiptmovement
 		   mov where mov.active_ = true group by mov.receiptId) rmov 
 	 on rmov.mreceiptId = rm.rmid where rm.receiverid =?)
-as t on t.rmreceiptid =r.receiptid where r.attachstatus is null;
+as t on t.rmreceiptid =r.receiptid where r.currentstate=1 and r.attachstatus is null
 
 ]]>
 </sql>

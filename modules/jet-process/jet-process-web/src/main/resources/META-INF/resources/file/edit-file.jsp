@@ -218,25 +218,21 @@
 												<% } %>
 											</div>
 										</aui:fieldset>
+										
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 											
 											<% if(docFile.getType().equalsIgnoreCase("NON-SFS")) { %>
+										
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-													<option value="<%= docFile.getSubCategoryId() %>"><%=subcategoryValue != null ? subcategoryValue : ""%></option>
-													<%-- <option value='0'><liferay-ui:message
-															key="file-default-option" /></option> --%>
-													
+												
 												</aui:select>
 												<% } else if(docFile.getType().equalsIgnoreCase("SFS")) { %>
 												
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId" label="label-file-sub-categoryid">
-													<option value="<%= docFile.getSubCategoryId() %>" selected><%= sfsSubCategoryValue !=null ? sfsSubCategoryValue : ""%></option>
-													<%-- <option value='0'><liferay-ui:message
-															key="file-default-option" /></option> --%>
 													
 												</aui:select>
 													
@@ -284,6 +280,7 @@
 						</div>
 					</div>
 				</aui:form>
+			<aui:input name="inputSubCategoryId" value = "<%= docFile.getSubCategoryId() %>" id = "inputSubCategoryId" type = "hidden"></aui:input>
 			</div>
 		</div>
 	</div>

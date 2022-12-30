@@ -1,7 +1,8 @@
 <%@ include file="../init.jsp"%>
+<%@page import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
 <%
-	HttpSession session1 = themeDisplay.getRequest().getSession();
-	long userPostId = Long.parseLong((String) session1.getAttribute("userPostId"));
+	long userPostId =1;
+	int count = (int) request.getAttribute("receiptCount");
 	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getCreatedReceiptAndInboxList(userPostId,
 			userPostId);
 	long docFileId = (Long) request.getAttribute("docFileId");
@@ -9,17 +10,23 @@
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
 	<portlet:param name="redirect" value="/file/file-inner-view.jsp" />
 </portlet:actionURL>
-<%-- <clay:management-toolbar disabled="${receiptCount eq 0}"
+<clay:management-toolbar 
+	disabled="${receiptCount eq 0}"
 	displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
-	itemsTotal="${receiptCount}" searchContainerId="assignmentEntries" /> --%>
+	itemsTotal="${receiptCount}" 
+	searchContainerId="receiptList" />
+	
 <aui:form action="${attachReceipt} " method="post" name="attachReceipt">
 	<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 	<aui:input name="userPostId" value="${userPostId }" type="hidden"></aui:input>
 
-	<liferay-ui:search-container total="<%=receiptList.size()%>" delta="5"
-		deltaConfigurable="true" emptyResultsMessage="No Results Found">
-		<liferay-ui:search-container-results
-			results="<%=ListUtil.subList(receiptList, searchContainer.getStart(), searchContainer.getEnd())%>" />
+	<liferay-ui:search-container  
+	delta= "7"
+	 emptyResultsMessage="No Results Found" 
+	 id="receiptList" 
+	 total ="${receiptCount}"
+	 iteratorURL="${addCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}" >
+		<liferay-ui:search-container-results results="${receiptFileList }" />
 
 		<liferay-ui:search-container-row
 			className="io.jetprocess.masterdata.model.ReceiptListViewDto"
@@ -35,8 +42,9 @@
 			<liferay-ui:search-container-column-text property="subject"
 				name="Subject" />
 		</liferay-ui:search-container-row>
-		<liferay-ui:search-iterator markupView="lexicon" />
-	</liferay-ui:search-container>
+ <liferay-ui:search-iterator paginate="false" />
+        <liferay-ui:search-paginator searchContainer="<%=new SearchContainer() %>" markupView="lexicon" />
+       	</liferay-ui:search-container>
 	<aui:input label="Remark" name="remarks" type="textarea" >
 	<aui:validator name = "required"/>
 	</aui:input>

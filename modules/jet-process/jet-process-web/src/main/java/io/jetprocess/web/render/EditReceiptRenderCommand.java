@@ -4,6 +4,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -37,7 +40,17 @@ public class EditReceiptRenderCommand implements MVCRenderCommand {
 
 				Masterdata organizationById = masterdataLocalService.getOrganizationById(receipt.getOrganizationId());
 				renderRequest.setAttribute("organizationValue", organizationById.getValue());
-
+				
+				List<Masterdata> subOrganizationList = masterdataLocalService.getSubOrgranizations(receipt.getOrganizationId());
+		      // List<String>subOrganizationValue = new ArrayList<String>();
+				/*
+				 * for(Masterdata value :subOrganizationList) { String subOrgValue =
+				 * value.getValue(); subOrganizationValue.add(subOrgValue);
+				 * 
+				 * } System.out.println("size"+subOrganizationValue.size());
+				 */
+				 
+				renderRequest.setAttribute("subOrganizationList", subOrganizationList);
 				if (receipt.getSubOrganizationId() != 0) {
 					Masterdata subOrganizationById = masterdataLocalService
 							.getSubOrganizationById(receipt.getSubOrganizationId());
