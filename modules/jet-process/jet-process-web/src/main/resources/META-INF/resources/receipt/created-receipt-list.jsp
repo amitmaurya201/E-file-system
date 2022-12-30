@@ -7,12 +7,10 @@
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
 
- <%
-String backURL = themeDisplay.getURLCurrent();
+<%
+	String backURL = themeDisplay.getURLCurrent();
+%>
 
-
-%> 
- 
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="/receipt/created-receipt-list.jsp" />
 </liferay-portlet:renderURL>
@@ -65,8 +63,8 @@ String backURL = themeDisplay.getURLCurrent();
 				<portlet:renderURL var="receiptInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/receiptView" />
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
-					<portlet:param name="backPageURL" value="<%= backURL %>"></portlet:param>
-					
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+
 				</portlet:renderURL>
 
 				<c:set var="firstLetterOfNature" value="${ receipt.nature}" />
@@ -132,7 +130,8 @@ String backURL = themeDisplay.getURLCurrent();
 				<div class="modal-content" style="max-width: 70rem; margin: 0 auto;">
 					<div class="modal-body" style="padding: 0">
 						<button type="button" class="btn btn-white btn-close"
-							data-bs-dismiss="modal" aria-label="Close">&#10005;</button>
+							data-bs-dismiss="modal" aria-label="Close"
+							style="color: white; margin-right: 16px; margin-top: -4px;">&#10005;</button>
 						<div id="pdf"></div>
 					</div>
 
