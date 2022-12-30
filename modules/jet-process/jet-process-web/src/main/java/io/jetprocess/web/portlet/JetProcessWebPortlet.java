@@ -62,10 +62,9 @@ import io.jetprocess.web.render.CreatedFileListRenderCommand;
 public class JetProcessWebPortlet extends MVCPortlet {
 	// for Send file
 	public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException {
-		
-		 String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
 
-		
+		String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
+
 		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
@@ -84,14 +83,13 @@ public class JetProcessWebPortlet extends MVCPortlet {
 	}
 
 	public void sendReceipt(ActionRequest actionRequest, ActionResponse actionResponse) {
-		 String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
+		String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
 
-		
 		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long receiptId = ParamUtil.get(actionRequest, "receiptId", 0);
 		String remark = ParamUtil.getString(actionRequest, "remark");
-		String dueDate = ParamUtil.getString(actionRequest,  "dueDate");
+		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
 
@@ -100,30 +98,33 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	}
+		}
+	}
 
 	// action method for getting docfileId and pullback remarks
 	public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException, PortalException {
 		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
-    	String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-    	Boolean pullBackAvailable = fLocalService.isPullBackAvailable(fileMovementId);
+		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
+		Boolean pullBackAvailable = fLocalService.isPullBackAvailable(fileMovementId);
 		if (pullBackAvailable) {
-       DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-       System.out.println("DocFileId--->"+docFile);
-        fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
-        
-    	Boolean active = isActive(docFileId);
-    	if(!active) {
-    		docFile.setCurrentState(FileStatus.CREADTED);
-    		docFileLocalService.updateDocFile(docFile);
-    	}
+			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+			System.out.println("DocFileId--->" + docFile);
+			fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
+
+			Boolean active = isActive(docFileId);
+			if (!active) {
+				docFile.setCurrentState(FileStatus.CREADTED);
+				docFileLocalService.updateDocFile(docFile);
+			}
+			SessionMessages.add(actionRequest, "pullback-available");
 		} else {
 			SessionErrors.add(actionRequest, "pullback-not-available");
-			SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 		}
-        
+
 		/*
 		 * FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
 		 * fileMovement.setPullBackRemark(pullBackRemark);
@@ -137,33 +138,30 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		 * System.out.println("--->>>current state --" +
 		 * docFileLocalService.updateDocFile(docFile)); }
 		 */
-		actionResponse.setRenderParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
+		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 
 	// method for getting active
-	
+
 	public Boolean isActive(long docFileId) {
 		boolean state = false;
-	 List<FileMovement> fileMovementByDocFileIdList = 	fLocalService.getFileMovementByFileId(docFileId);
-	for(FileMovement fileMovement : fileMovementByDocFileIdList) {
-		if(!fileMovement.getActive()) {
-			state = false;
-			
-		}else {
-			state = true;
-			break;
+		List<FileMovement> fileMovementByDocFileIdList = fLocalService.getFileMovementByFileId(docFileId);
+		for (FileMovement fileMovement : fileMovementByDocFileIdList) {
+			if (!fileMovement.getActive()) {
+				state = false;
+
+			} else {
+				state = true;
+				break;
+			}
+
 		}
-		
-	}
 		return state;
 	}
-	
-	
+
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
-
-	
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		User user = themeDisplay.getUser();
@@ -176,7 +174,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		if (userPostIdFromUrl != null) {
 			session.setAttribute("userPostId", userPostIdFromUrl);
 			logger.info("UserPostId is sent in the session : " + userPostIdFromUrl);
-			
+
 		} else {
 			userPostIdFromUrl = (String) session.getAttribute("userPostId");
 			logger.info("UserPostId from session : " + userPostIdFromUrl);
@@ -187,7 +185,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 					long postId = userPost.getPostId();
 					session.setAttribute("userPostId", String.valueOf(postId));
 					logger.info("User post id in session : " + String.valueOf(postId));
-					
+
 				} else {
 					String errPage = "/error/error.jsp";
 					logger.info("User Post is not available for the user :" + user.getUserId());
@@ -196,11 +194,10 @@ public class JetProcessWebPortlet extends MVCPortlet {
 				}
 			}
 		}
-		
+
 		addFileListAttributes(renderRequest);
 		addFileToolbarAttributes(renderRequest, renderResponse);
 		super.doView(renderRequest, renderResponse);
-		
 
 	}
 
