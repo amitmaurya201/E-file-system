@@ -159,17 +159,12 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 	
 	public Boolean isPullBackAvailable(long rmId) {
-		logger.info("isPullBackAvailable");
-		logger.info("rmId  "+rmId);
 		boolean pullable=false;
 		ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
-		logger.info("receiptMovement  "+receiptMovement);
 		if((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
-			logger.info("in loop of null ");
 			pullable=true; 
 		}
 		else {
-			logger.info("else loop of pull back");
 			pullable=false;
 		}
 		return pullable;

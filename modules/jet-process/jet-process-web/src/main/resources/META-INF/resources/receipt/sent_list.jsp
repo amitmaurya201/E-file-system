@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
@@ -42,11 +43,11 @@
 }
 </style>
 
-<%
+<%-- <%
 	String status = ParamUtil.getString(renderRequest, "status");
 
 	String result = ParamUtil.getString(renderRequest, "result");
-%>
+%> --%>
 
 <div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
@@ -121,7 +122,7 @@
 		</liferay-ui:search-container>
 
 
-
+		<%-- 
 		<%
 			if (status.equalsIgnoreCase("Warning")) {
 		%>
@@ -132,7 +133,7 @@
 		</div>
 		<%
 			}
-		%>
+		%> --%>
 	</div>
 </div>
 
@@ -178,6 +179,11 @@
 			</div>
 		</aui:form>
 	</div>
+</div>
+<liferay-ui:success key="pullback-available" message="pullback-success" />
+<div class="ml-3" id="error-alert"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="pullback-not-available" message="pullback-error" />
 </div>
 
 <script type="text/javascript">

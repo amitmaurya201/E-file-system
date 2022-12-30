@@ -8,9 +8,12 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -105,7 +108,8 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
     	String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-    	
+    	Boolean pullBackAvailable = fLocalService.isPullBackAvailable(fileMovementId);
+		if (pullBackAvailable) {
        DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
        System.out.println("DocFileId--->"+docFile);
         fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
@@ -115,6 +119,10 @@ public class JetProcessWebPortlet extends MVCPortlet {
     		docFile.setCurrentState(FileStatus.CREADTED);
     		docFileLocalService.updateDocFile(docFile);
     	}
+		} else {
+			SessionErrors.add(actionRequest, "pullback-not-available");
+			SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+		}
         
 		/*
 		 * FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);

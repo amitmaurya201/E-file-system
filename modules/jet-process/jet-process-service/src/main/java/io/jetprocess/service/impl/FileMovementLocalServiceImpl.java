@@ -17,6 +17,8 @@ package io.jetprocess.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
@@ -28,6 +30,7 @@ import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileMovement;
+import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.base.FileMovementLocalServiceBaseImpl;
 
@@ -195,12 +198,25 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		
 	}
 	
-	
-	
+	//for pullBack is available
+	public Boolean isPullBackAvailable(long fmId) throws PortalException {
+		boolean pullable=false;
+		FileMovement fileMovement = getFileMovementById(fmId);
+		if((fileMovement.getReceivedOn().isEmpty()) && (fileMovement.getReadOn().isEmpty())) {
+			pullable=true; 
+		}
+		else {
+			pullable=false;
+		}
+		return pullable;
+	}
 
 	@Reference
 	DocFileLocalService docFileLocalService;
 
 	@Reference
 	MasterdataLocalService masterdataLocalService;
+	
+	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

@@ -154,8 +154,19 @@
 </div>
 
 
+<liferay-ui:success key="pullback-available" message="pullback-success" />
+<div class="ml-3" id="error-alert"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="pullback-not-available" message="pullback-error" />
+</div>
+
+
 
 <script type="text/javascript">
+
+$("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#error-alert").slideUp(500);
+}); 
 
 function getId(docFileId,fileMovementId){
 	textField = document.getElementById("docFileId");

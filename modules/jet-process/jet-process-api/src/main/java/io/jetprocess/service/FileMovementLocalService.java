@@ -315,6 +315,9 @@ public interface FileMovementLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Boolean isPullBackAvailable(long fmId) throws PortalException;
+
 	public boolean pullBackedAlready(long fmId) throws PortalException;
 
 	public FileMovement pullBackFileMovement(
