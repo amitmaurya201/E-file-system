@@ -615,7 +615,8 @@ ALTER FUNCTION public.get_receipt_created_list_count(bigint,text)
     
    CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list_count(
 	post_id bigint,
-	keyword text)
+	keyword text
+	)
     RETURNS bigint
     LANGUAGE 'plpgsql'
     COST 100
@@ -730,7 +731,7 @@ ALTER FUNCTION public.get_receipt_sent_list_count(bigint,text)
     
  --    ----------------------------------------  Get Receipt List  ---------------------------------------
  
-    CREATE OR REPLACE FUNCTION public.get_receipt_created_list(
+ CREATE OR REPLACE FUNCTION public.get_receipt_created_list(
 	post_id bigint,
 	keyword text,
 	_start integer,
@@ -774,11 +775,6 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
-                _orderBy :='createdate';
-            ELSE
-                _orderBy :=orderByCol;
-        END IF;
           IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
             ELSE
@@ -838,8 +834,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
-    
     
         
 --    ------------------------------------- Get Receipt Inbox List  -------------------------------------------
@@ -986,6 +980,7 @@ ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, tex
    
 
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
+
 CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
 	_senderid bigint,
 	keyword text,
@@ -1323,9 +1318,146 @@ ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text,
     
     
     
+    
+    
+    
+    
+    
+    
     --    -------------------------------------  Get File Movement List  -----------------------------------------------
     
     
+CREATE OR REPLACE FUNCTION public.get_file_movement_list(
+	_fileId bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(filemovementid bigint, filenumber text,
+subject text, sentby text, sentto text,  senton timestamp without time zone,
+readon text, duedate text, remark character varying(75), receivedon text,
+currentlywith int, nature text, fileid int, senderid integer, 
+currentstate integer, docfileid bigint, pullbackremark character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        
+        _keyword text;
+        _offset int;
+        _limit int;
+        _orderBy text;
+        _order text;
+        _query text;
+    begin
+      
+      
+   _query='SELECT 
+	fm.fmid as fileMovementId, 
+	null as filenumber , 
+	null as subject ,
+	(SELECT concat(up2.username, up2.postmarking, up2.sectionname, up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username, up1.postmarking, up1.sectionname, up1.departmentname)) AS sentTo ,
+	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith,
+    null as nature, 0 as fileId, 0 as senderId , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
+	FROM PUBLIC.jet_process_filemovement as fm 
+	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid 
+    ';
+                  
+        _keyword := '''%'||keyword||'%''';
+        _order :=_orderByType;
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+                _orderBy :='fm.createdate';
+            ELSE
+                _orderBy :='f.'||orderByCol;
+        END IF;
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
+                _order :='desc';
+            ELSE
+                _order :=_orderByType;
+        END IF;
+       
+                        
+                        IF (_fileId !=0 )THEN
+                        
+                             _query := _query|| 'WHERE fm.fileId ='||_fileId;
+                            
+                               if (keyword IS NOT NULL) THEN  
+                                                                
+--                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+                          
+                                     if (_orderby !='')  THEN 
+                    
+                                        _query := _query||' order by '||_orderby;
+                                        if (_order !='')  THEN 
+
+                                            _query := _query||' '||_order;
+                                            if (_offset >=0)  THEN 
+
+                                                 _query := _query||' offset '||_offset;
+                                                if (_limit >0)  THEN 
+                                                    _query := _query||' limit '||_limit;
+
+                                                    else
+                                                    _query := _query||' limit 4';
+                                                 end if;
+                                        ELSE
+                                        _query := _query||' offset '||0 ||' limit 4';
+                                    
+                                     end if;
+                                  ELSE
+                               IF (_offset >=0) THEN
+                                    _query := _query||' offset '||_offset||' limit '||_limit;
+                                    ELSE
+                                        _query := _query||' offset '||0||' limit '||_limit;
+                                       END IF;
+                                 end if;
+                                ELSE
+                              IF (_offset >=0) THEN
+                                    _query := _query||' offset '||_offset||' limit '||_limit;
+                                    ELSE
+                                        _query := _query||' offset '||0||' limit '||_limit;
+                                       END IF;
+                            
+                             end if;
+                        
+                             return query execute _query;
+                             end if;
+                        
+                        
+                 else
+                     return query execute _query;
+                
+                end if;
+         
+             
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_file_movement_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
     
     
     --    -------------------------------------  Get File Movement Count  ----------------------------------------------- 
@@ -1336,7 +1468,135 @@ ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text,
     --    -------------------------------------  Get Receipt Movement List  -----------------------------------------------
     
     
+CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
+	_receiptid bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(receiptmovementid bigint, receiptnumber text, 
+subject text, sender text, sentby text, sentto text, senton timestamp without time zone,
+readon text, duedate text, remark character varying, receivedon text, 
+nature text, receiptid integer, pullbackremark character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
 
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        
+        _keyword text;
+        _offset int;
+        _limit int;
+        _orderBy text;
+        _order text;
+        _query text;
+    begin
+      
+      
+   _query=' SELECT 
+	rmid as receiptMovementId, 
+	null as receiptnumber ,null as subject , null as sender ,
+	(SELECT concat(up2.username , up2.postmarking , up2.sectionname , up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username , up1.postmarking, up1.sectionname , up1.departmentname)) as sentTo,
+	rm.createdate as sentOn, null as readOn , null as duedate , remark as remark, null as receivedOn,
+    null as nature, 0 as receiptId , rm.pullBackRemark as pullBackRemark
+	FROM PUBLIC.jet_process_receiptmovement as rm 
+	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+    left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
+    ';
+                  
+        _keyword := '''%'||keyword||'%''';
+        _order :=_orderByType;
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+                _orderBy :='rm.createdate';
+            ELSE
+                _orderBy :='r.'||orderByCol;
+        END IF;
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
+                _order :='desc';
+            ELSE
+                _order :=_orderByType;
+        END IF;
+       
+                        
+                        IF (_receiptid !=0 )THEN
+                        
+                             _query := _query|| 'where rm.receiptid ='||_receiptid;
+                            
+                               if (keyword IS NOT NULL) THEN  
+                                                                
+--                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+                          
+                                     if (_orderby !='')  THEN 
+                    
+                                         _query := _query||' order by '||_orderby;
+                                        if (_order !='')  THEN 
+
+                                            _query := _query||' '||_order;
+                                            if (_offset >=0)  THEN 
+
+                                                 _query := _query||' offset '||_offset;
+                                                if (_limit >0)  THEN 
+                                                    _query := _query||' limit '||_limit;
+
+                                                    else
+                                                    _query := _query||' limit 4';
+                                                 end if;
+                                        ELSE
+                                        _query := _query||' offset '||0 ||' limit 4';
+                                    
+                                     end if;
+                                  ELSE
+                               IF (_offset >=0) THEN
+                                    _query := _query||' offset '||_offset||' limit '||_limit;
+                                    ELSE
+                                        _query := _query||' offset '||0||' limit '||_limit;
+                                       END IF;
+                                 end if;
+                                ELSE
+                              IF (_offset >=0) THEN
+                                    _query := _query||' offset '||_offset||' limit '||_limit;
+                                    ELSE
+                                        _query := _query||' offset '||0||' limit '||_limit;
+                                       END IF;
+                            
+                             end if;
+                        
+                             return query execute _query;
+                             end if;
+                        
+                        
+                 else
+                     return query execute _query;
+                
+                end if;
+         
+             
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_receipt_movement_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
  
  
  
