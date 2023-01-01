@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -63,11 +64,13 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int count=masterdataLocalService.getReceiptInboxList(userPost, keywords);
 		
+//		int count=masterdataLocalService.getReceiptInboxList(userPost, keywords);
+		int count=_receiptList.getReceiptInboxListCount(userPostId, keywords);
+		System.out.println("-0--0-0-0-0-0-0-0----0-->"+count);
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
 		if(d!=null) {
@@ -98,7 +101,8 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 		
-		List<ReceiptMovementDTO> receiptInboxList = masterdataLocalService.getReceiptInboxList(userPost, keywords, start, end,orderByCol, orderByType);
+//		List<ReceiptMovementDTO> receiptInboxList = masterdataLocalService.getReceiptInboxList(userPost, keywords, start, end,orderByCol, orderByType);
+		List<ReceiptMovementDTO> receiptInboxList = _receiptList.getReceiptInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
 		renderRequest.setAttribute("inboxReceiptCount",count);
 		renderRequest.setAttribute("delta",delta);
@@ -141,6 +145,7 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	
-	
+	@Reference
+	ReceiptList _receiptList;
 	
 }

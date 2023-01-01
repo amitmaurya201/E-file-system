@@ -30,10 +30,11 @@ public class ReceiptListImpl implements ReceiptList {
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
-
+			System.out.println("receipt list count");
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				if (rs.next()) {
+					System.out.println("receipt list count"+rs.getInt(1));
 					count = rs.getInt(1);
 				}
 			}
@@ -72,7 +73,7 @@ public class ReceiptListImpl implements ReceiptList {
 					ReceiptListViewDto receipt = new ReceiptListViewDto();
 
 					System.out.println("category : " + rs.getString("category") + ", created on : "
-							+ rs.getDate("createdon") + ", receiptId : " + rs.getLong("receiptId") + ", receiptnumber : "
+							+ rs.getDate("createdate") + ", receiptId : " + rs.getLong("receiptId") + ", receiptnumber : "
 							+ rs.getString("receiptnumber")
 
 					);
@@ -137,7 +138,7 @@ public class ReceiptListImpl implements ReceiptList {
 
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list(?,?,?,?,?.?)");
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -156,7 +157,7 @@ public class ReceiptListImpl implements ReceiptList {
 							+ rs.getString("sender") + ", sentby : " + rs.getString("sentby") + ", sentto : "
 							+ rs.getString("sentto") + ", senton : " + rs.getDate("senton") + ", readon : "
 							+ rs.getString("readon") + ", duedate : " + rs.getString("duedate") + ", remark : "
-							+ rs.getString("remark") + ", receivedon : " + rs.getString("receivedon") + ", nature : "
+							+ rs.getString("remark") + ", receivedon : " + rs.getString("receiveon") + ", nature : "
 							+ rs.getString("nature") + ", receiptid : " + rs.getLong("receiptid") + ", pullbackremark : "
 							+ rs.getString("pullbackremark")
 
@@ -172,7 +173,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
 					receiptMovementDTO.setDueDate(rs.getString("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
-					receiptMovementDTO.setReceivedOn(rs.getString("receivedon"));
+					receiptMovementDTO.setReceivedOn(rs.getString("receiveon"));
 					receiptMovementDTO.setNature(rs.getString("nature"));
 					receiptMovementDTO.setReceiptId(rs.getLong("receiptid"));
 					receiptMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
@@ -199,7 +200,7 @@ public class ReceiptListImpl implements ReceiptList {
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_send_list_count(?,?)");
+			CallableStatement prepareCall = con.prepareCall("select public.get_receipt_sent_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();

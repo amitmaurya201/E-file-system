@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.FileList;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
@@ -52,11 +53,12 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		logger.info("user post id inside render : --" + userPostId);
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "sentOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int sendFileCount=masterdataLocalService.getFileSentList(userPostId, keywords);
 		
+//		int sendFileCount=masterdataLocalService.getFileSentList(userPostId, keywords);
+		int sendFileCount=_fileList.getFileSentListCount(userPostId, keywords);
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
 		if(d!=null) {
@@ -87,9 +89,10 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 		
-		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
-				orderByCol, orderByType);
+//		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
+//				orderByCol, orderByType);
 
+		List<FileMovementDTO> sendFileList =_fileList.getFileSentList(userPostId, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("sentFileList", sendFileList);
 		renderRequest.setAttribute("sendFileCount", +sendFileCount);
 		renderRequest.setAttribute("delta",delta);
@@ -122,7 +125,7 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
 		renderRequest.setAttribute("sendFileManagementToolbarDisplayContext", sendFileManagementToolbarDisplayContext);
 
-	}
+	}	
 
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference
@@ -131,5 +134,7 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
+	@Reference
+	FileList _fileList;
 
 }

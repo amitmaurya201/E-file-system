@@ -62,7 +62,7 @@ String backURL = themeDisplay.getURLCurrent();
 	<liferay-ui:search-container-column-text name=" " value="${nature }" > </liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="label-file-list-fileno" value="<%=filedto.getFileNumber() != null ? filedto.getFileNumber() : ""%>" orderableProperty="fileNumber" orderable="true" />
+					name="label-file-list-fileno" value="<%=filedto.getFileNumber() != null ? filedto.getFileNumber() : ""%>" orderableProperty="filenumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text value="<%=filedto.getSubject() != null ? filedto.getSubject() : ""%>" orderable="true" orderableProperty="subject" cssClass="hover-tips"
 					name="label-file-list-subject" />

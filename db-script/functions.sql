@@ -168,7 +168,6 @@ ALTER FUNCTION public.get_file_sent_lists_count(bigint, text)
 
 -- ------------------------  Get File List  -----------------------------
 
-
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	post_id bigint,
 	keyword text,
@@ -218,10 +217,17 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
-                orderBy :='createdate';
-            ELSE
-                orderBy :=orderByCol;
+        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol IS NULL) THEN
+                orderBy :='modifieddate';
+            
+        END IF;
+        IF (orderByCol ='filenumber' AND orderByCol IS NULL) THEN
+                orderBy :='filenumber';
+            
+        END IF;
+        IF (orderByCol ='subject' AND orderByCol IS NULL) THEN
+                orderBy :='subject';
+            
         END IF;
          IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
@@ -293,11 +299,10 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
     OWNER TO postgres;
     
     
-    
 
 --  -----------------------  Get File Inbox List  ----------------------------------
 
-    CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
+ CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	receiverid bigint,
 	keyword text,
 	_start integer,
@@ -351,10 +356,18 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
-                _orderBy :='fm.createdate';
-            ELSE
-                _orderBy :='f.'||orderByCol;
+        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol IS NULL) THEN
+                _orderBy :='fm.modifieddate';
+           
+        END IF;
+         
+        IF (orderByCol ='fileNumber' ) THEN
+                _orderBy :='f.filenumber';
+           
+        END IF;
+        IF (orderByCol ='subject' ) THEN
+                _orderBy :='f.subject';
+           
         END IF;
          IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
@@ -424,8 +437,6 @@ $BODY$;
 ALTER FUNCTION public.get_file_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
-
-    
     
     
     
@@ -461,8 +472,13 @@ AS $BODY$
       
       
    _query=' SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
-			null as sendBy, (SELECT concat(up1.username, up1.postmarking , up1.sectionname , up1.departmentname)) AS sentTo ,
-			fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
+			null as sendBy, (SELECT concat(up1.username, up1.postmarking ,
+            up1.sectionname , up1.departmentname)) AS sentTo ,
+			fm.createdate as SentOn, fm.readon as readOn, fm.duedate ,
+            null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith ,
+            f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as 
+            currentState ,
+            f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
 			FROM PUBLIC.jet_process_filemovement as fm 
 			JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 			JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
@@ -483,10 +499,21 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='sentOn' OR orderByCol ='' OR orderByCol IS NULL) THEN
                 _orderBy :='fm.createdate';
-            ELSE
-                _orderBy :='f.'||orderByCol;
+           
+        END IF;
+        IF ( orderByCol ='fileNumber') THEN
+                _orderBy :='f.filenumber';
+           
+        END IF;
+        IF ( orderByCol ='subject') THEN
+                _orderBy :='f.subject';
+           
+        END IF;
+         IF ( orderByCol ='dueDate') THEN
+                _orderBy :='fm.duedate';
+           
         END IF;
          IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
@@ -731,7 +758,7 @@ ALTER FUNCTION public.get_receipt_sent_list_count(bigint,text)
     
  --    ----------------------------------------  Get Receipt List  ---------------------------------------
  
- CREATE OR REPLACE FUNCTION public.get_receipt_created_list(
+CREATE OR REPLACE FUNCTION public.get_receipt_created_list(
 	post_id bigint,
 	keyword text,
 	_start integer,
@@ -774,11 +801,23 @@ AS $BODY$
             ELSE
                 _limit :=_end;
         END IF;   
+        IF (orderbycol ='' OR orderbycol ='modifieddate' OR orderbycol IS NULL) THEN
+                _orderBy :='modifieddate';
+        END IF;
+        IF ( orderbycol ='createdOn') THEN
+                _orderBy :='createDate';
+        END IF;
+         IF (orderbycol ='receiptNumber') THEN
+                _orderBy :='receiptnumber';
+        END IF;
+         IF (orderbycol ='subject') THEN
+                _orderBy :='subject';
+        END IF;
         
           IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
             ELSE
-                _order :=orderByCol;
+                _order :=_orderbytype;
         END IF;
        
                         
@@ -834,12 +873,10 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
         
 --    ------------------------------------- Get Receipt Inbox List  -------------------------------------------
 
-    
-CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list(
+ CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list(
 	receiverid bigint,
 	keyword text,
 	_start integer,
@@ -906,10 +943,27 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+       
+         IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol IS NULL) THEN
+                _orderBy :='rm.modifieddate';
+           
+        END IF;
+         
+        IF (orderByCol ='receiptNumber' ) THEN
+                _orderBy :='r.receiptnumber';
+           
+        END IF;
+        IF (orderByCol ='subject' ) THEN
+                _orderBy :='r.subject';
+           
+        END IF;
+         IF (orderByCol ='dueOn' ) THEN
+                _orderBy :='r.duedate';
+           
+        END IF;
+         IF (orderByCol ='sentOn' ) THEN
                 _orderBy :='rm.createdate';
-            ELSE
-                _orderBy :='r.'||orderByCol;
+           
         END IF;
          IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
@@ -977,11 +1031,11 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-   
 
+    
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
 
-CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
+    CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
 	_senderid bigint,
 	keyword text,
 	_start integer,
@@ -1032,11 +1086,23 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='sentOn' OR orderByCol IS NULL) THEN
                 _orderBy :='rm.createdate';
-            ELSE
-                _orderBy :='r.'||orderByCol;
+           
         END IF;
+         IF (orderByCol ='duedate') THEN
+                _orderBy :='rm.createdate';
+           
+        END IF;
+         IF (orderByCol ='receiptNumber') THEN
+                _orderBy :='r.receiptnumber';
+           
+        END IF;
+         IF (orderByCol ='subject') THEN
+                _orderBy :='r.subject';
+           
+        END IF;
+        
         IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
                 _order :='desc';
             ELSE
@@ -1104,9 +1170,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
-    
-    
     
 --     ------------------------------ Get put in file list count  -----------------------------------------------------------------
 

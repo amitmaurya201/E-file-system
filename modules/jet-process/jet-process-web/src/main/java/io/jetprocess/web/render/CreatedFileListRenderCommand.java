@@ -7,8 +7,6 @@ import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -23,13 +21,13 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.FileList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
-import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.VIEW_FILELIST
@@ -56,13 +54,13 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		
 		
 		
-		int count=masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
+		int count=fileLists.getCountOfFileList(userPost, keywords);
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
 		if(d!=null) {
@@ -94,7 +92,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		session.setAttribute("oldDelta", ""+delta+"");
 		
 		
-		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,orderByCol, orderByType);
+		List<FileListViewDto> fileList = fileLists.getFileList(userPost, keywords, start, end,orderByCol, orderByType);
 		renderRequest.setAttribute("fileList", fileList);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount",count);
@@ -125,6 +123,8 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 
 	}
 
+	@Reference
+	FileList fileLists;
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;

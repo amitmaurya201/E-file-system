@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -58,8 +59,9 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int count=masterdataLocalService.getReceiptSendList(userPost, keywords);
-		
+//		int count=masterdataLocalService.getReceiptSendList(userPost, keywords);
+		int count=_receiptList.getReceiptSentListCount(userPostId, keywords);
+		System.out.println("-0-0-0-0-0-0-0-0---> count "+count);
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
 		if(d!=null) {
@@ -89,7 +91,8 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		}
 		
 		session.setAttribute("oldDelta", ""+delta+"");
-		List<ReceiptMovementDTO> receiptList = masterdataLocalService.getReceiptSendList(userPost, keywords, start, end,orderByCol, orderByType);
+//		List<ReceiptMovementDTO> receiptList = masterdataLocalService.getReceiptSendList(userPost, keywords, start, end,orderByCol, orderByType);
+		List<ReceiptMovementDTO> receiptList =_receiptList.getReceiptSentList(userPostId, keywords, start, end, orderByCol, orderByType);
 		receiptList.forEach(c->System.out.println(c));
 		renderRequest.setAttribute("receiptList", receiptList);
 		renderRequest.setAttribute("receiptCount",count);
@@ -128,5 +131,6 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
-
+	@Reference
+	ReceiptList _receiptList;
 }

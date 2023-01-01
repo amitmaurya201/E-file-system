@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.FileList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -55,11 +56,13 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		String tt = (String) session.getAttribute("userPostId");
 		long userPost = Long.parseLong(tt);
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int fileInboxCount=masterdataLocalService.getFileInboxList(userPost, keywords);
 		
+//		int fileInboxCount=masterdataLocalService.getFileInboxList(userPost, keywords);
+		int fileInboxCount=_fileList.getFileInboxListCount(userPostId, keywords);
+		System.out.println("-0-0-0-0-00-0--00--> count"+fileInboxCount);
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
 		if(d!=null) {
@@ -89,8 +92,9 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		}
 		
 		session.setAttribute("oldDelta", ""+delta+"");
-		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
-		renderRequest.setAttribute("fileInboxList",fileInboxList);
+//		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
+		List<FileMovementDTO> fileInboxList =_fileList.getFileInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
+		 renderRequest.setAttribute("fileInboxList",fileInboxList);
 		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
 		renderRequest.setAttribute("delta",delta);
 	}
@@ -128,7 +132,10 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
-
+	
+	@Reference
+	FileList _fileList;
+	
 }
 
 

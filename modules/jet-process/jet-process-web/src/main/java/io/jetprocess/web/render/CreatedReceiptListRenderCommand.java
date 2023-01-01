@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
@@ -62,11 +63,13 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		logger.info("user post id inside receipt render : --" + userPostId);
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int receiptCount=masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords);
-
+		
+//		int receiptCount=masterdataLocalService.getReceiptBySearchKeywordsCount(userPost,keywords);
+		
+		int receiptCount=_receiptList.getReceiptListCount(userPostId, keywords);
 
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
@@ -101,7 +104,8 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 
 		
 		
-		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);  
+//		List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);
+		List<ReceiptListViewDto>  receiptList=_receiptList.getReceiptList(userPostId, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("receiptFileList", receiptList);
 		renderRequest.setAttribute("receiptCount",+receiptCount);
 		renderRequest.setAttribute("delta",delta);
@@ -142,6 +146,9 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
+	
+	@Reference
+	ReceiptList _receiptList; 
 	
 
 }
