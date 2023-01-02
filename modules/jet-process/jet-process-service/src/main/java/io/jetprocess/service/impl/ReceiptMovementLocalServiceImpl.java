@@ -204,9 +204,18 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	
 	
 	public boolean pullBackedAlready(long rmId) throws PortalException {
-	       ReceiptMovement receiptMovement = 	getReceiptMovement(rmId);
-		   boolean state = receiptMovement.getActive();
-		   System.out.println("state -->"+state);
+		logger.info("pull back already");
+		   boolean state = false;
+		   ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
+		   logger.info("receiptMovement    "+receiptMovement);
+		   if(receiptMovement.getPullBackRemark().isEmpty()) {
+			   logger.info("in loop    ");
+			   state= true;
+		   }
+		   else {
+			   logger.info("else loop    ");
+			   state=false;
+		   }
 			return state;
 			
 		}

@@ -6,14 +6,14 @@
 
 
 <%
-String backURL = themeDisplay.getURLCurrent();
+	String backURL = themeDisplay.getURLCurrent();
 
-String backURL1 = backURL+"&a=12";
+	String backURL1 = backURL + "&a=12";
 
-String readStatus = ParamUtil.getString(renderRequest, "readStatus");
-String readResult = ParamUtil.getString(renderRequest, "readResult");
-String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
-String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
+	String readStatus = ParamUtil.getString(renderRequest, "readStatus");
+	String readResult = ParamUtil.getString(renderRequest, "readResult");
+	String receiveStatus = ParamUtil.getString(renderRequest, "receiveStatus");
+	String receiveResult = ParamUtil.getString(renderRequest, "receiveResult");
 %>
 
 
@@ -72,8 +72,9 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 	text-align: left;
 	background-color: white;
 }
-.tableSender th{
-vertical-align: top;
+
+.tableSender th {
+	vertical-align: top;
 }
 
 .bold {
@@ -117,15 +118,15 @@ vertical-align: top;
 						value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
-						<portlet:param name="backPageURL" value="<%=backURL1 %>"></portlet:param>						
-						
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+
 				</portlet:renderURL>
 
 				<portlet:actionURL name="receiptReceiveAction"
 					var="receiptReceiveAction">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
-							<portlet:param name="rmId"
+					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 				</portlet:actionURL>
 				<portlet:actionURL name="receiptReadAction" var="receiptReadAction">
@@ -133,7 +134,7 @@ vertical-align: top;
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-							
+
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptInnerView">
@@ -208,19 +209,12 @@ vertical-align: top;
 								value="<%=receiptMovementDTO.getRemark() != null
 											? receiptMovementDTO.getRemark()
 											: ""%>">
-								<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
-									<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>
-								</c:if> --%>
 							</liferay-ui:search-container-column-text>
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<%-- <span><a href="#" class="button open"
-											onclick="receiptReadModal(${receiptMovementDTO.getReceiptId()})">
-												<liferay-ui:message key="label-receipt-inbox-action-read" />
-										</a></span> --%>
 										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
@@ -275,11 +269,6 @@ vertical-align: top;
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" />
-
-							<%-- <liferay-ui:search-container-column-text property="readOn"
-					value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-					name="Read On" /> --%>
-
 							<liferay-ui:search-container-column-text property="dueDate"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
@@ -287,10 +276,6 @@ vertical-align: top;
 							<liferay-ui:search-container-column-text
 								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
 								name="label-receipt-inbox-remarks" />
-							<%-- <c:if test="${not empty fileinboxDtoList.getRemark()}">
-									<%=receiptMovementDTO.getRemark()%>
-								</c:if> 
-							</liferay-ui:search-container-column-text>--%>
 
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
@@ -323,7 +308,7 @@ vertical-align: top;
 	</div>
 </div>
 
-<% if(readStatus.equalsIgnoreCase("error")){ %>
+<%-- <% if(readStatus.equalsIgnoreCase("error")){ %>
 		 <div class="alert alert-danger alert-dismissible" id="error-alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong><%= readResult %></strong>
@@ -335,7 +320,33 @@ vertical-align: top;
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong><%= receiveResult %></strong>
   </div>
-		<%} %>
+		<%} %> --%>
+
+<liferay-ui:success key="receive-available"
+	message="receipt-receive-inbox-success" />
+<div class="ml-3" id="error-alert"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="receive-not-available"
+		message="receipt-receive-inbox-error" />
+</div>
+
+<liferay-ui:success key="read-available"
+	message="receipt-read-inbox-success" />
+<div class="ml-3" id="error-alert"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="read-not-available"
+		message="receipt-read-inbox-error" />
+</div>
+
+
+<liferay-ui:success key="receipt-sent-available"
+	message="receipt-send-inbox-success" />
+<div class="ml-3" id="error-alert"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="receipt-sent-not-available"
+		message="receipt-send-inbox-error" />
+</div>
+
 
 <!-- Receive pop up -->
 <div id="receive" class="receive-popup">
@@ -348,13 +359,13 @@ vertical-align: top;
 		</button>
 		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to receive?</h3>
-			<aui:form action="${receiptReceiveAction}" method="POST" name="fm" style=" margin-top: -5%;">
+			<aui:form action="${receiptReceiveAction}" method="POST" name="fm"
+				style=" margin-top: -5%;">
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
 				<br>
-				<input type="text"  name='<portlet:namespace/>rmId'
-					id="rmId"  />
+				<input type="text" name='<portlet:namespace/>rmId' id="rmId" />
 				<button class="mt-3 btn btn-primary " style="width: 90px;"
 					type="submit">Receive</button>
 				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
@@ -363,30 +374,6 @@ vertical-align: top;
 	</div>
 </div>
 
-
-<!-- Read pop up -->
-<%-- <div id="read" class="read-popup">
-	<!--   Creates the popup content-->
-	<div class="">
-		<button type="button" class="close" data-dismiss="modal"
-			aria-label="Close"
-			style="float: right; margin-top: -6%; margin-right: -2%; font-size: 25px;">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<div class="container mt-3">
-			<h3 class="text-center">Are you sure to read ?</h3>
-			<aui:form action="${receiptReadAction}" method="POST" name="fm">
-				<!-- <text>Receipt Number </text> -->
-				<input type="text" hidden name='<portlet:namespace/>receiptId1'
-					id="read-receiptId" />
-				<br>
-				<button class="mt-3 btn btn-success" style="width: 90px;"
-					type="submit">Read</button>
-				<div class="mt-3 btn btn-danger cancle" style="width: 90px;">Cancle</div>
-			</aui:form>
-		</div>
-	</div>
-</div> --%>
 
 <!--popup code start  -->
 <!--Creates the popup body-->
@@ -398,8 +385,7 @@ vertical-align: top;
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 border"
-			style="background-color: white;">
+		<div class="container mt-5 border" style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
@@ -458,21 +444,9 @@ vertical-align: top;
 		  $("#receive").removeClass("active");
 		  $("#rec_inbox").removeClass("active");
 		});
-	}
 
-/* function receiptReadModal(receiptId){
-	document.getElementById("read-receiptId").value=receiptId;
-	$("#read").addClass("active");
-	$("#rec_inbox").addClass("active");
-	$(".close, .cancle").on("click", function() {
-		  $("#read").removeClass("active");
-		  $("#rec_inbox").removeClass("active");
-		});
-
-		
-	} */
+ };
 	
-
 	 /* auto close alert */
 	 
 	$("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
