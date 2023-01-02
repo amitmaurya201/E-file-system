@@ -24,7 +24,7 @@ public class FileListImpl implements FileList {
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select public.get_file_created_list_count(?,?)");
+			CallableStatement prepareCall = con.prepareCall("select file_count_by_keyword(?,?)");
 			prepareCall.setLong(1, postId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -53,7 +53,7 @@ public class FileListImpl implements FileList {
 
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_created_list(?,?,?,?,?,?)");
+			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -256,5 +256,97 @@ public class FileListImpl implements FileList {
 		return fileMovementDTOList;
 
 	}
+
+	@Override
+	public List<FileMovementDTO> getFileMovementList(long docfileId, String keyword, int start, int end,
+			String orderBy, String order) {
+		
+		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
+
+		Connection con = null;
+
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, docfileId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					FileMovementDTO fileMovementDTO = new FileMovementDTO();
+
+					fileMovementDTO.setFileMovementId(rs.getLong("filemovementid"));
+					fileMovementDTO.setFileNumber(rs.getString("filenumber"));
+					fileMovementDTO.setSubject(rs.getString("subject"));
+					fileMovementDTO.setSentBy(rs.getString("sentby"));
+					fileMovementDTO.setSentTo(rs.getString("sentto"));
+					fileMovementDTO.setSentOn(rs.getDate("senton"));
+					fileMovementDTO.setReadOn(rs.getString("readon"));
+					fileMovementDTO.setDueDate(rs.getString("duedate"));
+					fileMovementDTO.setRemark(rs.getString("remark"));
+					fileMovementDTO.setReceivedOn(rs.getString("receivedon"));
+					fileMovementDTO.setCurrentlyWith(rs.getLong("currentlywith"));
+					fileMovementDTO.setNature(rs.getString("nature"));
+					fileMovementDTO.setFileId(rs.getLong("fileid"));
+					fileMovementDTO.setSenderId(rs.getLong("senderid"));
+					fileMovementDTO.setCurrentState(rs.getInt("currentstate"));
+					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
+					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
+
+					fileMovementDTOList.add(fileMovementDTO);
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(con);
+
+		}
+
+		return fileMovementDTOList;
+
+		
+	}
+	@Override
+	public int getFileMovementListCount(long postId, String keyword) {
+		Connection con = null;
+		int count = 0;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("-------------------------");
+			prepareCall.setLong(1, postId);
+			prepareCall.setString(2, keyword);
+			boolean execute = prepareCall.execute();
+
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(con);
+		}
+
+		return count;
+
+	}
+
+		
+	// file movement list method
+	
+	
+	
+	
+	
 
 }
