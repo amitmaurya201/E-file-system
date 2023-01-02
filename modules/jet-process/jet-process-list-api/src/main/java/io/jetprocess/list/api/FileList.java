@@ -2,8 +2,9 @@ package io.jetprocess.list.api;
 
 import java.util.List;
 
-import io.jetprocess.masterdata.model.FileListViewDto;
-import io.jetprocess.masterdata.model.FileMovementDTO;
+import io.jetprocess.list.model.FileListViewDto;
+import io.jetprocess.list.model.FileMovementDTO;
+
 
 
 public interface FileList {

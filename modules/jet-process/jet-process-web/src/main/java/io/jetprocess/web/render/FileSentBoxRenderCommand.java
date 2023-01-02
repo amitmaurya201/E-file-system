@@ -22,7 +22,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.list.api.FileList;
-import io.jetprocess.masterdata.model.FileMovementDTO;
+import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;

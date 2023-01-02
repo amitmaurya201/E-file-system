@@ -24,8 +24,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.list.api.ReceiptList;
-import io.jetprocess.masterdata.model.FileListViewDto;
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
+import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.masterdata.service.MasterdataService;

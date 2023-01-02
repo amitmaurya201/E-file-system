@@ -2,8 +2,10 @@ package io.jetprocess.list.api;
 
 import java.util.List;
 
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
-import io.jetprocess.masterdata.model.ReceiptMovementDTO;
+import io.jetprocess.list.model.ReceiptListViewDto;
+import io.jetprocess.list.model.ReceiptMovementDTO;
+
+
 
 public interface ReceiptList {
 

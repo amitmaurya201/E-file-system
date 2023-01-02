@@ -12,9 +12,9 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.list.api.ReceiptList;
-import io.jetprocess.masterdata.model.FileListViewDto;
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
-import io.jetprocess.masterdata.model.ReceiptMovementDTO;
+import io.jetprocess.list.model.ReceiptListViewDto;
+import io.jetprocess.list.model.ReceiptMovementDTO;
+
 
 @Component(immediate = true, service = ReceiptList.class)
 public class ReceiptListImpl implements ReceiptList {
@@ -26,7 +26,7 @@ public class ReceiptListImpl implements ReceiptList {
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_created_list_count(?,?)" );
+			CallableStatement prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)" );
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -57,7 +57,6 @@ public class ReceiptListImpl implements ReceiptList {
 		Connection con = null;
 
 		try {
-			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -434,7 +433,7 @@ public class ReceiptListImpl implements ReceiptList {
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_put_in_file_list_count(?,?)");
+			CallableStatement prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
