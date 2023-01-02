@@ -591,7 +591,8 @@ ALTER FUNCTION public.get_file_sent_list(bigint, text, integer, integer, text, t
     
 --    ----------------------------------------  Get Receipt List count ---------------------------------------
 
-    CREATE OR REPLACE FUNCTION public.get_receipt_created_list_count(
+  
+CREATE OR REPLACE FUNCTION public.get_receipt_created_list_count(
 	post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -633,8 +634,9 @@ AS $BODY$
   
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_created_list_count(bigint,text)
+ALTER FUNCTION public.get_receipt_created_list_count(bigint, text)
     OWNER TO postgres;
+
     
     
 --    ------------------------------------- Get Receipt Inbox List Count -------------------------------------------
