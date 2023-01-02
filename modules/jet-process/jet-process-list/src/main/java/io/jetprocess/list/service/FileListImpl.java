@@ -24,7 +24,7 @@ public class FileListImpl implements FileList {
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select file_count_by_keyword(?,?)");
+			CallableStatement prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
 			prepareCall.setLong(1, postId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -53,7 +53,7 @@ public class FileListImpl implements FileList {
 
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_list(?,?,?,?,?,?)");
+			CallableStatement prepareCall = con.prepareCall("SELECT * from PUBLIC.get_file_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
