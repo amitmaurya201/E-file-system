@@ -53,7 +53,7 @@ public class FileListImpl implements FileList {
 
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_list(?,?,?,?,?,?)");
+			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
