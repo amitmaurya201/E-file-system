@@ -2,6 +2,7 @@ package jet.process.rs.internal.resource.v1_0;
 
 import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.ParamUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -85,6 +86,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setPinCode(receiptRsModel.getPinCode());
 		receipt.setRemarks(receiptRsModel.getRemarks());
 		receipt.setCurrentState(FileStatus.CREADTED);
+		receipt.setCurrentlyWith(receiptRsModel.getUserPostId());
 		receiptLocalService.addReceipt(receipt);
 		return receiptRsModel;
 	}

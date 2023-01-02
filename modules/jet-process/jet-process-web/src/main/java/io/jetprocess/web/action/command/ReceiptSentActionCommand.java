@@ -35,7 +35,6 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 		Long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		Long userPostId = ParamUtil.getLong(actionRequest, "senderId");
-		logger.info("userPostId"+userPostId);
 		Boolean pullBackAvailable = receiptMovementLocalService.isPullBackAvailable(rmId);
 			if (pullBackAvailable) {
 				logger.info("working");
