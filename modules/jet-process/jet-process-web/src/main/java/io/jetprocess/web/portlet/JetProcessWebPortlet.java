@@ -33,8 +33,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.list.api.FileList;
-import io.jetprocess.masterdata.model.FileListViewDto;
-import io.jetprocess.masterdata.model.FileMovementDTO;
+import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
