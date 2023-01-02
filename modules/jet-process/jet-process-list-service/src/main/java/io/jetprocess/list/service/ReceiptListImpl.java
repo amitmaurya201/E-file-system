@@ -81,7 +81,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receipt.setReceiptNumber(rs.getString("receiptnumber"));
 					receipt.setSubject(rs.getString("subject"));
 					receipt.setCategory(rs.getString("category"));
-					receipt.setCreateDate(rs.getDate("createdate"));
+					receipt.setCreateDate(rs.getTimestamp("createdate"));
 					receipt.setNature(rs.getString("nature"));
 					receipt.setRemark(rs.getString("remark"));
 					receipt.setViewPdfUrl(rs.getString("viewpdfurl"));
@@ -169,7 +169,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSender(rs.getString("sender"));
 					receiptMovementDTO.setSentBy(rs.getString("sentby"));
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
-					receiptMovementDTO.setSentOn(rs.getDate("senton"));
+					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
 					receiptMovementDTO.setDueDate(rs.getString("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
@@ -261,7 +261,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSender(rs.getString("sender"));
 					receiptMovementDTO.setSentBy(rs.getString("sentby"));
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
-					receiptMovementDTO.setSentOn(rs.getDate("senton"));
+					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
 					receiptMovementDTO.setDueDate(rs.getString("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
@@ -325,7 +325,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSender(rs.getString("sender"));
 					receiptMovementDTO.setSentBy(rs.getString("sentby"));
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
-					receiptMovementDTO.setSentOn(rs.getDate("senton"));
+					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
 					receiptMovementDTO.setDueDate(rs.getString("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
@@ -404,7 +404,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptList.setReceiptNumber(rs.getString("receiptnumber"));
 					receiptList.setSubject(rs.getString("subject"));
 					receiptList.setCategory(rs.getString("category"));
-			 		receiptList.setCreateDate(rs.getDate("createdate"));
+			 		receiptList.setCreateDate(rs.getTimestamp("createdate"));
                     receiptList.setRemark(rs.getString("remark"));
                     receiptList.setViewPdfUrl(rs.getString("viewpdfurl"));
                     receiptList.setNature(rs.getString("nature"));

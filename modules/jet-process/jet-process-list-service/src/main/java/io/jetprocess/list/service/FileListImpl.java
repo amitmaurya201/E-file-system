@@ -74,7 +74,7 @@ public class FileListImpl implements FileList {
 
 					);
 					file.setCategory(rs.getString("category"));
-					file.setCreateDate(rs.getDate("createdon"));
+					file.setCreateDate(rs.getTimestamp("createdon"));
 					file.setDocFileId(rs.getLong("docfileid"));
 					file.setFileNumber(rs.getString("filenumber"));
 					file.setNature(rs.getString("nature"));
@@ -149,7 +149,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSubject(rs.getString("subject"));
 					fileMovementDTO.setSentBy(rs.getString("sentby"));
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
-					fileMovementDTO.setSentOn(rs.getDate("senton"));
+					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));				
 					fileMovementDTO.setReadOn(rs.getString("readon"));
 					fileMovementDTO.setDueDate(rs.getString("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
@@ -230,7 +230,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSubject(rs.getString("subject"));
 					fileMovementDTO.setSentBy(rs.getString("sentby"));
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
-					fileMovementDTO.setSentOn(rs.getDate("senton"));
+					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					fileMovementDTO.setReadOn(rs.getString("readon"));
 					fileMovementDTO.setDueDate(rs.getString("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
@@ -287,7 +287,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSubject(rs.getString("subject"));
 					fileMovementDTO.setSentBy(rs.getString("sentby"));
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
-					fileMovementDTO.setSentOn(rs.getDate("senton"));
+					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					fileMovementDTO.setReadOn(rs.getString("readon"));
 					fileMovementDTO.setDueDate(rs.getString("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
