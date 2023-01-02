@@ -42,7 +42,7 @@ String backURL = themeDisplay.getURLCurrent();
         <liferay-ui:search-container-results results="${fileList}" />
 
         <liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.FileListViewDto"
+				className="io.jetprocess.list.model.FileListViewDto"
 				keyProperty="fileNumber" modelVar="filedto">
 
 

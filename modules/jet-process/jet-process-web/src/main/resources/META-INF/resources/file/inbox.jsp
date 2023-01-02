@@ -116,11 +116,11 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 
 
 			<liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.FileMovementDTO"
+				className="io.jetprocess.list.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
 				<portlet:renderURL var="sendURL">
-					<portlet:param name="mvcRenderCommandName"
+					<portlet:param name="mvcRende rCommandName"
 						value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />

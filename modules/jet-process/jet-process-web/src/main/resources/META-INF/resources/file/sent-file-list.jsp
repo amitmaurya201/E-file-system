@@ -72,7 +72,7 @@
         total="${sendFileCount}" iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}" >
         <liferay-ui:search-container-results results="${sentFileList}" />
 
-	<liferay-ui:search-container-row className="io.jetprocess.masterdata.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
+	<liferay-ui:search-container-row className="io.jetprocess.list.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
 	<portlet:actionURL var="fileSentActionUrl" name="sentActionUrl">
 	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
 				</portlet:actionURL>

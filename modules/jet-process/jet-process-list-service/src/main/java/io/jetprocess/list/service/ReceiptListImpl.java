@@ -57,6 +57,7 @@ public class ReceiptListImpl implements ReceiptList {
 		Connection con = null;
 
 		try {
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);

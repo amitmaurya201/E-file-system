@@ -109,7 +109,7 @@
 			iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptInboxList}" />
 			<liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
+				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
 

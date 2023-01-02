@@ -57,7 +57,7 @@
 
 
 			<liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.ReceiptListViewDto"
+				className="io.jetprocess.list.model.ReceiptListViewDto"
 				keyProperty="receiptNumber" modelVar="receipt" cssClass="colour">
 
 				<portlet:renderURL var="receiptInnerView">

@@ -71,7 +71,7 @@
 			<liferay-ui:search-container-results results="${receiptList}" />
 
 			<liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
+				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
 
