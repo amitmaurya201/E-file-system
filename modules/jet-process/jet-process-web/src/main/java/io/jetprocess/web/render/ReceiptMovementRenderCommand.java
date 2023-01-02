@@ -7,8 +7,6 @@ import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -19,19 +17,15 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.masterdata.model.FileListViewDto;
-import io.jetprocess.masterdata.model.ReceiptMovementDTO;
+import io.jetprocess.list.api.ReceiptList;
+import io.jetprocess.list.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
-import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
-import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 import io.jetprocess.web.display.context.ReceiptMovementDisplayContext;
 
 @Component(
@@ -70,7 +64,9 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		if(receiptId != 0) {
-			receiptMovementList = masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
+			//receiptMovementList = masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
+			receiptMovementList = 	receiptList.getReceiptMovementList(receiptId, "", start, end, "", "");
+	       System.out.println("Running Sucessfully----ReceiptMovementRenderCommand");
 		}
 		
 		if(receiptMovementList != null) {
@@ -90,4 +86,6 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal portal;
 
+	@Reference
+	ReceiptList receiptList;
 }

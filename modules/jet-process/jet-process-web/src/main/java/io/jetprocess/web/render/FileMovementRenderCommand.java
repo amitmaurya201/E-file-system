@@ -17,14 +17,13 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.masterdata.model.FileMovementDTO;
+import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileMovementDisplayContext;
@@ -64,7 +63,9 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
 		List<FileMovementDTO>  fileMovementList = new ArrayList<>();
 		if(docFileId != 0) {
-			fileMovementList = masterdataLocalService.getFileMovementListByFileId(docFileId);
+			//fileMovementList = masterdataLocalService.getFileMovementListByFileId(docFileId);
+			fileMovementList = fileList.getFileMovementList(docFileId, "", start, end, "", "");
+		System.out.println("Running sucessfully.....");
 		}
 
 		if(fileMovementList != null) {
@@ -82,5 +83,8 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 	
 	@Reference
 	private Portal portal;
+	
+	@Reference
+	private FileList fileList;
 
 }
