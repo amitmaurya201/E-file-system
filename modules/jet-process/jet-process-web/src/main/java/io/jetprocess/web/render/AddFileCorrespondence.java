@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -70,7 +71,8 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
-	List<ReceiptListViewDto> receiptList = masterdataLocalService.getCreatedReceiptAndInboxList(userPost , userPost,keywords, start, end, orderByCol,orderByType);
+//	List<ReceiptListViewDto> receiptList = masterdataLocalService.getCreatedReceiptAndInboxList(userPost , userPost,keywords, start, end, orderByCol,orderByType);
+	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, orderByCol, orderByType);
 	for (ReceiptListViewDto receiptListViewDto : receiptList) {
 		System.out.println("List in addfilecorrespondence -->"+receiptListViewDto.getReceiptId());
 	}
@@ -79,8 +81,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	receiptList.forEach(c->System.out.println("--->"+c));
 	renderRequest.setAttribute("receiptFileList", receiptList);
 	renderRequest.setAttribute("delta",delta);
-	System.out.println("count in addfile--render--"+masterdataLocalService.getReceiptInboxAndCreatedListSearchKeywordsCount(userPost, keywords));
-	renderRequest.setAttribute("receiptCount",+masterdataLocalService.getReceiptInboxAndCreatedListSearchKeywordsCount(userPost, keywords));
+	renderRequest.setAttribute("receiptCount",+_receiptList.getPutInFileListCount(userPost, keywords));
 	
 	}
 
@@ -100,6 +101,8 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
+	@Reference
+	private ReceiptList _receiptList;
 	
 	
 }
