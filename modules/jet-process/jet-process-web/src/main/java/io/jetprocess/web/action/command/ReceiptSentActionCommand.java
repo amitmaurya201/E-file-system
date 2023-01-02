@@ -34,6 +34,8 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 		Long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		Long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
+		Long userPostId = ParamUtil.getLong(actionRequest, "senderId");
+		logger.info("userPostId"+userPostId);
 		Boolean pullBackAvailable = receiptMovementLocalService.isPullBackAvailable(rmId);
 			if (pullBackAvailable) {
 				logger.info("working");
@@ -42,10 +44,11 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 				Boolean active = receiptMovementLocalService.isActive(receiptId);
 				if (!active) {
 					receipt.setCurrentState(FileStatus.CREADTED);
-					receiptLocalService.updateReceipt(receipt);
 				} else {
 					logger.info("pull back in inbox");
 				}
+				receipt.setCurrentlyWith(userPostId);
+				receiptLocalService.updateReceipt(receipt);
 				SessionMessages.add(actionRequest, "pullback-available");
 			} else {
 				logger.info("already pull back");

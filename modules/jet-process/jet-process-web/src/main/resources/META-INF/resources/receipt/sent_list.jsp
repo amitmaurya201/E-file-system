@@ -158,6 +158,8 @@
 			<input type="text" name="<portlet:namespace />rmId" id="rmId" hidden>
 			<input type="text" name="<portlet:namespace />receiptId"
 				id="receiptId" hidden>
+			<input type="text" name="<portlet:namespace/>senderId"
+				value="<%=selectedUserPostId%>" hidden>
 			<div style="text-align: left; height: 100px;">
 				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
 					type="textarea">
@@ -183,7 +185,8 @@
 <liferay-ui:success key="pullback-available" message="pullback-success" />
 <div class="ml-3" id="error-alert"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
-	<liferay-ui:error key="pullback-not-available" message="pullback-error-receipt" />
+	<liferay-ui:error key="pullback-not-available"
+		message="pullback-error-receipt" />
 </div>
 
 <script type="text/javascript">
