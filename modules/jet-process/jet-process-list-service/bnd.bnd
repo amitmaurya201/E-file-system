@@ -1,0 +1,3 @@
+Bundle-Name: jet-process-list-service
+Bundle-SymbolicName: io.jetprocess.list.service
+Bundle-Version: 1.0.0
