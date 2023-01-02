@@ -32,6 +32,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.list.api.FileList;
 import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.UserPost;
@@ -215,13 +216,15 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int count = masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
+		//int count = masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
+		int count = fileList.getCountOfFileList(userPostId, keywords);
 		if (delta * currentPage > count) {
 			start = 0;
 		}
-		List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,
-				orderByCol, orderByType);
-		renderRequest.setAttribute("fileList", fileList);
+		List<FileListViewDto> fileList1 =  fileList.getFileList(userPostId, keywords, start, end, orderByCol, orderByType);
+		//List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,
+		//		orderByCol, orderByType);
+		renderRequest.setAttribute("fileList", fileList1);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount", count);
 	}
@@ -254,6 +257,9 @@ public class JetProcessWebPortlet extends MVCPortlet {
 
 	@Reference
 	ReceiptMovementLocalService receiptMovementLocalService;
+	
+	@Reference
+	FileList fileList;
 
 	private static Log logger = LogFactoryUtil.getLog(JetProcessWebPortlet.class);
 }
