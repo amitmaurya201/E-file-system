@@ -29,7 +29,7 @@
 		<liferay-ui:search-container-results results="${receiptFileList }" />
 
 		<liferay-ui:search-container-row
-			className="io.jetprocess.masterdata.model.ReceiptListViewDto"
+			className="io.jetprocess.list.model.ReceiptListViewDto"
 			modelVar="aReceiptListViewDto">
 			<liferay-ui:search-container-column-text>
 				<aui:input type="radio" name="receipt"
