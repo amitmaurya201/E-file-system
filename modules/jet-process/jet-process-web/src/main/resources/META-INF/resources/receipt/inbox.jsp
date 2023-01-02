@@ -224,7 +224,7 @@
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
 										<span><a href="#" class="button open"
-											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()} )">
+											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
 										<span><a href="${sendURL}"> <liferay-ui:message
@@ -364,8 +364,8 @@
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
+				<input type="text" name='<portlet:namespace/>rmId' id="rmId" hidden />
 				<br>
-				<input type="text" name='<portlet:namespace/>rmId' id="rmId" />
 				<button class="mt-3 btn btn-primary " style="width: 90px;"
 					type="submit">Receive</button>
 				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
