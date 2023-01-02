@@ -18,7 +18,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
     $("#<portlet:namespace />receiptSubCategoryId").empty();
-    $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select","0"));
+    $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",0));
 
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
@@ -64,7 +64,7 @@ AUI().use('aui-base', function(A){
 
 $('document').ready(function(e){
 	var editCountryId =$("#<portlet:namespace />countryId").val();
-	 $("#<portlet:namespace />countryId").append(new Option("Select",0));
+	/* $("#<portlet:namespace />countryId").append(new Option("Select",0));*/
 	AUI().use('aui-base', function(A){
 		 Liferay.Service(
 				 '/masterdata.masterdata/get-countries-masterdata',
@@ -96,7 +96,7 @@ $('document').ready(function(e){
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
     $("#<portlet:namespace />stateId").empty();
-    $("#<portlet:namespace />stateId").append(new Option("Select",""));
+    $("#<portlet:namespace />stateId").append(new Option("Select",0));
 
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
@@ -131,7 +131,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
     $("#<portlet:namespace />subOrganizationId").empty();
-    $("#<portlet:namespace />subOrganizationId").append(new Option("Select",""));
+    $("#<portlet:namespace />subOrganizationId").append(new Option("Select",0));
 
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
@@ -160,19 +160,29 @@ $("#<portlet:namespace />nature").on('change',mySeletedNature);
 	function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
 	 console.log('--   '+nature);
+	 let url='${receipt.viewPdfUrl}';
+	 
      if(nature == 'Electronic' && tempFileId == 0 ){
     	 if(($("#error").length) == 0){
+    		 if(url != '' || url != null || url != undefined ){
+    			 errorLabel=false;
+        		 return false;
+    			 
+    		 }
+    		 else{
     		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
     		 errorLabel=true;
     		 return true;
+    		 }
     	 }
+    	 
     	 return true;
      }else{
     	 errorLabel=false;    		
     	 $("#error ").remove();
      }
 }
-	// for validation
+	// for validation 
 	function validateForm(receiptForm) {
 		var liferayForm = Liferay.Form.get(receiptForm);
 	    if (liferayForm) {
@@ -236,20 +246,25 @@ $("#<portlet:namespace />generate").on('click', function(e){
 $("#<portlet:namespace />update").on('click', function(e){
 	e.preventDefault();
 	var dmFileId = $('#<portlet:namespace/>dmFileId').val();
+	console.log("dmFileId"+dmFileId);
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
     var userPostId= getUserPostId();
     jsonData["userPostId"] = userPostId;
     if(tempFileId!=0){
+    	console.log("temp not eq 0 .........");
     	 jsonData["tempFileId"] = tempFileId; 
     }
     else{
+    	console.log("temp 0 .........");
     	jsonData["tempFileId"] = 0;
     }
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
+    	console.log("form validate");
     	if(!mySeletedNature()){
+    		console.log("myselectednature");
 		  $.ajax({
 			    type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -289,6 +304,7 @@ $('#removeFileUpload').on('click',function(e){
  $('.dropzone-wrapper').css("display", "block");
  $('#removeFileUpload').css("display", "none");
 	console.log("if ------>>>>>");
+	
 	$("#editpdfurl").remove();
 	$("#doc-input").val('0');
 	
@@ -393,7 +409,7 @@ $(document).ready(function(){
 $(document).ready(function(e){
 	var orgId = '${receipt.organizationId }';
 	var subOrgId = '${receipt.subOrganizationId}';
-	 $("#<portlet:namespace />subOrganizationId").append(new Option("Select",""));
+	 $("#<portlet:namespace />subOrganizationId").append(new Option("Select",0));
 	 AUI().use('aui-base', function(A){
 		 Liferay.Service(
 				 '/masterdata.masterdata/get-sub-organization-masterdata',
@@ -427,7 +443,7 @@ $(document).ready(function(e){
 	var receiptCategoryId = '${receipt.receiptCategoryId}';
 	var receiptSubCategoryId = '${receipt.receiptSubCategoryId}';
 	console.log("receiptCategoryId"+receiptCategoryId + "....."+receiptSubCategoryId);
-	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",""));
+	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",0));
 	 AUI().use('aui-base', function(A){
 		 Liferay.Service(
 				 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
@@ -459,7 +475,7 @@ $(document).ready(function(e){
 	var countryId = '${receipt.countryId}';
 	var stateId = '${receipt.stateId}';
 	console.log("countryId"+countryId + "....."+stateId);
-	 $("#<portlet:namespace />stateId").append(new Option("Select",""));
+	 $("#<portlet:namespace />stateId").append(new Option("Select",0));
 	 AUI().use('aui-base', function(A){
 		 Liferay.Service(
 				 '/masterdata.masterdata/get-states-masterdata',
@@ -486,8 +502,5 @@ $(document).ready(function(e){
 	 });
 });
 });
-
-
-
 
 </aui:script>

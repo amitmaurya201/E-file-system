@@ -133,8 +133,10 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 			 receipt.setDmFileId(dmFileId);
 		}
 		else {
+			if(receipt.getDmFileId()==0) {
 			receipt.setViewPdfUrl("");
 			receipt.setDmFileId(0);
+			}
 			
 		}
 		receiptLocalService.updateReceipt(receipt);

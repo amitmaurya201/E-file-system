@@ -1,8 +1,7 @@
 <%@ include file="../init.jsp"%>
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="java.util.TimeZone"%>
-<%@page
-	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
+<%@page import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
 <%@page import="io.jetprocess.service.ReceiptLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="java.util.Date"%>
@@ -44,11 +43,15 @@
 					<button class="btn text-danger" id="removeFileUpload" style="display: none">
 						<liferay-ui:message key="receipt-remove-button" />
 					</button>
-					<c:set var="url" value="${receipt.viewPdfUrl}"></c:set> 
+					<%-- <c:set var="url" value="${receipt.viewPdfUrl}"></c:set>  --%>
 					<div id="targetDiv" class="targetDiv text-center">
+					<%-- <aui:input name="" value = ""></aui:input> --%>
+					     
 							<embed id="editpdfurl" type="application/pdf"
 								src="${receipt.viewPdfUrl}" width="100%" height="450" style = "display:none">
+								
 							</embed>
+							
 						<div class="dropzone-wrapper" style = "display:none">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<p>
@@ -517,9 +520,9 @@
 		
 	    $(".master_drop_organization").find("option").eq(0).hide();
 	});
-	$(".master_drop_country").on("click" ,function() {
+	/* $(".master_drop_country").on("click" ,function() {
 	    $(".master_drop_country").find("option").eq(0).hide();
-	});
+	}); */
 
 	$(document).ready(function() {
 		$("#<portlet:namespace/>letterDate").datepicker({

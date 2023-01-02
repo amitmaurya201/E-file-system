@@ -13,13 +13,13 @@ String char_width = PropsUtil.get("max.width");
   	  var keySpace = key.trim();
   
   	  var splitnamespace = keySpace.split(portletnamespace)[1];
-  	 var test = splitnamespace;
+  	 var splitkey = splitnamespace;
   	
   	 
-	   if (test=="formDate" || test == ""){
-		   delete object[test] ;   
+	   if (splitkey=="formDate" || splitkey == ""){
+		   delete object[splitkey] ;   
 	   }else{
-		 object[test] = value;
+		 object[splitkey] = value;
 		 console.log("object"+object);
 		
 	   } 	  
