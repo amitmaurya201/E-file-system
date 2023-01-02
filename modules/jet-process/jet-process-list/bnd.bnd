@@ -1,0 +1,4 @@
+Bundle-Name: jet-process-list
+Bundle-SymbolicName: io.jetprocess.list
+Bundle-Version: 1.0.0
+Export-Package: io.jetprocess.list.*
