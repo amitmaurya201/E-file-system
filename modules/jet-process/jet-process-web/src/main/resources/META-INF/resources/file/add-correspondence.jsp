@@ -2,9 +2,9 @@
 <%@page import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
 <%
 	long userPostId =1;
-	int count = (int) request.getAttribute("receiptCount");
+	/* int count = (int) request.getAttribute("receiptCount");
 	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getCreatedReceiptAndInboxList(userPostId,
-			userPostId);
+			userPostId); */
 	long docFileId = (Long) request.getAttribute("docFileId");
 %>
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
@@ -21,7 +21,7 @@
 	<aui:input name="userPostId" value="${userPostId }" type="hidden"></aui:input>
 
 	<liferay-ui:search-container  
-	delta= "7"
+	delta= "${delta}"
 	 emptyResultsMessage="No Results Found" 
 	 id="receiptList" 
 	 total ="${receiptCount}"
