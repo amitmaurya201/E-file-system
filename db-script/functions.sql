@@ -1029,7 +1029,6 @@ $BODY$;
 ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
-   select * from public.get_receipt_inbox_list(2, '', 0, 10, '', '') 
 
     
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
