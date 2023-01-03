@@ -131,7 +131,8 @@
 					<div class="modal-body" style="padding: 0">
 						<button type="button" class="btn btn-white btn-close"
 							data-bs-dismiss="modal" aria-label="Close"
-							style="color: white; margin-right: 16px; margin-top: -4px;">&#10005;</button>
+							style="color: black; margin-right: 9px; margin-top: -3px;">&#10005;</button>
+						<br/>
 						<div id="pdf"></div>
 					</div>
 
