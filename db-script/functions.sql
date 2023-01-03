@@ -330,8 +330,8 @@ AS $BODY$
       
       
    _query=' SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject,
-		(SELECT concat(up1.username,(  up1.postmarking) , up1.sectionname, up1.departmentname)) as sentBy,
-		(SELECT concat(up2.username, up2.postmarking, up2.sectionname, up2.departmentname)) AS SentTo ,
+		(SELECT concat(up1.username,''('',  up1.postmarking, '')'', up1.sectionname,'', '', up1.departmentname)) as sentBy,
+		(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) AS SentTo ,
 		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn,
 		f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId , 
         f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
@@ -438,11 +438,7 @@ ALTER FUNCTION public.get_file_inbox_list(bigint, text, integer, integer, text, 
     OWNER TO postgres;
     
     
-    
-    
-    
 --    ----------------------------- Get File Sent List  ------------------------------------------
-
 
 CREATE OR REPLACE FUNCTION public.get_file_sent_list(
 	_senderid bigint,
@@ -472,8 +468,8 @@ AS $BODY$
       
       
    _query=' SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
-			null as sendBy, (SELECT concat(up1.username, up1.postmarking ,
-            up1.sectionname , up1.departmentname)) AS sentTo ,
+			null as sendBy, (SELECT concat(up1.username, ''( '',up1.postmarking ,'' )'',
+            up1.sectionname, '' , '' , up1.departmentname)) AS sentTo ,
 			fm.createdate as SentOn, fm.readon as readOn, fm.duedate ,
             null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith ,
             f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as 
@@ -582,7 +578,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_sent_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
 
     
 
@@ -912,7 +907,7 @@ AS $BODY$
                 r.receiptnumber AS receiptNumber,
                 r.subject AS subject,	
                 null as sender,	
-                (SELECT concat(up1.username,  up1.postmarking, up1.sectionname , up1.departmentname)) as sentBy,
+                (SELECT concat(up1.username,  '' ( '',up1.postmarking,'' ) '', up1.sectionname ,'' , '', up1.departmentname)) as sentBy,
                 null AS sentTo ,	
                 rm.createdate AS sentOn,	
                 rm.readon AS readOn,
@@ -1033,6 +1028,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
+   select * from public.get_receipt_inbox_list(2, '', 0, 10, '', '') 
 
     
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
@@ -1066,7 +1063,7 @@ AS $BODY$
       
    _query=' SELECT rm.rmid as receiptMovementId, r.receiptNumber as receiptNumber ,r.subject as subject , r.name as sender ,
 		null as sentBy,
-		(SELECT concat(up.username, up.postmarking , up.sectionname, up.departmentname)) as sentTo ,
+		(SELECT concat(up.username, '' ( '',up.postmarking,'' ) '', up.sectionname,'' , '', up.departmentname)) as sentTo ,
 		rm.createdate as sentOn, rm.readOn as readOn , rm.dueDate as dueDate , rm.remark as remark ,
         rm.receivedOn as receivedOn, r.nature as nature ,r.receiptid as receiptid , pullBackRemark as pullBackRemark
 		FROM PUBLIC.jet_process_receiptmovement as rm 
@@ -1172,6 +1169,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
+
     
 --     ------------------------------ Get put in file list count  -----------------------------------------------------------------
 
