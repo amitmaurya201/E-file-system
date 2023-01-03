@@ -120,7 +120,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
 				<portlet:renderURL var="sendURL">
-					<portlet:param name="mvcRende rCommandName"
+					<portlet:param name="mvcRenderCommandName"
 						value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />

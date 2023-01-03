@@ -1,6 +1,7 @@
-<%@page import="io.jetprocess.masterdata.model.FileMovementDTO"%>
+<%@page import="io.jetprocess.list.model.FileMovementDTO"%>
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
+
 <style>
 <!--
 .text-secondary {
@@ -47,7 +48,7 @@
 				%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row
-				className="io.jetprocess.masterdata.model.FileMovementDTO"
+				className="io.jetprocess.list.model.FileMovementDTO"
 				modelVar="fileMovementDTO" keyProperty="fileMovementId">
 				<liferay-ui:search-container-column-text
 						value="<%=fileMovementDTO.getSentOn() != null ? simpleformat.format(fileMovementDTO.getSentOn())
