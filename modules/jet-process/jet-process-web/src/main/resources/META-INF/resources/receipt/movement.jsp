@@ -43,7 +43,7 @@
 					%>
 				</liferay-ui:search-container-results>
 				<liferay-ui:search-container-row
-					className="io.jetprocess.masterdata.model.ReceiptMovementDTO"
+					className="io.jetprocess.list.model.ReceiptMovementDTO"
 					modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
 					<liferay-ui:search-container-column-text
 						value="<%=receiptMovementDTO.getSentOn() != null ? simpleformat.format(receiptMovementDTO.getSentOn())
