@@ -36,7 +36,7 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
-
+		logger.info("receipt inbox receipt action command");
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 
@@ -61,7 +61,7 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
 					}
 				}
-				SessionMessages.add(actionRequest, "receive-available");
+//				SessionMessages.add(actionRequest, "receive-available");
 			}
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block

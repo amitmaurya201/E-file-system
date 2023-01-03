@@ -295,18 +295,18 @@
 
 	</div>
 </div>
-
+<%-- 
 <liferay-ui:success key="receive-available"
-	message="receipt-receive-inbox-success" />
-<div class="ml-3" id="error-alert"
+	message="receipt-receive-inbox-success" /> --%>
+<div class="ml-3" id="alert-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="receive-not-available"
 		message="receipt-receive-inbox-error" />
 </div>
-
+<%-- 
 <liferay-ui:success key="read-available"
-	message="receipt-read-inbox-success" />
-<div class="ml-3" id="error-alert"
+	message="receipt-read-inbox-success" /> --%>
+<div class="ml-3" id="alert-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="read-not-available"
 		message="receipt-read-inbox-error" />
@@ -315,7 +315,7 @@
 
 <liferay-ui:success key="send-available"
 	message="receipt-send-inbox-success" />
-<div class="ml-3" id="error-alert"
+<div class="ml-3" id="alert-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="send-not-available"
 		message="receipt-send-inbox-error" />
@@ -408,6 +408,10 @@
 
 
 <script type="text/javascript">
+/* auto close alert */
+$("#alert-remove").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-remove").slideUp(500);
+});
 
  function receiptReceiveModal(receiptId,rmId){
 	document.getElementById("receive-receiptId").value=receiptId;
@@ -421,12 +425,7 @@
 
  };
 	
-	 /* auto close alert */
-	 
-	$("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
-	    $("#error-alert").slideUp(500);
-	});
-
+	
 function showModal(id){
 	Liferay.Service(
 			'/masterdata.userpost/get-user-post-by-id',
