@@ -60,7 +60,7 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
-		long userPostId =1; //Long.parseLong((String) session.getAttribute("userPostId"));
+		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		logger.info("user post id inside receipt render : --" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
