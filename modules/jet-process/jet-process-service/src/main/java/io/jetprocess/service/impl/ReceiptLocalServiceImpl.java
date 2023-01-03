@@ -17,6 +17,8 @@ package io.jetprocess.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -57,14 +59,15 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		String title = fileEntry.getFileName();
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		long documentAndMediaFileId =0l;
+		long documentAndMediaFileId = 0l;
 		String viewFileUrl = null;
-		
-	 try {
-		documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,changeLog, 0l, "");
-	    viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-	 } catch (IOException e) {	
-			System.out.println("documentAndMediaFileId not found");
+
+		try {
+			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
+					"");
+			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+		} catch (IOException e) {
+			logger.info("documentAndMediaFileId not found");
 		}
 		docstore.deleteTempFile(tempfileEntryId);
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
@@ -126,14 +129,15 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		long documentAndMediaFileId =0l;
+		long documentAndMediaFileId = 0l;
 		String viewFileUrl = null;
-		
-	 try {
-		documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType,changeLog, 0l, "");
-	    viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-	 } catch (IOException e) {	
-			System.out.println("documentAndMediaFileId not found");
+
+		try {
+			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
+					"");
+			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
+		} catch (IOException e) {
+			logger.info("documentAndMediaFileId not found");
 		}
 		docstore.deleteTempFile(tempfileEntryId);
 		// 1.Update Actual Fields
@@ -193,31 +197,43 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		return receipt;
 	}
-	
-    public Receipt getReceiptUpdate(long receiptId) throws PortalException{
-    	Receipt receipt = getReceipt(receiptId);
-    	return receipt;	
-    }
-    
-    public long getDmFileId (long tempFileId, long groupId) throws PortalException, IOException {
-    	
+
+	public Receipt getReceiptUpdate(long receiptId) throws PortalException {
+		Receipt receipt = getReceipt(receiptId);
+		return receipt;
+	}
+
+	public long getDmFileId(long tempFileId, long groupId) throws PortalException, IOException {
+
 		String changeLog = "docStore";
 		FileEntry fileEntry = docstore.getTempFile(tempFileId);
 		String title = fileEntry.getFileName();
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		long  documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is,title, mimeType, changeLog, 0l, "");
-		
+		long documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
+				"");
 		docstore.deleteTempFile(tempFileId);
-    	return documentAndMediaFileId;
-    }
-    public Receipt getReceipt() throws PortalException{
-    	long receiptId = counterLocalService.increment(Receipt.class.getName());
-		System.out.println(receiptId);
-	    Receipt receipt = createReceipt(receiptId);
-	    return receipt;
-    }
-    
+		return documentAndMediaFileId;
+	}
+
+	public Receipt getReceipt() throws PortalException {
+		long receiptId = counterLocalService.increment(Receipt.class.getName());
+		Receipt receipt = createReceipt(receiptId);
+		return receipt;
+	}
+
+	public Boolean isSendAvailable(long userPostId, long receiptId) throws PortalException {
+		boolean state = false;
+		Receipt receipt = getReceiptByReceiptId(receiptId);
+		if (userPostId == receipt.getCurrentlyWith()) {
+			state = true;
+		} else {
+			state = false;
+		}
+		return state;
+	}
+
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	@Reference
 	private DocStore docstore;
 }

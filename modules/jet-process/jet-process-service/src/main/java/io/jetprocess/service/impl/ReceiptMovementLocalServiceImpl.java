@@ -83,7 +83,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 								}
 
 							} else if (receipt.getNature().equals("Physical")) {
-								
+
 								if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
 
 									saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
@@ -149,28 +149,26 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	}
 
-	
 	public ReceiptMovement getReceiptMovementByRmId(long rmId) {
 		return receiptMovementPersistence.fetchByPrimaryKey(rmId);
 	}
-	
+
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
 		return receiptMovementPersistence.findByreceiptId(receiptId);
 	}
-	
+
 	public Boolean isPullBackAvailable(long rmId) {
-		boolean pullable=false;
+		boolean pullable = false;
 		ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
-		if((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
-			pullable=true; 
-		}
-		else {
-			pullable=false;
+		if ((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
+			pullable = true;
+		} else {
+			pullable = false;
 		}
 		return pullable;
-		
+
 	}
-	
+
 	public ReceiptMovement pullBackReceiptMovement(long receiptId, long receiptMovementId, String remarks)
 			throws PortalException {
 		ReceiptMovement receiptMovement = getReceiptMovementByRmId(receiptMovementId);
@@ -185,7 +183,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return receiptMovement;
 	}
-	
+
 	public Boolean isActive(long receiptId) {
 		boolean state = false;
 		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
@@ -193,33 +191,27 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
 			if (!receiptMovementByReceiptId.getActive()) {
-				  state = false;
+				state = false;
 			} else {
-				state=true;
+				state = true;
 				break;
 			}
 		}
 		return state;
 	}
-	
-	
+
 	public boolean pullBackedAlready(long rmId) throws PortalException {
 		logger.info("pull back already");
-		   boolean state = false;
-		   ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
-		   logger.info("receiptMovement    "+receiptMovement);
-		   if(receiptMovement.getPullBackRemark().isEmpty()) {
-			   logger.info("in loop    ");
-			   state= true;
-		   }
-		   else {
-			   logger.info("else loop    ");
-			   state=false;
-		   }
-			return state;
-			
+		boolean state = false;
+		ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
+		if (receiptMovement.getPullBackRemark().isEmpty()) {
+			state = true;
+		} else {
+			state = false;
 		}
-	
+		return state;
+	}
+
 	@Reference
 	ReceiptLocalService receiptLocalService;
 

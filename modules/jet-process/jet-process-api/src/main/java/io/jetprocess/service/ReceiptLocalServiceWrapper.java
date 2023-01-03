@@ -434,6 +434,13 @@ public class ReceiptLocalServiceWrapper
 	}
 
 	@Override
+	public Boolean isSendAvailable(long userPostId, long receiptId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptLocalService.isSendAvailable(userPostId, receiptId);
+	}
+
+	@Override
 	public io.jetprocess.model.Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
 			long deliveryModeId, String receivedOn, String letterDate,
