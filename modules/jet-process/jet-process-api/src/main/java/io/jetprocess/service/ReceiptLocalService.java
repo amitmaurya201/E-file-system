@@ -336,6 +336,10 @@ public interface ReceiptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceiptUpdate(long receiptId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Boolean isSendAvailable(long userPostId, long receiptId)
+		throws PortalException;
+
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
 			long deliveryModeId, String receivedOn, String letterDate,

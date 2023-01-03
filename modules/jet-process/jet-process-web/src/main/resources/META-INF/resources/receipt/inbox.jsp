@@ -7,13 +7,7 @@
 
 <%
 	String backURL = themeDisplay.getURLCurrent();
-
 	String backURL1 = backURL + "&a=12";
-
-	String readStatus = ParamUtil.getString(renderRequest, "readStatus");
-	String readResult = ParamUtil.getString(renderRequest, "readResult");
-	String receiveStatus = ParamUtil.getString(renderRequest, "receiveStatus");
-	String receiveResult = ParamUtil.getString(renderRequest, "receiveResult");
 %>
 
 
@@ -23,8 +17,6 @@
 }
 
 .popup, .read-popup, .receive-popup {
-	/*Hides pop-up when there is no "active" class*/
-	/* visibility: hidden; */
 	position: absolute;
 	background: #96b4d6;
 	border: 3px solid #666666;
@@ -46,8 +38,6 @@
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
-	/*displays pop-up when "active" class is present*/
-	/* visibility: visible; */
 	text-align: center;
 	display: block;
 	border-radius: 5px;
@@ -113,14 +103,12 @@
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
 
-				<portlet:renderURL var="sendURL">
-					<portlet:param name="mvcRenderCommandName"
-						value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
+				<portlet:actionURL var="sendURL" name="sendReceiptAction">
+					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-
-				</portlet:renderURL>
+				</portlet:actionURL>
 
 				<portlet:actionURL name="receiptReceiveAction"
 					var="receiptReceiveAction">
@@ -308,20 +296,6 @@
 	</div>
 </div>
 
-<%-- <% if(readStatus.equalsIgnoreCase("error")){ %>
-		 <div class="alert alert-danger alert-dismissible" id="error-alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><%= readResult %></strong>
-  </div>
-		<%} %>
-
-<% if(receiveStatus.equalsIgnoreCase("error")){ %>
-		 <div class="alert alert-danger alert-dismissible" id="error-alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><%= receiveResult %></strong>
-  </div>
-		<%} %> --%>
-
 <liferay-ui:success key="receive-available"
 	message="receipt-receive-inbox-success" />
 <div class="ml-3" id="error-alert"
@@ -339,11 +313,11 @@
 </div>
 
 
-<liferay-ui:success key="receipt-sent-available"
+<liferay-ui:success key="send-available"
 	message="receipt-send-inbox-success" />
 <div class="ml-3" id="error-alert"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
-	<liferay-ui:error key="receipt-sent-not-available"
+	<liferay-ui:error key="send-not-available"
 		message="receipt-send-inbox-error" />
 </div>
 

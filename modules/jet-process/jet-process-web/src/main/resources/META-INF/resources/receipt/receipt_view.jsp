@@ -13,10 +13,10 @@
 
 
 
- <%
-String currentURL = (String)renderRequest.getAttribute("CurrentURL");
+<%
+	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
 
- session.setAttribute("currentURL", currentURL);
+	session.setAttribute("currentURL", currentURL);
 %>
 
 <div class="row">
@@ -53,21 +53,23 @@ String currentURL = (String)renderRequest.getAttribute("CurrentURL");
 			</h5>
 			<div class="container">
 				<div class="row border border-dark scroll"
-					style="height:440px; overflow: overlay">
+					style="height: 440px; overflow: overlay">
 					<div class="col-5" class="border">
-					<c:choose>
+						<c:choose>
 							<c:when test="${receipt.viewPdfUrl != ''}">
 								<embed id="pdfurl" type="application/pdf"
 									src="${receipt.viewPdfUrl} " width="100%" height="450" />
 							</c:when>
 							<c:otherwise>
-								<img alt="physical_pdf" src='<%=request.getContextPath() + "/image/physical_pdf.png" %>'  width="100%" height="450" />
+								<img alt="physical_pdf"
+									src='<%=request.getContextPath() + "/image/physical_pdf.png"%>'
+									width="100%" height="450" />
 							</c:otherwise>
 						</c:choose>
-				
+
 					</div>
 					<div class="border col-7 mb-2 ">
-						<div class="border heading">
+						<div class="border heading" style="margin-left: 11px;">
 							<h4>
 								<aui:icon cssClass="fas fa-file-alt view_icon " />
 								<liferay-ui:message key="label-receipt-diary-details" />
@@ -127,7 +129,7 @@ String currentURL = (String)renderRequest.getAttribute("CurrentURL");
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<table class="col-12 line_height"> 
+								<table class="col-12 line_height">
 									<tr>
 										<th><liferay-ui:message key="label-receipt-category" />:</th>
 										<td>${receiptCategoryValue}</td>
@@ -156,7 +158,7 @@ String currentURL = (String)renderRequest.getAttribute("CurrentURL");
 								</table>
 							</div>
 						</div>
-						<div class="border heading">
+						<div class="border heading"  style="margin-left: 11px;">
 							<h4>
 								<aui:icon cssClass="fas fa-envelope view_icon" />
 								<liferay-ui:message key="label-receipt-sender-details" />

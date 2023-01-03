@@ -54,13 +54,12 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "sentOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 //		int count=masterdataLocalService.getReceiptSendList(userPost, keywords);
 		int count=_receiptList.getReceiptSentListCount(userPostId, keywords);
-		System.out.println("-0-0-0-0-0-0-0-0---> count "+count);
 		int preDelta=0;
 		String d=(String) session.getAttribute("oldDelta");
 		if(d!=null) {

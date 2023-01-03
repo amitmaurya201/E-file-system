@@ -386,6 +386,12 @@ public class ReceiptLocalServiceUtil {
 		return getService().getReceiptUpdate(receiptId);
 	}
 
+	public static Boolean isSendAvailable(long userPostId, long receiptId)
+		throws PortalException {
+
+		return getService().isSendAvailable(userPostId, receiptId);
+	}
+
 	public static Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
 			long deliveryModeId, String receivedOn, String letterDate,
