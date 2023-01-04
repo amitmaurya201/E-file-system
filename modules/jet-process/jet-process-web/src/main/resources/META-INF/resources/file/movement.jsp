@@ -30,7 +30,7 @@
 		<%-- <%@ include file="file-view.jsp" %> --%>
 
 		<%
-			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+			SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
 		<h2 style="text-align: center; text-decoration: underline; margin-top: 20px;">
