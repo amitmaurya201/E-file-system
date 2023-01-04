@@ -100,44 +100,41 @@ public class JetProcessWebPortlet extends MVCPortlet {
 	}
 
 	// action method for getting docfileId and pullback remarks
-	public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
-			throws IOException, PortletException, PortalException {
-		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
-		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
-		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-		Boolean pullBackAvailable = fLocalService.isPullBackAvailable(fileMovementId);
-		if (pullBackAvailable) {
-			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			System.out.println("DocFileId--->" + docFile);
-			fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
-
-			Boolean active = isActive(docFileId);
-			if (!active) {
-				docFile.setCurrentState(FileStatus.CREADTED);
+		public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
+				throws IOException, PortletException, PortalException {
+			ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+			HttpSession sessionUserPost = themeDisplay.getRequest().getSession();
+			String userPosts = (String) sessionUserPost.getAttribute("userPostId");
+			System.out.println("userPosts"+userPosts);
+			long userpost = Long.parseLong(userPosts); 
+			System.out.println("---->"+userpost);
+			Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
+			Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
+			String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
+			Boolean pullBackAvailable = fLocalService.isPullBackAvailable(fileMovementId);
+			if (pullBackAvailable) {
+				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+				System.out.println("DocFileId--->" + docFile);
+				docFile.setCurrentlyWith(userpost);
+				fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
 				docFileLocalService.updateDocFile(docFile);
+				System.out.println("After pull back--->"+docFileLocalService.updateDocFile(docFile));
+				Boolean active = isActive(docFileId);
+				if (!active) {
+					docFile.setCurrentState(FileStatus.CREADTED);
+					docFileLocalService.updateDocFile(docFile);
+					System.out.println("in active-->"+docFileLocalService.updateDocFile(docFile));
+				}
+				SessionMessages.add(actionRequest, "pullback-available");
+			} else {
+				SessionErrors.add(actionRequest, "pullback-not-available");
+				SessionMessages.add(actionRequest,
+						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 			}
-			SessionMessages.add(actionRequest, "pullback-available");
-		} else {
-			SessionErrors.add(actionRequest, "pullback-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
 
-		/*
-		 * FileMovement fileMovement = fLocalService.getFileMovement(fileMovementId);
-		 * fileMovement.setPullBackRemark(pullBackRemark);
-		 * System.out.println("pull back remarks"+pullBackRemark);
-		 * fileMovement.setActive(false);
-		 * fLocalService.updateFileMovement(fileMovement); DocFile docFile =
-		 * docFileLocalService.getDocFileByDocFileId(fileMovement.getFileId()); if
-		 * (docFile.getCurrentState() == FileStatus.IN_MOVEMENT) {
-		 * docFile.setCurrentState(FileStatus.CREADTED);
-		 * docFileLocalService.updateDocFile(docFile);
-		 * System.out.println("--->>>current state --" +
-		 * docFileLocalService.updateDocFile(docFile)); }
-		 */
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
-	}
+		
+			actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
+		}
 
 	// method for getting active
 

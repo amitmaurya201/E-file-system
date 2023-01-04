@@ -161,6 +161,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setCurrentState(rs.getInt("currentstate"));
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
+					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
 
 					fileMovementDTOList.add(fileMovementDTO);
 				}
@@ -242,6 +243,8 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setCurrentState(rs.getInt("currentstate"));
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
+					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
+
 
 					fileMovementDTOList.add(fileMovementDTO);
 				}
@@ -299,6 +302,8 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setCurrentState(rs.getInt("currentstate"));
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
+					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
+
 
 					fileMovementDTOList.add(fileMovementDTO);
 				}

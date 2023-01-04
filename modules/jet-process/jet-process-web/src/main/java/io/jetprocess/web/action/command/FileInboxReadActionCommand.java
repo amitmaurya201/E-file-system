@@ -30,10 +30,10 @@ public class FileInboxReadActionCommand implements MVCActionCommand {
 
 		long fileId1 = ParamUtil.getLong(actionRequest, "fileId1");
 		long fmId = ParamUtil.getLong(actionRequest, "fmId");
+	
 
 		try {
 			boolean state = fileMovementLocalService.pullBackedAlready(fmId);
-
 			if (state == false) {
 				System.out.println("you can not read this file ");
 				actionResponse.setRenderParameter("status", "error");

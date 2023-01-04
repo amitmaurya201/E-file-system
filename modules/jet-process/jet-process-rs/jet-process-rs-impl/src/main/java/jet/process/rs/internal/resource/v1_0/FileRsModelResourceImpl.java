@@ -92,6 +92,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setNature(fileRsModel.getNature());
 		docFile.setUserPostId(fileRsModel.getUserPostId());
 		docFile.setCurrentState(FileStatus.CREADTED);
+		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
 		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");

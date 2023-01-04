@@ -41,6 +41,8 @@
 }
 </style>
 
+
+
 <div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -75,7 +77,7 @@
 	<liferay-ui:search-container-row className="io.jetprocess.list.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
 	<portlet:actionURL var="fileSentActionUrl" name="sentActionUrl">
 	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
-				</portlet:actionURL>
+				</portlet:actionURL>		
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
 		<liferay-ui:search-container-column-text name="File Number" value="<%=sentFileListDTO.getFileNumber() != null ? sentFileListDTO.getFileNumber() : ""%>" orderableProperty="fileNumber" orderable="true" />
 				<liferay-ui:search-container-column-text value="<%=sentFileListDTO.getSubject() != null ? sentFileListDTO.getSubject() : ""%>" cssClass="hover-tips"  name="Subject" />
@@ -85,7 +87,7 @@
 	                simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
 				<liferay-ui:search-container-column-text value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>" orderable="true" name="Sent On" orderableProperty="sentOn" />
-				<liferay-ui:search-container-column-text property="sentTo" cssClass="hover-tips" name="Currently With" />
+				<liferay-ui:search-container-column-text value="<%=sentFileListDTO.getCurrentlyWithUserName() != null ? sentFileListDTO.getCurrentlyWithUserName() : ""%>" cssClass="hover-tips" name="Currently With"/>
 				<liferay-ui:search-container-column-text property="dueDate" cssClass="hover-tips" name="Due Date" />
 				<liferay-ui:search-container-column-text name="Actions">	  
 			<c:if test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
