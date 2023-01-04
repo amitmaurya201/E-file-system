@@ -25,12 +25,10 @@
 }
 
 .btn-close {
-	/* border-radius: 50%; */
 	position: absolute;
 	top: 0px;
 	right: 0px;
 	padding: 1px;
-	/* z-index: 999999; */
 }
 
 .modal-body {
@@ -88,7 +86,7 @@
 					value="<%=receipt.getCategory() != null ? receipt.getCategory() : ""%>"
 					cssClass="hover-tips" name="label-receipt-list-category" />
 				<%
-					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+					SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
 
