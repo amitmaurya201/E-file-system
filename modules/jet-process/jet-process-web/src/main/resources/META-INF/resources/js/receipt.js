@@ -64,7 +64,7 @@ AUI().use('aui-base', function(A){
 
 $('document').ready(function(e){
 	var editCountryId =$("#<portlet:namespace />countryId").val();
-	/* $("#<portlet:namespace />countryId").append(new Option("Select",0));*/
+	/* $("#<portlet:namespace />countryId").append(new Option("Select",0)); */
 	AUI().use('aui-base', function(A){
 		 Liferay.Service(
 				 '/masterdata.masterdata/get-countries-masterdata',
@@ -154,35 +154,31 @@ var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var receiptId= $('#<portlet:namespace/>receiptId').val();
 var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
 
-/* if nature is elcetronic*/
+/* if nature is elcetronic */
 var errorLabel= false;
 $("#<portlet:namespace />nature").on('change',mySeletedNature);
 	function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
 	 console.log('--   '+nature);
+	 console.log('--   '+tempFileId);
 	 let url='${receipt.viewPdfUrl}';
-	 
      if(nature == 'Electronic' && tempFileId == 0 ){
-    	 if(($("#error").length) == 0){
-    		 if(url != '' || url != null || url != undefined ){
-    			 errorLabel=false;
-        		 return false;
-    			 
-    		 }
-    		 else{
-    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
-    		 errorLabel=true;
-    		 return true;
-    		 }
+    	 if(url == '' || url == null || url == undefined ){
+	    	 if(($("#error").length) == 0){
+	    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
+	    		 errorLabel=true;
+	    	 }
+	    		 return true;
+    	 }else{
+    		 return false;
     	 }
-    	 
-    	 return true;
      }else{
     	 errorLabel=false;    		
     	 $("#error ").remove();
+    	 return false;
      }
 }
-	// for validation 
+	// for validation
 	function validateForm(receiptForm) {
 		var liferayForm = Liferay.Form.get(receiptForm);
 	    if (liferayForm) {
@@ -242,7 +238,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
      }
 });
 
-/* update receipt*/
+/* update receipt */
 $("#<portlet:namespace />update").on('click', function(e){
 	e.preventDefault();
 	var dmFileId = $('#<portlet:namespace/>dmFileId').val();
@@ -262,9 +258,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
-    	console.log("form validate");
     	if(!mySeletedNature()){
-    		console.log("myselectednature");
 		  $.ajax({
 			    type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -320,7 +314,7 @@ $('#doc-select-btn').on('click',function(){
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
 	var file = e.target.files[0];
-//	displayPreview(file);
+// displayPreview(file);
 	validateSize(file);
 });
 
@@ -341,7 +335,7 @@ $('#doc-input').on('change',function(e){
 	  
 	  
 	  console.log("drop drag area.."+e.originalEvent.dataTransfer.files[0].name)
-//		displayPreview(e.originalEvent.dataTransfer.files[0]);
+// displayPreview(e.originalEvent.dataTransfer.files[0]);
 	  validateSize(e.originalEvent.dataTransfer.files[0])
 	});
 	
@@ -395,7 +389,7 @@ $(document).ready(function(){
 	let url='${receipt.viewPdfUrl}';
 	if(url == '' || url == null || url == undefined){
 		$('.dropzone-wrapper').css('display', 'block');
-		/*$(sizeValidation).css('display', 'block');*/
+		/* $(sizeValidation).css('display', 'block'); */
 	}
 	else{
 		$('#editpdfurl').css('display', 'block');
@@ -488,12 +482,10 @@ $(document).ready(function(e){
 				     optionValue = value.masterdataId;
 				     if(optionValue==stateId){
 				    	 $('#<portlet:namespace />stateId').append(new Option(optionText,optionValue));
-				 		
 				    	 $("select option").each(function(){
 				    		  if ($(this).text() == optionText)
 				    		    $(this).attr("selected","selected");
 				    		});  	
-				    	 
 				     		}
 				     else{
 				     $("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
