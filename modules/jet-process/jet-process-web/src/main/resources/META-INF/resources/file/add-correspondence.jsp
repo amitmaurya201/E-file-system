@@ -8,7 +8,7 @@
 	long docFileId = (Long) request.getAttribute("docFileId");
 %>
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
-	<portlet:param name="redirect" value="/file/file-inner-view.jsp" />
+	<%-- <portlet:param name="redirect" value="/file/file-inner-view.jsp" />  --%>
 </portlet:actionURL>
 <clay:management-toolbar 
 	disabled="${receiptCount eq 0}"
