@@ -468,7 +468,7 @@ AS $BODY$
       
       
    _query=' SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
-			null as sendBy, (SELECT concat(up1.username, ''( '',up1.postmarking ,'' )'',
+			null as sendBy, (SELECT concat(up1.username, ''('',up1.postmarking ,'')'',
             up1.sectionname, '' , '' , up1.departmentname)) AS sentTo ,
 			fm.createdate as SentOn, fm.readon as readOn, fm.duedate ,
             null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith ,
@@ -907,7 +907,7 @@ AS $BODY$
                 r.receiptnumber AS receiptNumber,
                 r.subject AS subject,	
                 null as sender,	
-                (SELECT concat(up1.username,  '' ( '',up1.postmarking,'' ) '', up1.sectionname ,'' , '', up1.departmentname)) as sentBy,
+                (SELECT concat(up1.username,  '' ('',up1.postmarking,'') '', up1.sectionname ,'' , '', up1.departmentname)) as sentBy,
                 null AS sentTo ,	
                 rm.createdate AS sentOn,	
                 rm.readon AS readOn,
@@ -1062,7 +1062,7 @@ AS $BODY$
       
    _query=' SELECT rm.rmid as receiptMovementId, r.receiptNumber as receiptNumber ,r.subject as subject , r.name as sender ,
 		null as sentBy,
-		(SELECT concat(up.username, '' ( '',up.postmarking,'' ) '', up.sectionname,'' , '', up.departmentname)) as sentTo ,
+		(SELECT concat(up.username, '' ('',up.postmarking,'') '', up.sectionname,'' , '', up.departmentname)) as sentTo ,
 		rm.createdate as sentOn, rm.readOn as readOn , rm.dueDate as dueDate , rm.remark as remark ,
         rm.receivedOn as receivedOn, r.nature as nature ,r.receiptid as receiptid , pullBackRemark as pullBackRemark
 		FROM PUBLIC.jet_process_receiptmovement as rm 
@@ -1425,8 +1425,8 @@ AS $BODY$
 	fm.fmid as fileMovementId, 
 	null as filenumber , 
 	null as subject ,
-	(SELECT concat(up2.username, up2.postmarking, up2.sectionname, up2.departmentname)) as sentBy ,
-	(SELECT concat(up1.username, up1.postmarking, up1.sectionname, up1.departmentname)) AS sentTo ,
+	(SELECT concat(up2.username, '' ('',up2.postmarking, '') '', up2.sectionname, '' , '', up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username, '' ('',up1.postmarking,'') '', up1.sectionname,'' , '', up1.departmentname)) AS sentTo ,
 	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith,
     null as nature, 0 as fileId, 0 as senderId , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
 	FROM PUBLIC.jet_process_filemovement as fm 
@@ -1523,13 +1523,13 @@ ALTER FUNCTION public.get_file_movement_list(bigint, text, integer, integer, tex
     OWNER TO postgres;
     
     
+    
     --    -------------------------------------  Get File Movement Count  ----------------------------------------------- 
     
     
     
     
     --    -------------------------------------  Get Receipt Movement List  -----------------------------------------------
-    
     
 CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
 	_receiptid bigint,
@@ -1564,8 +1564,8 @@ AS $BODY$
    _query=' SELECT 
 	rmid as receiptMovementId, 
 	null as receiptnumber ,null as subject , null as sender ,
-	(SELECT concat(up2.username , up2.postmarking , up2.sectionname , up2.departmentname)) as sentBy ,
-	(SELECT concat(up1.username , up1.postmarking, up1.sectionname , up1.departmentname)) as sentTo,
+	(SELECT concat(up2.username ,'' ('', up2.postmarking ,'') '', up2.sectionname ,'' , '', up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username ,'' ('', up1.postmarking,'') '', up1.sectionname ,'' , '', up1.departmentname)) as sentTo,
 	rm.createdate as sentOn, null as readOn , null as duedate , remark as remark, null as receivedOn,
     null as nature, 0 as receiptId , rm.pullBackRemark as pullBackRemark
 	FROM PUBLIC.jet_process_receiptmovement as rm 
@@ -1660,6 +1660,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_movement_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
+ 
  
  
  
