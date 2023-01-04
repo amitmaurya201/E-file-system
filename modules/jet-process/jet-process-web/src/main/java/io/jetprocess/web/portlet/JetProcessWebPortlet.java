@@ -36,7 +36,6 @@ import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.masterdata.service.UserPostService;
 import io.jetprocess.model.DocFile;
@@ -47,7 +46,6 @@ import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
-import io.jetprocess.web.render.CreatedFileListRenderCommand;
 
 /**
  * @author Admin
@@ -166,42 +164,38 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		User user = themeDisplay.getUser();
 		HttpSession session = themeDisplay.getRequest().getSession();
-//		HttpServletRequest httpRequest = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(renderRequest));
 		HttpServletRequest httpRequest = themeDisplay.getRequest();
-		String userPostIdFromUrl = httpRequest.getParameter("userPost"); // from url
-//		String userPostId = ParamUtil.getString(renderRequest, "userPostId", "0");// from ajax
-		logger.info("UserPostId from url: " + userPostIdFromUrl);
-		if (userPostIdFromUrl != null) {
-			session.setAttribute("userPostId", userPostIdFromUrl);
-			logger.info("UserPostId is sent in the session : " + userPostIdFromUrl);
 
-		} else {
-			userPostIdFromUrl = (String) session.getAttribute("userPostId");
-			logger.info("UserPostId from session : " + userPostIdFromUrl);
-			if (userPostIdFromUrl == null) {
+		String userPost = (String) httpRequest.getAttribute("userPostId");
+		// System.out.println("jetprocess-web -portlet"+userPost);
+		// session.setAttribute("userPostId", userPost);
+
+		if (userPost == null) {
+			String sessionUserPostId = (String) session.getAttribute("userPostId");
+			logger.info("UserPostId from session : " + sessionUserPostId);
+			if (sessionUserPostId == null) {
 				List<UserPost> userPostList = userPostService.getUserPostList(user.getUserId());
 				if (!userPostList.isEmpty()) {
-					UserPost userPost = userPostList.get(0);
-					long postId = userPost.getPostId();
+					UserPost userPosts = userPostList.get(0);
+					long postId = userPosts.getPostId();
 					session.setAttribute("userPostId", String.valueOf(postId));
 					logger.info("User post id in session : " + String.valueOf(postId));
 
 				} else {
 					String errPage = "/error/error.jsp";
-					logger.info("User Post is not available for the user :" + user.getUserId());
+					// logger.info("User Post is not available for the user :" + user.getUserId());
 					renderRequest.setAttribute("noUserPostMsg", "label-no-user-post-msg");
 					super.include(errPage, renderRequest, renderResponse);
 				}
 			}
 		}
 
-		addFileListAttributes(renderRequest);
+		addFileListAttributes(renderRequest, renderResponse);
 		addFileToolbarAttributes(renderRequest, renderResponse);
 		super.doView(renderRequest, renderResponse);
-
 	}
 
-	private void addFileListAttributes(RenderRequest renderRequest) {
+	private void addFileListAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
@@ -210,19 +204,30 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
+		HttpServletRequest httpRequest = themeDisplay.getRequest();
+		String urlPost = httpRequest.getParameter("userPost");
+		logger.info("urlPost from url in addfile list" + urlPost);
+		if (urlPost != null) {
+			session.setAttribute("userPostId", urlPost);
+		}
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+		logger.info("userPostId in addfile list" + userPostId);
 		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		//int count = masterdataLocalService.getFileCreatedByKeywordCount(userPost, keywords);
+		// int count = masterdataLocalService.getFileCreatedByKeywordCount(userPost,
+		// keywords);
 		int count = fileList.getCountOfFileList(userPostId, keywords);
 		if (delta * currentPage > count) {
 			start = 0;
 		}
-		List<FileListViewDto> fileList1 =  fileList.getFileList(userPostId, keywords, start, end, orderByCol, orderByType);
-		//List<FileListViewDto> fileList = masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start, end,
-		//		orderByCol, orderByType);
+		List<FileListViewDto> fileList1 = fileList.getFileList(userPostId, keywords, start, end, orderByCol,
+				orderByType);
+		// List<FileListViewDto> fileList =
+		// masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start,
+		// end,
+		// orderByCol, orderByType);
 		renderRequest.setAttribute("fileList", fileList1);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount", count);
@@ -256,7 +261,7 @@ public class JetProcessWebPortlet extends MVCPortlet {
 
 	@Reference
 	ReceiptMovementLocalService receiptMovementLocalService;
-	
+
 	@Reference
 	FileList fileList;
 

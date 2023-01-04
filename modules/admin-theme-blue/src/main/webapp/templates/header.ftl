@@ -24,16 +24,12 @@
 
 			<!-- User Post & user -->
 			<li class=" nav-item dropdown main-drop d-flex align-items-center text-white">
-	        	<#if themeDisplay.isSignedIn()>
-		        	<#assign  userPostService = serviceLocator.findService("io.jetprocess.masterdata.service.UserPostLocalService")/> 
-	              	<#assign userPostList =userPostService.getUserPostList(user.getUserId())/>
-		        	  <label for="cars">Select Post:</label>
-	                      <select name="post" id="userPostOption">
-		        			<#list userPostList as userpost>
-		        	  	  		<option value=${userpost.getUserPostId()}>${userpost.getShortName()}</option>
-	               			</#list>
-	                      </select>		          
-		        </#if>
+		        
+		        <@liferay_portlet["runtime"]
+						    instanceId="userPost"
+						    portletName="io_jet_process_user_post_web_JetProcessUserPostWebPortlet"
+						/> 	
+		          
 				<#if themeDisplay.getPermissionChecker().isOmniadmin()>
 					<@liferay.user_personal_bar /> 
 				<#else>
@@ -58,40 +54,7 @@
 		</ul>
 	</div>
 	<!-- /Header Menu -->
-	
-	
-	
+		
 </div>
 
-
-
-<!-- If user post is not avalable in session then set 0 as default -->
-<#assign sessionUserPost = themeDisplay.request.session.getAttribute("userPostId") ! "0" >
-
 <!-- /Header -->
-<script>
-	 $('#userPostOption').on('change', function() {
-	 	var userPost = $('#userPostOption').val();
-	 	var url = new URLSearchParams();
-	 	url = url + "?userPost=" + userPost;
-		window.location.href = url;
-	 });
-	 
-	 
-	 
-$( document ).ready(function() {
-		var userPost = ${sessionUserPost};
-		console.log("userPost => "+userPost);
-		if( userPost!= 0){
-		 	$('#userPostOption').val(userPost);
-		}
-		else{
-			$('#userPostOption').val(1);
-		}
-	});
-	 
-	 
-</script>
-
-
-
