@@ -18,8 +18,8 @@
 .datepicker{
 overflow:hidden;
 }
-.datepicker-days {
-margin-left: 22px;
+.datepicker-days .table-condensed {
+width: 100%;
 }
 .datepicker-days .table-condensed tr {
   border: 1px solid black;

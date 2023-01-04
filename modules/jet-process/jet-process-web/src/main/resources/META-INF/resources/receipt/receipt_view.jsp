@@ -41,7 +41,7 @@
 			session.setAttribute("receipt", receipt);
 			String nature = receipt.getNature();
 			char currentNature = nature.charAt(0);
-			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
+			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 			simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
 		<div class="receipt_view">

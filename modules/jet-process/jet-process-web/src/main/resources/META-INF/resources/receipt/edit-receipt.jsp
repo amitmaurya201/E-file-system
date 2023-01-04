@@ -1,7 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="java.util.TimeZone"%>
-<%@page import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
+<%@page
+	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
 <%@page import="io.jetprocess.service.ReceiptLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="java.util.Date"%>
@@ -13,12 +14,31 @@
 <%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<style>
+<!--
+.datepicker {
+	overflow: hidden;
+}
+
+.datepicker-days .table-condensed {
+	width: 100%;
+}
+
+.datepicker-days .table-condensed tr {
+	border: 1px solid black;
+}
+
+.datepicker-days .table-condensed td {
+	border: 1px solid black;
+}
+-->
+</style>
 
 <%
 	Receipt receipt = (Receipt) session.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <div class="row">
@@ -40,34 +60,37 @@
 			<aui:container cssClass="row">
 				<aui:form cssClass="col-6">
 					<aui:col cssClass="border ">
-					<button class="btn text-danger" id="removeFileUpload" style="display: none">
-						<liferay-ui:message key="receipt-remove-button" />
-					</button>
-					<%-- <c:set var="url" value="${receipt.viewPdfUrl}"></c:set>  --%>
-					<div id="targetDiv" class="targetDiv text-center">
-					<%-- <aui:input name="" value = ""></aui:input> --%>
-					     
+						<button class="btn text-danger" id="removeFileUpload"
+							style="display: none">
+							<liferay-ui:message key="receipt-remove-button" />
+						</button>
+						<%-- <c:set var="url" value="${receipt.viewPdfUrl}"></c:set>  --%>
+						<div id="targetDiv" class="targetDiv text-center">
+							<%-- <aui:input name="" value = ""></aui:input> --%>
+
 							<embed id="editpdfurl" type="application/pdf"
-								src="${receipt.viewPdfUrl}" width="100%" height="450" style = "display:none">
-								
+								src="${receipt.viewPdfUrl}" width="100%" height="450"
+								style="display: none">
+
 							</embed>
-							
-						<div class="dropzone-wrapper" style = "display:none">
-							<i class="glyphicon glyphicon-download-alt"></i>
-							<p>
-							<liferay-ui:message key="label-receipt-pdf-drag" />
-							</p>
-							<span class="btn btn-info" style="font-size: 15px;"
-							id="doc-select-btn"><liferay-ui:message
+
+							<div class="dropzone-wrapper" style="display: none">
+								<i class="glyphicon glyphicon-download-alt"></i>
+								<p>
+									<liferay-ui:message key="label-receipt-pdf-drag" />
+								</p>
+								<span class="btn btn-info" style="font-size: 15px;"
+									id="doc-select-btn"><liferay-ui:message
 										key="label-receipt-pdf-file" /></span> <input name="doc-input"
-							id="doc-input" type="file" hidden accept=".pdf" />
-							<p id="sizeValidation" style="display:none; color:red;">size must be less then 25 mb</p>
+									id="doc-input" type="file" hidden accept=".pdf" />
+								<p id="sizeValidation" style="display: none; color: red;">size
+									must be less then 25 mb</p>
+							</div>
 						</div>
-						</div>
-				
+
 					</aui:col>
 				</aui:form>
-			
+
 				<aui:form cssClass="scroll border border-dark col-6"
 					name="receiptForm">
 					<aui:input name="receiptId" id="receiptId" type="hidden"
@@ -100,7 +123,8 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-type" /><span
 									class='text-danger'>*</span></label>
-								<aui:select cssClass = "master_drop_type" label="" name="typeId" id="typeId">
+								<aui:select cssClass="master_drop_type" label="" name="typeId"
+									id="typeId">
 									<c:if test="${receipt.typeId != null}">
 										<aui:option value="${receipt.typeId}">${typeValue}</aui:option>
 									</c:if>
@@ -124,7 +148,7 @@
 										key="label-receipt-letter-date" /></label>
 								<aui:input type="text" label="" name="letterDate"
 									id="letterDate" value="${receipt.letterDate}"
-									placeholder="dd-mm-yyyy">
+									placeholder="dd/mm/yyyy">
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
@@ -143,7 +167,7 @@
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
 								<aui:input type="text" label="" name="receivedOn"
 									id="receivedOn" value="${receipt.receivedOn}"
-									placeholder="dd-mm-yyyy">
+									placeholder="dd/mm/yyyy">
 									<aui:validator name="required" />
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
@@ -163,7 +187,6 @@
 												var date=new Date(val);
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
 												var createdOnValue= new Date(createdOn);
-												console.log(date+"   "+createdOnValue);
 												return (createdOnValue >= date);
 											}
 										</aui:validator>
@@ -218,31 +241,32 @@
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
-							<div class="textOnInput" >
+							<div class="textOnInput">
 								<label><liferay-ui:message
 										key="label-receipt-organization" /><span class='text-danger'>*</span></label>
-								<aui:select cssClass = "master_drop_organization" label="" name="organizationId" id="organizationId">
-								 
-									<c:if test="${receipt.organizationId != null}"> 
-								 	<aui:option value="${receipt.organizationId}" >${organizationValue}</aui:option>
-									</c:if> 
-								<%-- <aui:option value="">
+								<aui:select cssClass="master_drop_organization" label=""
+									name="organizationId" id="organizationId">
+
+									<c:if test="${receipt.organizationId != null}">
+										<aui:option value="${receipt.organizationId}">${organizationValue}</aui:option>
+									</c:if>
+									<%-- <aui:option value="">
 										<liferay-ui:message key="receipt-default-option" />
 									</aui:option> --%>
-									
+
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
-							
+
 						</aui:col>
 						<aui:col md="6" cssClass="mt-3">
-							<div class="textOnInput" id = "editOrganizationDiv">
+							<div class="textOnInput" id="editOrganizationDiv">
 								<label><liferay-ui:message
 										key="label-receipt-sub-organization" /></label>
 								<aui:select label="" name="subOrganizationId"
 									id="subOrganizationId">
-									
-								<%-- 	<c:if test="${receipt.subOrganizationId != null}"> --%>
+
+									<%-- 	<c:if test="${receipt.subOrganizationId != null}"> --%>
 									<%-- <c:forEach items = "${subOrganizationList }" var = "value">
 									<c:choose>
 									<c:when test = "${value.masterdataId == subOrganizationIdCheck} ">
@@ -260,12 +284,12 @@
 										<aui:option >${value.value}</aui:option>
 										</c:if> --%>
 									<%-- 	</c:forEach>  --%>
-			
-								<%-- 	</c:if> --%>
-									
+
+									<%-- 	</c:if> --%>
+
 								</aui:select>
 							</div>
-							
+
 						</aui:col>
 					</aui:row>
 					<aui:row>
@@ -362,7 +386,8 @@
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-country" /></label>
-								<aui:select cssClass = "master_drop_country" label="" name="countryId" id="countryId">
+								<aui:select cssClass="master_drop_country" label=""
+									name="countryId" id="countryId">
 									<%-- <c:if test="${receipt.countryId != null}">
 										<aui:option value="${receipt.countryId}">${countryValue}</aui:option>
 									</c:if> --%>
@@ -393,7 +418,7 @@
 								<aui:input label="" name="city" id="city"
 									value="${receipt.city}">
 									<aui:validator name="maxLength">
-								 		<liferay-ui:message key="receipt-input-maxlength" />
+										<liferay-ui:message key="receipt-input-maxlength" />
 									</aui:validator>
 									<aui:validator name="custom"
 										errorMessage="receipt-input-not-special-char-allowed">
@@ -438,12 +463,12 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-category" /><span
 									class='text-danger'>*</span></label>
-								<aui:select cssClass ="master_drop_receipt_category" label="" name="receiptCategoryId"
-									id="receiptCategoryId">
+								<aui:select cssClass="master_drop_receipt_category" label=""
+									name="receiptCategoryId" id="receiptCategoryId">
 									<c:if test="${receipt.receiptCategoryId != null}">
 										<aui:option value="${receipt.receiptCategoryId}">${receiptCategoryValue}</aui:option>
 									</c:if>
-									
+
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -452,17 +477,17 @@
 							<div class="textOnInput" id="editReceiptSubCategoryDiv">
 								<label><liferay-ui:message
 										key="label-receipt-sub-category" /></label>
-								<aui:select  label="" name="receiptSubCategoryId"
+								<aui:select label="" name="receiptSubCategoryId"
 									id="receiptSubCategoryId">
 									<%-- <c:if test="${receipt.receiptSubCategoryId != null}">
 										<aui:option value="${receipt.receiptSubCategoryId}">${receiptSubCategoryValue}</aui:option>
 									</c:if> --%>
-									
+
 								</aui:select>
-								
-								
+
+
 							</div>
-						
+
 						</aui:col>
 					</aui:row>
 
@@ -508,17 +533,17 @@
 </div>
 
 <script type="text/javascript">
-	$(".master_drop_type").on("click" ,function() {
-	    $(".master_drop_type").find("option").eq(0).hide();
+	$(".master_drop_type").on("click", function() {
+		$(".master_drop_type").find("option").eq(0).hide();
 	});
-	
-	$(".master_drop_receipt_category").on("click" ,function() {
-	    $(".master_drop_receipt_category").find("option").eq(0).hide();
-		
+
+	$(".master_drop_receipt_category").on("click", function() {
+		$(".master_drop_receipt_category").find("option").eq(0).hide();
+
 	});
-	$(".master_drop_organization").on("click" ,function() {
-		
-	    $(".master_drop_organization").find("option").eq(0).hide();
+	$(".master_drop_organization").on("click", function() {
+
+		$(".master_drop_organization").find("option").eq(0).hide();
 	});
 	/* $(".master_drop_country").on("click" ,function() {
 	    $(".master_drop_country").find("option").eq(0).hide();
@@ -526,11 +551,11 @@
 
 	$(document).ready(function() {
 		$("#<portlet:namespace/>letterDate").datepicker({
-			format : 'dd-M-yyyy'
+			format : 'dd/M/yyyy'
 		});
 
 		$("#<portlet:namespace/>receivedOn").datepicker({
-			format : 'dd-M-yyyy'
+			format : 'dd/M/yyyy'
 		});
 
 	});

@@ -93,7 +93,7 @@
 					cssClass="hover-tips" name="label-receipt-sent-sent-to" />
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-sent-on">
-					<fmt:formatDate type="both" pattern="dd-MM-yy hh:mm aa"
+					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
 						timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="dueDate"

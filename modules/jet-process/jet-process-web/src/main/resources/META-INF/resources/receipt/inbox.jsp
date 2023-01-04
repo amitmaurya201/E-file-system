@@ -250,7 +250,7 @@
 							</liferay-ui:search-container-column-text>
 
 							<%
-								SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+								SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 													simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 							%>
 

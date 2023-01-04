@@ -9,12 +9,29 @@
 <%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<style>
+<!--
+.datepicker{
+overflow:hidden;
+}
+.datepicker-days .table-condensed {
+width: 100%;
+}
+.datepicker-days .table-condensed tr {
+  border: 1px solid black;
+}
+.datepicker-days .table-condensed td {
+  border: 1px solid black;
+}
+-->
+</style>
+
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
 
 	/* for current date*/
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MMM-yyyy");
+	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MMM/yyyy");
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="createdListReceipt">
@@ -129,7 +146,7 @@
 										key="label-receipt-letter-date" /></label>
 
 								<aui:input type="text" label="" name="letterDate"
-									id="letterDate" placeholder="dd-mm-yyyy">
+									id="letterDate" placeholder="dd/mm/yyyy">
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
@@ -147,7 +164,7 @@
 								<label><liferay-ui:message
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
 								<aui:input type="text" label="" name="receivedOn"
-									id="receivedOn" placeholder="dd-mm-yyyy">
+									id="receivedOn" placeholder="dd/mm/yyyy">
 									<aui:validator name="required" />
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
@@ -167,7 +184,6 @@
 												var date=new Date(val);
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
 												var createdOnValue= new Date(createdOn);
-												console.log(date+"   "+createdOnValue);
 												return (createdOnValue >= date);
 											}
 										</aui:validator>
@@ -462,11 +478,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#<portlet:namespace/>letterDate").datepicker({
-			format : 'dd-M-yyyy'
+			format : 'dd/M/yyyy'
 		});
 
 		$("#<portlet:namespace/>receivedOn").datepicker({
-			format : 'dd-M-yyyy'
+			format : 'dd/M/yyyy'
 		});
 
 	});

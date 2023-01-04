@@ -22,7 +22,7 @@
 			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
 		<%
-			SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+			SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
 		
