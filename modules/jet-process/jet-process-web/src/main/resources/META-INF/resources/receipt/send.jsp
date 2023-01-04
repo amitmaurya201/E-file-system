@@ -13,6 +13,24 @@
 	String currURL = (String) renderRequest.getAttribute("currentURL");
 %>
 
+<style>
+<!--
+.datepicker{
+overflow:hidden;
+}
+.datepicker-days {
+margin-left: 22px;
+}
+.datepicker-days .table-condensed tr {
+  border: 1px solid black;
+}
+.datepicker-days .table-condensed td {
+  border: 1px solid black;
+}
+-->
+</style>
+
+
 <div class="send row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -84,14 +102,15 @@
 						<label><liferay-ui:message key="label-send-due-date" /><span
 							class="text-danger">*</span></label>
 						<aui:input type="text" name="dueDate" id="dueDate" label=""
-							placeholder="dd-mm-yyyy">
+							placeholder="dd/mm/yyyy">
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
-										function(val){
+									function(val){
 												var date=new Date(val);
 												var today = new Date();
-												const yesterday = new Date(today)
-												yesterday.setDate(yesterday.getDate() - 1)
+												const yesterday = new Date(today);
+												yesterday.setDate(yesterday.getDate() - 1);
+												console.log(today+'--'+date);
 												return (yesterday < date);
 											}
 										</aui:validator>
@@ -143,7 +162,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#<portlet:namespace/>dueDate").datepicker({
-			format : 'dd-M-yyyy'
+			format : 'dd/M/yyyy'
 		});
 	});
 </script>
@@ -170,4 +189,4 @@
             });
         }
     );
-</aui:script> --%>
+</aui:script>  --%>
