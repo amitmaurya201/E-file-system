@@ -50,8 +50,7 @@ ALTER FUNCTION public.get_file_created_list_count(bigint, text)
     
 --    --------------------- File inbox list count -------------------------
 
-    
-    CREATE OR REPLACE FUNCTION public.get_file_inbox_lists_count(
+CREATE OR REPLACE FUNCTION public.get_file_inbox_lists_count(
 	sender_id bigint,
 	keyword text)
     RETURNS bigint
@@ -111,10 +110,9 @@ ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
     
     
     
-    
 --  ----------------  File Sent List  count ---------------
 
-    
+ 
 CREATE OR REPLACE FUNCTION public.get_file_sent_lists_count(
 	sender_id bigint,
 	keyword text)
@@ -142,6 +140,7 @@ total :=0;
 					FROM PUBLIC.jet_process_filemovement as fm 
 					JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid
 					JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
+                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid
 					where fm.senderid = sender_id AND currentstate = 2  AND fm.active_ = true
                     AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
             
@@ -151,6 +150,7 @@ total :=0;
 					FROM PUBLIC.jet_process_filemovement as fm 
 					JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid
 					JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
+                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid
 					where fm.senderid = sender_id AND currentstate = 2  AND fm.active_ = true AND fm.pullbackremark is null;
 			
 
@@ -302,14 +302,14 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
 
 --  -----------------------  Get File Inbox List  ----------------------------------
 
- CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
+CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	receiverid bigint,
 	keyword text,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark character varying, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid bigint, currentstate integer, docfileid bigint, pullbackremark character varying) 
+    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark character varying, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid bigint, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -330,11 +330,11 @@ AS $BODY$
       
       
    _query=' SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject,
-		(SELECT concat(up1.username,''('',  up1.postmarking, '')'', up1.sectionname,'', '', up1.departmentname)) as sentBy,
-		(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) AS SentTo ,
+		(SELECT concat(up1.username,(  up1.postmarking) , up1.sectionname, up1.departmentname)) as sentBy,
+		(SELECT concat(up2.username, up2.postmarking, up2.sectionname, up2.departmentname)) AS SentTo ,
 		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn,
 		f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId , 
-        f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
+        f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername
 		FROM PUBLIC.jet_process_filemovement as fm 
         Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
 		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
@@ -437,7 +437,6 @@ $BODY$;
 ALTER FUNCTION public.get_file_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
-    
 --    ----------------------------- Get File Sent List  ------------------------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_sent_list(
@@ -447,7 +446,7 @@ CREATE OR REPLACE FUNCTION public.get_file_sent_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark text, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid integer, currentstate integer, docfileid bigint, pullbackremark character varying) 
+    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark text, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid integer, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -468,16 +467,18 @@ AS $BODY$
       
       
    _query=' SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ,
-			null as sendBy, (SELECT concat(up1.username, ''('',up1.postmarking ,'')'',
-            up1.sectionname, '' , '' , up1.departmentname)) AS sentTo ,
+			null as sendBy, (SELECT concat(up1.username, up1.postmarking ,
+            up1.sectionname , up1.departmentname)) AS sentTo ,
 			fm.createdate as SentOn, fm.readon as readOn, fm.duedate ,
             null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith ,
             f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as 
             currentState ,
-            f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
+            f.docfileid as docFileId , fm.pullbackremark as pullBackRemark ,  (SELECT concat(up2.username, up2.postmarking ,
+            up2.sectionname , up2.departmentname)) as currentlywithusername
 			FROM PUBLIC.jet_process_filemovement as fm 
 			JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 			JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
+            JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
 			where currentstate = 2  AND fm.active_ = true 
    ';
                   
@@ -1389,19 +1390,15 @@ ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text,
     
     --    -------------------------------------  Get File Movement List  -----------------------------------------------
     
-    
+ 
 CREATE OR REPLACE FUNCTION public.get_file_movement_list(
-	_fileId bigint,
+	_fileid bigint,
 	keyword text,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(filemovementid bigint, filenumber text,
-subject text, sentby text, sentto text,  senton timestamp without time zone,
-readon text, duedate text, remark character varying(75), receivedon text,
-currentlywith int, nature text, fileid int, senderid integer, 
-currentstate integer, docfileid bigint, pullbackremark character varying) 
+    RETURNS TABLE(filemovementid bigint, filenumber text, subject text, sentby text, sentto text, senton timestamp without time zone, readon text, duedate text, remark character varying, receivedon text, currentlywith integer, nature text, fileid integer, senderid integer, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1425,10 +1422,10 @@ AS $BODY$
 	fm.fmid as fileMovementId, 
 	null as filenumber , 
 	null as subject ,
-	(SELECT concat(up2.username, '' ('',up2.postmarking, '') '', up2.sectionname, '' , '', up2.departmentname)) as sentBy ,
-	(SELECT concat(up1.username, '' ('',up1.postmarking,'') '', up1.sectionname,'' , '', up1.departmentname)) AS sentTo ,
-	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith,
-    null as nature, 0 as fileId, 0 as senderId , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark
+	(SELECT concat(up2.username, up2.postmarking, up2.sectionname, up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username, up1.postmarking, up1.sectionname, up1.departmentname)) AS sentTo ,
+	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith, 
+    null as nature, 0 as fileId, 0 as senderId , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername
 	FROM PUBLIC.jet_process_filemovement as fm 
 	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
