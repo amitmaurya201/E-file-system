@@ -1,4 +1,6 @@
+
 <aui:script use= "aui-base">
+var userPostId = $('#<portlet:namespace />userPostsVal').val();
 
 var tempFileId=0;
 
@@ -197,7 +199,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
-     var userPostId=  getUserPostId();
+    /* var userPostId= 1;*/
      jsonData["userPostId"] = userPostId;
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
@@ -245,7 +247,6 @@ $("#<portlet:namespace />update").on('click', function(e){
 	console.log("dmFileId"+dmFileId);
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
-    var userPostId= getUserPostId();
     jsonData["userPostId"] = userPostId;
     if(tempFileId!=0){
     	console.log("temp not eq 0 .........");

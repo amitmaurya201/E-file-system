@@ -1,7 +1,15 @@
 <%@page import="com.liferay.portal.kernel.util.PropsUtil"%>
+
+<%
+   HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
+   String userPostsVal = (String) userPostIdValue.getAttribute("userPostId"); 	
+%> 
+<aui:input name = "userPostsVal" value= "<%=userPostsVal %>" type = "hidden"></aui:input>
+
 <aui:script>
  <%
 String char_width = PropsUtil.get("max.width");
+ 
 %>
 
  function bindFormDataJson(formObj){
