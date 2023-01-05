@@ -240,7 +240,7 @@ $(document).ready(function(e){
 	 });
 });
 
-/*var url='${receipt.viewPdfUrl}';*/
+var url='${receipt.viewPdfUrl}';
 
 /* if nature is elcetronic */
 var errorLabel= false;
@@ -379,12 +379,11 @@ $('#removeFileUpload').on('click',function(e){
 	e.preventDefault();
  $('.dropzone-wrapper').css("display", "block");
  $('#removeFileUpload').css("display", "none");
-	console.log("if ------>>>>>");
-	
 	$("#editpdfurl").remove();
 	$("#doc-input").val(null);
-	
 	$(sizeValidation).css('display', 'none'); 
+    tempFileId=0;
+    url = null;
 });
 
 
@@ -463,7 +462,6 @@ function validateSize(file) {
 $(document).ready(function(){
 	let url;	
 	let flag='${removeFlag}';
-	console.log("flag--------> "+flag);
 	if(flag== null || flag==''){
 		url='${receipt.viewPdfUrl}';
 	}else{
