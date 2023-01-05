@@ -467,7 +467,6 @@ $(document).ready(function(){
 	}else{
 		url='';
 	}
-	console.log("urllllllll--------> "+url);
 	if(url == '' || url == null || url == undefined){
 		$('.dropzone-wrapper').css('display', 'block');
 	}
