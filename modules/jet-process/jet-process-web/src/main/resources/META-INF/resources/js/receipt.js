@@ -328,13 +328,11 @@ $("#<portlet:namespace />update").on('click', function(e){
 	e.preventDefault();
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
-    jsonData["userPostId"] = userPostId;
     var dmFileId = '${receipt.dmFileId}';
-    if(dmFileId ==0 || dmFileId== null|| dmFileId== undefined){
-	    if(tempFileId!=0){
-	    	 jsonData["tempFileId"] = tempFileId; 
-	    }
-    }
+    jsonData["userPostId"] = userPostId;
+	if(tempFileId!=0){
+		jsonData["tempFileId"] = tempFileId; 
+    }	
     else{
     	jsonData["tempFileId"] = 0;
     }
@@ -374,7 +372,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     }
 });
 
-//----remove uploaded file ----
+// ----remove uploaded file ----
 $('#removeFileUpload').on('click',function(e){	
 	e.preventDefault();
  $('.dropzone-wrapper').css("display", "block");
@@ -387,7 +385,7 @@ $('#removeFileUpload').on('click',function(e){
 });
 
 
-//---for drag and drop ---
+// ---for drag and drop ---
 $('#doc-select-btn').on('click',function(){	
 		 $("#doc-input").trigger('click');
 	});
