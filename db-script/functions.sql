@@ -49,6 +49,7 @@ ALTER FUNCTION public.get_file_created_list_count(bigint, text)
 
     
 --    --------------------- File inbox list count -------------------------
+--DROP FUNCTION IF EXISTS public.get_file_inbox_lists_count(bigint, text);
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_lists_count(
 	sender_id bigint,
@@ -111,6 +112,7 @@ ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
     
     
 --  ----------------  File Sent List  count ---------------
+ --DROP FUNCTION IF EXISTS public.get_file_sent_lists_count(bigint, text);
 
  
 CREATE OR REPLACE FUNCTION public.get_file_sent_lists_count(
@@ -301,6 +303,7 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
     
 
 --  -----------------------  Get File Inbox List  ----------------------------------
+--DROP FUNCTION IF EXISTS public.get_file_inbox_list(bigint, text, integer, integer, text, text);
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	receiverid bigint,
@@ -438,6 +441,7 @@ ALTER FUNCTION public.get_file_inbox_list(bigint, text, integer, integer, text, 
     OWNER TO postgres;
     
 --    ----------------------------- Get File Sent List  ------------------------------------------
+--DROP FUNCTION IF EXISTS public.get_file_sent_list(bigint, text, integer, integer, text, text);
 
 CREATE OR REPLACE FUNCTION public.get_file_sent_list(
 	_senderid bigint,
@@ -1389,7 +1393,8 @@ ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text,
     
     
     --    -------------------------------------  Get File Movement List  -----------------------------------------------
-    
+   -- DROP FUNCTION IF EXISTS public.get_file_movement_list(bigint, text, integer, integer, text, text);
+
  
 CREATE OR REPLACE FUNCTION public.get_file_movement_list(
 	_fileid bigint,
