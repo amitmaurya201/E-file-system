@@ -477,7 +477,7 @@ AS $BODY$
             null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith ,
             f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as 
             currentState ,
-            f.docfileid as docFileId , fm.pullbackremark as pullBackRemark ,  (SELECT concat(up2.username, ''(''up2.postmarking ,'')'',
+            f.docfileid as docFileId , fm.pullbackremark as pullBackRemark ,  (SELECT concat(up2.username, ''('',up2.postmarking ,'')'',
             up2.sectionname,'','' , up2.departmentname)) as currentlywithusername
 			FROM PUBLIC.jet_process_filemovement as fm 
 			JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
