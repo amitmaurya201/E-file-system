@@ -1,8 +1,8 @@
 
 <aui:script use= "aui-base">
-//---userpostid---
+// ---userpostid---
 var userPostId = $('#<portlet:namespace />userPostsVal').val();
-
+var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var tempFileId=0;
 
 // ---master data category---
@@ -18,7 +18,7 @@ AUI().use('aui-base', function(A){
 	});
 });	
 
-//---master data subcategory---
+// ---master data subcategory---
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
     $("#<portlet:namespace />receiptSubCategoryId").empty();
@@ -40,7 +40,7 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	});
 });
 
-//---master data type---
+// ---master data type---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-type-masterdata',
@@ -53,7 +53,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-//---master data delivery mode---
+// ---master data delivery mode---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-delivery-mode-masterdata',
@@ -67,7 +67,7 @@ AUI().use('aui-base', function(A){
 	 });
 });
 
-//---master data country---
+// ---master data country---
 $('document').ready(function(e){
 	var editCountryId =$("#<portlet:namespace />countryId").val();
 	AUI().use('aui-base', function(A){
@@ -115,7 +115,7 @@ $("#<portlet:namespace />countryId").on('change', function(){
 	});
 });
 
-//---master data organization---
+// ---master data organization---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-organization-masterdata',
@@ -128,7 +128,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-//---master data suborganization---
+// ---master data suborganization---
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
     $("#<portlet:namespace />subOrganizationId").empty();
@@ -151,7 +151,7 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 		 	});
 });
 
-//---master data suborganization for edit---
+// ---master data suborganization for edit---
 $(document).ready(function(e){
 	var orgId = '${receipt.organizationId }';
 	var subOrgId = '${receipt.subOrganizationId}';
@@ -181,7 +181,7 @@ $(document).ready(function(e){
 	 	});
 })
 
-//---master data subcategory for edit---
+// ---master data subcategory for edit---
 $(document).ready(function(e){
 	var receiptCategoryId = '${receipt.receiptCategoryId}';
 	var receiptSubCategoryId = '${receipt.receiptSubCategoryId}';
@@ -211,7 +211,7 @@ $(document).ready(function(e){
 	 });
 });
 
-//---master data state for edit---
+// ---master data state for edit---
 $(document).ready(function(e){
 	var countryId = '${receipt.countryId}';
 	var stateId = '${receipt.stateId}';
@@ -240,45 +240,32 @@ $(document).ready(function(e){
 	 });
 });
 
-
-var groupId = Liferay.ThemeDisplay.getScopeGroupId();
-var receiptId= $('#<portlet:namespace/>receiptId').val();
 var url='${receipt.viewPdfUrl}';
 
 /* if nature is elcetronic */
 var errorLabel= false;
 $("#<portlet:namespace />nature").on('change',mySeletedNature);
-	function mySeletedNature(){
+function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
-	 console.log('--   '+nature);
-	 console.log('--   '+tempFileId);
-	 console.log('url       --   '+url);
      if(nature == 'Electronic' && tempFileId == 0 ){
-    	 console.log('1');
     	 if(url == '' || url == null || url == undefined ){
-    		 console.log('2');
 	    	 if(($("#error").length) == 0){
-	    		 console.log('3');
 	    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
 	    	 }
-	    	
-	    		 console.log('4');
 	    		 return true;
     	 }else{
-    		 console.log('5');
     		 return false;
     	 }
     	 errorLabel=true;
      }else{
-    	 console.log('6');
     	 errorLabel=false;    		
     	 $("#error ").remove();
     	 return false;
      }
 }
 	
-	// for validation
-	function validateForm(receiptForm) {
+// ---- for validation ----
+function validateForm(receiptForm) {
 		var liferayForm = Liferay.Form.get(receiptForm);
 	    if (liferayForm) {
 	        var validator = liferayForm.formValidator;
@@ -290,7 +277,7 @@ $("#<portlet:namespace />nature").on('change',mySeletedNature);
 	            }
 	   	}
 	    return true;
-	}
+}
 	
 $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
@@ -301,34 +288,32 @@ $("#<portlet:namespace />generate").on('click', function(e){
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
      if(validateForm('<portlet:namespace/>receiptForm')){
-    	 console.log('---validation----');
     	 if(!mySeletedNature()){
-    		 console.log('---mySeletedNature----');
-		 $.ajax({
-			    type: "POST",
-			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
-			    data: jsonObj,
-			    dataType: 'json',
-			    cache : false,
-			    processData: false,
-		        contentType : 'application/json'
-		 }) .done(function(response) {
-			  var receiptNumber =response.receiptNumber;
-			  swal( {
-                 title: "Successfull!",
-                 text: `You have successfully created your receipt! and your receipt number is `+receiptNumber,
-                 icon: "success",
-                 button: "Ok"
-             }).then(function() {
-           	    window.location.href = '<%= createdListReceipt.toString() %>';
-             });
-	 }).fail(function(error){
-			 swal({  
-				  title: " Oops!",  
-				  text: " Something went wrong, you should choose again!",  
-				  icon: "error",  
-				});  
-		 })
+			 $.ajax({
+				    type: "POST",
+				    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
+				    data: jsonObj,
+				    dataType: 'json',
+				    cache : false,
+				    processData: false,
+			        contentType : 'application/json'
+			 }) .done(function(response) {
+				  var receiptNumber =response.receiptNumber;
+				  swal( {
+	                 title: "Successfull!",
+	                 text: `You have successfully created your receipt! and your receipt number is `+receiptNumber,
+	                 icon: "success",
+	                 button: "Ok"
+	             }).then(function() {
+	           	    window.location.href = '<%= createdListReceipt.toString() %>';
+	             });
+		 }).fail(function(error){
+				 swal({  
+					  title: " Oops!",  
+					  text: " Something went wrong, you should choose again!",  
+					  icon: "error",  
+					});  
+			 })
 		}else{
 			 return false;
 		}
@@ -341,25 +326,22 @@ $("#<portlet:namespace />generate").on('click', function(e){
 /* update receipt */
 $("#<portlet:namespace />update").on('click', function(e){
 	e.preventDefault();
-	var dmFileId = $('#<portlet:namespace/>dmFileId').val();
-	console.log("dmFileId"+dmFileId);
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
     jsonData["userPostId"] = userPostId;
-    if(tempFileId!=0){
-    	console.log("temp not eq 0 .........");
-    	 jsonData["tempFileId"] = tempFileId; 
+    var dmFileId = '${receipt.dmFileId}';
+    if(dmFileId ==0 || dmFileId== null|| dmFileId== undefined){
+	    if(tempFileId!=0){
+	    	 jsonData["tempFileId"] = tempFileId; 
+	    }
     }
     else{
-    	console.log("temp 0 .........");
     	jsonData["tempFileId"] = 0;
     }
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
-   	 console.log('---validation----');
    	 if(!mySeletedNature()){
-   		 console.log('---mySeletedNature----');
 		  $.ajax({
 			    type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -369,10 +351,9 @@ $("#<portlet:namespace />update").on('click', function(e){
 			    processData: false,
 		        contentType : 'application/json'
 			  }).done(function(response) {
-				  console.log(response);
 				  swal( {
                       title: "Successfull!",
-                      text: `You have successfully update your receipt! `,
+                      text: `You have successfully update your receipt!`,
                       icon: "success",
                       button: "Ok"
                   })
@@ -381,12 +362,11 @@ $("#<portlet:namespace />update").on('click', function(e){
 		 .fail(function(error){
 			 swal({  
 				  title: " Oops!",  
-				  text: " Something went wrong, you should choose again!",  
+				  text: "Something went wrong, you should choose again!",  
 				  icon: "error",  
 				});  
-		 })
+		 	})
     	}else{
-    		console.log("=-   ");
 	    	return false;
 	    }
     }else{
@@ -394,9 +374,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     }
 });
 
-
-console.log('tempFileId   -     '+tempFileId);
-
+//----remove uploaded file ----
 $('#removeFileUpload').on('click',function(e){	
 	e.preventDefault();
  $('.dropzone-wrapper').css("display", "block");
@@ -416,36 +394,31 @@ $('#removeFileUpload').on('click',function(e){
 });
 
 
+//---for drag and drop ---
 $('#doc-select-btn').on('click',function(){	
 		 $("#doc-input").trigger('click');
 	});
 
-
 $('#doc-input').on('change',function(e){	
 	console.log("doc input field...")
 	var file = e.target.files[0];
-// displayPreview(file);
 	validateSize(file);
 });
 
-	$('.dropzone-wrapper').on('dragover', function(e) {
-		console.log("inside drag area..")
-		e.preventDefault();
-		e.stopPropagation();
-	});
+$('.dropzone-wrapper').on('dragover', function(e) {
+	console.log("inside drag area..")
+	e.preventDefault();
+	e.stopPropagation();
+});	
 
-	$('.dropzone-wrapper').on('dragleave', function(e) {
-		console.log("leave drag area..")
-	});
+$('.dropzone-wrapper').on('dragleave', function(e) {
+	console.log("leave drag area..")
+});	
 	
 	$('.dropzone-wrapper').on('drop', function(e) {
-		
 	  e.preventDefault();
 	  e.stopPropagation();
-	  
-	  
 	  console.log("drop drag area.."+e.originalEvent.dataTransfer.files[0].name)
-// displayPreview(e.originalEvent.dataTransfer.files[0]);
 	  validateSize(e.originalEvent.dataTransfer.files[0])
 	});
 	
@@ -494,21 +467,17 @@ function validateSize(file) {
 	}
 
 $(document).ready(function(){
-	console.log(".................");
-	console.log('${receipt.viewPdfUrl}');
-	let url='${receipt.viewPdfUrl}';
+	let url='${receipt.viewPdfUrl}';		
+	console.log(url);
 	if(url == '' || url == null || url == undefined){
 		$('.dropzone-wrapper').css('display', 'block');
-		/* $(sizeValidation).css('display', 'block'); */
 	}
 	else{
 		$('#editpdfurl').css('display', 'block');
 		if($('#editpdfurl').css('display', 'block')){
 			$('#removeFileUpload').css('display', 'block');
 		}
-		
 	}
 });
-
 
 </aui:script>
