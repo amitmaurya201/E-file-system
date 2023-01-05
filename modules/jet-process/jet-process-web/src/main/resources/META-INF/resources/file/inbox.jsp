@@ -147,6 +147,8 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 					<portlet:param name="fileId1"
 						value="${fileinboxDtoList.getFileId()}" />
                          <portlet:param name="fmId" value="${fileinboxDtoList.getFileMovementId()}" />
+                        <portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+                         
                         
 				</portlet:actionURL>
 

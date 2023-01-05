@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -33,7 +34,8 @@ public class FileInboxReadActionCommand implements MVCActionCommand {
 
 		long fileId1 = ParamUtil.getLong(actionRequest, "fileId1");
 		long fmId = ParamUtil.getLong(actionRequest, "fmId");
-	
+		String url = ParamUtil.getString(actionRequest, "backPageURL");
+
 
 		try {
 			boolean state = fileMovementLocalService.pullBackedAlready(fmId);
@@ -64,7 +66,12 @@ public class FileInboxReadActionCommand implements MVCActionCommand {
 			e.printStackTrace();
 		}
 
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
+		try {
+			actionResponse.sendRedirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 
