@@ -360,7 +360,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 <div class="ml-3" id="alert-receive-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="receive-not-available"
-		message="file-receive-inbox-error" />
+		message="You can not be Receive this File " />
 </div>
 <%-- 
 <liferay-ui:success key="read-available"
@@ -368,7 +368,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="read-not-available"
-		message="file-read-inbox-error" />
+		message="You can not be Read this File" />
 </div>
 
 
@@ -515,12 +515,12 @@ $("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
 	} */
 
 	/* Remove read error  message */
-$("#alert-read-remove").fadeTo(2000, 500).slideUp(500, function(){
-    $("#alert-read-remove").slideUp(500);
+$("#alert-read-remove").fadeTo(2000, 700).slideUp(700, function(){
+    $("#alert-read-remove").slideUp(700);
 });
 
 	/* Remove receive error message */
-$("#alert-receive-remove").fadeTo(2000, 500).slideUp(500, function(){
+$("#alert-receive-remove").fadeTo(2000, 700).slideUp(700, function(){
     $("#alert-receive-remove").slideUp(500);
 });
 
