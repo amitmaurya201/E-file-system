@@ -329,6 +329,10 @@ public interface DocFileLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isFileAbleToSend(long userPostId, long docFileId)
+		throws PortalException;
+
 	/**
 	 * Updates the doc file in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

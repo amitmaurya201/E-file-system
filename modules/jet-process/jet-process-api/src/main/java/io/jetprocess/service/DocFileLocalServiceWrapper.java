@@ -416,6 +416,13 @@ public class DocFileLocalServiceWrapper
 		return _docFileLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public boolean isFileAbleToSend(long userPostId, long docFileId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileLocalService.isFileAbleToSend(userPostId, docFileId);
+	}
+
 	/**
 	 * Updates the doc file in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

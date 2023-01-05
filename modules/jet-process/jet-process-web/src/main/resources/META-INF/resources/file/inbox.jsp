@@ -119,7 +119,16 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 				className="io.jetprocess.list.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
-				<portlet:renderURL var="sendURL">
+
+
+<portlet:actionURL var="sendURL" name="sendFileAction">
+					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
+					<portlet:param name="docFileId"
+						value="${fileinboxDtoList.getFileId()}" />
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+				</portlet:actionURL>
+
+				<%-- <portlet:renderURL var="sendURL">
 					<portlet:param name="mvcRenderCommandName"
 						value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 					<portlet:param name="docFileId"
@@ -127,7 +136,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 						 <portlet:param name="backPageURL" value="<%=backURL1 %>"></portlet:param>						
 						
 				</portlet:renderURL>
-
+ --%>
 				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
@@ -348,6 +357,15 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 		<%} %>
 
 
+
+<liferay-ui:success key="send-available"
+	message="file-send-inbox-success" />
+<div class="ml-3" id="alert-remove"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="send-not-available"
+		message="file-already-pullbacked" />
+</div>
+
 <!-- Receive pop up -->
 <div id="file-receive" class="receive-popup">
 	<!--   Creates the popup content-->
@@ -482,6 +500,11 @@ $("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
 		
 	} */
 
+	/* Remove error message */
+$("#alert-remove").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-remove").slideUp(500);
+});
+	
 function showModal(id){
 	Liferay.Service(
 			'/masterdata.userpost/get-user-post-by-id',

@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.jetprocess.model.DocFile;
+import io.jetprocess.model.Receipt;
 import io.jetprocess.service.base.DocFileLocalServiceBaseImpl;
 import io.jetprocess.validator.FileValidator;
 
@@ -194,5 +195,20 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		return docFile;
 		
 	}
+	
+	
+	
+	// for check is file able to send
+	public boolean isFileAbleToSend(long userPostId, long docFileId) throws PortalException {
+		boolean state = false;
+		DocFile docFile = getDocFileByDocFileId(docFileId);
+		if (userPostId == docFile.getCurrentlyWith()) {
+			state = true;
+		} else {
+			state = false;
+		}
+		return state;
+	}
+	
 
 }

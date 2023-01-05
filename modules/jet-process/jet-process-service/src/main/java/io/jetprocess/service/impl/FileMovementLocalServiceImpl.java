@@ -211,6 +211,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return pullable;
 	}
 
+	
+	
 	@Reference
 	DocFileLocalService docFileLocalService;
 
