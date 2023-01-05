@@ -292,30 +292,26 @@
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 		</liferay-ui:search-container>
-
 	</div>
 </div>
-<%-- 
-<liferay-ui:success key="receive-available"
-	message="receipt-receive-inbox-success" /> --%>
-<div class="ml-3" id="alert-remove"
-	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
-	<liferay-ui:error key="receive-not-available"
-		message="receipt-receive-inbox-error" />
-</div>
-<%-- 
-<liferay-ui:success key="read-available"
-	message="receipt-read-inbox-success" /> --%>
-<div class="ml-3" id="alert-remove"
+
+<!-- checker of read  -->
+<div class="ml-3" id="alert-remove-read"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="read-not-available"
 		message="receipt-read-inbox-error" />
 </div>
+<!-- checker of receive  -->
+<div class="ml-3" id="alert-remove-receive"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 73%; margin-top: -40px;">
+	<liferay-ui:error key="receive-not-available"
+		message="receipt-receive-inbox-error" />
+</div>
 
-
+<!-- checker of send  -->
 <liferay-ui:success key="send-available"
 	message="receipt-send-inbox-success" />
-<div class="ml-3" id="alert-remove"
+<div class="ml-3" id="alert-remove-send"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="send-not-available"
 		message="receipt-send-inbox-error" />
@@ -402,15 +398,18 @@
 	</div>
 </div>
 
-
-
-
-
-
 <script type="text/javascript">
-/* auto close alert */
-$("#alert-remove").fadeTo(2000, 500).slideUp(500, function(){
-    $("#alert-remove").slideUp(500);
+/* auto close alert for read */
+$("#alert-remove-read").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-remove-read").slideUp(500);
+});
+/* auto close alert for receive */
+$("#alert-remove-receive").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-remove-receive").slideUp(500);
+});
+/* auto close alert for send */
+$("#alert-remove-send").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-remove-send").slideUp(500);
 });
 
  function receiptReceiveModal(receiptId,rmId){

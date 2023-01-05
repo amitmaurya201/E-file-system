@@ -33,9 +33,8 @@
 }
 -->
 </style>
-
 <%
-	Receipt receipt = (Receipt) session.getAttribute("receipt");
+	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
 	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
@@ -49,7 +48,6 @@
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="edit" />
-			<%-- <liferay-util:param name="userPostId" value="${id}" /> --%>
 		</liferay-util:include>
 		<div>
 			<h2 style="text-align: center; text-decoration: underline;">
