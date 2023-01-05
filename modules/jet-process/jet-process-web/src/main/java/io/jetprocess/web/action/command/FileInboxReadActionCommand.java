@@ -2,7 +2,10 @@ package io.jetprocess.web.action.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.util.List;
 
@@ -35,9 +38,14 @@ public class FileInboxReadActionCommand implements MVCActionCommand {
 		try {
 			boolean state = fileMovementLocalService.pullBackedAlready(fmId);
 			if (state == false) {
-				System.out.println("you can not read this file ");
-				actionResponse.setRenderParameter("status", "error");
-				actionResponse.setRenderParameter("result", "You can not read this file.");
+				/*
+				 * System.out.println("you can not read this file ");
+				 * actionResponse.setRenderParameter("status", "error");
+				 * actionResponse.setRenderParameter("result", "You can not read this file.");
+				 */
+				SessionErrors.add(actionRequest, "read-not-available");
+				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+				
 			} else if (state == true) {
 				System.out.println("fileId1 --:" + fileId1);
 

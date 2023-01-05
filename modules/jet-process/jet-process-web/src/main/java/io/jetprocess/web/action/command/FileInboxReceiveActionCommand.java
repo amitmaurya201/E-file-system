@@ -2,7 +2,10 @@ package io.jetprocess.web.action.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.util.List;
 
@@ -37,9 +40,17 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 	   try {
 		boolean state =	fileMovementLocalService.pullBackedAlready(fmId);
 		if(state==false) {
-			System.out.println("you can not receive this file ");
-			actionResponse.setRenderParameter("receiveStatus", "error");
-			actionResponse.setRenderParameter("receiveResult", "You can not receive this file.");
+				/*
+				 * System.out.println("you can not receive this file ");
+				 * actionResponse.setRenderParameter("receiveStatus", "error");
+				 * actionResponse.setRenderParameter("receiveResult",
+				 * "You can not receive this file.");
+				 */
+
+			SessionErrors.add(actionRequest, "receive-not-available");
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+
 		}else if(state==true) {
 			System.out.println("fileId1 --:" + fileId);
 

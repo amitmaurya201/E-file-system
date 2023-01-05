@@ -13,11 +13,11 @@
 String backURL = themeDisplay.getURLCurrent();
 
 String backURL1 = backURL+"&a=12";
-String status = ParamUtil.getString(renderRequest, "status");
+/* String status = ParamUtil.getString(renderRequest, "status");
 String result = ParamUtil.getString(renderRequest, "result");
 
 String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
-String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
+String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 
 %>
 
@@ -341,7 +341,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 	</div>
 
 </div>
-
+<%-- 
 <% if(status.equalsIgnoreCase("error")){ %>
 		 <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -355,7 +355,21 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
     <strong><%= receiveResult %></strong>
   </div>
 		<%} %>
+ --%>
 
+<div class="ml-3" id="alert-receive-remove"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="receive-not-available"
+		message="file-receive-inbox-error" />
+</div>
+<%-- 
+<liferay-ui:success key="read-available"
+	message="receipt-read-inbox-success" /> --%>
+<div class="ml-3" id="alert-read-remove"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	<liferay-ui:error key="read-not-available"
+		message="file-read-inbox-error" />
+</div>
 
 
 <liferay-ui:success key="send-available"
@@ -500,9 +514,19 @@ $("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
 		
 	} */
 
-	/* Remove error message */
+	/* Remove read error  message */
+$("#alert-read-remove").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-read-remove").slideUp(500);
+});
+
+	/* Remove receive error message */
+$("#alert-receive-remove").fadeTo(2000, 500).slideUp(500, function(){
+    $("#alert-receive-remove").slideUp(500);
+});
+
+/* Remove error message */
 $("#alert-remove").fadeTo(2000, 500).slideUp(500, function(){
-    $("#alert-remove").slideUp(500);
+$("#alert-remove").slideUp(500);
 });
 	
 function showModal(id){
