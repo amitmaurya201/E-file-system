@@ -58,6 +58,8 @@ width: 100%;
 								style="display: none">
 								<liferay-ui:message key="receipt-remove-button" />
 							</button>
+							
+							<c:set var="removeFlag" value="${true} }"></c:set>
 							<div id="targetDiv" class="targetDiv text-center">
 								<div class="dropzone-wrapper ">
 									<i class="glyphicon glyphicon-download-alt"></i>

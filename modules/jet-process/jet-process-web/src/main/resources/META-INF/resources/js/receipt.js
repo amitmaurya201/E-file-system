@@ -240,7 +240,7 @@ $(document).ready(function(e){
 	 });
 });
 
-var url='${receipt.viewPdfUrl}';
+/*var url='${receipt.viewPdfUrl}';*/
 
 /* if nature is elcetronic */
 var errorLabel= false;
@@ -385,12 +385,6 @@ $('#removeFileUpload').on('click',function(e){
 	$("#doc-input").val(null);
 	
 	$(sizeValidation).css('display', 'none'); 
-	console.log('______'+tempFileId);
-	tempFileId=0;
-	console.log('___=___'+tempFileId);
-	console.log('___==___'+url);
-	url = null;
-	console.log('___=_=___'+url);
 });
 
 
@@ -467,8 +461,15 @@ function validateSize(file) {
 	}
 
 $(document).ready(function(){
-	let url='${receipt.viewPdfUrl}';		
-	console.log(url);
+	let url;	
+	let flag='${removeFlag}';
+	console.log("flag--------> "+flag);
+	if(flag== null || flag==''){
+		url='${receipt.viewPdfUrl}';
+	}else{
+		url='';
+	}
+	console.log("urllllllll--------> "+url);
 	if(url == '' || url == null || url == undefined){
 		$('.dropzone-wrapper').css('display', 'block');
 	}
