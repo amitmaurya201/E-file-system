@@ -89,6 +89,9 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		if(start < 0) {
 			start = 0;
 		}
+		if(delta == fileInboxCount) {
+			start = 0;
+		}
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 //		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);

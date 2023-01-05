@@ -86,6 +86,9 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		if(start < 0) {
 			start = 0;
 		}
+		if(delta == sendFileCount) {
+			start = 0;
+		}
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 		

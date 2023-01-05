@@ -160,8 +160,8 @@
 							</c:choose>
 
 							<liferay-ui:search-container-column-text
+							orderable="true" orderableProperty="subject"
 								value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
-								orderable="true" orderableProperty="subject"
 								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
 
 							<%
@@ -231,11 +231,11 @@
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text property="receiptNumber"
-								orderableProperty="receiptNumber" href="<%=receiptInnerView%>"
+								orderableProperty="receiptNumber" orderable="true" href="<%=receiptInnerView%>"
 								name="label-receipt-inbox-receiptno" />
 
 							<liferay-ui:search-container-column-text property="subject"
-								orderableProperty="subject" name="label-receipt-inbox-subject" />
+								orderableProperty="subject" orderable="true" name="label-receipt-inbox-subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil

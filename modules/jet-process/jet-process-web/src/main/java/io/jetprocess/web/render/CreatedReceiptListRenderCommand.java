@@ -98,6 +98,9 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand{
 		if(start < 0) {
 			start = 0;
 		}
+		if(delta == receiptCount) {
+			start = 0;
+		}
 		
 		session.setAttribute("oldDelta", ""+delta+"");
 

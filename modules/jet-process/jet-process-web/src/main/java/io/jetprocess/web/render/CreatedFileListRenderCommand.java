@@ -88,7 +88,10 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		if(start < 0) {
 			start = 0;
 		}
-		
+
+		if(delta == count) {
+			start = 0;
+		}
 		session.setAttribute("oldDelta", ""+delta+"");
 		
 		

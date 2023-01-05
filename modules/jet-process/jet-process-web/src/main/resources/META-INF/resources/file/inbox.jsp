@@ -272,7 +272,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult");
 								name="File number" />
 							<liferay-ui:search-container-column-text
 								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
-								orderableProperty="subject" name="label-file-inbox-subject"
+								orderableProperty="subject" orderable="true" name="label-file-inbox-subject"
 								cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
