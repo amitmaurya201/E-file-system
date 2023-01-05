@@ -1,9 +1,11 @@
 
 <aui:script use= "aui-base">
+//---userpostid---
 var userPostId = $('#<portlet:namespace />userPostsVal').val();
 
 var tempFileId=0;
 
+// ---master data category---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-receipt-category-masterdata',
@@ -16,7 +18,7 @@ AUI().use('aui-base', function(A){
 	});
 });	
 
-
+//---master data subcategory---
 $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	var receiptCategoryId = $("#<portlet:namespace />receiptCategoryId").val();
     $("#<portlet:namespace />receiptSubCategoryId").empty();
@@ -38,6 +40,7 @@ $("#<portlet:namespace />receiptCategoryId").on('change', function(){
 	});
 });
 
+//---master data type---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-type-masterdata',
@@ -50,7 +53,7 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-
+//---master data delivery mode---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-delivery-mode-masterdata',
@@ -64,9 +67,9 @@ AUI().use('aui-base', function(A){
 	 });
 });
 
+//---master data country---
 $('document').ready(function(e){
 	var editCountryId =$("#<portlet:namespace />countryId").val();
-	/* $("#<portlet:namespace />countryId").append(new Option("Select",0)); */
 	AUI().use('aui-base', function(A){
 		 Liferay.Service(
 				 '/masterdata.masterdata/get-countries-masterdata',
@@ -75,26 +78,21 @@ $('document').ready(function(e){
 							optionText = value.value;
 							optionValue = value.masterdataId;
 							 if(optionValue==editCountryId){
-								
 						    	 $('#<portlet:namespace />countryId').append(new Option(optionText,optionValue));
-						 		
 						    	 $("select option").each(function(){
 						    		  if ($(this).text() == optionText)
 						    		    $(this).attr("selected","selected");
 						    		});  	
-						    	 
 						     		}
 						     else{
-						    	
 						     $("#<portlet:namespace />countryId").append(new Option(optionText,optionValue));
 						     }
-
 				});
 		});
 	});
-	
 })
 
+// ---master data state---
 $("#<portlet:namespace />countryId").on('change', function(){
 	var countryId = $("#<portlet:namespace />countryId").val();
     $("#<portlet:namespace />stateId").empty();
@@ -117,6 +115,7 @@ $("#<portlet:namespace />countryId").on('change', function(){
 	});
 });
 
+//---master data organization---
 AUI().use('aui-base', function(A){
 	 Liferay.Service(
 			 '/masterdata.masterdata/get-organization-masterdata',
@@ -129,12 +128,11 @@ AUI().use('aui-base', function(A){
 	});
 });
 
-
+//---master data suborganization---
 $("#<portlet:namespace />organizationId").on('change', function(){
 	var organizationId = $("#<portlet:namespace />organizationId").val();
     $("#<portlet:namespace />subOrganizationId").empty();
     $("#<portlet:namespace />subOrganizationId").append(new Option("Select",0));
-
 		 AUI().use('aui-base', function(A){
 			 Liferay.Service(
 					 '/masterdata.masterdata/get-sub-organization-masterdata',
@@ -152,9 +150,100 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 					 });
 		 	});
 });
+
+//---master data suborganization for edit---
+$(document).ready(function(e){
+	var orgId = '${receipt.organizationId }';
+	var subOrgId = '${receipt.subOrganizationId}';
+	 $("#<portlet:namespace />subOrganizationId").append(new Option("Select",0));
+	 AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-sub-organization-masterdata',
+				 {
+					 organizationId: orgId
+				 },
+				 function(response) {
+				     $.each(response, function(key, value) {
+				     optionText = value.value;
+				     optionValue = value.masterdataId;
+				     if(optionValue.toString() === subOrgId){
+				    	  $('#<portlet:namespace />subOrganizationId').append(new Option(optionText,optionValue));
+		
+				    	 $("select option").each(function(){
+				    		  if ($(this).text() == optionText)
+				    		    $(this).attr("selected","selected");
+				    		});  	
+				     }else{
+				    	 $("#<portlet:namespace />subOrganizationId").append(new Option(optionText,optionValue));
+				     }
+				    });
+			 });
+	 	});
+})
+
+//---master data subcategory for edit---
+$(document).ready(function(e){
+	var receiptCategoryId = '${receipt.receiptCategoryId}';
+	var receiptSubCategoryId = '${receipt.receiptSubCategoryId}';
+	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",0));
+	 AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
+				 {
+				     receiptCategoryId: receiptCategoryId
+				 },
+				 function(response) {
+				     $.each(response, function(key, value) {
+				     optionText = value.value;
+				     optionValue = value.masterdataId;
+				     if(optionValue==receiptSubCategoryId){
+				    	 $('#<portlet:namespace />receiptSubCategoryId').append(new Option(optionText,optionValue));
+				 		
+				    	 $("select option").each(function(){
+				    		  if ($(this).text() == optionText)
+				    		    $(this).attr("selected","selected");
+				    		});  	
+				     }else{
+				    	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
+				     }
+				 });	
+			});
+	 });
+});
+
+//---master data state for edit---
+$(document).ready(function(e){
+	var countryId = '${receipt.countryId}';
+	var stateId = '${receipt.stateId}';
+	 $("#<portlet:namespace />stateId").append(new Option("Select",0));
+	 AUI().use('aui-base', function(A){
+		 Liferay.Service(
+				 '/masterdata.masterdata/get-states-masterdata',
+				 {
+					 countryId: countryId
+				 },
+				 function(response) {
+				     $.each(response, function(key, value) {
+				     optionText = value.value;
+				     optionValue = value.masterdataId;
+				     if(optionValue==stateId){
+				    	 $('#<portlet:namespace />stateId').append(new Option(optionText,optionValue));
+				    	 $("select option").each(function(){
+				    		  if ($(this).text() == optionText)
+				    		    $(this).attr("selected","selected");
+				    		});  	
+				     }else{
+				    	 $("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
+				     }
+				 });	
+	       });
+	 });
+});
+
+
 var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var receiptId= $('#<portlet:namespace/>receiptId').val();
-var viewPdf='<%=request.getAttribute("viewPdfUrl")%>';
+var url='${receipt.viewPdfUrl}';
 
 /* if nature is elcetronic */
 var errorLabel= false;
@@ -163,23 +252,31 @@ $("#<portlet:namespace />nature").on('change',mySeletedNature);
 	 var nature= $('#<portlet:namespace/>nature').val(); 
 	 console.log('--   '+nature);
 	 console.log('--   '+tempFileId);
-	 let url='${receipt.viewPdfUrl}';
+	 console.log('url       --   '+url);
      if(nature == 'Electronic' && tempFileId == 0 ){
+    	 console.log('1');
     	 if(url == '' || url == null || url == undefined ){
+    		 console.log('2');
 	    	 if(($("#error").length) == 0){
+	    		 console.log('3');
 	    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
-	    		 errorLabel=true;
 	    	 }
+	    	
+	    		 console.log('4');
 	    		 return true;
     	 }else{
+    		 console.log('5');
     		 return false;
     	 }
+    	 errorLabel=true;
      }else{
+    	 console.log('6');
     	 errorLabel=false;    		
     	 $("#error ").remove();
     	 return false;
      }
 }
+	
 	// for validation
 	function validateForm(receiptForm) {
 		var liferayForm = Liferay.Form.get(receiptForm);
@@ -199,13 +296,14 @@ $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
 	 var formObj= $('#<portlet:namespace/>receiptForm')[0];
      var jsonData = bindFormDataJson(formObj);
-    /* var userPostId= 1;*/
      jsonData["userPostId"] = userPostId;
      jsonData["tempFileId"] = tempFileId; 
      jsonData["groupId"] = groupId; 
      var jsonObj = JSON.stringify(jsonData);  
      if(validateForm('<portlet:namespace/>receiptForm')){
+    	 console.log('---validation----');
     	 if(!mySeletedNature()){
+    		 console.log('---mySeletedNature----');
 		 $.ajax({
 			    type: "POST",
 			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
@@ -259,7 +357,9 @@ $("#<portlet:namespace />update").on('click', function(e){
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
-    	if(!mySeletedNature()){
+   	 console.log('---validation----');
+   	 if(!mySeletedNature()){
+   		 console.log('---mySeletedNature----');
 		  $.ajax({
 			    type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -294,6 +394,9 @@ $("#<portlet:namespace />update").on('click', function(e){
     }
 });
 
+
+console.log('tempFileId   -     '+tempFileId);
+
 $('#removeFileUpload').on('click',function(e){	
 	e.preventDefault();
  $('.dropzone-wrapper').css("display", "block");
@@ -301,11 +404,17 @@ $('#removeFileUpload').on('click',function(e){
 	console.log("if ------>>>>>");
 	
 	$("#editpdfurl").remove();
-	$("#doc-input").val('0');
+	$("#doc-input").val(null);
 	
 	$(sizeValidation).css('display', 'none'); 
-	
+	console.log('______'+tempFileId);
+	tempFileId=0;
+	console.log('___=___'+tempFileId);
+	console.log('___==___'+url);
+	url = null;
+	console.log('___=_=___'+url);
 });
+
 
 $('#doc-select-btn').on('click',function(){	
 		 $("#doc-input").trigger('click');
@@ -401,99 +510,5 @@ $(document).ready(function(){
 	}
 });
 
-$(document).ready(function(e){
-	var orgId = '${receipt.organizationId }';
-	var subOrgId = '${receipt.subOrganizationId}';
-	 $("#<portlet:namespace />subOrganizationId").append(new Option("Select",0));
-	 AUI().use('aui-base', function(A){
-		 Liferay.Service(
-				 '/masterdata.masterdata/get-sub-organization-masterdata',
-				 {
-					 organizationId: orgId
-				 },
-				 function(response) {
-				     $.each(response, function(key, value) {
-				     optionText = value.value;
-				     optionValue = value.masterdataId;
-				     if(optionValue.toString() === subOrgId){
-				    	  $('#<portlet:namespace />subOrganizationId').append(new Option(optionText,optionValue));
-		
-				    	 $("select option").each(function(){
-				    		  if ($(this).text() == optionText)
-				    		    $(this).attr("selected","selected");
-				    		});  	
-				     }
-				     else{
-				  
-				    	 $("#<portlet:namespace />subOrganizationId").append(new Option(optionText,optionValue));
-				    	 
-				     }
-				    
-				     });
-				 });
-	 	});
-	
-})
-$(document).ready(function(e){
-	var receiptCategoryId = '${receipt.receiptCategoryId}';
-	var receiptSubCategoryId = '${receipt.receiptSubCategoryId}';
-	console.log("receiptCategoryId"+receiptCategoryId + "....."+receiptSubCategoryId);
-	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",0));
-	 AUI().use('aui-base', function(A){
-		 Liferay.Service(
-				 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
-				 {
-				     receiptCategoryId: receiptCategoryId
-				 },
-				 function(response) {
-				     $.each(response, function(key, value) {
-				     optionText = value.value;
-				     optionValue = value.masterdataId;
-				     if(optionValue==receiptSubCategoryId){
-				    	 $('#<portlet:namespace />receiptSubCategoryId').append(new Option(optionText,optionValue));
-				 		
-				    	 $("select option").each(function(){
-				    		  if ($(this).text() == optionText)
-				    		    $(this).attr("selected","selected");
-				    		});  	
-				    	 
-				     		}
-				     else{
-				     $("#<portlet:namespace />receiptSubCategoryId").append(new Option(optionText,optionValue));
-				     }
-				 });	
-	 });
-});
-});
-
-$(document).ready(function(e){
-	var countryId = '${receipt.countryId}';
-	var stateId = '${receipt.stateId}';
-	console.log("countryId"+countryId + "....."+stateId);
-	 $("#<portlet:namespace />stateId").append(new Option("Select",0));
-	 AUI().use('aui-base', function(A){
-		 Liferay.Service(
-				 '/masterdata.masterdata/get-states-masterdata',
-				 {
-					 countryId: countryId
-				 },
-				 function(response) {
-				     $.each(response, function(key, value) {
-				     optionText = value.value;
-				     optionValue = value.masterdataId;
-				     if(optionValue==stateId){
-				    	 $('#<portlet:namespace />stateId').append(new Option(optionText,optionValue));
-				    	 $("select option").each(function(){
-				    		  if ($(this).text() == optionText)
-				    		    $(this).attr("selected","selected");
-				    		});  	
-				     		}
-				     else{
-				     $("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
-				     }
-				 });	
-	 });
-});
-});
 
 </aui:script>
