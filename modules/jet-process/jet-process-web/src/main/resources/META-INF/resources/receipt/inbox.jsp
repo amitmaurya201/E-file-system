@@ -27,7 +27,7 @@
 
 .popup {
 	width: 50%;
-	height: 50%;
+	height: 60%;
 }
 
 .read-popup, .receive-popup {
