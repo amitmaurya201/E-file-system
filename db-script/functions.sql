@@ -1,4 +1,24 @@
 
+-- -------------------  Dropping All Function ----------------------------
+
+DROP FUNCTION IF EXISTS public.get_file_created_list_count(bigint, text)
+
+DROP FUNCTION IF EXISTS public.get_file_inbox_lists_count(bigint, text);
+
+DROP FUNCTION IF EXISTS public.get_put_in_file_list_count(bigint, text)
+
+DROP FUNCTION IF EXISTS public.get_file_sent_lists_count(bigint, text);
+
+DROP FUNCTION IF EXISTS public.get_file_created_list(bigint, text, integer, integer, text, text)
+
+DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, text, integer, integer, text, text)
+
+DROP FUNCTION IF EXISTS public.get_file_inbox_list(bigint, text, integer, integer, text, text);
+
+DROP FUNCTION IF EXISTS public.get_file_sent_list(bigint, text, integer, integer, text, text);
+
+
+
 -- ---------------------File created list count  --------------------------
 
 
@@ -49,7 +69,6 @@ ALTER FUNCTION public.get_file_created_list_count(bigint, text)
 
     
 --    --------------------- File inbox list count -------------------------
---DROP FUNCTION IF EXISTS public.get_file_inbox_lists_count(bigint, text);
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_lists_count(
 	sender_id bigint,
@@ -112,7 +131,6 @@ ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
     
     
 --  ----------------  File Sent List  count ---------------
- --DROP FUNCTION IF EXISTS public.get_file_sent_lists_count(bigint, text);
 
  
 CREATE OR REPLACE FUNCTION public.get_file_sent_lists_count(
@@ -303,7 +321,7 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
     
 
 --  -----------------------  Get File Inbox List  ----------------------------------
---DROP FUNCTION IF EXISTS public.get_file_inbox_list(bigint, text, integer, integer, text, text);
+
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	receiverid bigint,
@@ -441,7 +459,6 @@ ALTER FUNCTION public.get_file_inbox_list(bigint, text, integer, integer, text, 
     OWNER TO postgres;
     
 --    ----------------------------- Get File Sent List  ------------------------------------------
---DROP FUNCTION IF EXISTS public.get_file_sent_list(bigint, text, integer, integer, text, text);
 
 CREATE OR REPLACE FUNCTION public.get_file_sent_list(
 	_senderid bigint,
@@ -1183,7 +1200,7 @@ ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text
 
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
 	user_post_id bigint,
-	keyword text)
+	keyword integer)
     RETURNS bigint
     LANGUAGE 'plpgsql'
     COST 100
@@ -1201,20 +1218,20 @@ total :=0;
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
             
-            IF user_post_id !=0 AND user_post_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF user_post_id !=0 AND user_post_id IS NOT NULL AND  keyword !=0 AND keyword IS NOT NULL  THEN
    
                  
                 select sum (s.c) from (
                 select count(*) into total as c  from
                 (SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
                 FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=1 and r.attachstatus is null and r.currentstate=1
-                AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%')
+                AND EXTRACT(YEAR FROM r.createDate) = keyword
                 union 
                 SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
                 FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
                 from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
                 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =1) as t on t.rmreceiptid =r.receiptid
-                where r.currentstate=1 and r.attachstatus is null   AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%')) as tm
+                where r.currentstate=1 and r.attachstatus is null AND EXTRACT(YEAR FROM r.createDate) = keyword) as tm
                 GROUP BY receiptid) as s;
             return total;
             END IF;
@@ -1238,16 +1255,16 @@ total :=0;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list_count(bigint, text)
+ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
     OWNER TO postgres;
-
     
 --    -------------------------------------------------- Get Put in file List  ----------------------------------------------------
 
-    
+    DROP FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text, text)
+
     CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	userpostid bigint,
-	keyword text,
+	keyword integer,
 	_start integer,
 	_end integer,
 	orderbycol text,
@@ -1291,7 +1308,7 @@ AS $BODY$
     where r.currentstate=1 and r.attachstatus is null  ';
     _query :=q1||q2;
                   
-        _keyword := '''%'||keyword||'%''';
+--         _keyword := '''%'||keyword||'%''';
         _order :=_orderByType;
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
@@ -1325,7 +1342,7 @@ AS $BODY$
                             
                                if (keyword IS NOT NULL) THEN  
                                                                 
-                                     _query := q1|| ' AND r.userpostid='||userpostid||'AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')'||q2||' where rm.receiverid= '||userpostid||q3 ||'AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')';
+                                     _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
                           
                                      if (_orderby !='')  THEN 
                     
@@ -1377,9 +1394,8 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
     OWNER TO postgres;
-
     
 --    -------------------------------------  Get File Movement Count  -----------------------------------------------
 
