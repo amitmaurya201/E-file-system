@@ -210,18 +210,27 @@ a{
 
 .btn-primary{
 	background-color: #007bff !important;
-	color:wite;
+	color:white;
+	border-color: #007bff !important;
 	
 }
-.btn .button{
-	border-color: none !important;
-}
+
 .scroll{
 	Overflow-y: scroll !important;
 	Overflow-x: none !important;
     height: 510px !important;
 }
 
+
+/*------File------*/
+.reference-mark .lexicon-icon-asterisk{
+	font-size:7px !important;
+	color: #dc3545;
+}
+
+.col-md-2, .col-md-6{
+	padding-right: 0px !important;
+}
 /*-----------------
 	1. Clay css
 -----------------------*/

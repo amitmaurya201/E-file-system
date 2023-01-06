@@ -16,14 +16,14 @@
 	display: none;
 }
 
-.popup {
+/* .popup {
 	width: 50%;
 	height: 50%;
-}
+} */
 
 .pull_back-popup {
 	width: 35%;
-	height: 64%;
+	height: 55%;
 	left: 37%;
 	background: #bcd0e7;
 }
@@ -171,7 +171,7 @@
 				value="<%=selectedUserPostId%>" hidden>
 			<div style="text-align: left; height: 100px;">
 				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
-					type="textarea">
+					type="textarea" style="height:70px;">
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">
 						<liferay-ui:message key="receipt-sent-remarks-maxlength" />
@@ -179,7 +179,7 @@
 				</aui:input>
 			</div>
 
-			<hr style="margin: 1rem -14px; margin-top: 102px;" />
+			<hr style="margin: 2rem -1rem 1rem -1rem; " />
 			<div style="text-align: right;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
 					<liferay-ui:message key="label-receipt-sent-button-submit" />
