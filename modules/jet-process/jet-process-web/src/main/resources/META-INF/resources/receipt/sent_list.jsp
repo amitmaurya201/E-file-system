@@ -11,7 +11,7 @@
 	position: absolute;
 	background: #bebec1;
 	border: 3px solid #666666;
-	margin-top: -30%;
+	margin-top: -35%;
 	left: 30%;
 	display: none;
 }
@@ -23,7 +23,7 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 60%;
+	height: 64%;
 	left: 37%;
 	background: #bcd0e7;
 }
@@ -41,6 +41,15 @@
 .button {
 	border: none;
 }
+
+.lexicon-icon-asterisk{
+    height: 8px;
+}
+
+.remove-valdation{
+	display: none;
+}
+
 </style>
 
 <%-- <%
@@ -170,7 +179,7 @@
 				</aui:input>
 			</div>
 
-			<hr style="margin: 1rem -14px; margin-top: 45px;" />
+			<hr style="margin: 1rem -14px; margin-top: 102px;" />
 			<div style="text-align: right;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
 					<liferay-ui:message key="label-receipt-sent-button-submit" />
@@ -204,6 +213,8 @@ function openModal(receiptMovementId , receiptId){
 	$(".popup_close").on("click", function() {
 		  $("#pull_back").removeClass("active");
 		  $("#bg_blur").removeClass("active");
+		  $(".has-error").removeClass();
+		  $(".required").addClass("remove-valdation");
 		});
 }
 </script>

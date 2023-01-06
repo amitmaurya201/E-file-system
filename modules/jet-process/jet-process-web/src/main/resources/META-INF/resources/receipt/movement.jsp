@@ -4,11 +4,12 @@
 <style>
 <!--
 .text-secondary{
-    color: #0c5460;
+    margin-top: -177px !important;
+    /* color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
     font-size: 25px;
-    margin-right: 15px;
+    margin-right: 15px; */
 }
 -->
 </style>
