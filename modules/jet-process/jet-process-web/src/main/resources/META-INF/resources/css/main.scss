@@ -13,7 +13,7 @@
   background-color: #f6f6f6;
   top: -15px;
   left: 10px;
-  padding: 2px;
+  
   z-index: 1;
 }
 
@@ -163,7 +163,8 @@
   cursor: pointer;
 }
 .lexicon-icon-asterisk{
-color:red;
+	color:red;
+	font-size:16px;
 }
 
 .td-size-25{
@@ -181,7 +182,7 @@ color:red;
 	background-color: #f4f4f4;
 	top: -15px;
 	left: 10px;
-	padding: 2px;
+
 	z-index: 1;
 }
 
@@ -201,6 +202,24 @@ color:red;
 	font-weight: 500;
 	display: inline-block;
 	margin-bottom: .5rem;
+}
+
+a{
+	text-decoration: none !important;
+}
+
+.btn-primary{
+	background-color: #007bff !important;
+	color:wite;
+	
+}
+.btn .button{
+	border-color: none !important;
+}
+.scroll{
+	Overflow-y: scroll !important;
+	Overflow-x: none !important;
+    height: 510px !important;
 }
 
 /*-----------------
