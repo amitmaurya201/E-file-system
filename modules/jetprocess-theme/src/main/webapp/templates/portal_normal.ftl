@@ -32,16 +32,13 @@
 		</#if>
 		
 
-
-<#--<div class="container-fluid position-relative" id="wrapper"> -->
-
-	
-	
-
-		<#include "${full_templates_path}/header.ftl" />
+<div id="header">
+	<#include "${full_templates_path}/header.ftl" />
+</div>
+<#-- <div class="container-fluid position-relative" id="wrapper"> -->
 
 	
-	<section id="content">
+	<section>
 		<#if selectable>
 			<@liferay_util["include"] page=content_include />
 		<#else>
@@ -53,18 +50,18 @@
 		</#if>
 	</section>
 
-	<#--<footer id="footer" role="contentinfo">
+	<div id="footer" >
 		<div id="footer-panel" >
 			<@liferay_util["include"] page=body_bottom_include />
 			<@liferay_util["include"] page=bottom_include />
 		</div>
-	</footer>
-</div>-->
+	</div>
+<#-- </div> -->
 
-<#--<@liferay_util["include"] page=body_bottom_include />
+<@liferay_util["include"] page=body_bottom_include />
+<@liferay_util["include"] page=bottom_include /> 
 
-<@liferay_util["include"] page=bottom_include /> -->
-
+<#assign isAdmin= themeDisplay.getPermissionChecker().isOmniadmin()> 
 </body>
-
+<@liferay.js file_name = "${javascript_folder}/custom/app.js" /> 
 </html>
