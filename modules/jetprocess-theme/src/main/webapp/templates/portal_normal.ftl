@@ -63,5 +63,5 @@
 
 <#assign isAdmin= themeDisplay.getPermissionChecker().isOmniadmin()> 
 </body>
-<@liferay.js file_name = "${javascript_folder}/custom/app.js" /> 
+<#-- <@liferay.js file_name = "${javascript_folder}/custom/app.js" /> -->
 </html>
