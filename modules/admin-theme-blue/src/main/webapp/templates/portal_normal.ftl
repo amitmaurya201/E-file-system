@@ -12,10 +12,10 @@
 	<@liferay_util["include"] page=top_head_include />
 	
 		
-		<@liferay.css file_name="${css_folder}/custom/style.css" />
+		<#-- <@liferay.css file_name="${css_folder}/custom/style.css" />
 		
 		<@liferay.css file_name="${css_folder}/custom/stylesheet.css" />
-	<#-- <@liferay.css file_name="${css_folder}/custom/fonts/font-awesome/css/font-awesome.min.css" />
+	<@liferay.css file_name="${css_folder}/custom/fonts/font-awesome/css/font-awesome.min.css" />
 		<@liferay.css file_name="${css_folder}/custom/jquery-ui.css" />
 		<@liferay.css file_name="${css_folder}/fonts/stylesheet.css" />
 		
@@ -88,5 +88,5 @@
 		}
 	});
 </script>
-<@liferay.js file_name = "${javascript_folder}/custom/app.js" />
+<#-- <@liferay.js file_name = "${javascript_folder}/custom/app.js" /> -->
 </html>
