@@ -36,7 +36,7 @@
 		<h2 style="text-align: center; text-decoration: underline; margin-top: 20px;">
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
-		<liferay-ui:search-container delta="4"
+		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="label-no-record-found"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
 			<liferay-ui:search-container-results>
