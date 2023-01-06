@@ -40,6 +40,10 @@
 	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
+<portlet:renderURL var="details">
+	<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+	<portlet:param name="receiptId" value="${receipt.receiptId}" />
+</portlet:renderURL>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -94,10 +98,10 @@
 					<aui:input name="receiptId" id="receiptId" type="hidden"
 						value="${receipt.receiptId}" />
 					<div class="border heading">
-						<h4>
+						<h5>
 							<aui:icon cssClass="fas fa-file-alt icon" />
 							<liferay-ui:message key="label-receipt-diary-details" />
-						</h4>
+						</h5>
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
@@ -232,10 +236,10 @@
 						</aui:col>
 					</aui:row>
 					<div class="border heading">
-						<h4>
+						<h5>
 							<aui:icon cssClass="fas fa-envelope icon" />
 							<liferay-ui:message key="label-receipt-sender-details" />
-						</h4>
+						</h5>
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
@@ -451,10 +455,10 @@
 						</aui:col>
 					</aui:row>
 					<div class="border heading">
-						<h4>
+						<h5>
 							<aui:icon cssClass="fas fa-receipt icon" />
 							<liferay-ui:message key="label-receipt-receipt-details" />
-						</h4>
+						</h5>
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">

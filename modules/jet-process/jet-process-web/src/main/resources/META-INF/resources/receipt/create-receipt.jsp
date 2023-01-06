@@ -83,10 +83,10 @@ width: 100%;
 					name="receiptForm">
 
 					<div class="border heading">
-						<h4>
+						<h5>
 							<aui:icon cssClass="fas fa-file-alt view_icon" />
 							<liferay-ui:message key="label-receipt-diary-details" />
-						</h4>
+						</h5>
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
@@ -231,10 +231,10 @@ width: 100%;
 						</aui:col>
 					</aui:row>
 					<div class="border heading">
-						<h4>
+						<h5>
 							<aui:icon cssClass="fas fa-envelope view_icon" />
 							<liferay-ui:message key="label-receipt-sender-details" />
-						</h4>
+						</h5>
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
@@ -409,10 +409,10 @@ width: 100%;
 						</aui:col>
 					</aui:row>
 					<div class="border heading">
-						<h4>
+						<h5>
 							<aui:icon cssClass="fas fa-receipt view_icon" />
 							<liferay-ui:message key="label-receipt-receipt-details" />
-						</h4>
+						</h5>
 					</div>
 					<aui:row>
 						<aui:col md="6" cssClass="mt-3">
@@ -446,7 +446,7 @@ width: 100%;
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-subject" /><span
 									class='text-danger'>*</span></label>
-								<aui:input type="textarea" label="" name="subject" id="subject">
+								<aui:input type="textarea" label="" name="subject" id="subject" rows="2">
 									<aui:validator name="required" />
 									<aui:validator name="maxLength">
 										<liferay-ui:message key="receipt-subject-maxlength" />
@@ -486,34 +486,6 @@ width: 100%;
 		$("#<portlet:namespace/>receivedOn").datepicker({
 			format : 'dd/M/yyyy'
 		});
-
 	});
 </script>
-<%-- <aui:script>
- AUI().use(
-        'aui-datepicker',
-        function(A) {
-            new A.DatePicker({
-                trigger: '#<portlet:namespace />letterDate',
-                mask: '%d-%m-%Y',
-                popover: {
-                    zIndex: 1000
-                }
-            });
-        }
-   );
-   AUI().use(
-        'aui-datepicker',
-         function(B) {
-            new B.DatePicker({
-                trigger:'#<portlet:namespace />receivedOn',
-                mask: '%d-%m-%Y',
-                popover: {
-                    zIndex: 1000
-                }
-            });
-        }
-    );
-</aui:script> --%>
-
 <%@ include file="/js/receipt.js"%>

@@ -354,8 +354,9 @@ $("#<portlet:namespace />update").on('click', function(e){
                       text: `You have successfully update your receipt!`,
                       icon: "success",
                       button: "Ok"
-                  })
-
+                  }).then(function() {
+  	           	    window.location.href = '<%= details.toString() %>';
+ 	             });
 		 })
 		 .fail(function(error){
 			 swal({  
