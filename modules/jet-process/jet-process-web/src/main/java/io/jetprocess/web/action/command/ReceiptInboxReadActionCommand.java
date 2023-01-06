@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -38,7 +39,9 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 		logger.info("receipt inbox read action command");
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
+		String url = ParamUtil.getString(actionRequest, "backPageURL");
 
+		
 		try {
 			boolean state = receiptMovementLocalService.pullBackedAlready(rmId);
 			logger.info("state   " + state);
@@ -65,7 +68,13 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
+		try {
+			actionResponse.sendRedirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		return false;
 	}
 

@@ -122,6 +122,8 @@
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
+						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+						
 
 				</portlet:actionURL>
 
