@@ -362,7 +362,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 <div class="ml-3" id="alert-receive-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="receive-not-available"
-		message="You can not be Receive this File " />
+		message="You can not Receive this File " />
 </div>
 <%-- 
 <liferay-ui:success key="read-available"
@@ -370,7 +370,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="read-not-available"
-		message="You can not be Read this File" />
+		message="You can not Read this File" />
 </div>
 
 
@@ -379,7 +379,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 <div class="ml-3" id="alert-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="send-not-available"
-		message="file-already-pullbacked" />
+		message="This File Already Pullbacked" />
 </div>
 
 <!-- Receive pop up -->
