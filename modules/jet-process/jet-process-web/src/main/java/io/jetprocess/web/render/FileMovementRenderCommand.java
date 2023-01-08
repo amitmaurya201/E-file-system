@@ -17,6 +17,7 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -53,29 +54,89 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 	private void setFileMovementList(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
+		HttpSession session = themeDisplay.getRequest().getSession();
+
 		// Resolve start and end for the search.
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		
+		
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
+
+		int count=fileList.getFileMovementListCount(docFileId, "");
+		System.out.println("count in FileMovementRenderCommand------------------->.....>>>>>> "+count);
+		int preDelta=0;
+		String d=(String) session.getAttribute("oldDelta");
+		if(d!=null) {
+			preDelta=Integer.parseInt(d);
+			
+		}
+		if(delta !=preDelta) {
+			if(delta*currentPage  > count) {
+				if(delta*(currentPage-1)  > count) {
+					currentPage = getCurrentPage(currentPage, preDelta, count);
+				}
+				start = delta*(currentPage-1);
+			} else if(delta <preDelta) {
+					start = delta*(currentPage-1);
+			}else {
+				
+				start=0;
+			}
+			
+		} else if(delta*(currentPage-1)  > count) {
+			currentPage = getCurrentPage(currentPage, preDelta, count);
+			start = delta*(currentPage-1);
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+
+		if(delta == count) {
+			start = 0;
+		}
+		session.setAttribute("oldDelta", ""+delta+"");
+
+		
+	
+
 		List<FileMovementDTO>  fileMovementList = new ArrayList<>();
 		if(docFileId != 0) {
 			//fileMovementList = masterdataLocalService.getFileMovementListByFileId(docFileId);
 			fileMovementList = fileList.getFileMovementList(docFileId, "", start, end, "", "");
 		System.out.println("Running sucessfully.....");
+		for (FileMovementDTO fileMovementDTO : fileMovementList) {
+			System.out.println("File Movement List------>>>>>>>>>>>"+fileMovementDTO.getSentOn());
+		}
 		}
 
 		if(fileMovementList != null) {
 			renderRequest.setAttribute("fileMovementList", fileMovementList);
 		}
+		System.out.println("count ---- : : "+count);
 		renderRequest.setAttribute("delta", delta);
-		renderRequest.setAttribute("fileMovementCount",+fileMovementList.size());
-		
+		renderRequest.setAttribute("fileMovementCount",count);
+	
 	}
-
+	
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage-1;
+		
+		if(delta*currentPage  < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
+	
+}
+	
+	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	
 	@Reference

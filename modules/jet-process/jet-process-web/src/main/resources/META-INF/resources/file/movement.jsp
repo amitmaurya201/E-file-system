@@ -37,16 +37,11 @@
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="label-no-record-found"
+			emptyResultsMessage="label-no-record-found" total="${fileMovementCount}"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
-			<liferay-ui:search-container-results>
-				<%
-					List<FileMovementDTO> fileMovementList = new ArrayList();
-							fileMovementList = (List<FileMovementDTO>) request.getAttribute("fileMovementList");
-							searchContainer.setResultsAndTotal(fileMovementList);
-							searchContainer.setTotalVar("" + fileMovementList.size() + "");
-				%>
-			</liferay-ui:search-container-results>
+			<liferay-ui:search-container-results results="${fileMovementList}" />
+				
+			
 			<liferay-ui:search-container-row
 				className="io.jetprocess.list.model.FileMovementDTO"
 				modelVar="fileMovementDTO" keyProperty="fileMovementId">
@@ -68,8 +63,9 @@
 					name="label-pullback-remark"  cssClass="hover-tips" />
 
 			</liferay-ui:search-container-row>
-			<liferay-ui:search-iterator markupView="lexicon" />
-		</liferay-ui:search-container>
+<liferay-ui:search-iterator paginate="false" />
+			<liferay-ui:search-paginator
+				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />		</liferay-ui:search-container>
 	</div>
 </div>
 

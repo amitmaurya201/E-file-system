@@ -1398,7 +1398,51 @@ ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, te
 
     
     
-    
+    -- FUNCTION: public.get_file_movement_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_file_movement_list_count(
+	file_id bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+DECLARE total BIGINT;
+_query text;
+BEGIN
+total :=0;
+   IF file_id !=0 AND file_id IS NOT NULL THEN 
+            
+            
+            IF file_id !=0 AND file_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+   
+           SELECT count(*) into total
+	FROM PUBLIC.jet_process_filemovement as fm 
+	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id
+            AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
+            
+            return total;
+            END IF;
+     SELECT count(*) into total
+	FROM PUBLIC.jet_process_filemovement as fm 
+	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id ;
+       RETURN total;
+        END IF;
+
+        RETURN total;
+END;
+$BODY$;
+
+ALTER FUNCTION public.get_file_movement_list_count(bigint, text)
+    OWNER TO postgres;
     
     
     
@@ -1440,8 +1484,8 @@ AS $BODY$
 	fm.fmid as fileMovementId, 
 	null as filenumber , 
 	null as subject ,
-	(SELECT concat(up2.username, up2.postmarking, up2.sectionname, up2.departmentname)) as sentBy ,
-	(SELECT concat(up1.username, up1.postmarking, up1.sectionname, up1.departmentname)) AS sentTo ,
+	(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username, ''('',up1.postmarking,'')'', up1.sectionname,'','', up1.departmentname)) AS sentTo ,
 	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith, 
     null as nature, 0 as fileId, 0 as senderId , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername
 	FROM PUBLIC.jet_process_filemovement as fm 
