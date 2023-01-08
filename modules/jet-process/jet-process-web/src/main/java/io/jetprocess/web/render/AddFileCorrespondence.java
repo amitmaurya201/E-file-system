@@ -69,7 +69,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	long userPost = 1;
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
-	String keywords = ParamUtil.getString(renderRequest, "keywords");
+	int keywords = ParamUtil.getInteger(renderRequest, "keywords");
 //	List<ReceiptListViewDto> receiptList = masterdataLocalService.getCreatedReceiptAndInboxList(userPost , userPost,keywords, start, end, orderByCol,orderByType);
 	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, orderByCol, orderByType);
 	for (ReceiptListViewDto receiptListViewDto : receiptList) {
