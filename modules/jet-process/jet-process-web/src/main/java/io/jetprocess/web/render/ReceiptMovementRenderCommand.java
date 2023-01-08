@@ -17,6 +17,7 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -63,6 +64,44 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
+		HttpSession session = themeDisplay.getRequest().getSession(); 
+		
+		
+
+		int count=receiptList.getReceiptMovementListCount(receiptId, "");
+		int preDelta=0;
+		String d=(String) session.getAttribute("oldDelta");
+		if(d!=null) {
+			preDelta=Integer.parseInt(d);
+			
+		}
+		if(delta !=preDelta) {
+			if(delta*currentPage  > count) {
+				if(delta*(currentPage-1)  > count) {
+					currentPage = getCurrentPage(currentPage, preDelta, count);
+				}
+				start = delta*(currentPage-1);
+			} else if(delta <preDelta) {
+					start = delta*(currentPage-1);
+			}else {
+				
+				start=0;
+			}
+			
+		} else if(delta*(currentPage-1)  > count) {
+			currentPage = getCurrentPage(currentPage, preDelta, count);
+			start = delta*(currentPage-1);
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+
+		if(delta == count) {
+			start = 0;
+		}
+		session.setAttribute("oldDelta", ""+delta+"");
+		
 		if(receiptId != 0) {
 			//receiptMovementList = masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
 			receiptMovementList = 	receiptList.getReceiptMovementList(receiptId, "", start, end, "", "");
@@ -72,12 +111,25 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		if(receiptMovementList != null) {
 			renderRequest.setAttribute("receiptMovementList", receiptMovementList);
 		}
-		
+		System.out.println("----------------> count of receipt movement : "+receiptList.getReceiptMovementListCount(receiptId, ""));
 		renderRequest.setAttribute("delta", delta);
-		renderRequest.setAttribute("receiptMovementCount",+receiptMovementList.size());
+		renderRequest.setAttribute("receiptMovementCount",+count);
 		
 	}
 
+	
+	
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage-1;
+		
+		if(delta*currentPage  < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
+	
+}
+	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	
 	@Reference
