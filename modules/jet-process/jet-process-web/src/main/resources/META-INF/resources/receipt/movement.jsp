@@ -4,12 +4,11 @@
 <style>
 <!--
 .text-secondary{
-    margin-top: -177px !important;
-    /* color: #0c5460;
+    color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
     font-size: 25px;
-    margin-right: 15px; */
+    margin-right: 15px;
 }
 -->
 </style>
@@ -32,17 +31,12 @@
 			</h2>
 
 		
-			<liferay-ui:search-container delta="${delta}"
-				emptyResultsMessage="label-no-record-found" 
+			<liferay-ui:search-container delta="${delta }"
+				emptyResultsMessage="label-no-record-found"  total="${ receiptMovementCount}"
 				iteratorURL="${receiptMovementDisplayContext.getCurrentURL()}">
-				<liferay-ui:search-container-results>
-					<%
-						List<ReceiptMovementDTO> receiptMovementList = new ArrayList();
-								receiptMovementList = (List<ReceiptMovementDTO>) request.getAttribute("receiptMovementList");
-								searchContainer.setResultsAndTotal(receiptMovementList);
-								searchContainer.setTotalVar("" + receiptMovementList.size() + "");
-					%>
-				</liferay-ui:search-container-results>
+				
+				<liferay-ui:search-container-results results="${receiptMovementList}" />
+					
 				<liferay-ui:search-container-row
 					className="io.jetprocess.list.model.ReceiptMovementDTO"
 					modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
