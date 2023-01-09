@@ -6,6 +6,7 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="../init.jsp"%>
+<%@ include file="/common/common.jsp"%>
 
 
  <%
@@ -84,10 +85,15 @@ String currentURL = (String)renderRequest.getAttribute("CurrentURL");
 			String type = (String) docFile.getNature();
 			char firstChar = type.charAt(0);
 		%>
-		<div class=" m-1" style="background-color: #E8E8E8;">
+		<%-- <div class=" m-1" style="background-color: #E8E8E8;">
 			<span><%=firstChar%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span><br />
 
-		</div>
+		</div> --%>
+		
+		<h5 Class="hover-tips" >
+				<%=firstChar%> |  <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
+				
+			</h5>
 
 		<%-- <div class="container-fluid m-1" style="background-color: #E8E8E8;">
 			<span style="font-weight: 500"><liferay-ui:message
