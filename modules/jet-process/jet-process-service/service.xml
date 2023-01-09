@@ -232,6 +232,7 @@
 		<column type="String" name="receivedOn" />
 		<column name="pullBackRemark" type="String" />
 		<column name="active" type="boolean" />
+		<column name="FileInMovementId" type="long"/>
 
 		<finder name="receiptId" return-type="Collection">
 			<finder-column name="receiptId"></finder-column>

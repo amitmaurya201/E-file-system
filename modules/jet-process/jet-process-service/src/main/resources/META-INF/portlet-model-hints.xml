@@ -146,5 +146,6 @@
 			<hint name="max-length">500</hint>
 		</field>
 		<field name="active" type="boolean" />
+		<field name="FileInMovementId" type="long" />
 	</model>
 </model-hints>
