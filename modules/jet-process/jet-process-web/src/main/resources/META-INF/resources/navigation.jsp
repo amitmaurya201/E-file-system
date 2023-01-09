@@ -131,7 +131,7 @@
 		<div class="side-nav " >
 			<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i>
 				Home</a> <a class="dropdown-btn"><i class="fa fa-file"
-				aria-hidden="true"></i>File <i class="fa fa-caret-down"></i> </a>
+				aria-hidden="true"></i> File <i class="fa fa-caret-down"></i> </a>
 			<div class="dropdown-container ">
 				<a id="createFile" href="<%=createFile%>">Create File</a> <a
 					id="fileList" href="<%=createdFileList%>">Created List</a> <a
