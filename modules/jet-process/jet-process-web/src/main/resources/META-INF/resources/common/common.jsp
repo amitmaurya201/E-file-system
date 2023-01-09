@@ -2,7 +2,7 @@
 
 <%
    HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
-   long userPostsVal = (long) userPostIdValue.getAttribute("userPostId"); 	
+   String userPostsVal = (String) userPostIdValue.getAttribute("userPostId"); 	
 %> 
 <aui:input name = "userPostsVal" value= "<%=userPostsVal %>" type = "hidden"></aui:input>
 
