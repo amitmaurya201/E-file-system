@@ -49,7 +49,7 @@
 			<h5 Class="border hover-tips  pl-2"
 				style="margin-top: 3px; background: gainsboro;">
 				<%=currentNature%>
-				| ${receipt.receiptNumber} | ${receiptCategoryValue}
+				| ${receipt.receiptNumber} | ${receipt.subject}
 			</h5>
 			<div class="container">
 				<div class="row border border-dark scroll"
