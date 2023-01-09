@@ -84,7 +84,7 @@ width: 100%;
 
 					<div class="border heading">
 						<h5>
-							<aui:icon cssClass="fas fa-file-alt view_icon" />
+							<aui:icon cssClass="fas fa-file-alt view_icon mr-1" />
 							<liferay-ui:message key="label-receipt-diary-details" />
 						</h5>
 					</div>
@@ -232,7 +232,7 @@ width: 100%;
 					</aui:row>
 					<div class="border heading">
 						<h5>
-							<aui:icon cssClass="fas fa-envelope view_icon" />
+							<aui:icon cssClass="fas fa-envelope view_icon mr-1" />
 							<liferay-ui:message key="label-receipt-sender-details" />
 						</h5>
 					</div>
@@ -410,7 +410,7 @@ width: 100%;
 					</aui:row>
 					<div class="border heading">
 						<h5>
-							<aui:icon cssClass="fas fa-receipt view_icon" />
+							<aui:icon cssClass="fas fa-receipt view_icon mr-1" />
 							<liferay-ui:message key="label-receipt-receipt-details" />
 						</h5>
 					</div>
