@@ -46,9 +46,12 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		long docFileId = ParamUtil.getLong(renderRequest, "corrFileId");
+		//long docFileId = ParamUtil.getLong(renderRequest, "corrFileId");
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
+		 long docFileId  = (long) sessionPutInFileId.getAttribute("putInFileId");
+		 System.out.println("add-correspondemnce rendere" +docFileId);
 		renderRequest.setAttribute("docFileId", docFileId);
-		
 		addFileToolbarAttributes(renderRequest,renderResponse);
 		addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";
@@ -58,7 +61,7 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 	
 	
 private void addFileListAttributes(RenderRequest renderRequest) {
-		
+	
 	ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,2);
@@ -70,14 +73,16 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 	int keywords = ParamUtil.getInteger(renderRequest, "keywords");
+	System.out.println("=-=0=0==0=0=0=0=0=00=");
 //	List<ReceiptListViewDto> receiptList = masterdataLocalService.getCreatedReceiptAndInboxList(userPost , userPost,keywords, start, end, orderByCol,orderByType);
-	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, orderByCol, orderByType);
+	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, "","");
+	System.out.println("aaaa---->"+receiptList.size());
 	for (ReceiptListViewDto receiptListViewDto : receiptList) {
 		System.out.println("List in addfilecorrespondence -->"+receiptListViewDto.getReceiptId());
 	}
 	
 //	List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);
-	receiptList.forEach(c->System.out.println("--->"+c));
+	receiptList.forEach(c->System.out.println("-=====-->"+c));
 	renderRequest.setAttribute("receiptFileList", receiptList);
 	renderRequest.setAttribute("delta",delta);
 	renderRequest.setAttribute("receiptCount",+_receiptList.getPutInFileListCount(userPost, keywords));

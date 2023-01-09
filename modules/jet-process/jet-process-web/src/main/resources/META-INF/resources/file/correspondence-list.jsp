@@ -11,7 +11,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- <%@ include file="../init.jsp"%>  --%>
 <%
-	long corrFileId = (long) request.getAttribute("docFileId");
+	//long corrFileId = (long) request.getAttribute("docFileId");
+ HttpSession docFileIdValue = themeDisplay.getRequest().getSession();
+ long corrFileId  = (long) docFileIdValue.getAttribute("putInFileId"); 	
 	List<FileCorrespondenceReceiptDTO> receiptCorrList = MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
 	SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));

@@ -5,6 +5,8 @@
 	/* int count = (int) request.getAttribute("receiptCount");
 	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getCreatedReceiptAndInboxList(userPostId,
 			userPostId); */
+	HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
+	long userPostId = (long) userPostIdValue.getAttribute("userPostId");
 	long docFileId = (Long) request.getAttribute("docFileId");
 %>
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">

@@ -1,6 +1,7 @@
 package io.jetprocess.web.render;
 
 import com.liferay.counter.kernel.service.CounterLocalService;
+import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -29,12 +30,12 @@ import io.jetprocess.web.constants.MVCCommandNames;
 public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+		System.out.println("attach receipt");
 		long receiptPK = ParamUtil.getLong(actionRequest, "receipt");
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		System.out.println("newRemarks"+remarks);
-	//	String redirect = ParamUtil.getString(actionRequest, "redirect");
+		logger .info("receiptPK====" + receiptPK+ "docFileId====" +docFileId+ "userPostId====" +userPostId);
 		long fileCorrId = counterLocalService.increment();
 		FileCorr fileCorr = fileCorrLocalService.createFileCorr(fileCorrId);
 		fileCorr.setReceiptId(receiptPK);
@@ -43,12 +44,12 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		fileCorr.setCorrespondenceType(FileStatus.RECEIPT_TYPE);
 		fileCorr.setRemarks(remarks);
 		fileCorrLocalService.addFileCorr(fileCorr);	
-		
 		Receipt receipt = receiptLocalService.getReceipt(receiptPK);
 		 if(Validator.isNotNull(receipt)) {
 		receipt.setAttachStatus(FileStatus.ATTACH_STATUS);
 		receiptLocalService.updateReceipt(receipt);
-		 actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND);
+		System.out.println("success");
+		// actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND);
 		
 		 }
 		/*
@@ -85,9 +86,8 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	private FileCorrLocalService fileCorrLocalService;
 	@Reference
 	private ReceiptLocalService receiptLocalService;
-	/*
-	 * private Log logger = LogFactoryUtil.getLog(this.getClass());
-	 */
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
+	 
 
 }
 
