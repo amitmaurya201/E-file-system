@@ -46,10 +46,9 @@
 		%>
 		<div class="receipt_view">
 
-			<h5 Class="border hover-tips  pl-2"
-				style="margin-top: 3px; background: gainsboro;">
-				<%=currentNature%>
-				| ${receipt.receiptNumber} | ${receipt.subject}
+			<h5 Class="hover-tips" >
+				<%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}
+				
 			</h5>
 			<div class="container">
 				<div class="row border border-dark scroll"
