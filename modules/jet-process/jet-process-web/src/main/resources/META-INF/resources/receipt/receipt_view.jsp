@@ -68,7 +68,7 @@
 
 					</div>
 					<div class="border col-7 mb-2 ">
-						<div class="border heading" style="margin-left: 15px;">
+						<div class="row border heading" style="margin-left: 15px !important;">
 							<h4>
 								<aui:icon cssClass="fas fa-file-alt view_icon " />
 								<liferay-ui:message key="label-receipt-diary-details" />
@@ -157,7 +157,7 @@
 								</table>
 							</div>
 						</div>
-						<div class="border heading"  style="margin-left: 15px;">
+						<div class="border row heading"  style="margin-left: 15px !important;">
 							<h4>
 								<aui:icon cssClass="fas fa-envelope view_icon" />
 								<liferay-ui:message key="label-receipt-sender-details" />
