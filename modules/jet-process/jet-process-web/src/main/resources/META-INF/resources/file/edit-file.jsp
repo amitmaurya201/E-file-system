@@ -166,12 +166,12 @@
 												<div class="row" id="sfs">
 													<aui:fieldset cssClass="col-md-12 child-scheduler-border">
 														<legend cssClass="child-scheduler-border">
-															<liferay-ui:message key="label-file-fileno" />
+															<liferay-ui:message key="label-file-fileno" /><span class="text-danger">*</span>
 														</legend>
 														<aui:input class="form-control" type="text"
 															name="fileNumber" id="fileNumber"
 															value="<%=docFile.getFileNumber()%>"
-															label="label-file-fileno" disabled="true">
+															label="" disabled="true">
 															<aui:validator name="required" />
 														</aui:input>
 													</aui:fieldset>
@@ -209,7 +209,7 @@
 											</aui:input>
 										</aui:fieldset>
 									</div>
-									<div class="row">
+									<div class="row" style="margin-left:-15px !important;">
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
@@ -239,7 +239,7 @@
 											</div>
 										</aui:fieldset>
 
-										<aui:fieldset cssClass="child-scheduler-border col-md-6">
+										<aui:fieldset cssClass="child-scheduler-border col-md-6" style="margin-top:3px !important;">
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 

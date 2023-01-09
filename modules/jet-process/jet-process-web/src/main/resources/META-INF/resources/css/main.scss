@@ -240,16 +240,16 @@ a{
     position: unset ;
 }*/
 
-.row, .row.col-2, .row.col-10,.portlet-layout.portlet-column,  .form-horizontal > .form-group, .col-md-12, .col-sm-12 {
-    padding-left: 0px ;
-    padding-right: 0px ;
-    margin-left: 0px;
-    margin-right: 0px;
+.row, .row.col-2, .row.col-10,.portlet-layout.portlet-column,  .form-horizontal > .form-group, .col-md-12, .col-sm-12, .col {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
 
 #column-1, .body-side-nav{
-	padding-left: 0px ;
-    padding-right: 0px ;
+	padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 

@@ -146,7 +146,7 @@
 
 															</div>
 
-															<div class="row" id="sfs" style="display: none">
+															<div class="row " id="sfs" style="display: none; padding-left:10px !important;">
 																<aui:fieldset
 																	cssClass="col-md-12 child-scheduler-border">
 																	<legend cssClass="child-scheduler-border">
@@ -199,8 +199,8 @@
 											</aui:input>
 										</aui:fieldset>
 									</div>
-									<div class="row">
-										<aui:fieldset cssClass="child-scheduler-border col-md-6">
+									<div class="row" style="margin-left: -15px !important">
+										<aui:fieldset cssClass="child-scheduler-border col-md-6"  >
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"
@@ -213,7 +213,7 @@
 												</aui:select>
 											</div>
 										</aui:fieldset>
-										<aui:fieldset cssClass="child-scheduler-border col-md-6">
+										<aui:fieldset cssClass="child-scheduler-border col-md-6" style="margin-top: 3px !important">
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 												<aui:select cssClass="form-select form-control"

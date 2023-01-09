@@ -12,8 +12,8 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/common/common.jsp"%>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<!-- <link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"> -->
 <style>
 <!--
 .datepicker {
@@ -93,7 +93,7 @@
 					</aui:col>
 				</aui:form>
 
-				<aui:form cssClass="scroll border border-dark col-6"
+				<aui:form cssClass="scroll border border-dark col" style="padding-right:5px !important;" 
 					name="receiptForm">
 					<aui:input name="receiptId" id="receiptId" type="hidden"
 						value="${receipt.receiptId}" />
@@ -369,7 +369,7 @@
 							</div>
 						</aui:col>
 					</aui:row>
-					<aui:row>
+					<aui:row style="padding-left:15px !important;">
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-address" /><span
@@ -493,7 +493,7 @@
 						</aui:col>
 					</aui:row>
 
-					<aui:row>
+					<aui:row style="padding-left:15px !important;">
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-subject" /><span
@@ -508,7 +508,7 @@
 							</div>
 						</aui:col>
 					</aui:row>
-					<aui:row>
+					<aui:row style="padding-left:15px !important;">
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-remark" /></label>
