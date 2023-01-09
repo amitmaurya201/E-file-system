@@ -355,7 +355,7 @@ $("#<portlet:namespace />update").on('click', function(e){
                       icon: "success",
                       button: "Ok"
                   }).then(function() {
-  	           	    window.location.href = '<%= details.toString() %>';
+  	           	    window.location.href = '<%= createdListReceipt.toString() %>';
  	             });
 		 })
 		 .fail(function(error){
