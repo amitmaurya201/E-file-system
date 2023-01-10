@@ -248,8 +248,6 @@ function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
      if(nature == 'Electronic' && tempFileId == 0 ){
     	 if(url == '' || url == null || url == undefined ){
-    		 console.log('=-  '+$("#error").length);
-    		  console.log('-= '+$('#sizeValidation').length);
 	    	 if((($("#error").length) == 0) && (	($('#sizeValidation').length) ==0) ){
 	    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
 	    	 }
@@ -329,7 +327,6 @@ $("#<portlet:namespace />update").on('click', function(e){
     var jsonData = bindFormDataJson(formObj);
     var dmFileId = '${receipt.dmFileId}';
     jsonData["userPostId"] = userPostId;
-    console.log('-='+tempFileId);
 	if(tempFileId!=0){
 		jsonData["tempFileId"] = tempFileId; 
     }	
@@ -391,13 +388,11 @@ $('#doc-select-btn').on('click',function(){
 	});
 
 $('#doc-input').on('change',function(e){	
-	console.log("doc input field...")
 	var file = e.target.files[0];
 	validateSize(file);
 });
 
 $('.dropzone-wrapper').on('dragover', function(e) {
-	console.log("inside drag area..")
 	e.preventDefault();
 	e.stopPropagation();
 });	
@@ -450,7 +445,6 @@ function displayPreview(file){
 
 function validateSize(file) {
 	  const fileSize = file.size ;
-	  console.log('[  '+$('#sizeValidation').length);
 	  if (fileSize > 1024*1024* 25) {
 		  $("#error").remove();
 	     $('.dropzone-wrapper').append('<p id="sizeValidation" class="text-danger" >Size must be less then 25MB</p>');
@@ -458,7 +452,6 @@ function validateSize(file) {
 		  $("#sizeValidation").remove();
 		  displayPreview(file);
 	  }
-	  console.log('[  '+$('#sizeValidation').length);
 	}
 
 $(document).ready(function(){
