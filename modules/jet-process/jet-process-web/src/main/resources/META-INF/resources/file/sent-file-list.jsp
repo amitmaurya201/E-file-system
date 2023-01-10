@@ -9,14 +9,9 @@
 	position: absolute;
 	background: #bebec1;
 	border: 3px solid #666666;
-	margin-top: -30%;
+	margin-top: -35%;
 	left: 30%;
 	display: none;
-}
-
-.popup {
-	width: 50%;
-	height: 50%;
 }
 
 .pull_back-popup {
@@ -127,8 +122,8 @@
 		<aui:form action="${fileSentActionUrl}" method="post" name="sentActionUrl">
 			
 			<div style="text-align: left; height: 100px;">
-				<aui:input label="label-file-remark" name="pullBackRemark" id="pullBackRemarks"
-					type="textarea" onkeyup="countChar(this)">
+				<aui:input label="label-file-remark" name="pullBackRemark" id="pullBackRemarks" 
+					type="textarea" onkeyup="countChar(this)"  style="height:70px;">
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">
 						<liferay-ui:message key="file-sent-remarks-maxlength" />

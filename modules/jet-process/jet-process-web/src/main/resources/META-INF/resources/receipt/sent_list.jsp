@@ -106,7 +106,6 @@
 
 						<button type="button" class="btn" id="myBtn"
 							onclick="openModal(${ receiptSentMovement.receiptMovementId} , ${receiptSentMovement.receiptId})">
-							<!-- <i class="icon-indent-left"></i> -->
 							<img alt="pullback"
 								src='<%=request.getContextPath() + "/image/pullback.png"%>'
 								width="100%" height="35" />
