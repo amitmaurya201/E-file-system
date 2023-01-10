@@ -153,7 +153,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
+					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
 				</portlet:renderURL>

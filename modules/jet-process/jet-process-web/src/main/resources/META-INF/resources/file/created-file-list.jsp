@@ -47,7 +47,7 @@ String backURL = themeDisplay.getURLCurrent();
 
 
 				 <portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
+					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
 					<portlet:param name="backPageURL" value="<%= backURL %>"></portlet:param>
 					

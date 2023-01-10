@@ -31,11 +31,11 @@
 			<@liferay.control_menu />
 		</#if>
 		
+<#-- <div class="container-fluid " >  -->
 
 <div id="header">
 	<#include "${full_templates_path}/header.ftl" />
 </div>
-<#-- <div class="container-fluid position-relative" id="wrapper"> -->
 
 	
 	<section>
@@ -56,7 +56,7 @@
 			<@liferay_util["include"] page=bottom_include />
 		</div>
 	</div>
-<#-- </div> -->
+ <#-- </div> -->
 
 
 <#assign isAdmin= themeDisplay.getPermissionChecker().isOmniadmin()> 

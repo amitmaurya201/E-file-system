@@ -332,6 +332,20 @@ public interface ReceiptMovementModel
 	 */
 	public void setActive(boolean active);
 
+	/**
+	 * Returns the file in movement ID of this receipt movement.
+	 *
+	 * @return the file in movement ID of this receipt movement
+	 */
+	public long getFileInMovementId();
+
+	/**
+	 * Sets the file in movement ID of this receipt movement.
+	 *
+	 * @param FileInMovementId the file in movement ID of this receipt movement
+	 */
+	public void setFileInMovementId(long FileInMovementId);
+
 	@Override
 	public ReceiptMovement cloneWithOriginalValues();
 

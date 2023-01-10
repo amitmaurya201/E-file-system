@@ -101,6 +101,8 @@ String curr = (String)session.getAttribute("currentURL");
 
 	<div class="navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav">
+			<li class="nav-item border"><a id="putinfile" class="nav-link"
+				href="<%=putinfile%>"><i class="fa fa-home"></i></a></li>
 			<li class="nav-item border "><a id="details" class="nav-link"
 				href="<%=details%>">Details</a></li>
 			<li class="nav-item border "><a id="movement" class="nav-link"
@@ -120,8 +122,6 @@ String curr = (String)session.getAttribute("currentURL");
 				href="<%=edit%>">Edit</a></li>
 			<li class="nav-item border"><a id="send" class="nav-link"
 				href="<%=send%>">Send</a></li>
-			<li class="nav-item border"><a id="putinfile" class="nav-link"
-				href="<%=putinfile%>">Put in a file</a></li>
 			<li class="nav-item border"><a id="sendback" class="nav-link"
 				href="<%=sendback%>">Send Back</a></li>
 			<li class="nav-item dropdown border"><a

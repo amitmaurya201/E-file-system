@@ -60,6 +60,7 @@ public class ReceiptMovementWrapper
 		attributes.put("receivedOn", getReceivedOn());
 		attributes.put("pullBackRemark", getPullBackRemark());
 		attributes.put("active", isActive());
+		attributes.put("FileInMovementId", getFileInMovementId());
 
 		return attributes;
 	}
@@ -167,6 +168,12 @@ public class ReceiptMovementWrapper
 		if (active != null) {
 			setActive(active);
 		}
+
+		Long FileInMovementId = (Long)attributes.get("FileInMovementId");
+
+		if (FileInMovementId != null) {
+			setFileInMovementId(FileInMovementId);
+		}
 	}
 
 	@Override
@@ -212,6 +219,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public String getDueDate() {
 		return model.getDueDate();
+	}
+
+	/**
+	 * Returns the file in movement ID of this receipt movement.
+	 *
+	 * @return the file in movement ID of this receipt movement
+	 */
+	@Override
+	public long getFileInMovementId() {
+		return model.getFileInMovementId();
 	}
 
 	/**
@@ -417,6 +434,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public void setDueDate(String dueDate) {
 		model.setDueDate(dueDate);
+	}
+
+	/**
+	 * Sets the file in movement ID of this receipt movement.
+	 *
+	 * @param FileInMovementId the file in movement ID of this receipt movement
+	 */
+	@Override
+	public void setFileInMovementId(long FileInMovementId) {
+		model.setFileInMovementId(FileInMovementId);
 	}
 
 	/**
