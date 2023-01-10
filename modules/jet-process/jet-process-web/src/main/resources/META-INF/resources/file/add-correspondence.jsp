@@ -1,12 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%@page import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
 <%
-	long userPostId =1;
-	/* int count = (int) request.getAttribute("receiptCount");
-	List<ReceiptListViewDto> receiptList = MasterdataLocalServiceUtil.getCreatedReceiptAndInboxList(userPostId,
-			userPostId); */
-	HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
-	long userPostId = (long) userPostIdValue.getAttribute("userPostId");
+	 HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
+	 String userPostsVal = (String) userPostIdValue.getAttribute("userPostId");
 	long docFileId = (Long) request.getAttribute("docFileId");
 %>
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
@@ -20,7 +16,7 @@
 	
 <aui:form action="${attachReceipt} " method="post" name="attachReceipt">
 	<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
-	<aui:input name="userPostId" value="${userPostId }" type="hidden"></aui:input>
+	<aui:input name="userPostId" value="${userPostsVal }" type="hidden"></aui:input>
 
 	<liferay-ui:search-container  
 	delta= "${delta}"
@@ -58,7 +54,8 @@
 			rows="3" cols="100"></textarea>
 	</div> --%>
 
-	<input class="btn btn-primary" style="float: right; margin-top: 10px;"
+	<input class="btn btn-primary"  id = "attachForm" style="float: right; margin-top: 10px;"
 		type="submit" value="Attach" />
 
 </aui:form>
+
