@@ -375,7 +375,7 @@
 								<label><liferay-ui:message key="label-receipt-address" /><span
 									class='text-danger'>*</span></label>
 								<aui:input type="textarea" label="" name="address" id="address"
-									value="${receipt.address}">
+									value="${receipt.address}" style="height:70px;">
 									<aui:validator name="required" />
 									<aui:validator name="maxLength">
 										<liferay-ui:message key="receipt-address-maxlength" />
@@ -499,7 +499,7 @@
 								<label><liferay-ui:message key="label-receipt-subject" /><span
 									class='text-danger'>*</span></label>
 								<aui:input type="textarea" label="" name="subject" id="subject"
-									value="${receipt.subject}">
+									value="${receipt.subject}" style="height:70px;">
 									<aui:validator name="required" />
 									<aui:validator name="maxLength">
 										<liferay-ui:message key="receipt-subject-maxlength" />
