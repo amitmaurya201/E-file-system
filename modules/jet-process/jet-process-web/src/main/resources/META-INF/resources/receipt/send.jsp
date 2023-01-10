@@ -54,7 +54,7 @@ width: 100%;
 		</div>
 
 		<aui:container cssClass="row">
-			<aui:form action="${send}" cssClass="border border-dark col-6">
+			<aui:form action="${send}" cssClass="border border-dark col-6" style="padding: 1% !important"> 
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>receiptId"
@@ -143,7 +143,7 @@ width: 100%;
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-sent-remark" /></label>
 						<aui:input type="textarea" label="" name="remark" id="remark"
-							rows="3">
+							style="height:70px;">
 							<aui:validator name="maxLength">
 								<liferay-ui:message key="sent-remark-maxlength" />
 							</aui:validator>
