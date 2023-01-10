@@ -46,10 +46,10 @@
 		%>
 		<div class="receipt_view">
 
-			<h5 Class="hover-tips" >
+			<h6 Class="hover-tips" >
 				<%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}
 				
-			</h5>
+			</h6>
 			<div class="container">
 				<div class="row border border-dark scroll"
 					style="height: 440px; overflow: overlay">
@@ -69,10 +69,10 @@
 					</div>
 					<div class="border col-7 mb-2 ">
 						<div class="row border heading" >
-							<h4>
+							<h5>
 								<aui:icon cssClass="fas fa-file-alt view_icon " />
 								<liferay-ui:message key="label-receipt-diary-details" />
-							</h4>
+							</h5>
 						</div>
 						<div class="row">
 							<div class="col-6">
@@ -158,10 +158,10 @@
 							</div>
 						</div>
 						<div class="border row heading"  >
-							<h4>
+							<h5>
 								<aui:icon cssClass="fas fa-envelope view_icon" />
 								<liferay-ui:message key="label-receipt-sender-details" />
-							</h4>
+							</h5>
 						</div>
 						<div class="row">
 							<div class="col-6">
