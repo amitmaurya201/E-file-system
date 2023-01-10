@@ -41,6 +41,11 @@
 	<portlet:param name="mvcRenderCommandName" value="/createdListReceipt" />
 </portlet:renderURL>
 
+<portlet:renderURL var="edit">
+	<portlet:param name="mvcRenderCommandName" value="/editReceipt" />
+	<portlet:param name="receiptId" value="${receipt.receiptId}" />
+ </portlet:renderURL>
+ 
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -73,8 +78,7 @@
 										id="doc-select-btn"><liferay-ui:message
 											key="label-receipt-pdf-file" /></span> <input name="doc-input"
 										id="doc-input" type="file" hidden accept=".pdf" />
-									<p id="sizeValidation" style="display: none; color: red;">size
-										must be less then 25 mb</p>
+									
 
 								</div>
 							</div>

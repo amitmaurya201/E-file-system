@@ -243,22 +243,21 @@ $(document).ready(function(e){
 var url='${receipt.viewPdfUrl}';
 
 /* if nature is elcetronic */
-var errorLabel= false;
 $("#<portlet:namespace />nature").on('change',mySeletedNature);
 function mySeletedNature(){
 	 var nature= $('#<portlet:namespace/>nature').val(); 
      if(nature == 'Electronic' && tempFileId == 0 ){
     	 if(url == '' || url == null || url == undefined ){
-	    	 if(($("#error").length) == 0){
+    		 console.log('=-  '+$("#error").length);
+    		  console.log('-= '+$('#sizeValidation').length);
+	    	 if((($("#error").length) == 0) && (	($('#sizeValidation').length) ==0) ){
 	    		 $('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
 	    	 }
 	    		 return true;
     	 }else{
     		 return false;
     	 }
-    	 errorLabel=true;
      }else{
-    	 errorLabel=false;    		
     	 $("#error ").remove();
     	 return false;
      }
@@ -277,7 +276,7 @@ function validateForm(receiptForm) {
 	            }
 	   	}
 	    return true;
-}
+};
 	
 $("#<portlet:namespace />generate").on('click', function(e){
 	 e.preventDefault();
@@ -299,7 +298,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
 			        contentType : 'application/json'
 			 }) .done(function(response) {
 				  var receiptNumber =response.receiptNumber;
-				  swal( {
+				  swal({
 	                 title: "Successfull!",
 	                 text: `You have successfully created your receipt! and your receipt number is `+receiptNumber,
 	                 icon: "success",
@@ -330,6 +329,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     var jsonData = bindFormDataJson(formObj);
     var dmFileId = '${receipt.dmFileId}';
     jsonData["userPostId"] = userPostId;
+    console.log('-='+tempFileId);
 	if(tempFileId!=0){
 		jsonData["tempFileId"] = tempFileId; 
     }	
@@ -355,10 +355,9 @@ $("#<portlet:namespace />update").on('click', function(e){
                       icon: "success",
                       button: "Ok"
                   }).then(function() {
-  	           	    window.location.href = '<%= createdListReceipt.toString() %>';
- 	             });
-		 })
-		 .fail(function(error){
+  	           	    window.location.href = '<%= edit.toString() %>';
+ 	             })
+		 }).fail(function(error){
 			 swal({  
 				  title: " Oops!",  
 				  text: "Something went wrong, you should choose again!",  
@@ -380,7 +379,7 @@ $('#removeFileUpload').on('click',function(e){
  $('#removeFileUpload').css("display", "none");
 	$("#editpdfurl").remove();
 	$("#doc-input").val(null);
-	$(sizeValidation).css('display', 'none'); 
+	$("#sizeValidation").remove();
     tempFileId=0;
     url = null;
 });
@@ -451,11 +450,15 @@ function displayPreview(file){
 
 function validateSize(file) {
 	  const fileSize = file.size ;
+	  console.log('[  '+$('#sizeValidation').length);
 	  if (fileSize > 1024*1024* 25) {
-	     $(sizeValidation).css('display', 'block'); 
+		  $("#error").remove();
+	     $('.dropzone-wrapper').append('<p id="sizeValidation" class="text-danger" >Size must be less then 25MB</p>');
 	  } else {
+		  $("#sizeValidation").remove();
 		  displayPreview(file);
 	  }
+	  console.log('[  '+$('#sizeValidation').length);
 	}
 
 $(document).ready(function(){

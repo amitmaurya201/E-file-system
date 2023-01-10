@@ -40,10 +40,10 @@
 	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
-<portlet:renderURL var="details">
-	<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+<portlet:renderURL var="edit">
+	<portlet:param name="mvcRenderCommandName" value="/editReceipt" />
 	<portlet:param name="receiptId" value="${receipt.receiptId}" />
-</portlet:renderURL>
+ </portlet:renderURL>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
