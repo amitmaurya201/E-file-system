@@ -3,9 +3,14 @@
 <%@page import="io.jetprocess.model.DocFile"%>
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
+
+  String currURL = (String)request.getAttribute("CurrentURL");
+  
+  session.setAttribute("currentURL", currURL);
+
 %>
 
-
+<%=currURL %>
 
 
 <div class="row">

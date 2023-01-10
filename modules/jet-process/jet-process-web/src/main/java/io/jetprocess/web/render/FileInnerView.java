@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.security.sso.SSO;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -36,9 +37,15 @@ public class FileInnerView implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
+		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
+		System.out.println("putInFileId --------- url"+currentURL);
+		
+
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		sessionPutInFileId.setAttribute("putInFileId", docFileId);
+		
+
 
 			try {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
@@ -46,6 +53,7 @@ public class FileInnerView implements MVCRenderCommand {
 				renderRequest.setAttribute("nature",docFile.getNature() );
 				renderRequest.setAttribute("docFileId",docFileId);
 				renderRequest.setAttribute("docFileObj", docFile);
+				renderRequest.setAttribute("CurrentURL", currentURL);
 				
 			} catch (PortalException e) {
 				

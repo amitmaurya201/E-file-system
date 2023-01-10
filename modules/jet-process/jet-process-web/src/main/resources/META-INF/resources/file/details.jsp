@@ -9,11 +9,7 @@
 <%@ include file="/common/common.jsp"%>
 
 
- <%
-String currentURL = (String)renderRequest.getAttribute("CurrentURL");
 
- session.setAttribute("currentURL", currentURL);
-%>
 
 
 <style>

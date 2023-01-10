@@ -8,6 +8,15 @@
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
 	<%-- <portlet:param name="redirect" value="/file/file-inner-view.jsp" />  --%>
 </portlet:actionURL>
+
+ <%
+String currentURL = (String)renderRequest.getAttribute("CurrentURL");
+
+ session.setAttribute("currentURL", currentURL);
+%>
+
+
+
 <clay:management-toolbar 
 	disabled="${receiptCount eq 0}"
 	displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
