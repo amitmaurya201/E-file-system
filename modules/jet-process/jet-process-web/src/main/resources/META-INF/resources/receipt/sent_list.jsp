@@ -16,14 +16,9 @@
 	display: none;
 }
 
-/* .popup {
-	width: 50%;
-	height: 50%;
-} */
-
 .pull_back-popup {
 	width: 35%;
-	height: 55%;
+	height: 56%;
 	left: 37%;
 	background: #bcd0e7;
 }
@@ -51,12 +46,6 @@
 }
 
 </style>
-
-<%-- <%
-	String status = ParamUtil.getString(renderRequest, "status");
-
-	String result = ParamUtil.getString(renderRequest, "result");
-%> --%>
 
 <div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
@@ -129,20 +118,6 @@
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 		</liferay-ui:search-container>
-
-
-		<%-- 
-		<%
-			if (status.equalsIgnoreCase("Warning")) {
-		%>
-		<div class="alert alert-warning alert-dismissible" id="error-alert"
-			style="width: 28%;">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong style="padding-left: 30px;"><%=result%></strong>
-		</div>
-		<%
-			}
-		%> --%>
 	</div>
 </div>
 
@@ -193,7 +168,7 @@
 </div>
 <liferay-ui:success key="pullback-available" message="pullback-success" />
 <div class="ml-3" id="alert-remove"
-	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 70%; margin-top: -40px;">
 	<liferay-ui:error key="pullback-not-available"
 		message="pullback-error-receipt" />
 </div>
