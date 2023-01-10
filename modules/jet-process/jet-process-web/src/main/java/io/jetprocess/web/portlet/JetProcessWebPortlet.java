@@ -40,6 +40,7 @@ import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.masterdata.service.UserPostService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileMovement;
+import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
@@ -111,12 +112,17 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 			Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
 			String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
+			//List<ReceiptMovement> receiptMovementList =  receiptMovementLocalService.getReceiptMovementByFileMovementId(fileMovementId);
+			//System.out.println("receipt movement list --->>>"+receiptMovementList);
+		//	if(receiptMovementList != null) {
+				System.out.println("if condition -->");
 			Boolean pullBackAvailable = fLocalService.isPullBackAvailable(fileMovementId);
 			if (pullBackAvailable) {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 				System.out.println("DocFileId--->" + docFile);
 				docFile.setCurrentlyWith(userpost);
 				fLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
+				docFile.setCurrentState(FileStatus.CREADTED);
 				docFileLocalService.updateDocFile(docFile);
 				System.out.println("After pull back--->"+docFileLocalService.updateDocFile(docFile));
 				Boolean active = isActive(docFileId);
@@ -131,10 +137,57 @@ public class JetProcessWebPortlet extends MVCPortlet {
 				SessionMessages.add(actionRequest,
 						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 			}
-
-		
+			
+			List<ReceiptMovement> receiptMovementList =  receiptMovementLocalService.getReceiptMovementByFileMovementId(fileMovementId);
+			System.out.println("receiptMovementList --->"+receiptMovementList);
+			if(receiptMovementList != null) {
+				// Iterate list of receipt 
+				
+				for (ReceiptMovement receiptMovement : receiptMovementList) {
+					if(fileMovementId == receiptMovement.getFileInMovementId()) {
+						System.out.println("with if condition-->");
+					receiptMovement.setActive(false);
+					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+					}
+					
+				}	
+			}
+		/*
+		 * else if(receiptMovementList != null) {
+		 * 
+		 * System.out.println("else part chalassss-->"); Boolean pullBackAvailable =
+		 * fLocalService.isPullBackAvailable(fileMovementId); if (pullBackAvailable) {
+		 * DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+		 * System.out.println("DocFileId--->" + docFile);
+		 * docFile.setCurrentlyWith(userpost);
+		 * fLocalService.pullBackFileMovement(docFileId, fileMovementId,
+		 * pullBackRemark); docFile.setCurrentState(FileStatus.CREADTED);
+		 * docFileLocalService.updateDocFile(docFile);
+		 * System.out.println("After pull back--->"+docFileLocalService.updateDocFile(
+		 * docFile)); Boolean active = isActive(docFileId); if (!active) {
+		 * docFile.setCurrentState(FileStatus.CREADTED);
+		 * docFileLocalService.updateDocFile(docFile);
+		 * System.out.println("in active-->"+docFileLocalService.updateDocFile(docFile))
+		 * ; } SessionMessages.add(actionRequest, "pullback-available"); } else {
+		 * SessionErrors.add(actionRequest, "pullback-not-available");
+		 * SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) +
+		 * SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE); }
+		 * 
+		 */			
+			/*
+			 * // Iterate list of receipt
+			 * 
+			 * for (ReceiptMovement receiptMovement : receiptMovementList) {
+			 * if(fileMovementId == receiptMovement.getFileInMovementId()) {
+			 * receiptMovement.setActive(false);
+			 * receiptMovementLocalService.updateReceiptMovement(receiptMovement); }
+			 * 
+			 * }
+			 */
+			System.out.println("without if condition --->");
 			actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 		}
+
 
 	// method for getting active
 

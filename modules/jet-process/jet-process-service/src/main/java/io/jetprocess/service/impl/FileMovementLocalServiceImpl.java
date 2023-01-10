@@ -92,11 +92,17 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 									saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
 
 								} else {
-
+									if(fm.getActive() == false) {
+										System.out.println("setting false 0----->>>");
+									 fm.setReadOn("");
+									 fileMovementLocalService.updateFileMovement(fm);
+									 saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
+									} else {
+                                      System.out.println("--else for readOn>>>>>>");
 									fm.setReadOn("read");
 									fileMovementLocalService.updateFileMovement(fm);
 									saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
-
+									}
 								}
 
 							} else if (docFile.getNature().equals("Physical")) {
@@ -106,11 +112,16 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 									saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
 
 								} else {
-
+									if(fm.getActive() == false) {
+										System.out.println("setting false 0----->>>");
+									 fm.setReadOn("");
+									 fileMovementLocalService.updateFileMovement(fm);
+									 saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
+									} else {
 									fm.setReceivedOn("receive");
 									fileMovementLocalService.updateFileMovement(fm);
 									saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
-
+									}
 								}
 
 							}

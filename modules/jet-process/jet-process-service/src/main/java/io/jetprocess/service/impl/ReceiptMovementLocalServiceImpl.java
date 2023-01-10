@@ -211,6 +211,22 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return state;
 	}
+	
+	
+	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId){
+		
+
+		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS,QueryUtil.ALL_POS);
+        for (ReceiptMovement receiptMovement : receiptMovementList) {
+        	if(fileMovementId == receiptMovement.getFileInMovementId()) {
+        		return receiptMovementList;
+        	}
+			
+		}
+		return receiptMovementList;
+		
+		
+	}
 
 	@Reference
 	ReceiptLocalService receiptLocalService;

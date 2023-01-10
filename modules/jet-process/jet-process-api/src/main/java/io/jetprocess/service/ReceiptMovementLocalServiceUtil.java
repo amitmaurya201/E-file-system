@@ -279,6 +279,12 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovement(rmId);
 	}
 
+	public static List<ReceiptMovement> getReceiptMovementByFileMovementId(
+		long fileMovementId) {
+
+		return getService().getReceiptMovementByFileMovementId(fileMovementId);
+	}
+
 	public static List<ReceiptMovement> getReceiptMovementByReceiptId(
 		long receiptId) {
 

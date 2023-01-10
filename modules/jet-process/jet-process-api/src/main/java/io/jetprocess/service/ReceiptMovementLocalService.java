@@ -251,6 +251,10 @@ public interface ReceiptMovementLocalService
 	public ReceiptMovement getReceiptMovement(long rmId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ReceiptMovement> getReceiptMovementByFileMovementId(
+		long fileMovementId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

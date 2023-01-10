@@ -311,6 +311,14 @@ public class ReceiptMovementLocalServiceWrapper
 
 	@Override
 	public java.util.List<io.jetprocess.model.ReceiptMovement>
+		getReceiptMovementByFileMovementId(long fileMovementId) {
+
+		return _receiptMovementLocalService.getReceiptMovementByFileMovementId(
+			fileMovementId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.model.ReceiptMovement>
 		getReceiptMovementByReceiptId(long receiptId) {
 
 		return _receiptMovementLocalService.getReceiptMovementByReceiptId(
