@@ -10,7 +10,7 @@
 
 %>
 
-<%=currURL %>
+
 
 
 <div class="row">
