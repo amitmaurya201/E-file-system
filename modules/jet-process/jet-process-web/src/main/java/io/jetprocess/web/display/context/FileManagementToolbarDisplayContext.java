@@ -40,14 +40,11 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
-	
-
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
 
-	
 	/**
 	 * Returns the sort order column.
 	 * 
@@ -78,16 +75,14 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
- 
-	
-	
+
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
@@ -117,7 +112,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST);
 
 		// Reset current page.
 
@@ -130,11 +125,11 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 		return sortingURL;
 	}
-	
+
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILELIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST);
 
 		return sortingURL;
 	}
