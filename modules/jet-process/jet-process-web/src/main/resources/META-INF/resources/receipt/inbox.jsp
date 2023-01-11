@@ -110,25 +110,26 @@
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
 
-				<portlet:actionURL name="receiptReceiveAction"
-					var="receiptReceiveAction">
+
+				<portlet:actionURL var="receiptReceiveAction"
+					name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 				</portlet:actionURL>
-				<portlet:actionURL name="receiptReadAction" var="receiptReadAction">
+				<portlet:actionURL var="receiptReadAction" name="<%= MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND %>">
 					<portlet:param name="receiptId1"
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-						
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+
 
 				</portlet:actionURL>
 
-				<portlet:renderURL var="receiptInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+				<portlet:renderURL var="receiptDetails">
+					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
 				</portlet:renderURL>
@@ -161,8 +162,8 @@
 								</c:otherwise>
 							</c:choose>
 
-							<liferay-ui:search-container-column-text
-							orderable="true" orderableProperty="subject"
+							<liferay-ui:search-container-column-text orderable="true"
+								orderableProperty="subject"
 								value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
 								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
 
@@ -233,11 +234,13 @@
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text property="receiptNumber"
-								orderableProperty="receiptNumber" orderable="true" href="<%=receiptInnerView%>"
+								orderableProperty="receiptNumber" orderable="true"
+								href="<%=receiptInnerView%>"
 								name="label-receipt-inbox-receiptno" />
 
-							<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"
-								orderableProperty="subject" orderable="true" name="label-receipt-inbox-subject" />
+							<liferay-ui:search-container-column-text property="subject"
+								cssClass="hover-tips" orderableProperty="subject"
+								orderable="true" name="label-receipt-inbox-subject" />
 
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
