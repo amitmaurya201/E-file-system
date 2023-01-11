@@ -321,6 +321,11 @@ public class UserPostLocalServiceWrapper
 	}
 
 	@Override
+	public long getUserPostId(javax.portlet.ActionRequest actionRequest) {
+		return _userPostLocalService.getUserPostId(actionRequest);
+	}
+
+	@Override
 	public java.util.List<io.jetprocess.masterdata.model.UserPost>
 		getUserPostList(long userId) {
 

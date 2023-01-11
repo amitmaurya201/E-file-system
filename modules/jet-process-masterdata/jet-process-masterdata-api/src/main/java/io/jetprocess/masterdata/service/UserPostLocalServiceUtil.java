@@ -284,6 +284,12 @@ public class UserPostLocalServiceUtil {
 		return getService().getUserPostByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static long getUserPostId(
+		javax.portlet.ActionRequest actionRequest) {
+
+		return getService().getUserPostId(actionRequest);
+	}
+
 	public static List<UserPost> getUserPostList(long userId) {
 		return getService().getUserPostList(userId);
 	}

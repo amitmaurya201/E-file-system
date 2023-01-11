@@ -37,6 +37,8 @@ import java.io.Serializable;
 
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -255,6 +257,9 @@ public interface UserPostLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserPost getUserPostByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getUserPostId(ActionRequest actionRequest);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserPost> getUserPostList(long userId);

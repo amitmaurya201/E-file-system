@@ -20,6 +20,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
@@ -37,12 +38,16 @@ public class PullBackMVCActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		HttpSession sessionUserPost = themeDisplay.getRequest().getSession();
-		String userPosts = (String) sessionUserPost.getAttribute("userPostId");
-		long userpost = Long.parseLong(userPosts);
-		Long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
-		Long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
+		/*
+		 * ThemeDisplay themeDisplay = (ThemeDisplay)
+		 * actionRequest.getAttribute(WebKeys.THEME_DISPLAY); HttpSession
+		 * sessionUserPost = themeDisplay.getRequest().getSession(); String userPosts =
+		 * (String) sessionUserPost.getAttribute("userPostId"); long userpost =
+		 * Long.parseLong(userPosts);
+		 */
+		long userpost = userPostLocalSerive.getUserPostId(actionRequest);
+		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
+		long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
 		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
 		Boolean pullBackAvailable = fileMovementLocalService.isPullBackAvailable(fileMovementId);
 		if (pullBackAvailable) {
@@ -83,5 +88,8 @@ public class PullBackMVCActionCommand extends BaseMVCActionCommand {
 	DocFileLocalService docFileLocalService;
 	@Reference
 	ReceiptMovementLocalService receiptMovementLocalService;
+	@Reference
+	UserPostLocalService userPostLocalSerive;
+	
 
 }

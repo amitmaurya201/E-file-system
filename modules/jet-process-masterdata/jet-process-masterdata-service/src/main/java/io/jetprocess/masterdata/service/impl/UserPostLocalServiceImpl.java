@@ -25,10 +25,15 @@ import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
+
+import javax.portlet.ActionRequest;
+import javax.servlet.http.HttpSession;
 
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalServiceUtil;
@@ -82,5 +87,18 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 		return userPostList;
 		
 	}
+	 // create method for get userpost id 
+	public long getUserPostId(ActionRequest actionRequest) {
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		HttpSession sessionUserPost = themeDisplay.getRequest().getSession();
+		String userPosts = (String) sessionUserPost.getAttribute("userPostId");
+		long userpost = Long.parseLong(userPosts);
+		
+		return userpost;
+		
+	}
+	
+	
 	
 }
