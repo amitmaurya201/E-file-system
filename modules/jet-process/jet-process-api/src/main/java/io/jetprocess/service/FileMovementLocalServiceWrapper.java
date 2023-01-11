@@ -427,13 +427,13 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
-	public boolean saveReadAction(long fileId, long fmId) {
-		return _fileMovementLocalService.saveReadAction(fileId, fmId);
+	public boolean saveReadMovement(long fileId, long fmId) {
+		return _fileMovementLocalService.saveReadMovement(fileId, fmId);
 	}
 
 	@Override
-	public boolean saveReceiveAction(long fileId, long fmId) {
-		return _fileMovementLocalService.saveReceiveAction(fileId, fmId);
+	public boolean saveReceiveMovement(long fileId, long fmId) {
+		return _fileMovementLocalService.saveReceiveMovement(fileId, fmId);
 	}
 
 	/**

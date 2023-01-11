@@ -385,12 +385,12 @@ public class ReceiptMovementLocalServiceUtil {
 			receiptId, receiptMovementId, remarks, userPostId);
 	}
 
-	public static boolean saveReadAction(long receiptId, long rmId) {
-		return getService().saveReadAction(receiptId, rmId);
+	public static boolean saveReadMovement(long receiptId, long rmId) {
+		return getService().saveReadMovement(receiptId, rmId);
 	}
 
-	public static boolean saveReceiveAction(long receiptId, long rmId) {
-		return getService().saveReceiveAction(receiptId, rmId);
+	public static boolean saveReceiveMovement(long receiptId, long rmId) {
+		return getService().saveReceiveMovement(receiptId, rmId);
 	}
 
 	public static void saveSendReceipt(

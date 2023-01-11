@@ -45,13 +45,9 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
 			String remark) {
 
-		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS);
-
-		ReceiptMovement receiptMovement = receiptMovementList.stream()
-				.filter(receipt -> receipt.getReceiptId() == receiptId).findAny().orElse(null);
-
-		if (receiptMovement == null) {
+		boolean state = isReceiptMovementAvailable(receiptId);
+			
+		if (state == true) {
 
 			saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
 
@@ -228,7 +224,16 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementList;
 	}
 
-	public boolean saveReadAction(long receiptId, long rmId) {
+	private boolean isReceiptMovementAvailable(long receiptId) {
+		List<ReceiptMovement> findByreceiptId = receiptMovementPersistence.findByreceiptId(receiptId);
+		if(findByreceiptId.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+	
+	public boolean saveReadMovement(long receiptId, long rmId) {
 		boolean state = false;
 		try {
 			state = receiptMovementLocalService.pullBackedAlready(rmId);
@@ -248,7 +253,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return state;
 	}
 
-	public boolean saveReceiveAction(long receiptId, long rmId) {
+	public boolean saveReceiveMovement(long receiptId, long rmId) {
 		boolean state = false;
 		try {
 			state = receiptMovementLocalService.pullBackedAlready(rmId);

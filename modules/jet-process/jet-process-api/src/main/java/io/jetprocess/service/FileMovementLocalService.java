@@ -327,9 +327,9 @@ public interface FileMovementLocalService
 			long fileId, long fileMovementId, String remarks)
 		throws PortalException;
 
-	public boolean saveReadAction(long fileId, long fmId);
+	public boolean saveReadMovement(long fileId, long fmId);
 
-	public boolean saveReceiveAction(long fileId, long fmId);
+	public boolean saveReceiveMovement(long fileId, long fmId);
 
 	/**
 	 * create save send file method

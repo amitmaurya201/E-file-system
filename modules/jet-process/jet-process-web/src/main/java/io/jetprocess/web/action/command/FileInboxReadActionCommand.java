@@ -28,7 +28,7 @@ public class FileInboxReadActionCommand implements MVCActionCommand {
 		long fmId = ParamUtil.getLong(actionRequest, "fmId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
 
-	   boolean state = fileMovementLocalService.saveReadAction(fileId, fmId);
+	   boolean state = fileMovementLocalService.saveReadMovement(fileId, fmId);
 	   
 	   if(state == false) {
 		   

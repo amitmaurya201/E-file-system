@@ -63,19 +63,19 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			String remark) {
 
 		
-		List<FileMovement> fileList = fileMovementLocalService.getFileMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		boolean state = isFileMovementAvailable(fileId);
+			
+		if (state == true) {
 
-		FileMovement fileMov = fileList.stream().filter(file -> file.getFileId() == fileId).findAny().orElse(null);
 
-		if (fileMov == null) {
-
-			try {
-				saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
-			} catch (PortalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("file movement sucessfully done----");
+			
+				try {
+					saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
+				} catch (PortalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 
 		} else {
 
@@ -238,7 +238,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			      		receiptMovement.setActive(true);
 			      		receiptMovement.setFileInMovementId(fmId);
 			      		receiptMovementLocalService.addReceiptMovement(receiptMovement);
-			      		System.out.println("sucessfully -----------");
 					}
 			
 			
@@ -290,7 +289,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	}
 
 	
-	public boolean saveReadAction(long fileId , long fmId) {
+	public boolean saveReadMovement(long fileId , long fmId) {
 		boolean state = false;
 		try {
 			
@@ -316,7 +315,15 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		
 	}
 	
-	public boolean saveReceiveAction(long fileId , long fmId) {
+	private boolean isFileMovementAvailable(long fileId) {
+		List<FileMovement> findByfileId = fileMovementPersistence.findByfileId(fileId);
+		if(findByfileId.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean saveReceiveMovement(long fileId , long fmId) {
 		boolean state = false;
 		try {
 			

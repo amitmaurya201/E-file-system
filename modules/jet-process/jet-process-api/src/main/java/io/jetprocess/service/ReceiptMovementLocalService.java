@@ -331,9 +331,9 @@ public interface ReceiptMovementLocalService
 			long userPostId)
 		throws PortalException;
 
-	public boolean saveReadAction(long receiptId, long rmId);
+	public boolean saveReadMovement(long receiptId, long rmId);
 
-	public boolean saveReceiveAction(long receiptId, long rmId);
+	public boolean saveReceiveMovement(long receiptId, long rmId);
 
 	public void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,

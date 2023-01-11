@@ -435,13 +435,14 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public boolean saveReadAction(long receiptId, long rmId) {
-		return _receiptMovementLocalService.saveReadAction(receiptId, rmId);
+	public boolean saveReadMovement(long receiptId, long rmId) {
+		return _receiptMovementLocalService.saveReadMovement(receiptId, rmId);
 	}
 
 	@Override
-	public boolean saveReceiveAction(long receiptId, long rmId) {
-		return _receiptMovementLocalService.saveReceiveAction(receiptId, rmId);
+	public boolean saveReceiveMovement(long receiptId, long rmId) {
+		return _receiptMovementLocalService.saveReceiveMovement(
+			receiptId, rmId);
 	}
 
 	@Override

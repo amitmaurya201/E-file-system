@@ -39,7 +39,7 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 
-		boolean state = receiptMovementLocalService.saveReceiveAction(receiptId , rmId);
+		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
 		if (state == false) {
 
 

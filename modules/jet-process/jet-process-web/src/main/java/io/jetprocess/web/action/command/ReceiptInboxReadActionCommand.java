@@ -37,7 +37,7 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
 
 		
-		boolean state = receiptMovementLocalService.saveReadAction(receiptId , rmId);
+		boolean state = receiptMovementLocalService.saveReadMovement(receiptId , rmId);
 		if (state == false) {
 
 			
