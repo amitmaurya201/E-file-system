@@ -18,9 +18,10 @@ import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=/receiptView" }, service = MVCRenderCommand.class)
+		"mvc.command.name=" + MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class ReceiptViewRenderCommand implements MVCRenderCommand {
 
 	@Override

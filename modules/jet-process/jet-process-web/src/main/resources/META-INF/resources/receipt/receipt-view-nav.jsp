@@ -28,32 +28,29 @@
 
 <%
 	String receiptId = renderRequest.getParameter("receiptId");
-String curr = (String)session.getAttribute("currentURL");
-
-
+	String curr = (String) session.getAttribute("currentURL");
 %>
-<portlet:renderURL var="details">
-	<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+<portlet:renderURL var="receiptDetails">
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-		        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 
-<portlet:renderURL var="movementRenderURL">
-	<%-- 	<portlet:param name="mvcPath" value="/receipt/movement.jsp" /> --%>
+<portlet:renderURL var="receiptMovement">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-		        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="sendReceipt">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-		        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 <portlet:renderURL var="sendBack">
 	<portlet:param name="mvcPath" value="/receipt/send_back.jsp" />
@@ -61,11 +58,11 @@ String curr = (String)session.getAttribute("currentURL");
 <portlet:renderURL var="putFile">
 	<portlet:param name="mvcPath" value="/receipt/put_in_a_file.jsp" />
 </portlet:renderURL>
-<portlet:renderURL var="edit">
-	<portlet:param name="mvcRenderCommandName" value="/editReceipt" />
+<portlet:renderURL var="editReceipt">
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-		        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
 </portlet:renderURL>
 <portlet:renderURL var="dispatch">
 	<portlet:param name="mvcPath" value="/receipt/dispatch.jsp" />
@@ -88,9 +85,9 @@ String curr = (String)session.getAttribute("currentURL");
 	<div class=" navbar-collapse" id="main_nav">
 		<ul class="navbar-nav border">
 			<li class="nav-item "><a id="details" class="nav-link "
-				href="<%=details%>">Details </a></li>
+				href="<%=receiptDetails%>">Details </a></li>
 			<li class="nav-item"><a id="movement" class="nav-link "
-				href="<%=movementRenderURL%>"> Movement </a></li>
+				href="<%=receiptMovement%>"> Movement </a></li>
 			<li class="nav-item"><a id="send" class="nav-link "
 				href="<%=sendReceipt%>"> Send </a></li>
 			<li class="nav-item"><a id="sendback" class="nav-link "
@@ -100,7 +97,7 @@ String curr = (String)session.getAttribute("currentURL");
 			<li class="nav-item"><a id="dispatch" class="nav-link "
 				href="<%=dispatch%>">Dispatch</a></li>
 			<li class="nav-item"><a id="edit" class="nav-link "
-				href="<%=edit%>"> Edit </a></li>
+				href="<%=editReceipt%>"> Edit </a></li>
 			<li class="nav-item"><a id="actionDetails" class="nav-link "
 				href="<%=actionDetails%>"> Action Details </a></li>
 			<li class="nav-item dropdown"><a
