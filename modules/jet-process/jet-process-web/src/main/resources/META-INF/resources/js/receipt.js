@@ -346,7 +346,7 @@ $("#<portlet:namespace />update").on('click', function(e){
                     icon: "success",
                     button: "Ok"
     			}).then(function() {
-    				window.location.href = '<%= edit.toString() %>';
+    				window.location.href = '<%= editReceipt.toString() %>';
     			})
     		}).fail(function(error){
     			swal({  
