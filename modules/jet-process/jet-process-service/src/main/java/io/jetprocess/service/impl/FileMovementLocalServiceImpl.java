@@ -343,7 +343,22 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		
 	}
 
+	 // get status for pullback time 
 	
+	public Boolean isActive(long docFileId) {
+		boolean state = false;
+		List<FileMovement> fileMovementBydocFileId = fileMovementLocalService.getFileMovementByFileId(docFileId);
+
+		for (FileMovement fileMovement : fileMovementBydocFileId) {
+			if (!fileMovement.getActive()) {
+				state = false;
+			} else {
+				state = true;
+				break;
+			}
+		}
+		return state;
+	}
 
 	
 	

@@ -399,6 +399,11 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
+	public Boolean isActive(long docFileId) {
+		return _fileMovementLocalService.isActive(docFileId);
+	}
+
+	@Override
 	public Boolean isPullBackAvailable(long fmId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

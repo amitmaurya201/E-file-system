@@ -37,6 +37,8 @@ public class MVCCommandNames {
 //	public static final String FILE_INBOX_RENDER_COMMAND = "/fileInbox";
 //	public static final String FILE_INBOX_RENDER_COMMAND = "/fileInbox";
 	
+	// file pull back 
+	public static final String PULL_BACK_FILE_ACTION_COMMAND = "/pull-back-file/action/command";
 	
 	
 	

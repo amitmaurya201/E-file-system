@@ -70,7 +70,7 @@
         <liferay-ui:search-container-results results="${sentFileList}" />
 
 	<liferay-ui:search-container-row className="io.jetprocess.list.model.FileMovementDTO" modelVar="sentFileListDTO" keyProperty="fileMovementId">
-	<portlet:actionURL var="fileSentActionUrl" name="sentActionUrl">
+	<portlet:actionURL var="fileSentActionUrl" name="<%= MVCCommandNames.PULL_BACK_FILE_ACTION_COMMAND %>">
 	<%-- <portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" /> --%>
 				</portlet:actionURL>		
 	<liferay-ui:search-container-column-text name=""><%= sentFileListDTO.getNature().charAt(0) %></liferay-ui:search-container-column-text>
@@ -119,7 +119,7 @@
 			</h3>
 		</div>
 		<hr style="margin: 1rem -14px;" />
-		<aui:form action="${fileSentActionUrl}" method="post" name="sentActionUrl">
+		<aui:form action="${fileSentActionUrl}" method="post" name="fm">
 			
 			<div style="text-align: left; height: 100px;">
 				<aui:input label="label-file-remark" name="pullBackRemark" id="pullBackRemarks" 

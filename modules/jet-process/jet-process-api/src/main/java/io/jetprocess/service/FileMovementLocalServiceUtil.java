@@ -355,6 +355,10 @@ public class FileMovementLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static Boolean isActive(long docFileId) {
+		return getService().isActive(docFileId);
+	}
+
 	public static Boolean isPullBackAvailable(long fmId)
 		throws PortalException {
 

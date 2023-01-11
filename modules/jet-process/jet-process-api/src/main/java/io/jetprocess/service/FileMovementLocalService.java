@@ -316,6 +316,9 @@ public interface FileMovementLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Boolean isActive(long docFileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isPullBackAvailable(long fmId) throws PortalException;
 
 	public boolean pullBackedAlready(long fmId) throws PortalException;
