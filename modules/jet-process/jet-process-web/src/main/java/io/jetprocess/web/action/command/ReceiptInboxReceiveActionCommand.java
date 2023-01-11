@@ -36,36 +36,17 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
-		logger.info("receipt inbox receipt action command");
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 
-		try {
-			boolean state = receiptMovementLocalService.pullBackedAlready(rmId);
-			logger.info("state   " + state);
-			if (state == false) {
+		boolean state = receiptMovementLocalService.saveReceiveAction(receiptId , rmId);
+		if (state == false) {
 
-				logger.info("you can not receive this Receipt ");
 
-				SessionErrors.add(actionRequest, "receive-not-available");
-				SessionMessages.add(actionRequest,
-						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			SessionErrors.add(actionRequest, "receive-not-available");
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
-			} else if (state == true) {
-				System.out.println("ReceiptId at Receive--:" + receiptId);
-				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
-						.getReceiptMovementByReceiptId(receiptId);
-				for (ReceiptMovement receiptMovement2 : receiptMovement) {
-					if (receiptMovement2.getReceiptId() == receiptId) {
-						receiptMovement2.setReceivedOn("receive");
-						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
-					}
-				}
-//				SessionMessages.add(actionRequest, "receive-available");
-			}
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		return false;

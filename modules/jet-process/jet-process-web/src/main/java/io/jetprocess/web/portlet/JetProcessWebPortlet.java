@@ -59,47 +59,9 @@ import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user" }, service = Portlet.class)
 public class JetProcessWebPortlet extends MVCPortlet {
-	// for Send file
-	public void sendFile(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException {
-
-		String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
-
-		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
-		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
-		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
-		String remark = ParamUtil.getString(actionRequest, "remark");
-		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
-		String priority = ParamUtil.getString(actionRequest, "priorty");
-
-		fLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
-
-		try {
-			actionResponse.sendRedirect(urlvalue);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void sendReceipt(ActionRequest actionRequest, ActionResponse actionResponse) {
-		String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
-
-		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
-		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
-		long receiptId = ParamUtil.get(actionRequest, "receiptId", 0);
-		String remark = ParamUtil.getString(actionRequest, "remark");
-		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
-		String priority = ParamUtil.getString(actionRequest, "priorty");
-		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
-
-		try {
-			actionResponse.sendRedirect(urlvalue);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
+	
+	
 	// action method for getting docfileId and pullback remarks
 		public void sentActionUrl(ActionRequest actionRequest, ActionResponse actionResponse)
 				throws IOException, PortletException, PortalException {

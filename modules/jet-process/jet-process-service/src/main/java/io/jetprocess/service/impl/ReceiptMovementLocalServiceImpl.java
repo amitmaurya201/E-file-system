@@ -211,21 +211,79 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return state;
 	}
-	
-	
-	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId){
-		
 
-		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS,QueryUtil.ALL_POS);
-        for (ReceiptMovement receiptMovement : receiptMovementList) {
-        	if(fileMovementId == receiptMovement.getFileInMovementId()) {
-        		return receiptMovementList;
-        	}
-			
+	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
+
+		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS);
+		for (ReceiptMovement receiptMovement : receiptMovementList) {
+			if (fileMovementId == receiptMovement.getFileInMovementId()) {
+				return receiptMovementList;
+			}
+
 		}
 		return receiptMovementList;
+
+	}
+
+	public boolean saveReadAction(long receiptId, long rmId) {
+		
+		boolean state = false ; 
+		
+		 try {
+			state = receiptMovementLocalService.pullBackedAlready(rmId);
+			
+			if (state == true) {
+				
+				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
+						.getReceiptMovementByReceiptId(receiptId);
+				for (ReceiptMovement receiptMovement2 : receiptMovement) {
+					if (receiptMovement2.getReceiptId() == receiptId) {
+						receiptMovement2.setReadOn("read");
+						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+					}
+				}
+			}
+			
+			
+			
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return state;
 		
 		
+
+	}
+
+	public boolean saveReceiveAction(long receiptId, long rmId) {
+		
+		boolean state = false ; 
+		
+		 try {
+			state = receiptMovementLocalService.pullBackedAlready(rmId);
+			
+			if (state == true) {
+				
+				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
+						.getReceiptMovementByReceiptId(receiptId);
+				for (ReceiptMovement receiptMovement2 : receiptMovement) {
+					if (receiptMovement2.getReceiptId() == receiptId) {
+						receiptMovement2.setReceivedOn("receive");
+						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+					}
+				}
+			
+			}
+		
+		
+		 }catch (Exception e) {
+			// TODO: handle exception
+		}
+		 
+		 return state;
 	}
 
 	@Reference
