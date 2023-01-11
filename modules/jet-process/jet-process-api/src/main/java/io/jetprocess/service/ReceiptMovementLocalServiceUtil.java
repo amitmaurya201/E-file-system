@@ -291,10 +291,6 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovementByReceiptId(receiptId);
 	}
 
-	public static ReceiptMovement getReceiptMovementByRmId(long rmId) {
-		return getService().getReceiptMovementByRmId(rmId);
-	}
-
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *
@@ -380,12 +376,13 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().pullBackedAlready(rmId);
 	}
 
-	public static ReceiptMovement pullBackReceiptMovement(
-			long receiptId, long receiptMovementId, String remarks)
+	public static void pullBackReceiptMovement(
+			long receiptId, long receiptMovementId, String remarks,
+			long userPostId)
 		throws PortalException {
 
-		return getService().pullBackReceiptMovement(
-			receiptId, receiptMovementId, remarks);
+		getService().pullBackReceiptMovement(
+			receiptId, receiptMovementId, remarks, userPostId);
 	}
 
 	public static boolean saveReadAction(long receiptId, long rmId) {

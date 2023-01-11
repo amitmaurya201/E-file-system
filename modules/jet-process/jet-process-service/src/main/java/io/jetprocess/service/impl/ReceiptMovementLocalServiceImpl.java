@@ -139,18 +139,11 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 					receipt.setCurrentState(FileStatus.IN_MOVEMENT);
 					receiptLocalService.updateReceipt(receipt);
 				}
-			} else {
-				logger.info("ReceiptId not valid");
 			}
 		} catch (PortalException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		receiptMovementLocalService.addReceiptMovement(receiptMovement);
-
-	}
-
-	public ReceiptMovement getReceiptMovementByRmId(long rmId) {
-		return receiptMovementPersistence.fetchByPrimaryKey(rmId);
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
@@ -159,36 +152,50 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	public Boolean isPullBackAvailable(long rmId) {
 		boolean pullable = false;
-		ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
-		if ((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
-			pullable = true;
-		} else {
-			pullable = false;
+		ReceiptMovement receiptMovement;
+		try {
+			receiptMovement = getReceiptMovement(rmId);
+			if ((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
+				pullable = true;
+			}
+		} catch (PortalException e) {
+			logger.info(e.getMessage());
 		}
 		return pullable;
-
 	}
 
-	public ReceiptMovement pullBackReceiptMovement(long receiptId, long receiptMovementId, String remarks)
+	public void pullBackReceiptMovement(long receiptId, long receiptMovementId, String remarks, long userPostId)
 			throws PortalException {
-		ReceiptMovement receiptMovement = getReceiptMovementByRmId(receiptMovementId);
-		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
-				.getReceiptMovementByReceiptId(receiptId);
-		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
-			if (receiptMovement.getRmId() == receiptMovementByReceiptId.getRmId()) {
-				receiptMovement.setActive(false);
-				receiptMovement.setPullBackRemark(remarks);
-				receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+		try {
+			// for the set pull back remark in receipt movement
+			ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
+			List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
+					.getReceiptMovementByReceiptId(receiptId);
+			for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
+				if (receiptMovement.getRmId() == receiptMovementByReceiptId.getRmId()) {
+					receiptMovement.setActive(false);
+					receiptMovement.setPullBackRemark(remarks);
+					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+				}
 			}
+
+			// for set current state as 1 in receipt
+			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+			Boolean active = isActive(receiptId);
+			if (!active) {
+				receipt.setCurrentState(FileStatus.CREADTED);
+			}
+			receipt.setCurrentlyWith(userPostId);
+			receiptLocalService.updateReceipt(receipt);
+		} catch (Exception e) {
+			logger.info(e.getMessage());
 		}
-		return receiptMovement;
 	}
 
 	public Boolean isActive(long receiptId) {
 		boolean state = false;
 		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
 				.getReceiptMovementByReceiptId(receiptId);
-
 		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
 			if (!receiptMovementByReceiptId.getActive()) {
 				state = false;
@@ -203,38 +210,29 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	public boolean pullBackedAlready(long rmId) throws PortalException {
 		logger.info("pull back already");
 		boolean state = false;
-		ReceiptMovement receiptMovement = getReceiptMovementByRmId(rmId);
+		ReceiptMovement receiptMovement = getReceiptMovement(rmId);
 		if (receiptMovement.getPullBackRemark().isEmpty()) {
 			state = true;
-		} else {
-			state = false;
 		}
 		return state;
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
-
 		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS);
 		for (ReceiptMovement receiptMovement : receiptMovementList) {
 			if (fileMovementId == receiptMovement.getFileInMovementId()) {
 				return receiptMovementList;
 			}
-
 		}
 		return receiptMovementList;
-
 	}
 
 	public boolean saveReadAction(long receiptId, long rmId) {
-		
-		boolean state = false ; 
-		
-		 try {
+		boolean state = false;
+		try {
 			state = receiptMovementLocalService.pullBackedAlready(rmId);
-			
 			if (state == true) {
-				
 				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
 						.getReceiptMovementByReceiptId(receiptId);
 				for (ReceiptMovement receiptMovement2 : receiptMovement) {
@@ -244,29 +242,17 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 					}
 				}
 			}
-			
-			
-			
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
-
 		return state;
-		
-		
-
 	}
 
 	public boolean saveReceiveAction(long receiptId, long rmId) {
-		
-		boolean state = false ; 
-		
-		 try {
+		boolean state = false;
+		try {
 			state = receiptMovementLocalService.pullBackedAlready(rmId);
-			
 			if (state == true) {
-				
 				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
 						.getReceiptMovementByReceiptId(receiptId);
 				for (ReceiptMovement receiptMovement2 : receiptMovement) {
@@ -275,15 +261,11 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
 					}
 				}
-			
 			}
-		
-		
-		 }catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception e) {
+			logger.info(e.getMessage());
 		}
-		 
-		 return state;
+		return state;
 	}
 
 	@Reference
@@ -293,5 +275,4 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	MasterdataLocalService masterdataLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
-
 }

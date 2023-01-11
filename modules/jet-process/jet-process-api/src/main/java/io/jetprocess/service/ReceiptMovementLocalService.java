@@ -257,9 +257,6 @@ public interface ReceiptMovementLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ReceiptMovement getReceiptMovementByRmId(long rmId);
-
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *
@@ -329,8 +326,9 @@ public interface ReceiptMovementLocalService
 
 	public boolean pullBackedAlready(long rmId) throws PortalException;
 
-	public ReceiptMovement pullBackReceiptMovement(
-			long receiptId, long receiptMovementId, String remarks)
+	public void pullBackReceiptMovement(
+			long receiptId, long receiptMovementId, String remarks,
+			long userPostId)
 		throws PortalException;
 
 	public boolean saveReadAction(long receiptId, long rmId);

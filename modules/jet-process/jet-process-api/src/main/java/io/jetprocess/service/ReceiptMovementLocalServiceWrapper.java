@@ -325,13 +325,6 @@ public class ReceiptMovementLocalServiceWrapper
 			receiptId);
 	}
 
-	@Override
-	public io.jetprocess.model.ReceiptMovement getReceiptMovementByRmId(
-		long rmId) {
-
-		return _receiptMovementLocalService.getReceiptMovementByRmId(rmId);
-	}
-
 	/**
 	 * Returns the receipt movement matching the UUID and group.
 	 *
@@ -432,12 +425,13 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.ReceiptMovement pullBackReceiptMovement(
-			long receiptId, long receiptMovementId, String remarks)
+	public void pullBackReceiptMovement(
+			long receiptId, long receiptMovementId, String remarks,
+			long userPostId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _receiptMovementLocalService.pullBackReceiptMovement(
-			receiptId, receiptMovementId, remarks);
+		_receiptMovementLocalService.pullBackReceiptMovement(
+			receiptId, receiptMovementId, remarks, userPostId);
 	}
 
 	@Override
