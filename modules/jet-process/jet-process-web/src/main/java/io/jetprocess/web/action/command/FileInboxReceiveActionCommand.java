@@ -1,22 +1,16 @@
 package io.jetprocess.web.action.command;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-
-import java.util.List;
-
+import java.io.IOException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -35,47 +29,18 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 
 		long fileId = ParamUtil.getLong(actionRequest, "fileId");
 		long fmId = ParamUtil.getLong(actionRequest, "fmId");
-		System.out.println("fileMovement Id"+fmId);
+		String url = ParamUtil.getString(actionRequest, "backPageURL");
 		
-	   try {
-		boolean state =	fileMovementLocalService.pullBackedAlready(fmId);
-		if(state==false) {
-				/*
-				 * System.out.println("you can not receive this file ");
-				 * actionResponse.setRenderParameter("receiveStatus", "error");
-				 * actionResponse.setRenderParameter("receiveResult",
-				 * "You can not receive this file.");
-				 */
-
-			SessionErrors.add(actionRequest, "receive-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-
-		}else if(state==true) {
-			System.out.println("fileId1 --:" + fileId);
-
-			 List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
-			  for (FileMovement fileMovement2 : fileMovement) {
-				  if(fileMovement2.getFileId() == fileId) {
-					  fileMovement2.setReceivedOn("receive");
-					  fileMovementLocalService.updateFileMovement(fileMovement2);
-					  
-				  }
-			}
-			
-		}
-	} catch (PortalException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		
-
-	
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
+		boolean state = fileMovementLocalService.saveReceiveAction(fileId, fmId);
+		   
+		   if(state == false) {
+			   
+			   SessionErrors.add(actionRequest, "receive-not-available");
+				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);	
+			   System.out.println("receive action command ------");
+		   }
+			actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 
 		return false;
-		
-		
-
 	}
 }

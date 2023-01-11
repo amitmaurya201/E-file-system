@@ -19,8 +19,12 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -285,6 +289,65 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return pullable;
 	}
 
+	
+	public boolean saveReadAction(long fileId , long fmId) {
+		boolean state = false;
+		try {
+			
+			 state = fileMovementLocalService.pullBackedAlready(fmId);
+			
+			if (state == true) {
+			
+				List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
+				for (FileMovement fileMovement2 : fileMovement) {
+					if (fileMovement2.getFileId() == fileId) {
+						fileMovement2.setReadOn("read");
+						fileMovementLocalService.updateFileMovement(fileMovement2);
+							} 
+				}
+
+			}
+			
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return state;
+		
+	}
+	
+	public boolean saveReceiveAction(long fileId , long fmId) {
+		boolean state = false;
+		try {
+			
+			 state = fileMovementLocalService.pullBackedAlready(fmId);
+			
+			if (state == true) {
+			
+				 List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
+				  for (FileMovement fileMovement2 : fileMovement) {
+					  if(fileMovement2.getFileId() == fileId) {
+						  fileMovement2.setReceivedOn("receive");
+						  fileMovementLocalService.updateFileMovement(fileMovement2);
+						  
+					  }
+				}
+
+			}
+			
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return state;
+		
+	}
+
+	
+
+	
+	
+	
 	@Reference
 	DocFileLocalService docFileLocalService;
 
