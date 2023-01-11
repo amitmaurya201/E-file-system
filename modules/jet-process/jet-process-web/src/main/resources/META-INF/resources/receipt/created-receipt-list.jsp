@@ -3,7 +3,7 @@
 <%-- <%@ include file="/css/main.scss" %> --%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.TimeZone"%>
-
+<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
 
@@ -58,11 +58,10 @@
 				className="io.jetprocess.list.model.ReceiptListViewDto"
 				keyProperty="receiptNumber" modelVar="receipt" cssClass="colour">
 
-				<portlet:renderURL var="receiptInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/receiptView" />
+				<portlet:renderURL var="receiptDetails">
+					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
 					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
-
 				</portlet:renderURL>
 
 				<c:set var="firstLetterOfNature" value="${ receipt.nature}" />
@@ -72,7 +71,7 @@
 
 
 				<liferay-ui:search-container-column-text
-					href="<%=receiptInnerView%>"
+					href="<%=receiptDetails%>"
 					value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
 					name="label-receipt-list-receiptno"
 					orderableProperty="receiptNumber" orderable="true" />

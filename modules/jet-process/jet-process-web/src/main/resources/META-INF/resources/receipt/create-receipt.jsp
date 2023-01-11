@@ -38,11 +38,11 @@
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="createdListReceipt">
-	<portlet:param name="mvcRenderCommandName" value="/createdListReceipt" />
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
-<portlet:renderURL var="edit">
-	<portlet:param name="mvcRenderCommandName" value="/editReceipt" />
+<portlet:renderURL var="editReceipt">
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="${receipt.receiptId}" />
  </portlet:renderURL>
  
