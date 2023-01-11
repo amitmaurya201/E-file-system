@@ -642,7 +642,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "receiptListCount");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println("query---"+sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
@@ -673,7 +672,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getFileCodeValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -701,7 +699,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getCategoryValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -728,7 +725,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getSubCategoryValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -756,7 +752,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getTypeValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -783,7 +778,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getDeliveryModeValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -811,7 +805,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getOrganizationValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -838,7 +831,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getSubOrganizationValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -866,7 +858,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getCountryValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -893,7 +884,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getStateValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -920,7 +910,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptCategoryValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -949,7 +938,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptSubCategoryValueById");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println(sql);
 			sqlQuery.setCacheable(false);
 			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -999,7 +987,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	@SuppressWarnings("unchecked")
 	public List<FileListViewDto> getFileCreatedListSearch1(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
-		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
 		Session session = null;
 		try {
 			session = openSession();
@@ -1016,14 +1003,11 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
 				sql = sql + " "+order;
-				System.out.println("order by ---"+orderBy);			
 			}
 
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
-			logger.info("List Binded------------1");
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
 			if(!keyword.isEmpty() && keyword != null) {
@@ -1049,7 +1033,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	
 	public List<ReceiptListViewDto> getReceiptListSearch(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
-		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
 		Session session = null;
 		try {
 			session = openSession();
@@ -1069,13 +1052,10 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			if(orderBy!=null && !orderBy.isEmpty()) {
 				sql = sql + " order by "+orderBy;
 				sql = sql + " "+order;
-				System.out.println("order by ---"+orderBy);			
 			}
 
 			
-			System.out.println("inside get receipt--------persistence method....");
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1105,7 +1085,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 	
 	public List<FileListViewDto> getFileCreatedListSearchBykey(long userPostId, String keyword) {
 
-		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword );
 		Session session = null;
 		try {
 			session = openSession();
@@ -1121,10 +1100,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
-			logger.info("List Binded------------2");
 
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
@@ -1164,7 +1141,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1198,7 +1174,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1302,7 +1277,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getFileMovementList");
-			logger.info("Final File Movement List Query : "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1375,7 +1349,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1402,7 +1375,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 	
 	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
-		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
 		Session session = null;
 		try {
 			session = openSession();
@@ -1434,12 +1406,10 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					}
 				
 				sql = sql + " "+order;
-				System.out.println("order by ---"+orderBy);			
 			}
 
 			
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1494,7 +1464,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1522,7 +1491,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 	
 	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
-		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
 		Session session = null;
 		try {
 			session = openSession();
@@ -1563,7 +1531,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 
 			
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1630,7 +1597,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1701,12 +1667,10 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					sql = sql + " order by "+"r."+orderBy;
 					}
 				sql = sql + " "+order;
-				System.out.println("order by ---"+orderBy);			
 			}
 
 			
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1759,7 +1723,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			}
 				
 				
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1787,7 +1750,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 	
 	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
-		System.out.println("userPostId: "+ userPostId+ ", keyword : "+ keyword + ", start:"+ start +", end : "+ end +", orderBy : "+ orderBy +", order : "+ order );
 		Session session = null;
 		try {
 			session = openSession();
@@ -1819,12 +1781,10 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 					sql = sql + " order by "+"r."+orderBy;
 					}
 				sql = sql + " "+order;
-				System.out.println("order by ---"+orderBy);			
 			}
 
 			
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--Receipt: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1898,7 +1858,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 	}
 	public List<ReceiptListViewDto> getCreatedListAndInboxList(long userpostId, long receiverId, String keyword, int start, int end, String orderByCol, String orderByType ){
 		Session session = null;
-		System.out.println("--0-0-0-0-0-0-->");
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
@@ -1910,10 +1869,8 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			if(orderByCol!=null && !orderByCol.isEmpty()) {
 				sql = sql + " order by "+orderByCol;
 				sql = sql + " "+orderByType;
-				System.out.println("order by ---"+orderByCol);			
 			}
 			sql = sql + " offset "+ start + " limit "+ end;
-			System.out.println("final query--: "+sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
@@ -1948,7 +1905,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getMaximumFmIdByFileId");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println("query---"+sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(fileId);
@@ -1979,7 +1935,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getMaximumRmIdByReceiptId");
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println("query---"+sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(receiptId);

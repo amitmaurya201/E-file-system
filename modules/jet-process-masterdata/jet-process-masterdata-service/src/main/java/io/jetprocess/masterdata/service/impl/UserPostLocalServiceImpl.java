@@ -43,7 +43,6 @@ import org.osgi.service.component.annotations.Component;
 public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 
 	public List<UserPost> getUserPostList(long userId ) {
-       //    List<UserPost> userPostlist = userPostLocalService.getUserPosts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
          List<UserPost> list  = userPostPersistence.findByuserId(userId);
 		return list;
 	}
