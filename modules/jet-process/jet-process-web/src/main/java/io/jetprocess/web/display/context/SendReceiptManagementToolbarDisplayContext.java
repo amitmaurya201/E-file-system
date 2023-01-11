@@ -79,7 +79,7 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
@@ -118,7 +118,7 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
 
 		// Reset current page.
 
@@ -135,7 +135,7 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
 
 		return sortingURL;
 	}

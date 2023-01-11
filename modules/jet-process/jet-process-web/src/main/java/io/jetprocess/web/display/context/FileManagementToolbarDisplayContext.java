@@ -75,7 +75,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
@@ -112,7 +112,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
 
 		// Reset current page.
 
@@ -129,7 +129,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
 
 		return sortingURL;
 	}

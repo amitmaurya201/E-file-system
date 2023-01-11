@@ -12,7 +12,7 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.CREATE_FILE }, service = MVCRenderCommand.class)
+		"mvc.command.name=" + MVCCommandNames.CREATE_FILE_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class CreateFileRenderCommand implements MVCRenderCommand {
 
 	@Override

@@ -78,27 +78,27 @@
 <div id="sideNav">
 	<portlet:renderURL var="view">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.VIEW_FILE_LIST%>" />
+			value="<%=MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="home" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createFile">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.CREATE_FILE%>" />
+			value="<%=MVCCommandNames.CREATE_FILE_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="createFile" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdFileList">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.VIEW_FILE_LIST%>" />
+			value="<%=MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="fileList" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createReceipt">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.CREATE_RECEIPT%>" />
+			value="<%=MVCCommandNames.CREATE_RECEIPT_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="createReceipt" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdListReceipt">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.VIEW_RECEIPT_LIST%>" />
+			value="<%=MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptList" />
 	</portlet:renderURL>
 
@@ -119,7 +119,7 @@
 	</portlet:renderURL>
 	<portlet:renderURL var="receiptSent">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.RECEIPT_SENT_LIST%>" />
+			value="<%=MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptSent" />
 	</portlet:renderURL>
 

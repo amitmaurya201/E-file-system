@@ -13,8 +13,6 @@ import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -24,14 +22,11 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.MVCCommandNames;
-import io.jetprocess.web.render.CreatedReceiptListRenderCommand;
 
 /**
  * Assigments management toolbar display context.
@@ -83,7 +78,7 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 		
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
@@ -133,7 +128,7 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
 
 		// Reset current page.
 
@@ -151,7 +146,7 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
 
 		return sortingURL;
 	}

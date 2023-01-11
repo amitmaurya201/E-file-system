@@ -29,7 +29,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.SendReceiptManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.RECEIPT_SENT_LIST }, service = MVCRenderCommand.class)
+		"mvc.command.name=" + MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 
 	@Override
@@ -115,7 +115,7 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 				sendReceiptManagementToolbarDisplayContext);
 	}
 
-	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 	@Reference
 	private MasterdataLocalService masterdataLocalService;

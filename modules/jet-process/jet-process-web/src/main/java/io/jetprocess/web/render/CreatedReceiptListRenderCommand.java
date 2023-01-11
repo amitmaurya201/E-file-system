@@ -29,7 +29,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.VIEW_RECEIPT_LIST }, service = MVCRenderCommand.class)
+		"mvc.command.name=" + MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 
 	@Override
