@@ -23,13 +23,10 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
@@ -44,79 +41,49 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
 			String remark) {
-
 		boolean state = isReceiptMovementAvailable(receiptId);
-			
 		if (state == true) {
-
 			saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
-
 		} else {
-
 			Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
-
+			ReceiptMovement rm;
 			try {
-				ReceiptMovement rm;
-				try {
-					rm = receiptMovementLocalService.getReceiptMovement(rmId);
-					if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
-
-						Receipt receipt;
-						try {
-							receipt = receiptLocalService.getReceipt(receiptId);
-							if (receipt.getNature().equals("Electronic")) {
-
-								if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
-
-									saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
-
-								} else {
-
-									rm.setReadOn("read");
-									receiptMovementLocalService.updateReceiptMovement(rm);
-									saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
-
-								}
-
-							} else if (receipt.getNature().equals("Physical")) {
-
-								if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
-
-									saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
-
-								} else {
-
-									rm.setReceivedOn("receive");
-									receiptMovementLocalService.updateReceiptMovement(rm);
-									saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
-
-								}
+				rm = receiptMovementLocalService.getReceiptMovement(rmId);
+				if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
+					Receipt receipt;
+					try {
+						receipt = receiptLocalService.getReceipt(receiptId);
+						if (receipt.getNature().equals("Electronic")) {
+							if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
+								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+							} else {
+								rm.setReadOn("read");
+								updateReceiptMovement(rm);
+								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
 							}
-						} catch (PortalException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						} else if (receipt.getNature().equals("Physical")) {
+							if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
+								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+							} else {
+								rm.setReceivedOn("receive");
+								updateReceiptMovement(rm);
+								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+							}
 						}
-
+					} catch (PortalException e) {
+						logger.info(e.getMessage());
 					}
-				} catch (PortalException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
+			} catch (PortalException pe) {
+				logger.info(pe.getMessage());
 			}
-
-			finally {
-
-			}
-
 		}
-
 	}
 
 	void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, String dueDate,
 			String remark) {
-
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
-		ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(rmId);
+		ReceiptMovement receiptMovement = createReceiptMovement(rmId);
 		receiptMovement.setRmId(rmId);
 		receiptMovement.setReceiverId(receiverId);
 		receiptMovement.setSenderId(senderId);
@@ -125,7 +92,6 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		receiptMovement.setPriority(priority);
 		receiptMovement.setDueDate(dueDate);
 		receiptMovement.setActive(true);
-
 		try {
 			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 			if (receiptId == receipt.getReceiptId()) {
@@ -139,7 +105,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		} catch (PortalException e) {
 			logger.info(e.getMessage());
 		}
-		receiptMovementLocalService.addReceiptMovement(receiptMovement);
+		addReceiptMovement(receiptMovement);
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
@@ -165,16 +131,14 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		try {
 			// for the set pull back remark in receipt movement
 			ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
-			List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
-					.getReceiptMovementByReceiptId(receiptId);
+			List<ReceiptMovement> receiptMovementByReceiptIdList = getReceiptMovementByReceiptId(receiptId);
 			for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
 				if (receiptMovement.getRmId() == receiptMovementByReceiptId.getRmId()) {
 					receiptMovement.setActive(false);
 					receiptMovement.setPullBackRemark(remarks);
-					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+					updateReceiptMovement(receiptMovement);
 				}
 			}
-
 			// for set current state as 1 in receipt
 			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
 			Boolean active = isActive(receiptId);
@@ -190,8 +154,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	public Boolean isActive(long receiptId) {
 		boolean state = false;
-		List<ReceiptMovement> receiptMovementByReceiptIdList = receiptMovementLocalService
-				.getReceiptMovementByReceiptId(receiptId);
+		List<ReceiptMovement> receiptMovementByReceiptIdList = getReceiptMovementByReceiptId(receiptId);
 		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {
 			if (!receiptMovementByReceiptId.getActive()) {
 				state = false;
@@ -214,7 +177,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
-		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovements(QueryUtil.ALL_POS,
+		List<ReceiptMovement> receiptMovementList = getReceiptMovements(QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS);
 		for (ReceiptMovement receiptMovement : receiptMovementList) {
 			if (fileMovementId == receiptMovement.getFileInMovementId()) {
@@ -226,24 +189,23 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	private boolean isReceiptMovementAvailable(long receiptId) {
 		List<ReceiptMovement> findByreceiptId = receiptMovementPersistence.findByreceiptId(receiptId);
-		if(findByreceiptId.isEmpty()) {
+		if (findByreceiptId.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
 
-	
 	public boolean saveReadMovement(long receiptId, long rmId) {
 		boolean state = false;
 		try {
-			state = receiptMovementLocalService.pullBackedAlready(rmId);
+			state = pullBackedAlready(rmId);
 			if (state == true) {
 				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
 						.getReceiptMovementByReceiptId(receiptId);
 				for (ReceiptMovement receiptMovement2 : receiptMovement) {
 					if (receiptMovement2.getReceiptId() == receiptId) {
 						receiptMovement2.setReadOn("read");
-						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+						updateReceiptMovement(receiptMovement2);
 					}
 				}
 			}
@@ -256,14 +218,13 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	public boolean saveReceiveMovement(long receiptId, long rmId) {
 		boolean state = false;
 		try {
-			state = receiptMovementLocalService.pullBackedAlready(rmId);
+			state = pullBackedAlready(rmId);
 			if (state == true) {
-				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
-						.getReceiptMovementByReceiptId(receiptId);
+				List<ReceiptMovement> receiptMovement = getReceiptMovementByReceiptId(receiptId);
 				for (ReceiptMovement receiptMovement2 : receiptMovement) {
 					if (receiptMovement2.getReceiptId() == receiptId) {
 						receiptMovement2.setReceivedOn("receive");
-						receiptMovementLocalService.updateReceiptMovement(receiptMovement2);
+						updateReceiptMovement(receiptMovement2);
 					}
 				}
 			}
