@@ -44,12 +44,11 @@
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 			simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
+		
+		<div class="container-fluid" style="background-color: #E8E8E8;">
+			<span class="hover-tips"><%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}</span>
+		</div>
 		<div class="receipt_view">
-
-			<h6 Class="hover-tips" >
-				<%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}
-				
-			</h6>
 			<div class="container">
 				<div class="row border border-dark scroll"
 					style="height: 440px; overflow: overlay">

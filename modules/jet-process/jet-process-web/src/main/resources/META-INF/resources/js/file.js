@@ -140,7 +140,7 @@ AUI().use('aui-base', function(A){
 	
  /*   Add docFile   */
 
-$("#<portlet:namespace />formId").on('submit', function(e){
+$("#<portlet:namespace />add-docfile").on('click', function(e){
         	 e.preventDefault();
         	 var formObj= $('#<portlet:namespace/>formId')[0];
              var jsonData = bindFormDataJson(formObj);

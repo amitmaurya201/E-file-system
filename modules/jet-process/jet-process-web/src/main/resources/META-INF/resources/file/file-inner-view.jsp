@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../init.jsp"%>
+<%@ include file="/common/common.jsp"%>
 <%@page import="io.jetprocess.model.DocFile"%>
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
@@ -21,10 +22,8 @@
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="putinfile" />
 		</liferay-util:include>
-		<div class="container-fluid m-1" style="background-color: #E8E8E8;">
-			<span><%=docFile.getNature().charAt(0)%> | <%=docFile.getFileNumber()%>
-				| <%=docFile.getSubject()%></span><br />
-
+		<div class="container-fluid" style="background-color: #E8E8E8;">
+			<span class="hover-tips"><%=docFile.getNature().charAt(0)%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span><br />
 		</div>
 		<div class="container row">
 

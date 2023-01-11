@@ -81,15 +81,10 @@
 			String type = (String) docFile.getNature();
 			char firstChar = type.charAt(0);
 		%>
-		<%-- <div class=" m-1" style="background-color: #E8E8E8;">
-			<span><%=firstChar%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span><br />
-
-		</div> --%>
 		
-		<h5 Class="hover-tips" >
-				<%=firstChar%> |  <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
-				
-			</h5>
+		<div class="container-fluid" style="background-color: #E8E8E8;">
+			<span class="hover-tips"><%=firstChar%> |  <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span>
+		</div>
 
 		<%-- <div class="container-fluid m-1" style="background-color: #E8E8E8;">
 			<span style="font-weight: 500"><liferay-ui:message
