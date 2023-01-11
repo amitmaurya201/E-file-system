@@ -236,7 +236,7 @@ $(document).ready(function(e){
 var url='${receipt.viewPdfUrl}';
 
 /* if nature is elcetronic */
-$("#<portlet:namespace />nature").on('change',mySeletedNature);
+/*$("#<portlet:namespace />nature").on('change',mySeletedNature);
 function mySeletedNature(){
 	var nature= $('#<portlet:namespace/>nature').val(); 
 	if(nature == 'Electronic' && tempFileId == 0 ){
@@ -254,8 +254,20 @@ function mySeletedNature(){
     	 $("#error ").remove();
     	 return false;
      }
-}
-	
+}*/
+ 
+	$("#<portlet:namespace />nature").on('change',function(e){
+		alert("test");
+		e.preventDefault();
+		var nature= $('#<portlet:namespace/>nature').val(); 
+		if(nature == 'Electronic' ){
+		$("#error").css('display','block');	
+		}
+		else if (nature == 'Physical'){
+			$("#error").css('display','none');	
+		}
+		
+	});
 // ---- for validation ----
 function validateForm(receiptForm) {
 	var liferayForm = Liferay.Form.get(receiptForm);
@@ -280,7 +292,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
-    	if(!mySeletedNature()){
+    	/*if(!mySeletedNature()){*/
     		$.ajax({
     			type: "POST",
 			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
@@ -290,6 +302,14 @@ $("#<portlet:namespace />generate").on('click', function(e){
 			    processData: false,
 		        contentType : 'application/json'
     		}).done(function(response) {
+    			if(response==null){
+    				swal({  
+       				 title: " Oops!",  
+   					  text: " Required Field should not be empty !!!",  
+   					  icon: "error",  
+   					});
+    				
+    			}else{
     			var receiptNumber =response.receiptNumber;
 				swal({
 					 title: "Successfull!",
@@ -299,6 +319,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
 				}).then(function() {
 					window.location.href = '<%= createdListReceipt.toString() %>';
 				});
+    			}
     		}).fail(function(error){
     			swal({  
     				 title: " Oops!",  
@@ -306,9 +327,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
 					  icon: "error",  
 					});
     		})
-    	}else{
-			 return false;
-		}
+   
      }else{
     	 return false;
      }
@@ -330,7 +349,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
-    	if(!mySeletedNature()){
+    	/*if(!mySeletedNature()){*/
     		$.ajax({
     			type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -340,6 +359,14 @@ $("#<portlet:namespace />update").on('click', function(e){
 			    processData: false,
 		        contentType : 'application/json'
     		}).done(function(response) {
+    			if(response==null){
+    				
+    				swal({  
+        				title: " Oops!",  
+      				  	text: "Required field should not be empty!",  
+      				  	icon: "error",
+    				});  
+    			}else{
     			swal( {
     				title: "Successfull!",
                     text: `You have successfully update your receipt!`,
@@ -348,6 +375,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     			}).then(function() {
     				window.location.href = '<%= editReceipt.toString() %>';
     			})
+    			}
     		}).fail(function(error){
     			swal({  
     				title: " Oops!",  
@@ -355,10 +383,9 @@ $("#<portlet:namespace />update").on('click', function(e){
   				  	icon: "error",
 				});  
 		 	})
-    	}else{
-	    	return false;
-	    }
-    }else{
+    }
+    	
+    else{
     	return false;
     }
 });
@@ -366,10 +393,17 @@ $("#<portlet:namespace />update").on('click', function(e){
 // ----remove uploaded file ----
 $('#removeFileUpload').on('click',function(e){	
 	e.preventDefault();
+	var nature= $('#<portlet:namespace/>nature').val(); 
+	if(nature == 'Electronic' ){
+		$("#error").css('display','block');	
+		}
+		else if (nature == 'Physical'){
+			$("#error").css('display','none');	
+		}
 	$('.dropzone-wrapper').css("display", "block");
 	$('#removeFileUpload').css("display", "none");
 	$("#editpdfurl").remove();
-	$("#doc-input").val(null);
+	$("#doc-input").val('');
 	$("#sizeValidation").remove();
     tempFileId=0;
     url = null;
@@ -447,6 +481,7 @@ function validateSize(file) {
 }
 
 $(document).ready(function(){
+	$("#error").css('display','none');	
 	let url;	
 	let flag='${removeFlag}';
 	if(flag== null || flag==''){

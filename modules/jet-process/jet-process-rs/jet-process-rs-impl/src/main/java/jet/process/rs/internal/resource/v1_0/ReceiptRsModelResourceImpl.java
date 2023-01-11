@@ -28,7 +28,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		if(receiptRsModel.getSubject().isEmpty()||receiptRsModel.getName().isEmpty()||receiptRsModel.getAddress().isEmpty()||receiptRsModel.getDesignation().isEmpty()) {
 			return null;	
 		}
-		
+	
 		String receiptNumber =generateReceiptNumber(receipt.getReceiptId());
 		if(receiptRsModel.getTempFileId()!=0) {
 		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
@@ -51,6 +51,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setTypeId(receiptRsModel.getTypeId());
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		receipt.setReceiptNumber(receiptNumber);
+		
 		receipt.setNature(receiptRsModel.getNature());
 		receiptRsModel.setReceiptNumber(receiptNumber);
 		receipt.setAddress(receiptRsModel.getAddress());
@@ -78,6 +79,14 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		}else {
 			receipt.setCountryId(receiptRsModel.getCountryId());	
 		}
+		String nature = receiptRsModel.getNature();
+        if (nature.equals("Electronic")) {
+        	System.out.println("createReceiptnature");
+        	if(receiptRsModel.getTempFileId()==0) {
+        		return null;
+        	}
+		
+		}
 		receipt.setCity(receiptRsModel.getCity());
 		receipt.setMobile(receiptRsModel.getMobile());
 		receipt.setModeNumber(receiptRsModel.getModeNumber());
@@ -99,9 +108,9 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
-		
 		long dmFileId =0l;
 		String viewFileUrl= null;
+		String nature = receiptRsModel.getNature();
 		Receipt receipt = receiptLocalService.getReceiptUpdate(receiptRsModel.getReceiptId());
 		receipt.setAddress(receiptRsModel.getAddress());
 		receipt.setCity(receiptRsModel.getCity());
@@ -131,13 +140,17 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 			 viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 			 receipt.setViewPdfUrl(viewFileUrl);
 			 receipt.setDmFileId(dmFileId);
-		}
-		else {
-			if(receipt.getDmFileId()==0) {
+		}else {
 			receipt.setViewPdfUrl("");
 			receipt.setDmFileId(0);
-			}
 			
+		}	
+        if (nature.equals("Electronic")) {
+        	
+        	if(receiptRsModel.getTempFileId()==0) {
+        		System.out.println("updateReceiptnature");
+        		return null;		
+        	}	
 		}
 		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;

@@ -85,6 +85,7 @@
 									id="doc-select-btn"><liferay-ui:message
 										key="label-receipt-pdf-file" /></span> <input name="doc-input"
 									id="doc-input" type="file" hidden accept=".pdf" />
+									<p id="error" class="text-danger" >This field is required<p>
 								<p id="sizeValidation" style="display: none; color: red;">size
 									must be less then 25 mb</p>
 							</div>
@@ -116,7 +117,7 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-nature" /></label>
 								<aui:input label="" name="nature" id="nature"
-									value="${receipt.nature}" disabled="true" />
+									value="${receipt.nature}" readOnly="true" />
 							</div>
 						</aui:col>
 					</aui:row>
