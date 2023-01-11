@@ -4,6 +4,7 @@
 	 HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
 	 String userPostsVal = (String) userPostIdValue.getAttribute("userPostId");
 	long docFileId = (Long) request.getAttribute("docFileId");
+	String redirectURL=themeDisplay.getURLCurrent();
 %>
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
 	<%-- <portlet:param name="redirect" value="/file/file-inner-view.jsp" />  --%>
