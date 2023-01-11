@@ -23,6 +23,8 @@ public class MVCCommandNames {
 
 	public static final String FILE_INBOX_RENDER_COMMAND = "/fileInbox";
 	public static final String RECEIPT_INBOX_RENDER_COMMAND = "/receiptInbox";
+	public static final String RECEIPT_INBOX_READ_ACTION_COMMAND = "/receiptReadAction";
+	public static final String RECEIPT_INBOX_RECEIVE_ACTION_COMMAND = "/receiptReceiveAction";
 
 	public static final String PUT_IN_FILE_RENDER_COMMAND = "/PutInFile";
 	public static final String CORRESPONCE_FILE_RENDER = "/addCorrespondence";

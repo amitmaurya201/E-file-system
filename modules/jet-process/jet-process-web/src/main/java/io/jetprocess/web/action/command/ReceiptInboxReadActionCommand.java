@@ -19,11 +19,12 @@ import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { 
 		 "javax.portlet.init-param.add-process-action-success-action=false",
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=receiptReadAction" }, service = MVCActionCommand.class)
+		"mvc.command.name=" + MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND}, service = MVCActionCommand.class)
 public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 
 	@Reference
