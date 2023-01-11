@@ -235,7 +235,7 @@
 
 							<liferay-ui:search-container-column-text property="receiptNumber"
 								orderableProperty="receiptNumber" orderable="true"
-								href="<%=receiptInnerView%>"
+								href="<%=receiptDetails%>"
 								name="label-receipt-inbox-receiptno" />
 
 							<liferay-ui:search-container-column-text property="subject"
