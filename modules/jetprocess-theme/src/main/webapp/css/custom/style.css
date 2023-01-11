@@ -202,11 +202,11 @@ select.form-control[multiple], select.form-control[size] {
 	line-height: 60px;
 }
 
-.theme-header .navbar-nav .badge {
+/* .theme-header .navbar-nav .badge {
 	position: absolute;
 	right: 7px;
 	top: 4px;
-}
+} 
 
 .theme-header .dropdown-menu>li>a {
 	position: relative;
@@ -241,7 +241,7 @@ select.form-control[multiple], select.form-control[size] {
 	-webkit-transform: rotate(-135deg);
 	-ms-transform: rotate(-135deg);
 	transform: rotate(-135deg);
-}
+}*/
 
 .page-title-box {
 	border-radius: 0;
@@ -277,7 +277,7 @@ select.form-control[multiple], select.form-control[size] {
 	background-color: rgba(0, 0, 0, 0.2);
 }
 
-.flag-nav img {
+/* .flag-nav img {
 	margin-right: 5px;
 }
 
@@ -289,7 +289,7 @@ select.form-control[multiple], select.form-control[size] {
 
 .flag-nav .dropdown-menu .dropdown-item {
 	padding: 5px 15px;
-}
+} 
 
 .user-img {
 	display: inline-block;
@@ -340,7 +340,7 @@ select.form-control[multiple], select.form-control[size] {
 	padding: 0;
 }
 
-
+*/
 
 
 /*-----------------

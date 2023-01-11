@@ -271,7 +271,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			receiptList = getReceiptList(userPostId);
 		}
 		int count = receiptList.size();
-		logger.info("total file number inside service : " + count);
 		return receiptList.size();
 	}
 
@@ -286,7 +285,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		  receiptList = masterdataFinder.getCreatedListAndInboxList(userPostId, userPostId);
 		  } 
 	  int count = receiptList.size(); 
-	  logger.info("total receipt number inside service of put in file : " + count); 
 	  return count;
 	  }
 
@@ -324,7 +322,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			receiptList = getFileSentListByUserPostId(userPostId);
 		}
 		int count = receiptList.size();
-		logger.info("total file number inside service : " + count);
 		return receiptList.size();
 	}
 
@@ -350,7 +347,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			receiptList = getFileInboxList(userPostId);
 		}
 		int count = receiptList.size();
-		logger.info("total file number inside service : " + count);
 
 		return count;
 	}
@@ -372,7 +368,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			receiptList = getReceiptInboxList(userPostId);
 		}
 		int count = receiptList.size();
-		logger.info("total file number inside service : " + count);
 
 		return count;
 
@@ -395,7 +390,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 			receiptList = getReceiptSentList(userPostId);
 		}
 		int count = receiptList.size();
-		logger.info("total file number inside service : " + count);
 
 		return count;
 
@@ -424,7 +418,6 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 		return masterdataFinder.getMaximumRmIdByReceiptId(receiptId);
 	}
-	// ---------------- End -----------------
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 

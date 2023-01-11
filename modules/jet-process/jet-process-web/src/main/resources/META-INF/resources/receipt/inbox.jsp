@@ -236,7 +236,7 @@
 								orderableProperty="receiptNumber" orderable="true" href="<%=receiptInnerView%>"
 								name="label-receipt-inbox-receiptno" />
 
-							<liferay-ui:search-container-column-text property="subject"
+							<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips"
 								orderableProperty="subject" orderable="true" name="label-receipt-inbox-subject" />
 
 							<%
@@ -263,7 +263,7 @@
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-dueon" />
 
-							<liferay-ui:search-container-column-text
+							<liferay-ui:search-container-column-text cssClass="hover-tips"
 								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
 								name="label-receipt-inbox-remarks" />
 

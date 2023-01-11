@@ -180,20 +180,19 @@ $(document).ready(function(e){
 	var receiptSubCategoryId = '${receipt.receiptSubCategoryId}';
 	 $("#<portlet:namespace />receiptSubCategoryId").append(new Option("Select",0));
 	 AUI().use('aui-base', function(A){
-		 Liferay.Service(
-				 '/masterdata.masterdata/get-receipt-sub-category-masterdata',
+		Liferay.Service(
+				'/masterdata.masterdata/get-receipt-sub-category-masterdata',
 				 {
 				     receiptCategoryId: receiptCategoryId
 				 },
 				 function(response) {
-				     $.each(response, function(key, value) {
+					 $.each(response, function(key, value) {
 				     optionText = value.value;
 				     optionValue = value.masterdataId;
 				     if(optionValue==receiptSubCategoryId){
 				    	 $('#<portlet:namespace />receiptSubCategoryId').append(new Option(optionText,optionValue));
-				 		
-				    	 $("select option").each(function(){
-				    		  if ($(this).text() == optionText)
+				 		 $("select option").each(function(){
+				 			 if ($(this).text() == optionText)
 				    		    $(this).attr("selected","selected");
 				    		});  	
 				     }else{
@@ -210,64 +209,38 @@ $(document).ready(function(e){
 	var stateId = '${receipt.stateId}';
 	 $("#<portlet:namespace />stateId").append(new Option("Select",0));
 	 AUI().use('aui-base', function(A){
-		 Liferay.Service(
-				 '/masterdata.masterdata/get-states-masterdata',
-				 {
-					 countryId: countryId
-				 },
+	 Liferay.Service(
+		'/masterdata.masterdata/get-states-masterdata',
+			{
+			 countryId: countryId
+				},
 				 function(response) {
-				     $.each(response, function(key, value) {
-				     optionText = value.value;
-				     optionValue = value.masterdataId;
-				     if(optionValue==stateId){
-				    	 $('#<portlet:namespace />stateId').append(new Option(optionText,optionValue));
-				    	 $("select option").each(function(){
-				    		  if ($(this).text() == optionText)
-				    		    $(this).attr("selected","selected");
-				    		});  	
-				     }else{
-				    	 $("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
-				     }
-				 });	
-	       });
+					$.each(response, function(key, value) {		
+				    optionText = value.value;
+				    optionValue = value.masterdataId;
+				    if(optionValue==stateId){
+				    	$('#<portlet:namespace />stateId').append(new Option(optionText,optionValue));
+				    	$("select option").each(function(){
+				    		if($(this).text() == optionText)
+				    			$(this).attr("selected","selected");
+				    		}); 
+				    	}else{
+				    		$("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
+				    		}
+				    });	
+					});
 	 });
-});
+	 });
 
-var url='${receipt.viewPdfUrl}';
-
-/* if nature is elcetronic */
-/*$("#<portlet:namespace />nature").on('change',mySeletedNature);
-function mySeletedNature(){
+$("#<portlet:namespace />nature").on('change',function(e){
+	e.preventDefault();
 	var nature= $('#<portlet:namespace/>nature').val(); 
-	if(nature == 'Electronic' && tempFileId == 0 ){
-		if(url == '' || url == null || url == undefined ){
-			console.log('--error  '+$("#error").length);
-    		console.log('--sizeValidation  '+$("#sizeValidation").length);
-	    	if((($("#error").length) == 0) && (($('#sizeValidation').length) ==0) ){
-	    		$('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
-	    	}
-	    	return true;
-		}else{
-			return false;
-		}
-     }else{
-    	 $("#error ").remove();
-    	 return false;
-     }
-}*/
- 
-	$("#<portlet:namespace />nature").on('change',function(e){
-		alert("test");
-		e.preventDefault();
-		var nature= $('#<portlet:namespace/>nature').val(); 
-		if(nature == 'Electronic' ){
+	if(nature == 'Electronic' ){
 		$("#error").css('display','block');	
-		}
-		else if (nature == 'Physical'){
-			$("#error").css('display','none');	
-		}
-		
-	});
+	}else if (nature == 'Physical'){
+		$("#error").css('display','none');	
+	}	
+});
 // ---- for validation ----
 function validateForm(receiptForm) {
 	var liferayForm = Liferay.Form.get(receiptForm);
@@ -501,3 +474,24 @@ $(document).ready(function(){
 });
 
 </aui:script>
+/*var url='${receipt.viewPdfUrl}';*/
+/* if nature is elcetronic */
+/*$("#<portlet:namespace />nature").on('change',mySeletedNature);
+function mySeletedNature(){
+	var nature= $('#<portlet:namespace/>nature').val(); 
+	if(nature == 'Electronic' && tempFileId == 0 ){
+		if(url == '' || url == null || url == undefined ){
+			console.log('--error  '+$("#error").length);
+    		console.log('--sizeValidation  '+$("#sizeValidation").length);
+	    	if((($("#error").length) == 0) && (($('#sizeValidation').length) ==0) ){
+	    		$('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
+	    	}
+	    	return true;
+		}else{
+			return false;
+		}
+     }else{
+    	 $("#error ").remove();
+    	 return false;
+     }
+}*/
