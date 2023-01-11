@@ -18,8 +18,8 @@
 
 <%-- <portlet:resourceURL var="postUrl" id="/userPostURL" /> --%>
 
-<label for="post">Select Post:</label>
-<select name="userPost" id="userPostOption">
+<label for="post" style="cursor: auto !important;">Select Post:</label>
+<select name="userPost" id="userPostOption" style="cursor: pointer !important;">
 	<c:forEach items="${userPostList}" var="post">
 		<option value="${post.userPostId}">${post.shortName}</option>
 	</c:forEach>
