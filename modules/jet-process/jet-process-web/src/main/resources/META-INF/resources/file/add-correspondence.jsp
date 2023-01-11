@@ -5,19 +5,12 @@
 	 String userPostsVal = (String) userPostIdValue.getAttribute("userPostId");
 	long docFileId = (Long) request.getAttribute("docFileId");
 	String redirectURL=themeDisplay.getURLCurrent();
+	String currentURL = (String)renderRequest.getAttribute("CurrentURL");
+	 session.setAttribute("currentURL", currentURL);
 %>
 <portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
 	<%-- <portlet:param name="redirect" value="/file/file-inner-view.jsp" />  --%>
 </portlet:actionURL>
-
- <%
-String currentURL = (String)renderRequest.getAttribute("CurrentURL");
-
- session.setAttribute("currentURL", currentURL);
-%>
-
-
-
 <clay:management-toolbar 
 	disabled="${receiptCount eq 0}"
 	displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
@@ -27,6 +20,7 @@ String currentURL = (String)renderRequest.getAttribute("CurrentURL");
 <aui:form action="${attachReceipt} " method="post" name="attachReceipt">
 	<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 	<aui:input name="userPostId" value="${userPostsVal }" type="hidden"></aui:input>
+	<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>" />
 
 	<liferay-ui:search-container  
 	delta= "${delta}"
