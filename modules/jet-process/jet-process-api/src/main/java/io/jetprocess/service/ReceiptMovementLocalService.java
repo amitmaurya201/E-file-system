@@ -333,6 +333,10 @@ public interface ReceiptMovementLocalService
 			long receiptId, long receiptMovementId, String remarks)
 		throws PortalException;
 
+	public boolean saveReadAction(long receiptId, long rmId);
+
+	public boolean saveReceiveAction(long receiptId, long rmId);
+
 	public void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,
 		String dueDate, String remark);

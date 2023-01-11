@@ -441,6 +441,16 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
+	public boolean saveReadAction(long receiptId, long rmId) {
+		return _receiptMovementLocalService.saveReadAction(receiptId, rmId);
+	}
+
+	@Override
+	public boolean saveReceiveAction(long receiptId, long rmId) {
+		return _receiptMovementLocalService.saveReceiveAction(receiptId, rmId);
+	}
+
+	@Override
 	public void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,
 		String dueDate, String remark) {

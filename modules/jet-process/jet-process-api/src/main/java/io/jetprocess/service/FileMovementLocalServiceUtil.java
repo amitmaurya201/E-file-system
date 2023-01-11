@@ -373,6 +373,14 @@ public class FileMovementLocalServiceUtil {
 			fileId, fileMovementId, remarks);
 	}
 
+	public static boolean saveReadAction(long fileId, long fmId) {
+		return getService().saveReadAction(fileId, fmId);
+	}
+
+	public static boolean saveReceiveAction(long fileId, long fmId) {
+		return getService().saveReceiveAction(fileId, fmId);
+	}
+
 	/**
 	 * create save send file method
 	 *

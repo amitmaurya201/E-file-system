@@ -388,6 +388,14 @@ public class ReceiptMovementLocalServiceUtil {
 			receiptId, receiptMovementId, remarks);
 	}
 
+	public static boolean saveReadAction(long receiptId, long rmId) {
+		return getService().saveReadAction(receiptId, rmId);
+	}
+
+	public static boolean saveReceiveAction(long receiptId, long rmId) {
+		return getService().saveReceiveAction(receiptId, rmId);
+	}
+
 	public static void saveSendReceipt(
 		long receiverId, long senderId, long receiptId, String priority,
 		String dueDate, String remark) {

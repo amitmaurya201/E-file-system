@@ -421,6 +421,16 @@ public class FileMovementLocalServiceWrapper
 			fileId, fileMovementId, remarks);
 	}
 
+	@Override
+	public boolean saveReadAction(long fileId, long fmId) {
+		return _fileMovementLocalService.saveReadAction(fileId, fmId);
+	}
+
+	@Override
+	public boolean saveReceiveAction(long fileId, long fmId) {
+		return _fileMovementLocalService.saveReceiveAction(fileId, fmId);
+	}
+
 	/**
 	 * create save send file method
 	 *
