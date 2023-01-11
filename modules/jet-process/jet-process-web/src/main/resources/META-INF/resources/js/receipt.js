@@ -473,7 +473,6 @@ $(document).ready(function(){
 	}
 });
 
-</aui:script>
 /*var url='${receipt.viewPdfUrl}';*/
 /* if nature is elcetronic */
 /*$("#<portlet:namespace />nature").on('change',mySeletedNature);
@@ -495,3 +494,5 @@ function mySeletedNature(){
     	 return false;
      }
 }*/
+
+</aui:script>
