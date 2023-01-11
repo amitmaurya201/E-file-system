@@ -48,7 +48,7 @@ String curr = (String)session.getAttribute("currentURL");
 	
 </portlet:renderURL>
 
-<portlet:renderURL var="send">
+<portlet:renderURL var="sendReceipt">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
@@ -92,7 +92,7 @@ String curr = (String)session.getAttribute("currentURL");
 			<li class="nav-item"><a id="movement" class="nav-link "
 				href="<%=movementRenderURL%>"> Movement </a></li>
 			<li class="nav-item"><a id="send" class="nav-link "
-				href="<%=send%>"> Send </a></li>
+				href="<%=sendReceipt%>"> Send </a></li>
 			<li class="nav-item"><a id="sendback" class="nav-link "
 				href="<%=sendBack%>"> Send Back </a></li>
 			<li class="nav-item"><a id="putFile" class="nav-link "

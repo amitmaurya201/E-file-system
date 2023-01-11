@@ -9,20 +9,14 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(
-		immediate = true , 
-		property = {
-				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-			"mvc.command.name=/createFile1"
-		},
-		service = MVCRenderCommand.class
-	)
-public class CreateFileRenderCommand implements MVCRenderCommand{
+@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+		"mvc.command.name=" + MVCCommandNames.CREATE_FILE }, service = MVCRenderCommand.class)
+public class CreateFileRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		return "/file/create-file.jsp";
 	}
-
 }

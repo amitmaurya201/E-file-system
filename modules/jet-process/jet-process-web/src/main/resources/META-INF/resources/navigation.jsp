@@ -9,7 +9,7 @@
 <!-- <link rel="stylesheet"
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
 <style>
-#sideNav{
+#sideNav {
 	padding: 5px;
 	position: sticky;
 	top: 0;
@@ -78,33 +78,38 @@
 <div id="sideNav">
 	<portlet:renderURL var="view">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.VIEW_FILELIST%>" />
+			value="<%=MVCCommandNames.VIEW_FILE_LIST%>" />
 		<portlet:param name="selectedNav" value="home" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createFile">
-		<portlet:param name="mvcRenderCommandName" value="/createFile1" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.CREATE_FILE%>" />
 		<portlet:param name="selectedNav" value="createFile" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdFileList">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.VIEW_FILELIST%>" />
+			value="<%=MVCCommandNames.VIEW_FILE_LIST%>" />
 		<portlet:param name="selectedNav" value="fileList" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createReceipt">
-		<portlet:param name="mvcRenderCommandName" value="/createReceipt" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.CREATE_RECEIPT%>" />
 		<portlet:param name="selectedNav" value="createReceipt" />
 	</portlet:renderURL>
 	<portlet:renderURL var="createdListReceipt">
-		<portlet:param name="mvcRenderCommandName" value="/createdListReceipt" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.VIEW_RECEIPT_LIST%>" />
 		<portlet:param name="selectedNav" value="receiptList" />
 	</portlet:renderURL>
 
 	<portlet:renderURL var="fileInbox">
-		<portlet:param name="mvcRenderCommandName" value="/fileInBox" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.FILE_INBOX_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="fileInbox" />
 	</portlet:renderURL>
 	<portlet:renderURL var="receiptInbox">
-		<portlet:param name="mvcRenderCommandName" value="/receiptInBox" />
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptInbox" />
 	</portlet:renderURL>
 	<portlet:renderURL var="fileSent">
@@ -121,36 +126,36 @@
 
 
 	<!-- <nav class="navbar navbar-expand-lg"> -->
-		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
+	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#sideNav"
 			aria-controls="sideNav" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button> -->
 
-		<div class="side-nav " >
-			<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i>
-				Home</a> <a class="dropdown-btn"><i class="fa fa-file"
-				aria-hidden="true"></i> File <i class="fa fa-caret-down"></i> </a>
-			<div class="dropdown-container ">
-				<a id="createFile" href="<%=createFile%>">Create File</a> <a
-					id="fileList" href="<%=createdFileList%>">Created List</a> <a
-					id="fileInbox" href="<%=fileInbox%>">Inbox</a> <a id="fileSent"
-					href="<%=fileSent%>">Sent</a>
-
-			</div>
-			<a class="dropdown-btn"><i class='fas fa-receipt'
-				style='font-size: 24px'></i> Receipt <i class="fa fa-caret-down"></i>
-			</a>
-			<div class="dropdown-container ">
-				<a id="createReceipt" href="<%=createReceipt%>">Create Receipt</a> <a
-					id="receiptList" href="<%=createdListReceipt%>">Created List</a> <a
-					id="receiptInbox" href="<%=receiptInbox%>">Inbox</a> <a
-					id="receiptSent" href="<%=receiptSent%>">Sent</a>
-
-			</div>
+	<div class="side-nav ">
+		<a id="home" href="<%=view%>"><i class="fa fa-fw fa-home"></i>
+			Home</a> <a class="dropdown-btn"><i class="fa fa-file"
+			aria-hidden="true"></i> File <i class="fa fa-caret-down"></i> </a>
+		<div class="dropdown-container ">
+			<a id="createFile" href="<%=createFile%>">Create File</a> <a
+				id="fileList" href="<%=createdFileList%>">Created List</a> <a
+				id="fileInbox" href="<%=fileInbox%>">Inbox</a> <a id="fileSent"
+				href="<%=fileSent%>">Sent</a>
 
 		</div>
+		<a class="dropdown-btn"><i class='fas fa-receipt'
+			style='font-size: 24px'></i> Receipt <i class="fa fa-caret-down"></i>
+		</a>
+		<div class="dropdown-container ">
+			<a id="createReceipt" href="<%=createReceipt%>">Create Receipt</a> <a
+				id="receiptList" href="<%=createdListReceipt%>">Created List</a> <a
+				id="receiptInbox" href="<%=receiptInbox%>">Inbox</a> <a
+				id="receiptSent" href="<%=receiptSent%>">Sent</a>
+
+		</div>
+
+	</div>
 
 	<!-- </nav> -->
 </div>
