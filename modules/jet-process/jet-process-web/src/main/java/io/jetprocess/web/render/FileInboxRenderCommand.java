@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -38,14 +40,14 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
-		addFileInboxListAttributes(renderRequest);
-		addFileInboxToolbarAttributes(renderRequest, renderResponse );
+		setFileInboxListAttributes(renderRequest);
+		setFileInboxToolbarAttributes(renderRequest, renderResponse );
 		
 		return "/file/inbox.jsp";
 	}
 	
 	
-	private void addFileInboxListAttributes(RenderRequest renderRequest) {
+	private void setFileInboxListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
@@ -63,37 +65,18 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		int fileInboxCount=_fileList.getFileInboxListCount(userPostId, keywords);
 		System.out.println("-0-0-0-0-00-0--00--> count"+fileInboxCount);
 		int preDelta=0;
-		String d=(String) session.getAttribute("oldDelta");
+		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
 			preDelta=Integer.parseInt(d);
 			
 		}
 		if(delta !=preDelta) {
-			if(delta*currentPage  > fileInboxCount) {
-				if(delta*(currentPage-1)  > fileInboxCount) {
-					currentPage = getCurrentPage(currentPage, preDelta, fileInboxCount);
-				}
-				start = delta*(currentPage-1);
-			} else if(delta <preDelta) {
-					start = delta*(currentPage-1);
-			}else {
-				
-				start=0;
-			}
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, fileInboxCount, preDelta);
+			start=paginationConfig.get("start");
+			currentPage=paginationConfig.get("currentPage");
 			
-		} else if(delta*(currentPage-1)  > fileInboxCount) {
-			currentPage = getCurrentPage(currentPage, preDelta, fileInboxCount);
-			start = delta*(currentPage-1);
-		}
-		
-		if(start < 0) {
-			start = 0;
-		}
-		if(delta == fileInboxCount) {
-			start = 0;
-		}
-		
-		session.setAttribute("oldDelta", ""+delta+"");
+			}
+		session.setAttribute("preDelta", ""+delta+"");
 //		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
 		List<FileMovementDTO> fileInboxList =_fileList.getFileInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
 		 renderRequest.setAttribute("fileInboxList",fileInboxList);
@@ -101,24 +84,13 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("delta",delta);
 	}
 	
-	private static int getCurrentPage(int currentPage, int delta, int count) {
-		currentPage = currentPage-1;
-		
-		if(delta*currentPage  < count) {
-			return currentPage;
-		} else {
-			return getCurrentPage(currentPage, delta, count);
-		}
-	
-}
-
 	/**
 	 * Adds Clay management toolbar context object to the request.*
 	 * 
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void addFileInboxToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setFileInboxToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		FileInboxManagementToolbarDisplayContext fileInboxManagementToolbarDisplayContext = new FileInboxManagementToolbarDisplayContext(

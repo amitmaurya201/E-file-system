@@ -16,7 +16,7 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 55%;
+	/* height: 65%; */
 	left: 37%;
 	background: #bcd0e7;
 }
@@ -138,7 +138,7 @@
 						id="fileMovementId" hidden >
                   
 			<hr style="margin: 1.4rem -14px;" />
-			<div style="text-align: right;">
+			<div style="text-align: right; padding-bottom:10px;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
 					<liferay-ui:message key="label-file-sent-button-submit" />
 				</button>

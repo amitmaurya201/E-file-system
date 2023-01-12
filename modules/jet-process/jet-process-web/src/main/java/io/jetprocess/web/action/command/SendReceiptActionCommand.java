@@ -23,7 +23,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 @Component(immediate = true, property = { 
 		 "javax.portlet.init-param.add-process-action-success-action=false",
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=sendReceiptAction" }, service = MVCActionCommand.class)
+		"mvc.command.name=" + MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND }, service = MVCActionCommand.class)
 public class SendReceiptActionCommand implements MVCActionCommand {
 
 	@Override
@@ -45,8 +45,7 @@ public class SendReceiptActionCommand implements MVCActionCommand {
 				sendAvailable=false;
 			}
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		return sendAvailable;
 	}
@@ -54,5 +53,5 @@ public class SendReceiptActionCommand implements MVCActionCommand {
 	@Reference
 	ReceiptLocalService receiptLocalService;
 
-//	private Log logger = LogFactoryUtil.getLog(this.getClass());
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

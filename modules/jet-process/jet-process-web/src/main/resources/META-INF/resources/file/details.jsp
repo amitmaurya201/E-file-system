@@ -1,16 +1,10 @@
-
 <%@page import="java.util.ArrayList"%>
 <%@page import="io.jetprocess.model.DocFile"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+<%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
+<%@page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="../init.jsp"%>
 <%@ include file="/common/common.jsp"%>
-
-
-
-
 
 <style>
 .file-dtls th {
@@ -83,7 +77,7 @@
 		%>
 		
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<span class="hover-tips"><%=firstChar%> |  <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></span>
+			<div class="hover-tips"><%=firstChar%> |  <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></div>
 		</div>
 
 		<%-- <div class="container-fluid m-1" style="background-color: #E8E8E8;">

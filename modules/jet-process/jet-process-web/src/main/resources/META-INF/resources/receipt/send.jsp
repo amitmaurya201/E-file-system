@@ -1,6 +1,6 @@
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@ include file="../init.jsp"%>
-
+<%@ include file="/common/common.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -41,7 +41,7 @@ width: 100%;
 			<liferay-util:param name="selectedNav" value="send" />
 		</liferay-util:include>
 
-		<portlet:actionURL name="sendReceipt" var="send" />
+		<portlet:actionURL name="<%= MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND %>" var="sendReceiptAction" />
 
 
 		<%
@@ -50,11 +50,11 @@ width: 100%;
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<span class="hover-tips"><%=firstChar%></span><span>| ${receipt.receiptNumber} </span>
+			<div class="hover-tips"><%=firstChar%> | ${receipt.receiptNumber} </div>
 		</div>
 
 		<aui:container cssClass="row">
-			<aui:form action="${send}" cssClass="border border-dark col-6" style="padding: 1% !important"> 
+			<aui:form action="${sendReceiptAction}" cssClass="border border-dark col-6" style="padding: 1% !important"> 
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>receiptId"

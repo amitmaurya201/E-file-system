@@ -18,7 +18,7 @@
 
 .pull_back-popup {
 	width: 35%;
-	height: 56%;
+	/* height: 56%; */
 	left: 37%;
 	background: #bcd0e7;
 }
@@ -154,7 +154,7 @@
 			</div>
 
 			<hr style="margin: 2rem -1rem 1rem -1rem; " />
-			<div style="text-align: right;">
+			<div style="text-align: right; padding-bottom:10px;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
 					<liferay-ui:message key="label-receipt-sent-button-submit" />
 				</button>

@@ -1,3 +1,5 @@
+<%@ include file="../init.jsp"%>
+<%@ include file="/common/common.jsp"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.OffsetDateTime"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -8,9 +10,6 @@
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
-<%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
-
 
 
 <%
@@ -46,7 +45,7 @@
 		%>
 		
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<span class="hover-tips"><%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}</span>
+			<div class="hover-tips"><%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}</div>
 		</div>
 		<div class="receipt_view">
 			<div class="container">

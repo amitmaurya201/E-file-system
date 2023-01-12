@@ -37,7 +37,7 @@ String curr = (String)session.getAttribute("currentURL");
 %>
 
 
-<portlet:renderURL var="movement">
+<portlet:renderURL var="fileMovement">
 	<%-- <portlet:param name="mvcPath" value="/file/movement.jsp"/> --%>
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND%>" />
@@ -45,19 +45,19 @@ String curr = (String)session.getAttribute("currentURL");
 	        <portlet:param name="backPageURL" value="<%= curr %>"/>
 	
 </portlet:renderURL>
-<portlet:renderURL var="details">
-	<portlet:param name="mvcRenderCommandName" value="/FileViewDetails" />
+<portlet:renderURL var="fileDetails">
+	<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.FILE_DETAILS_RENDER_COMMAND %>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	        <portlet:param name="backPageURL" value="<%= curr %>"/>
 	
 </portlet:renderURL>
-<portlet:renderURL var="edit">
-	<portlet:param name="mvcPath" value="/file/edit-file.jsp" />
+<portlet:renderURL var="editFile">
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND %>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	        <portlet:param name="backPageURL" value="<%= curr %>"/>
 	
 </portlet:renderURL>
-<portlet:renderURL var="send">
+<portlet:renderURL var="fileSend">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
@@ -104,9 +104,9 @@ String curr = (String)session.getAttribute("currentURL");
 			<li class="nav-item border"><a id="putinfile" class="nav-link"
 				href="<%=putinfile%>"><i class="fa fa-home"></i></a></li>
 			<li class="nav-item border "><a id="details" class="nav-link"
-				href="<%=details%>">Details</a></li>
+				href="<%=fileDetails%>">Details</a></li>
 			<li class="nav-item border "><a id="movement" class="nav-link"
-				href="<%=movement%>">Movement</a></li>
+				href="<%=fileMovement%>">Movement</a></li>
 
 			<li class="nav-item dropdown border "><a
 				class="nav-link dropdown-toggle" href="#" role="button"
@@ -119,9 +119,9 @@ String curr = (String)session.getAttribute("currentURL");
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
 			<li class="nav-item border"><a id="edit" class="nav-link"
-				href="<%=edit%>">Edit</a></li>
+				href="<%=editFile%>">Edit</a></li>
 			<li class="nav-item border"><a id="send" class="nav-link"
-				href="<%=send%>">Send</a></li>
+				href="<%=fileSend%>">Send</a></li>
 			<li class="nav-item border"><a id="sendback" class="nav-link"
 				href="<%=sendback%>">Send Back</a></li>
 			<li class="nav-item dropdown border"><a

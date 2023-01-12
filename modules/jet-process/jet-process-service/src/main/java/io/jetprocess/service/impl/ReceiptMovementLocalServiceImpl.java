@@ -27,6 +27,8 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.constant.util.FileConstants;
+
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.Receipt;
@@ -48,35 +50,44 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		} else {
 			Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
 			ReceiptMovement rm;
+
 			try {
 				rm = receiptMovementLocalService.getReceiptMovement(rmId);
+
 				if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
 					Receipt receipt;
 					try {
 						receipt = receiptLocalService.getReceipt(receiptId);
-						if (receipt.getNature().equals("Electronic")) {
-							if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+						if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+
+							if (rm.getActive() == false) {
+								rm.setReadOn("");
+
 							} else {
-								rm.setReadOn("read");
-								updateReceiptMovement(rm);
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+								rm.setReadOn(FileConstants.READ);
+
 							}
-						} else if (receipt.getNature().equals("Physical")) {
-							if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+
+						} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
+
+							if (rm.getActive() == false) {
+								rm.setReadOn("");
+
 							} else {
-								rm.setReceivedOn("receive");
-								updateReceiptMovement(rm);
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+								rm.setReceivedOn(FileConstants.RECEIVE);
+
 							}
+
 						}
+						updateReceiptMovement(rm);
 					} catch (PortalException e) {
 						logger.info(e.getMessage());
 					}
+					saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+
 				}
-			} catch (PortalException pe) {
-				logger.info(pe.getMessage());
+			} catch (PortalException e1) {
+				logger.info(e1.getMessage());
 			}
 		}
 	}
@@ -178,9 +189,19 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
+<<<<<<< HEAD
 		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence.findBygetReceiptMovementsByfileMovementId(fileMovementId);
 		System.out.println("list of receiptMovemnt-->"+receiptMovementList);
 	   return receiptMovementList;
+=======
+		List<ReceiptMovement> receiptMovementList = getReceiptMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		for (ReceiptMovement receiptMovement : receiptMovementList) {
+			if (fileMovementId == receiptMovement.getFileInMovementId()) {
+				return receiptMovementList;
+			}
+		}
+		return receiptMovementList;
+>>>>>>> 79fd0c727d6ff4b7945a73096c2973e288be9963
 	}
 		/*
 		 * List<ReceiptMovement> receiptMovementList =

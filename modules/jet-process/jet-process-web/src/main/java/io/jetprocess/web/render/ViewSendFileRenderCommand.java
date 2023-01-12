@@ -11,50 +11,30 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileLocalServiceUtil;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(
-		immediate = true,
-		property = {
-			"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-			"mvc.command.name=" + MVCCommandNames.FILE_SEND_RENDER_COMMAND
-			
-		},
-		service = MVCRenderCommand.class
-	)
-
-public class viewSendFileRenderCommand implements MVCRenderCommand {
+@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+		"mvc.command.name=" + MVCCommandNames.FILE_SEND_RENDER_COMMAND }, service = MVCRenderCommand.class)
+public class ViewSendFileRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-	    
-		
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		System.out.println("docFile Id --->"+docFileId);
 		String currURL = ParamUtil.getString(renderRequest, "backPageURL");
-		System.out.println("current URL --->"+currURL);
-     
-        
 		try {
-			DocFile docFile=DocFileLocalServiceUtil.getDocFile(docFileId);
+			DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
 			renderRequest.setAttribute("docFile", docFile);
 			renderRequest.setAttribute("currentURL", currURL);
-		
-
 		} catch (PortalException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		return "/file/send.jsp";
 	}
-	
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
-	
-	
-	 
 
 }
