@@ -23,12 +23,11 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.core.constant.util.JetProcessConstants;
+import io.jetprocess.core.constant.util.FileConstants;
 
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
@@ -51,42 +50,46 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
 			ReceiptMovement rm;
 
+			try {
+				rm = receiptMovementLocalService.getReceiptMovement(rmId);
 
-				try {
-					rm = receiptMovementLocalService.getReceiptMovement(rmId);
-				
 				if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
 					Receipt receipt;
 					try {
 						receipt = receiptLocalService.getReceipt(receiptId);
-						if (receipt.getNature().equals(JetProcessConstants.ELECTRONIC_NATURE)) {
-							if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+						if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+
+							if (rm.getActive() == false) {
+								rm.setReadOn("");
+
 							} else {
-								rm.setReadOn("read");
-								updateReceiptMovement(rm);
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+								rm.setReadOn(FileConstants.READ);
+
 							}
-						} else if (receipt.getNature().equals(JetProcessConstants.PHYSICAL_NATURE)) {
-							if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+
+						} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
+
+							if (rm.getActive() == false) {
+								rm.setReadOn("");
+
 							} else {
-								rm.setReceivedOn("receive");
-								updateReceiptMovement(rm);
-								saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+								rm.setReceivedOn(FileConstants.RECEIVE);
+
 							}
+
 						}
+						updateReceiptMovement(rm);
 					} catch (PortalException e) {
 						logger.info(e.getMessage());
 					}
+					saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+
 				}
-			}  catch (PortalException e1) {
+			} catch (PortalException e1) {
 				logger.info(e1.getMessage());
 			}
 		}
-		}
-
-
+	}
 
 	void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, String dueDate,
 			String remark) {
