@@ -1,8 +1,8 @@
 package jet.process.rs.internal.resource.v1_0;
 
 import com.liferay.counter.kernel.service.CounterLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.ParamUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -24,83 +24,87 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
-		Receipt receipt = receiptLocalService.getReceipt();
-		if(receiptRsModel.getSubject().isEmpty()||receiptRsModel.getName().isEmpty()||receiptRsModel.getAddress().isEmpty()||receiptRsModel.getDesignation().isEmpty()) {
-			return null;	
-		}
-	
-		String receiptNumber =generateReceiptNumber(receipt.getReceiptId());
-		if(receiptRsModel.getTempFileId()!=0) {
-		long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
-		String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
-		receipt.setViewPdfUrl(viewFileUrl);
-		receipt.setDmFileId(dmFileId);
-		}
-	
-		if(receiptRsModel.getSubOrganizationId() == null) {
-			receipt.setSubOrganizationId(0);
-		}else if(receiptRsModel.getSubOrganizationId() != null) {
-		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
-		}
-		if(receiptRsModel.getStateId() == null ) {
-			receipt.setStateId(0); 
-		}else if(receiptRsModel.getStateId() != null) {
-			receipt.setStateId(receiptRsModel.getStateId());
-		}
-		receipt.setSubject(receiptRsModel.getSubject());
-		receipt.setTypeId(receiptRsModel.getTypeId());
-		receipt.setUserPostId(receiptRsModel.getUserPostId());
-		receipt.setReceiptNumber(receiptNumber);
+		ServiceContext serviceContext = new ServiceContext();
+		System.out.println("test");
+		System.out.println(receiptRsModel.getCountryId()+ "..." +receiptRsModel.getOrganizationId());
+		 Receipt receipt = receiptLocalService.getReceipt(); 
 		
-		receipt.setNature(receiptRsModel.getNature());
-		receiptRsModel.setReceiptNumber(receiptNumber);
-		receipt.setAddress(receiptRsModel.getAddress());
-		receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
-		receipt.setDesignation(receiptRsModel.getDesignation());
-		receipt.setName(receiptRsModel.getName());
+		  if(receiptRsModel.getSubject().isEmpty()||receiptRsModel.getName().isEmpty()||receiptRsModel.getAddress().isEmpty()||receiptRsModel.getDesignation().
+		  isEmpty()) { return null; }
+		 
 	
-		receipt.setOrganizationId(receiptRsModel.getOrganizationId());
-		receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
-		receipt.setReceivedOn(receiptRsModel.getReceivedOn());
-		receipt.setLetterDate(receiptRsModel.getLetterDate());
-	
-		if(receiptRsModel.getReceiptSubCategoryId() == null) {
-			System.out.println("if subcategory-------");
-			receipt.setReceiptSubCategoryId(0);	
-					
-		}else {
-			System.out.println("else subcategory-------");
-			receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());	
-		}
+		 String receiptNumber =generateReceiptNumber(receipt.getReceiptId()); 
 		
-		if(receiptRsModel.getCountryId() == null) {
-			receipt.setCountryId(0);	
-					
-		}else {
-			receipt.setCountryId(receiptRsModel.getCountryId());	
+		if (receiptRsModel.getTempFileId() != 0) {
+			long dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(),
+					receiptRsModel.getGroupId());
+			String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
+			receipt.setViewPdfUrl(viewFileUrl);
+			receipt.setDmFileId(dmFileId);
 		}
+
+		  receipt.setSubject(receiptRsModel.getSubject());
+		  receipt.setTypeId(receiptRsModel.getTypeId());
+		  receipt.setUserPostId(receiptRsModel.getUserPostId());
+		  receipt.setReceiptNumber(receiptNumber);
+		  
+		  receipt.setNature(receiptRsModel.getNature());
+		  receiptRsModel.setReceiptNumber(receiptNumber);
+		  receipt.setAddress(receiptRsModel.getAddress());
+		  receipt.setDeliveryModeId(receiptRsModel.getDeliveryModeId());
+		  receipt.setDesignation(receiptRsModel.getDesignation());
+		  receipt.setName(receiptRsModel.getName());
+		  
+		  receipt.setOrganizationId(receiptRsModel.getOrganizationId());
+		  receipt.setReceiptCategoryId(receiptRsModel.getReceiptCategoryId());
+		  receipt.setReceivedOn(receiptRsModel.getReceivedOn());
+		  receipt.setLetterDate(receiptRsModel.getLetterDate());
+		 
+	
 		String nature = receiptRsModel.getNature();
-        if (nature.equals("Electronic")) {
-        	System.out.println("createReceiptnature");
-        	if(receiptRsModel.getTempFileId()==0) {
-        		return null;
-        	}
-		
+		if (nature.equals("Electronic")) {
+			System.out.println("createReceiptnature");
+			if (receiptRsModel.getTempFileId() == 0) {
+				return null;
+			}
+
 		}
-		receipt.setCity(receiptRsModel.getCity());
-		receipt.setMobile(receiptRsModel.getMobile());
-		receipt.setModeNumber(receiptRsModel.getModeNumber());
-		receipt.setEmail(receiptRsModel.getEmail());
-		receipt.setReferenceNumber(receiptRsModel.getReferenceNumber());
-		receipt.setPinCode(receiptRsModel.getPinCode());
-		receipt.setRemarks(receiptRsModel.getRemarks());
-		receipt.setCurrentState(FileStatus.CREADTED);
-		receipt.setCurrentlyWith(receiptRsModel.getUserPostId());
-		receiptLocalService.addReceipt(receipt);
-		return receiptRsModel;
+		System.out.println(receiptRsModel.getSubOrganizationId());
+		receipt.setSubOrganizationId(receiptRsModel.getSubOrganizationId());
+		receipt.setStateId(receiptRsModel.getStateId());
+		receipt.setReceiptSubCategoryId(receiptRsModel.getReceiptSubCategoryId());
+		receipt.setCountryId(receiptRsModel.getCountryId());
+		  receipt.setCity(receiptRsModel.getCity());
+		  receipt.setMobile(receiptRsModel.getMobile());
+		  receipt.setModeNumber(receiptRsModel.getModeNumber());
+		  receipt.setEmail(receiptRsModel.getEmail());
+		  receipt.setReferenceNumber(receiptRsModel.getReferenceNumber());
+		  receipt.setPinCode(receiptRsModel.getPinCode());
+		  receipt.setRemarks(receiptRsModel.getRemarks());
+		 
+		 receipt.setCurrentState(FileStatus.CREADTED); 
+		 receipt.setCurrentlyWith(receiptRsModel.getUserPostId()); 
+		 receiptLocalService.addReceipt(receipt); 
+		/*
+		 * receiptLocalService.createReceipt(receiptRsModel.getGroupId(),
+		 * receiptRsModel.getTypeId() , receiptRsModel.getTempFileId(),
+		 * receiptRsModel.getDeliveryModeId(), receiptRsModel.getNature(),
+		 * receiptRsModel.getReceivedOn(), receiptRsModel.getLetterDate(),
+		 * receiptRsModel.getReferenceNumber(), receiptRsModel.getModeNumber(),
+		 * receiptRsModel.getReceiptCategoryId(),
+		 * receiptRsModel.getReceiptSubCategoryId(), receiptRsModel.getSubject(),
+		 * receiptRsModel.getRemarks(), receiptRsModel.getName(),
+		 * receiptRsModel.getDesignation(), receiptRsModel.getMobile(),
+		 * receiptRsModel.getEmail(), receiptRsModel.getAddress(),
+		 * receiptRsModel.getCountryId(),receiptRsModel.getStateId(),
+		 * receiptRsModel.getPinCode(), receiptRsModel.getOrganizationId(),
+		 * receiptRsModel.getSubOrganizationId(), receiptRsModel.getCity(),
+		 * receiptRsModel.getUserPostId(), serviceContext);
+		 */
+	return receiptRsModel;
 	}
 
-	
+
 	private String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R" + receiptId;
 		return receiptNumber;
@@ -135,23 +139,23 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		receipt.setUserPostId(receiptRsModel.getUserPostId());
 		long tempFileId = receiptRsModel.getTempFileId();
 		System.out.println("tempFileId"+tempFileId);
+		
 		if(tempFileId!=0) {
 			 dmFileId = receiptLocalService.getDmFileId(receiptRsModel.getTempFileId(), receiptRsModel.getGroupId());
 			 viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 			 receipt.setViewPdfUrl(viewFileUrl);
 			 receipt.setDmFileId(dmFileId);
 		}else {
-			receipt.setViewPdfUrl("");
-			receipt.setDmFileId(0);
-			
+			if(nature.equals("Electronic")) {
+				receipt.setDmFileId(receipt.getDmFileId());
+				 receipt.setViewPdfUrl(receipt.getViewPdfUrl());
+			}
+			else {
+				receipt.setViewPdfUrl("");
+				receipt.setDmFileId(0);
+			}	
 		}	
-        if (nature.equals("Electronic")) {
-        	
-        	if(receiptRsModel.getTempFileId()==0) {
-        		System.out.println("updateReceiptnature");
-        		return null;		
-        	}	
-		}
+		
 		receiptLocalService.updateReceipt(receipt);
 		return receiptRsModel;
 	}
