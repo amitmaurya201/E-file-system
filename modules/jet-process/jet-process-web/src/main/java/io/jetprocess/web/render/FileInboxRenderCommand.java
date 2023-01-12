@@ -40,14 +40,14 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
-		addFileInboxListAttributes(renderRequest);
-		addFileInboxToolbarAttributes(renderRequest, renderResponse );
+		setFileInboxListAttributes(renderRequest);
+		setFileInboxToolbarAttributes(renderRequest, renderResponse );
 		
 		return "/file/inbox.jsp";
 	}
 	
 	
-	private void addFileInboxListAttributes(RenderRequest renderRequest) {
+	private void setFileInboxListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
@@ -90,7 +90,7 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void addFileInboxToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setFileInboxToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		FileInboxManagementToolbarDisplayContext fileInboxManagementToolbarDisplayContext = new FileInboxManagementToolbarDisplayContext(

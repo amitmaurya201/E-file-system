@@ -38,12 +38,12 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		setFileListAttributes(renderRequest);
-		setFileToolbarAttributes(renderRequest, renderResponse);			
+		setCreatedFileListAttributes(renderRequest);
+		setCreatedFileToolbarAttributes(renderRequest, renderResponse);			
 		return "/file/created-file-list.jsp";
 	}
 
-	private void setFileListAttributes(RenderRequest renderRequest) {
+	private void setCreatedFileListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
@@ -84,7 +84,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 
 	
 
-	private void setFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setCreatedFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		FileManagementToolbarDisplayContext fileManagementToolbarDisplayContext = new FileManagementToolbarDisplayContext(

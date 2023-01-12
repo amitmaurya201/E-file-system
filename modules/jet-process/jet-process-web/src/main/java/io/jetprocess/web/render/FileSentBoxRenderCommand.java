@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -36,13 +38,13 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
-		addSendFileListAttributes(renderRequest);
-		addSendFileToolbarAttributes(renderRequest, renderResponse);
+		setSendFileListAttributes(renderRequest);
+		setSendFileToolbarAttributes(renderRequest, renderResponse);
 
 		return "/file/sent-file-list.jsp";
 	}
 
-	private void addSendFileListAttributes(RenderRequest renderRequest) {
+	private void setSendFileListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
@@ -52,67 +54,30 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
 		logger.info("user post id inside render : --" + userPostId);
-		long userPost = userPostId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "sentOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		
-//		int sendFileCount=masterdataLocalService.getFileSentList(userPostId, keywords);
 		int sendFileCount=_fileList.getFileSentListCount(userPostId, keywords);
 		int preDelta=0;
-		String d=(String) session.getAttribute("oldDelta");
+		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
 			preDelta=Integer.parseInt(d);
 			
 		}
 		if(delta !=preDelta) {
-			if(delta*currentPage  > sendFileCount) {
-				if(delta*(currentPage-1)  > sendFileCount) {
-					currentPage = getCurrentPage(currentPage, preDelta, sendFileCount);
-				}
-				start = delta*(currentPage-1);
-			} else if(delta <preDelta) {
-					start = delta*(currentPage-1);
-			}else {
-				
-				start=0;
-			}
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, sendFileCount, preDelta);
+			start=paginationConfig.get("start");
+			currentPage=paginationConfig.get("currentPage");
 			
-		} else if(delta*(currentPage-1)  > sendFileCount) {
-			currentPage = getCurrentPage(currentPage, preDelta, sendFileCount);
-			start = delta*(currentPage-1);
-		}
-		
-		if(start < 0) {
-			start = 0;
-		}
-		if(delta == sendFileCount) {
-			start = 0;
-		}
-		
-		session.setAttribute("oldDelta", ""+delta+"");
-		
-//		List<FileMovementDTO> sendFileList = masterdataLocalService.getFileSentList(userPost, keywords, start, end,
-//				orderByCol, orderByType);
-
+			}
+		session.setAttribute("preDelta", ""+delta+"");
 		List<FileMovementDTO> sendFileList =_fileList.getFileSentList(userPostId, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("sentFileList", sendFileList);
 		renderRequest.setAttribute("sendFileCount", +sendFileCount);
 		renderRequest.setAttribute("delta",delta);
 	}
 	
-	
-	
-	private static int getCurrentPage(int currentPage, int delta, int count) {
-		currentPage = currentPage-1;
-		
-		if(delta*currentPage  < count) {
-			return currentPage;
-		} else {
-			return getCurrentPage(currentPage, delta, count);
-		}
-	
-}
 	
 
 	/**
@@ -121,7 +86,7 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void addSendFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setSendFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		SendFileManagementToolbarDisplayContext sendFileManagementToolbarDisplayContext = new SendFileManagementToolbarDisplayContext(

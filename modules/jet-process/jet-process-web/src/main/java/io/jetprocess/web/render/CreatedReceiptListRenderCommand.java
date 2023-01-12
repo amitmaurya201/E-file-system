@@ -37,12 +37,12 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("created-recipt-list.jsp -- called");
-		setAssignmentListAttributes(renderRequest);
-		setManagementToolbarAttributes(renderRequest, renderResponse);
+		setCreatedReceiptListAttributes(renderRequest);
+		setCreatedReceiptManagementToolbarAttributes(renderRequest, renderResponse);
 		return "/receipt/created-receipt-list.jsp";
 	}
 
-	private void setAssignmentListAttributes(RenderRequest renderRequest) {
+	private void setCreatedReceiptListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
@@ -76,7 +76,6 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("receiptFileList", receiptList);
 		renderRequest.setAttribute("receiptCount", +receiptCount);
 		renderRequest.setAttribute("delta", delta);
-		logger.info("count number: -  " + masterdataLocalService.getReceiptBySearchKeywordsCount(userPost, keywords));
 	}
 
 
@@ -86,7 +85,7 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void setManagementToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setCreatedReceiptManagementToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		ReceiptManagementToolbarDisplayContext receiptManagementToolbarDisplayContext = new ReceiptManagementToolbarDisplayContext(
