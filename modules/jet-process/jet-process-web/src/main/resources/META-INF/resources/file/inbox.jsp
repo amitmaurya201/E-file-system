@@ -40,12 +40,12 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 
 .popup {
 	width: 50%;
-	height: 50%;
+	/* height: 50%; */
 }
 
 .read-popup, .receive-popup {
 	width: 30%;
-	height: 30%;
+	/* height: 30%; */
 	left: 40%;
 	background: #bcd0e7;
 }
@@ -391,7 +391,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 			style="float: right; margin-top: -4%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-3">
+		<div class="container mt-3 mb-3">
 			<h3 class="text-center">Are you sure to receive?</h3>
 			<aui:form action="${fileReceiveAction}" method="POST" name="fm">
 				<!-- <text>Receipt Number </text> -->
@@ -438,7 +438,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 border"
+		<div class="container mt-5 mb-5 border"
 			style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
