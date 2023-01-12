@@ -14,6 +14,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -46,7 +48,6 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		//long docFileId = ParamUtil.getLong(renderRequest, "corrFileId");
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		 long docFileId  = (long) sessionPutInFileId.getAttribute("putInFileId");
@@ -57,35 +58,41 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		return "/file/add-correspondence.jsp";
 	}
 	
-	
-	
-	
 private void addFileListAttributes(RenderRequest renderRequest) {
 	
 	ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,SearchContainer.DEFAULT_CUR);
-	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,2);
+	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,4);
 	int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 	int end = delta;
 	HttpSession session = themeDisplay.getRequest().getSession();
-//	long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-	long userPost = 1;
+	long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+	long userPost = userPostId;
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 	int keywords = ParamUtil.getInteger(renderRequest, "keywords");
-	System.out.println("=-=0=0==0=0=0=0=0=00=");
-//	List<ReceiptListViewDto> receiptList = masterdataLocalService.getCreatedReceiptAndInboxList(userPost , userPost,keywords, start, end, orderByCol,orderByType);
-	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, "","");
-	System.out.println("aaaa---->"+receiptList.size());
-	for (ReceiptListViewDto receiptListViewDto : receiptList) {
-		System.out.println("List in addfilecorrespondence -->"+receiptListViewDto.getReceiptId());
-	}
+	int count=_receiptList.getPutInFileListCount(userPost, keywords);
 	
-//	List<ReceiptListViewDto>  receiptList = masterdataLocalService.getReceiptBySearchKeywords(userPost,keywords, start, end, orderByCol,orderByType);
-	receiptList.forEach(c->System.out.println("-=====-->"+c));
+	System.out.println(" count "+count);
+	
+	int preDelta = 0;
+	String d = (String) session.getAttribute("preDelta");
+	if (d != null) {
+		preDelta = Integer.parseInt(d);
+	}
+	if(delta !=preDelta) {
+		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+		start=paginationConfig.get("start");
+		currentPage=paginationConfig.get("currentPage");
+		}
+	session.setAttribute("preDelta" ,""+ delta + "");
+	
+	
+	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, "","");
+
 	renderRequest.setAttribute("receiptFileList", receiptList);
 	renderRequest.setAttribute("delta",delta);
-	renderRequest.setAttribute("receiptCount",+_receiptList.getPutInFileListCount(userPost, keywords));
+	renderRequest.setAttribute("receiptCount",+count);
 	
 	}
 
@@ -96,6 +103,14 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
 		renderRequest.setAttribute("addCorrespondenceManagementToolbarDisplayContext", addCorrespondenceManagementToolbarDisplayContext);
 
+	}
+	private static int getCurrentPage(int currentPage, int delta, int count) {
+		currentPage = currentPage - 1;
+		if (delta * currentPage < count) {
+			return currentPage;
+		} else {
+			return getCurrentPage(currentPage, delta, count);
+		}
 	}
 
 	private static Log logger = LogFactoryUtil.getLog(AddFileCorrespondence.class);

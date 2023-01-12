@@ -41,7 +41,7 @@ public class Pagination {
 			
 		} else if(delta*(currPage-1)  > count) {
 			currPage = getCurrentPage(currPage, preDelta, count);
-			start = delta*(currentPage-1);
+			start = delta*(currPage-1);
 			System.out.println("inside ELSE IF- "+start);
 			System.out.println("inside ELSE IF- "+currPage);
 		}
