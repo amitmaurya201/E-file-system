@@ -23,17 +23,11 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
-import javax.portlet.ActionRequest;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
-<<<<<<< HEAD
-import io.jetprocess.core.constant.util.JetProcessConstants;
-=======
 import io.jetprocess.core.constant.util.FileConstants;
->>>>>>> 79fd0c727d6ff4b7945a73096c2973e288be9963
 
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
@@ -61,85 +55,44 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @param priority
 	 * @param dueDate
 	 * @param remark
+	 * @throws PortalException
 	 */
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, String dueDate,
-			String remark) {
+			String remark) throws PortalException {
 		boolean state = isFileMovementAvailable(fileId);
 		if (state == true) {
-			try {
-				saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
-			} catch (PortalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
 		} else {
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
-			try {
-				FileMovement fm;
-				try {
-					fm = fileMovementLocalService.getFileMovement(maxFmId);
-					if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
-
-						DocFile docFile;
-						try {
-							docFile = docFileLocalService.getDocFile(fileId);
-<<<<<<< HEAD
-							if (docFile.getNature().equals(JetProcessConstants.ELECTRONIC_NATURE)) {
-=======
-							if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
->>>>>>> 79fd0c727d6ff4b7945a73096c2973e288be9963
-
-								if (fm.getActive() == false) {
-									fm.setReadOn("");
-
-								} else {
-									fm.setReadOn(FileConstants.READ);
-
-								}
-
-<<<<<<< HEAD
-							} else if (docFile.getNature().equals(JetProcessConstants.PHYSICAL_NATURE)) {
-=======
-							} else if (docFile.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
->>>>>>> 79fd0c727d6ff4b7945a73096c2973e288be9963
-
-								if (fm.getActive() == false) {
-									fm.setReadOn("");
-
-								} else {
-									fm.setReceivedOn(FileConstants.RECEIVE);
-
-								}
-
-							}
-							updateFileMovement(fm);
-
-						} catch (PortalException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
+			FileMovement fm;
+			fm = fileMovementLocalService.getFileMovement(maxFmId);
+			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
+				DocFile docFile;
+				docFile = docFileLocalService.getDocFile(fileId);
+				if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+					if (fm.getActive() == false) {
+						fm.setReadOn("");
+					} else {
+						fm.setReadOn(FileConstants.READ);
 					}
-				} catch (PortalException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} else if (docFile.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
+					if (fm.getActive() == false) {
+						fm.setReadOn("");
+					} else {
+						fm.setReceivedOn(FileConstants.RECEIVE);
+					}
 				}
-			} finally {
-
+				updateFileMovement(fm);
 			}
+			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark);
 		}
 	}
 
 	public List<FileMovement> getFileMovementByFileId(long fileId) {
 
 		return fileMovementPersistence.findByfileId(fileId);
-
 	}
-
 	// create a method for pull back
-
 	public FileMovement pullBackFileMovement(long fileId, long fileMovementId, String remarks) throws PortalException {
 
 		FileMovement fileMovement = getFileMovement(fileMovementId);
@@ -147,25 +100,19 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		for (FileMovement fileMovementByFileId : fileMovementByFileIdList) {
 
 			if (fileMovement.getFmId() == fileMovementByFileId.getFmId()) {
-
 				fileMovement.setActive(false);
 				fileMovement.setPullBackRemark(remarks);
 				fileMovementLocalService.updateFileMovement(fileMovement);
-				System.out.println(
-						"Updated pull back remarks -->" + fileMovementLocalService.updateFileMovement(fileMovement));
 			}
 		}
 		return fileMovement;
-
 	}
-
 	// get Filemovement by fileMovementId
 	public FileMovement getFileMovementById(long fmId) throws PortalException {
 
 		FileMovement fileMovement = fileMovementLocalService.getFileMovement(fmId);
 		return fileMovement;
 	}
-
 	void saveFileMovement(long receiverId, long senderId, long fileId, String priority, String dueDate, String remark)
 			throws PortalException {
 
@@ -183,13 +130,10 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		if (fileMovement.getActive() != true) {
 			fileMovement.setActive(true);
 			fileMovementLocalService.updateFileMovement(fileMovement);
-
 		}
-
 		List<FileCorr> fileCorrList = fileCorrLocalService.getFileCorrs(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		if (fileCorrList == null) {
-
-			try {
+			
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
 				if (fileId == docFile.getDocFileId()) {
 					docFile.setCurrentlyWith(receiverId);
@@ -201,14 +145,9 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 					}
 				} else {
 				}
-			} catch (PortalException e) {
-				e.printStackTrace();
-			}
-
+			
 		} else {
-
 			for (FileCorr fileCorr2 : fileCorrList) {
-
 				if (fileCorr2.getDocFileId() == fileId) {
 
 					long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
@@ -224,7 +163,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 					receiptMovement.setFileInMovementId(fmId);
 					receiptMovementLocalService.addReceiptMovement(receiptMovement);
 				}
-
 			}
 			try {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
@@ -241,20 +179,14 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			} catch (PortalException e) {
 				e.printStackTrace();
 			}
-
 		}
-
 	}
-
 	// Create a method for check Is File able to Read or Received
 	public boolean pullBackedAlready(long fmId) throws PortalException {
 		FileMovement fileMovement = getFileMovement(fmId);
 		boolean state = fileMovement.getActive();
-		System.out.println("state -->" + state);
 		return state;
-
 	}
-
 	// for pullBack is available
 	public Boolean isPullBackAvailable(long fmId) throws PortalException {
 		boolean pullable = false;
@@ -266,15 +198,11 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 		return pullable;
 	}
-
-	public boolean saveReadMovement(long fileId, long fmId) {
+	public boolean saveReadMovement(long fileId, long fmId) throws PortalException {
 		boolean state = false;
-		try {
-
+		
 			state = fileMovementLocalService.pullBackedAlready(fmId);
-
 			if (state == true) {
-
 				List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
 				for (FileMovement fileMovement2 : fileMovement) {
 					if (fileMovement2.getFileId() == fileId) {
@@ -282,17 +210,9 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 						fileMovementLocalService.updateFileMovement(fileMovement2);
 					}
 				}
-
-			}
-
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			}	
 		return state;
-
 	}
-
 	private boolean isFileMovementAvailable(long fileId) {
 		List<FileMovement> findByfileId = fileMovementPersistence.findByfileId(fileId);
 		if (findByfileId.isEmpty()) {
@@ -301,39 +221,25 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return false;
 	}
 
-	public boolean saveReceiveMovement(long fileId, long fmId) {
+	public boolean saveReceiveMovement(long fileId, long fmId) throws PortalException {
 		boolean state = false;
-		try {
+		state = fileMovementLocalService.pullBackedAlready(fmId);
+		if (state == true) {
 
-			state = fileMovementLocalService.pullBackedAlready(fmId);
-
-			if (state == true) {
-
-				List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
-				for (FileMovement fileMovement2 : fileMovement) {
-					if (fileMovement2.getFileId() == fileId) {
-						fileMovement2.setReceivedOn("receive");
-						fileMovementLocalService.updateFileMovement(fileMovement2);
-
-					}
+			List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
+			for (FileMovement fileMovement2 : fileMovement) {
+				if (fileMovement2.getFileId() == fileId) {
+					fileMovement2.setReceivedOn("receive");
+					fileMovementLocalService.updateFileMovement(fileMovement2);
 				}
-
 			}
-
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return state;
-
 	}
-
 	// get status for pullback time
-
 	public Boolean isActive(long docFileId) {
 		boolean state = false;
 		List<FileMovement> fileMovementBydocFileId = fileMovementLocalService.getFileMovementByFileId(docFileId);
-
 		for (FileMovement fileMovement : fileMovementBydocFileId) {
 			if (!fileMovement.getActive()) {
 				state = false;
@@ -345,33 +251,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return state;
 	}
 
-<<<<<<< HEAD
-	// method for get if active = true then perform pullback operation 
-	
-	public void isActiveTrue(long docFileId , long userpost, long fileMovementId, String pullBackRemark,ActionRequest actionRequest) throws PortalException {
-		boolean pullBackAvailable = isPullBackAvailable(fileMovementId);
-		if (pullBackAvailable) {
-			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			docFile.setCurrentlyWith(userpost);
-			fileMovementLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
-			boolean active = fileMovementLocalService.isActive(docFileId);
-			System.out.println("active-->"+active);
-			if (active == false) {
-				System.out.println("active 2--->"+active);
-				docFile.setCurrentState(FileStatus.CREADTED);
-				docFileLocalService.updateDocFile(docFile);
-			}
-			SessionMessages.add(actionRequest, "pullback-available");
-		} else {
-			SessionErrors.add(actionRequest, "pullback-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
-
-	}
-	
-=======
->>>>>>> 79fd0c727d6ff4b7945a73096c2973e288be9963
 	@Reference
 	DocFileLocalService docFileLocalService;
 
