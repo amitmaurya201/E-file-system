@@ -51,13 +51,13 @@ String curr = (String)session.getAttribute("currentURL");
 	        <portlet:param name="backPageURL" value="<%= curr %>"/>
 	
 </portlet:renderURL>
-<portlet:renderURL var="edit">
-	<portlet:param name="mvcPath" value="/file/edit-file.jsp" />
+<portlet:renderURL var="editFile">
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND %>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	        <portlet:param name="backPageURL" value="<%= curr %>"/>
 	
 </portlet:renderURL>
-<portlet:renderURL var="FileSend">
+<portlet:renderURL var="fileSend">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
@@ -119,9 +119,9 @@ String curr = (String)session.getAttribute("currentURL");
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
 			<li class="nav-item border"><a id="edit" class="nav-link"
-				href="<%=edit%>">Edit</a></li>
+				href="<%=editFile%>">Edit</a></li>
 			<li class="nav-item border"><a id="send" class="nav-link"
-				href="<%=FileSend%>">Send</a></li>
+				href="<%=fileSend%>">Send</a></li>
 			<li class="nav-item border"><a id="sendback" class="nav-link"
 				href="<%=sendback%>">Send Back</a></li>
 			<li class="nav-item dropdown border"><a

@@ -22,18 +22,17 @@
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 			String setURl = serviceContext.getPortalURL();
-			DocFile docFile = (DocFile) session.getAttribute("DocFile");
+			DocFile docFile = (DocFile) renderRequest.getAttribute("DocFile");
+			String basicHeadValue = (String) renderRequest.getAttribute("BasicHeadValue");
+			String primaryHeadValue = (String) renderRequest.getAttribute("PrimaryHeadValue");
+			String secondaryHeadValue = (String) renderRequest.getAttribute("SecondaryHeadValue");
+			String tertiaryHeadValue = (String) renderRequest.getAttribute("TertiaryHeadValue");
+			String fileCodeValue = (String) renderRequest.getAttribute("FileCodeValue");
+			String categoryValue = (String) renderRequest.getAttribute("CategoryVaue");
+			String subcategoryValue = (String) renderRequest.getAttribute("SubCategoryValue");
 
-			String basicHeadValue = (String) session.getAttribute("BasicHeadValue");
-			String primaryHeadValue = (String) session.getAttribute("PrimaryHeadValue");
-			String secondaryHeadValue = (String) session.getAttribute("SecondaryHeadValue");
-			String tertiaryHeadValue = (String) session.getAttribute("TertiaryHeadValue");
-			String fileCodeValue = (String) session.getAttribute("FileCodeValue");
-			String categoryValue = (String) session.getAttribute("CategoryVaue");
-			String subcategoryValue = (String) session.getAttribute("SubCategoryValue");
-
-			String sfsCategoryValue = (String) session.getAttribute("SfsCategoryValue");
-			String sfsSubCategoryValue = (String) session.getAttribute("SfsSubCategoryValue");
+			String sfsCategoryValue = (String) renderRequest.getAttribute("SfsCategoryValue");
+			String sfsSubCategoryValue = (String) renderRequest.getAttribute("SfsSubCategoryValue");
 		%>
 		<div class="container">
 			<div class="card">

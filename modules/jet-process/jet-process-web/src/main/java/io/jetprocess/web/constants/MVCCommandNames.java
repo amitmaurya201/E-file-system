@@ -17,7 +17,7 @@ public class MVCCommandNames {
 	public static final String EDIT_FILE_RENDER_COMMAND = "/editFile";
 	public static final String PUT_IN_FILE_RENDER_COMMAND = "/PutInFile";
 	public static final String CORRESPONCE_FILE_RENDER = "/addCorrespondence";
-	public static final String FILE_SEND_RENDER_COMMAND = "/FileSend";
+	public static final String FILE_SEND_RENDER_COMMAND = "/fileSend";
 
 	// --for inner view of receipt
 	public static final String RECEIPT_DETAILS_RENDER_COMMAND = "/receiptDetails";
