@@ -92,13 +92,10 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 	}
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
-
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
-	
 	@Reference
 	private Portal _portal;
-	
 	@Reference
 	ReceiptList _receiptList;
 }

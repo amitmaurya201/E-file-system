@@ -63,12 +63,10 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
 		}
-		
 		if(delta !=preDelta) {
 		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, receiptCount, preDelta);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
-		
 		}
 		session.setAttribute("preDelta", "" + delta + "");
 		List<ReceiptListViewDto> receiptList = _receiptList.getReceiptList(userPostId, keywords, start, end, orderByCol,
@@ -77,7 +75,6 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("receiptCount", +receiptCount);
 		renderRequest.setAttribute("delta", delta);
 	}
-
 
 	/**
 	 * Adds Clay management toolbar context object to the request.*
@@ -95,12 +92,9 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 
 	private static Log logger = LogFactoryUtil.getLog(CreatedReceiptListRenderCommand.class);
 	@Reference
-
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
-
 	private Portal _portal;
-
 	@Reference
 	ReceiptList _receiptList;
 }
