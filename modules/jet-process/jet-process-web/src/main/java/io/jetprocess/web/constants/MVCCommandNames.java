@@ -2,19 +2,22 @@ package io.jetprocess.web.constants;
 
 public class MVCCommandNames {
 
+	//create and created list render command name
 	public static final String CREATE_FILE_RENDER_COMMAND = "/createFile";
 	public static final String CREATE_RECEIPT_RENDER_COMMAND = "/createReceipt";
 	public static final String VIEW_FILE_LIST_RENDER_COMMAND = "/createdFileList";
 	public static final String VIEW_RECEIPT_LIST_RENDER_COMMAND = "/createdListReceipt";
 
-	// userpost
+	//userpost
 	public static final String SET_USER_POST_ACTION_COMMAND = "/set/user/post/action/command";
 	
 	// --for inner view of file
-	public static final String FILE_MOVEMENT_RENDER_COMMAND = "/file/movement/command";
+	public static final String FILE_DETAILS_RENDER_COMMAND = "/fileDetails";
+	public static final String FILE_MOVEMENT_RENDER_COMMAND = "/fileMovement";
+	public static final String EDIT_FILE_RENDER_COMMAND = "/editFile";
 	public static final String PUT_IN_FILE_RENDER_COMMAND = "/PutInFile";
 	public static final String CORRESPONCE_FILE_RENDER = "/addCorrespondence";
-	public static final String FILE_SEND_RENDER_COMMAND = "/file/send/command";
+	public static final String FILE_SEND_RENDER_COMMAND = "/FileSend";
 
 	// --for inner view of receipt
 	public static final String RECEIPT_DETAILS_RENDER_COMMAND = "/receiptDetails";
