@@ -60,29 +60,22 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		int count = fileLists.getCountOfFileList(userPost, keywords);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
-		System.out.println("-----> pre ---->"+d);
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
 			
 		}
-		
 		if(delta !=preDelta) {
 		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
 		
 		}
-		
 		session.setAttribute("preDelta", "" + delta + "");
-
 		List<FileListViewDto> fileList = fileLists.getFileList(userPost, keywords, start, end, orderByCol, orderByType);
-		
 		renderRequest.setAttribute("fileList", fileList);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount", count);
 	}
-
-	
 
 	private void setCreatedFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
@@ -94,15 +87,11 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	FileList fileLists;
-
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
-
 	@Reference
 	private MasterdataService masterData;
-
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
-
 	@Reference
 	private Portal _portal;
 }

@@ -42,7 +42,6 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		setReceiptInboxToolbarAttributes(renderRequest, renderResponse);
 		return "/receipt/inbox.jsp";
 	}
-
 	/***
 	 * 
 	 * Adds File list related attributes to the request.**
@@ -62,7 +61,6 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int count = _receiptList.getReceiptInboxListCount(userPostId, keywords);
-		System.out.println("-0--0-0-0-0-0-0-0----0-->" + count);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
@@ -98,16 +96,12 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	}
 
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
-	
 	@Reference
 	private MasterdataService masterData;
-	
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
-	
 	@Reference
 	private Portal _portal;
-
 	@Reference
 	ReceiptList _receiptList;
 }

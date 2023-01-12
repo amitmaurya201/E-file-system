@@ -39,13 +39,10 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		
 		setFileInboxListAttributes(renderRequest);
 		setFileInboxToolbarAttributes(renderRequest, renderResponse );
-		
 		return "/file/inbox.jsp";
 	}
-	
 	
 	private void setFileInboxListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
@@ -60,10 +57,7 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		
-//		int fileInboxCount=masterdataLocalService.getFileInboxList(userPost, keywords);
 		int fileInboxCount=_fileList.getFileInboxListCount(userPostId, keywords);
-		System.out.println("-0-0-0-0-00-0--00--> count"+fileInboxCount);
 		int preDelta=0;
 		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
@@ -77,7 +71,6 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 			
 			}
 		session.setAttribute("preDelta", ""+delta+"");
-//		 List<FileMovementDTO> fileInboxList = masterdataLocalService.getFileInboxList(userPost, keywords, start, end,orderByCol, orderByType);
 		List<FileMovementDTO> fileInboxList =_fileList.getFileInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
 		 renderRequest.setAttribute("fileInboxList",fileInboxList);
 		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
@@ -100,13 +93,11 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	}
 	
 	
-	
 	private static Log logger = LogFactoryUtil.getLog(FileInboxRenderCommand.class);
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
-	
 	@Reference
 	FileList _fileList;
 	
