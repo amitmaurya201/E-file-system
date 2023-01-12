@@ -267,4 +267,5 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	ReceiptLocalService receiptLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
+	
 }
