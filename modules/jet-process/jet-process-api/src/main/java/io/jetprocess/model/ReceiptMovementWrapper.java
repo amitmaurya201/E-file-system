@@ -60,7 +60,7 @@ public class ReceiptMovementWrapper
 		attributes.put("receivedOn", getReceivedOn());
 		attributes.put("pullBackRemark", getPullBackRemark());
 		attributes.put("active", isActive());
-		attributes.put("FileInMovementId", getFileInMovementId());
+		attributes.put("fileInMovementId", getFileInMovementId());
 
 		return attributes;
 	}
@@ -169,10 +169,10 @@ public class ReceiptMovementWrapper
 			setActive(active);
 		}
 
-		Long FileInMovementId = (Long)attributes.get("FileInMovementId");
+		Long fileInMovementId = (Long)attributes.get("fileInMovementId");
 
-		if (FileInMovementId != null) {
-			setFileInMovementId(FileInMovementId);
+		if (fileInMovementId != null) {
+			setFileInMovementId(fileInMovementId);
 		}
 	}
 
@@ -439,11 +439,11 @@ public class ReceiptMovementWrapper
 	/**
 	 * Sets the file in movement ID of this receipt movement.
 	 *
-	 * @param FileInMovementId the file in movement ID of this receipt movement
+	 * @param fileInMovementId the file in movement ID of this receipt movement
 	 */
 	@Override
-	public void setFileInMovementId(long FileInMovementId) {
-		model.setFileInMovementId(FileInMovementId);
+	public void setFileInMovementId(long fileInMovementId) {
+		model.setFileInMovementId(fileInMovementId);
 	}
 
 	/**

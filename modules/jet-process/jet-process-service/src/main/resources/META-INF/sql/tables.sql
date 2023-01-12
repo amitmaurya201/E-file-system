@@ -134,5 +134,5 @@ create table JET_PROCESS_ReceiptMovement (
 	receivedOn VARCHAR(75) null,
 	pullBackRemark VARCHAR(500) null,
 	active_ BOOLEAN,
-	FileInMovementId LONG
+	fileInMovementId LONG
 );

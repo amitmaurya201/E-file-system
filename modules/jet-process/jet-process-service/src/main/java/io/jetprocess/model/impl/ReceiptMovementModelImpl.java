@@ -82,7 +82,7 @@ public class ReceiptMovementModelImpl
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
 		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR},
-		{"active_", Types.BOOLEAN}, {"FileInMovementId", Types.BIGINT}
+		{"active_", Types.BOOLEAN}, {"fileInMovementId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -106,11 +106,11 @@ public class ReceiptMovementModelImpl
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("pullBackRemark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
-		TABLE_COLUMNS_MAP.put("FileInMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("fileInMovementId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,FileInMovementId LONG)";
+		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,fileInMovementId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_ReceiptMovement";
@@ -137,26 +137,32 @@ public class ReceiptMovementModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long GROUPID_COLUMN_BITMASK = 2L;
+	public static final long FILEINMOVEMENTID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long RECEIPTID_COLUMN_BITMASK = 4L;
+	public static final long GROUPID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 8L;
+	public static final long RECEIPTID_COLUMN_BITMASK = 8L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long RMID_COLUMN_BITMASK = 16L;
+	public static final long RMID_COLUMN_BITMASK = 32L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -348,9 +354,9 @@ public class ReceiptMovementModelImpl
 			"active",
 			(BiConsumer<ReceiptMovement, Boolean>)ReceiptMovement::setActive);
 		attributeGetterFunctions.put(
-			"FileInMovementId", ReceiptMovement::getFileInMovementId);
+			"fileInMovementId", ReceiptMovement::getFileInMovementId);
 		attributeSetterBiConsumers.put(
-			"FileInMovementId",
+			"fileInMovementId",
 			(BiConsumer<ReceiptMovement, Long>)
 				ReceiptMovement::setFileInMovementId);
 
@@ -719,16 +725,26 @@ public class ReceiptMovementModelImpl
 	@JSON
 	@Override
 	public long getFileInMovementId() {
-		return _FileInMovementId;
+		return _fileInMovementId;
 	}
 
 	@Override
-	public void setFileInMovementId(long FileInMovementId) {
+	public void setFileInMovementId(long fileInMovementId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_FileInMovementId = FileInMovementId;
+		_fileInMovementId = fileInMovementId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalFileInMovementId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("fileInMovementId"));
 	}
 
 	@Override
@@ -855,7 +871,7 @@ public class ReceiptMovementModelImpl
 		receiptMovementImpl.setActive(
 			this.<Boolean>getColumnOriginalValue("active_"));
 		receiptMovementImpl.setFileInMovementId(
-			this.<Long>getColumnOriginalValue("FileInMovementId"));
+			this.<Long>getColumnOriginalValue("fileInMovementId"));
 
 		return receiptMovementImpl;
 	}
@@ -1024,7 +1040,7 @@ public class ReceiptMovementModelImpl
 
 		receiptMovementCacheModel.active = isActive();
 
-		receiptMovementCacheModel.FileInMovementId = getFileInMovementId();
+		receiptMovementCacheModel.fileInMovementId = getFileInMovementId();
 
 		return receiptMovementCacheModel;
 	}
@@ -1136,7 +1152,7 @@ public class ReceiptMovementModelImpl
 	private String _receivedOn;
 	private String _pullBackRemark;
 	private boolean _active;
-	private long _FileInMovementId;
+	private long _fileInMovementId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1184,7 +1200,7 @@ public class ReceiptMovementModelImpl
 		_columnOriginalValues.put("receivedOn", _receivedOn);
 		_columnOriginalValues.put("pullBackRemark", _pullBackRemark);
 		_columnOriginalValues.put("active_", _active);
-		_columnOriginalValues.put("FileInMovementId", _FileInMovementId);
+		_columnOriginalValues.put("fileInMovementId", _fileInMovementId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1243,7 +1259,7 @@ public class ReceiptMovementModelImpl
 
 		columnBitmasks.put("active_", 65536L);
 
-		columnBitmasks.put("FileInMovementId", 131072L);
+		columnBitmasks.put("fileInMovementId", 131072L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

@@ -435,6 +435,15 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
+	public void pullBackReceiptsAttatchWithFile(
+		java.util.List<io.jetprocess.model.ReceiptMovement> receiptMovementList,
+		long fileMovementId) {
+
+		_receiptMovementLocalService.pullBackReceiptsAttatchWithFile(
+			receiptMovementList, fileMovementId);
+	}
+
+	@Override
 	public boolean saveReadMovement(long receiptId, long rmId) {
 		return _receiptMovementLocalService.saveReadMovement(receiptId, rmId);
 	}

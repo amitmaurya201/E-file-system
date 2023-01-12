@@ -232,12 +232,16 @@
 		<column type="String" name="receivedOn" />
 		<column name="pullBackRemark" type="String" />
 		<column name="active" type="boolean" />
-		<column name="FileInMovementId" type="long"/>
+		<column name="fileInMovementId" type="long"/>
 
 		<finder name="receiptId" return-type="Collection">
 			<finder-column name="receiptId"></finder-column>
 		</finder>
 
+  <!-- Finder method for get ReceiptMovementByFileMovementId -->
+  <finder name="getReceiptMovementsByfileMovementId" return-type="Collection">
+  <finder-column name="fileInMovementId"></finder-column>
+  </finder> 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 

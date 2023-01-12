@@ -99,8 +99,8 @@ public class ReceiptMovementCacheModel
 		sb.append(pullBackRemark);
 		sb.append(", active=");
 		sb.append(active);
-		sb.append(", FileInMovementId=");
-		sb.append(FileInMovementId);
+		sb.append(", fileInMovementId=");
+		sb.append(fileInMovementId);
 		sb.append("}");
 
 		return sb.toString();
@@ -183,7 +183,7 @@ public class ReceiptMovementCacheModel
 		}
 
 		receiptMovementImpl.setActive(active);
-		receiptMovementImpl.setFileInMovementId(FileInMovementId);
+		receiptMovementImpl.setFileInMovementId(fileInMovementId);
 
 		receiptMovementImpl.resetOriginalValues();
 
@@ -218,7 +218,7 @@ public class ReceiptMovementCacheModel
 
 		active = objectInput.readBoolean();
 
-		FileInMovementId = objectInput.readLong();
+		fileInMovementId = objectInput.readLong();
 	}
 
 	@Override
@@ -290,7 +290,7 @@ public class ReceiptMovementCacheModel
 
 		objectOutput.writeBoolean(active);
 
-		objectOutput.writeLong(FileInMovementId);
+		objectOutput.writeLong(fileInMovementId);
 	}
 
 	public String uuid;
@@ -310,6 +310,6 @@ public class ReceiptMovementCacheModel
 	public String receivedOn;
 	public String pullBackRemark;
 	public boolean active;
-	public long FileInMovementId;
+	public long fileInMovementId;
 
 }

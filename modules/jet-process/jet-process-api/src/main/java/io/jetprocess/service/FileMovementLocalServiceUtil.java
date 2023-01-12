@@ -359,6 +359,15 @@ public class FileMovementLocalServiceUtil {
 		return getService().isActive(docFileId);
 	}
 
+	public static void isActiveTrue(
+			long docFileId, long userpost, long fileMovementId,
+			String pullBackRemark, javax.portlet.ActionRequest actionRequest)
+		throws PortalException {
+
+		getService().isActiveTrue(
+			docFileId, userpost, fileMovementId, pullBackRemark, actionRequest);
+	}
+
 	public static Boolean isPullBackAvailable(long fmId)
 		throws PortalException {
 

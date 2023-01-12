@@ -342,9 +342,9 @@ public interface ReceiptMovementModel
 	/**
 	 * Sets the file in movement ID of this receipt movement.
 	 *
-	 * @param FileInMovementId the file in movement ID of this receipt movement
+	 * @param fileInMovementId the file in movement ID of this receipt movement
 	 */
-	public void setFileInMovementId(long FileInMovementId);
+	public void setFileInMovementId(long fileInMovementId);
 
 	@Override
 	public ReceiptMovement cloneWithOriginalValues();

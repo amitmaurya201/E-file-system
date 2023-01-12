@@ -27,6 +27,8 @@ import com.liferay.portal.kernel.util.Validator;
 import java.io.IOException;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -367,8 +369,29 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return state;
 	}
 
+	// method for get if active = true then perform pullback operation 
 	
-	
+	public void isActiveTrue(long docFileId , long userpost, long fileMovementId, String pullBackRemark,ActionRequest actionRequest) throws PortalException {
+		boolean pullBackAvailable = isPullBackAvailable(fileMovementId);
+		if (pullBackAvailable) {
+			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+			docFile.setCurrentlyWith(userpost);
+			fileMovementLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
+			boolean active = fileMovementLocalService.isActive(docFileId);
+			System.out.println("active-->"+active);
+			if (active == false) {
+				System.out.println("active 2--->"+active);
+				docFile.setCurrentState(FileStatus.CREADTED);
+				docFileLocalService.updateDocFile(docFile);
+			}
+			SessionMessages.add(actionRequest, "pullback-available");
+		} else {
+			SessionErrors.add(actionRequest, "pullback-not-available");
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+		}
+
+	}
 	
 	@Reference
 	DocFileLocalService docFileLocalService;

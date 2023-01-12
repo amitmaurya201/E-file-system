@@ -705,6 +705,199 @@ public class ReceiptMovementUtil {
 	}
 
 	/**
+	 * Returns all the receipt movements where fileInMovementId = &#63;.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @return the matching receipt movements
+	 */
+	public static List<ReceiptMovement>
+		findBygetReceiptMovementsByfileMovementId(long fileInMovementId) {
+
+		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+			fileInMovementId);
+	}
+
+	/**
+	 * Returns a range of all the receipt movements where fileInMovementId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @return the range of matching receipt movements
+	 */
+	public static List<ReceiptMovement>
+		findBygetReceiptMovementsByfileMovementId(
+			long fileInMovementId, int start, int end) {
+
+		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+			fileInMovementId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the receipt movements where fileInMovementId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching receipt movements
+	 */
+	public static List<ReceiptMovement>
+		findBygetReceiptMovementsByfileMovementId(
+			long fileInMovementId, int start, int end,
+			OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+			fileInMovementId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the receipt movements where fileInMovementId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReceiptMovementModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param start the lower bound of the range of receipt movements
+	 * @param end the upper bound of the range of receipt movements (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching receipt movements
+	 */
+	public static List<ReceiptMovement>
+		findBygetReceiptMovementsByfileMovementId(
+			long fileInMovementId, int start, int end,
+			OrderByComparator<ReceiptMovement> orderByComparator,
+			boolean useFinderCache) {
+
+		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+			fileInMovementId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first receipt movement in the ordered set where fileInMovementId = &#63;.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement
+			findBygetReceiptMovementsByfileMovementId_First(
+				long fileInMovementId,
+				OrderByComparator<ReceiptMovement> orderByComparator)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().findBygetReceiptMovementsByfileMovementId_First(
+			fileInMovementId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first receipt movement in the ordered set where fileInMovementId = &#63;.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement
+		fetchBygetReceiptMovementsByfileMovementId_First(
+			long fileInMovementId,
+			OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return getPersistence().
+			fetchBygetReceiptMovementsByfileMovementId_First(
+				fileInMovementId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last receipt movement in the ordered set where fileInMovementId = &#63;.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement
+	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement
+			findBygetReceiptMovementsByfileMovementId_Last(
+				long fileInMovementId,
+				OrderByComparator<ReceiptMovement> orderByComparator)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().findBygetReceiptMovementsByfileMovementId_Last(
+			fileInMovementId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last receipt movement in the ordered set where fileInMovementId = &#63;.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
+	 */
+	public static ReceiptMovement
+		fetchBygetReceiptMovementsByfileMovementId_Last(
+			long fileInMovementId,
+			OrderByComparator<ReceiptMovement> orderByComparator) {
+
+		return getPersistence().fetchBygetReceiptMovementsByfileMovementId_Last(
+			fileInMovementId, orderByComparator);
+	}
+
+	/**
+	 * Returns the receipt movements before and after the current receipt movement in the ordered set where fileInMovementId = &#63;.
+	 *
+	 * @param rmId the primary key of the current receipt movement
+	 * @param fileInMovementId the file in movement ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next receipt movement
+	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
+	 */
+	public static ReceiptMovement[]
+			findBygetReceiptMovementsByfileMovementId_PrevAndNext(
+				long rmId, long fileInMovementId,
+				OrderByComparator<ReceiptMovement> orderByComparator)
+		throws io.jetprocess.exception.NoSuchReceiptMovementException {
+
+		return getPersistence().
+			findBygetReceiptMovementsByfileMovementId_PrevAndNext(
+				rmId, fileInMovementId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the receipt movements where fileInMovementId = &#63; from the database.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 */
+	public static void removeBygetReceiptMovementsByfileMovementId(
+		long fileInMovementId) {
+
+		getPersistence().removeBygetReceiptMovementsByfileMovementId(
+			fileInMovementId);
+	}
+
+	/**
+	 * Returns the number of receipt movements where fileInMovementId = &#63;.
+	 *
+	 * @param fileInMovementId the file in movement ID
+	 * @return the number of matching receipt movements
+	 */
+	public static int countBygetReceiptMovementsByfileMovementId(
+		long fileInMovementId) {
+
+		return getPersistence().countBygetReceiptMovementsByfileMovementId(
+			fileInMovementId);
+	}
+
+	/**
 	 * Caches the receipt movement in the entity cache if it is enabled.
 	 *
 	 * @param receiptMovement the receipt movement

@@ -404,6 +404,16 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
+	public void isActiveTrue(
+			long docFileId, long userpost, long fileMovementId,
+			String pullBackRemark, javax.portlet.ActionRequest actionRequest)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_fileMovementLocalService.isActiveTrue(
+			docFileId, userpost, fileMovementId, pullBackRemark, actionRequest);
+	}
+
+	@Override
 	public Boolean isPullBackAvailable(long fmId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

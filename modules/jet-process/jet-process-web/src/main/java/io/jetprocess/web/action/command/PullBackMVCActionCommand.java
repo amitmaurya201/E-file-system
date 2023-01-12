@@ -37,48 +37,13 @@ public class PullBackMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-
-		/*
-		 * ThemeDisplay themeDisplay = (ThemeDisplay)
-		 * actionRequest.getAttribute(WebKeys.THEME_DISPLAY); HttpSession
-		 * sessionUserPost = themeDisplay.getRequest().getSession(); String userPosts =
-		 * (String) sessionUserPost.getAttribute("userPostId"); long userpost =
-		 * Long.parseLong(userPosts);
-		 */
 		long userpost = userPostLocalSerive.getUserPostId(actionRequest);
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
 		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-		Boolean pullBackAvailable = fileMovementLocalService.isPullBackAvailable(fileMovementId);
-		if (pullBackAvailable) {
-			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			docFile.setCurrentlyWith(userpost);
-			fileMovementLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
-			docFile.setCurrentState(FileStatus.CREADTED);
-			docFileLocalService.updateDocFile(docFile);
-			boolean active = fileMovementLocalService.isActive(docFileId);
-			if (!active) {
-				docFile.setCurrentState(FileStatus.CREADTED);
-				docFileLocalService.updateDocFile(docFile);
-			}
-			SessionMessages.add(actionRequest, "pullback-available");
-		} else {
-			SessionErrors.add(actionRequest, "pullback-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
-
+		fileMovementLocalService.isActiveTrue(docFileId, userpost, fileMovementId, pullBackRemark, actionRequest);
 		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovementByFileMovementId(fileMovementId);
-		if (receiptMovementList != null) {
-			// Iterate list of receipt
-			for (ReceiptMovement receiptMovement : receiptMovementList) {
-				if (fileMovementId == receiptMovement.getFileInMovementId()) {
-					receiptMovement.setActive(false);
-					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
-				}
-
-			}
-		}
+		receiptMovementLocalService.pullBackReceiptsAttatchWithFile(receiptMovementList, fileMovementId);
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 

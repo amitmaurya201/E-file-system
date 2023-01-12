@@ -28,6 +28,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
+import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptLocalService;
@@ -177,15 +178,18 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
-		List<ReceiptMovement> receiptMovementList = getReceiptMovements(QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS);
-		for (ReceiptMovement receiptMovement : receiptMovementList) {
-			if (fileMovementId == receiptMovement.getFileInMovementId()) {
-				return receiptMovementList;
-			}
-		}
-		return receiptMovementList;
+		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence.findBygetReceiptMovementsByfileMovementId(fileMovementId);
+		System.out.println("list of receiptMovemnt-->"+receiptMovementList);
+	   return receiptMovementList;
 	}
+		/*
+		 * List<ReceiptMovement> receiptMovementList =
+		 * getReceiptMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS); for
+		 * (ReceiptMovement receiptMovement : receiptMovementList) { if (fileMovementId
+		 * == receiptMovement.getFileInMovementId()) { return receiptMovementList; } }
+		 * return receiptMovementList;
+		 */
+	
 
 	private boolean isReceiptMovementAvailable(long receiptId) {
 		List<ReceiptMovement> findByreceiptId = receiptMovementPersistence.findByreceiptId(receiptId);
@@ -234,6 +238,22 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return state;
 	}
 
+	
+	
+	public void pullBackReceiptsAttatchWithFile(List<ReceiptMovement> receiptMovementList,long fileMovementId) {
+		
+		if (receiptMovementList != null) {
+			// Iterate list of receipt
+			for (ReceiptMovement receiptMovement : receiptMovementList) {
+				if (fileMovementId == receiptMovement.getFileInMovementId()) {
+					receiptMovement.setActive(false);
+					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+				}
+
+			}
+		}
+	}
+	
 	@Reference
 	ReceiptLocalService receiptLocalService;
 
