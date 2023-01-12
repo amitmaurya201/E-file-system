@@ -102,7 +102,8 @@
 				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
-				<portlet:actionURL var="sendURL" name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND %>">
+				<portlet:actionURL var="sendReceiptURL"
+					name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND%>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
@@ -116,7 +117,8 @@
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 				</portlet:actionURL>
-				<portlet:actionURL var="receiptReadAction" name="<%= MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND %>">
+				<portlet:actionURL var="receiptReadAction"
+					name="<%=MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND%>">
 					<portlet:param name="receiptId1"
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
@@ -127,7 +129,8 @@
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptDetails">
-					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
 				</portlet:renderURL>
@@ -202,7 +205,7 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -214,7 +217,7 @@
 											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -231,8 +234,7 @@
 
 							<liferay-ui:search-container-column-text property="receiptNumber"
 								orderableProperty="receiptNumber" orderable="true"
-								href="<%=receiptDetails%>"
-								name="label-receipt-inbox-receiptno" />
+								href="<%=receiptDetails%>" name="label-receipt-inbox-receiptno" />
 
 							<liferay-ui:search-container-column-text property="subject"
 								cssClass="hover-tips" orderableProperty="subject"
@@ -270,7 +272,7 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -278,7 +280,7 @@
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -356,7 +358,8 @@
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 mb-5 border" style="background-color: white;">
+		<div class="container mt-5 mb-5 border"
+			style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">

@@ -17,6 +17,7 @@ public class MVCCommandNames {
 	public static final String EDIT_FILE_RENDER_COMMAND = "/editFile";
 	public static final String PUT_IN_FILE_RENDER_COMMAND = "/PutInFile";
 	public static final String CORRESPONCE_FILE_RENDER = "/addCorrespondence";
+//	public static final String ATTACH_FILE_CORRESPONDENCE_RENDER_COMMAND = "/AttachFileCorrespondence";
 	public static final String FILE_SEND_RENDER_COMMAND = "/fileSend";
 	public static final String FILE_SEND_ACTION_COMMAND = "/sendFile";
 	
@@ -41,6 +42,6 @@ public class MVCCommandNames {
 	public static final String RECEIPT_INBOX_RENDER_COMMAND = "/receiptInbox";
 	public static final String RECEIPT_INBOX_READ_ACTION_COMMAND = "/receiptReadAction";
 	public static final String RECEIPT_INBOX_RECEIVE_ACTION_COMMAND = "/receiptReceiveAction";
-	public static final String RECEIPT_SEND_CHECKER_ACTION_COMMAND = "/sendURL";
+	public static final String RECEIPT_SEND_CHECKER_ACTION_COMMAND = "/sendReceiptURL";
 
 }
