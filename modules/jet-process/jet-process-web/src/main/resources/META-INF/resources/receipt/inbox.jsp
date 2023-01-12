@@ -27,12 +27,12 @@
 
 .popup {
 	width: 50%;
-	height: 60%;
+	/* height: 60%; */
 }
 
 .read-popup, .receive-popup {
 	width: 30%;
-	height: 30%;
+	/* height: 30%; */
 	left: 40%;
 	background: #bcd0e7;
 }
@@ -103,7 +103,7 @@
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
 
-				<portlet:actionURL var="sendCheckerURL" name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND %>">
+				<portlet:actionURL var="sendURL" name="sendReceiptAction">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
@@ -206,7 +206,7 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendCheckerURL}"> <liferay-ui:message
+										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -218,7 +218,7 @@
 											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
-										<span><a href="${sendCheckerURL}"> <liferay-ui:message
+										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -274,7 +274,7 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendCheckerURL}"> <liferay-ui:message
+										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -282,7 +282,7 @@
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendCheckerURL}"> <liferay-ui:message
+										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -332,7 +332,7 @@
 			style="float: right; margin-top: -4%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-3">
+		<div class="container mt-3 mb-3">
 			<h3 class="text-center">Are you sure to receive?</h3>
 			<aui:form action="${receiptReceiveAction}" method="POST" name="fm"
 				style=" margin-top: -5%;">
@@ -360,7 +360,7 @@
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 border" style="background-color: white;">
+		<div class="container mt-5 mb-5 border" style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
