@@ -1,5 +1,6 @@
 package io.jetprocess.web.action.command;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -30,7 +31,12 @@ public class ReceiptSendActionCommand implements MVCActionCommand {
 		String remark = ParamUtil.getString(actionRequest, "remark");
 		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
-		receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
+		try {
+			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
+		} catch (PortalException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			actionResponse.sendRedirect(urlvalue);
 		} catch (IOException e) {

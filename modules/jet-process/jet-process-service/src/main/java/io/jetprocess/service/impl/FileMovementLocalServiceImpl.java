@@ -263,9 +263,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			docFile.setCurrentlyWith(userpost);
 			fileMovementLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
 			boolean active = fileMovementLocalService.isActive(docFileId);
-			System.out.println("active-->"+active);
 			if (active == false) {
-				System.out.println("active 2--->"+active);
 				docFile.setCurrentState(FileStatus.CREADTED);
 				docFileLocalService.updateDocFile(docFile);
 			}

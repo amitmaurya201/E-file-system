@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
+import javax.portlet.PortletException;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -43,51 +45,32 @@ import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
-			String remark) {
+			String remark) throws PortalException {
 		boolean state = isReceiptMovementAvailable(receiptId);
 		if (state == true) {
 			saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
 		} else {
 			Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
 			ReceiptMovement rm;
-
-			try {
-				rm = receiptMovementLocalService.getReceiptMovement(rmId);
-
-				if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
-					Receipt receipt;
-					try {
-						receipt = receiptLocalService.getReceipt(receiptId);
-						if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-
-							if (rm.getActive() == false) {
-								rm.setReadOn("");
-
-							} else {
-								rm.setReadOn(FileConstants.READ);
-
-							}
-
-						} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
-
-							if (rm.getActive() == false) {
-								rm.setReadOn("");
-
-							} else {
-								rm.setReceivedOn(FileConstants.RECEIVE);
-
-							}
-
-						}
-						updateReceiptMovement(rm);
-					} catch (PortalException e) {
-						logger.info(e.getMessage());
+			rm = receiptMovementLocalService.getReceiptMovement(rmId);
+			if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
+				Receipt receipt;
+				receipt = receiptLocalService.getReceipt(receiptId);
+				if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+					if (rm.getActive() == false) {
+						rm.setReadOn("");
+					} else {
+						rm.setReadOn(FileConstants.READ);
 					}
-					saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
-
+				} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
+					if (rm.getActive() == false) {
+						rm.setReadOn("");
+					} else {
+						rm.setReceivedOn(FileConstants.RECEIVE);
+					}
 				}
-			} catch (PortalException e1) {
-				logger.info(e1.getMessage());
+				updateReceiptMovement(rm);
+				saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
 			}
 		}
 	}
@@ -189,10 +172,10 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
-		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence.findBygetReceiptMovementsByfileMovementId(fileMovementId);
-	    System.out.println("list of receiptMovemnt-->"+receiptMovementList);
-	  return receiptMovementList; 
-	  }
+		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence
+				.findBygetReceiptMovementsByfileMovementId(fileMovementId);
+		return receiptMovementList;
+	}
 
 	private boolean isReceiptMovementAvailable(long receiptId) {
 		List<ReceiptMovement> findByreceiptId = receiptMovementPersistence.findByreceiptId(receiptId);
@@ -241,10 +224,8 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return state;
 	}
 
-	
-	
-	public void pullBackReceiptsAttatchWithFile(List<ReceiptMovement> receiptMovementList,long fileMovementId) {
-		
+	public void pullBackReceiptsAttatchWithFile(List<ReceiptMovement> receiptMovementList, long fileMovementId) {
+
 		if (receiptMovementList != null) {
 			// Iterate list of receipt
 			for (ReceiptMovement receiptMovement : receiptMovementList) {
@@ -256,7 +237,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			}
 		}
 	}
-	
+
 	@Reference
 	ReceiptLocalService receiptLocalService;
 

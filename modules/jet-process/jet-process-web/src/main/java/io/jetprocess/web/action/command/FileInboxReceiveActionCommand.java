@@ -36,7 +36,6 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 				SessionErrors.add(actionRequest, "receive-not-available");
 				SessionMessages.add(actionRequest,
 						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-				System.out.println("receive action command ------");
 			}
 			actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 		} catch (PortalException e) {
