@@ -385,13 +385,6 @@ public class ReceiptMovementLocalServiceUtil {
 			receiptId, receiptMovementId, remarks, userPostId);
 	}
 
-	public static void pullBackReceiptsAttatchWithFile(
-		List<ReceiptMovement> receiptMovementList, long fileMovementId) {
-
-		getService().pullBackReceiptsAttatchWithFile(
-			receiptMovementList, fileMovementId);
-	}
-
 	public static boolean saveReadMovement(long receiptId, long rmId) {
 		return getService().saveReadMovement(receiptId, rmId);
 	}

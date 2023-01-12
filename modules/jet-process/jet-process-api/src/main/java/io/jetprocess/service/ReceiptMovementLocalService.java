@@ -331,9 +331,6 @@ public interface ReceiptMovementLocalService
 			long userPostId)
 		throws PortalException;
 
-	public void pullBackReceiptsAttatchWithFile(
-		List<ReceiptMovement> receiptMovementList, long fileMovementId);
-
 	public boolean saveReadMovement(long receiptId, long rmId);
 
 	public boolean saveReceiveMovement(long receiptId, long rmId);
