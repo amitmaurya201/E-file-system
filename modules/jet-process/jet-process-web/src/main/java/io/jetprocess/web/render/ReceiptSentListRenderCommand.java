@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -34,12 +36,12 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		addFileListAttributes(renderRequest);
-		addFileToolbarAttributes(renderRequest, renderResponse);
+		setReceiptSentListAttributes(renderRequest);
+		setReceiptSentToolbarAttributes(renderRequest, renderResponse);
 		return "/receipt/sent_list.jsp";
 	}
 
-	private void addFileListAttributes(RenderRequest renderRequest) {
+	private void setReceiptSentListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
@@ -58,30 +60,14 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
 		}
-		if (delta != preDelta) {
-			if (delta * currentPage > count) {
-				if (delta * (currentPage - 1) > count) {
-					currentPage = getCurrentPage(currentPage, preDelta, count);
-				}
-				start = delta * (currentPage - 1);
-			} else if (delta < preDelta) {
-				start = delta * (currentPage - 1);
-			} else {
-				start = 0;
+		if(delta !=preDelta) {
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+			start=paginationConfig.get("start");
+			currentPage=paginationConfig.get("currentPage");
+			
 			}
-		} else if (delta * (currentPage - 1) > count) {
-			currentPage = getCurrentPage(currentPage, preDelta, count);
-			start = delta * (currentPage - 1);
-		}
-		if (start < 0) {
-			start = 0;
-		}
-		if (delta == count) {
-			start = 0;
-		}
 
 		session.setAttribute("oldDelta", "" + delta + "");
-//		List<ReceiptMovementDTO> receiptList = masterdataLocalService.getReceiptSendList(userPost, keywords, start, end,orderByCol, orderByType);
 		List<ReceiptMovementDTO> receiptList = _receiptList.getReceiptSentList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
 		receiptList.forEach(c -> System.out.println(c));
@@ -90,23 +76,13 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("delta", delta);
 	}
 
-	private static int getCurrentPage(int currentPage, int delta, int count) {
-		currentPage = currentPage - 1;
-
-		if (delta * currentPage < count) {
-			return currentPage;
-		} else {
-			return getCurrentPage(currentPage, delta, count);
-		}
-	}
-
 	/**
 	 * Adds Clay management toolbar context object to the request.*
 	 * 
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setReceiptSentToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		SendReceiptManagementToolbarDisplayContext sendReceiptManagementToolbarDisplayContext = new SendReceiptManagementToolbarDisplayContext(
