@@ -121,7 +121,7 @@
 </div>
 
 <portlet:actionURL var="receiptSentActionURL"
-	name="<%=MVCCommandNames.RECEIPT_SENT_ACTION_COMMAND%>" />
+	name="<%=MVCCommandNames.PULL_BACK_RECEIPT_ACTION_COMMAND%>" />
 
 <!-- pull_back pop up -->
 <div id="pull_back" class="pull_back-popup">
