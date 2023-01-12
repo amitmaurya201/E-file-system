@@ -103,7 +103,7 @@
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
 
-				<portlet:actionURL var="sendURL" name="sendReceiptAction">
+				<portlet:actionURL var="sendCheckerURL" name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND %>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
@@ -206,7 +206,7 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendCheckerURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -218,7 +218,7 @@
 											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendCheckerURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -274,7 +274,7 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendCheckerURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>
@@ -282,7 +282,7 @@
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<span><a href="${sendCheckerURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span>
 									</liferay-ui:search-container-column-text>

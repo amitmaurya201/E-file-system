@@ -25,6 +25,7 @@ public class MVCCommandNames {
 	public static final String RECEIPT_MOVEMENT_RENDER_COMMAND = "/receiptMovement";
 	public static final String RECEIPT_SEND_RENDER_COMMAND = "/sendReceipt";
 	public static final String RECEIPT_SEND_ACTION_COMMAND = "/sendReceiptAction";
+	public static final String RECEIPT_SEND_CHECKER_ACTION_COMMAND = "/sendCheckerURL";
 	public static final String EDIT_RECEIPT_RENDER_COMMAND = "/editReceipt";
 
 	// -for sent receipt and file
@@ -35,6 +36,8 @@ public class MVCCommandNames {
 
 	// -for inbox receipt and file
 	public static final String FILE_INBOX_RENDER_COMMAND = "/fileInbox";
+	public static final String FILE_INBOX_READ_ACTION_COMMAND = "/fileReadAction";
+	public static final String FILE_INBOX_RECEIVE_ACTION_COMMAND = "/fileReceiveAction";
 	public static final String RECEIPT_INBOX_RENDER_COMMAND = "/receiptInbox";
 	public static final String RECEIPT_INBOX_READ_ACTION_COMMAND = "/receiptReadAction";
 	public static final String RECEIPT_INBOX_RECEIVE_ACTION_COMMAND = "/receiptReceiveAction";
