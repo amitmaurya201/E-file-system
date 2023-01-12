@@ -19,23 +19,20 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.constant.util.JetProcessConstants;
+
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorr;
 import io.jetprocess.model.FileMovement;
-import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrLocalService;
@@ -89,7 +86,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 						DocFile docFile;
 						try {
 							docFile = docFileLocalService.getDocFile(fileId);
-							if (docFile.getNature().equals("Electronic")) {
+							if (docFile.getNature().equals(JetProcessConstants.ELECTRONIC_NATURE)) {
 
 								if (!fm.getReceivedOn().isEmpty() || !fm.getReadOn().isEmpty()) {
 
@@ -109,7 +106,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 									}
 								}
 
-							} else if (docFile.getNature().equals("Physical")) {
+							} else if (docFile.getNature().equals(JetProcessConstants.PHYSICAL_NATURE)) {
 
 								if (!fm.getReceivedOn().isEmpty() || !fm.getReadOn().isEmpty()) {
 

@@ -23,13 +23,13 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.masterdata.model.ReceiptMovementDTO;
+import io.jetprocess.core.constant.util.JetProcessConstants;
+
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
@@ -64,7 +64,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 						Receipt receipt;
 						try {
 							receipt = receiptLocalService.getReceipt(receiptId);
-							if (receipt.getNature().equals("Electronic")) {
+							if (receipt.getNature().equals(JetProcessConstants.ELECTRONIC_NATURE)) {
 
 								if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
 
@@ -78,7 +78,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 								}
 
-							} else if (receipt.getNature().equals("Physical")) {
+							} else if (receipt.getNature().equals(JetProcessConstants.PHYSICAL_NATURE)) {
 
 								if (!rm.getReceivedOn().isEmpty() || !rm.getReadOn().isEmpty()) {
 
