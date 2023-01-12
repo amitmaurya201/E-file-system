@@ -1,6 +1,6 @@
 <%@page import="io.jetprocess.model.DocFile"%>
 <%@ include file="../init.jsp"%>
-
+<%@ include file="/common/common.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -53,7 +53,7 @@ width: 100%;
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<span class="hover-tips"><%=firstChar%> | <%=docFile.getFileNumber()%></span>
+			<div class="hover-tips"><%=firstChar%> | <%=docFile.getFileNumber()%></div>
 		</div>
 		<aui:container cssClass="row">
 			<aui:form action="${sendFile}" cssClass="border border-dark col-6" style="padding: 1% !important">

@@ -1,6 +1,6 @@
 <%@page import="io.jetprocess.model.Receipt"%>
 <%@ include file="../init.jsp"%>
-
+<%@ include file="/common/common.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -50,7 +50,7 @@ width: 100%;
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<span class="hover-tips"><%=firstChar%></span><span>| ${receipt.receiptNumber} </span>
+			<div class="hover-tips"><%=firstChar%> | ${receipt.receiptNumber} </div>
 		</div>
 
 		<aui:container cssClass="row">
