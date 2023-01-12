@@ -41,7 +41,7 @@ width: 100%;
 			<liferay-util:param name="selectedNav" value="send" />
 		</liferay-util:include>
 
-		<portlet:actionURL name="sendReceipt" var="send" />
+		<portlet:actionURL name="<%= MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND %>" var="sendReceiptAction" />
 
 
 		<%
@@ -54,7 +54,7 @@ width: 100%;
 		</div>
 
 		<aui:container cssClass="row">
-			<aui:form action="${send}" cssClass="border border-dark col-6" style="padding: 1% !important"> 
+			<aui:form action="${sendReceiptAction}" cssClass="border border-dark col-6" style="padding: 1% !important"> 
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>receiptId"

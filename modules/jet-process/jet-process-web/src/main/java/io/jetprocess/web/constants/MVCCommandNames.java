@@ -18,11 +18,13 @@ public class MVCCommandNames {
 	public static final String PUT_IN_FILE_RENDER_COMMAND = "/PutInFile";
 	public static final String CORRESPONCE_FILE_RENDER = "/addCorrespondence";
 	public static final String FILE_SEND_RENDER_COMMAND = "/fileSend";
-
+	public static final String FILE_SEND_ACTION_COMMAND = "/sendFile";
+	
 	// --for inner view of receipt
 	public static final String RECEIPT_DETAILS_RENDER_COMMAND = "/receiptDetails";
 	public static final String RECEIPT_MOVEMENT_RENDER_COMMAND = "/receiptMovement";
 	public static final String RECEIPT_SEND_RENDER_COMMAND = "/sendReceipt";
+	public static final String RECEIPT_SEND_ACTION_COMMAND = "/sendReceiptAction";
 	public static final String EDIT_RECEIPT_RENDER_COMMAND = "/editReceipt";
 
 	// -for sent receipt and file

@@ -43,7 +43,7 @@ width: 100%;
 		</liferay-util:include>
 
 
-		<portlet:actionURL name="sendFile" var="send" />
+		<portlet:actionURL name="<%= MVCCommandNames.FILE_SEND_ACTION_COMMAND %>" var="sendFile" />
 
 		<%
 			//DocFile docFile = (DocFile) session.getAttribute("DocFile"); 
@@ -56,7 +56,7 @@ width: 100%;
 			<span class="hover-tips"><%=firstChar%> | <%=docFile.getFileNumber()%></span>
 		</div>
 		<aui:container cssClass="row">
-			<aui:form action="${send}" cssClass="border border-dark col-6" style="padding: 1% !important">
+			<aui:form action="${sendFile}" cssClass="border border-dark col-6" style="padding: 1% !important">
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>fileId"
