@@ -21,7 +21,7 @@
 			String setURl = serviceContext.getPortalURL();
 		%>
 		<portlet:renderURL var="FileList">
-			<portlet:param name="mvcRenderCommandName" value="/createdFileList" />
+			<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND %>" />
 		</portlet:renderURL>
 
 		<div class="container">

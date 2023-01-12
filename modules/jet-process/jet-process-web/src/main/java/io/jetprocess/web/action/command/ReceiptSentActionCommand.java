@@ -15,8 +15,6 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -24,7 +22,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.init-param.add-process-action-success-action=false",
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.RECEIPT_SENT_ACTION_COMMAND }, service = MVCActionCommand.class)
+		"mvc.command.name=" + MVCCommandNames.PULL_BACK_RECEIPT_ACTION_COMMAND }, service = MVCActionCommand.class)
 public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 
 	@Override
