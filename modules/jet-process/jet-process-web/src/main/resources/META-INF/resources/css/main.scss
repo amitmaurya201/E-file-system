@@ -67,7 +67,8 @@
 }
 
 .lfr-search-container .table{
-	width: 100%;
+	max-width: 100%;
+    min-width: max-content;
 }
 
 .table-sort-liner{
