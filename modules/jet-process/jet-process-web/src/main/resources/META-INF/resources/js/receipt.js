@@ -312,6 +312,10 @@ $("#<portlet:namespace />update").on('click', function(e){
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
     var dmFileId = '${receipt.dmFileId}';
+	var nature= $('#<portlet:namespace/>nature').val(); 
+	var docInput = $("#doc-input").val().length;
+	var uploadPdfSizeCss =$("#sizeValidation").css('display');
+	var uploadFileErrorCss = $("#error").css('display');
     jsonData["userPostId"] = userPostId;
 	if(tempFileId!=0){
 		jsonData["tempFileId"] = tempFileId; 
@@ -319,9 +323,26 @@ $("#<portlet:namespace />update").on('click', function(e){
     else{
     	jsonData["tempFileId"] = 0;
     }
+	
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
+    	if(nature =='Electronic' && docInput==0 && uploadFileErrorCss=='block' ){
+    		swal({  
+    			title: " Oops!",  
+    			  	text: "Required field should not be empty!",  
+    			  	icon: "error",
+    		}); 
+    		return false;
+    	}
+    	if(uploadPdfSizeCss=='block'){
+    		swal({  
+    			title: " Oops!",  
+    			  	text: "Required field should not be empty!",  
+    			  	icon: "error",
+    		}); 
+    		return false;
+    	}
     	/*if(!mySeletedNature()){*/
     		$.ajax({
     			type: "PUT",
@@ -359,6 +380,11 @@ $("#<portlet:namespace />update").on('click', function(e){
     }
     	
     else{
+    	swal({  
+			title: " Oops!",  
+			  	text: "Required field should not be empty!",  
+			  	icon: "error",
+		}); 
     	return false;
     }
 });
@@ -445,7 +471,7 @@ function displayPreview(file){
 function validateSize(file) {
 	const fileSize = file.size ;
 	if (fileSize > 1024*1024* 25) {
-		$("#error").remove();
+		$("#error").hide();
 	    $('.dropzone-wrapper').append('<p id="sizeValidation" class="text-danger" >Size must be less then 25MB</p>');
 	}else {
 		$("#sizeValidation").remove();
