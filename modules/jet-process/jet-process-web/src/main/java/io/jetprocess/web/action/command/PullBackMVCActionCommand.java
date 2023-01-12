@@ -43,7 +43,7 @@ public class PullBackMVCActionCommand extends BaseMVCActionCommand {
 		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
 		fileMovementLocalService.isActiveTrue(docFileId, userpost, fileMovementId, pullBackRemark, actionRequest);
 		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovementByFileMovementId(fileMovementId);
-	//	receiptMovementLocalService.pullBackReceiptsAttatchWithFile(receiptMovementList, fileMovementId);
+		receiptMovementLocalService.pullBackReceiptsAttatchWithFile(receiptMovementList, fileMovementId);
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 

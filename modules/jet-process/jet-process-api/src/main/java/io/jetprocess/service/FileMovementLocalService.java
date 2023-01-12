@@ -39,6 +39,8 @@ import java.io.Serializable;
 
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -319,6 +321,12 @@ public interface FileMovementLocalService
 	public Boolean isActive(long docFileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public void isActiveTrue(
+			long docFileId, long userpost, long fileMovementId,
+			String pullBackRemark, ActionRequest actionRequest)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isPullBackAvailable(long fmId) throws PortalException;
 
 	public boolean pullBackedAlready(long fmId) throws PortalException;
@@ -327,9 +335,11 @@ public interface FileMovementLocalService
 			long fileId, long fileMovementId, String remarks)
 		throws PortalException;
 
-	public boolean saveReadMovement(long fileId, long fmId) throws PortalException;
+	public boolean saveReadMovement(long fileId, long fmId)
+		throws PortalException;
 
-	public boolean saveReceiveMovement(long fileId, long fmId) throws PortalException;
+	public boolean saveReceiveMovement(long fileId, long fmId)
+		throws PortalException;
 
 	/**
 	 * create save send file method
@@ -340,11 +350,12 @@ public interface FileMovementLocalService
 	 * @param priority
 	 * @param dueDate
 	 * @param remark
-	 * @throws PortalException 
+	 * @throws PortalException
 	 */
 	public void saveSendFile(
-		long receiverId, long senderId, long fileId, String priority,
-		String dueDate, String remark) throws PortalException;
+			long receiverId, long senderId, long fileId, String priority,
+			String dueDate, String remark)
+		throws PortalException;
 
 	/**
 	 * Updates the file movement in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
