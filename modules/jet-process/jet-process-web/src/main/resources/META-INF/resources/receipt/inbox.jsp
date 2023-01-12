@@ -102,14 +102,12 @@
 				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
-
-				<portlet:actionURL var="sendURL" name="sendReceiptAction">
+				<portlet:actionURL var="sendURL" name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND %>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
-
 
 				<portlet:actionURL var="receiptReceiveAction"
 					name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND%>">
@@ -187,8 +185,6 @@
 							<liferay-ui:search-container-column-text cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" />
-
-
 
 							<liferay-ui:search-container-column-text property="dueDate"
 								cssClass="bold"

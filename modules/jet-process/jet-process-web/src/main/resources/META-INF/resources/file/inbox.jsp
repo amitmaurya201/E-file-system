@@ -10,15 +10,14 @@
 <%@ include file="/common/common.jsp"%>
 
 <%
-String backURL = themeDisplay.getURLCurrent();
+	String backURL = themeDisplay.getURLCurrent();
 
-String backURL1 = backURL+"&a=12";
-/* String status = ParamUtil.getString(renderRequest, "status");
-String result = ParamUtil.getString(renderRequest, "result");
-
-String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
-String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
-
+	String backURL1 = backURL + "&a=12";
+	/* String status = ParamUtil.getString(renderRequest, "status");
+	String result = ParamUtil.getString(renderRequest, "result");
+	
+	String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
+	String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 %>
 
 
@@ -40,12 +39,12 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 
 .popup {
 	width: 50%;
-	/* height: 50%; */
+	height: 50%;
 }
 
 .read-popup, .receive-popup {
 	width: 30%;
-	/* height: 30%; */
+	height: 30%;
 	left: 40%;
 	background: #bcd0e7;
 }
@@ -119,37 +118,26 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 				className="io.jetprocess.list.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
-
-
-<portlet:actionURL var="sendURL" name="sendFileAction">
+				<portlet:actionURL var="sendURL" name="<%= MVCCommandNames.FILE_SEND_CHECKER_ACTION_COMMAND %>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
 
-				<%-- <portlet:renderURL var="sendURL">
-					<portlet:param name="mvcRenderCommandName"
-						value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
-					<portlet:param name="docFileId"
-						value="${fileinboxDtoList.getFileId()}" />
-						 <portlet:param name="backPageURL" value="<%=backURL1 %>"></portlet:param>						
-						
-				</portlet:renderURL>
- --%>
-				<portlet:actionURL name="fileReceiveAction" var="fileReceiveAction">
+				<portlet:actionURL var="fileReceiveAction" name="<%= MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND %>">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
-              <portlet:param name="fmId" value="${fileinboxDtoList.getFileMovementId()}" />
-						
+					<portlet:param name="fmId"
+						value="${fileinboxDtoList.getFileMovementId()}" />
+
 				</portlet:actionURL>
-				<portlet:actionURL name="fileReadAction" var="fileReadAction">
+				<portlet:actionURL var="fileReadAction" name="<%= MVCCommandNames.FILE_INBOX_READ_ACTION_COMMAND %>">
 					<portlet:param name="fileId1"
 						value="${fileinboxDtoList.getFileId()}" />
-                         <portlet:param name="fmId" value="${fileinboxDtoList.getFileMovementId()}" />
-                        <portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-                         
-                        
+					<portlet:param name="fmId"
+						value="${fileinboxDtoList.getFileMovementId()}" />
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
@@ -161,10 +149,6 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
-				<%
-					SimpleDateFormat simpleformat1 = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-							simpleformat1.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-				%>
 
 				<c:choose>
 					<c:when
@@ -175,7 +159,6 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 							<liferay-ui:search-container-column-text name="" cssClass="bold">
 								<%=fileinboxDtoList.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
-
 							<c:choose>
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
@@ -191,10 +174,8 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 										value="<%=fileinboxDtoList.getFileNumber() != null
 												? fileinboxDtoList.getFileNumber()
 												: ""%>" />
-
 								</c:otherwise>
 							</c:choose>
-
 							<liferay-ui:search-container-column-text orderable="true"
 								orderableProperty="subject"
 								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
@@ -210,8 +191,6 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 									onclick=" showModal(<%=senderId%>)"><%=fileinboxDtoList.getSentBy()%></a>
 
 							</liferay-ui:search-container-column-text>
-
-
 
 							<liferay-ui:search-container-column-text
 								value="<%=fileinboxDtoList.getSentOn() != null
@@ -232,14 +211,9 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
-										<%-- <span><a href="#" class="button open"
-											onclick="readModal(${fileinboxDtoList.getFileId()})"> <liferay-ui:message
-													key="label-file-inbox-action-read" />
-										</a></span>&nbsp;	 --%>
 										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span>
-
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -252,11 +226,9 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 											<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span>
-
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
-
 						</c:if>
 						<c:if
 							test="${fileinboxDtoList.getReadOn()!=null || fileinboxDtoList.getReceivedOn()!=null}">
@@ -274,8 +246,8 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 								name="File number" />
 							<liferay-ui:search-container-column-text
 								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
-								orderableProperty="subject" orderable="true" name="label-file-inbox-subject"
-								cssClass="hover-tips" />
+								orderableProperty="subject" orderable="true"
+								name="label-file-inbox-subject" cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
 								<%
@@ -285,9 +257,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 								%>
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=fileinboxDtoList.getSentBy()%></a>
-
 							</liferay-ui:search-container-column-text>
-
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
@@ -309,7 +279,6 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span>
-
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -318,61 +287,32 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 										<span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span>
-
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
 						</c:if>
-
 					</c:when>
-
 					<c:otherwise>
 					</c:otherwise>
 				</c:choose>
-
-
 			</liferay-ui:search-container-row>
-
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
-
-
 		</liferay-ui:search-container>
-
 	</div>
-
 </div>
-<%-- 
-<% if(status.equalsIgnoreCase("error")){ %>
-		 <div class="alert alert-danger alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><%= result %></strong>
-  </div>
-		<%} %>
-
-<% if(receiveStatus.equalsIgnoreCase("error")){ %>
-		 <div class="alert alert-danger alert-dismissible" id="error-alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong><%= receiveResult %></strong>
-  </div>
-		<%} %>
- --%>
 
 <div class="ml-3" id="alert-receive-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="receive-not-available"
 		message="You can not Receive this File " />
 </div>
-<%-- 
-<liferay-ui:success key="read-available"
-	message="receipt-read-inbox-success" /> --%>
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="read-not-available"
 		message="You can not Read this File" />
 </div>
-
 
 <liferay-ui:success key="send-available"
 	message="file-send-inbox-success" />
@@ -391,14 +331,13 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 			style="float: right; margin-top: -4%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-3 mb-3">
+		<div class="container mt-3">
 			<h3 class="text-center">Are you sure to receive?</h3>
 			<aui:form action="${fileReceiveAction}" method="POST" name="fm">
 				<!-- <text>Receipt Number </text> -->
-				<input type="text"  name='<portlet:namespace/>fileId'
+				<input type="text" name='<portlet:namespace/>fileId'
 					id="file-receive-fileId" hidden />
-						<input type="text"  name='<portlet:namespace/>fmId'
-					id="fmId" hidden />
+				<input type="text" name='<portlet:namespace/>fmId' id="fmId" hidden />
 				<button class="mt-3 btn btn-primary" type="submit"
 					style="width: 90px;">Receive</button>
 				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
@@ -406,27 +345,6 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 		</div>
 	</div>
 </div>
-
-<!-- Read pop up -->
-<%-- <div id="file-read" class="read-popup">
-	<!--   Creates the popup content-->
-	<div class="">
-		<button type="button" class="close" data-dismiss="modal"
-			aria-label="Close"
-			style="float: right; margin-top: -6%; margin-right: -2%; font-size: 25px;">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<div class="container mt-3">
-			<h3 class="text-center">Are you sure to read ?</h3>
-			<aui:form action="${fileReadAction}" method="POST" name="fm">
-				<text>Receipt Number </text>
-				<input type="text" readonly name='<portlet:namespace/>fileId1'
-					id="file-read-fileId" />
-				<button class="mt-3 btn btn-success" type="submit">Read</button>
-			</aui:form>
-		</div>
-	</div>
-</div> --%>
 
 <!--popup code start  -->
 <!--Creates the popup body-->
@@ -438,8 +356,7 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 			style="float: right; margin-top: -7%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<div class="container mt-5 mb-5 border"
-			style="background-color: white;">
+		<div class="container mt-5 border" style="background-color: white;">
 			<div class="row ">
 				<div class="col-6">
 					<table class="tableSender">
@@ -486,7 +403,6 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 <script type="text/javascript">
 
  function receiveModal(fileId,fmId){
-	 
 	document.getElementById("file-receive-fileId").value=fileId;
 	document.getElementById("fmId").value=fmId;
 	$("#file-receive").addClass("active");
@@ -495,26 +411,12 @@ String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 		$("#file-receive").removeClass("active");
 		  $("#file_inbox").removeClass("active");
 		});
-
-		
 	}
 
  /* auto close alert */
- 
 $("#error-alert").fadeTo(2000, 500).slideUp(500, function(){
     $("#error-alert").slideUp(500);
 });
- 
-/* function readModal(fileId){
-	
-	document.getElementById("file-read-fileId").value=fileId;
-	$("#file-read").addClass("active");
-	$(".close").on("click", function() {
-		  $("#file-read").removeClass("active");
-		});
-
-		
-	} */
 
 	/* Remove read error  message */
 $("#alert-read-remove").fadeTo(2000, 700).slideUp(700, function(){
@@ -538,8 +440,6 @@ function showModal(id){
 			    userPostId: id
 			},
 			function(obj) {
-			    console.log(obj);
-							
 				var name=document.getElementById("name");
 				var marking=document.getElementById("marking");
 				var section=document.getElementById("section");
@@ -561,7 +461,6 @@ function showModal(id){
 				design.append(obj.designation);
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
-				
 			}
 			);
 	$("#sender-dtls").addClass("active");
@@ -570,11 +469,7 @@ function showModal(id){
 		  $("#sender-dtls").removeClass("active");
 		  $("#file_inbox").removeClass("active");
 		});
-
-		
 	}
-
-
 </script>
 
 <!--end  -->
