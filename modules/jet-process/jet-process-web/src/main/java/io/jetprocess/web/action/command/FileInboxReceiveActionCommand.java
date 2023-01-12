@@ -1,5 +1,6 @@
 package io.jetprocess.web.action.command;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -27,17 +28,24 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 		long fileId = ParamUtil.getLong(actionRequest, "fileId");
 		long fmId = ParamUtil.getLong(actionRequest, "fmId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
-		boolean state = fileMovementLocalService.saveReceiveMovement(fileId, fmId);
-		if (state == false) {
-			SessionErrors.add(actionRequest, "receive-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-			System.out.println("receive action command ------");
+		boolean state;
+		try {
+			state = fileMovementLocalService.saveReceiveMovement(fileId, fmId);
+
+			if (state == false) {
+				SessionErrors.add(actionRequest, "receive-not-available");
+				SessionMessages.add(actionRequest,
+						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+				System.out.println("receive action command ------");
+			}
+			actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 		return false;
 	}
-	
+
 	@Reference
 	private FileMovementLocalService fileMovementLocalService;
 }
