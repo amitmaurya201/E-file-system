@@ -13,6 +13,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -55,89 +57,44 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 
 	private void setReceiptMovementList(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
-		// Resolve start and end for the search.
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		HttpSession session = themeDisplay.getRequest().getSession(); 
-		
-		
 
 		int count=receiptList.getReceiptMovementListCount(receiptId, "");
 		int preDelta=0;
-		String d=(String) session.getAttribute("oldDelta");
+		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
 			preDelta=Integer.parseInt(d);
-			
 		}
 		if(delta !=preDelta) {
-			if(delta*currentPage  > count) {
-				if(delta*(currentPage-1)  > count) {
-					currentPage = getCurrentPage(currentPage, preDelta, count);
-				}
-				start = delta*(currentPage-1);
-			} else if(delta <preDelta) {
-					start = delta*(currentPage-1);
-			}else {
-				
-				start=0;
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+			start=paginationConfig.get("start");
+			currentPage=paginationConfig.get("currentPage");
 			}
-			
-		} else if(delta*(currentPage-1)  > count) {
-			currentPage = getCurrentPage(currentPage, preDelta, count);
-			start = delta*(currentPage-1);
-		}
-		
-		if(start < 0) {
-			start = 0;
-		}
-
-		if(delta == count) {
-			start = 0;
-		}
-		session.setAttribute("oldDelta", ""+delta+"");
+		session.setAttribute("preDelta", ""+delta+"");
 		
 		if(receiptId != 0) {
-			//receiptMovementList = masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
 			receiptMovementList = 	receiptList.getReceiptMovementList(receiptId, "", start, end, "", "");
-	       System.out.println("Running Sucessfully----ReceiptMovementRenderCommand");
 		}
 		
 		if(receiptMovementList != null) {
 			renderRequest.setAttribute("receiptMovementList", receiptMovementList);
 		}
-		System.out.println("----------------> count of receipt movement : "+receiptList.getReceiptMovementListCount(receiptId, ""));
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("receiptMovementCount",+count);
 		
 	}
 
-	
-	
-	private static int getCurrentPage(int currentPage, int delta, int count) {
-		currentPage = currentPage-1;
-		
-		if(delta*currentPage  < count) {
-			return currentPage;
-		} else {
-			return getCurrentPage(currentPage, delta, count);
-		}
-	
-}
-	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
-	
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
-	
 	@Reference
 	private Portal portal;
-
 	@Reference
 	ReceiptList receiptList;
 }
