@@ -437,12 +437,16 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
-	public boolean saveReadMovement(long fileId, long fmId) {
+	public boolean saveReadMovement(long fileId, long fmId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _fileMovementLocalService.saveReadMovement(fileId, fmId);
 	}
 
 	@Override
-	public boolean saveReceiveMovement(long fileId, long fmId) {
+	public boolean saveReceiveMovement(long fileId, long fmId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _fileMovementLocalService.saveReceiveMovement(fileId, fmId);
 	}
 
@@ -455,11 +459,13 @@ public class FileMovementLocalServiceWrapper
 	 * @param priority
 	 * @param dueDate
 	 * @param remark
+	 * @throws PortalException
 	 */
 	@Override
 	public void saveSendFile(
-		long receiverId, long senderId, long fileId, String priority,
-		String dueDate, String remark) {
+			long receiverId, long senderId, long fileId, String priority,
+			String dueDate, String remark)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_fileMovementLocalService.saveSendFile(
 			receiverId, senderId, fileId, priority, dueDate, remark);

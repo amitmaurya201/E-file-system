@@ -3,8 +3,6 @@ package io.jetprocess.web.action.command;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.io.IOException;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -16,8 +14,7 @@ import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(immediate = true, property = {
-		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.FILE_SEND_ACTION_COMMAND }, service = MVCActionCommand.class)
 public class FileSendActionCommand implements MVCActionCommand {
 
@@ -33,10 +30,10 @@ public class FileSendActionCommand implements MVCActionCommand {
 		String remark = ParamUtil.getString(actionRequest, "remark");
 		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
-		fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 		try {
+			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 			actionResponse.sendRedirect(urlvalue);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;

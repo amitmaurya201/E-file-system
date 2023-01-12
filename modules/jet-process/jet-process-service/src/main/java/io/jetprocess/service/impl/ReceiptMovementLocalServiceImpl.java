@@ -189,28 +189,10 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
-<<<<<<< HEAD
 		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence.findBygetReceiptMovementsByfileMovementId(fileMovementId);
-		System.out.println("list of receiptMovemnt-->"+receiptMovementList);
-	   return receiptMovementList;
-=======
-		List<ReceiptMovement> receiptMovementList = getReceiptMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-		for (ReceiptMovement receiptMovement : receiptMovementList) {
-			if (fileMovementId == receiptMovement.getFileInMovementId()) {
-				return receiptMovementList;
-			}
-		}
-		return receiptMovementList;
->>>>>>> 79fd0c727d6ff4b7945a73096c2973e288be9963
-	}
-		/*
-		 * List<ReceiptMovement> receiptMovementList =
-		 * getReceiptMovements(QueryUtil.ALL_POS, QueryUtil.ALL_POS); for
-		 * (ReceiptMovement receiptMovement : receiptMovementList) { if (fileMovementId
-		 * == receiptMovement.getFileInMovementId()) { return receiptMovementList; } }
-		 * return receiptMovementList;
-		 */
-	
+	    System.out.println("list of receiptMovemnt-->"+receiptMovementList);
+	  return receiptMovementList; 
+	  }
 
 	private boolean isReceiptMovementAvailable(long receiptId) {
 		List<ReceiptMovement> findByreceiptId = receiptMovementPersistence.findByreceiptId(receiptId);
