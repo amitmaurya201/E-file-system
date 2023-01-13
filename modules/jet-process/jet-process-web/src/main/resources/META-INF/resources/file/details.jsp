@@ -1,10 +1,4 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="io.jetprocess.model.DocFile"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
 
 <style>
 .file-dtls th {
@@ -30,13 +24,10 @@
 	</div>
 	<div class="col-10">
 
-
 		<liferay-util:include page="/file/file-view-nav.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="details" />
 		</liferay-util:include>
-
-
 
 		<%
 			DocFile docFile = (DocFile) request.getAttribute("DocFile");
@@ -69,55 +60,43 @@
 			}
 		%>
 
-
-
 		<%
 			String type = (String) docFile.getNature();
 			char firstChar = type.charAt(0);
 		%>
-		
+
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%> |  <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></div>
+			<div class="hover-tips"><%=firstChar%>
+				|
+				<%=docFile.getFileNumber()%>
+				|
+				<%=docFile.getSubject()%></div>
 		</div>
-
-		<%-- <div class="container-fluid m-1" style="background-color: #E8E8E8;">
-			<span style="font-weight: 500"><liferay-ui:message
-					key="file-details-heading" /></span><br />
-		</div> --%>
-
 
 		<div class="row mt-2 p-2 border border-dark">
 			<div class="col-6">
 				<table class="mt-2 file-dtls">
-
 					<tr>
 						<th class=""><liferay-ui:message key="label-file-fileno" />:</th>
 						<td class=""><%=docFile.getFileNumber()%></td>
-
 					</tr>
-
 					<tr>
 						<th><liferay-ui:message key="label-file-reference" />:</th>
 						<td><%=docFile.getReference()%></td>
-
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-subject" />:</th>
 						<td><%=docFile.getSubject()%></td>
-
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-remark" />:</th>
 						<td><%=docFile.getRemarks()%></td>
-
 					</tr>
-
 				</table>
 			</div>
 
 			<div class="col-6">
 				<table class="mt-2 file-dtls">
-
 					<tr>
 						<th class="category"><liferay-ui:message
 								key="label-file-categoryid" />:</th>
@@ -129,15 +108,14 @@
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-sub-categoryid" />:</th>
-						<td><%= subCategoryValue !=null ? subCategoryValue : "" %></td>
+						<td><%=subCategoryValue != null ? subCategoryValue : ""%></td>
 					</tr>
 					<tr>
 						<th><liferay-ui:message key="label-file-nature-type" />:</th>
 						<td><%=docFile.getType()%></td>
 					</tr>
-
 				</table>
 			</div>
 		</div>
-		</div>
+	</div>
 </div>

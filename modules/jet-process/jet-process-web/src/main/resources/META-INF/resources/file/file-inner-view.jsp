@@ -1,17 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
-<%@page import="io.jetprocess.model.DocFile"%>
+
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
-
-  String currURL = (String)request.getAttribute("CurrentURL");
-  
-  session.setAttribute("currentURL", currURL);
-
+	String currURL = (String) request.getAttribute("CurrentURL");
+	session.setAttribute("currentURL", currURL);
 %>
-
-	
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -23,7 +16,11 @@
 			<liferay-util:param name="selectedNav" value="putinfile" />
 		</liferay-util:include>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=docFile.getNature().charAt(0)%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%></div>
+			<div class="hover-tips"><%=docFile.getNature().charAt(0)%>
+				|
+				<%=docFile.getFileNumber()%>
+				|
+				<%=docFile.getSubject()%></div>
 		</div>
 		<div class="container row">
 
@@ -41,10 +38,7 @@
 				<div class="col-12">
 					<%@include file="/file/correspondence-list.jsp"%>
 				</div>
-
 			</c:if>
-
-
 		</div>
 	</div>
 </div>

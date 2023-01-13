@@ -1,12 +1,4 @@
-<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
-<%@page import="java.util.List"%>
 <%@ include file="../init.jsp"%>
-
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page
-	import="io.jetprocess.masterdata.service.UserPostLocalServiceUtil"%>
-<%@ page import="io.jetprocess.masterdata.model.UserPost"%>
 
 <style>
 .border a {

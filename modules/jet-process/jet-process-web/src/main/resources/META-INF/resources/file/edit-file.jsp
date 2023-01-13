@@ -1,13 +1,4 @@
-
-<%@page import="io.jetprocess.model.DocFile"%>
-<%@page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-<%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
-
 <%@ include file="../init.jsp"%>
-
-
-<%@ include file="/common/common.jsp"%>
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -36,7 +27,6 @@
 		%>
 		<div class="container">
 			<div class="card">
-
 				<aui:form name="updateformId" onSubmit="editFile(event)">
 					<div class="card-body">
 						<div class="row">
@@ -91,7 +81,6 @@
 														</div>
 													</div>
 												</div>
-
 
 												<%
 													if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
@@ -179,28 +168,19 @@
 												<%
 													}
 												%>
-
-
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
-
 						<div class="row">
 							<div class="container">
 								<aui:fieldset cssClass="scheduler-border col-md-12">
 									<div class="row">
 										<aui:fieldset cssClass="scheduler-border col-md-12">
-											<!-- <legend class="child-scheduler-border">
-											Subject<span class='text-danger'>*</span>
-										</legend> -->
-
-
 											<aui:input cssClass="form-control" type="text" name="subject"
-												value="<%=docFile.getSubject()%>" id="subject" 
+												value="<%=docFile.getSubject()%>" id="subject"
 												label="label-file-subject">
 												<aui:validator name="required" />
 												<aui:validator name="maxLength">
@@ -211,7 +191,6 @@
 									</div>
 									<div class="row" style="margin-left: -15px !important;">
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
-											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
 												<%
 													if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
@@ -241,28 +220,21 @@
 
 										<aui:fieldset cssClass="child-scheduler-border col-md-6"
 											style="margin-top:3px !important;">
-											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
-
 												<%
 													if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
 												%>
-
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId"
 													label="label-file-sub-categoryid">
-
 												</aui:select>
 												<%
 													} else if (docFile.getType().equalsIgnoreCase("SFS")) {
 												%>
-
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId"
 													label="label-file-sub-categoryid">
-
 												</aui:select>
-
 												<%
 													}
 												%>
@@ -275,24 +247,18 @@
 								<aui:fieldset cssClass="scheduler-border col-md-12">
 									<div class="row">
 										<aui:fieldset cssClass="col-md-12 child-scheduler-border">
-											<!-- <legend class="child-scheduler-border">
-											Remark<span class='text-danger'>*</span>
-										</legend>-->
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks"
-												value="<%=docFile.getRemarks()%>" label="label-file-remark" style="height:70px;">
+												value="<%=docFile.getRemarks()%>" label="label-file-remark"
+												style="height:70px;">
 												<aui:validator name="maxLength">
 													<liferay-ui:message key="file-remark-maxlength" />
 												</aui:validator>
 											</aui:input>
-
 										</aui:fieldset>
 									</div>
 									<div class="row">
 										<aui:fieldset cssClass="child-scheduler-border col-md-12">
-											<!-- <legend class="child-scheduler-border">
-											Reference<span class='text-danger'>*</span>
-										</legend> -->
 											<aui:input cssClass="form-control col-md-12 " type="text"
 												name="reference" id="reference"
 												value="<%=docFile.getReference()%>"
@@ -301,8 +267,6 @@
 													<liferay-ui:message key="file-reference-maxlength" />
 												</aui:validator>
 											</aui:input>
-
-
 										</aui:fieldset>
 									</div>
 								</aui:fieldset>
@@ -323,11 +287,8 @@
 </div>
 <script type="text/javascript">
 	$(".master_drop_category").on("click", function() {
-
 		$(".master_drop_category").find("option").eq(0).hide();
 	})
 </script>
 
 <%@ include file="/js/file.js"%>
-
-

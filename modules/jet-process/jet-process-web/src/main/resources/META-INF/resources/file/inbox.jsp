@@ -1,25 +1,9 @@
-<%@page import="io.jetprocess.service.FileMovementLocalServiceUtil"%>
-<%@page import="io.jetprocess.model.FileMovement"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="io.jetprocess.model.DocFile"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="io.jetprocess.masterdata.model.FileMovementDTO"%>
-<%@page
-	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
 
 <%
 	String backURL = themeDisplay.getURLCurrent();
-
 	String backURL1 = backURL + "&a=12";
-	/* String status = ParamUtil.getString(renderRequest, "status");
-	String result = ParamUtil.getString(renderRequest, "result");
-	
-	String receiveStatus = ParamUtil.getString(renderRequest,"receiveStatus");
-	String receiveResult = ParamUtil.getString(renderRequest,"receiveResult"); */
 %>
-
 
 <style>
 .table thead th {
@@ -50,8 +34,6 @@
 }
 
 .popup.active, .read-popup.active, .receive-popup.active {
-	/*displays pop-up when "active" class is present*/
-	/* visibility: visible; */
 	text-align: center;
 	display: block;
 	border-radius: 5px;
@@ -92,8 +74,6 @@
 	<portlet:param name="mvcPath" value="/file/inbox.jsp" />
 </liferay-portlet:renderURL>
 
-
-
 <div id="file_inbox" class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -118,21 +98,24 @@
 				className="io.jetprocess.list.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
-				<portlet:actionURL var="sendURL" name="<%= MVCCommandNames.FILE_SEND_CHECKER_ACTION_COMMAND %>">
+				<portlet:actionURL var="sendURL"
+					name="<%=MVCCommandNames.FILE_SEND_CHECKER_ACTION_COMMAND%>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
 
-				<portlet:actionURL var="fileReceiveAction" name="<%= MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND %>">
+				<portlet:actionURL var="fileReceiveAction"
+					name="<%= MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND %>">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
 
 				</portlet:actionURL>
-				<portlet:actionURL var="fileReadAction" name="<%= MVCCommandNames.FILE_INBOX_READ_ACTION_COMMAND %>">
+				<portlet:actionURL var="fileReadAction"
+					name="<%=MVCCommandNames.FILE_INBOX_READ_ACTION_COMMAND%>">
 					<portlet:param name="fileId1"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"

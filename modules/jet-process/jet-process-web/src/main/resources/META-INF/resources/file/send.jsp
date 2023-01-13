@@ -1,6 +1,4 @@
-<%@page import="io.jetprocess.model.DocFile"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -9,25 +7,26 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
-
-
 <%
 	String currURL = (String) renderRequest.getAttribute("currentURL");
 %>
 
 <style>
 <!--
-.datepicker{
-overflow:hidden;
+.datepicker {
+	overflow: hidden;
 }
+
 .datepicker-days .table-condensed {
-width: 100%;
+	width: 100%;
 }
+
 .datepicker-days .table-condensed tr {
-  border: 1px solid black;
+	border: 1px solid black;
 }
+
 .datepicker-days .table-condensed td {
-  border: 1px solid black;
+	border: 1px solid black;
 }
 -->
 </style>
@@ -42,21 +41,22 @@ width: 100%;
 			<liferay-util:param name="selectedNav" value="send" />
 		</liferay-util:include>
 
-
-		<portlet:actionURL name="<%= MVCCommandNames.FILE_SEND_ACTION_COMMAND %>" var="sendFile" />
+		<portlet:actionURL
+			name="<%=MVCCommandNames.FILE_SEND_ACTION_COMMAND%>" var="sendFile" />
 
 		<%
-			//DocFile docFile = (DocFile) session.getAttribute("DocFile"); 
 			DocFile docFile = (DocFile) renderRequest.getAttribute("docFile");
-
 			String type = (String) docFile.getNature();
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%> | <%=docFile.getFileNumber()%></div>
+			<div class="hover-tips"><%=firstChar%>
+				|
+				<%=docFile.getFileNumber()%></div>
 		</div>
 		<aui:container cssClass="row">
-			<aui:form action="${sendFile}" cssClass="border border-dark col-6" style="padding: 1% !important">
+			<aui:form action="${sendFile}" cssClass="border border-dark col-6"
+				style="padding: 1% !important">
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>fileId"
