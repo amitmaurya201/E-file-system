@@ -30,17 +30,13 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
 
-	
-	
-	
+
 	public ReceiptInboxManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
-
-	
 
 	@Override
 	public String getClearResultsURL() {
@@ -77,10 +73,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
-		
-
-		
-		
 		return searchURL.toString();
 	}
 
@@ -144,9 +136,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 
 		return sortingURL;
 	}
-	
-	
-	
 	private static Log logger = LogFactoryUtil.getLog(ReceiptManagementToolbarDisplayContext.class);
 	@Reference
 	private MasterdataLocalService masterdataLocalService;

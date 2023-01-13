@@ -45,8 +45,6 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
-	
-
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
@@ -82,15 +80,9 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
-		searchURL.setParameter("orderByType", getOrderByType());
-		
-
-		
-		
+		searchURL.setParameter("orderByType", getOrderByType());				
 		return searchURL.toString();
 	}
-
-
 	/**
 	 * Return the option items for the sort column menu.
 	 *
@@ -149,9 +141,7 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
 
 		return sortingURL;
-	}
-	
-	
+	}	
 	
 	private static Log logger = LogFactoryUtil.getLog(ReceiptManagementToolbarDisplayContext.class);
 	@Reference

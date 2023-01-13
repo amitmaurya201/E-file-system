@@ -26,16 +26,11 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
-	
-	
-
-	
 
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
-
 	
 	/**
 	 * Returns the sort order column.
@@ -74,10 +69,6 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
- 
-	
-	
-	
 
 	/**
 	 * Returns the current sorting URL.
@@ -95,7 +86,6 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-		System.out.println("Request for searching.. "+keywords);
 
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
@@ -113,7 +103,5 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 
 	private final PortalPreferences _portalPreferences;
 	private final ThemeDisplay _themeDisplay;
-
-
 
 }

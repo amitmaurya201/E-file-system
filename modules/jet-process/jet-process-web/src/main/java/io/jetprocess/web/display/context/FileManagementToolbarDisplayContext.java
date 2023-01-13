@@ -54,7 +54,6 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 		return ParamUtil.getString(request, "orderByCol", "fileNumber");
 	}
-
 	/**
 	 * Returns the sort type (ascending / descending).
 	 * 
@@ -64,7 +63,6 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
-
 	/**
 	 * Returns the action URL for the search.
 	 *
@@ -113,9 +111,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
-
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
 

@@ -33,14 +33,10 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
-
-	
-
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
-
 	
 	/**
 	 * Returns the sort order column.
@@ -79,8 +75,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
- 
-	
 	
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
@@ -102,7 +96,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 			}
 		};
 	}
-
 	/**
 	 * Returns the current sorting URL.
 	 *
@@ -114,12 +107,9 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
-
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-		System.out.println("Request for searching.. "+keywords);
 
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
@@ -135,7 +125,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 
 		return sortingURL;
 	}
-
 	private final PortalPreferences _portalPreferences;
 	private final ThemeDisplay _themeDisplay;
 	
