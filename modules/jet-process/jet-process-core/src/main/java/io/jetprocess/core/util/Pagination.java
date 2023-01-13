@@ -7,7 +7,7 @@ public class Pagination {
 	
 
 	public static Map<String, Integer> getOffset(int delta,int currentPage, int count, int preDelta) {
-		int start = 0;
+		int start =  delta*(currentPage-1);
 		int currPage=currentPage;
 		Map<String, Integer> config=new HashMap<>();
 		
@@ -22,11 +22,11 @@ public class Pagination {
 		System.out.println("preDelta "+preDelta);
 		
 		if(delta !=preDelta) {
-			if(delta*currPage  > count) {
+			//if(delta*currPage  > count) {
 				if(delta*(currPage-1)  > count) {
-					currPage = getCurrentPage(currPage, preDelta, count);
+					currPage = getCurrentPage(currPage, delta, count);
 					System.out.println("inside iF-2 "+currPage);
-				}
+				//}
 				start = delta*(currPage-1);
 //				start=0;
 				System.out.println("inside iF-1 "+start);
@@ -40,11 +40,12 @@ public class Pagination {
 			}
 			
 		} else if(delta*(currPage-1)  > count) {
-			currPage = getCurrentPage(currPage, preDelta, count);
-			start = delta*(currPage-1);
-			System.out.println("inside ELSE IF- "+start);
-			System.out.println("inside ELSE IF- "+currPage);
-		}
+				currPage = getCurrentPage(currPage, delta, count);
+				start = delta*(currPage-1);
+				System.out.println("inside ELSE IF- "+start);
+				System.out.println("inside ELSE IF- "+currPage);
+			
+		} 
 //		else {
 //			start = 0;
 //			
@@ -72,7 +73,7 @@ public class Pagination {
 	private static int getCurrentPage(int currentPage, int delta, int count) {
 		currentPage = currentPage-1;
 		
-		if(delta*currentPage  < count) {
+		if(delta*(currentPage-1)  < count) {
 			return currentPage;
 		} else {
 			return getCurrentPage(currentPage, delta, count);
