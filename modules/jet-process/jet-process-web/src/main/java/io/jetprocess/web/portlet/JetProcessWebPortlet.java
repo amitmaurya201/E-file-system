@@ -1,26 +1,21 @@
 package io.jetprocess.web.portlet;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -31,21 +26,17 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.masterdata.service.UserPostService;
-import io.jetprocess.model.DocFile;
-import io.jetprocess.model.FileMovement;
-import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
-import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 
 /**
@@ -59,10 +50,7 @@ import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user" }, service = Portlet.class)
 public class JetProcessWebPortlet extends MVCPortlet {
-	
-	
-	
-	
+
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
@@ -96,13 +84,14 @@ public class JetProcessWebPortlet extends MVCPortlet {
 			}
 		}
 
-		addFileListAttributes(renderRequest, renderResponse);
-		addFileToolbarAttributes(renderRequest, renderResponse);
-		super.doView(renderRequest, renderResponse);
+		System.out.println("---------------");
+		
+		  setCreatedFileToolbarAttributes(renderRequest,renderResponse);
+		  setCreatedFileListAttributes(renderRequest);
+		  super.doView(renderRequest, renderResponse);
 	}
 
-	private void addFileListAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
-
+	private void setCreatedFileListAttributes(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
@@ -110,36 +99,33 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
-		HttpServletRequest httpRequest = themeDisplay.getRequest();
-		String urlPost = httpRequest.getParameter("userPost");
-		logger.info("urlPost from url in addfile list" + urlPost);
-		if (urlPost != null) {
-			session.setAttribute("userPostId", urlPost);
-		}
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("userPostId in addfile list" + userPostId);
 		long userPost = userPostId;
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		// int count = masterdataLocalService.getFileCreatedByKeywordCount(userPost,
-		// keywords);
-		int count = fileList.getCountOfFileList(userPostId, keywords);
-		if (delta * currentPage > count) {
-			start = 0;
+
+		int count = fileList.getFileCreatedListCount(userPost, keywords);
+		int preDelta = 0;
+		String d = (String) session.getAttribute("preDelta");
+		if (d != null) {
+			preDelta = Integer.parseInt(d);
+			
 		}
-		List<FileListViewDto> fileList1 = fileList.getFileList(userPostId, keywords, start, end, orderByCol,
-				orderByType);
-		// List<FileListViewDto> fileList =
-		// masterdataLocalService.getFileCreatedByKeywords(userPost, keywords, start,
-		// end,
-		// orderByCol, orderByType);
+		if(delta !=preDelta) {
+		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+		start=paginationConfig.get("start");
+		currentPage=paginationConfig.get("currentPage");
+		
+		}
+		session.setAttribute("preDelta", "" + delta + "");
+		List<FileListViewDto> fileList1 = fileList.getFileList(userPost, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("fileList", fileList1);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount", count);
 	}
 
-	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	private void setCreatedFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		FileManagementToolbarDisplayContext fileManagementToolbarDisplayContext = new FileManagementToolbarDisplayContext(
@@ -147,6 +133,8 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		renderRequest.setAttribute("fileManagementToolbarDisplayContext", fileManagementToolbarDisplayContext);
 	}
 
+	
+	
 	@Reference
 	private MasterdataService masterData;
 	@Reference

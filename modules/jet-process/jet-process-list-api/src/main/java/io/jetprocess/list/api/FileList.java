@@ -10,12 +10,12 @@ import io.jetprocess.list.model.FileMovementDTO;
 public interface FileList {
 
 
-	public  int getCountOfFileList(long postId, String keyword);
+	public  int getFileCreatedListCount(long userPostId, String keyword);
 	
 	public List<FileListViewDto> getFileList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order);
 	
-	public  int getFileInboxListCount(long postId, String keyword);
+	public  int getFileInboxListCount(long userPostId, String keyword);
 	
 	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order);
@@ -30,7 +30,7 @@ public interface FileList {
 	public List<FileMovementDTO> getFileMovementList(long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
 	
-	public int getFileMovementListCount(long postId, String keyword);
+	public int getFileMovementListCount(long userPostId, String keyword);
 	
 	
 }

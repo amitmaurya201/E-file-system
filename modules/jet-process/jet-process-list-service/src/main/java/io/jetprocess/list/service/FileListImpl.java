@@ -19,17 +19,15 @@ import io.jetprocess.list.model.FileMovementDTO;
 @Component(immediate = true, service = FileList.class)
 public class FileListImpl implements FileList {
 
-	public int getCountOfFileList(long postId, String keyword) {
-		System.out.println("--0-0-0-0-0-0-0-0-0-0-0-0-0-0-0---0-0-0");
+	public int getFileCreatedListCount(long userPostId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
-			prepareCall.setLong(1, postId);
+			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				if (rs.next()) {
@@ -41,17 +39,13 @@ public class FileListImpl implements FileList {
 		} finally {
 			DataAccess.cleanUp(con);
 		}
-
 		return count;
 	}
 
 	public List<FileListViewDto> getFileList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
-
 		List<FileListViewDto> fileList = new ArrayList<>();
-
 		Connection con = null;
-
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT * from PUBLIC.get_file_created_list(?,?,?,?,?,?)");
@@ -62,17 +56,10 @@ public class FileListImpl implements FileList {
 			prepareCall.setString(5, orderBy);
 			prepareCall.setString(6, order);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					FileListViewDto file = new FileListViewDto();
-
-					System.out.println("category : " + rs.getString("category") + ", created on : "
-							+ rs.getDate("createdon") + ", doc File : " + rs.getLong("docfileid") + ", File number : "
-							+ rs.getString("filenumber")
-
-					);
 					file.setCategory(rs.getString("category"));
 					file.setCreateDate(rs.getTimestamp("createdon"));
 					file.setDocFileId(rs.getLong("docfileid"));
@@ -82,7 +69,6 @@ public class FileListImpl implements FileList {
 					file.setSubject(rs.getString("subject"));
 					fileList.add(file);
 				}
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,7 +76,6 @@ public class FileListImpl implements FileList {
 			DataAccess.cleanUp(con);
 
 		}
-
 		return fileList;
 	}
 
@@ -104,7 +89,6 @@ public class FileListImpl implements FileList {
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				if (rs.next()) {
@@ -116,18 +100,14 @@ public class FileListImpl implements FileList {
 		} finally {
 			DataAccess.cleanUp(con);
 		}
-
 		return count;
 	}
 
 	@Override
 	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
-
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-
 		Connection con = null;
-
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_inbox_list(?,?,?,?,?,?)");
@@ -138,12 +118,10 @@ public class FileListImpl implements FileList {
 			prepareCall.setString(5, orderBy);
 			prepareCall.setString(6, order);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					FileMovementDTO fileMovementDTO = new FileMovementDTO();
-
 					fileMovementDTO.setFileMovementId(rs.getLong("filemovementid"));
 					fileMovementDTO.setFileNumber(rs.getString("filenumber"));
 					fileMovementDTO.setSubject(rs.getString("subject"));
@@ -162,18 +140,14 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
 					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
-
 					fileMovementDTOList.add(fileMovementDTO);
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
-
 		}
-
 		return fileMovementDTOList;
 	}
 
@@ -187,7 +161,6 @@ public class FileListImpl implements FileList {
 			prepareCall.setLong(1, postId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				if (rs.next()) {
@@ -200,16 +173,13 @@ public class FileListImpl implements FileList {
 			DataAccess.cleanUp(con);
 		}
 		return count;
-
 	}
 
 	@Override
 	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-
 		Connection con = null;
-
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_sent_list(?,?,?,?,?,?)");
@@ -220,12 +190,10 @@ public class FileListImpl implements FileList {
 			prepareCall.setString(5, orderBy);
 			prepareCall.setString(6, order);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					FileMovementDTO fileMovementDTO = new FileMovementDTO();
-
 					fileMovementDTO.setFileMovementId(rs.getLong("filemovementid"));
 					fileMovementDTO.setFileNumber(rs.getString("filenumber"));
 					fileMovementDTO.setSubject(rs.getString("subject"));
@@ -244,8 +212,6 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
 					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
-
-
 					fileMovementDTOList.add(fileMovementDTO);
 				}
 			}
@@ -254,21 +220,15 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
-
 		}
-
 		return fileMovementDTOList;
-
 	}
 
 	@Override
 	public List<FileMovementDTO> getFileMovementList(long docfileId, String keyword, int start, int end,
 			String orderBy, String order) {
-		
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-
 		Connection con = null;
-
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?)");
@@ -279,12 +239,10 @@ public class FileListImpl implements FileList {
 			prepareCall.setString(5, orderBy);
 			prepareCall.setString(6, order);
 			boolean execute = prepareCall.execute();
-
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					FileMovementDTO fileMovementDTO = new FileMovementDTO();
-
 					fileMovementDTO.setFileMovementId(rs.getLong("filemovementid"));
 					fileMovementDTO.setFileNumber(rs.getString("filenumber"));
 					fileMovementDTO.setSubject(rs.getString("subject"));
@@ -303,22 +261,15 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
 					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
-
-
 					fileMovementDTOList.add(fileMovementDTO);
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
-
 		}
-
 		return fileMovementDTOList;
-
-		
 	}
 	@Override
 	public int getFileMovementListCount(long postId, String keyword) {
@@ -342,17 +293,6 @@ public class FileListImpl implements FileList {
 		} finally {
 			DataAccess.cleanUp(con);
 		}
-
 		return count;
-
 	}
-
-		
-	// file movement list method
-	
-	
-	
-	
-	
-
 }

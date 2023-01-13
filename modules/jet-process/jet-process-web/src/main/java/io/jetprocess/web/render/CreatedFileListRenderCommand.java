@@ -11,7 +11,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,8 +38,8 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		setCreatedFileListAttributes(renderRequest);
-		setCreatedFileToolbarAttributes(renderRequest, renderResponse);			
-		return "/file/created-file-list.jsp";
+		setCreatedFileToolbarAttributes(renderRequest, renderResponse);	
+ 		return "/file/created-file-list.jsp";
 	}
 
 	private void setCreatedFileListAttributes(RenderRequest renderRequest) {
@@ -57,7 +56,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
-		int count = fileLists.getCountOfFileList(userPost, keywords);
+		int count = fileLists.getFileCreatedListCount(userPost, keywords);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
