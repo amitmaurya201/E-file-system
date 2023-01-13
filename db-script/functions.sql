@@ -42,7 +42,7 @@ total :=0;
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
-            IF post_id !=0 AND post_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword IS NOT NULL  THEN
    
             Select  count(*) into total FROM public.jet_process_docfile  
             INNER JOIN public.md_category  
@@ -91,7 +91,7 @@ total :=0;
         IF sender_id !=0 AND sender_id IS NOT NULL THEN 
             
             
-            IF sender_id !=0 AND sender_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword IS NOT NULL  THEN
    
            
         SELECT count(*) into total
@@ -154,7 +154,7 @@ total :=0;
         IF sender_id !=0 AND sender_id IS NOT NULL THEN 
             
             
-            IF sender_id !=0 AND sender_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword IS NOT NULL  THEN
    
            SELECT count(*) into total
 					FROM PUBLIC.jet_process_filemovement as fm 
@@ -188,6 +188,7 @@ ALTER FUNCTION public.get_file_sent_lists_count(bigint, text)
 
 -- ------------------------  Get File List  -----------------------------
 
+
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	post_id bigint,
 	keyword text,
@@ -213,12 +214,6 @@ AS $BODY$
        _order text :='desc';
     begin
       
-      _offset :=0;
-     _limit :=4;
-     _offset :=_start;
-     _limit :=_end;
-     orderBy :=orderByCol;
-     _order :=_orderByType;
       _keyword := '''%'||keyword||'%''';
       _query := 'Select  docfileid as docfileid, filenumber as filenumber , subject as subject , categoryvalue as category ,
                         remarks as remark  , createDate as createdOn ,  nature as nature
@@ -237,11 +232,11 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
                 orderBy :='modifieddate';
             
         END IF;
-        IF (orderByCol ='filenumber' AND orderByCol IS NULL) THEN
+        IF (orderByCol ='filenumber' OR orderByCol ='fileNumber' AND orderByCol IS NULL) THEN
                 orderBy :='filenumber';
             
         END IF;
@@ -277,38 +272,15 @@ AS $BODY$
                                                 if _limit >0  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit '||_offset;
-                                                 end if;
-                                        ELSE
-                                        _query := _query||' offset '||_offset ||' limit '||_offset;
-                                    
-                                     end if;
-                                  ELSE
-                               IF _offset >=0 THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||_offset||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF _offset >=0 THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||_offset||' limit '||_limit;
-                                       END IF;
-                            
-                             end if;
-                        
-                             return query execute _query;
-                             end if;
-                        
-                        
-                 else
-                     return query execute _query;
-                
-                end if;
-         
+                                                 END IF;
+                                         END IF;
+                                       
+                                      END IF;
+                                
+                                    END IF;
+                             END IF;
+                END IF;
+         return query execute _query;
              
      end;
      
@@ -377,12 +349,12 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
                 _orderBy :='fm.modifieddate';
            
         END IF;
          
-        IF (orderByCol ='fileNumber' ) THEN
+        IF (orderByCol ='filenumber' OR orderByCol ='fileNumber' ) THEN
                 _orderBy :='f.filenumber';
            
         END IF;
@@ -395,8 +367,6 @@ AS $BODY$
             ELSE
                 _order :=_orderByType;
         END IF;
-       
-                        
                         IF (receiverid !=0 )THEN
                         
                              _query := _query|| ' where fm.receiverid ='||receiverid;
@@ -410,45 +380,26 @@ AS $BODY$
                                         _query := _query||' order by '||_orderby;
                                         if (_order !='')  THEN 
 
-                                            _query := _query||' '||_order;
-                                            if (_offset >=0)  THEN 
+                                                _query := _query||' '||_order;
+                                                if (_offset >=0)  THEN 
 
-                                                 _query := _query||' offset '||_offset;
-                                                if (_limit >0)  THEN 
-                                                    _query := _query||' limit '||_limit;
+                                                         _query := _query||' offset '||_offset;
+                                                        if (_limit >0)  THEN 
+                                                            _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
-                                                 end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
+                                                         end if;
+
+                                                end if;
+                                                
+                                           end if;
+                                           
+                                    end if;
                                     
-                                     end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                            
                              end if;
-                        
-                             return query execute _query;
-                             end if;
-                        
-                        
-                 else
-                     return query execute _query;
-                
+                             
                 end if;
-         
+                
+          return query execute _query;
              
      end;
      
@@ -500,8 +451,7 @@ AS $BODY$
 			JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 			JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
             JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
-			where currentstate = 2  AND fm.active_ = true 
-   ';
+			where currentstate = 2  AND fm.active_ = true';
                   
         _keyword := '''%'||keyword||'%''';
         _order :=_orderByType;
@@ -517,11 +467,11 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='sentOn' OR orderByCol ='' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='sentOn' OR orderByCol ='senton' OR orderByCol IS NULL) THEN
                 _orderBy :='fm.createdate';
            
         END IF;
-        IF ( orderByCol ='fileNumber') THEN
+        IF ( orderByCol ='filenumber' OR orderByCol ='fileNumber') THEN
                 _orderBy :='f.filenumber';
            
         END IF;
@@ -529,7 +479,7 @@ AS $BODY$
                 _orderBy :='f.subject';
            
         END IF;
-         IF ( orderByCol ='dueDate') THEN
+         IF ( orderByCol ='duedate' OR orderByCol ='dueDate') THEN
                 _orderBy :='fm.duedate';
            
         END IF;
@@ -544,62 +494,43 @@ AS $BODY$
                         
                              _query := _query|| ' AND fm.senderid ='||_senderid;
                             
-                               if (keyword IS NOT NULL) THEN  
+                               IF (keyword IS NOT NULL) THEN  
                                                                 
                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
                           
-                                     if (_orderby !='')  THEN 
+                                     IF (_orderby !='')  THEN 
                     
                                         _query := _query||' order by '||_orderby;
-                                        if (_order !='')  THEN 
+                                        IF (_order !='')  THEN 
 
                                             _query := _query||' '||_order;
-                                            if (_offset >=0)  THEN 
+                                            IF (_offset >=0)  THEN 
 
                                                  _query := _query||' offset '||_offset;
-                                                if (_limit >0)  THEN 
+                                                IF (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
-                                                 end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
-                                    
-                                     end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
+                                                 END IF;
+                                        
+                                             END IF;
+                                
+                                           END IF;
                             
-                             end if;
+                                    END IF;
                         
-                             return query execute _query;
-                             end if;
+                                 END IF;
                         
-                        
-                 else
-                     return query execute _query;
-                
-                end if;
+                            END IF;
          
-             
-     end;
+              return query execute _query;
+     END;
      
  
 $BODY$;
 
 ALTER FUNCTION public.get_file_sent_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
 
     
 
@@ -631,7 +562,7 @@ AS $BODY$
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
-            IF post_id !=0 AND post_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword IS NOT NULL  THEN
    
             SELECT count(*) into total FROM public.jet_process_receipt INNER JOIN 
         public.md_category  ON categorydataid = receiptcategoryid where userpostid = post_id 
@@ -682,7 +613,7 @@ AS $BODY$
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
-            IF post_id !=0 AND post_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
    
             SELECT count(*) into total
 	FROM PUBLIC.jet_process_receiptmovement as rm 
@@ -743,7 +674,7 @@ AS $BODY$
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
-            IF post_id !=0 AND post_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
    
                  SELECT count(*) into total
                  FROM PUBLIC.jet_process_receiptmovement as rm 
@@ -807,8 +738,8 @@ AS $BODY$
     remarks as remark , viewpdfurl AS viewpdfurl ,
 	nature AS nature FROM PUBLIC.jet_process_receipt INNER JOIN 
 	PUBLIC.md_category  ON categorydataid = receiptcategoryid where currentstate = 1 AND attachstatus IS NULL ';
-    _keyword := '''%'||keyword||'%''';
-        _order :=_orderByType;
+    
+        _keyword := '''%'||keyword||'%''';
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
@@ -820,13 +751,13 @@ AS $BODY$
             ELSE
                 _limit :=_end;
         END IF;   
-        IF (orderbycol ='' OR orderbycol ='modifieddate' OR orderbycol IS NULL) THEN
+        IF (orderbycol ='' OR orderbycol ='modifieddate' OR orderbycol ='modifiedDate' OR orderbycol IS NULL) THEN
                 _orderBy :='modifieddate';
         END IF;
-        IF ( orderbycol ='createdOn') THEN
+        IF ( orderbycol ='createdon' OR orderbycol ='createdOn') THEN
                 _orderBy :='createDate';
         END IF;
-         IF (orderbycol ='receiptNumber') THEN
+         IF (orderbycol ='receiptnumber' OR orderbycol ='receiptNumber') THEN
                 _orderBy :='receiptnumber';
         END IF;
          IF (orderbycol ='subject') THEN
@@ -859,32 +790,18 @@ AS $BODY$
                                                 if (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
+                                                    
                                                  end if;
-                                            ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
                                     
+                                             end if;
+
+                                         end if;
+
                                      end if;
-                                 
-                                 ELSE
-                                 
-                                    IF _offset >=0 THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                               IF _offset >=0 THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                            
-                             end if;
-                           end if;
-                        end if;                        
+
+                                   end if;
+
+                                end if;                        
        return query execute _query;
         
         END;
@@ -892,7 +809,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-        
+    
 --    ------------------------------------- Get Receipt Inbox List  -------------------------------------------
 
  CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list(
@@ -949,7 +866,7 @@ AS $BODY$
                 where  r.attachstatus is null';
                   
         _keyword := '''%'||keyword||'%''';
-        _order :=_orderByType;
+        
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
@@ -963,12 +880,12 @@ AS $BODY$
         END IF;   
         
        
-         IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol IS NULL) THEN
+         IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
                 _orderBy :='rm.modifieddate';
            
         END IF;
          
-        IF (orderByCol ='receiptNumber' ) THEN
+        IF (orderByCol ='receiptnumber' OR orderByCol ='receiptNumber' ) THEN
                 _orderBy :='r.receiptnumber';
            
         END IF;
@@ -976,11 +893,11 @@ AS $BODY$
                 _orderBy :='r.subject';
            
         END IF;
-         IF (orderByCol ='dueOn' ) THEN
+         IF (orderByCol ='dueon' OR orderByCol ='dueOn' ) THEN
                 _orderBy :='r.duedate';
            
         END IF;
-         IF (orderByCol ='sentOn' ) THEN
+         IF (orderByCol ='senton' OR orderByCol ='sentOn' ) THEN
                 _orderBy :='rm.createdate';
            
         END IF;
@@ -995,55 +912,35 @@ AS $BODY$
                         
                              _query := _query|| '  AND rm.receiverid  ='||receiverid;
                             
-                               if (keyword IS NOT NULL) THEN
+                               IF (keyword IS NOT NULL) THEN
                                      _query := _query||' AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')';
                           
-                                     if (_orderby !='')  THEN 
+                                     IF (_orderby !='')  THEN 
                     
                                         _query := _query||' order by '||_orderby;
-                                        if (_order !='')  THEN 
+                                        IF (_order !='')  THEN 
 
                                             _query := _query||' '||_order;
-                                            if (_offset >=0)  THEN 
+                                            IF (_offset >=0)  THEN 
 
                                                  _query := _query||' offset '||_offset;
-                                                if (_limit >0)  THEN 
+                                                IF (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
-                                                 end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
-                                    
-                                     end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                            
-                             end if;
-                        
-                             return query execute _query;
-                             end if;
-                        
-                        
-                 else
-                     return query execute _query;
-                
-                end if;
+                                                 END IF;
+                                        
+                                          END IF;
+
+                                      END IF;
+
+                                  END IF;
+
+                               END IF;
+    
+                        END IF;
          
-             
-     end;
+             return query execute _query;
+     END;
      
  
 $BODY$;
@@ -1055,7 +952,7 @@ ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, tex
     
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
 
-    CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
+   CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
 	_senderid bigint,
 	keyword text,
 	_start integer,
@@ -1093,7 +990,7 @@ AS $BODY$
         where rm.active_ = true and rm.pullbackremark is null ';
                   
         _keyword := '''%'||keyword||'%''';
-        _order :=_orderByType;
+        
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
@@ -1106,15 +1003,15 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol ='sentOn' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='senton' OR orderByCol ='sentOn' OR orderByCol IS NULL) THEN
                 _orderBy :='rm.createdate';
            
         END IF;
-         IF (orderByCol ='duedate') THEN
+         IF (orderByCol ='duedate' OR orderByCol ='dueDate') THEN
                 _orderBy :='rm.createdate';
            
         END IF;
-         IF (orderByCol ='receiptNumber') THEN
+         IF (orderByCol ='receiptnumber' OR orderByCol ='receiptNumber') THEN
                 _orderBy :='r.receiptnumber';
            
         END IF;
@@ -1134,55 +1031,35 @@ AS $BODY$
                         
                              _query := _query|| ' AND rm.senderid  ='||_senderid;
                             
-                               if (keyword IS NOT NULL) THEN  
+                               IF (keyword IS NOT NULL) THEN  
                                                                 
                                      _query := _query||' AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')';
                           
-                                     if (_orderby !='')  THEN 
+                                     IF (_orderby !='')  THEN 
                     
                                         _query := _query||' order by '||_orderby;
-                                        if (_order !='')  THEN 
+                                        IF (_order !='')  THEN 
 
                                             _query := _query||' '||_order;
-                                            if (_offset >=0)  THEN 
+                                            IF (_offset >=0)  THEN 
 
                                                  _query := _query||' offset '||_offset;
-                                                if (_limit >0)  THEN 
+                                                IF (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
-                                                 end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
+                                                  END IF;
                                     
-                                     end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                            
-                             end if;
+                                              END IF;
+
+                                          END IF;
+
+                                     END IF;
                         
-                             return query execute _query;
-                             end if;
+                              END IF;
                         
-                        
-                 else
+                         END IF;
                      return query execute _query;
-                
-                end if;
-         
-             
+        
      end;
      
  
@@ -1190,7 +1067,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
 
     
 --     ------------------------------ Get put in file list count  -----------------------------------------------------------------
@@ -1213,12 +1089,10 @@ BEGIN
 total :=0;
 
         
-      
-        
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
             
-            IF user_post_id !=0 AND user_post_id IS NOT NULL AND  keyword !=0 AND keyword IS NOT NULL  THEN
+            IF  keyword !=0 AND keyword IS NOT NULL  THEN
    
                  
                 select sum (s.c) from (
@@ -1260,6 +1134,7 @@ ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
     
 --    -------------------------------------------------- Get Put in file List  ----------------------------------------------------
 
+      
  CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	userpostid bigint,
 	keyword integer,
@@ -1354,39 +1229,21 @@ AS $BODY$
                                                 if (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
                                                  end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
-                                    
-                                     end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
+                                        
+
+                                             end if;
+
+                                         end if;
+                              
                             
-                             end if;
-                        
-                             return query execute _query;
-                             end if;
-                        
-                        
-                 else
-                     return query execute _query;
-                
-                end if;
+                                     end if;
+
+                                  end if;
+  
+                            end if;
          
-             
+             return query execute _query;
      end;
      
  
@@ -1394,6 +1251,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
     OWNER TO postgres;
+    
+    
 --    -------------------------------------  Get File Movement Count  -----------------------------------------------
 
     
@@ -1415,10 +1274,10 @@ DECLARE total BIGINT;
 _query text;
 BEGIN
 total :=0;
-   IF file_id !=0 AND file_id IS NOT NULL THEN 
+  	 IF file_id !=0 AND file_id IS NOT NULL THEN 
             
             
-            IF file_id !=0 AND file_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
    
            SELECT count(*) into total
 	FROM PUBLIC.jet_process_filemovement as fm 
@@ -1540,39 +1399,23 @@ AS $BODY$
                                                 if (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
                                                  end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
-                                    
+                                        
+
+                                             end if;
+
+                                         end if;
+
+
                                      end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                            
+                        
+                             
                              end if;
-                        
-                             return query execute _query;
-                             end if;
-                        
-                        
-                 else
-                     return query execute _query;
-                
-                end if;
-         
-             
+                             
+                    end if;
+                 
+                return query execute _query;
+       
      end;
      
  
@@ -1580,7 +1423,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_movement_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
     
     
     --    -------------------------------------  Get Receipt Movement Count  ----------------------------------------------- 
@@ -1610,7 +1452,7 @@ total :=0;
         IF receipt_id !=0 AND receipt_id IS NOT NULL THEN 
             
             
-            IF receipt_id !=0 AND receipt_id IS NOT NULL AND  keyword !='' AND keyword IS NOT NULL  THEN
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
    
             
  SELECT 
@@ -1647,7 +1489,8 @@ ALTER FUNCTION public.get_receipt_movement_list_count(bigint, text)
     
     --    -------------------------------------  Get Receipt Movement List  -----------------------------------------------
     
-CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
+
+ CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
 	_receiptid bigint,
 	keyword text,
 	_start integer,
@@ -1691,7 +1534,7 @@ AS $BODY$
     ';
                   
         _keyword := '''%'||keyword||'%''';
-        _order :=_orderByType;
+        
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
@@ -1715,7 +1558,6 @@ AS $BODY$
                 _order :=_orderByType;
         END IF;
        
-                        
                         IF (_receiptid !=0 )THEN
                         
                              _query := _query|| 'where rm.receiptid ='||_receiptid;
@@ -1736,39 +1578,19 @@ AS $BODY$
                                                 if (_limit >0)  THEN 
                                                     _query := _query||' limit '||_limit;
 
-                                                    else
-                                                    _query := _query||' limit 4';
                                                  end if;
-                                        ELSE
-                                        _query := _query||' offset '||0 ||' limit 4';
-                                    
+                                         
+                                             end if;
+
+                                         end if;
+
                                      end if;
-                                  ELSE
-                               IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                                 end if;
-                                ELSE
-                              IF (_offset >=0) THEN
-                                    _query := _query||' offset '||_offset||' limit '||_limit;
-                                    ELSE
-                                        _query := _query||' offset '||0||' limit '||_limit;
-                                       END IF;
-                            
+                        
                              end if;
                         
-                             return query execute _query;
-                             end if;
-                        
-                        
-                 else
+                    end if;
                      return query execute _query;
-                
-                end if;
-         
-             
+                    
      end;
      
  
