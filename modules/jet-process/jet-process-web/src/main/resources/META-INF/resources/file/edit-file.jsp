@@ -165,12 +165,13 @@
 												<div class="row" id="sfs">
 													<aui:fieldset cssClass="col-md-12 child-scheduler-border">
 														<legend cssClass="child-scheduler-border">
-															<liferay-ui:message key="label-file-fileno" /><span class="text-danger">*</span>
+															<liferay-ui:message key="label-file-fileno" />
+															<span class="text-danger">*</span>
 														</legend>
 														<aui:input class="form-control" type="text"
 															name="fileNumber" id="fileNumber"
-															value="<%=docFile.getFileNumber()%>"
-															label="" disabled="true">
+															value="<%=docFile.getFileNumber()%>" label=""
+															disabled="true">
 															<aui:validator name="required" />
 														</aui:input>
 													</aui:fieldset>
@@ -199,7 +200,7 @@
 
 
 											<aui:input cssClass="form-control" type="text" name="subject"
-												value="<%=docFile.getSubject()%>" id="subject"
+												value="<%=docFile.getSubject()%>" id="subject" 
 												label="label-file-subject">
 												<aui:validator name="required" />
 												<aui:validator name="maxLength">
@@ -208,7 +209,7 @@
 											</aui:input>
 										</aui:fieldset>
 									</div>
-									<div class="row" style="margin-left:-15px !important;">
+									<div class="row" style="margin-left: -15px !important;">
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
 											<!-- 	<legend class="child-scheduler-border">Category</legend> -->
 											<div cssClass="input-group">
@@ -238,7 +239,8 @@
 											</div>
 										</aui:fieldset>
 
-										<aui:fieldset cssClass="child-scheduler-border col-md-6" style="margin-top:3px !important;">
+										<aui:fieldset cssClass="child-scheduler-border col-md-6"
+											style="margin-top:3px !important;">
 											<!-- <legend class="child-scheduler-border">Sub Category</legend> -->
 											<div cssClass="input-group">
 
@@ -278,7 +280,7 @@
 										</legend>-->
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks"
-												value="<%=docFile.getRemarks()%>" label="label-file-remark">
+												value="<%=docFile.getRemarks()%>" label="label-file-remark" style="height:70px;">
 												<aui:validator name="maxLength">
 													<liferay-ui:message key="file-remark-maxlength" />
 												</aui:validator>
@@ -307,7 +309,7 @@
 							</div>
 						</div>
 						<div class="text-center">
-							<aui:button type="submit" cssClass="btn btn-danger"
+							<aui:button type="button" cssClass="btn btn-primary"
 								value="file-edit-button" id="update-docfile"></aui:button>
 						</div>
 					</div>
