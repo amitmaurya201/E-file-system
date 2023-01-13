@@ -14,10 +14,7 @@
 
 package io.jetprocess.service;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceWrapper;
-
-import javax.portlet.PortletException;
 
 /**
  * Provides a wrapper for {@link ReceiptMovementLocalService}.
@@ -459,8 +456,9 @@ public class ReceiptMovementLocalServiceWrapper
 
 	@Override
 	public void saveSendReceipt(
-		long receiverId, long senderId, long receiptId, String priority,
-		String dueDate, String remark) throws PortalException, PortletException {
+			long receiverId, long senderId, long receiptId, String priority,
+			String dueDate, String remark)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_receiptMovementLocalService.saveSendReceipt(
 			receiverId, senderId, receiptId, priority, dueDate, remark);

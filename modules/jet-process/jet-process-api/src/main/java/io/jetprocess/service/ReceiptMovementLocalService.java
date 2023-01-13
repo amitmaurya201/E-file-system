@@ -39,8 +39,6 @@ import java.io.Serializable;
 
 import java.util.List;
 
-import javax.portlet.PortletException;
-
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -341,8 +339,9 @@ public interface ReceiptMovementLocalService
 	public boolean saveReceiveMovement(long receiptId, long rmId);
 
 	public void saveSendReceipt(
-		long receiverId, long senderId, long receiptId, String priority,
-		String dueDate, String remark) throws PortletException, PortalException;
+			long receiverId, long senderId, long receiptId, String priority,
+			String dueDate, String remark)
+		throws PortalException;
 
 	/**
 	 * Updates the receipt movement in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

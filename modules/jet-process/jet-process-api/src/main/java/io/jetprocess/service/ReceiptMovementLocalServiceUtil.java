@@ -26,8 +26,6 @@ import java.io.Serializable;
 
 import java.util.List;
 
-import javax.portlet.PortletException;
-
 /**
  * Provides the local service utility for ReceiptMovement. This utility wraps
  * <code>io.jetprocess.service.impl.ReceiptMovementLocalServiceImpl</code> and
@@ -403,8 +401,9 @@ public class ReceiptMovementLocalServiceUtil {
 	}
 
 	public static void saveSendReceipt(
-		long receiverId, long senderId, long receiptId, String priority,
-		String dueDate, String remark) throws PortalException, PortletException {
+			long receiverId, long senderId, long receiptId, String priority,
+			String dueDate, String remark)
+		throws PortalException {
 
 		getService().saveSendReceipt(
 			receiverId, senderId, receiptId, priority, dueDate, remark);

@@ -91,6 +91,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setCountryId(countryId);
 		receipt.setStateId(stateId);
 		receipt.setCity(city);
+		receipt.setNature(nature);
 		receipt.setSubOrganizationId(subOrganizationId);
 		receipt.setPinCode(pinCode);
 		receipt.setGroupId(groupId);
