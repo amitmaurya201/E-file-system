@@ -1,8 +1,7 @@
 <%@ include file="../init.jsp"%>
-<%@page import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
 <%
-	 HttpSession userPostIdValue = themeDisplay.getRequest().getSession();
-	 String userPostsVal = (String) userPostIdValue.getAttribute("userPostId");
+	 HttpSession userPostId = themeDisplay.getRequest().getSession();
+	 String userPostsValue = (String) userPostId.getAttribute("userPostId");
 	long docFileId = (Long) request.getAttribute("docFileId");
 	String redirectURL=themeDisplay.getURLCurrent();
 	String currentURL = (String)renderRequest.getAttribute("CurrentURL");
@@ -19,7 +18,7 @@
 	
 <aui:form action="${attachReceipt} " method="post" name="attachReceipt">
 	<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
-	<aui:input name="userPostId" value="${userPostsVal }" type="hidden"></aui:input>
+	<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
 	<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>" />
 
 	<liferay-ui:search-container  

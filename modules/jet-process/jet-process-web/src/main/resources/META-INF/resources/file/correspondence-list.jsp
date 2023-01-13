@@ -1,15 +1,3 @@
-<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
-<%@page
-	import="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"%>
-<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
-<%@page import="io.jetprocess.model.Receipt"%>
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.TimeZone"%>
-<%@page
-	import="io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <%@ include file="../init.jsp"%>  --%>
 <%
 	//long corrFileId = (long) request.getAttribute("docFileId");
  HttpSession docFileIdValue = themeDisplay.getRequest().getSession();

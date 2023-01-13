@@ -1,6 +1,4 @@
-<%@page import="io.jetprocess.list.model.FileMovementDTO"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
 
 <style>
 <!--
@@ -27,45 +25,47 @@
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
-		<%-- <%@ include file="file-view.jsp" %> --%>
 
 		<%
 			SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
-		<h2 style="text-align: center; text-decoration: underline; margin-top: 20px;">
+		<h2
+			style="text-align: center; text-decoration: underline; margin-top: 20px;">
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="label-no-record-found" total="${fileMovementCount}"
+			emptyResultsMessage="label-no-record-found"
+			total="${fileMovementCount}"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileMovementList}" />
-				
-			
+
+
 			<liferay-ui:search-container-row
 				className="io.jetprocess.list.model.FileMovementDTO"
 				modelVar="fileMovementDTO" keyProperty="fileMovementId">
 				<liferay-ui:search-container-column-text
-						value="<%=fileMovementDTO.getSentOn() != null ? simpleformat.format(fileMovementDTO.getSentOn())
+					value="<%=fileMovementDTO.getSentOn() != null ? simpleformat.format(fileMovementDTO.getSentOn())
 							: ""%>"
-						name="label-sent-on" />
+					name="label-sent-on" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getSentBy() != null ? fileMovementDTO.getSentBy() : ""%>"
-					name="label-sent-by"  cssClass="hover-tips" />
+					name="label-sent-by" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getSentTo() != null ? fileMovementDTO.getSentTo() : ""%>"
-					name="label-sent-to"  cssClass="hover-tips"  />
+					name="label-sent-to" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>"
-					name="label-remarks"  cssClass="hover-tips" />
+					name="label-remarks" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getPullBackRemark() != null ? fileMovementDTO.getPullBackRemark() : ""%>"
-					name="label-pullback-remark"  cssClass="hover-tips" />
+					name="label-pullback-remark" cssClass="hover-tips" />
 
 			</liferay-ui:search-container-row>
-<liferay-ui:search-iterator paginate="false" />
+			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
-				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />		</liferay-ui:search-container>
+				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
+		</liferay-ui:search-container>
 	</div>
 </div>
 
