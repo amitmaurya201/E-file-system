@@ -32,8 +32,7 @@
 
 <%
 	String docFileId = renderRequest.getParameter("docFileId");
-String curr = (String)session.getAttribute("currentURL");
-
+	String curr = (String) session.getAttribute("currentURL");
 %>
 
 
@@ -42,35 +41,37 @@ String curr = (String)session.getAttribute("currentURL");
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 <portlet:renderURL var="fileDetails">
-	<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.FILE_DETAILS_RENDER_COMMAND %>" />
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.FILE_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 <portlet:renderURL var="editFile">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND %>" />
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 <portlet:renderURL var="fileSend">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 
 <portlet:renderURL var="putinfile">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	        <portlet:param name="backPageURL" value="<%= curr %>"/>
-	
+	<portlet:param name="backPageURL" value="<%=curr%>" />
+
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
 	<portlet:param name="mvcPath" value="/file/sendback.jsp" />
@@ -144,7 +145,7 @@ String curr = (String)session.getAttribute("currentURL");
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
-			<li class="nav-item dropdown border"><a
+			<%-- <li class="nav-item dropdown border"><a
 				class="nav-link dropdown-toggle" href="#" role="button"
 				data-toggle="dropdown" aria-expanded="false"> Park <i
 					class="fa fa-caret-down"></i>
@@ -153,8 +154,8 @@ String curr = (String)session.getAttribute("currentURL");
 					<a class="dropdown-item" href="<%=option1%>">Option1</a> <a
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
-				</div></li>
-			<li class="nav-item dropdown border"><a
+				</div></li> --%>
+			<%-- <li class="nav-item dropdown border"><a
 				class="nav-link dropdown-toggle" href="#" role="button"
 				data-toggle="dropdown" aria-expanded="false"> Close <i
 					class="fa fa-caret-down"></i>
@@ -163,13 +164,13 @@ String curr = (String)session.getAttribute("currentURL");
 					<a class="dropdown-item" href="<%=option1%>">Option1</a> <a
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
-				</div></li>
-			<%-- <li class="nav-item border">
-        <a class="nav-link" href="<%= dispatch %>">Dispatch</a>
-      </li>
-      <li class="nav-item border">
-        <a class="nav-link" href="<%= convert %>">Convert</a>
-      </li> --%>
+				</div></li> --%>
+		<%-- <li class="nav-item border">
+			     <a class="nav-link" href="<%= dispatch %>">Dispatch</a>
+			 </li>
+			 <li class="nav-item border">
+			     <a class="nav-link" href="<%= convert %>">Convert</a>
+			  </li> --%>
 			<li class="nav-item dropdown border"><a
 				class="nav-link dropdown-toggle" href="#" role="button"
 				data-toggle="dropdown" aria-expanded="false"> More <i
@@ -193,33 +194,9 @@ String curr = (String)session.getAttribute("currentURL");
 </nav>
 
 
-<%-- <%
-
- if(themeDisplay.isSignedIn()){
- List<UserPost> userPostList =UserPostLocalServiceUtil.getUserPostList(user.getUserId());
- for(UserPost userPosts:userPostList){
- long id=userPosts.getUserPostId();
- String name=userPosts.getShortName();
-  out.println("userPostId--> "+id);
-  out.println("userPostName--> "+name);
- %> 
-
-
-<form action="">  
-	<input type="text" name="uname" value="<%= id%>">  
-	<input type="text" value="${userPostId}"><br/>  
-</form>  
-
-<% }}%>
- --%>
-
-
-
 <script>
 	var navId = "${param.selectedNav}";
 	var nav = document.getElementById(navId);
 
 	nav.style.color = 'blue';
 </script>
-
-

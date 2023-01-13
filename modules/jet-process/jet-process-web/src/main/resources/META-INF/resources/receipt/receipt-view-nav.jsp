@@ -55,18 +55,18 @@
 <portlet:renderURL var="sendBack">
 	<portlet:param name="mvcPath" value="/receipt/send_back.jsp" />
 </portlet:renderURL>
-<portlet:renderURL var="putFile">
-	<portlet:param name="mvcPath" value="/receipt/put_in_a_file.jsp" />
-</portlet:renderURL>
 <portlet:renderURL var="editReceipt">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
 </portlet:renderURL>
+<%-- <portlet:renderURL var="putFile">
+	<portlet:param name="mvcPath" value="/receipt/put_in_a_file.jsp" />
+</portlet:renderURL>
 <portlet:renderURL var="dispatch">
 	<portlet:param name="mvcPath" value="/receipt/dispatch.jsp" />
-</portlet:renderURL>
+</portlet:renderURL> --%>
 <portlet:renderURL var="actionDetails">
 	<portlet:param name="mvcPath" value="/receipt/action_details.jsp" />
 </portlet:renderURL>
@@ -92,10 +92,10 @@
 				href="<%=sendReceipt%>"> Send </a></li>
 			<li class="nav-item"><a id="sendback" class="nav-link "
 				href="<%=sendBack%>"> Send Back </a></li>
-			<li class="nav-item"><a id="putFile" class="nav-link "
+			<%-- <li class="nav-item"><a id="putFile" class="nav-link "
 				href="<%=putFile%>"> Put in a file </a></li>
 			<li class="nav-item"><a id="dispatch" class="nav-link "
-				href="<%=dispatch%>">Dispatch</a></li>
+				href="<%=dispatch%>">Dispatch</a></li> --%>
 			<li class="nav-item"><a id="edit" class="nav-link "
 				href="<%=editReceipt%>"> Edit </a></li>
 			<li class="nav-item"><a id="actionDetails" class="nav-link "

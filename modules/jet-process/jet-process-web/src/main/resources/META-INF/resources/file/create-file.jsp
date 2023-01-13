@@ -238,7 +238,7 @@
 										</legend>-->
 											<aui:input cssClass="form-control col-md-12" rows="3"
 												type="textarea" name="remarks" id="remarks" value=""
-												label="label-file-remark">
+												label="label-file-remark" style="padding: 6px 12px !important;">
 
 												<aui:validator name="maxLength">
 													<liferay-ui:message key="file-remark-maxlength" />
@@ -253,7 +253,7 @@
 											Reference<span class='text-danger'>*</span>
 										</legend> -->
 											<aui:input cssClass="form-control col-md-12 " type="text"
-												name="reference" id="reference" value=""
+												name="reference" id="reference" value="" style="padding: 6px 12px !important;"
 												label="label-file-reference">
 
 												<aui:validator name="maxLength">
