@@ -1,23 +1,8 @@
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.time.OffsetDateTime"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="io.jetprocess.model.Receipt"%>
-<%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
-<%@page import="com.liferay.portal.kernel.model.User"%>
-
-
 <%
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
-
 	session.setAttribute("currentURL", currentURL);
 %>
-
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -27,13 +12,7 @@
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="details" />
-			<%-- <liferay-util:param name="userPostId" value="${id}" /> --%>
 		</liferay-util:include>
-		<%-- <%}
-
-}%>
- --%>
-		<%-- <%@ include file="receipt-view-nav.jsp"%> --%>
 
 		<%
 			Receipt receipt = (Receipt) request.getAttribute("receipt");
@@ -204,10 +183,3 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-

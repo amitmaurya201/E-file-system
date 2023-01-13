@@ -1,17 +1,18 @@
 <%@ include file="../init.jsp"%>
-<%@page import="io.jetprocess.model.Receipt"%>
-<%@page import="java.util.TimeZone"%>
-<%@page
-	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
-<%@page import="io.jetprocess.service.ReceiptLocalServiceUtil"%>
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-<%@ include file="/common/common.jsp"%>
+
+<%
+	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
+	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+	String setURl = serviceContext.getPortalURL();
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
+	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+%>
+<portlet:renderURL var="editReceipt">
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
+	<portlet:param name="receiptId" value="${receipt.receiptId}" />
+</portlet:renderURL>
+
 <style>
 <!--
 .datepicker {
@@ -31,18 +32,7 @@
 }
 -->
 </style>
-<%
-	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
-	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-	String setURl = serviceContext.getPortalURL();
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
-	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-%>
-<portlet:renderURL var="editReceipt">
-	<portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
-	<portlet:param name="receiptId" value="${receipt.receiptId}" />
-</portlet:renderURL>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -72,7 +62,6 @@
 								style="display: none">
 
 							</embed>
-
 							<div class="dropzone-wrapper" style="display: none">
 								<i class="glyphicon glyphicon-download-alt"></i>
 								<p>

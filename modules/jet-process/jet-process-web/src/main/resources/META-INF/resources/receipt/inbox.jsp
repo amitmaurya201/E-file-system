@@ -1,15 +1,12 @@
-<%@page import="io.jetprocess.model.ReceiptMovement"%>
-<%@page import="io.jetprocess.service.ReceiptMovementLocalServiceUtil"%>
-<%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
-
-
 <%
 	String backURL = themeDisplay.getURLCurrent();
 	String backURL1 = backURL + "&a=12";
 %>
 
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/receipt/inbox.jsp" />
+</liferay-portlet:renderURL>
 
 <style>
 .table thead th {
@@ -73,11 +70,6 @@
 }
 </style>
 
-<liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="mvcPath" value="/receipt/inbox.jsp" />
-</liferay-portlet:renderURL>
-
-
 <div id="rec_inbox" class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -124,8 +116,6 @@
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-
-
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptDetails">
@@ -143,7 +133,6 @@
 							<liferay-ui:search-container-column-text name="" cssClass="bold">
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
-
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
@@ -159,32 +148,26 @@
 										value="<%=receiptMovementDTO.getReceiptNumber() != null
 												? receiptMovementDTO.getReceiptNumber()
 												: ""%>" />
-
 								</c:otherwise>
 							</c:choose>
-
 							<liferay-ui:search-container-column-text orderable="true"
 								orderableProperty="subject"
 								value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
 								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
-
 							<%
 								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
 															.getReceiptMovement(receiptMovementDTO.getReceiptMovementId());
 													long senderId = receiptMvmt.getSenderId();
 							%>
-
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
-
 							<%
 								SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 													simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 							%>
-
 							<liferay-ui:search-container-column-text cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" />
@@ -223,7 +206,6 @@
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
-
 						</c:if>
 						<c:if
 							test="${receiptMovementDTO.getReadOn()!=null || receiptMovementDTO.getReceivedOn()!=null}">
@@ -286,7 +268,6 @@
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
-
 						</c:if>
 					</c:when>
 				</c:choose>
@@ -436,8 +417,6 @@ function showModal(id){
 			    userPostId: id
 			},
 			function(obj) {
-			    console.log(obj);
-							
 				var name=document.getElementById("name");
 				var marking=document.getElementById("marking");
 				var section=document.getElementById("section");
@@ -459,19 +438,15 @@ function showModal(id){
 				design.append(obj.designation);
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
-				
 			}
-			);
+	);
 	$("#sender-dtls").addClass("active");
 	$("#rec_inbox").addClass("active");
 	$(".close").on("click", function() {
 		  $("#sender-dtls").removeClass("active");
 		  $("#rec_inbox").removeClass("active");
 		});
-		
 	}
-
-
 </script>
 
 <!--end  -->

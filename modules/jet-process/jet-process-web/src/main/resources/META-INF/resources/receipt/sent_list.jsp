@@ -1,10 +1,4 @@
-<%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <style>
 .popup, .pull_back-popup {
@@ -46,7 +40,6 @@
 }
 
 </style>
-
 <div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>

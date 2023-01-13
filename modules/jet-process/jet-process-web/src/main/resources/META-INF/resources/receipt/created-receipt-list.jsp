@@ -1,11 +1,4 @@
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
-<%-- <%@ include file="/css/main.scss" %> --%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
-<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
-
 
 <%
 	String backURL = themeDisplay.getURLCurrent();
@@ -59,7 +52,8 @@
 				keyProperty="receiptNumber" modelVar="receipt" cssClass="colour">
 
 				<portlet:renderURL var="receiptDetails">
-					<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
 					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 				</portlet:renderURL>
@@ -69,9 +63,7 @@
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text name="" value="${nature }" />
 
-
-				<liferay-ui:search-container-column-text
-					href="<%=receiptDetails%>"
+				<liferay-ui:search-container-column-text href="<%=receiptDetails%>"
 					value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
 					name="label-receipt-list-receiptno"
 					orderableProperty="receiptNumber" orderable="true" />
@@ -106,7 +98,6 @@
 					</c:if>
 				</liferay-ui:search-container-column-text>
 
-
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator paginate="false" />
@@ -114,13 +105,11 @@
 				markupView="lexicon" />
 		</liferay-ui:search-container>
 
-
 		<portlet:renderURL var="viewPdf"
 			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 			<portlet:param name="mvcPath" value="/receipt/pdf_view.jsp" />
 			<portlet:param name="pdfUrl" value="${receipt.viewPdfUrl }" />
 		</portlet:renderURL>
-
 
 		<div id="popup" class="modal invisible" tabindex="-1">
 			<div class="modal-dialog">
@@ -136,49 +125,32 @@
 				</div>
 			</div>
 		</div>
-
-
-
 	</div>
 </div>
-
-
-
 <script type="text/javascript">
+	$(document).ready(
+			function() {
+				$('.btn-close').on('click', function(e) {
+					$('#popup').modal('hide');
+				});
 
-$(document).ready(function(){
-	
-	$('.btn-close').on('click', function(e){
-		//$('#popup').removeClass('visible').addClass('invisible');
-		$('#popup').modal('hide');
-	});
-	
-	$(".openPdf").on('click', function(e){
-		
-		//let url = 'http://localhost:8080'.trim()+encodeURIComponent((e.target.innerText).trim());
-		
-		console.log($(this).attr('data-url'))
-		let url = themeDisplay.getPortalURL()+($(this).attr('data-url')).trim();
-		//let url = themeDisplay.getPortalURL()+(e.target.innerText).trim();
-		
-		//e.target.innerText="";
-		console.log(url);
-	<%--     var pdfUrl = '<%= viewPdf %>'; 
-		console.log(pdfUrl);
- --%>		$('#popup').modal({
-			  keyboard: false
-	     });
-		$('#popup').removeClass('invisible').addClass('visible');
-		//console.log(${pdfUrl});
-	 $('#popup').find('div#pdf').empty();
-	 
-	 let embeded= $('<embed/>',{type:'application/pdf',width:'100%',height:'500'}).appendTo($('#popup').find('div#pdf'));
-	 //$('#popup').find('.modal-body').load(url);
-		embeded.attr('src',url);
-		
-		
-	});
-	
-});
-
+				$(".openPdf").on(
+						'click',
+						function(e) {
+							let url = themeDisplay.getPortalURL()
+									+ ($(this).attr('data-url')).trim();
+							$('#popup').modal({
+								keyboard : false
+							});
+							$('#popup').removeClass('invisible').addClass(
+									'visible');
+							$('#popup').find('div#pdf').empty();
+							let embeded = $('<embed/>', {
+								type : 'application/pdf',
+								width : '100%',
+								height : '500'
+							}).appendTo($('#popup').find('div#pdf'));
+							embeded.attr('src', url);
+						});
+			});
 </script>

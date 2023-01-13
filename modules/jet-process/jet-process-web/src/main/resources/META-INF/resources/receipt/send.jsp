@@ -1,6 +1,4 @@
-<%@page import="io.jetprocess.model.Receipt"%>
 <%@ include file="../init.jsp"%>
-<%@ include file="/common/common.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -15,21 +13,23 @@
 
 <style>
 <!--
-.datepicker{
-overflow:hidden;
+.datepicker {
+	overflow: hidden;
 }
+
 .datepicker-days .table-condensed {
-width: 100%;
+	width: 100%;
 }
+
 .datepicker-days .table-condensed tr {
-  border: 1px solid black;
+	border: 1px solid black;
 }
+
 .datepicker-days .table-condensed td {
-  border: 1px solid black;
+	border: 1px solid black;
 }
 -->
 </style>
-
 
 <div class="send row">
 	<div class="body-side-nav col-2">
@@ -41,20 +41,23 @@ width: 100%;
 			<liferay-util:param name="selectedNav" value="send" />
 		</liferay-util:include>
 
-		<portlet:actionURL name="<%= MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND %>" var="sendReceiptAction" />
-
-
+		<portlet:actionURL
+			name="<%=MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND%>"
+			var="sendReceiptAction" />
 		<%
 			Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 			String type = (String) receipt.getNature();
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%> | ${receipt.receiptNumber} </div>
+			<div class="hover-tips"><%=firstChar%>
+				| ${receipt.receiptNumber}
+			</div>
 		</div>
 
 		<aui:container cssClass="row">
-			<aui:form action="${sendReceiptAction}" cssClass="border border-dark col-6" style="padding: 1% !important"> 
+			<aui:form action="${sendReceiptAction}"
+				cssClass="border border-dark col-6" style="padding: 1% !important">
 				<input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>receiptId"
@@ -166,8 +169,6 @@ width: 100%;
 		});
 	});
 </script>
-
-
 <!-- <script>
 	$('#<portlet:namespace/>receiverId').select2({
 		width : '100%',
@@ -176,17 +177,3 @@ width: 100%;
 		allowClear : true
 	});
 </script> -->
-<%-- <aui:script>
-	AUI().use(
-        'aui-datepicker',
-        function(A) {
-            new A.DatePicker({
-                trigger: '#<portlet:namespace />dueDate',
-                mask: '%d-%m-%Y',
-                popover: {
-                    zIndex: 1000
-                }
-            });
-        }
-    );
-</aui:script>  --%>

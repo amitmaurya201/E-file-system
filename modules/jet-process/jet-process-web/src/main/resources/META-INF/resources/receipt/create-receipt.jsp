@@ -1,14 +1,26 @@
-<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
 <%@ include file="../init.jsp"%>
-<%@ page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@ page
-	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
-<%@ include file="/common/common.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+<%
+	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+	String setURl = serviceContext.getPortalURL();
+
+	/* for current date*/
+	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MMM/yyyy");
+	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+%>
+<portlet:renderURL var="createdListReceipt">
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND%>" />
+</portlet:renderURL>
+
+<portlet:renderURL var="editReceipt">
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
+	<portlet:param name="receiptId" value="${receipt.receiptId}" />
+</portlet:renderURL>
+
 <style>
 <!--
 .datepicker {
@@ -29,23 +41,6 @@
 -->
 </style>
 
-<%
-	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-	String setURl = serviceContext.getPortalURL();
-
-	/* for current date*/
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MMM/yyyy");
-	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-%>
-<portlet:renderURL var="createdListReceipt">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND%>" />
-</portlet:renderURL>
-
-<portlet:renderURL var="editReceipt">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
-	<portlet:param name="receiptId" value="${receipt.receiptId}" />
- </portlet:renderURL>
- 
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -66,7 +61,6 @@
 								style="display: none">
 								<liferay-ui:message key="receipt-remove-button" />
 							</button>
-
 							<c:set var="removeFlag" value="${true} }"></c:set>
 							<div id="targetDiv" class="targetDiv text-center">
 								<div class="dropzone-wrapper ">
@@ -78,9 +72,8 @@
 										id="doc-select-btn"><liferay-ui:message
 											key="label-receipt-pdf-file" /></span> <input name="doc-input"
 										id="doc-input" type="file" hidden accept=".pdf" />
-										<p id="error" class="text-danger" >This field is required<p>
-									
-
+									<p id="error" class="text-danger">This field is required
+									<p>
 								</div>
 							</div>
 						</aui:col>
@@ -350,7 +343,8 @@
 								<div class="textOnInput">
 									<label><liferay-ui:message key="label-receipt-address" /><span
 										class='text-danger'>*</span></label>
-									<aui:input type="textarea" label="" name="address" id="address" style="height:70px;">
+									<aui:input type="textarea" label="" name="address" id="address"
+										style="height:70px;">
 										<aui:validator name="required" />
 										<aui:validator name="maxLength">
 											<liferay-ui:message key="receipt-address-maxlength" />
