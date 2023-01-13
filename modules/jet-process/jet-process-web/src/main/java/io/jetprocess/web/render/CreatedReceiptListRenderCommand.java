@@ -46,8 +46,11 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
+		System.out.println("currentPage in created receipt list : "+currentPage);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
+		System.out.println("delta in created receipt list : "+delta);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
+		System.out.println("start in created receipt list : "+start);
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
@@ -59,26 +62,26 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 
 		int receiptCount = _receiptList.getReceiptListCount(userPostId, keywords);
 		int preDelta = 0;
-		String d = (String) session.getAttribute("preDelta");
+		String d = (String) session.getAttribute("pDelta");
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
 		}
-		if(delta !=preDelta) {
+		
 		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, receiptCount, preDelta);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
-		}
-		session.setAttribute("preDelta", "" + delta + "");
+		
+		session.setAttribute("pDelta", "" + delta + "");
 		List<ReceiptListViewDto> receiptList = _receiptList.getReceiptList(userPostId, keywords, start, end, orderByCol,
 				orderByType);
+		receiptList.forEach(c->System.out.println("----> ---->"+c));
 		renderRequest.setAttribute("receiptFileList", receiptList);
 		renderRequest.setAttribute("receiptCount", +receiptCount);
 		renderRequest.setAttribute("delta", delta);
 	}
 
 	/**
-	 * Adds Clay management toolbar context object to the request.*
-	 * 
+	 * Adds Clay management toolbar context object to the request.
 	 * @param renderRequest
 	 * @param renderResponse
 	 */

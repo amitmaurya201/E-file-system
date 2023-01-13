@@ -66,12 +66,10 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
 		}
-		if(delta !=preDelta) {
 			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
 			start=paginationConfig.get("start");
 			currentPage=paginationConfig.get("currentPage");
 			
-			}
 		session.setAttribute("preDelta", "" + delta + "");
 		List<ReceiptMovementDTO> receiptInboxList = _receiptList.getReceiptInboxList(userPostId, keywords, start, end,
 				orderByCol, orderByType);

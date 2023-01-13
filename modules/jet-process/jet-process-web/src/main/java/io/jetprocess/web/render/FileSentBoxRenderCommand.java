@@ -65,12 +65,10 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 			preDelta=Integer.parseInt(d);
 			
 		}
-		if(delta !=preDelta) {
 			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, sendFileCount, preDelta);
 			start=paginationConfig.get("start");
 			currentPage=paginationConfig.get("currentPage");
 			
-			}
 		session.setAttribute("preDelta", ""+delta+"");
 		List<FileMovementDTO> sendFileList =_fileList.getFileSentList(userPostId, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("sentFileList", sendFileList);

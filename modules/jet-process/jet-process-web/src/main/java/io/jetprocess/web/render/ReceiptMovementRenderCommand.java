@@ -71,11 +71,9 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		if(d!=null) {
 			preDelta=Integer.parseInt(d);
 		}
-		if(delta !=preDelta) {
 			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
 			start=paginationConfig.get("start");
 			currentPage=paginationConfig.get("currentPage");
-			}
 		session.setAttribute("preDelta", ""+delta+"");
 		
 		if(receiptId != 0) {
