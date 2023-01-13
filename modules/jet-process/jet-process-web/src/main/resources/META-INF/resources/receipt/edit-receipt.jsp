@@ -362,7 +362,7 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-email-message">
 											function(val){
-												var regex=new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+												var regex=new RegExp(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/);
 												return regex.test(val);
 											}
 										</aui:validator>
