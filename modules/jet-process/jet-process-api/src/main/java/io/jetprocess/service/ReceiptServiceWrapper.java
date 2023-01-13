@@ -37,22 +37,22 @@ public class ReceiptServiceWrapper
 	@Override
 	public io.jetprocess.model.Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks,
-			String name, String designation, String mobile, String email,
-			String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,
-			long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			long deliveryModeId, String nature, String receivedOn,
+			String letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, long userPostId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
 
 		return _receiptService.createReceipt(
-			groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
-			letterDate, referenceNumber, modeNumber, receiptCategoryId,
-			receiptSubCategoryId, subject, remarks, name, designation, mobile,
-			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, userPostId, serviceContext);
+			groupId, typeId, tempfileEntryId, deliveryModeId, nature,
+			receivedOn, letterDate, referenceNumber, modeNumber,
+			receiptCategoryId, receiptSubCategoryId, subject, remarks, name,
+			designation, mobile, email, address, countryId, stateId, pinCode,
+			organizationId, subOrganizationId, city, userPostId);
 	}
 
 	@Override
@@ -60,11 +60,6 @@ public class ReceiptServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _receiptService.deleteReceipt(receiptId);
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.model.Receipt> getAllReceipt() {
-		return _receiptService.getAllReceipt();
 	}
 
 	/**
@@ -87,23 +82,22 @@ public class ReceiptServiceWrapper
 	@Override
 	public io.jetprocess.model.Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
+			String nature, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
 
 		return _receiptService.updateReceipt(
-			receiptId, groupId, typeId, tempfileEntryId, deliveryModeId,
-			receivedOn, letterDate, referenceNumber, modeNumber,
-			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
-			name, designation, mobile, email, address, countryId, stateId,
-			pinCode, organizationId, subOrganizationId, city, userPostId,
-			serviceContext);
+			receiptId, groupId, typeId, tempfileEntryId, nature, receivedOn,
+			letterDate, referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, name, designation, mobile,
+			email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, userPostId);
 	}
 
 	@Override

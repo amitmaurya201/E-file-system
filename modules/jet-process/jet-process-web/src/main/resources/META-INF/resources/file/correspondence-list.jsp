@@ -137,36 +137,8 @@
 						uri: '<%= fileInnerViewPopup %>&<portlet:namespace/>corrFileId=<%=corrFileId %>',			
 																			 
 		}); 
-			<!-- dialog.destroy();		 -->
 	});	
 	
 	</aui:script>
-	<!-- Liferay.provide(
-	window,
-	'<portlet:namespace/>closePopup',
-	function(data, dialogId) {
-		var A = AUI();
-		var dialog = Liferay.Util.Window.getById(dialogId);
-		dialog.destroy();
-	},
-	['liferay-util-window']
-);		 -->
-
-<!-- <aui:script>
-Liferay.provide(
-	window,
-	'<portlet:namespace/>closePopup',
-	function(data, dialogId) {
-		var A = AUI();
-		
-		// Here you can use "data" parameter
-		
-		// Closing the dialog
-		var dialog = Liferay.Util.Window.getById(dialogId);
-		dialog.destroy();
-	},
-	['liferay-util-window']
-);
-</aui:script> -->
-
+	
 	

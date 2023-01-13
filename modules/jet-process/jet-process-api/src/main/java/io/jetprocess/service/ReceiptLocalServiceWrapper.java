@@ -76,22 +76,22 @@ public class ReceiptLocalServiceWrapper
 	@Override
 	public io.jetprocess.model.Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks,
-			String name, String designation, String mobile, String email,
-			String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,
-			long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			long deliveryModeId, String nature, String receivedOn,
+			String letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, long userPostId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
 
 		return _receiptLocalService.createReceipt(
-			groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
-			letterDate, referenceNumber, modeNumber, receiptCategoryId,
-			receiptSubCategoryId, subject, remarks, name, designation, mobile,
-			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, userPostId, serviceContext);
+			groupId, typeId, tempfileEntryId, deliveryModeId, nature,
+			receivedOn, letterDate, referenceNumber, modeNumber,
+			receiptCategoryId, receiptSubCategoryId, subject, remarks, name,
+			designation, mobile, email, address, countryId, stateId, pinCode,
+			organizationId, subOrganizationId, city, userPostId);
 	}
 
 	/**
@@ -261,15 +261,15 @@ public class ReceiptLocalServiceWrapper
 	}
 
 	@Override
+	public String generateReceiptNumber(long receiptId) {
+		return _receiptLocalService.generateReceiptNumber(receiptId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return _receiptLocalService.getActionableDynamicQuery();
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.model.Receipt> getAllReceipt() {
-		return _receiptLocalService.getAllReceipt();
 	}
 
 	@Override
@@ -318,13 +318,6 @@ public class ReceiptLocalServiceWrapper
 		return _receiptLocalService.getPersistedModel(primaryKeyObj);
 	}
 
-	@Override
-	public io.jetprocess.model.Receipt getReceipt()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _receiptLocalService.getReceipt();
-	}
-
 	/**
 	 * Returns the receipt with the primary key.
 	 *
@@ -337,13 +330,6 @@ public class ReceiptLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _receiptLocalService.getReceipt(receiptId);
-	}
-
-	@Override
-	public io.jetprocess.model.Receipt getReceiptByReceiptId(long receiptId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _receiptLocalService.getReceiptByReceiptId(receiptId);
 	}
 
 	/**
@@ -427,13 +413,6 @@ public class ReceiptLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Receipt getReceiptUpdate(long receiptId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _receiptLocalService.getReceiptUpdate(receiptId);
-	}
-
-	@Override
 	public Boolean isSendAvailable(long userPostId, long receiptId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -443,23 +422,22 @@ public class ReceiptLocalServiceWrapper
 	@Override
 	public io.jetprocess.model.Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
+			String nature, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.io.IOException {
 
 		return _receiptLocalService.updateReceipt(
-			receiptId, groupId, typeId, tempfileEntryId, deliveryModeId,
-			receivedOn, letterDate, referenceNumber, modeNumber,
-			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
-			name, designation, mobile, email, address, countryId, stateId,
-			pinCode, organizationId, subOrganizationId, city, userPostId,
-			serviceContext);
+			receiptId, groupId, typeId, tempfileEntryId, nature, receivedOn,
+			letterDate, referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, name, designation, mobile,
+			email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, userPostId);
 	}
 
 	/**

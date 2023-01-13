@@ -397,7 +397,8 @@ $('#removeFileUpload').on('click',function(e){
 		$("#error").css('display','block');	
 		}
 		else if (nature == 'Physical'){
-			$("#error").css('display','none');	
+			$("#error").css('display','none');
+			  tempFileId=0;
 		}
 	$('.dropzone-wrapper').css("display", "block");
 	$('#removeFileUpload').css("display", "none");

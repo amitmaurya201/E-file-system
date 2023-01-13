@@ -21,7 +21,7 @@ public class ReceiptViewHelper {
 	public void setRecieptDetails(long receiptId, RenderRequest renderRequest, RenderResponse renderResponse) {
 		Receipt receipt;
 		try {
-			receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+			receipt = receiptLocalService.getReceipt(receiptId);
 			renderRequest.setAttribute("receipt", receipt);
 
 			Masterdata typeById = masterdataLocalService.getTypeById(receipt.getTypeId());

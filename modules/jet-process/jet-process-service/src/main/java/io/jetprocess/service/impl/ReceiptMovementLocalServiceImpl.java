@@ -88,7 +88,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		receiptMovement.setDueDate(dueDate);
 		receiptMovement.setActive(true);
 		try {
-			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+			Receipt receipt = receiptLocalService.getReceipt(receiptId);
 			if (receiptId == receipt.getReceiptId()) {
 				receipt.setCurrentlyWith(receiverId);
 				receiptLocalService.updateReceipt(receipt);
@@ -135,7 +135,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 				}
 			}
 			// for set current state as 1 in receipt
-			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptId);
+			Receipt receipt = receiptLocalService.getReceipt(receiptId);
 			Boolean active = isActive(receiptId);
 			if (!active) {
 				receipt.setCurrentState(FileStatus.CREADTED);

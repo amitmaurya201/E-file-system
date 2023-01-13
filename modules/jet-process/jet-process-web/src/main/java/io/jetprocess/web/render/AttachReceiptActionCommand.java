@@ -72,7 +72,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 				.getReceiptMovementByReceiptId(receiptId);
 		for (ReceiptMovement receiptMovement : receiptMovementByReceiptId) {
 			logger.info("getPullBackRemark    " + receiptMovement.getPullBackRemark());
-			Receipt receipt = receiptLocalService.getReceiptByReceiptId(receiptMovement.getReceiptId());
+			Receipt receipt = receiptLocalService.getReceipt(receiptMovement.getReceiptId());
 			logger.info("receipt.getCurrentState   " + receipt.getCurrentState());
 			if ((receiptMovement.getPullBackRemark().isEmpty()) && (receipt.getAttachStatus().isEmpty()) && !receiptMovement.getActive() ){
 

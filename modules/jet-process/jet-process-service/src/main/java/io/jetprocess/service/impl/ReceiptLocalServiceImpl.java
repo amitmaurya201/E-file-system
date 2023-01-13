@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.docstore.DocStore;
 import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
@@ -43,39 +45,34 @@ import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
 @Component(property = "model.class.name=io.jetprocess.model.Receipt", service = AopService.class)
 public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 
-	public Receipt createReceipt(long groupId, long typeId, long tempfileEntryId, long deliveryModeId,
+	public Receipt createReceipt(long groupId, long typeId, long tempfileEntryId, long deliveryModeId,String nature,
 			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
-			long subOrganizationId, String city, long userPostId, ServiceContext serviceContext)
-			throws PortalException {
+			long subOrganizationId, String city, long userPostId)
+			throws PortalException, IOException {
 		// Get Group(Site) and user Information
 		Group group = groupLocalService.getGroup(groupId);
-		long userId = serviceContext.getUserId();
-		User user = userLocalService.getUser(userId);
-		String number = null;
-		String changeLog = "docStore";
-		FileEntry fileEntry = docstore.getTempFile(tempfileEntryId);
-		String title = fileEntry.getFileName();
-		InputStream is = fileEntry.getContentStream();
-		String mimeType = fileEntry.getMimeType();
-		long documentAndMediaFileId = 0l;
-		String viewFileUrl = null;
-
-		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
-					"");
-			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-		} catch (IOException e) {
-			logger.info("documentAndMediaFileId not found");
-		}
-		docstore.deleteTempFile(tempfileEntryId);
+		String receiptNumber =null;
+		
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
 		Receipt receipt = createReceipt(receiptId);
-
-		// 1.Update Actual Fields
+		if (subject.isEmpty() || name.isEmpty() || address.isEmpty() || designation.isEmpty()) {
+			return null;
+		}
+		 
+		if (tempfileEntryId != 0) {
+			long dmFileId = receiptLocalService.getDmFileId(tempfileEntryId, groupId);
+			String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
+			receipt.setViewPdfUrl(viewFileUrl);
+			receipt.setDmFileId(dmFileId);
+		}
+		if (nature.equals("Electronic")) {
+			if (tempfileEntryId == 0) {
+				return null;
+			}
+		}
 		receipt.setTypeId(typeId);
-		receipt.setDmFileId(documentAndMediaFileId);
 		receipt.setDeliveryModeId(deliveryModeId);
 		receipt.setReceivedOn(receivedOn);
 		receipt.setLetterDate(letterDate);
@@ -83,7 +80,6 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setModeNumber(modeNumber);
 		receipt.setOrganizationId(organizationId);
 		receipt.setReceiptCategoryId(receiptCategoryId);
-		receipt.setViewPdfUrl(viewFileUrl);
 		receipt.setReceiptSubCategoryId(receiptSubCategoryId);
 		receipt.setSubject(subject);
 		receipt.setRemarks(remarks);
@@ -97,60 +93,35 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setCity(city);
 		receipt.setSubOrganizationId(subOrganizationId);
 		receipt.setPinCode(pinCode);
-		// 2.Update Audit and Other Generic Fields
 		receipt.setGroupId(groupId);
 		receipt.setCompanyId(group.getCompanyId());
-		receipt.setUserName(user.getScreenName());
-		receipt.setUserId(userId);
-		receipt.setCreateDate(serviceContext.getCreateDate(new Date()));
-		receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
-		number = generateReceiptNumber(receiptId);
-		receipt.setReceiptNumber(number);
+		receiptNumber = generateReceiptNumber(receiptId);
+		receipt.setReceiptNumber(receiptNumber);
 		receipt.setUserPostId(userPostId);
+		receipt.setCurrentState(FileStatus.CREADTED);
+		receipt.setCurrentlyWith(userPostId);
 		receipt = super.addReceipt(receipt);
 		return receipt;
 	}
 
-	public Receipt updateReceipt(long receiptId, long groupId, long typeId, long tempfileEntryId, long deliveryModeId,
+	public Receipt updateReceipt(long receiptId,long groupId, long typeId, long tempfileEntryId,String nature,
 			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks, String document, String name, String designation,
-			String mobile, String email, String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city, long userPostId, ServiceContext serviceContext)
-			throws PortalException {
+			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
+			long subOrganizationId, String city, long userPostId)
+			throws PortalException, IOException {
 		Receipt receipt = getReceipt(receiptId);
-		Group group = groupLocalService.getGroup(groupId);
-		long userId = serviceContext.getUserId();
-		User user = userLocalService.getUser(userId);
-		// file fields
-		String changeLog = "docStore";
-		FileEntry fileEntry = docstore.getTempFile(tempfileEntryId);
-
-		String title = fileEntry.getFileName();
-
-		InputStream is = fileEntry.getContentStream();
-		String mimeType = fileEntry.getMimeType();
-		long documentAndMediaFileId = 0l;
+		System.out.println("receipt132763"+receipt);
+		long dmFileId = 0l;
 		String viewFileUrl = null;
 
-		try {
-			documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
-					"");
-			viewFileUrl = docstore.ViewDocumentAndMediaFile(documentAndMediaFileId);
-		} catch (IOException e) {
-			logger.info("documentAndMediaFileId not found");
-		}
-		docstore.deleteTempFile(tempfileEntryId);
-		// 1.Update Actual Fields
 		receipt.setTypeId(typeId);
-		receipt.setDmFileId(documentAndMediaFileId);
-		receipt.setDeliveryModeId(deliveryModeId);
 		receipt.setReceivedOn(receivedOn);
 		receipt.setLetterDate(letterDate);
 		receipt.setReferenceNumber(referenceNumber);
 		receipt.setModeNumber(modeNumber);
 		receipt.setOrganizationId(organizationId);
 		receipt.setReceiptCategoryId(receiptCategoryId);
-		receipt.setViewPdfUrl(viewFileUrl);
 		receipt.setReceiptSubCategoryId(receiptSubCategoryId);
 		receipt.setSubject(subject);
 		receipt.setRemarks(remarks);
@@ -164,43 +135,31 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setCity(city);
 		receipt.setSubOrganizationId(subOrganizationId);
 		receipt.setPinCode(pinCode);
-		// 2.Update Audit and Other Generic Fields
-		receipt.setGroupId(groupId);
-		receipt.setCompanyId(group.getCompanyId());
-		receipt.setUserName(user.getScreenName());
-		receipt.setUserId(userId);
-
-		// 2.Update Audit and Other Generic Fields
-
-		receipt.setModifiedDate(serviceContext.getModifiedDate(new Date()));
 		receipt.setUserPostId(userPostId);
+		if (tempfileEntryId != 0) {
+			dmFileId = receiptLocalService.getDmFileId(tempfileEntryId, groupId);
+			viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
+			receipt.setViewPdfUrl(viewFileUrl);
+			receipt.setDmFileId(dmFileId);
+		} else {
+			if (nature.equals("Electronic")) {
+				receipt.setDmFileId(receipt.getDmFileId());
+				receipt.setViewPdfUrl(receipt.getViewPdfUrl());
+			} else {
+				receipt.setViewPdfUrl("");
+				receipt.setDmFileId(0);
+			}
+		}
 		receipt = super.updateReceipt(receipt);
 		return receipt;
 
 	}
+	
 
-	public Receipt deleteReceipt(Receipt receipt) {
-		return super.deleteReceipt(receipt);
-	}
-
-	public List<Receipt> getAllReceipt() {
-		return super.getReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-	}
-
-	private String generateReceiptNumber(long receiptId) {
+	public String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R" + receiptId;
 		return receiptNumber;
 
-	}
-
-	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException {
-		Receipt receipt = receiptLocalService.getReceipt(receiptId);
-		return receipt;
-	}
-
-	public Receipt getReceiptUpdate(long receiptId) throws PortalException {
-		Receipt receipt = getReceipt(receiptId);
-		return receipt;
 	}
 
 	public long getDmFileId(long tempFileId, long groupId) throws PortalException, IOException {
@@ -216,15 +175,9 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		return documentAndMediaFileId;
 	}
 
-	public Receipt getReceipt() throws PortalException {
-		long receiptId = counterLocalService.increment(Receipt.class.getName());
-		Receipt receipt = createReceipt(receiptId);
-		return receipt;
-	}
-
 	public Boolean isSendAvailable(long userPostId, long receiptId) throws PortalException {
 		boolean state = false;
-		Receipt receipt = getReceiptByReceiptId(receiptId);
+		Receipt receipt = getReceipt(receiptId);
 		if (userPostId == receipt.getCurrentlyWith()) {
 			state = true;
 		} else {

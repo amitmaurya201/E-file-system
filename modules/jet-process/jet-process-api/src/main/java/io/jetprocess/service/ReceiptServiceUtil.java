@@ -18,8 +18,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 
 import io.jetprocess.model.Receipt;
 
-import java.util.List;
-
 /**
  * Provides the remote service utility for Receipt. This utility wraps
  * <code>io.jetprocess.service.impl.ReceiptServiceImpl</code> and is an
@@ -41,30 +39,25 @@ public class ReceiptServiceUtil {
 	 */
 	public static Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks,
-			String name, String designation, String mobile, String email,
-			String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,
-			long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
+			long deliveryModeId, String nature, String receivedOn,
+			String letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, long userPostId)
+		throws java.io.IOException, PortalException {
 
 		return getService().createReceipt(
-			groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
-			letterDate, referenceNumber, modeNumber, receiptCategoryId,
-			receiptSubCategoryId, subject, remarks, name, designation, mobile,
-			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, userPostId, serviceContext);
+			groupId, typeId, tempfileEntryId, deliveryModeId, nature,
+			receivedOn, letterDate, referenceNumber, modeNumber,
+			receiptCategoryId, receiptSubCategoryId, subject, remarks, name,
+			designation, mobile, email, address, countryId, stateId, pinCode,
+			organizationId, subOrganizationId, city, userPostId);
 	}
 
 	public static Receipt deleteReceipt(long receiptId) throws PortalException {
 		return getService().deleteReceipt(receiptId);
-	}
-
-	public static List<Receipt> getAllReceipt() {
-		return getService().getAllReceipt();
 	}
 
 	/**
@@ -84,23 +77,21 @@ public class ReceiptServiceUtil {
 
 	public static Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
+			String nature, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
+		throws java.io.IOException, PortalException {
 
 		return getService().updateReceipt(
-			receiptId, groupId, typeId, tempfileEntryId, deliveryModeId,
-			receivedOn, letterDate, referenceNumber, modeNumber,
-			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
-			name, designation, mobile, email, address, countryId, stateId,
-			pinCode, organizationId, subOrganizationId, city, userPostId,
-			serviceContext);
+			receiptId, groupId, typeId, tempfileEntryId, nature, receivedOn,
+			letterDate, referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, name, designation, mobile,
+			email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, userPostId);
 	}
 
 	public static ReceiptService getService() {

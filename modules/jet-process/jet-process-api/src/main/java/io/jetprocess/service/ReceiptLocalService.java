@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -97,14 +96,14 @@ public interface ReceiptLocalService
 
 	public Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks,
-			String name, String designation, String mobile, String email,
-			String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,
-			long userPostId, ServiceContext serviceContext)
-		throws PortalException;
+			long deliveryModeId, String nature, String receivedOn,
+			String letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, long userPostId)
+		throws IOException, PortalException;
 
 	/**
 	 * @throws PortalException
@@ -225,11 +224,10 @@ public interface ReceiptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt fetchReceiptByUuidAndGroupId(String uuid, long groupId);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ActionableDynamicQuery getActionableDynamicQuery();
+	public String generateReceiptNumber(long receiptId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Receipt> getAllReceipt();
+	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getDmFileId(long tempFileId, long groupId)
@@ -257,9 +255,6 @@ public interface ReceiptLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceipt() throws PortalException;
-
 	/**
 	 * Returns the receipt with the primary key.
 	 *
@@ -269,9 +264,6 @@ public interface ReceiptLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Receipt getReceipt(long receiptId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException;
 
 	/**
 	 * Returns the receipt matching the UUID and group.
@@ -334,22 +326,19 @@ public interface ReceiptLocalService
 	public int getReceiptsCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Receipt getReceiptUpdate(long receiptId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isSendAvailable(long userPostId, long receiptId)
 		throws PortalException;
 
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
+			String nature, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId, ServiceContext serviceContext)
-		throws PortalException;
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
+		throws IOException, PortalException;
 
 	/**
 	 * Updates the receipt in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

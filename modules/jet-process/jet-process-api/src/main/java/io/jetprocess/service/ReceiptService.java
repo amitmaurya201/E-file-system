@@ -19,14 +19,13 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import io.jetprocess.model.Receipt;
 
-import java.util.List;
+import java.io.IOException;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -55,19 +54,16 @@ public interface ReceiptService extends BaseService {
 	 */
 	public Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks,
-			String name, String designation, String mobile, String email,
-			String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,
-			long userPostId, ServiceContext serviceContext)
-		throws PortalException;
+			long deliveryModeId, String nature, String receivedOn,
+			String letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, long userPostId)
+		throws IOException, PortalException;
 
 	public Receipt deleteReceipt(long receiptId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Receipt> getAllReceipt();
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -81,13 +77,13 @@ public interface ReceiptService extends BaseService {
 
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
+			String nature, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId, ServiceContext serviceContext)
-		throws PortalException;
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
+		throws IOException, PortalException;
 
 }

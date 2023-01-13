@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -34,28 +35,29 @@ import org.osgi.service.component.annotations.Component;
 		"json.web.service.context.path=Receipt" }, service = AopService.class)
 public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 	
-	public Receipt createReceipt(long groupId, long typeId, long tempfileEntryId, long deliveryModeId,
+	public Receipt createReceipt(long groupId, long typeId, long tempfileEntryId, long deliveryModeId,String nature,
 			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
-			long subOrganizationId, String city, long userPostId, ServiceContext serviceContext)
-			throws PortalException {
-		return receiptLocalService.createReceipt(groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
-				letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject, remarks,
-				name, designation, mobile, email, address, countryId, stateId, pinCode, organizationId,
-				subOrganizationId, city, userPostId, serviceContext);
+			long subOrganizationId, String city, long userPostId)
+			throws PortalException, IOException {
+		return receiptLocalService.createReceipt(groupId, typeId, tempfileEntryId, deliveryModeId, nature, 
+				receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, 
+				receiptSubCategoryId, subject, remarks, name, designation, mobile, email, 
+				address, countryId, stateId, pinCode, organizationId, subOrganizationId, 
+				city, userPostId);
 	}
 
-	public Receipt updateReceipt(long receiptId, long groupId, long typeId, long tempfileEntryId, long deliveryModeId,
+	public Receipt updateReceipt(long receiptId,long groupId, long typeId, long tempfileEntryId, String nature,
 			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks, String document, String name, String designation,
-			String mobile, String email, String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city, long userPostId, ServiceContext serviceContext)
-			throws PortalException {
-		return receiptLocalService.updateReceipt(receiptId, groupId, typeId, tempfileEntryId, deliveryModeId,
+			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
+			long subOrganizationId, String city, long userPostId)
+			throws PortalException, IOException {
+		return receiptLocalService.updateReceipt(receiptId, groupId,typeId, tempfileEntryId,nature,
 				receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject,
-				remarks, document, name, designation, mobile, email, address, countryId, stateId, pinCode,
-				organizationId, subOrganizationId, city, userPostId, serviceContext);
+				remarks, name, designation, mobile, email, address, countryId, stateId, pinCode,
+				organizationId, subOrganizationId, city, userPostId);
 	}
 
 	public Receipt deleteReceipt(long receiptId) throws PortalException {
@@ -63,11 +65,7 @@ public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 		return receiptLocalService.deleteReceipt(receipt);
 	}
 
-	public List<Receipt> getAllReceipt() {
-		return receiptLocalService.getAllReceipt();
-	}
-
 	public Receipt getReceiptByReceiptId(long receiptId) throws PortalException {
-		return receiptLocalService.getReceiptByReceiptId(receiptId);
+		return receiptLocalService.getReceipt(receiptId);
 	}
 }

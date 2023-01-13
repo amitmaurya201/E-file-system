@@ -82,22 +82,21 @@ public class ReceiptLocalServiceUtil {
 
 	public static Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
-			String referenceNumber, String modeNumber, long receiptCategoryId,
-			long receiptSubCategoryId, String subject, String remarks,
-			String name, String designation, String mobile, String email,
-			String address, long countryId, long stateId, String pinCode,
-			long organizationId, long subOrganizationId, String city,
-			long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
+			long deliveryModeId, String nature, String receivedOn,
+			String letterDate, String referenceNumber, String modeNumber,
+			long receiptCategoryId, long receiptSubCategoryId, String subject,
+			String remarks, String name, String designation, String mobile,
+			String email, String address, long countryId, long stateId,
+			String pinCode, long organizationId, long subOrganizationId,
+			String city, long userPostId)
+		throws java.io.IOException, PortalException {
 
 		return getService().createReceipt(
-			groupId, typeId, tempfileEntryId, deliveryModeId, receivedOn,
-			letterDate, referenceNumber, modeNumber, receiptCategoryId,
-			receiptSubCategoryId, subject, remarks, name, designation, mobile,
-			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, userPostId, serviceContext);
+			groupId, typeId, tempfileEntryId, deliveryModeId, nature,
+			receivedOn, letterDate, referenceNumber, modeNumber,
+			receiptCategoryId, receiptSubCategoryId, subject, remarks, name,
+			designation, mobile, email, address, countryId, stateId, pinCode,
+			organizationId, subOrganizationId, city, userPostId);
 	}
 
 	/**
@@ -241,14 +240,14 @@ public class ReceiptLocalServiceUtil {
 		return getService().fetchReceiptByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static String generateReceiptNumber(long receiptId) {
+		return getService().generateReceiptNumber(receiptId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
-	}
-
-	public static List<Receipt> getAllReceipt() {
-		return getService().getAllReceipt();
 	}
 
 	public static long getDmFileId(long tempFileId, long groupId)
@@ -290,10 +289,6 @@ public class ReceiptLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static Receipt getReceipt() throws PortalException {
-		return getService().getReceipt();
-	}
-
 	/**
 	 * Returns the receipt with the primary key.
 	 *
@@ -303,12 +298,6 @@ public class ReceiptLocalServiceUtil {
 	 */
 	public static Receipt getReceipt(long receiptId) throws PortalException {
 		return getService().getReceipt(receiptId);
-	}
-
-	public static Receipt getReceiptByReceiptId(long receiptId)
-		throws PortalException {
-
-		return getService().getReceiptByReceiptId(receiptId);
 	}
 
 	/**
@@ -380,12 +369,6 @@ public class ReceiptLocalServiceUtil {
 		return getService().getReceiptsCount();
 	}
 
-	public static Receipt getReceiptUpdate(long receiptId)
-		throws PortalException {
-
-		return getService().getReceiptUpdate(receiptId);
-	}
-
 	public static Boolean isSendAvailable(long userPostId, long receiptId)
 		throws PortalException {
 
@@ -394,23 +377,21 @@ public class ReceiptLocalServiceUtil {
 
 	public static Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String receivedOn, String letterDate,
+			String nature, String receivedOn, String letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
-			String document, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
+		throws java.io.IOException, PortalException {
 
 		return getService().updateReceipt(
-			receiptId, groupId, typeId, tempfileEntryId, deliveryModeId,
-			receivedOn, letterDate, referenceNumber, modeNumber,
-			receiptCategoryId, receiptSubCategoryId, subject, remarks, document,
-			name, designation, mobile, email, address, countryId, stateId,
-			pinCode, organizationId, subOrganizationId, city, userPostId,
-			serviceContext);
+			receiptId, groupId, typeId, tempfileEntryId, nature, receivedOn,
+			letterDate, referenceNumber, modeNumber, receiptCategoryId,
+			receiptSubCategoryId, subject, remarks, name, designation, mobile,
+			email, address, countryId, stateId, pinCode, organizationId,
+			subOrganizationId, city, userPostId);
 	}
 
 	/**
