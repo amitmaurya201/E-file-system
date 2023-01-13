@@ -30,10 +30,8 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO;
-import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 
 import java.io.Serializable;
@@ -223,15 +221,6 @@ public interface MasterdataLocalService
 	public Masterdata getCountryById(long countryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(
-		long userpostId, long receiverId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(
-		long userpostId, long receiverId, String keywords, int start, int end,
-		String orderByCol, String orderByType);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getDeliveryModeById(long deliveryModeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -248,52 +237,7 @@ public interface MasterdataLocalService
 		getFileCorrespondenceReceipteDetail(long fileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getFileCreatedByKeywordCount(long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileCreatedByKeywords(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileCreatedListSearchedData(
-		long userPostId, String data);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileCreatedListSearchedData1(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileInboxList(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getFileInboxList(long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileInboxList(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileList(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getFileListCount(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileMovementDTO> getFileMovementListByFileId(long fileId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getFileSentList(long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileSentList(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId);
 
 	/**
 	 * Returns the masterdata with the primary key.
@@ -361,55 +305,14 @@ public interface MasterdataLocalService
 	public List<Masterdata> getPrimaryHead(long basicHeadId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getReceiptBySearchKeywords(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getReceiptBySearchKeywordsCount(long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptCategory();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getReceiptCategoryById(long receiptCategoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(
-		long userPostId, String data);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getReceiptInboxAndCreatedListSearchKeywordsCount(
-		long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getReceiptInboxList(long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementDTO> getReceiptInboxList(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getReceiptList(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getReceiptListCount(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(
 		long receiptId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getReceiptSendList(long userPostId, String keyword);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementDTO> getReceiptSendList(
-		long userPostId, String keyword, int start, int end, String orderBy,
-		String order);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId);

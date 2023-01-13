@@ -234,23 +234,6 @@ public class MasterdataLocalServiceUtil {
 		return getService().getCountryById(countryId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getCreatedReceiptAndInboxList(long userpostId, long receiverId) {
-
-		return getService().getCreatedReceiptAndInboxList(
-			userpostId, receiverId);
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getCreatedReceiptAndInboxList(
-			long userpostId, long receiverId, String keywords, int start,
-			int end, String orderByCol, String orderByType) {
-
-		return getService().getCreatedReceiptAndInboxList(
-			userpostId, receiverId, keywords, start, end, orderByCol,
-			orderByType);
-	}
-
 	public static Masterdata getDeliveryModeById(long deliveryModeId) {
 		return getService().getDeliveryModeById(deliveryModeId);
 	}
@@ -274,88 +257,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileCorrespondenceReceipteDetail(fileId);
 	}
 
-	public static int getFileCreatedByKeywordCount(
-		long userPostId, String keyword) {
-
-		return getService().getFileCreatedByKeywordCount(userPostId, keyword);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedByKeywords(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getFileCreatedByKeywords(
-			userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearchedData(long userPostId, String data) {
-
-		return getService().getFileCreatedListSearchedData(userPostId, data);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearchedData1(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getFileCreatedListSearchedData1(
-			userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(long userPostId) {
-
-		return getService().getFileInboxList(userPostId);
-	}
-
-	public static int getFileInboxList(long userPostId, String keyword) {
-		return getService().getFileInboxList(userPostId, keyword);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getFileInboxList(
-			userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileList(long userPostId) {
-
-		return getService().getFileList(userPostId);
-	}
-
-	public static int getFileListCount(long userPostId) {
-		return getService().getFileListCount(userPostId);
-	}
-
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileMovementListByFileId(long fileId) {
 
 		return getService().getFileMovementListByFileId(fileId);
-	}
-
-	public static int getFileSentList(long userPostId, String keyword) {
-		return getService().getFileSentList(userPostId, keyword);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getFileSentList(
-			userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentListByUserPostId(long userPostId) {
-
-		return getService().getFileSentListByUserPostId(userPostId);
 	}
 
 	/**
@@ -437,22 +342,6 @@ public class MasterdataLocalServiceUtil {
 		return getService().getPrimaryHead(basicHeadId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptBySearchKeywords(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getReceiptBySearchKeywords(
-			userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public static int getReceiptBySearchKeywordsCount(
-		long userPostId, String keyword) {
-
-		return getService().getReceiptBySearchKeywordsCount(
-			userPostId, keyword);
-	}
-
 	public static List<Masterdata> getReceiptCategory() {
 		return getService().getReceiptCategory();
 	}
@@ -461,65 +350,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getReceiptCategoryById(receiptCategoryId);
 	}
 
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptCreatedListSearchedData(long userPostId, String data) {
-
-		return getService().getReceiptCreatedListSearchedData(userPostId, data);
-	}
-
-	public static int getReceiptInboxAndCreatedListSearchKeywordsCount(
-		long userPostId, String keyword) {
-
-		return getService().getReceiptInboxAndCreatedListSearchKeywordsCount(
-			userPostId, keyword);
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(long userPostId) {
-
-		return getService().getReceiptInboxList(userPostId);
-	}
-
-	public static int getReceiptInboxList(long userPostId, String keyword) {
-		return getService().getReceiptInboxList(userPostId, keyword);
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getReceiptInboxList(
-			userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptList(long userPostId) {
-
-		return getService().getReceiptList(userPostId);
-	}
-
-	public static int getReceiptListCount(long userPostId) {
-		return getService().getReceiptListCount(userPostId);
-	}
-
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptMovementListByReceiptId(long receiptId) {
 
 		return getService().getReceiptMovementListByReceiptId(receiptId);
-	}
-
-	public static int getReceiptSendList(long userPostId, String keyword) {
-		return getService().getReceiptSendList(userPostId, keyword);
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptSendList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return getService().getReceiptSendList(
-			userPostId, keyword, start, end, orderBy, order);
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>

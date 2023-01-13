@@ -134,27 +134,7 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getTertiaryHeadById(tertiaryHeadId);
 	}
 
-	public List<FileListViewDto> getFileList(long userPostId) {
-
-		return masterdataFinder.getFileCreatedList(userPostId);
-	}
-
-	public List<ReceiptListViewDto> getReceiptList(long userPostId) {
-
-		return masterdataFinder.getReceiptCreatedList(userPostId);
-	}
-
-	public int getFileListCount(long userPostId) {
-
-		System.out.println(userPostId);
-
-		return masterdataFinder.getFileCreatedListCount(userPostId);
-	}
-
-	public int getReceiptListCount(long userPostId) {
-
-		return masterdataFinder.getReceiptCreatedListCount(userPostId);
-	}
+	
 
 	public Masterdata getFileById(long fileCodeId) {
 
@@ -213,85 +193,7 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getReceiptSubCategoryValueById(receiptSubCategoryId);
 	}
 
-	public List<FileMovementDTO> getFileInboxList(long userPostId) {
 
-		return masterdataFinder.getFileInboxList(userPostId);
-	}
-
-	public List<FileListViewDto> getFileCreatedListSearchedData(long userPostId, String data) {
-
-		return masterdataFinder.getFileCreatedListSearch(userPostId, data);
-	}
-
-	public List<ReceiptListViewDto> getReceiptCreatedListSearchedData(long userPostId, String data) {
-
-		return masterdataFinder.getReceiptCreatedListSearch(userPostId, data);
-	}
-
-	public List<FileListViewDto> getFileCreatedListSearchedData1(long userPostId, String keyword, int start, int end,
-			String orderBy, String order) {
-
-		return masterdataFinder.getFileCreatedListSearch1(userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public List<FileListViewDto> getFileCreatedByKeywords(long userPostId, String keyword, int start, int end,
-			String orderBy, String order) {
-
-		return getFileCreatedListSearchedData1(userPostId, keyword, start, end, orderBy, order);
-
-	}
-
-	public int getFileCreatedByKeywordCount(long userPostId, String keyword) {
-
-		List<FileListViewDto> fileList = null;
-
-		if (keyword != null && !keyword.isEmpty()) {
-			fileList = masterdataFinder.getFileCreatedListSearchBykey(userPostId, keyword);
-		} else {
-			fileList = getFileList(userPostId);
-		}
-		int count = fileList.size();
-
-		return count;
-	}
-
-	public List<ReceiptListViewDto> getReceiptBySearchKeywords(long userPostId, String keyword, int start, int end,
-			String orderBy, String order) {
-
-		return masterdataFinder.getReceiptListSearch(userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public int getReceiptBySearchKeywordsCount(long userPostId, String keyword) {
-
-		List<ReceiptListViewDto> receiptList = null;
-
-		if (keyword != null && !keyword.isEmpty()) {
-			receiptList = masterdataFinder.getReceiptCreatedListSearch(userPostId, keyword);
-		} else {
-			receiptList = getReceiptList(userPostId);
-		}
-		int count = receiptList.size();
-		return receiptList.size();
-	}
-
-	public int getReceiptInboxAndCreatedListSearchKeywordsCount(long userPostId, String keyword) {
-	  
-	  List<ReceiptListViewDto> receiptList = null;
-	  
-	  if (keyword != null && !keyword.isEmpty()) { 
-		  receiptList = masterdataFinder.getReceiptInboxAndCreatedListSearch(userPostId, userPostId, keyword); 
-		} 
-	  else { 
-		  receiptList = masterdataFinder.getCreatedListAndInboxList(userPostId, userPostId);
-		  } 
-	  int count = receiptList.size(); 
-	  return count;
-	  }
-
-	@Override
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
-		return masterdataFinder.getReceiptInboxList(userPostId);
-	}
 
 	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
 		return masterdataFinder.getReceiptSentListByFinder(userPostId);
@@ -305,109 +207,12 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 		return masterdataFinder.getFileMovementListByFileId(fileId);
 	}
 
-	// filesent list method
-	public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId) {
-		return masterdataFinder.getFileSentList(userPostId);
-	}
-
-	// -------------- Start ------------------
-
-	public int getFileSentList(long userPostId, String keyword) {
-
-		List<FileMovementDTO> receiptList = null;
-
-		if (keyword != null && !keyword.isEmpty()) {
-			receiptList = masterdataFinder.getFileSentList(userPostId, keyword);
-		} else {
-			receiptList = getFileSentListByUserPostId(userPostId);
-		}
-		int count = receiptList.size();
-		return receiptList.size();
-	}
-
-	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return masterdataFinder.getFileSentList(userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword, int start, int end, String orderBy,
-			String order) {
-
-		return masterdataFinder.getFileInboxList(userPostId, keyword, start, end, orderBy, order);
-	}
-
-	public int getFileInboxList(long userPostId, String keyword) {
-
-		List<FileMovementDTO> receiptList = null;
-
-		if (keyword != null && !keyword.isEmpty()) {
-			receiptList = masterdataFinder.getFileInboxList(userPostId, keyword);
-		} else {
-			receiptList = getFileInboxList(userPostId);
-		}
-		int count = receiptList.size();
-
-		return count;
-	}
-
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword, int start, int end,
-			String orderBy, String order) {
-
-		return masterdataFinder.getReceiptInboxList(userPostId, keyword, start, end, orderBy, order);
-
-	}
-
-	public int getReceiptInboxList(long userPostId, String keyword) {
-
-		List<ReceiptMovementDTO> receiptList = null;
-
-		if (keyword != null && !keyword.isEmpty()) {
-			receiptList = masterdataFinder.getReceiptInboxList(userPostId, keyword);
-		} else {
-			receiptList = getReceiptInboxList(userPostId);
-		}
-		int count = receiptList.size();
-
-		return count;
-
-	}
-
-	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword, int start, int end,
-			String orderBy, String order) {
-
-		return masterdataFinder.getReceiptSendList(userPostId, keyword, start, end, orderBy, order);
-
-	}
-
-	public int getReceiptSendList(long userPostId, String keyword) {
-
-		List<ReceiptMovementDTO> receiptList = null;
-
-		if (keyword != null && !keyword.isEmpty()) {
-			receiptList = masterdataFinder.getReceiptSendList(userPostId, keyword);
-		} else {
-			receiptList = getReceiptSentList(userPostId);
-		}
-		int count = receiptList.size();
-
-		return count;
-
-	}
 
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceipteDetail(long fileId) {
 		return masterdataFinder.getFileCorrespondenceReceiptDetails(fileId);
 	}
-	
-	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(long userpostId, long receiverId) {
-		return masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId);
 
-	}
-	public List<ReceiptListViewDto> getCreatedReceiptAndInboxList(long userpostId, long receiverId,String keywords, int start, int end, String orderByCol, String orderByType) {
-		masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId, keywords, start, end , orderByCol, orderByType).forEach(c->System.out.println(c));
-		return masterdataFinder.getCreatedListAndInboxList(userpostId, receiverId, keywords, start, end , orderByCol, orderByType);
 
-	}
 
 	public long getMaximumFmIdByFileIdData(long fileId) {
 

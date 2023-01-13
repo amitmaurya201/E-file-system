@@ -23,9 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface MasterdataFinder {
 
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(long userPostId);
-
 	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
 		getCategories();
 
@@ -82,16 +79,6 @@ public interface MasterdataFinder {
 	public io.jetprocess.masterdata.model.Masterdata getTertiaryHeadById(
 		long tertiaryHeadId);
 
-	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedList(long userPostId);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptCreatedList(long userPostId);
-
-	public int getFileCreatedListCount(long userPostId);
-
-	public int getReceiptCreatedListCount(long userPostId);
-
 	public io.jetprocess.masterdata.model.Masterdata getFileCodeValueById(
 		long fileCodeId);
 
@@ -125,29 +112,6 @@ public interface MasterdataFinder {
 	public io.jetprocess.masterdata.model.Masterdata
 		getReceiptSubCategoryValueById(long receiptSubCategoryId);
 
-	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearch(long userPostId, String data);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearch1(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptListSearch(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListSearchBykey(long userPostId, String keyword);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptCreatedListSearch(long userPostId, String keyword);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptInboxAndCreatedListSearch(
-			long userPostId, long receiverId, String keyword);
-
 	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
 		getReceiptSentListByFinder(long userPostId);
 
@@ -155,57 +119,11 @@ public interface MasterdataFinder {
 		getReceiptMovementListByReceiptId(long receiptId);
 
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(long userPostId);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileMovementListByFileId(long fileId);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentList(long userPostId);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentList(long userPostId, String keyword);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(long userPostId, String keyword);
-
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(long userPostId, String keyword);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptSendList(long userPostId, String keyword);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptSendList(
-			long userPostId, String keyword, int start, int end, String orderBy,
-			String order);
 
 	public java.util.List
 		<io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO>
 			getFileCorrespondenceReceiptDetails(long fileId);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getCreatedListAndInboxList(long userpostId, long receiverId);
-
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getCreatedListAndInboxList(
-			long userpostId, long receiverId, String keyword, int start,
-			int end, String orderByCol, String orderByType);
 
 	public long getMaximumFmIdByFileId(long fileId);
 

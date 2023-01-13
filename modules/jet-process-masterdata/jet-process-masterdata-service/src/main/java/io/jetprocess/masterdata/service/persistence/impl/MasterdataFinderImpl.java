@@ -30,31 +30,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 
 	@Reference
 	private CustomSQL customSQL;
-	
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getReceiptInboxList");
-			logger.info("Get Receipt Inbox List Query: "+sql);
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
 
 	public List<Masterdata> getCategories() {
 		List<Masterdata> masterdataList = Collections.EMPTY_LIST;
@@ -110,6 +87,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return subCategoryList;
 
 	}
+
 	public List<Masterdata> getType() {
 
 		List<Masterdata> typeList = Collections.EMPTY_LIST;
@@ -553,117 +531,10 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return (Masterdata) obj;
 	}
 
-	public List<FileListViewDto> getFileCreatedList(long userPostId) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "fileCreatedListQuery");
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	public List<ReceiptListViewDto> getReceiptCreatedList(long userPostId) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "receiptCreatedListQuery");
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
 
 
-	public int getFileCreatedListCount(long userPostId) {
+	
 
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "fileListCount");
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			System.out.println("query---"+sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			List  count = sqlQuery.list();
-			BigInteger b1 = null;
-			for (Object object : count) {
-				b1 = (BigInteger) object;
-			}
-			 int i1 = b1.intValue();
-			 
-			
-			
-			return i1;
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return (Integer)null;
-	}
-
-	public int getReceiptCreatedListCount(long userPostId) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "receiptListCount");
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			List  count = sqlQuery.list();
-			BigInteger b1 = null;
-			for (Object object : count) {
-				b1 = (BigInteger) object;
-			}
-			 int i1 = b1.intValue();
-			 return i1;
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return (Integer) null;
-	}
 
 	public Masterdata getFileCodeValueById(long fileCodeId) {
 		Object object = null;
@@ -677,9 +548,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(fileCodeId);
 			object = sqlQuery.uniqueResult();
-			
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -692,6 +562,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+
 	public Masterdata getCategoryValueById(long categoryId) {
 		Object object = null;
 		Session session = null;
@@ -704,8 +575,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(categoryId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -718,6 +589,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+
 	public Masterdata getSubCategoryValueById(long subCategoryId) {
 		Object object = null;
 		Session session = null;
@@ -730,8 +602,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(subCategoryId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -757,8 +629,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(typeId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -771,6 +643,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+
 	public Masterdata getDeliveryModeValueById(long deliveryModeId) {
 		Object object = null;
 		Session session = null;
@@ -783,8 +656,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(deliveryModeId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -810,8 +683,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(organizationId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -824,6 +697,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+
 	public Masterdata getSubOrganizationValueById(long subOrganizationId) {
 		Object object = null;
 		Session session = null;
@@ -836,8 +710,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(subOrganizationId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -863,8 +737,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(countryId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -877,6 +751,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+
 	public Masterdata getStateValueById(long stateId) {
 		Object object = null;
 		Session session = null;
@@ -889,8 +764,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(stateId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -903,6 +778,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
+
 	public Masterdata getReceiptCategoryValueById(long receiptCategoryId) {
 		Object object = null;
 		Session session = null;
@@ -915,8 +791,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(receiptCategoryId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -929,7 +805,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return null;
 	}
-
 
 	public Masterdata getReceiptSubCategoryValueById(long receiptSubCategoryId) {
 		Object object = null;
@@ -943,8 +818,8 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(receiptSubCategoryId);
 			object = sqlQuery.uniqueResult();
-			
-			return (Masterdata)object;
+
+			return (Masterdata) object;
 
 		} catch (Exception e) {
 			try {
@@ -958,245 +833,6 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 
-	public List<FileListViewDto> getFileCreatedListSearch(long userPostId, String data) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getFileCreatedListData");
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			queryPos.add(data);
-			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<FileListViewDto> getFileCreatedListSearch1(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			
-			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn  ,  nature " + 
-					"FROM jet_process_docfile  INNER JOIN " + 
-					"md_category  ON categorydataid = categoryid where userpostid = ? And currentstate = 1";
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+" AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
-			}
-			
-			if(orderBy!=null && !orderBy.isEmpty()) {
-				sql = sql + " order by "+orderBy;
-				sql = sql + " "+order;
-			}
-
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	public List<ReceiptListViewDto> getReceiptListSearch(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
-
-		Session session = null;
-		try {
-			session = openSession();
-	
-			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature " + 
-					"			FROM jet_process_receipt INNER JOIN" + 
-					"			md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND  currentstate = 1 AND attachstatus IS NULL ";
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
-
-				
-				sql = sql+" AND (receiptnumber ilike ? OR subject ilike ? OR categoryvalue ilike ?)";
-				
-			}
-			
-			if(orderBy!=null && !orderBy.isEmpty()) {
-				sql = sql + " order by "+orderBy;
-				sql = sql + " "+order;
-			}
-
-			
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	
-	
-	public List<FileListViewDto> getFileCreatedListSearchBykey(long userPostId, String keyword) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			//String sql = customSQL.get(getClass(), "getFileCreatedListData");
-			
-			String sql = "Select  docfileid , filenumber , subject , categoryvalue as category , remarks as remark , createDate as createdOn ,  nature " + 
-					"FROM jet_process_docfile  INNER JOIN " + 
-					"md_category  ON categorydataid = categoryid where userpostid = ?  AND  currentstate = 1";
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (filenumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(FileListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-
-	
-	
-
-	public List<ReceiptListViewDto> getReceiptCreatedListSearch(long userPostId, String keyword) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = "SELECT receiptid as receiptId , receiptnumber as receiptnumber , subject as subject , categoryvalue as category , createDate as createDate ,  remarks as remark , viewpdfurl, nature " + 
-					"	nature FROM jet_process_receipt INNER JOIN " + 
-					"	md_category  ON categorydataid = receiptcategoryid where userpostid = ? AND currentstate = 1 AND attachstatus IS NULL ";
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (receiptnumber ilike ? OR subject ilike ? OR  categoryvalue ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	public List<ReceiptListViewDto> getReceiptInboxAndCreatedListSearch(long userPostId,long receiverId, String keyword) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			queryPos.add(receiverId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
 	public List<ReceiptMovementDTO> getReceiptSentListByFinder(long userPostId) {
 		Session session = null;
 		try {
@@ -1206,7 +842,7 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(userPostId);
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+			return GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
@@ -1220,18 +856,17 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return null;
 	}
 
-
-public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId){
+	public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId) {
 		Session session = null;
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getReceiptMovementList");
-			logger.info("Final Receipt Movement List Query : "+sql);
+			logger.info("Final Receipt Movement List Query : " + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(receiptId);
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
+			return GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
@@ -1245,34 +880,9 @@ public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId
 		return null;
 	}
 
-public List<FileMovementDTO> getFileInboxList(long userPostId) {
-
-	Session session = null;
-	try {
-		session = openSession();
-		String sql = customSQL.get(getClass(), "getFileInboxList");
-		SQLQuery sqlQuery = session.createSQLQuery(sql);
-		sqlQuery.setCacheable(false);
-		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-		queryPos.add(userPostId);
-		return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
-
-	} catch (Exception e) {
-		try {
-			throw new SystemException(e);
-		} catch (SystemException se) {
-			se.printStackTrace();
-		}
-	} finally {
-		closeSession(session);
-	}
-	return null;
-}
 
 
-	
-	
-	public List<FileMovementDTO> getFileMovementListByFileId(long fileId){
+	public List<FileMovementDTO> getFileMovementListByFileId(long fileId) {
 		Session session = null;
 		try {
 			session = openSession();
@@ -1281,145 +891,7 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(fileId);
-			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	public List<FileMovementDTO> getFileSentList(long userPostId){
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getSentFileList");
-			logger.info("Final File Movement List Query : "+sql);
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-
-
-	
-
-	// ---------------------------
-	
-	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword){
-		Session session = null;
-		try {
-			session = openSession();
-//			String sql = customSQL.get(getClass(), "getSentFileList");
-			
-			
-			
-			String sql="SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ," + 
-					"		null as sendBy," + 
-					"        (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ," + 
-					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark" + 
-					"		FROM jet_process_filemovement as fm " + 
-					"	      JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
-					"	      JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid " + 
-					"		where fm.senderid = ? AND currentstate = 2  AND fm.active_ = true AND fm.pullbackremark is null ";
-			
-			logger.info("Final File Movement List Query : "+sql);
-			
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-
-	
-	
-	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
-
-		Session session = null;
-		try {
-			session = openSession();
-	
-			String sql="SELECT fm.fmid as fileMovementId, f.filenumber , f.subject ," + 
-					"		null as sendBy," + 
-					"        (SELECT concat(up1.username,'( ' , up1.postmarking,') ' , up1.sectionname,', ' , up1.departmentname)) AS sentTo ," + 
-					"		fm.createdate as SentOn, fm.readon as readOn, fm.duedate , null as remark, fm.receivedon as receivedOn , f.currentlywith as currentlyWith , f.nature as nature , f.docfileid as fileId , 0 as senderid ,f.currentstate as currentState , f.docfileid as docFileId , null as pullBackRemark" + 
-					"		FROM jet_process_filemovement as fm " + 
-					"		  JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
-					"		  JOIN masterdata_userpost as up1 ON fm.receiverid = up1.userpostid " + 
-					"		where fm.senderid = ? AND currentstate = 2  AND fm.active_ = true AND fm.pullbackremark is null ";
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
-
-				
-				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
-				
-			}
-			
-			if(orderBy!=null && !orderBy.isEmpty()) {
-				
-				if(orderBy.equals("createdate")) {
-					sql = sql + " order by "+"fm."+orderBy;
-					}
-				else {
-					sql = sql + " order by "+"f."+orderBy;
-					}
-				
-				sql = sql + " "+order;
-			}
-
-			
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
+			return GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
 
 		} catch (Exception e) {
 			try {
@@ -1432,394 +904,21 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword){
-		Session session = null;
-		try {
-			session = openSession();
-			
-			
-			
-			String sql="SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject," + 
-					"		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
-					"		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ," + 
-					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
-					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId ,  f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark" + 
-					"		FROM jet_process_filemovement as fm " + 
-					"        Join (select max(mov.fmid) as mfmId from jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  " + 
-					"		  JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
-					"		 JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
-					"		 JOIN masterdata_userpost as up2" + 
-					"		ON fm.receiverid = up2.userpostid " + 
-					"	where fm.receiverid = ?";
-			
-			logger.info("Final File inbox List Query : "+sql);
-			
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	
-	
-	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
 
-		Session session = null;
-		try {
-			session = openSession();
-	
-			String sql="SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject," + 
-					"		(SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
-					"		(SELECT concat(up2.username,'( ' , up2.postmarking,') ' , up2.sectionname,', ' , up2.departmentname)) AS SentTo ," + 
-					"		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn," + 
-					"		 f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId ,  f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark" + 
-					"		FROM jet_process_filemovement as fm " + 
-					"        Join (select max(mov.fmid) as mfmId from jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  " + 
-					"		  JOIN jet_process_docfile as f ON fm.fileId = f.docfileid        " + 
-					"		 JOIN masterdata_userpost as up1 ON fm.senderid = up1.userpostid" + 
-					"		 JOIN masterdata_userpost as up2" + 
-					"		ON fm.receiverid = up2.userpostid " + 
-					"	where fm.receiverid = ? ";
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
 
-				
-				sql = sql+"AND (f.filenumber ilike ? OR f.subject ilike ?)";
-				
-			}
-			
-			if(orderBy!=null && !orderBy.isEmpty()) {
-				
-				if(orderBy.equals("createdate")) {
-					sql = sql + " order by "+"fm."+orderBy;
-					}
-				else {
-					sql = sql + " order by "+"f."+orderBy;
-					}
-				sql = sql + " "+order;
-				
-				System.out.println("order by ---"+orderBy);			
-			}	
 
-			
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(FileMovementDTO.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	
-	
-	
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword){
-		Session session = null;
-		try {
-			session = openSession();
-			
-			
-			
-
-			String sql="SELECT " + 
-					"	rm.rmid AS receiptMovementId," + 
-					"    r.receiptnumber AS receiptNumber," + 
-					"	r.subject AS subject,	" + 
-					"    null as sender,	" + 
-					"    (SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
-					"	null AS sentTo ,	" + 
-					"    rm.createdate AS sentOn,	" + 
-					"    rm.readon AS readOn," + 
-					"	rm.duedate AS dueDate,	" + 
-					"    rm.remark AS remark,	" + 
-					"    rm.receivedon as receiveOn,	" + 
-					"    r.nature as nature," + 
-					"	r.receiptid as receiptId," + 
-					"	rm.pullbackremark as pullBackRemark" + 
-					"	FROM jet_process_receiptmovement as rm " + 
-					"    " + 
-					"    Join (select max(mov.rmid) as mreceiptId from jet_process_receiptmovement mov where mov.active_ = true group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  " + 
-					"    " + 
-					"	JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
-					"	JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
-					"	JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where rm.receiverid = ? ";
-			
-			logger.info("Final Receipt Movement List Query : "+sql);
-			
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+" AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	
-	
-	
-	
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
-
-		Session session = null;
-		try {
-			session = openSession();
-	
-			String sql="SELECT " + 
-					"	rm.rmid AS receiptMovementId," + 
-					"    r.receiptnumber AS receiptNumber," + 
-					"	r.subject AS subject,	" + 
-					"    null as sender,	" + 
-					"    (SELECT concat(up1.username,'( ' , up1.postmarking,') ', up1.sectionname,', ' , up1.departmentname)) as sentBy," + 
-					"	null AS sentTo ,	" + 
-					"    rm.createdate AS sentOn,	" + 
-					"    rm.readon AS readOn," + 
-					"	rm.duedate AS dueDate,	" + 
-					"    rm.remark AS remark,	" + 
-					"    rm.receivedon as receiveOn,	" + 
-					"    r.nature as nature," + 
-					"	r.receiptid as receiptId," + 
-					"	rm.pullbackremark as pullBackRemark" + 
-					"	FROM jet_process_receiptmovement as rm " + 
-					"    " + 
-					"    Join (select max(mov.rmid) as mreceiptId from jet_process_receiptmovement mov where mov.active_ = true group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  " + 
-					"    " + 
-					"	JOIN jet_process_receipt AS r ON rm.receiptId = r.receiptId" + 
-					"	JOIN masterdata_userpost as up1 ON rm.senderid = up1.userpostid" + 
-					"	JOIN masterdata_userpost as up2 ON rm.receiverid = up2.userpostid " + 
-					"    where r.attachstatus is null and rm.receiverid = ? ";
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+" "+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";	
-			}
-			
-			if(orderBy!=null && !orderBy.isEmpty()) {
-				if(orderBy.equals("createdate")) {
-					sql = sql + " order by "+"rm."+orderBy;
-					}
-				else {
-					sql = sql + " order by "+"r."+orderBy;
-					}
-				sql = sql + " "+order;
-			}
-
-			
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	
-	
-	
-	
-	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword){
-		Session session = null;
-		try {
-			session = openSession();
-//			String sql = customSQL.get(getClass(), "getSentFileList");
-			
-			
-			
-			String sql="SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ," + 
-					"		null as sentBy," + 
-					"		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ," + 
-					"		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark" + 
-					"		FROM jet_process_receiptmovement as rm " + 
-					"		 JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
-					"		 JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
-					"	where rm.senderid = ? and rm.active_ = true and rm.pullbackremark is null ";
-			
-			logger.info("Final File Movement List Query : "+sql);
-			
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+" AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
-			}
-				
-				
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	
-	
-	
-	public List<ReceiptMovementDTO> getReceiptSendList(long userPostId, String keyword , int start , int end ,  String orderBy ,  String order ) {
-
-		Session session = null;
-		try {
-			session = openSession();
-			
-			String sql="SELECT rm.rmid as receiptMovementId, r.receiptNumber ,r.subject , r.name as sender ," + 
-					"		null as sentBy," + 
-					"		(SELECT concat(up.username,'( ' , up.postmarking,') ' , up.sectionname,', ' , up.departmentname)) as sentTo ," + 
-					"		rm.createdate as sentOn, rm.readOn , rm.dueDate , rm.remark , rm.receivedOn, r.nature ,r.receiptid , pullBackRemark" + 
-					"		FROM jet_process_receiptmovement as rm " + 
-					"		 JOIN jet_process_receipt as r ON rm.receiptId = r.receiptId" + 
-					"		 JOIN masterdata_userpost as up ON rm.receiverid = up.userpostid" + 
-					"	where rm.senderid = ? and rm.active_ = true and rm.pullbackremark is null ";
-		
-			
-		
-			if(!keyword.isEmpty() && keyword != null ) {
-
-				
-				sql = sql+" AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
-				
-			}
-			
-			if(orderBy!=null && !orderBy.isEmpty()) {
-
-				if(orderBy.equals("createdate")) {
-					sql = sql + " order by "+"rm."+orderBy;
-					}
-				else {
-					sql = sql + " order by "+"r."+orderBy;
-					}
-				sql = sql + " "+order;
-			}
-
-			
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userPostId);
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-			}
-	
-			return  GenericModelMapper.map(ReceiptMovementDTO.class, sqlQuery.list());
-
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
-	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceiptDetails(long fileId){
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceiptDetails(long fileId) {
 		Session session = null;
 		try {
 			session = openSession();
 			String sql = customSQL.get(getClass(), "getFileCorrespondenceReceiptList");
-			logger.info("Final File Movement List Query : "+sql);
+			logger.info("Final File Movement List Query : " + sql);
 			SQLQuery sqlQuery = session.createSQLQuery(sql);
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(fileId);
-			return  GenericModelMapper.map(FileCorrespondenceReceiptDTO.class, sqlQuery.list());
-			
+			return GenericModelMapper.map(FileCorrespondenceReceiptDTO.class, sqlQuery.list());
+
 		} catch (Exception e) {
 			try {
 				throw new SystemException(e);
@@ -1831,73 +930,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		}
 		return null;
 	}
-	
-	public List<ReceiptListViewDto> getCreatedListAndInboxList(long userpostId, long receiverId){
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
-			logger.info("Final created receipt and inbox List Query : "+sql);
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userpostId);
-			queryPos.add(receiverId);
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	public List<ReceiptListViewDto> getCreatedListAndInboxList(long userpostId, long receiverId, String keyword, int start, int end, String orderByCol, String orderByType ){
-		Session session = null;
-		try {
-			session = openSession();
-			String sql = customSQL.get(getClass(), "getCreatedReceiptAndInboxList");
-			logger.info("Final created receipt and inbox List Query : "+sql);
-			if(!keyword.isEmpty() && keyword != null ) {
-				sql = sql+"AND (r.receiptnumber ilike ? OR r.subject ilike ?)";
-				
-			}
-			if(orderByCol!=null && !orderByCol.isEmpty()) {
-				sql = sql + " order by "+orderByCol;
-				sql = sql + " "+orderByType;
-			}
-			sql = sql + " offset "+ start + " limit "+ end;
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setCacheable(false);
-			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-			queryPos.add(userpostId);
-			queryPos.add("%"+keyword+"%");
-			queryPos.add("%"+keyword+"%");
-			queryPos.add(receiverId);
-			
-			if(!keyword.isEmpty() && keyword != null) {
-				queryPos.add("%"+keyword+"%");
-				queryPos.add("%"+keyword+"%");
-				
-			}
-			return  GenericModelMapper.map(ReceiptListViewDto.class, sqlQuery.list());
-			
-		} catch (Exception e) {
-			try {
-				throw new SystemException(e);
-			} catch (SystemException se) {
-				se.printStackTrace();
-			}
-		} finally {
-			closeSession(session);
-		}
-		return null;
-	}
-	
 
 	public long getMaximumFmIdByFileId(long fileId) {
 		Session session = null;
@@ -1908,14 +940,14 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(fileId);
-			List  count = sqlQuery.list();
+			List count = sqlQuery.list();
 			BigInteger b1 = null;
 			for (Object object : count) {
 				b1 = (BigInteger) object;
 			}
-			 int i1 = b1.intValue();
-			 return i1;
-			
+			int i1 = b1.intValue();
+			return i1;
+
 		} catch (Exception e) {
 			try {
 				throw new SystemException(e);
@@ -1938,14 +970,14 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 			sqlQuery.setCacheable(false);
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 			queryPos.add(receiptId);
-			List  count = sqlQuery.list();
+			List count = sqlQuery.list();
 			BigInteger b1 = null;
 			for (Object object : count) {
 				b1 = (BigInteger) object;
 			}
-			 int i1 = b1.intValue();
-			 return i1;
-			
+			int i1 = b1.intValue();
+			return i1;
+
 		} catch (Exception e) {
 			try {
 				throw new SystemException(e);
@@ -1958,8 +990,6 @@ public List<FileMovementDTO> getFileInboxList(long userPostId) {
 		return (Long) null;
 	}
 
-	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
-	
 }

@@ -105,39 +105,10 @@ public class MasterdataServiceWrapper
 	}
 
 	@Override
-	public java.util.List
-		<io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO>
-			getFileCorrespondenceReceipteDetail(long fileId) {
-
-		return _masterdataService.getFileCorrespondenceReceipteDetail(fileId);
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListMasterdata(long userPostId) {
-
-		return _masterdataService.getFileCreatedListMasterdata(userPostId);
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(long userPostId) {
-
-		return _masterdataService.getFileInboxList(userPostId);
-	}
-
-	@Override
 	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileMovementListByFileId(long fileId) {
 
 		return _masterdataService.getFileMovementListByFileId(fileId);
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentListByUserPostId(long userPostId) {
-
-		return _masterdataService.getFileSentListByUserPostId(userPostId);
 	}
 
 	@Override
@@ -191,20 +162,6 @@ public class MasterdataServiceWrapper
 		getReceiptCategoryMasterdata() {
 
 		return _masterdataService.getReceiptCategoryMasterdata();
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(long userPostId) {
-
-		return _masterdataService.getReceiptInboxList(userPostId);
-	}
-
-	@Override
-	public java.util.List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptListMasterdata(long userPostId) {
-
-		return _masterdataService.getReceiptListMasterdata(userPostId);
 	}
 
 	@Override

@@ -23,11 +23,8 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
-import io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO;
-import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.Masterdata;
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 
 import java.util.List;
@@ -88,20 +85,7 @@ public interface MasterdataService extends BaseService {
 	public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileCorrespondenceReceiptDTO>
-		getFileCorrespondenceReceipteDetail(long fileId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileInboxList(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileMovementDTO> getFileMovementListByFileId(long fileId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getOrganizationByIdMasterdata(long organizationId);
@@ -127,12 +111,6 @@ public interface MasterdataService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Masterdata> getReceiptCategoryMasterdata();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<ReceiptListViewDto> getReceiptListMasterdata(long userPostId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(

@@ -79,35 +79,10 @@ public class MasterdataServiceUtil {
 		return getService().getFileCodeValueByIdMasterdata(fileCodeId);
 	}
 
-	public static List
-		<io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO>
-			getFileCorrespondenceReceipteDetail(long fileId) {
-
-		return getService().getFileCorrespondenceReceipteDetail(fileId);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileListViewDto>
-		getFileCreatedListMasterdata(long userPostId) {
-
-		return getService().getFileCreatedListMasterdata(userPostId);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileInboxList(long userPostId) {
-
-		return getService().getFileInboxList(userPostId);
-	}
-
 	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
 		getFileMovementListByFileId(long fileId) {
 
 		return getService().getFileMovementListByFileId(fileId);
-	}
-
-	public static List<io.jetprocess.masterdata.model.FileMovementDTO>
-		getFileSentListByUserPostId(long userPostId) {
-
-		return getService().getFileSentListByUserPostId(userPostId);
 	}
 
 	public static Masterdata getOrganizationByIdMasterdata(
@@ -145,18 +120,6 @@ public class MasterdataServiceUtil {
 
 	public static List<Masterdata> getReceiptCategoryMasterdata() {
 		return getService().getReceiptCategoryMasterdata();
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>
-		getReceiptInboxList(long userPostId) {
-
-		return getService().getReceiptInboxList(userPostId);
-	}
-
-	public static List<io.jetprocess.masterdata.model.ReceiptListViewDto>
-		getReceiptListMasterdata(long userPostId) {
-
-		return getService().getReceiptListMasterdata(userPostId);
 	}
 
 	public static List<io.jetprocess.masterdata.model.ReceiptMovementDTO>

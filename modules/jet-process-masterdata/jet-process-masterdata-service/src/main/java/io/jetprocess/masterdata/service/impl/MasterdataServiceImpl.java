@@ -36,12 +36,8 @@ import io.jetprocess.masterdata.service.base.MasterdataServiceBaseImpl;
 @Component(property = { "json.web.service.context.name=masterdata",
 		"json.web.service.context.path=Masterdata" }, service = AopService.class)
 public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
-	
-	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId) {
 
-		return masterdataLocalService.getReceiptInboxList(userPostId);
-	}
-	
+
 	public List<Masterdata> getCategoryMasterdata() {
 
 		return masterdataLocalService.getCategory();
@@ -136,92 +132,80 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 		return masterdataLocalService.getTertiary(tertiaryHeadId);
 	}
 
-	public List<FileListViewDto> getFileCreatedListMasterdata(long userPostId) {
+	public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
 
-		return masterdataLocalService.getFileList(userPostId);
-	}
-
-	public List<ReceiptListViewDto> getReceiptListMasterdata(long userPostId) {
-
-		return masterdataLocalService.getReceiptList(userPostId);
-	}
-public Masterdata getFileCodeValueByIdMasterdata(long fileCodeId) {
-		
 		return masterdataLocalService.getFileById(fileCodeId);
-		
+
 	}
+
 	public Masterdata getCategoryValueByIdMasterdata(long categoryId) {
-		
+
 		return masterdataLocalService.getCategoryById(categoryId);
-		
+
 	}
+
 	public Masterdata getSubCategoryValueByIdMasterdata(long subCategoryId) {
-		
+
 		return masterdataLocalService.getSubCategoryById(subCategoryId);
 	}
+
 	public Masterdata getTypeValueByIdMasterdata(long typeId) {
-	
+
 		return masterdataLocalService.getTypeById(typeId);
 	}
-    public Masterdata getDeliveryModeByIdMasterdata(long deliveryModeId) {
-    	
-    	return masterdataLocalService.getDeliveryModeById(deliveryModeId);
-    }
-    public Masterdata getOrganizationByIdMasterdata(long organizationId) {
-    	
-    	return masterdataLocalService.getOrganizationById(organizationId);
-    }
-    public Masterdata getSubOrganizationByIdMasterdata(long subOrganizationId) {
-    	
-    	return masterdataLocalService.getSubOrganizationById(subOrganizationId);
-    }
-    public Masterdata getCountryByIdMasterdata(long countryId) {
-    	
-    	return masterdataLocalService.getCountryById(countryId);
-    }
-    public Masterdata getStateByIdMasterdata(long stateId) {
-    	
-    	return masterdataLocalService.getStateById(stateId);
-    }
-    public Masterdata getReceiptCategoryByIdMasterdata(long receiptCategoryId) {
-    	
-    	return masterdataLocalService.getReceiptCategoryById(receiptCategoryId);
-    }
-    public Masterdata getReceiptSubCategoryByIdMasterdata(long receiptSubCategoryId) {
-    	
-    	return masterdataLocalService.getReceiptSubCategoryById(receiptSubCategoryId);
-    }
-    public  List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId){
+
+	public Masterdata getDeliveryModeByIdMasterdata(long deliveryModeId) {
+
+		return masterdataLocalService.getDeliveryModeById(deliveryModeId);
+	}
+
+	public Masterdata getOrganizationByIdMasterdata(long organizationId) {
+
+		return masterdataLocalService.getOrganizationById(organizationId);
+	}
+
+	public Masterdata getSubOrganizationByIdMasterdata(long subOrganizationId) {
+
+		return masterdataLocalService.getSubOrganizationById(subOrganizationId);
+	}
+
+	public Masterdata getCountryByIdMasterdata(long countryId) {
+
+		return masterdataLocalService.getCountryById(countryId);
+	}
+
+	public Masterdata getStateByIdMasterdata(long stateId) {
+
+		return masterdataLocalService.getStateById(stateId);
+	}
+
+	public Masterdata getReceiptCategoryByIdMasterdata(long receiptCategoryId) {
+
+		return masterdataLocalService.getReceiptCategoryById(receiptCategoryId);
+	}
+
+	public Masterdata getReceiptSubCategoryByIdMasterdata(long receiptSubCategoryId) {
+
+		return masterdataLocalService.getReceiptSubCategoryById(receiptSubCategoryId);
+	}
+
+	public List<ReceiptMovementDTO> getReceiptMovementListByReceiptId(long receiptId) {
 		return masterdataLocalService.getReceiptMovementListByReceiptId(receiptId);
 	}
-    public  List<FileMovementDTO> getFileMovementListByFileId(long fileId){
-    	return masterdataLocalService.getFileMovementListByFileId(fileId);
-    }
 
-    public List<FileMovementDTO> getFileInboxList(long userPostId){
-		
-		return masterdataFinder.getFileInboxList(userPostId);
-	}
-    
-    public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
-		return masterdataLocalService.getReceiptSentList(userPostId) ;
-		
-	}
-    
-    // filesent list method 
-    
-    public List<FileMovementDTO> getFileSentListByUserPostId(long userPostId) {
-		return masterdataLocalService.getFileSentListByUserPostId(userPostId);
-		
+	public List<FileMovementDTO> getFileMovementListByFileId(long fileId) {
+		return masterdataLocalService.getFileMovementListByFileId(fileId);
 	}
 
-	/*
-	 * public List<ReceiptListViewDto> getFileCorrespondenceReceipt(long fileId){
-	 * return masterdataFinder.getFileCorrespondenceReceiptList(fileId); }
-	 */
-    public List<FileCorrespondenceReceiptDTO> getFileCorrespondenceReceipteDetail(long fileId) {
-		return masterdataLocalService.getFileCorrespondenceReceipteDetail(fileId);
+	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId) {
+		return masterdataLocalService.getReceiptSentList(userPostId);
+
 	}
-    
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
+
+	
+	
+
+
 }
