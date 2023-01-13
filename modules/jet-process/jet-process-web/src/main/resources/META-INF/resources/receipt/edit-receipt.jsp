@@ -12,8 +12,6 @@
 <%@ page
 	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@ include file="/common/common.jsp"%>
-<!-- <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"> -->
 <style>
 <!--
 .datepicker {
@@ -41,9 +39,10 @@
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="editReceipt">
-	<portlet:param name="mvcRenderCommandName" value="<%= MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND %>" />
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.EDIT_RECEIPT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="${receipt.receiptId}" />
- </portlet:renderURL>
+</portlet:renderURL>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -66,9 +65,7 @@
 							style="display: none">
 							<liferay-ui:message key="receipt-remove-button" />
 						</button>
-						<%-- <c:set var="url" value="${receipt.viewPdfUrl}"></c:set>  --%>
 						<div id="targetDiv" class="targetDiv text-center">
-							<%-- <aui:input name="" value = ""></aui:input> --%>
 
 							<embed id="editpdfurl" type="application/pdf"
 								src="${receipt.viewPdfUrl}" width="100%" height="450"
@@ -85,7 +82,8 @@
 									id="doc-select-btn"><liferay-ui:message
 										key="label-receipt-pdf-file" /></span> <input name="doc-input"
 									id="doc-input" type="file" hidden accept=".pdf" />
-									<p id="error" class="text-danger" >This field is required<p>
+								<p id="error" class="text-danger">This field is required
+								<p>
 								<p id="sizeValidation" style="display: none; color: red;">size
 									must be less then 25 mb</p>
 							</div>
@@ -94,8 +92,8 @@
 					</aui:col>
 				</aui:form>
 
-				<aui:form cssClass="scroll border border-dark col" style="padding-right:5px !important;" 
-					name="receiptForm">
+				<aui:form cssClass="scroll border border-dark col"
+					style="padding-right:5px !important;" name="receiptForm">
 					<aui:input name="receiptId" id="receiptId" type="hidden"
 						value="${receipt.receiptId}" />
 					<div class="border heading">
@@ -253,10 +251,6 @@
 									<c:if test="${receipt.organizationId != null}">
 										<aui:option value="${receipt.organizationId}">${organizationValue}</aui:option>
 									</c:if>
-									<%-- <aui:option value="">
-										<liferay-ui:message key="receipt-default-option" />
-									</aui:option> --%>
-
 									<aui:validator name="required" />
 								</aui:select>
 							</div>
@@ -268,28 +262,6 @@
 										key="label-receipt-sub-organization" /></label>
 								<aui:select label="" name="subOrganizationId"
 									id="subOrganizationId">
-
-									<%-- 	<c:if test="${receipt.subOrganizationId != null}"> --%>
-									<%-- <c:forEach items = "${subOrganizationList }" var = "value">
-									<c:choose>
-									<c:when test = "${value.masterdataId == subOrganizationIdCheck} ">
-									<aui:option selected> ${value.value }</aui:option>
-									</c:when>
-									<c:otherwise>
-									<aui:option > ${value.value }</aui:option>
-									</c:otherwise>
-									</c:choose> --%>
-									<%-- <c:if test = "${subOrganizationValue eq value.value }">
-										<aui:option value="${receipt.subOrganizationId}" selected = "selected" >${subOrganizationValue}</aui:option> 
-										
-										</c:if>
-										<c:if test="${subOrganizationValue ne value.value }">
-										<aui:option >${value.value}</aui:option>
-										</c:if> --%>
-									<%-- 	</c:forEach>  --%>
-
-									<%-- 	</c:if> --%>
-
 								</aui:select>
 							</div>
 
@@ -391,12 +363,6 @@
 								<label><liferay-ui:message key="label-receipt-country" /></label>
 								<aui:select cssClass="master_drop_country" label=""
 									name="countryId" id="countryId">
-									<%-- <c:if test="${receipt.countryId != null}">
-										<aui:option value="${receipt.countryId}">${countryValue}</aui:option>
-									</c:if> --%>
-									<%-- <aui:option value="">
-										<liferay-ui:message key="receipt-default-option" />
-									</aui:option> --%>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -404,12 +370,6 @@
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-state" /></label>
 								<aui:select label="" name="stateId" id="stateId">
-									<%-- <c:if test="${receipt.stateId != null}">
-										<aui:option value="${receipt.stateId}">${stateValue}</aui:option>
-									</c:if>
-									<aui:option value="">
-										<liferay-ui:message key="receipt-default-option" />
-									</aui:option> --%>
 								</aui:select>
 							</div>
 						</aui:col>
@@ -482,18 +442,10 @@
 										key="label-receipt-sub-category" /></label>
 								<aui:select label="" name="receiptSubCategoryId"
 									id="receiptSubCategoryId">
-									<%-- <c:if test="${receipt.receiptSubCategoryId != null}">
-										<aui:option value="${receipt.receiptSubCategoryId}">${receiptSubCategoryValue}</aui:option>
-									</c:if> --%>
-
 								</aui:select>
-
-
 							</div>
-
 						</aui:col>
 					</aui:row>
-
 					<aui:row style="padding-left:15px !important;">
 						<aui:col cssClass="mt-3">
 							<div class="textOnInput">
@@ -522,7 +474,6 @@
 							</div>
 						</aui:col>
 					</aui:row>
-
 					<%--	Action Buttons--%>
 					<aui:button-row>
 						<aui:button cssClass="btn btn-primary button" type="button"
@@ -548,9 +499,6 @@
 
 		$(".master_drop_organization").find("option").eq(0).hide();
 	});
-	/* $(".master_drop_country").on("click" ,function() {
-	    $(".master_drop_country").find("option").eq(0).hide();
-	}); */
 
 	$(document).ready(function() {
 		$("#<portlet:namespace/>letterDate").datepicker({
