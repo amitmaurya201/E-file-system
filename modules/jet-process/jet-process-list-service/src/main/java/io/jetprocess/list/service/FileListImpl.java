@@ -1,6 +1,8 @@
 package io.jetprocess.list.service;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -12,14 +14,17 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
 
 
 @Component(immediate = true, service = FileList.class)
 public class FileListImpl implements FileList {
-
+	
+	private static Log logger = LogFactoryUtil.getLog(FileListImpl.class);
 	public int getFileCreatedListCount(long userPostId, String keyword) {
+		logger.info("Getting created file list count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -36,9 +41,11 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
+		logger.info("created file list count : "+count);
 		return count;
 	}
 
@@ -72,6 +79,7 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 
@@ -97,9 +105,11 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
+		logger.info("File inbox list count : "+count);
 		return count;
 	}
 
@@ -145,6 +155,7 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
@@ -169,6 +180,7 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
@@ -218,6 +230,7 @@ public class FileListImpl implements FileList {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
@@ -266,19 +279,20 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
 		return fileMovementDTOList;
 	}
 	@Override
-	public int getFileMovementListCount(long postId, String keyword) {
+	public int getFileMovementListCount(long fileId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select public.get_file_movement_list_count(?,?)");
-			prepareCall.setLong(1, postId);
+			prepareCall.setLong(1, fileId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
 
@@ -290,9 +304,76 @@ public class FileListImpl implements FileList {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
 		}
 		return count;
+	}
+
+	@Override
+	public int getFileCorrespondenceCount(long fileId, String keyword) {
+		Connection con = null;
+		int count = 0;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select public.get_file_correspondence_list_count(?,?)");
+			prepareCall.setLong(1, fileId);
+			prepareCall.setString(2, keyword);
+			boolean execute = prepareCall.execute();
+
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(con);
+		}
+		return count;
+	}
+
+	@Override
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long docfileId, String keyword, int start, int end,
+			String orderBy, String order) {
+		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
+		Connection con = null;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, docfileId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					FileCorrespondenceReceiptDTO filCorrespondenceDTO = new FileCorrespondenceReceiptDTO();
+					filCorrespondenceDTO.setReceiptId(rs.getLong("receiptid"));
+					filCorrespondenceDTO.setReceiptNumber(rs.getString("receiptnumber"));
+					filCorrespondenceDTO.setSubject(rs.getString("subject"));
+					filCorrespondenceDTO.setCategory(rs.getString("category"));
+					filCorrespondenceDTO.setCreateDate(rs.getTimestamp("createdate"));
+					filCorrespondenceDTO.setRemark(rs.getString("remark"));
+					filCorrespondenceDTO.setViewPdfUrl(rs.getString("viewPdfUrl"));
+					filCorrespondenceDTO.setNature(rs.getString("nature"));
+					filCorrespondenceDTO.setCorrespondenceType(rs.getString("correspondenceType"));
+					fileCorrespondenceReceiptDTO.add(filCorrespondenceDTO);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(con);
+		}
+		return fileCorrespondenceReceiptDTO;
 	}
 }

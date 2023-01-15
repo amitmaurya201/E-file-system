@@ -1624,12 +1624,12 @@ total :=0;
             IF  keyword !='' AND keyword IS NOT NULL  THEN
    
             SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-            PUBLIC.jet_process_filecorr as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id ; 
+            PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id ; 
             
             return total;
             END IF;
                     SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                    PUBLIC.jet_process_filecorr as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id ; 
+                    PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id ; 
        RETURN total;
         END IF;
 
@@ -1675,7 +1675,7 @@ AS $BODY$
    _query='
  SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, fc.createDate, fc.remarks  as remark , null as viewpdfurl,
  	r.nature, fc.correspondenceType as correspondenceType FROM PUBLIC.jet_process_receipt r INNER JOIN 
- PUBLIC.jet_process_filecorr as fc  ON r.receiptid = fc.receiptid';
+ PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid';
                   
         _keyword := '''%'||keyword||'%''';
         
