@@ -203,6 +203,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 		return pullable;
 	}
+	
+	
 	public boolean saveReadMovement(long fileId, long fmId) throws PortalException {
 		boolean state = false;
 		
@@ -218,6 +220,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}	
 		return state;
 	}
+	
 	private boolean isFileMovementAvailable(long fileId) {
 		List<FileMovement> findByfileId = fileMovementPersistence.findByfileId(fileId);
 		if (findByfileId.isEmpty()) {
@@ -230,7 +233,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		boolean state = false;
 		state = fileMovementLocalService.pullBackedAlready(fmId);
 		if (state == true) {
-
 			List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
 			for (FileMovement fileMovement2 : fileMovement) {
 				if (fileMovement2.getFileId() == fileId) {
@@ -256,6 +258,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return state;
 	}
 	
+	// method for when active is true then set false for pullback
 	public void isActiveTrue(long docFileId , long userpost, long fileMovementId, String pullBackRemark,ActionRequest actionRequest) throws PortalException {
 		boolean pullBackAvailable = isPullBackAvailable(fileMovementId);
 		if (pullBackAvailable) {

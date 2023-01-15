@@ -170,7 +170,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return state;
 	}
-
+// Create method for getReceiptMovementByFileMovementId 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
 		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence
 				.findBygetReceiptMovementsByfileMovementId(fileMovementId);
@@ -223,9 +223,8 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return state;
 	}
-
+// pull back those receipts which has been attached with file when file will be pull back
 	public void pullBackReceiptsAttatchWithFile(List<ReceiptMovement> receiptMovementList, long fileMovementId) {
-
 		if (receiptMovementList != null) {
 			// Iterate list of receipt
 			for (ReceiptMovement receiptMovement : receiptMovementList) {
