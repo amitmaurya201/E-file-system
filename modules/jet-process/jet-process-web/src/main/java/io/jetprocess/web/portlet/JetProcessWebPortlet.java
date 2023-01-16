@@ -73,29 +73,11 @@ public class JetProcessWebPortlet extends MVCPortlet {
 		super.doView(renderRequest, renderResponse);
 	}
 
-	@Reference
-	private MasterdataService masterData;
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
-	@Reference
-	private Portal _portal;
-	@Reference
-	private DocFileLocalService docFileLocalService;
-
-	@Reference
-	private MasterdataLocalService masterdataLocalSerive;
 
 	@Reference
 	private UserPostService userPostService;
 
-	@Reference
-	FileMovementLocalService fLocalService;
-
-	@Reference
-	ReceiptMovementLocalService receiptMovementLocalService;
-
-	@Reference
-	FileList fileList;
+	
 
 	private static Log logger = LogFactoryUtil.getLog(JetProcessWebPortlet.class);
 }
