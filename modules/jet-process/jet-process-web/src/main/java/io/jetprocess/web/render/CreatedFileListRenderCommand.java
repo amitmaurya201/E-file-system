@@ -43,6 +43,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	}
 
 	private void setCreatedFileListAttributes(RenderRequest renderRequest) {
+		logger.info("setting Created file list Attribute...");
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
@@ -55,22 +56,22 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
+		
 		int count = fileLists.getFileCreatedListCount(userPost, keywords);
+		logger.info("Count of File list : "+count);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
 			
 		}
-		if(delta !=preDelta) {
 		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
 		
-		}
 		session.setAttribute("preDelta", "" + delta + "");
 		List<FileListViewDto> fileList = fileLists.getFileList(userPost, keywords, start, end, orderByCol, orderByType);
+		logger.info("Created File list : "+fileList);
 		renderRequest.setAttribute("fileList", fileList);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCount", count);

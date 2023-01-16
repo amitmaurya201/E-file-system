@@ -102,14 +102,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 		renderRequest.setAttribute("addCorrespondenceManagementToolbarDisplayContext", addCorrespondenceManagementToolbarDisplayContext);
 
 	}
-	private static int getCurrentPage(int currentPage, int delta, int count) {
-		currentPage = currentPage - 1;
-		if (delta * currentPage < count) {
-			return currentPage;
-		} else {
-			return getCurrentPage(currentPage, delta, count);
-		}
-	}
+	
 
 	private static Log logger = LogFactoryUtil.getLog(AddFileCorrespondence.class);
 	@Reference
