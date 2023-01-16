@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.core.constant.util.FileConstants"%>
 <%@ include file="../init.jsp"%>
 
 <style>
@@ -35,7 +36,7 @@
 			String categoryValue;
 			String subCategoryValue;
 			String basicHeadValue;
-			if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
+			if (docFile.getType().equalsIgnoreCase(FileConstants.NON_SFS_TYPE)) {
 				basicHeadValue = (String) request.getAttribute("BasicHeadValue");
 				String primaryHeadValue = (String) request.getAttribute("PrimaryHeadValue");
 				String secondaryHeadValue = (String) request.getAttribute("SecondaryHeadValue");

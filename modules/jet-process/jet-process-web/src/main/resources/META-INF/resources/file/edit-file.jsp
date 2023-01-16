@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.core.constant.util.FileConstants"%>
 <%@ include file="../init.jsp"%>
 
 <div class="row">
@@ -19,7 +20,7 @@
 			String secondaryHeadValue = (String) renderRequest.getAttribute("SecondaryHeadValue");
 			String tertiaryHeadValue = (String) renderRequest.getAttribute("TertiaryHeadValue");
 			String fileCodeValue = (String) renderRequest.getAttribute("FileCodeValue");
-			String categoryValue = (String) renderRequest.getAttribute("CategoryVaue");
+			String categoryValue = (String) renderRequest.getAttribute("CategoryValue");
 			String subcategoryValue = (String) renderRequest.getAttribute("SubCategoryValue");
 
 			String sfsCategoryValue = (String) renderRequest.getAttribute("SfsCategoryValue");
@@ -83,7 +84,7 @@
 												</div>
 
 												<%
-													if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
+													if (docFile.getType().equalsIgnoreCase(FileConstants.NON_SFS_TYPE)) {
 												%>
 												<div class="row" id="non-sfs">
 
@@ -149,7 +150,7 @@
 
 												</div>
 												<%
-													} else if (docFile.getType().equalsIgnoreCase("SFS")) {
+													} else if (docFile.getType().equalsIgnoreCase(FileConstants.SFS_TYPE)) {
 												%>
 												<div class="row" id="sfs">
 													<aui:fieldset cssClass="col-md-12 child-scheduler-border">
@@ -193,7 +194,7 @@
 										<aui:fieldset cssClass="child-scheduler-border col-md-6">
 											<div cssClass="input-group">
 												<%
-													if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
+													if (docFile.getType().equalsIgnoreCase(FileConstants.NON_SFS_TYPE)) {
 												%>
 												<aui:select
 													cssClass="form-select form-control master_drop_category"
@@ -203,7 +204,7 @@
 													<aui:validator name="required" />
 												</aui:select>
 												<%
-													} else if (docFile.getType().equalsIgnoreCase("SFS")) {
+													} else if (docFile.getType().equalsIgnoreCase(FileConstants.SFS_TYPE)) {
 												%>
 												<aui:select
 													cssClass="form-select form-control master_drop_category"
@@ -222,14 +223,14 @@
 											style="margin-top:3px !important;">
 											<div cssClass="input-group">
 												<%
-													if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
+													if (docFile.getType().equalsIgnoreCase(FileConstants.NON_SFS_TYPE)) {
 												%>
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId"
 													label="label-file-sub-categoryid">
 												</aui:select>
 												<%
-													} else if (docFile.getType().equalsIgnoreCase("SFS")) {
+													} else if (docFile.getType().equalsIgnoreCase(FileConstants.SFS_TYPE)) {
 												%>
 												<aui:select cssClass="form-select form-control"
 													id="subCategoryId" name="subCategoryId"
