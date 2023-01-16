@@ -134,8 +134,8 @@
 			<input type="text" name="<portlet:namespace />rmId" id="rmId" hidden>
 			<input type="text" name="<portlet:namespace />receiptId"
 				id="receiptId" hidden>
-			<input type="text" name="<portlet:namespace/>senderId"
-				value="<%=selectedUserPostId%>" hidden>
+			<input type="hidden" name="<portlet:namespace/>senderId"
+				value="<%=selectedUserPostId%>" >
 			<div style="text-align: left; height: 100px;">
 				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
 					type="textarea" style="height:70px;">
