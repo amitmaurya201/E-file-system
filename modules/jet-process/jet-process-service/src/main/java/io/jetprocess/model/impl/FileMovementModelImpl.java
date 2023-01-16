@@ -82,7 +82,7 @@ public class FileMovementModelImpl
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
 		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR},
-		{"active_", Types.BOOLEAN}
+		{"active_", Types.BOOLEAN}, {"movementType", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -106,10 +106,11 @@ public class FileMovementModelImpl
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("pullBackRemark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("movementType", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN)";
+		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,movementType LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileMovement";
@@ -333,6 +334,11 @@ public class FileMovementModelImpl
 		attributeSetterBiConsumers.put(
 			"active",
 			(BiConsumer<FileMovement, Boolean>)FileMovement::setActive);
+		attributeGetterFunctions.put(
+			"movementType", FileMovement::getMovementType);
+		attributeSetterBiConsumers.put(
+			"movementType",
+			(BiConsumer<FileMovement, Long>)FileMovement::setMovementType);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -695,6 +701,21 @@ public class FileMovementModelImpl
 		_active = active;
 	}
 
+	@JSON
+	@Override
+	public long getMovementType() {
+		return _movementType;
+	}
+
+	@Override
+	public void setMovementType(long movementType) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_movementType = movementType;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -774,6 +795,7 @@ public class FileMovementModelImpl
 		fileMovementImpl.setReceivedOn(getReceivedOn());
 		fileMovementImpl.setPullBackRemark(getPullBackRemark());
 		fileMovementImpl.setActive(isActive());
+		fileMovementImpl.setMovementType(getMovementType());
 
 		fileMovementImpl.resetOriginalValues();
 
@@ -814,6 +836,8 @@ public class FileMovementModelImpl
 			this.<String>getColumnOriginalValue("pullBackRemark"));
 		fileMovementImpl.setActive(
 			this.<Boolean>getColumnOriginalValue("active_"));
+		fileMovementImpl.setMovementType(
+			this.<Long>getColumnOriginalValue("movementType"));
 
 		return fileMovementImpl;
 	}
@@ -982,6 +1006,8 @@ public class FileMovementModelImpl
 
 		fileMovementCacheModel.active = isActive();
 
+		fileMovementCacheModel.movementType = getMovementType();
+
 		return fileMovementCacheModel;
 	}
 
@@ -1092,6 +1118,7 @@ public class FileMovementModelImpl
 	private String _receivedOn;
 	private String _pullBackRemark;
 	private boolean _active;
+	private long _movementType;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1139,6 +1166,7 @@ public class FileMovementModelImpl
 		_columnOriginalValues.put("receivedOn", _receivedOn);
 		_columnOriginalValues.put("pullBackRemark", _pullBackRemark);
 		_columnOriginalValues.put("active_", _active);
+		_columnOriginalValues.put("movementType", _movementType);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1196,6 +1224,8 @@ public class FileMovementModelImpl
 		columnBitmasks.put("pullBackRemark", 32768L);
 
 		columnBitmasks.put("active_", 65536L);
+
+		columnBitmasks.put("movementType", 131072L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

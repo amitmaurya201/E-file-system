@@ -82,7 +82,8 @@ public class ReceiptMovementModelImpl
 		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
 		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR},
-		{"active_", Types.BOOLEAN}, {"fileInMovementId", Types.BIGINT}
+		{"active_", Types.BOOLEAN}, {"fileInMovementId", Types.BIGINT},
+		{"movementType", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -107,10 +108,11 @@ public class ReceiptMovementModelImpl
 		TABLE_COLUMNS_MAP.put("pullBackRemark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("fileInMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("movementType", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,fileInMovementId LONG)";
+		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,fileInMovementId LONG,movementType LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_ReceiptMovement";
@@ -359,6 +361,12 @@ public class ReceiptMovementModelImpl
 			"fileInMovementId",
 			(BiConsumer<ReceiptMovement, Long>)
 				ReceiptMovement::setFileInMovementId);
+		attributeGetterFunctions.put(
+			"movementType", ReceiptMovement::getMovementType);
+		attributeSetterBiConsumers.put(
+			"movementType",
+			(BiConsumer<ReceiptMovement, Long>)
+				ReceiptMovement::setMovementType);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -747,6 +755,21 @@ public class ReceiptMovementModelImpl
 			this.<Long>getColumnOriginalValue("fileInMovementId"));
 	}
 
+	@JSON
+	@Override
+	public long getMovementType() {
+		return _movementType;
+	}
+
+	@Override
+	public void setMovementType(long movementType) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_movementType = movementType;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -827,6 +850,7 @@ public class ReceiptMovementModelImpl
 		receiptMovementImpl.setPullBackRemark(getPullBackRemark());
 		receiptMovementImpl.setActive(isActive());
 		receiptMovementImpl.setFileInMovementId(getFileInMovementId());
+		receiptMovementImpl.setMovementType(getMovementType());
 
 		receiptMovementImpl.resetOriginalValues();
 
@@ -872,6 +896,8 @@ public class ReceiptMovementModelImpl
 			this.<Boolean>getColumnOriginalValue("active_"));
 		receiptMovementImpl.setFileInMovementId(
 			this.<Long>getColumnOriginalValue("fileInMovementId"));
+		receiptMovementImpl.setMovementType(
+			this.<Long>getColumnOriginalValue("movementType"));
 
 		return receiptMovementImpl;
 	}
@@ -1042,6 +1068,8 @@ public class ReceiptMovementModelImpl
 
 		receiptMovementCacheModel.fileInMovementId = getFileInMovementId();
 
+		receiptMovementCacheModel.movementType = getMovementType();
+
 		return receiptMovementCacheModel;
 	}
 
@@ -1153,6 +1181,7 @@ public class ReceiptMovementModelImpl
 	private String _pullBackRemark;
 	private boolean _active;
 	private long _fileInMovementId;
+	private long _movementType;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1201,6 +1230,7 @@ public class ReceiptMovementModelImpl
 		_columnOriginalValues.put("pullBackRemark", _pullBackRemark);
 		_columnOriginalValues.put("active_", _active);
 		_columnOriginalValues.put("fileInMovementId", _fileInMovementId);
+		_columnOriginalValues.put("movementType", _movementType);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1260,6 +1290,8 @@ public class ReceiptMovementModelImpl
 		columnBitmasks.put("active_", 65536L);
 
 		columnBitmasks.put("fileInMovementId", 131072L);
+
+		columnBitmasks.put("movementType", 262144L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

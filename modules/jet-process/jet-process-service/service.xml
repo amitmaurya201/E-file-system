@@ -160,7 +160,7 @@
 			package-path="com.liferay.portlet.asset" />
 	</entity>
 
-	<!-- fileMovement Entity -->
+	<!-- FileMovement Entity -->
 	<entity name="FileMovement" local-service="true"
 		remote-service="true" uuid="true">
 
@@ -188,6 +188,7 @@
 		<column type="String" name="receivedOn" />
 		<column name="pullBackRemark" type="String" />
 		<column name="active" type="boolean" />
+		<column name="movementType" type="long"/>
 
 		<finder name="fileId" return-type="Collection">
 			<finder-column name="fileId"></finder-column>
@@ -233,6 +234,7 @@
 		<column name="pullBackRemark" type="String" />
 		<column name="active" type="boolean" />
 		<column name="fileInMovementId" type="long"/>
+		<column name="movementType" type="long"/>
 
 		<finder name="receiptId" return-type="Collection">
 			<finder-column name="receiptId"></finder-column>

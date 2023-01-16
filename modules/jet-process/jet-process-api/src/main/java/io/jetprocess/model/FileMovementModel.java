@@ -332,6 +332,20 @@ public interface FileMovementModel
 	 */
 	public void setActive(boolean active);
 
+	/**
+	 * Returns the movement type of this file movement.
+	 *
+	 * @return the movement type of this file movement
+	 */
+	public long getMovementType();
+
+	/**
+	 * Sets the movement type of this file movement.
+	 *
+	 * @param movementType the movement type of this file movement
+	 */
+	public void setMovementType(long movementType);
+
 	@Override
 	public FileMovement cloneWithOriginalValues();
 

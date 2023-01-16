@@ -63,7 +63,7 @@ public class FileMovementCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(35);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -99,6 +99,8 @@ public class FileMovementCacheModel
 		sb.append(pullBackRemark);
 		sb.append(", active=");
 		sb.append(active);
+		sb.append(", movementType=");
+		sb.append(movementType);
 		sb.append("}");
 
 		return sb.toString();
@@ -181,6 +183,7 @@ public class FileMovementCacheModel
 		}
 
 		fileMovementImpl.setActive(active);
+		fileMovementImpl.setMovementType(movementType);
 
 		fileMovementImpl.resetOriginalValues();
 
@@ -214,6 +217,8 @@ public class FileMovementCacheModel
 		pullBackRemark = objectInput.readUTF();
 
 		active = objectInput.readBoolean();
+
+		movementType = objectInput.readLong();
 	}
 
 	@Override
@@ -284,6 +289,8 @@ public class FileMovementCacheModel
 		}
 
 		objectOutput.writeBoolean(active);
+
+		objectOutput.writeLong(movementType);
 	}
 
 	public String uuid;
@@ -303,5 +310,6 @@ public class FileMovementCacheModel
 	public String receivedOn;
 	public String pullBackRemark;
 	public boolean active;
+	public long movementType;
 
 }

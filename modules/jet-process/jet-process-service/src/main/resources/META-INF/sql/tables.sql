@@ -73,7 +73,8 @@ create table JET_PROCESS_FileMovement (
 	readOn VARCHAR(75) null,
 	receivedOn VARCHAR(75) null,
 	pullBackRemark VARCHAR(500) null,
-	active_ BOOLEAN
+	active_ BOOLEAN,
+	movementType LONG
 );
 
 create table JET_PROCESS_Receipt (
@@ -134,5 +135,6 @@ create table JET_PROCESS_ReceiptMovement (
 	receivedOn VARCHAR(75) null,
 	pullBackRemark VARCHAR(500) null,
 	active_ BOOLEAN,
-	fileInMovementId LONG
+	fileInMovementId LONG,
+	movementType LONG
 );

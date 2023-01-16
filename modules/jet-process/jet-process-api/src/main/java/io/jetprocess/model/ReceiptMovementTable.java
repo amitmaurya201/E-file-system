@@ -71,6 +71,8 @@ public class ReceiptMovementTable extends BaseTable<ReceiptMovementTable> {
 	public final Column<ReceiptMovementTable, Long> fileInMovementId =
 		createColumn(
 			"fileInMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptMovementTable, Long> movementType = createColumn(
+		"movementType", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private ReceiptMovementTable() {
 		super("JET_PROCESS_ReceiptMovement", ReceiptMovementTable::new);
