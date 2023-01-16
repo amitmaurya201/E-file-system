@@ -23,59 +23,17 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		"mvc.command.name=" + MVCCommandNames.FILE_DETAILS_RENDER_COMMAND}, service = MVCRenderCommand.class)
 public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
-
-	@Reference
-	private DocFileLocalService docFileLocalService;
-
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
-
-		try {
-
-			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			renderRequest.setAttribute("DocFile", docFile);
-			renderRequest.setAttribute("CurrentURL", currentURL);
-
-			if (docFile.getType().equalsIgnoreCase("NON-SFS")) {
-				Masterdata masterdata = masterdataLocalService.getBasic(docFile.getBasicHeadId());
-				renderRequest.setAttribute("BasicHeadValue", masterdata.getValue());
-				Masterdata masterdata1 = masterdataLocalService.getPrimary(docFile.getPrimaryHeadId());
-				renderRequest.setAttribute("PrimaryHeadValue", masterdata1.getValue());
-				Masterdata masterdata2 = masterdataLocalService.getSecondary(docFile.getSecondaryHeadId());
-				renderRequest.setAttribute("SecondaryHeadValue", masterdata2.getValue());
-				Masterdata masterdata3 = masterdataLocalService.getTertiary(docFile.getTertiaryHeadId());
-				renderRequest.setAttribute("TertiaryHeadValue", masterdata3.getValue());
-				Masterdata masterdata4 = masterdataLocalService.getFileById(docFile.getFileCodeId());
-				renderRequest.setAttribute("FileCodeValue", masterdata4.getValue());
-				if (docFile.getCategoryId() != 0) {
-					Masterdata masterdata5 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
-					renderRequest.setAttribute("CategoryValue", masterdata5.getValue());
-				} 
-				if (docFile.getSubCategoryId() != 0) {
-					Masterdata masterdata6 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
-					renderRequest.setAttribute("SubCategoryValue", masterdata6.getValue());
-				}
-			} else {
-				if (docFile.getCategoryId() != 0) {
-					Masterdata masterdata7 = masterdataLocalService.getCategoryById(docFile.getCategoryId());
-					renderRequest.setAttribute("SfsCategoryValue", masterdata7.getValue());
-				}
-				if (docFile.getSubCategoryId() != 0) {
-					Masterdata masterdata8 = masterdataLocalService.getSubCategoryById(docFile.getSubCategoryId());
-					renderRequest.setAttribute("SfsSubCategoryValue", masterdata8.getValue());
-				}
-
-			}
-		} catch (PortalException e) { // TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		renderRequest.setAttribute("CurrentURL", currentURL);
+		fileViewDetailsHelper.setFileDetails(docFileId, renderRequest);
 		return "/file/details.jsp";
 	}
+
+	@Reference
+	FileViewDetailsHelper  fileViewDetailsHelper;
 
 }
