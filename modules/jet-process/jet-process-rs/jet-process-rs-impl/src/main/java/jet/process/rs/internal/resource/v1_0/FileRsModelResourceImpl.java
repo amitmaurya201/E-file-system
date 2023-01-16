@@ -12,7 +12,9 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.model.DocFile;
+import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.DocFileLocalService;
+import io.jetprocess.service.FileMovementLocalService;
 import jet.process.rs.dto.v1_0.FileRsModel;
 import jet.process.rs.resource.v1_0.FileRsModelResource;
 
@@ -96,6 +98,15 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFileLocalService.addDocFile(docFile);
 		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");
+		
+		long fileMovementId = counterLocalService.increment(FileMovement.class.getName());
+        FileMovement fileMovement = fileMovementLocalService.createFileMovement(fileMovementId);
+        fileMovement.setReceiverId(fileRsModel.getUserPostId());
+		fileMovement.setSenderId(fileRsModel.getUserPostId());
+	    fileMovement.setFileId(docFile.getDocFileId());
+		fileMovementLocalService.addFileMovement(fileMovement);
+
+		
 		return fileRsModel;
 	}	
 
@@ -128,6 +139,11 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	private CounterLocalService counterLocalService;
 	@Reference
 	private DocFileLocalService docFileLocalService;
+	
+	@Reference
+	private FileMovementLocalService fileMovementLocalService;
+	
+	
 	@Reference
 	private UserLocalService userLocalService;
 }
