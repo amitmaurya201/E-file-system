@@ -344,7 +344,7 @@ public class FileListImpl implements FileList {
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?)");
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, docfileId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);

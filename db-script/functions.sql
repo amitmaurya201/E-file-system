@@ -1136,6 +1136,7 @@ ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
 
    
    
+   
    CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	userpostid bigint,
 	keyword integer,
@@ -1241,7 +1242,28 @@ AS $BODY$
                             
                        end if;
                        
+                        if (_orderby !='')  THEN 
                    
+                                       _query := _query||' order by '||_orderby;
+                                       if (_order !='')  THEN 
+
+                                           _query := _query||' '||_order;
+                                           if (_offset >=0)  THEN 
+
+                                                _query := _query||' offset '||_offset;
+                                               if (_limit >0)  THEN 
+                                                   _query := _query||' limit '||_limit;
+
+                                                  
+                                                end if;
+                                      
+                                   
+                                    end if;
+                            
+                                end if;
+                           
+                            end if;
+                       
                
                end if;
          return query execute _query;
