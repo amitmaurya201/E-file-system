@@ -61,6 +61,7 @@ public class ReceiptMovementWrapper
 		attributes.put("pullBackRemark", getPullBackRemark());
 		attributes.put("active", isActive());
 		attributes.put("fileInMovementId", getFileInMovementId());
+		attributes.put("movementType", getMovementType());
 
 		return attributes;
 	}
@@ -174,6 +175,12 @@ public class ReceiptMovementWrapper
 		if (fileInMovementId != null) {
 			setFileInMovementId(fileInMovementId);
 		}
+
+		Long movementType = (Long)attributes.get("movementType");
+
+		if (movementType != null) {
+			setMovementType(movementType);
+		}
 	}
 
 	@Override
@@ -249,6 +256,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the movement type of this receipt movement.
+	 *
+	 * @return the movement type of this receipt movement
+	 */
+	@Override
+	public long getMovementType() {
+		return model.getMovementType();
 	}
 
 	/**
@@ -464,6 +481,16 @@ public class ReceiptMovementWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the movement type of this receipt movement.
+	 *
+	 * @param movementType the movement type of this receipt movement
+	 */
+	@Override
+	public void setMovementType(long movementType) {
+		model.setMovementType(movementType);
 	}
 
 	/**

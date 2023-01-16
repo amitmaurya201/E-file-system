@@ -60,6 +60,7 @@ public class FileMovementWrapper
 		attributes.put("receivedOn", getReceivedOn());
 		attributes.put("pullBackRemark", getPullBackRemark());
 		attributes.put("active", isActive());
+		attributes.put("movementType", getMovementType());
 
 		return attributes;
 	}
@@ -167,6 +168,12 @@ public class FileMovementWrapper
 		if (active != null) {
 			setActive(active);
 		}
+
+		Long movementType = (Long)attributes.get("movementType");
+
+		if (movementType != null) {
+			setMovementType(movementType);
+		}
 	}
 
 	@Override
@@ -252,6 +259,16 @@ public class FileMovementWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the movement type of this file movement.
+	 *
+	 * @return the movement type of this file movement
+	 */
+	@Override
+	public long getMovementType() {
+		return model.getMovementType();
 	}
 
 	/**
@@ -457,6 +474,16 @@ public class FileMovementWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the movement type of this file movement.
+	 *
+	 * @param movementType the movement type of this file movement
+	 */
+	@Override
+	public void setMovementType(long movementType) {
+		model.setMovementType(movementType);
 	}
 
 	/**

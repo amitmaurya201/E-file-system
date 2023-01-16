@@ -346,6 +346,20 @@ public interface ReceiptMovementModel
 	 */
 	public void setFileInMovementId(long fileInMovementId);
 
+	/**
+	 * Returns the movement type of this receipt movement.
+	 *
+	 * @return the movement type of this receipt movement
+	 */
+	public long getMovementType();
+
+	/**
+	 * Sets the movement type of this receipt movement.
+	 *
+	 * @param movementType the movement type of this receipt movement
+	 */
+	public void setMovementType(long movementType);
+
 	@Override
 	public ReceiptMovement cloneWithOriginalValues();
 
