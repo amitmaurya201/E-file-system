@@ -40,14 +40,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 				);
 		receiptRsModel.setReceiptNumber(receipt.getReceiptNumber());
 		
-		long receiptMovementId = counterLocalService.increment(ReceiptMovement.class.getName());
-        ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(receiptMovementId);
-        receiptMovement.setReceiverId(receiptRsModel.getUserPostId());
-        receiptMovement.setSenderId(receiptRsModel.getUserPostId());
-        receiptMovement.setReceiptId(receiptRsModel.getReceiptId());
-	    receiptMovementLocalService.addReceiptMovement(receiptMovement);
-
-		
 		return receiptRsModel;
 	}
 
@@ -65,6 +57,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 				receiptRsModel.getSubOrganizationId(), receiptRsModel.getCity(), receiptRsModel.getUserPostId()
 				);
 		return receiptRsModel;
+		
 	}
 
 	@Reference
