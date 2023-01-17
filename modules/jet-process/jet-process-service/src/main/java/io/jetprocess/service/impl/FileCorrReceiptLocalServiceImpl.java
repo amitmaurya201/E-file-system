@@ -15,10 +15,17 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.Validator;
 
+import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.model.FileCorrReceipt;
+import io.jetprocess.model.Receipt;
+import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.base.FileCorrReceiptLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -29,4 +36,28 @@ import org.osgi.service.component.annotations.Component;
 )
 public class FileCorrReceiptLocalServiceImpl
 	extends FileCorrReceiptLocalServiceBaseImpl {
+	
+	public void addReceiptInFile(long receiptId, long docFileId, long userPostId, String remark)
+			throws PortalException {
+
+		long fileCorrId = counterLocalService.increment();
+		FileCorrReceipt fileCorrReceipt = createFileCorrReceipt(fileCorrId);
+		fileCorrReceipt.setReceiptId(receiptId);
+		fileCorrReceipt.setDocFileId(docFileId);
+		fileCorrReceipt.setUserPostId(userPostId);
+		fileCorrReceipt.setCorrespondenceType(FileStatus.RECEIPT_TYPE);
+		fileCorrReceipt.setRemarks(remark);
+	        addFileCorrReceipt(fileCorrReceipt);
+		Receipt receiptObj = receiptLocalService.getReceipt(receiptId);
+		if (Validator.isNotNull(receiptObj)) {
+			receiptObj.setAttachStatus(FileStatus.ATTACH_STATUS);
+			receiptLocalService.updateReceipt(receiptObj);
+
+		}
+	
+	
+	}
+	
+	@Reference
+	private ReceiptLocalService receiptLocalService;
 }
