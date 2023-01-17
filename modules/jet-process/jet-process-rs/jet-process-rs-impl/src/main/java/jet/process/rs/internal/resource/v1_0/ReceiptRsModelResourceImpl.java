@@ -11,12 +11,8 @@ import org.osgi.service.component.annotations.ServiceScope;
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.docstore.DocStore;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.Receipt;
-import io.jetprocess.model.ReceiptModel;
-import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptLocalService;
-import io.jetprocess.service.ReceiptMovementLocalService;
 import jet.process.rs.dto.v1_0.ReceiptRsModel;
 import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 
@@ -39,7 +35,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 				receiptRsModel.getSubOrganizationId(), receiptRsModel.getCity(), receiptRsModel.getUserPostId()
 				);
 		receiptRsModel.setReceiptNumber(receipt.getReceiptNumber());
-		
 		return receiptRsModel;
 	}
 
@@ -57,7 +52,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 				receiptRsModel.getSubOrganizationId(), receiptRsModel.getCity(), receiptRsModel.getUserPostId()
 				);
 		return receiptRsModel;
-		
 	}
 
 	@Reference
@@ -65,7 +59,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	@Reference
 	private ReceiptLocalService receiptLocalService;
 
-    @Reference
-    private ReceiptMovementLocalService receiptMovementLocalService;
+
 
 }
