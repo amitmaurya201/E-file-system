@@ -58,6 +58,10 @@ public class FileCorrTable extends BaseTable<FileCorrTable> {
 			Column.FLAG_DEFAULT);
 	public final Column<FileCorrTable, String> remarks = createColumn(
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileCorrTable, Long> fileMovementId = createColumn(
+		"fileMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileCorrTable, Long> receiptMovementId = createColumn(
+		"receiptMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private FileCorrTable() {
 		super("JET_PROCESS_FileCorr", FileCorrTable::new);

@@ -55,6 +55,8 @@ public class FileCorrReceiptWrapper
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("correspondenceType", getCorrespondenceType());
 		attributes.put("remarks", getRemarks());
+		attributes.put("fileMovementId", getFileMovementId());
+		attributes.put("receiptMovementId", getReceiptMovementId());
 
 		return attributes;
 	}
@@ -133,6 +135,18 @@ public class FileCorrReceiptWrapper
 		if (remarks != null) {
 			setRemarks(remarks);
 		}
+
+		Long fileMovementId = (Long)attributes.get("fileMovementId");
+
+		if (fileMovementId != null) {
+			setFileMovementId(fileMovementId);
+		}
+
+		Long receiptMovementId = (Long)attributes.get("receiptMovementId");
+
+		if (receiptMovementId != null) {
+			setReceiptMovementId(receiptMovementId);
+		}
 	}
 
 	@Override
@@ -191,6 +205,16 @@ public class FileCorrReceiptWrapper
 	}
 
 	/**
+	 * Returns the file movement ID of this file corr receipt.
+	 *
+	 * @return the file movement ID of this file corr receipt
+	 */
+	@Override
+	public long getFileMovementId() {
+		return model.getFileMovementId();
+	}
+
+	/**
 	 * Returns the group ID of this file corr receipt.
 	 *
 	 * @return the group ID of this file corr receipt
@@ -228,6 +252,16 @@ public class FileCorrReceiptWrapper
 	@Override
 	public long getReceiptId() {
 		return model.getReceiptId();
+	}
+
+	/**
+	 * Returns the receipt movement ID of this file corr receipt.
+	 *
+	 * @return the receipt movement ID of this file corr receipt
+	 */
+	@Override
+	public long getReceiptMovementId() {
+		return model.getReceiptMovementId();
 	}
 
 	/**
@@ -336,6 +370,16 @@ public class FileCorrReceiptWrapper
 	}
 
 	/**
+	 * Sets the file movement ID of this file corr receipt.
+	 *
+	 * @param fileMovementId the file movement ID of this file corr receipt
+	 */
+	@Override
+	public void setFileMovementId(long fileMovementId) {
+		model.setFileMovementId(fileMovementId);
+	}
+
+	/**
 	 * Sets the group ID of this file corr receipt.
 	 *
 	 * @param groupId the group ID of this file corr receipt
@@ -373,6 +417,16 @@ public class FileCorrReceiptWrapper
 	@Override
 	public void setReceiptId(long receiptId) {
 		model.setReceiptId(receiptId);
+	}
+
+	/**
+	 * Sets the receipt movement ID of this file corr receipt.
+	 *
+	 * @param receiptMovementId the receipt movement ID of this file corr receipt
+	 */
+	@Override
+	public void setReceiptMovementId(long receiptMovementId) {
+		model.setReceiptMovementId(receiptMovementId);
 	}
 
 	/**

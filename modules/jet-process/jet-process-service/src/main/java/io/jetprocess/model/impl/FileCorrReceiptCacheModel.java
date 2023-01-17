@@ -63,7 +63,7 @@ public class FileCorrReceiptCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -89,6 +89,10 @@ public class FileCorrReceiptCacheModel
 		sb.append(correspondenceType);
 		sb.append(", remarks=");
 		sb.append(remarks);
+		sb.append(", fileMovementId=");
+		sb.append(fileMovementId);
+		sb.append(", receiptMovementId=");
+		sb.append(receiptMovementId);
 		sb.append("}");
 
 		return sb.toString();
@@ -142,6 +146,9 @@ public class FileCorrReceiptCacheModel
 			fileCorrReceiptImpl.setRemarks(remarks);
 		}
 
+		fileCorrReceiptImpl.setFileMovementId(fileMovementId);
+		fileCorrReceiptImpl.setReceiptMovementId(receiptMovementId);
+
 		fileCorrReceiptImpl.resetOriginalValues();
 
 		return fileCorrReceiptImpl;
@@ -168,6 +175,10 @@ public class FileCorrReceiptCacheModel
 		userPostId = objectInput.readLong();
 		correspondenceType = objectInput.readUTF();
 		remarks = objectInput.readUTF();
+
+		fileMovementId = objectInput.readLong();
+
+		receiptMovementId = objectInput.readLong();
 	}
 
 	@Override
@@ -208,6 +219,10 @@ public class FileCorrReceiptCacheModel
 		else {
 			objectOutput.writeUTF(remarks);
 		}
+
+		objectOutput.writeLong(fileMovementId);
+
+		objectOutput.writeLong(receiptMovementId);
 	}
 
 	public String uuid;
@@ -222,5 +237,7 @@ public class FileCorrReceiptCacheModel
 	public long userPostId;
 	public String correspondenceType;
 	public String remarks;
+	public long fileMovementId;
+	public long receiptMovementId;
 
 }

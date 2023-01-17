@@ -79,7 +79,8 @@ public class FileCorrModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"docFileId", Types.BIGINT},
 		{"receiptId", Types.BIGINT}, {"userPostId", Types.BIGINT},
-		{"correspondenceType", Types.VARCHAR}, {"remarks", Types.VARCHAR}
+		{"correspondenceType", Types.VARCHAR}, {"remarks", Types.VARCHAR},
+		{"fileMovementId", Types.BIGINT}, {"receiptMovementId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,10 +99,12 @@ public class FileCorrModelImpl
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("correspondenceType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("fileMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("receiptMovementId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileCorr (uuid_ VARCHAR(75) null,fileCorrId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,docFileId LONG,receiptId LONG,userPostId LONG,correspondenceType VARCHAR(75) null,remarks VARCHAR(75) null)";
+		"create table JET_PROCESS_FileCorr (uuid_ VARCHAR(75) null,fileCorrId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,docFileId LONG,receiptId LONG,userPostId LONG,correspondenceType VARCHAR(75) null,remarks VARCHAR(75) null,fileMovementId LONG,receiptMovementId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileCorr";
@@ -291,6 +294,16 @@ public class FileCorrModelImpl
 		attributeGetterFunctions.put("remarks", FileCorr::getRemarks);
 		attributeSetterBiConsumers.put(
 			"remarks", (BiConsumer<FileCorr, String>)FileCorr::setRemarks);
+		attributeGetterFunctions.put(
+			"fileMovementId", FileCorr::getFileMovementId);
+		attributeSetterBiConsumers.put(
+			"fileMovementId",
+			(BiConsumer<FileCorr, Long>)FileCorr::setFileMovementId);
+		attributeGetterFunctions.put(
+			"receiptMovementId", FileCorr::getReceiptMovementId);
+		attributeSetterBiConsumers.put(
+			"receiptMovementId",
+			(BiConsumer<FileCorr, Long>)FileCorr::setReceiptMovementId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -543,6 +556,36 @@ public class FileCorrModelImpl
 		_remarks = remarks;
 	}
 
+	@JSON
+	@Override
+	public long getFileMovementId() {
+		return _fileMovementId;
+	}
+
+	@Override
+	public void setFileMovementId(long fileMovementId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_fileMovementId = fileMovementId;
+	}
+
+	@JSON
+	@Override
+	public long getReceiptMovementId() {
+		return _receiptMovementId;
+	}
+
+	@Override
+	public void setReceiptMovementId(long receiptMovementId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_receiptMovementId = receiptMovementId;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -617,6 +660,8 @@ public class FileCorrModelImpl
 		fileCorrImpl.setUserPostId(getUserPostId());
 		fileCorrImpl.setCorrespondenceType(getCorrespondenceType());
 		fileCorrImpl.setRemarks(getRemarks());
+		fileCorrImpl.setFileMovementId(getFileMovementId());
+		fileCorrImpl.setReceiptMovementId(getReceiptMovementId());
 
 		fileCorrImpl.resetOriginalValues();
 
@@ -647,6 +692,10 @@ public class FileCorrModelImpl
 		fileCorrImpl.setCorrespondenceType(
 			this.<String>getColumnOriginalValue("correspondenceType"));
 		fileCorrImpl.setRemarks(this.<String>getColumnOriginalValue("remarks"));
+		fileCorrImpl.setFileMovementId(
+			this.<Long>getColumnOriginalValue("fileMovementId"));
+		fileCorrImpl.setReceiptMovementId(
+			this.<Long>getColumnOriginalValue("receiptMovementId"));
 
 		return fileCorrImpl;
 	}
@@ -782,6 +831,10 @@ public class FileCorrModelImpl
 			fileCorrCacheModel.remarks = null;
 		}
 
+		fileCorrCacheModel.fileMovementId = getFileMovementId();
+
+		fileCorrCacheModel.receiptMovementId = getReceiptMovementId();
+
 		return fileCorrCacheModel;
 	}
 
@@ -887,6 +940,8 @@ public class FileCorrModelImpl
 	private long _userPostId;
 	private String _correspondenceType;
 	private String _remarks;
+	private long _fileMovementId;
+	private long _receiptMovementId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -929,6 +984,8 @@ public class FileCorrModelImpl
 		_columnOriginalValues.put("userPostId", _userPostId);
 		_columnOriginalValues.put("correspondenceType", _correspondenceType);
 		_columnOriginalValues.put("remarks", _remarks);
+		_columnOriginalValues.put("fileMovementId", _fileMovementId);
+		_columnOriginalValues.put("receiptMovementId", _receiptMovementId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -975,6 +1032,10 @@ public class FileCorrModelImpl
 		columnBitmasks.put("correspondenceType", 1024L);
 
 		columnBitmasks.put("remarks", 2048L);
+
+		columnBitmasks.put("fileMovementId", 4096L);
+
+		columnBitmasks.put("receiptMovementId", 8192L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

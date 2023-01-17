@@ -251,6 +251,34 @@ public interface FileCorrModel
 	 */
 	public void setRemarks(String remarks);
 
+	/**
+	 * Returns the file movement ID of this file corr.
+	 *
+	 * @return the file movement ID of this file corr
+	 */
+	public long getFileMovementId();
+
+	/**
+	 * Sets the file movement ID of this file corr.
+	 *
+	 * @param fileMovementId the file movement ID of this file corr
+	 */
+	public void setFileMovementId(long fileMovementId);
+
+	/**
+	 * Returns the receipt movement ID of this file corr.
+	 *
+	 * @return the receipt movement ID of this file corr
+	 */
+	public long getReceiptMovementId();
+
+	/**
+	 * Sets the receipt movement ID of this file corr.
+	 *
+	 * @param receiptMovementId the receipt movement ID of this file corr
+	 */
+	public void setReceiptMovementId(long receiptMovementId);
+
 	@Override
 	public FileCorr cloneWithOriginalValues();
 

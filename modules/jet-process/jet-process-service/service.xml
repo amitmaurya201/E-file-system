@@ -275,6 +275,9 @@
 		<column name="userPostId" type="long" />
 		<column name="correspondenceType" type="String" />
 		<column name="remarks" type="String" />
+		<column name="fileMovementId" type="long"/>
+		<column name="receiptMovementId" type="long"/>
+		
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 
@@ -308,6 +311,9 @@
 		<column name="userPostId" type="long" />
 		<column name="correspondenceType" type="String" />
 		<column name="remarks" type="String" />
+		<column name="fileMovementId" type="long"/>
+		<column name="receiptMovementId" type="long"/>
+		
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 
