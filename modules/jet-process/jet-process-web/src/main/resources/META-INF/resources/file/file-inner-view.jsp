@@ -26,10 +26,10 @@
 
 			<c:set var="type" scope="session" value="${nature}" />
 			<c:if test="${type=='Electronic'}">
-				<div class="col-4">
+				<div class="col-6" style="padding-right: 7px !important;">
 					<%@include file="/file/add-note.jsp"%>
 				</div>
-				<div class="col-8">
+				<div class="col-6">
 					<%@include file="/file/correspondence-list.jsp"%>
 				</div>
 			</c:if>
