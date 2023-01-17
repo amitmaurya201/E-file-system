@@ -4,6 +4,7 @@
 var userPostId = $('#<portlet:namespace />userPostsVal').val();
 var groupId = Liferay.ThemeDisplay.getScopeGroupId();
 var tempFileId=0;
+var dmFileId = '${receipt.dmFileId}';
 
 // ---master data category---
 AUI().use('aui-base', function(A){
@@ -311,7 +312,6 @@ $("#<portlet:namespace />update").on('click', function(e){
 	e.preventDefault();
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
-    var dmFileId = '${receipt.dmFileId}';
 	var nature= $('#<portlet:namespace/>nature').val(); 
 	var docInput = $("#doc-input").val().length;
 	var uploadPdfSizeCss =$("#sizeValidation").css('display');
@@ -325,6 +325,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     }
 	
     jsonData["groupId"] = groupId; 
+    jsonData["dmFileId"]=dmFileId;
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
     	if(nature =='Electronic' && docInput==0 && uploadFileErrorCss=='block' ){
@@ -396,17 +397,18 @@ $('#removeFileUpload').on('click',function(e){
 	if(nature == 'Electronic' ){
 		$("#error").css('display','block');	
 		}
-		else if (nature == 'Physical'){
-			$("#error").css('display','none');
-			  tempFileId=0;
+		else if (nature == 'Physical' ){
+		
+			 tempFileId=0;
+			 dmFileId=0;
 		}
+	
 	$('.dropzone-wrapper').css("display", "block");
 	$('#removeFileUpload').css("display", "none");
 	$("#editpdfurl").remove();
 	$("#doc-input").val('');
 	$("#sizeValidation").remove();
-    tempFileId=0;
-    url = null;
+
 });
 
 
@@ -481,7 +483,7 @@ function validateSize(file) {
 }
 
 $(document).ready(function(){
-	$("#error").css('display','none');	
+	/*$("#error").css('display','none');	*/
 	let url;	
 	let flag='${removeFlag}';
 	if(flag== null || flag==''){

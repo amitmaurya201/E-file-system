@@ -116,7 +116,7 @@ public class ReceiptServiceHttp {
 			String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
 			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId)
+			String city, long userPostId, long dmFileId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			   java.io.IOException {
 
@@ -130,7 +130,8 @@ public class ReceiptServiceHttp {
 				receivedOn, letterDate, referenceNumber, modeNumber,
 				receiptCategoryId, receiptSubCategoryId, subject, remarks, name,
 				designation, mobile, email, address, countryId, stateId,
-				pinCode, organizationId, subOrganizationId, city, userPostId);
+				pinCode, organizationId, subOrganizationId, city, userPostId,
+				dmFileId);
 
 			Object returnObj = null;
 
@@ -260,7 +261,8 @@ public class ReceiptServiceHttp {
 			String.class, String.class, String.class, String.class, long.class,
 			long.class, String.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, long.class, long.class,
-			String.class, long.class, long.class, String.class, long.class
+			String.class, long.class, long.class, String.class, long.class,
+			long.class
 		};
 	private static final Class<?>[] _deleteReceiptParameterTypes2 =
 		new Class[] {long.class};

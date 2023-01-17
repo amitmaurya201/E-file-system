@@ -72,7 +72,7 @@
 										id="doc-select-btn"><liferay-ui:message
 											key="label-receipt-pdf-file" /></span> <input name="doc-input"
 										id="doc-input" type="file" hidden accept=".pdf" />
-									<p id="error" class="text-danger">This field is required
+									<p id="error" class="text-danger" style = "display:none">This field is required
 									<p>
 								</div>
 							</div>

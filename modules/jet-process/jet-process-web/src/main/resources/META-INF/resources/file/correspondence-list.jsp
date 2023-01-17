@@ -118,15 +118,17 @@
 							destroyOnClose: true,														 
 							destroyOnHide: true, 														 
 							modal: true, 														 
-							width: 900 														 
+							width: 900,
+							on: {
+               			 	destroy: function() { 
+                    		parent.location.reload();                   
+                    		 	}
+           					 }													 
 						}, 														 
 						id: '<portlet:namespace />dialog',														 
-						title: 'My Title', 														 
+						title: 'Put In File', 														 
 						uri: '<%= fileInnerViewPopup %>&<portlet:namespace/>corrFileId=<%=corrFileId %>',			
-																			 
-		}); 
-	});	
-	
+						});
+					});	
 	</aui:script>
-	
 	

@@ -52,12 +52,12 @@ public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
-			long subOrganizationId, String city, long userPostId)
+			long subOrganizationId, String city, long userPostId, long dmFileId)
 			throws PortalException, IOException {
 		return receiptLocalService.updateReceipt(receiptId, groupId,typeId, tempfileEntryId,nature,
 				receivedOn, letterDate, referenceNumber, modeNumber, receiptCategoryId, receiptSubCategoryId, subject,
 				remarks, name, designation, mobile, email, address, countryId, stateId, pinCode,
-				organizationId, subOrganizationId, city, userPostId);
+				organizationId, subOrganizationId, city, userPostId,dmFileId);
 	}
 
 	public Receipt deleteReceipt(long receiptId) throws PortalException {

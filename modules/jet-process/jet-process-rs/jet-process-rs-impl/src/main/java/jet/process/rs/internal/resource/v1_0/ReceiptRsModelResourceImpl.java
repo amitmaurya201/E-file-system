@@ -1,16 +1,11 @@
 package jet.process.rs.internal.resource.v1_0;
 
 import com.liferay.counter.kernel.service.CounterLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
-import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.docstore.DocStore;
-import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
 import jet.process.rs.dto.v1_0.ReceiptRsModel;
@@ -49,9 +44,10 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 				receiptRsModel.getName(), receiptRsModel.getDesignation(), receiptRsModel.getMobile(),
 				receiptRsModel.getEmail(), receiptRsModel.getAddress(), receiptRsModel.getCountryId(),
 				receiptRsModel.getStateId(), receiptRsModel.getPinCode(), receiptRsModel.getOrganizationId(),
-				receiptRsModel.getSubOrganizationId(), receiptRsModel.getCity(), receiptRsModel.getUserPostId()
+				receiptRsModel.getSubOrganizationId(), receiptRsModel.getCity(), receiptRsModel.getUserPostId(),receiptRsModel.getDmFileId()
 				);
 		return receiptRsModel;
+	
 	}
 
 	@Reference

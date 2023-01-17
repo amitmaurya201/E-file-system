@@ -428,7 +428,7 @@ public class ReceiptLocalServiceWrapper
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,
-			long userPostId)
+			long userPostId, long dmFileId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			   java.io.IOException {
 
@@ -437,7 +437,7 @@ public class ReceiptLocalServiceWrapper
 			letterDate, referenceNumber, modeNumber, receiptCategoryId,
 			receiptSubCategoryId, subject, remarks, name, designation, mobile,
 			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, userPostId);
+			subOrganizationId, city, userPostId, dmFileId);
 	}
 
 	/**

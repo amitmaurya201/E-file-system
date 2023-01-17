@@ -337,7 +337,7 @@ public interface ReceiptLocalService
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,
-			long userPostId)
+			long userPostId, long dmFileId)
 		throws IOException, PortalException;
 
 	/**

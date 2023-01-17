@@ -15,20 +15,27 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.docstore.DocStore;
+import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
 
@@ -102,11 +109,11 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
-			long subOrganizationId, String city, long userPostId)
+			long subOrganizationId, String city, long userPostId, long dmFileId)
 			throws PortalException, IOException {
 		Receipt receipt = getReceipt(receiptId);
-		System.out.println("receipt132763"+receipt);
-		long dmFileId = 0l;
+		
+		/* long documentFileId = 0l; */
 		String viewFileUrl = null;
 
 		receipt.setTypeId(typeId);
@@ -130,26 +137,27 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receipt.setSubOrganizationId(subOrganizationId);
 		receipt.setPinCode(pinCode);
 		receipt.setUserPostId(userPostId);
-		if (tempfileEntryId != 0) {
+		if (tempfileEntryId == 0) {
+			if(dmFileId!=0) {
+			receipt.setDmFileId(receipt.getDmFileId());
+			receipt.setViewPdfUrl(receipt.getViewPdfUrl());
+			}
+			  else { 
+				  receipt.setViewPdfUrl(""); 
+			      receipt.setDmFileId(0); }	 
+		} 
+		else {
 			dmFileId = receiptLocalService.getDmFileId(tempfileEntryId, groupId);
 			viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 			receipt.setViewPdfUrl(viewFileUrl);
 			receipt.setDmFileId(dmFileId);
-		} else {
-			if (nature.equals("Electronic")) {
-				receipt.setDmFileId(receipt.getDmFileId());
-				receipt.setViewPdfUrl(receipt.getViewPdfUrl());
-			} else {
-				receipt.setViewPdfUrl("");
-				receipt.setDmFileId(0);
-			}
 		}
+	
 		receipt = super.updateReceipt(receipt);
 		return receipt;
 
 	}
 	
-
 	public String generateReceiptNumber(long receiptId) {
 		String receiptNumber = "R" + receiptId;
 		return receiptNumber;
@@ -184,3 +192,4 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 	@Reference
 	private DocStore docstore;
 }
+

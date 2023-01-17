@@ -83,7 +83,7 @@ public class ReceiptServiceUtil {
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
 			long organizationId, long subOrganizationId, String city,
-			long userPostId)
+			long userPostId, long dmFileId)
 		throws java.io.IOException, PortalException {
 
 		return getService().updateReceipt(
@@ -91,7 +91,7 @@ public class ReceiptServiceUtil {
 			letterDate, referenceNumber, modeNumber, receiptCategoryId,
 			receiptSubCategoryId, subject, remarks, name, designation, mobile,
 			email, address, countryId, stateId, pinCode, organizationId,
-			subOrganizationId, city, userPostId);
+			subOrganizationId, city, userPostId, dmFileId);
 	}
 
 	public static ReceiptService getService() {
