@@ -48,10 +48,7 @@
 		<liferay-portlet:renderURL varImpl="iteratorURL">
 			<portlet:param name="mvcPath" value="/receipt/sent_list.jsp" />
 		</liferay-portlet:renderURL>
-		<liferay-portlet:renderURL varImpl="viewDetails">
-			<portlet:param name="mvcRenderCommandName" value= "<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
-	       	<portlet:param name="receiptId" value="${receiptSentMovement.receiptId }" />       
-		</liferay-portlet:renderURL>
+		
 		<h1 class=" text-center">
 			<liferay-ui:message key="label-receipt-sent-heading" />
 		</h1>
@@ -69,6 +66,10 @@
 				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
+<liferay-portlet:renderURL varImpl="viewDetails">
+			<portlet:param name="mvcRenderCommandName" value= "<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
+	       	<portlet:param name="receiptId" value="${receiptSentMovement.receiptId }" />       
+		</liferay-portlet:renderURL>
 
 				<c:set var="firstLetterOfNature"
 					value="${ receiptSentMovement.nature}" />
