@@ -11,8 +11,11 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.model.DocFile;
+import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.DocFileLocalService;
+import io.jetprocess.service.FileMovementLocalService;
 import jet.process.rs.dto.v1_0.FileRsModel;
 import jet.process.rs.resource.v1_0.FileRsModelResource;
 
@@ -94,7 +97,19 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
-		contextHttpServletResponse.setHeader("status", "success");
+		
+
+	long fmId =	counterLocalService.increment(FileMovement.class.getName());
+	FileMovement fm =  fileMovementLocalSerive.createFileMovement(fmId);
+	  fm.setFmId(fmId);
+	  fm.setSenderId(docFile.getUserPostId());
+	  fm.setReceiverId(docFile.getUserPostId());
+	  fm.setFileId(docFile.getDocFileId());
+	  fm.setMovementType(MovementStatus.CREATED);
+	  fm.setActive(false);
+	  fileMovementLocalSerive.addFileMovement(fm);
+	
+	  contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");
 		return fileRsModel;
 	}	
@@ -124,6 +139,8 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		return FileNumber;
 	}
 
+	@Reference 
+	private FileMovementLocalService fileMovementLocalSerive;
 	@Reference
 	private CounterLocalService counterLocalService;
 	@Reference
