@@ -77,6 +77,34 @@ create table JET_PROCESS_FileMovement (
 	movementType LONG
 );
 
+create table JET_PROCESS_FileNote (
+	uuid_ VARCHAR(75) null,
+	fileNoteId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	fileId LONG,
+	fileMovementId LONG,
+	noteId LONG
+);
+
+create table JET_PROCESS_Note (
+	uuid_ VARCHAR(75) null,
+	noteId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	content TEXT null,
+	createdBy LONG,
+	signature VARCHAR(75) null
+);
+
 create table JET_PROCESS_Receipt (
 	uuid_ VARCHAR(75) null,
 	receiptId LONG not null primary key,

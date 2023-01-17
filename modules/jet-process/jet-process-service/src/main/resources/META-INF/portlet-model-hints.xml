@@ -80,6 +80,34 @@
 		<field name="active" type="boolean" />
 		<field name="movementType" type="long" />
 	</model>
+	<model name="io.jetprocess.model.FileNote">
+		<field name="uuid" type="String" />
+		<field name="fileNoteId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="fileId" type="long" />
+		<field name="fileMovementId" type="long" />
+		<field name="noteId" type="long" />
+	</model>
+	<model name="io.jetprocess.model.Note">
+		<field name="uuid" type="String" />
+		<field name="noteId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="content" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="createdBy" type="long" />
+		<field name="signature" type="String" />
+	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />
 		<field name="receiptId" type="long" />

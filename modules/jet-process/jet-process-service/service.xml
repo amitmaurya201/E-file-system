@@ -285,6 +285,8 @@
 		<reference entity="AssetTag"
 			package-path="com.liferay.portlet.asset" />
 	</entity>
+	
+	<!-- File Correspondence Receipt -->
 	<entity name="FileCorrReceipt" local-service="true"
 		remote-service="true" uuid="true">
 
@@ -316,5 +318,67 @@
 		<reference entity="AssetTag"
 			package-path="com.liferay.portlet.asset" />
 	</entity>
+	
+	<!-- Note -->
+	<entity local-service="true" name="Note" remote-service="true"
+		uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="noteId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+
+		<!-- Other fields -->
+		<column name="content" type="String"></column>
+		<column name="createdBy" type="long"></column>
+		<column name="signature" type="String"></column>
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+	</entity>
+	
+	<!-- File Note -->
+	
+	<entity local-service="true" name="FileNote" uuid="true"
+		remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="fileNoteId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+
+		<!-- Other fields -->
+		<column name="fileId" type="long"></column>
+		<column name="fileMovementId" type="long"></column>
+		<column name="noteId" type="long"></column>
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+	</entity>
+	
 	
 </service-builder>
