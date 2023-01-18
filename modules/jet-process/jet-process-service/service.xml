@@ -380,6 +380,7 @@
 		<column name="fileId" type="long"></column>
 		<column name="fileMovementId" type="long"></column>
 		<column name="noteId" type="long"></column>
+		<column name="movementType" type="long"/>
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />

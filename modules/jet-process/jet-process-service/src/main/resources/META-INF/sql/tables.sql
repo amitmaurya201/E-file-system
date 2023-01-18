@@ -92,7 +92,8 @@ create table JET_PROCESS_FileNote (
 	modifiedDate DATE null,
 	fileId LONG,
 	fileMovementId LONG,
-	noteId LONG
+	noteId LONG,
+	movementType LONG
 );
 
 create table JET_PROCESS_Note (

@@ -62,7 +62,7 @@ public class FileNoteCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -86,6 +86,8 @@ public class FileNoteCacheModel
 		sb.append(fileMovementId);
 		sb.append(", noteId=");
 		sb.append(noteId);
+		sb.append(", movementType=");
+		sb.append(movementType);
 		sb.append("}");
 
 		return sb.toString();
@@ -131,6 +133,7 @@ public class FileNoteCacheModel
 		fileNoteImpl.setFileId(fileId);
 		fileNoteImpl.setFileMovementId(fileMovementId);
 		fileNoteImpl.setNoteId(noteId);
+		fileNoteImpl.setMovementType(movementType);
 
 		fileNoteImpl.resetOriginalValues();
 
@@ -157,6 +160,8 @@ public class FileNoteCacheModel
 		fileMovementId = objectInput.readLong();
 
 		noteId = objectInput.readLong();
+
+		movementType = objectInput.readLong();
 	}
 
 	@Override
@@ -191,6 +196,8 @@ public class FileNoteCacheModel
 		objectOutput.writeLong(fileMovementId);
 
 		objectOutput.writeLong(noteId);
+
+		objectOutput.writeLong(movementType);
 	}
 
 	public String uuid;
@@ -204,5 +211,6 @@ public class FileNoteCacheModel
 	public long fileId;
 	public long fileMovementId;
 	public long noteId;
+	public long movementType;
 
 }

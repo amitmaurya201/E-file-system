@@ -79,7 +79,7 @@ public class FileNoteModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"fileId", Types.BIGINT}, {"fileMovementId", Types.BIGINT},
-		{"noteId", Types.BIGINT}
+		{"noteId", Types.BIGINT}, {"movementType", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,10 +97,11 @@ public class FileNoteModelImpl
 		TABLE_COLUMNS_MAP.put("fileId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("fileMovementId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("noteId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("movementType", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileNote (uuid_ VARCHAR(75) null,fileNoteId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,fileId LONG,fileMovementId LONG,noteId LONG)";
+		"create table JET_PROCESS_FileNote (uuid_ VARCHAR(75) null,fileNoteId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,fileId LONG,fileMovementId LONG,noteId LONG,movementType LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileNote";
@@ -287,6 +288,10 @@ public class FileNoteModelImpl
 		attributeGetterFunctions.put("noteId", FileNote::getNoteId);
 		attributeSetterBiConsumers.put(
 			"noteId", (BiConsumer<FileNote, Long>)FileNote::setNoteId);
+		attributeGetterFunctions.put("movementType", FileNote::getMovementType);
+		attributeSetterBiConsumers.put(
+			"movementType",
+			(BiConsumer<FileNote, Long>)FileNote::setMovementType);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -519,6 +524,21 @@ public class FileNoteModelImpl
 		_noteId = noteId;
 	}
 
+	@JSON
+	@Override
+	public long getMovementType() {
+		return _movementType;
+	}
+
+	@Override
+	public void setMovementType(long movementType) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_movementType = movementType;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -592,6 +612,7 @@ public class FileNoteModelImpl
 		fileNoteImpl.setFileId(getFileId());
 		fileNoteImpl.setFileMovementId(getFileMovementId());
 		fileNoteImpl.setNoteId(getNoteId());
+		fileNoteImpl.setMovementType(getMovementType());
 
 		fileNoteImpl.resetOriginalValues();
 
@@ -619,6 +640,8 @@ public class FileNoteModelImpl
 		fileNoteImpl.setFileMovementId(
 			this.<Long>getColumnOriginalValue("fileMovementId"));
 		fileNoteImpl.setNoteId(this.<Long>getColumnOriginalValue("noteId"));
+		fileNoteImpl.setMovementType(
+			this.<Long>getColumnOriginalValue("movementType"));
 
 		return fileNoteImpl;
 	}
@@ -744,6 +767,8 @@ public class FileNoteModelImpl
 
 		fileNoteCacheModel.noteId = getNoteId();
 
+		fileNoteCacheModel.movementType = getMovementType();
+
 		return fileNoteCacheModel;
 	}
 
@@ -848,6 +873,7 @@ public class FileNoteModelImpl
 	private long _fileId;
 	private long _fileMovementId;
 	private long _noteId;
+	private long _movementType;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -889,6 +915,7 @@ public class FileNoteModelImpl
 		_columnOriginalValues.put("fileId", _fileId);
 		_columnOriginalValues.put("fileMovementId", _fileMovementId);
 		_columnOriginalValues.put("noteId", _noteId);
+		_columnOriginalValues.put("movementType", _movementType);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -933,6 +960,8 @@ public class FileNoteModelImpl
 		columnBitmasks.put("fileMovementId", 512L);
 
 		columnBitmasks.put("noteId", 1024L);
+
+		columnBitmasks.put("movementType", 2048L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

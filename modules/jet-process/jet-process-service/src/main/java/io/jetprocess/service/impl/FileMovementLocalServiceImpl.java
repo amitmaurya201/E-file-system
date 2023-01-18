@@ -32,6 +32,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.core.constant.util.FileConstants;
 
 import io.jetprocess.masterdata.service.MasterdataLocalService;
@@ -278,7 +279,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 
 	}
-
+	
+	
 
 	@Reference
 	DocFileLocalService docFileLocalService;

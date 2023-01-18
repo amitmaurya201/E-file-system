@@ -246,6 +246,20 @@ public interface FileNoteModel
 	 */
 	public void setNoteId(long noteId);
 
+	/**
+	 * Returns the movement type of this file note.
+	 *
+	 * @return the movement type of this file note
+	 */
+	public long getMovementType();
+
+	/**
+	 * Sets the movement type of this file note.
+	 *
+	 * @param movementType the movement type of this file note
+	 */
+	public void setMovementType(long movementType);
+
 	@Override
 	public FileNote cloneWithOriginalValues();
 

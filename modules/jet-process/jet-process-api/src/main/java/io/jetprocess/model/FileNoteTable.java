@@ -54,6 +54,8 @@ public class FileNoteTable extends BaseTable<FileNoteTable> {
 		"fileMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileNoteTable, Long> noteId = createColumn(
 		"noteId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileNoteTable, Long> movementType = createColumn(
+		"movementType", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private FileNoteTable() {
 		super("JET_PROCESS_FileNote", FileNoteTable::new);

@@ -54,6 +54,7 @@ public class FileNoteWrapper
 		attributes.put("fileId", getFileId());
 		attributes.put("fileMovementId", getFileMovementId());
 		attributes.put("noteId", getNoteId());
+		attributes.put("movementType", getMovementType());
 
 		return attributes;
 	}
@@ -124,6 +125,12 @@ public class FileNoteWrapper
 
 		if (noteId != null) {
 			setNoteId(noteId);
+		}
+
+		Long movementType = (Long)attributes.get("movementType");
+
+		if (movementType != null) {
+			setMovementType(movementType);
 		}
 	}
 
@@ -200,6 +207,16 @@ public class FileNoteWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the movement type of this file note.
+	 *
+	 * @return the movement type of this file note
+	 */
+	@Override
+	public long getMovementType() {
+		return model.getMovementType();
 	}
 
 	/**
@@ -335,6 +352,16 @@ public class FileNoteWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the movement type of this file note.
+	 *
+	 * @param movementType the movement type of this file note
+	 */
+	@Override
+	public void setMovementType(long movementType) {
+		model.setMovementType(movementType);
 	}
 
 	/**

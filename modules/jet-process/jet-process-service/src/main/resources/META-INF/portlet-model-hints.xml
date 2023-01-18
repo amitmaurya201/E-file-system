@@ -96,6 +96,7 @@
 		<field name="fileId" type="long" />
 		<field name="fileMovementId" type="long" />
 		<field name="noteId" type="long" />
+		<field name="movementType" type="long" />
 	</model>
 	<model name="io.jetprocess.model.Note">
 		<field name="uuid" type="String" />
