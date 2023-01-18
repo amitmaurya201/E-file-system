@@ -1136,24 +1136,20 @@ ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
 
    
    
-   
-   CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
+ CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	userpostid bigint,
 	keyword integer,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-   RETURNS TABLE(receiptid bigint, receiptnumber character varying(75), 
-subject character varying, category character varying, createdate timestamp, 
-remark character varying(500),  viewpdfurl character varying(1024), 
-nature character varying(75)) 
-   LANGUAGE 'plpgsql'
-   COST 100
-   VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-   ROWS 1000
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
 
-   SET search_path=admin, pg_temp
+    SET search_path=admin, pg_temp
 AS $BODY$
    
    declare 
@@ -1171,7 +1167,7 @@ AS $BODY$
      
      
   q1='  SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, null as viewpdfurl , r.nature 
-   FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.attachstatus is null and r.currentstate=1 ';
+   FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.attachstatus is null  ';
 
    q2=' union 
    SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
@@ -1180,7 +1176,7 @@ AS $BODY$
    group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid ';
    
    q3:=') as t on t.rmreceiptid =r.receiptid
-   where r.currentstate=1 and r.attachstatus is null  ';
+   where  r.attachstatus is null  ';
    _query :=q1||q2;
                  
 --         _keyword := '''%'||keyword||'%''';
@@ -1211,11 +1207,11 @@ AS $BODY$
                        
                        IF (userpostid !=0 )THEN
                                               
-                            _query := q1|| ' AND r.userpostid='||userpostid||q2||' where rm.receiverid = '||userpostid||q3;
+                            _query := q1|| ' AND r.currentlywith='|| userpostid ||'AND r.userpostid='||userpostid||q2||' where rm.receiverid = '||userpostid||q3;
                            
                               if (keyword !=0 AND keyword IS NOT NULL  ) THEN  
                                        _query := '';
-                                    _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
+                                    _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||'AND r.currentlywith= '|| userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
                          
                                     if (_orderby !='')  THEN 
                    
@@ -1274,8 +1270,7 @@ AS $BODY$
 $BODY$;
 
 ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
-   OWNER TO postgres;
-    
+    OWNER TO postgres;
     
 --    -------------------------------------  Get File Movement Count  -----------------------------------------------
 
