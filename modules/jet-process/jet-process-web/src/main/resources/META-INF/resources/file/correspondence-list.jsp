@@ -111,7 +111,6 @@
 
 <aui:script use="liferay-util-window">	
 	$("#<portlet:namespace />add_receipt").click(()=>{
-		alert("calledd <%= fileInnerViewPopup %>");
 		Liferay.Util.openWindow({ 
 					dialog: { 														 
 							height: 800,														 

@@ -54,6 +54,15 @@ public class FileCorrReceiptLocalServiceWrapper
 		return _fileCorrReceiptLocalService.addFileCorrReceipt(fileCorrReceipt);
 	}
 
+	@Override
+	public void addReceiptInFile(
+			long receiptId, long docFileId, long userPostId, String remark)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_fileCorrReceiptLocalService.addReceiptInFile(
+			receiptId, docFileId, userPostId, remark);
+	}
+
 	/**
 	 * Creates a new file corr receipt with the primary key. Does not add the file corr receipt to the database.
 	 *

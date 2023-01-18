@@ -62,6 +62,13 @@ public class FileCorrReceiptLocalServiceUtil {
 		return getService().addFileCorrReceipt(fileCorrReceipt);
 	}
 
+	public static void addReceiptInFile(
+			long receiptId, long docFileId, long userPostId, String remark)
+		throws PortalException {
+
+		getService().addReceiptInFile(receiptId, docFileId, userPostId, remark);
+	}
+
 	/**
 	 * Creates a new file corr receipt with the primary key. Does not add the file corr receipt to the database.
 	 *

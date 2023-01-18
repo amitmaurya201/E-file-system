@@ -78,6 +78,10 @@ public interface FileCorrReceiptLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public FileCorrReceipt addFileCorrReceipt(FileCorrReceipt fileCorrReceipt);
 
+	public void addReceiptInFile(
+			long receiptId, long docFileId, long userPostId, String remark)
+		throws PortalException;
+
 	/**
 	 * Creates a new file corr receipt with the primary key. Does not add the file corr receipt to the database.
 	 *
