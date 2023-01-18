@@ -2,7 +2,7 @@
 	//long corrFileId = (long) request.getAttribute("docFileId");
  HttpSession docFileIdValue = themeDisplay.getRequest().getSession();
  long corrFileId  = (long) docFileIdValue.getAttribute("putInFileId"); 	
-	List<FileCorrespondenceReceiptDTO> receiptCorrList = MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
+	//List<FileCorrespondenceReceiptDTO> receiptCorrList = MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
 	SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
@@ -73,14 +73,14 @@
 			</div>
 		</div>
 	</div>
-	<liferay-ui:search-container total="<%=receiptCorrList.size()%>"
+	<liferay-ui:search-container total="${receiptCount }"
 		delta="2" deltaConfigurable="true"  iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
 		emptyResultsMessage="No Results Found">
 		<liferay-ui:search-container-results
-			results="<%=ListUtil.subList(receiptCorrList, searchContainer.getStart(), searchContainer.getEnd())%>" />
+			results="${fileCorrespondence}" />
 
 		<liferay-ui:search-container-row
-			className="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"
+			className="io.jetprocess.list.model.FileCorrespondenceReceiptDTO"
 			modelVar="aFileCorrespondenceReceiptDTO">
 			<liferay-ui:search-container-column-text>
 			<i class="fa fa-info-circle" style="color:blue;font-size:16px"></i>

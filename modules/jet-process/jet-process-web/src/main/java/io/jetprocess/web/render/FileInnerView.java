@@ -1,6 +1,9 @@
 package io.jetprocess.web.render;
 
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -8,6 +11,9 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -17,6 +23,9 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
+import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileLocalService;
@@ -54,21 +63,67 @@ public class FileInnerView implements MVCRenderCommand {
 			} catch (PortalException e) {
 				
 			}
-			addFileToolbarAttributes(renderRequest,renderResponse);
+			setCorrespondenceListAttributes(renderRequest);
+			setCorrespondenceToolbarAttributes(renderRequest,renderResponse);
 		
 		return "/file/file-inner-view.jsp";
 	}
-	 private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+	 
+	private void setCorrespondenceListAttributes(RenderRequest renderRequest) {
+		logger.info("setting Correspondence list Attribute...");
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
+				SearchContainer.DEFAULT_CUR);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
+		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
+		int end = delta;
+		HttpSession session = themeDisplay.getRequest().getSession();
+		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
+		long fileId = docFileId;
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
+		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
+		
+		int count = fileLists.getFileCorrespondenceCount(fileId, keywords);
+		logger.info("Count of File list : "+count);
+		int preDelta = 0;
+		String d = (String) session.getAttribute("preDelta");
+		if (d != null) {
+			preDelta = Integer.parseInt(d);
+			
+		}
+		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+		start=paginationConfig.get("start");
+		currentPage=paginationConfig.get("currentPage");
+		
+		session.setAttribute("preDelta", "" + delta + "");
+		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileId, keywords, start, end, orderByCol, orderByType);
+		
+		fileCorrespondence.forEach(c->System.out.println("-=-=======-----------=====------> "+c));
+		
+		logger.info("File Correspondence list------> : "+fileCorrespondence);
+		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
+		renderRequest.setAttribute("delta", delta);
+		renderRequest.setAttribute("fileCorrespondenceCount", count);
+	}
+	
+
+	private void setCorrespondenceToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		FileCorrespondenceManagementToolbarDisplayContext fileCorrespondenceManagementToolbarDisplayContext = new FileCorrespondenceManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-		renderRequest.setAttribute("fileCorrespondenceManagementToolbarDisplayContext", fileCorrespondenceManagementToolbarDisplayContext);
+		renderRequest.setAttribute("fileCorrespondenceManagementToolbarDisplayContext",
+				fileCorrespondenceManagementToolbarDisplayContext);
 
 	}
 	 
+	private static Log logger = LogFactoryUtil.getLog(FileInnerView.class);
+	
 	 @Reference
 	private Portal _portal;
+	 @Reference
+	private FileList fileLists;
 	
 
 }
