@@ -26,20 +26,13 @@ import jet.process.rs.resource.v1_0.FileRsModelResource;
 public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	@Override
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
-		
+
 		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "Successfully Created");
-		
+
 		DocFile docFile = docFileLocalService.getDocFile();
 		String fileNumber = null;
 		String subject = fileRsModel.getSubject();
-		
-		/*
-		 * if (!fileNumber.isEmpty()) { docFile.setFileNumber(fileNumber); } else {
-		 * fileNumber = generateFileNumber(docFile.getDocFileId());
-		 * docFile.setFileNumber(fileNumber); }
-		 */
-	
 		if (fileRsModel.getType().equals("SFS")) {
 			docFile.setBasicHeadId(0);
 			docFile.setSecondaryHeadId(0);
@@ -47,24 +40,24 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			docFile.setTertiaryHeadId(0);
 			docFile.setYear(0);
 			docFile.setFileCodeId(0);
-			fileNumber=fileRsModel.getFileNumber();
-			if(fileNumber.isEmpty()) {
+			fileNumber = fileRsModel.getFileNumber();
+			if (fileNumber.isEmpty()) {
 				contextHttpServletResponse.setHeader("status", "error");
 				contextHttpServletResponse.setHeader("result", "File Number Cannot Be Empty");
 				return null;
 			}
 			List<DocFile> docFileList = docFileLocalService.getDocFileList();
-			 for (DocFile docFileObj : docFileList) {
-				if(fileNumber.equals(docFileObj.getFileNumber())) {
+			for (DocFile docFileObj : docFileList) {
+				if (fileNumber.equals(docFileObj.getFileNumber())) {
 					System.out.println("Already exist number");
 					contextHttpServletResponse.setHeader("status", "error");
 					contextHttpServletResponse.setHeader("result", "File Number Already Exists!");
 					return null;
-				}else {
+				} else {
 					docFile.setFileNumber(fileNumber);
 				}
 			}
-			
+
 		} else {
 			docFile.setBasicHeadId(fileRsModel.getBasicHeadId());
 			docFile.setPrimaryHeadId(fileRsModel.getPrimaryHeadId());
@@ -75,18 +68,18 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			fileNumber = generateFileNumber(docFile.getDocFileId());
 			docFile.setFileNumber(fileNumber);
 		}
-		if(subject.isEmpty()) {
+		if (subject.isEmpty()) {
 			contextHttpServletResponse.setHeader("status", "error");
 			contextHttpServletResponse.setHeader("result", "Subject Cannot be empty");
 			return null;
 		}
-		
+
 		docFile.setType(fileRsModel.getType());
 		docFile.setSubject(fileRsModel.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
-		if(fileRsModel.getSubCategoryId() == null) {
-		docFile.setSubCategoryId(0);
-		}else if(fileRsModel.getSubCategoryId() != null) {
+		if (fileRsModel.getSubCategoryId() == null) {
+			docFile.setSubCategoryId(0);
+		} else if (fileRsModel.getSubCategoryId() != null) {
 			docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
 		}
 		docFile.setRemarks(fileRsModel.getRemarks());
@@ -97,33 +90,20 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
-		
-		/*
-		 * long fmId = counterLocalService.increment(FileMovement.class.getName());
-		 * FileMovement fm = fileMovementLocalSerive.createFileMovement(fmId);
-		 * fm.setFmId(fmId); fm.setSenderId(docFile.getUserPostId());
-		 * fm.setReceiverId(docFile.getUserPostId());
-		 * fm.setFileId(docFile.getDocFileId());
-		 * fm.setMovementType(MovementStatus.CREATED); fm.setActive(false);
-		 * fileMovementLocalSerive.addFileMovement(fm);
-		 */
-	  contextHttpServletResponse.setHeader("status", "success");
+		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");
 		return fileRsModel;
-	}	
-
+	}
 	// update method for file update
 	@Override
 	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
-
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileRsModel.getDocFileId());
-
 		docFile.setSubject(fileRsModel.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
-		if(fileRsModel.getSubCategoryId() == null) {
-			docFile.setSubCategoryId(0);				
-		} else if(fileRsModel.getSubCategoryId() != null) {
-		docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
+		if (fileRsModel.getSubCategoryId() == null) {
+			docFile.setSubCategoryId(0);
+		} else if (fileRsModel.getSubCategoryId() != null) {
+			docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
 		}
 		docFile.setRemarks(fileRsModel.getRemarks());
 		docFile.setReference(fileRsModel.getReference());
@@ -137,12 +117,6 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		return FileNumber;
 	}
 
-	@Reference 
-	private FileMovementLocalService fileMovementLocalSerive;
-	@Reference
-	private CounterLocalService counterLocalService;
 	@Reference
 	private DocFileLocalService docFileLocalService;
-	@Reference
-	private UserLocalService userLocalService;
 }
