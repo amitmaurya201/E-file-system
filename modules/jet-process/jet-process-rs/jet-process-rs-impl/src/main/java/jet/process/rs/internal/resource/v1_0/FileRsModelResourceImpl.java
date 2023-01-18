@@ -98,17 +98,15 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
 		
-
-	long fmId =	counterLocalService.increment(FileMovement.class.getName());
-	FileMovement fm =  fileMovementLocalSerive.createFileMovement(fmId);
-	  fm.setFmId(fmId);
-	  fm.setSenderId(docFile.getUserPostId());
-	  fm.setReceiverId(docFile.getUserPostId());
-	  fm.setFileId(docFile.getDocFileId());
-	  fm.setMovementType(MovementStatus.CREATED);
-	  fm.setActive(false);
-	  fileMovementLocalSerive.addFileMovement(fm);
-	
+		/*
+		 * long fmId = counterLocalService.increment(FileMovement.class.getName());
+		 * FileMovement fm = fileMovementLocalSerive.createFileMovement(fmId);
+		 * fm.setFmId(fmId); fm.setSenderId(docFile.getUserPostId());
+		 * fm.setReceiverId(docFile.getUserPostId());
+		 * fm.setFileId(docFile.getDocFileId());
+		 * fm.setMovementType(MovementStatus.CREATED); fm.setActive(false);
+		 * fileMovementLocalSerive.addFileMovement(fm);
+		 */
 	  contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");
 		return fileRsModel;
