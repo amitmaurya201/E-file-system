@@ -60,6 +60,10 @@ public class FileNoteLocalServiceUtil {
 		return getService().addFileNote(fileNote);
 	}
 
+	public static FileNote createFileNote() {
+		return getService().createFileNote();
+	}
+
 	/**
 	 * Creates a new file note with the primary key. Does not add the file note to the database.
 	 *

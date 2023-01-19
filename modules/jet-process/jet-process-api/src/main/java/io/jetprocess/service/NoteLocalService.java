@@ -78,6 +78,9 @@ public interface NoteLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Note addNote(Note note);
 
+	public Note addNote(
+		String content, long createdBy, String signature, long fileId);
+
 	/**
 	 * Creates a new note with the primary key. Does not add the note to the database.
 	 *

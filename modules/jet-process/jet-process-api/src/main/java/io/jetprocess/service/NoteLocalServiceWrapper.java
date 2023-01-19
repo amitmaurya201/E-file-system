@@ -49,6 +49,13 @@ public class NoteLocalServiceWrapper
 		return _noteLocalService.addNote(note);
 	}
 
+	@Override
+	public io.jetprocess.model.Note addNote(
+		String content, long createdBy, String signature, long fileId) {
+
+		return _noteLocalService.addNote(content, createdBy, signature, fileId);
+	}
+
 	/**
 	 * Creates a new note with the primary key. Does not add the note to the database.
 	 *

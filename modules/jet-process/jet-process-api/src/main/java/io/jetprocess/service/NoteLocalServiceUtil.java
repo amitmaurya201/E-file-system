@@ -60,6 +60,12 @@ public class NoteLocalServiceUtil {
 		return getService().addNote(note);
 	}
 
+	public static Note addNote(
+		String content, long createdBy, String signature, long fileId) {
+
+		return getService().addNote(content, createdBy, signature, fileId);
+	}
+
 	/**
 	 * Creates a new note with the primary key. Does not add the note to the database.
 	 *

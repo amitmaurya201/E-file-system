@@ -15,7 +15,11 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 
+import javax.portlet.ActionRequest;
+
+import io.jetprocess.model.Note;
 import io.jetprocess.service.base.NoteServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -31,4 +35,21 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class NoteServiceImpl extends NoteServiceBaseImpl {
+	
+	// addnote method 
+	
+	public Note addNote(String content, long createdBy,String signature,long fileId) {
+		return noteLocalService.addNote(content, createdBy, signature,fileId);
+		
+		
+	}
+	
+	// delete note method 
+	public Note deleteNote(long noteId) throws PortalException {
+	
+		return noteLocalService.deleteNote(noteId);
+		
+		
+	}
+	
 }

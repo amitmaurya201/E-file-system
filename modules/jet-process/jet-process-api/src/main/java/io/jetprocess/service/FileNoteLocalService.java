@@ -78,6 +78,8 @@ public interface FileNoteLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public FileNote addFileNote(FileNote fileNote);
 
+	public FileNote createFileNote();
+
 	/**
 	 * Creates a new file note with the primary key. Does not add the file note to the database.
 	 *

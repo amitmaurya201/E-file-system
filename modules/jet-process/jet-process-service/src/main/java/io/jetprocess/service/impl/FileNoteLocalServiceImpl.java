@@ -16,6 +16,7 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import io.jetprocess.model.FileNote;
 import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -28,4 +29,15 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
+
+	
+	
+	public FileNote createFileNote() {
+		  long fileNoteId = counterLocalService.increment(FileNote.class.getName());
+		  FileNote fileNote = fileNoteLocalService.createFileNote(fileNoteId);
+		return fileNote;
+	}
+	
+
+
 }

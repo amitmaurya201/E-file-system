@@ -53,6 +53,11 @@ public class FileNoteLocalServiceWrapper
 		return _fileNoteLocalService.addFileNote(fileNote);
 	}
 
+	@Override
+	public io.jetprocess.model.FileNote createFileNote() {
+		return _fileNoteLocalService.createFileNote();
+	}
+
 	/**
 	 * Creates a new file note with the primary key. Does not add the file note to the database.
 	 *

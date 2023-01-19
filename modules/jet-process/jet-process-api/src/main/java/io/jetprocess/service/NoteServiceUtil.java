@@ -14,6 +14,10 @@
 
 package io.jetprocess.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import io.jetprocess.model.Note;
+
 /**
  * Provides the remote service utility for Note. This utility wraps
  * <code>io.jetprocess.service.impl.NoteServiceImpl</code> and is an
@@ -33,13 +37,22 @@ public class NoteServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Note addNote(
+		String content, long createdBy, String signature, long fileId) {
+
+		return getService().addNote(content, createdBy, signature, fileId);
+	}
+
+	public static Note deleteNote(long noteId) throws PortalException {
+		return getService().deleteNote(noteId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 

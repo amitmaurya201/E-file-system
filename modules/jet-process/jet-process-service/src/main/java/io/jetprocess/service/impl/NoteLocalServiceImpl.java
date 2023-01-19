@@ -17,10 +17,17 @@ package io.jetprocess.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import javax.portlet.ActionRequest;
+
+import io.jetprocess.core.util.MovementStatus;
+import io.jetprocess.masterdata.service.UserPostLocalService;
+import io.jetprocess.model.FileNote;
 import io.jetprocess.model.Note;
+import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.base.NoteLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -31,33 +38,32 @@ import org.osgi.service.component.annotations.Component;
 )
 public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 
-
-	/*
-	 * // create Method for addNote in File public Note addNote(String content,long
-	 * createdBy,String signature) {
-	 * 
-	 * long noteId = counterLocalService.increment(Note.class.getName()); Note note
-	 * = createNote(noteId); note.setNoteId(noteId); note.setContent(content);
-	 * note.setSignature(signature);
-	 * 
-	 * return note;
-	 * 
-	 * 
-	 * }
-	 * 
-	 * // create Method for delete note
-	 * 
-	 * public Note deleteNote(long noteId) throws PortalException{ return
-	 * super.deleteNote(noteId);
-	 * 
-	 * }
-	 */
-	
-	
-	
-	
-	
-	
-
-
+	  // create Method for addNote in File 
+	public Note addNote(String content, long createdBy,String signature, long fileId) {
+	  long noteId = counterLocalService.increment(Note.class.getName()); 
+	  Note note = createNote(noteId);
+	 long fileMovementId = 0L;
+	  note.setNoteId(noteId);
+	  note.setCreatedBy(createdBy);
+	  note.setContent(content);
+	  note.setSignature(signature);
+	  noteLocalService.addNote(note);
+	  FileNote fileNote = fileNoteLocalService.createFileNote();
+	  fileNote.setNoteId(noteId);
+	  fileNote.setFileMovementId(fileMovementId);
+	  fileNote.setFileId(fileId);
+	  fileNote.setMovementType(MovementStatus.CREATED);
+	  fileNoteLocalService.addFileNote(fileNote);
+	   return note;
+	  }
+	  
+	  // create Method for delete note
+	  public Note deleteNote(long noteId) throws PortalException{
+		  return  super.deleteNote(noteId);
+	  }
+	 
+ @Reference
+ FileNoteLocalService fileNoteLocalService;
+ @Reference 
+ UserPostLocalService userPostLocalService;
 }
