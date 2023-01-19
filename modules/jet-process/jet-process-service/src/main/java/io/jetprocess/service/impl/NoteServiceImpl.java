@@ -40,16 +40,18 @@ public class NoteServiceImpl extends NoteServiceBaseImpl {
 	
 	public Note addNote(String content, long createdBy,String signature,long fileId) {
 		return noteLocalService.addNote(content, createdBy, signature,fileId);
-		
-		
 	}
-	
 	// delete note method 
 	public Note deleteNote(long noteId) throws PortalException {
-	
 		return noteLocalService.deleteNote(noteId);
-		
-		
 	}
+	// Create Method for EditNote 
+	
+	public Note editNote(long noteId, String content,String signature) throws PortalException {
+		return noteLocalService.editNote(noteId,content,signature);	
+	}
+	
+	
+	
 	
 }

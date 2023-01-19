@@ -48,6 +48,14 @@ public class NoteServiceWrapper
 		return _noteService.deleteNote(noteId);
 	}
 
+	@Override
+	public io.jetprocess.model.Note editNote(
+			long noteId, String content, String signature)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _noteService.editNote(noteId, content, signature);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

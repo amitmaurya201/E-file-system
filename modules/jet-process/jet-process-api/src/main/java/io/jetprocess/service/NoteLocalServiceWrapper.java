@@ -224,6 +224,14 @@ public class NoteLocalServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.model.Note editNote(
+			long noteId, String content, String signature)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _noteLocalService.editNote(noteId, content, signature);
+	}
+
+	@Override
 	public io.jetprocess.model.Note fetchNote(long noteId) {
 		return _noteLocalService.fetchNote(noteId);
 	}

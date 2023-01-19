@@ -47,6 +47,12 @@ public class NoteServiceUtil {
 		return getService().deleteNote(noteId);
 	}
 
+	public static Note editNote(long noteId, String content, String signature)
+		throws PortalException {
+
+		return getService().editNote(noteId, content, signature);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

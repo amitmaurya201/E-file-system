@@ -202,6 +202,9 @@ public interface NoteLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
+	public Note editNote(long noteId, String content, String signature)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Note fetchNote(long noteId);
 

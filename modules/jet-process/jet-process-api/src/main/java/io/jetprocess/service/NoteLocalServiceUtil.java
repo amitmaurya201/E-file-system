@@ -210,6 +210,12 @@ public class NoteLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static Note editNote(long noteId, String content, String signature)
+		throws PortalException {
+
+		return getService().editNote(noteId, content, signature);
+	}
+
 	public static Note fetchNote(long noteId) {
 		return getService().fetchNote(noteId);
 	}

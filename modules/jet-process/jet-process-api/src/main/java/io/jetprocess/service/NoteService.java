@@ -54,6 +54,9 @@ public interface NoteService extends BaseService {
 
 	public Note deleteNote(long noteId) throws PortalException;
 
+	public Note editNote(long noteId, String content, String signature)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

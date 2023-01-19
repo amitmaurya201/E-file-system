@@ -122,6 +122,46 @@ public class NoteServiceHttp {
 		}
 	}
 
+	public static io.jetprocess.model.Note editNote(
+			HttpPrincipal httpPrincipal, long noteId, String content,
+			String signature)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				NoteServiceUtil.class, "editNote", _editNoteParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, noteId, content, signature);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.Note)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(NoteServiceHttp.class);
 
 	private static final Class<?>[] _addNoteParameterTypes0 = new Class[] {
@@ -129,6 +169,9 @@ public class NoteServiceHttp {
 	};
 	private static final Class<?>[] _deleteNoteParameterTypes1 = new Class[] {
 		long.class
+	};
+	private static final Class<?>[] _editNoteParameterTypes2 = new Class[] {
+		long.class, String.class, String.class
 	};
 
 }

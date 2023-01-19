@@ -17,6 +17,8 @@ package io.jetprocess.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.Date;
+
 import javax.portlet.ActionRequest;
 
 import io.jetprocess.core.util.MovementStatus;
@@ -61,6 +63,16 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	  public Note deleteNote(long noteId) throws PortalException{
 		  return  super.deleteNote(noteId);
 	  }
+	  // create Method for Edit Note 
+	  public Note editNote(long noteId, String content,String signature) throws PortalException {
+		  Note note = getNote(noteId);
+		  note.setContent(content);
+		  note.setSignature(signature);
+		  note.setModifiedDate(new Date());
+		  note = super.updateNote(note);
+		  return note;	  
+	  }
+	  
 	 
  @Reference
  FileNoteLocalService fileNoteLocalService;
