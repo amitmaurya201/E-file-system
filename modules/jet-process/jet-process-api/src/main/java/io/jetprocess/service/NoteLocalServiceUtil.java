@@ -60,10 +60,10 @@ public class NoteLocalServiceUtil {
 		return getService().addNote(note);
 	}
 
-	public static Note addNote(
-		String content, long createdBy, String signature, long fileId) {
+	public static Note addNote(String content, long createdBy, long fileId)
+		throws PortalException {
 
-		return getService().addNote(content, createdBy, signature, fileId);
+		return getService().addNote(content, createdBy, fileId);
 	}
 
 	/**
@@ -210,10 +210,10 @@ public class NoteLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static Note editNote(long noteId, String content, String signature)
+	public static Note editNote(long noteId, String content)
 		throws PortalException {
 
-		return getService().editNote(noteId, content, signature);
+		return getService().editNote(noteId, content);
 	}
 
 	public static Note fetchNote(long noteId) {

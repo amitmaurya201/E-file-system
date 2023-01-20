@@ -78,8 +78,8 @@ public interface NoteLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Note addNote(Note note);
 
-	public Note addNote(
-		String content, long createdBy, String signature, long fileId);
+	public Note addNote(String content, long createdBy, long fileId)
+		throws PortalException;
 
 	/**
 	 * Creates a new note with the primary key. Does not add the note to the database.
@@ -202,8 +202,7 @@ public interface NoteLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
-	public Note editNote(long noteId, String content, String signature)
-		throws PortalException;
+	public Note editNote(long noteId, String content) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Note fetchNote(long noteId);

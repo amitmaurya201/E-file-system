@@ -49,13 +49,12 @@ public interface NoteService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the note remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link NoteServiceUtil} if injection and service tracking are not available.
 	 */
-	public Note addNote(
-		String content, long createdBy, String signature, long fileId);
+	public Note addNote(String content, long createdBy, long fileId)
+		throws PortalException;
 
 	public Note deleteNote(long noteId) throws PortalException;
 
-	public Note editNote(long noteId, String content, String signature)
-		throws PortalException;
+	public Note editNote(long noteId, String content) throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

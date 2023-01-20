@@ -36,9 +36,10 @@ public class NoteServiceWrapper
 
 	@Override
 	public io.jetprocess.model.Note addNote(
-		String content, long createdBy, String signature, long fileId) {
+			String content, long createdBy, long fileId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteService.addNote(content, createdBy, signature, fileId);
+		return _noteService.addNote(content, createdBy, fileId);
 	}
 
 	@Override
@@ -49,11 +50,10 @@ public class NoteServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Note editNote(
-			long noteId, String content, String signature)
+	public io.jetprocess.model.Note editNote(long noteId, String content)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteService.editNote(noteId, content, signature);
+		return _noteService.editNote(noteId, content);
 	}
 
 	/**

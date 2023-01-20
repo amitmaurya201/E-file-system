@@ -99,7 +99,7 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Note (uuid_ VARCHAR(75) null,noteId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,content TEXT null,createdBy LONG,signature VARCHAR(75) null)";
+		"create table JET_PROCESS_Note (uuid_ VARCHAR(75) null,noteId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,content TEXT null,createdBy LONG,signature VARCHAR(500) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table JET_PROCESS_Note";
 

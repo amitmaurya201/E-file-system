@@ -111,7 +111,9 @@
 			<hint-collection name="CLOB" />
 		</field>
 		<field name="createdBy" type="long" />
-		<field name="signature" type="String" />
+		<field name="signature" type="String">
+			<hint name="max-length">500</hint>
+		</field>
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />

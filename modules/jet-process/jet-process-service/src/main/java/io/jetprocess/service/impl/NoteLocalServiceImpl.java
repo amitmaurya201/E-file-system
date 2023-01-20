@@ -16,12 +16,15 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 
 import java.util.Date;
 
 import javax.portlet.ActionRequest;
 
 import io.jetprocess.core.util.MovementStatus;
+import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.model.Note;
@@ -41,13 +44,25 @@ import org.osgi.service.component.annotations.Reference;
 public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 
 	  // create Method for addNote in File 
-	public Note addNote(String content, long createdBy,String signature, long fileId) {
+	public Note addNote(String content, long createdBy, long fileId) throws PortalException {
 	  long noteId = counterLocalService.increment(Note.class.getName()); 
 	  Note note = createNote(noteId);
 	 long fileMovementId = 0L;
 	  note.setNoteId(noteId);
 	  note.setCreatedBy(createdBy);
 	  note.setContent(content);
+	  UserPost userPost = userPostLocalService.getUserPost(createdBy);
+	  String userName = userPost.getUserName();
+	  String departmentName =  userPost.getDepartmentName();
+	  String postMarking =  userPost.getPostMarking();
+	 
+	  JSONObject jsonObject = JSONFactoryUtil.createJSONObject(); 
+	  jsonObject.put("userName", userName);
+	  jsonObject.put("departmentName", departmentName);
+	  jsonObject.put("postMarking", postMarking);
+	  String signature = jsonObject.toString();
+	  System.out.println("signature -->"+signature);
+	  
 	  note.setSignature(signature);
 	  noteLocalService.addNote(note);
 	  FileNote fileNote = fileNoteLocalService.createFileNote();
@@ -64,10 +79,9 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		  return  super.deleteNote(noteId);
 	  }
 	  // create Method for Edit Note 
-	  public Note editNote(long noteId, String content,String signature) throws PortalException {
+	  public Note editNote(long noteId, String content) throws PortalException {
 		  Note note = getNote(noteId);
 		  note.setContent(content);
-		  note.setSignature(signature);
 		  note.setModifiedDate(new Date());
 		  note = super.updateNote(note);
 		  return note;	  

@@ -52,15 +52,16 @@ import io.jetprocess.service.NoteServiceUtil;
 public class NoteServiceHttp {
 
 	public static io.jetprocess.model.Note addNote(
-		HttpPrincipal httpPrincipal, String content, long createdBy,
-		String signature, long fileId) {
+			HttpPrincipal httpPrincipal, String content, long createdBy,
+			long fileId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				NoteServiceUtil.class, "addNote", _addNoteParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, content, createdBy, signature, fileId);
+				methodKey, content, createdBy, fileId);
 
 			Object returnObj = null;
 
@@ -68,6 +69,13 @@ public class NoteServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -123,8 +131,7 @@ public class NoteServiceHttp {
 	}
 
 	public static io.jetprocess.model.Note editNote(
-			HttpPrincipal httpPrincipal, long noteId, String content,
-			String signature)
+			HttpPrincipal httpPrincipal, long noteId, String content)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -132,7 +139,7 @@ public class NoteServiceHttp {
 				NoteServiceUtil.class, "editNote", _editNoteParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, noteId, content, signature);
+				methodKey, noteId, content);
 
 			Object returnObj = null;
 
@@ -165,13 +172,13 @@ public class NoteServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(NoteServiceHttp.class);
 
 	private static final Class<?>[] _addNoteParameterTypes0 = new Class[] {
-		String.class, long.class, String.class, long.class
+		String.class, long.class, long.class
 	};
 	private static final Class<?>[] _deleteNoteParameterTypes1 = new Class[] {
 		long.class
 	};
 	private static final Class<?>[] _editNoteParameterTypes2 = new Class[] {
-		long.class, String.class, String.class
+		long.class, String.class
 	};
 
 }

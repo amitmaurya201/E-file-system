@@ -37,20 +37,20 @@ public class NoteServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static Note addNote(
-		String content, long createdBy, String signature, long fileId) {
+	public static Note addNote(String content, long createdBy, long fileId)
+		throws PortalException {
 
-		return getService().addNote(content, createdBy, signature, fileId);
+		return getService().addNote(content, createdBy, fileId);
 	}
 
 	public static Note deleteNote(long noteId) throws PortalException {
 		return getService().deleteNote(noteId);
 	}
 
-	public static Note editNote(long noteId, String content, String signature)
+	public static Note editNote(long noteId, String content)
 		throws PortalException {
 
-		return getService().editNote(noteId, content, signature);
+		return getService().editNote(noteId, content);
 	}
 
 	/**
