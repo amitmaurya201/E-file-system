@@ -386,6 +386,17 @@ public class FileMovementLocalServiceUtil {
 			fileId, fileMovementId, remarks);
 	}
 
+	public static void saveFileMovement(
+			long receiverId, long senderId, long fileId, String priority,
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
+		throws PortalException {
+
+		getService().saveFileMovement(
+			receiverId, senderId, fileId, priority, dueDate, remark, active,
+			currentState, movementType);
+	}
+
 	public static boolean saveReadMovement(long fileId, long fmId)
 		throws PortalException {
 
@@ -411,11 +422,13 @@ public class FileMovementLocalServiceUtil {
 	 */
 	public static void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
-			String dueDate, String remark)
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
 		throws PortalException {
 
 		getService().saveSendFile(
-			receiverId, senderId, fileId, priority, dueDate, remark);
+			receiverId, senderId, fileId, priority, dueDate, remark, active,
+			currentState, movementType);
 	}
 
 	/**

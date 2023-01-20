@@ -335,6 +335,12 @@ public interface FileMovementLocalService
 			long fileId, long fileMovementId, String remarks)
 		throws PortalException;
 
+	public void saveFileMovement(
+			long receiverId, long senderId, long fileId, String priority,
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
+		throws PortalException;
+
 	public boolean saveReadMovement(long fileId, long fmId)
 		throws PortalException;
 
@@ -354,7 +360,8 @@ public interface FileMovementLocalService
 	 */
 	public void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
-			String dueDate, String remark)
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
 		throws PortalException;
 
 	/**

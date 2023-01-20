@@ -437,6 +437,18 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
+	public void saveFileMovement(
+			long receiverId, long senderId, long fileId, String priority,
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_fileMovementLocalService.saveFileMovement(
+			receiverId, senderId, fileId, priority, dueDate, remark, active,
+			currentState, movementType);
+	}
+
+	@Override
 	public boolean saveReadMovement(long fileId, long fmId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -464,11 +476,13 @@ public class FileMovementLocalServiceWrapper
 	@Override
 	public void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
-			String dueDate, String remark)
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_fileMovementLocalService.saveSendFile(
-			receiverId, senderId, fileId, priority, dueDate, remark);
+			receiverId, senderId, fileId, priority, dueDate, remark, active,
+			currentState, movementType);
 	}
 
 	/**

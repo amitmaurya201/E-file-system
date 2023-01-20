@@ -27,8 +27,11 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import java.util.Date;
 import java.util.List;
 
+import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.Receipt;
+import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.base.DocFileLocalServiceBaseImpl;
 import io.jetprocess.validator.FileValidator;
 
@@ -41,9 +44,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(property = "model.class.name=io.jetprocess.model.DocFile", service = AopService.class)
 public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
-	@Reference
-	private FileValidator fileValidator;
-	
+
 
 	// delete
 	public DocFile deleteDocFile(DocFile docFile) {
@@ -62,7 +63,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		return docFile;
 	}
-
+ 
 	public JSONObject addDocFile(long groupId, String nature, String type, long basicHeadId, long primaryHeadId,
 			long secondaryHeadId, long tertiaryHeadId, long year, long fileCodeId, String subject, String fileNumber,
 			long categoryId, long subCategoryId, String remarks, String reference, long userPostId,
@@ -117,7 +118,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		docFile.setSubCategoryId(subCategoryId);
 		docFile.setRemarks(remarks);
 		docFile.setReference(reference);
-		docFile.setUserPostId(userPostId);
+//		docFile.setUserPostId(userPostId);
 
 		// set the audit fields
 
@@ -132,6 +133,10 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		docFile = super.addDocFile(docFile);
 
+//		fileMovementLocalService.saveFileMovement(userPostId, userPostId, docFileId, "", "", "", false, FileStatus.CREADTED, MovementStatus.CREATED);
+		
+		
+		
 		jsonObject.put("nature", docFile.getNature());
 		jsonObject.put("type", docFile.getType());
 		jsonObject.put("subject", docFile.getSubject());
@@ -157,6 +162,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		jsonObject.put("userName", docFile.getUserName());
 		jsonObject.put("userPostId", docFile.getUserPostId());
 
+		
 		return jsonObject;
 
 	}
@@ -210,5 +216,10 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		return state;
 	}
 	
+	@Reference
+	private FileValidator fileValidator;
+	/*
+	 * @Reference private FileMovementLocalService fileMovementLocalService;
+	 */
 
 }

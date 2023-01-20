@@ -1,19 +1,14 @@
 package jet.process.rs.internal.resource.v1_0;
 
-import com.liferay.counter.kernel.service.CounterLocalService;
-import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.vulcan.pagination.Page;
-import static javax.swing.JOptionPane.showMessageDialog;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
+
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.model.DocFile;
-import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileMovementLocalService;
 import jet.process.rs.dto.v1_0.FileRsModel;
@@ -90,6 +85,8 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
+		
+		fileMovementLocalService.saveFileMovement(fileRsModel.getUserPostId(), fileRsModel.getUserPostId(), docFile.getDocFileId(), "", "", "", false, FileStatus.CREADTED, MovementStatus.CREATED);
 		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File Created Successfully");
 		return fileRsModel;
@@ -119,4 +116,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 
 	@Reference
 	private DocFileLocalService docFileLocalService;
+	@Reference
+	private FileMovementLocalService fileMovementLocalService;
+	
 }
