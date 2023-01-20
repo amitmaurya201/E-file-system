@@ -15,28 +15,21 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.docstore.DocStore;
-import io.jetprocess.exception.NoSuchReceiptException;
 import io.jetprocess.model.Receipt;
+import io.jetprocess.service.ReceiptMovementLocalServiceUtil;
 import io.jetprocess.service.base.ReceiptLocalServiceBaseImpl;
 
 /**
@@ -99,9 +92,8 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		receiptNumber = generateReceiptNumber(receiptId);
 		receipt.setReceiptNumber(receiptNumber);
 		receipt.setUserPostId(userPostId);
-		receipt.setCurrentState(FileStatus.CREADTED);
-		receipt.setCurrentlyWith(userPostId);
 		receipt = super.addReceipt(receipt);
+		ReceiptMovementLocalServiceUtil.saveReceiptMovement(userPostId, userPostId, receiptId, "", "", "", false, FileStatus.CREADTED, MovementStatus.CREATED);
 		return receipt;
 	}
 
@@ -111,11 +103,9 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
 			long subOrganizationId, String city, long userPostId, long dmFileId)
 			throws PortalException, IOException {
-		Receipt receipt = getReceipt(receiptId);
 		
-		/* long documentFileId = 0l; */
+		Receipt receipt = getReceipt(receiptId);
 		String viewFileUrl = null;
-
 		receipt.setTypeId(typeId);
 		receipt.setReceivedOn(receivedOn);
 		receipt.setLetterDate(letterDate);
@@ -152,7 +142,6 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			receipt.setViewPdfUrl(viewFileUrl);
 			receipt.setDmFileId(dmFileId);
 		}
-	
 		receipt = super.updateReceipt(receipt);
 		return receipt;
 
@@ -165,7 +154,6 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 	}
 
 	public long getDmFileId(long tempFileId, long groupId) throws PortalException, IOException {
-
 		String changeLog = "docStore";
 		FileEntry fileEntry = docstore.getTempFile(tempFileId);
 		String title = fileEntry.getFileName();
@@ -182,13 +170,10 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		Receipt receipt = getReceipt(receiptId);
 		if (userPostId == receipt.getCurrentlyWith()) {
 			state = true;
-		} else {
-			state = false;
-		}
+		} 
 		return state;
 	}
 
-	private Log logger = LogFactoryUtil.getLog(this.getClass());
 	@Reference
 	private DocStore docstore;
 }

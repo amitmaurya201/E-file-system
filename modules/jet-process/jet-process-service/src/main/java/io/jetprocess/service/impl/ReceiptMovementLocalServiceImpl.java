@@ -15,24 +15,18 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
-
-import javax.portlet.PortletException;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.core.constant.util.FileConstants;
-
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptLocalService;
@@ -45,10 +39,10 @@ import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
-			String remark) throws PortalException {
+			String remark,boolean active ,int currentState , long movementType) throws PortalException {
 		boolean state = isReceiptMovementAvailable(receiptId);
 		if (state == true) {
-			saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+			saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState, movementType);
 		} else {
 			Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
 			ReceiptMovement rm;
@@ -70,37 +64,34 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 					}
 				}
 				updateReceiptMovement(rm);
-				saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark);
+				saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState, movementType);
 			}
 		}
 	}
 
-	void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, String dueDate,
-			String remark) {
+	public void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, String dueDate,
+			String remark,boolean active ,int currentState , long movementType  ) {
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
-		ReceiptMovement receiptMovement = createReceiptMovement(rmId);
-		receiptMovement.setRmId(rmId);
-		receiptMovement.setReceiverId(receiverId);
-		receiptMovement.setSenderId(senderId);
-		receiptMovement.setReceiptId(receiptId);
-		receiptMovement.setRemark(remark);
-		receiptMovement.setPriority(priority);
-		receiptMovement.setDueDate(dueDate);
-		receiptMovement.setActive(true);
+		ReceiptMovement receiptMovement;
 		try {
+			receiptMovement = createReceiptMovement(rmId);
+			receiptMovement.setRmId(rmId);
+			receiptMovement.setReceiverId(receiverId);
+			receiptMovement.setSenderId(senderId);
+			receiptMovement.setReceiptId(receiptId);
+			receiptMovement.setRemark(remark);
+			receiptMovement.setPriority(priority);
+			receiptMovement.setDueDate(dueDate);
+			receiptMovement.setActive(active);
+			receiptMovement.setMovementType(movementType);
+			addReceiptMovement(receiptMovement);
 			Receipt receipt = receiptLocalService.getReceipt(receiptId);
-			if (receiptId == receipt.getReceiptId()) {
-				receipt.setCurrentlyWith(receiverId);
-				receiptLocalService.updateReceipt(receipt);
-				if (Validator.isNotNull(receipt.getCurrentState())) {
-					receipt.setCurrentState(FileStatus.IN_MOVEMENT);
-					receiptLocalService.updateReceipt(receipt);
-				}
-			}
+			receipt.setCurrentlyWith(receiverId);
+			receipt.setCurrentState(currentState);
+			receiptLocalService.updateReceipt(receipt);
 		} catch (PortalException e) {
 			logger.info(e.getMessage());
 		}
-		addReceiptMovement(receiptMovement);
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
@@ -170,6 +161,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return state;
 	}
+
 // Create method for getReceiptMovementByFileMovementId 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
 		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence
@@ -223,6 +215,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 		return state;
 	}
+
 // pull back those receipts which has been attached with file when file will be pull back
 	public void pullBackReceiptsAttatchWithFile(List<ReceiptMovement> receiptMovementList, long fileMovementId) {
 		if (receiptMovementList != null) {

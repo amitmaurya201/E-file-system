@@ -336,11 +336,17 @@ public interface ReceiptMovementLocalService
 
 	public boolean saveReadMovement(long receiptId, long rmId);
 
+	public void saveReceiptMovement(
+		long receiverId, long senderId, long receiptId, String priority,
+		String dueDate, String remark, boolean active, int currentState,
+		long movementType);
+
 	public boolean saveReceiveMovement(long receiptId, long rmId);
 
 	public void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			String dueDate, String remark)
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
 		throws PortalException;
 
 	/**

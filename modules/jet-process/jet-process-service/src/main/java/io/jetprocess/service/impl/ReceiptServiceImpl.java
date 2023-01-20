@@ -16,17 +16,13 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
-import io.jetprocess.exception.NoSuchReceiptException;
-import io.jetprocess.model.Receipt;
-import io.jetprocess.service.base.ReceiptServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import io.jetprocess.model.Receipt;
+import io.jetprocess.service.base.ReceiptServiceBaseImpl;
 
 /**
  * @author Brian Wing Shun Chan

@@ -396,17 +396,29 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().saveReadMovement(receiptId, rmId);
 	}
 
+	public static void saveReceiptMovement(
+		long receiverId, long senderId, long receiptId, String priority,
+		String dueDate, String remark, boolean active, int currentState,
+		long movementType) {
+
+		getService().saveReceiptMovement(
+			receiverId, senderId, receiptId, priority, dueDate, remark, active,
+			currentState, movementType);
+	}
+
 	public static boolean saveReceiveMovement(long receiptId, long rmId) {
 		return getService().saveReceiveMovement(receiptId, rmId);
 	}
 
 	public static void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			String dueDate, String remark)
+			String dueDate, String remark, boolean active, int currentState,
+			long movementType)
 		throws PortalException {
 
 		getService().saveSendReceipt(
-			receiverId, senderId, receiptId, priority, dueDate, remark);
+			receiverId, senderId, receiptId, priority, dueDate, remark, active,
+			currentState, movementType);
 	}
 
 	/**

@@ -20,15 +20,19 @@ import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(immediate = true, property = { "javax.portlet.init-param.add-process-action-success-action=false",
-		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.PULL_BACK_RECEIPT_ACTION_COMMAND }, service = MVCActionCommand.class)
+@Component(
+		immediate = true, 
+		property = { 
+				"javax.portlet.init-param.add-process-action-success-action=false",
+				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+				"mvc.command.name=" + MVCCommandNames.PULL_BACK_RECEIPT_ACTION_COMMAND 
+				}, 
+		service = MVCActionCommand.class
+)
 public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-		logger.info("action of pull back");
-
 		Long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		Long receiptMovementId = ParamUtil.getLong(actionRequest, "rmId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
@@ -45,8 +49,8 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 				SessionErrors.add(actionRequest, "pullback-not-available");
 				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 			}
-	
-		actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
+		actionResponse.getRenderParameters().setValue("mvcRenderCommandName",
+				MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
 	}
 
 	@Reference
