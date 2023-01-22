@@ -54,7 +54,6 @@ public class FileInnerView implements MVCRenderCommand {
 
 			try {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-				//System.out.println(docFile.getNature());
 				renderRequest.setAttribute("nature",docFile.getNature() );
 				renderRequest.setAttribute("docFileId",docFileId);
 				renderRequest.setAttribute("docFileObj", docFile);
@@ -99,7 +98,6 @@ public class FileInnerView implements MVCRenderCommand {
 		session.setAttribute("preDelta", "" + delta + "");
 		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileId, keywords, start, end, orderByCol, orderByType);
 		
-		fileCorrespondence.forEach(c->System.out.println("-=-=======-----------=====------> "+c));
 		
 		logger.info("File Correspondence list------> : "+fileCorrespondence);
 		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);

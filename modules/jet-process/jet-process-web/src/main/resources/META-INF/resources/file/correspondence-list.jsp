@@ -79,8 +79,8 @@
 			</div>
 		</div>
 	</div>
-	<liferay-ui:search-container total="${receiptCount }"
-		delta="2" deltaConfigurable="true"  iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
+	<liferay-ui:search-container total="${fileCorrespondenceCount }"
+		delta="${delta }" deltaConfigurable="true"  iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
 		emptyResultsMessage="No Results Found">
 		<liferay-ui:search-container-results
 			results="${fileCorrespondence}" />
