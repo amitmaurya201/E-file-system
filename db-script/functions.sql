@@ -1073,7 +1073,6 @@ ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text
 
     
     
-
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
 	user_post_id bigint,
 	keyword integer)
@@ -1098,14 +1097,14 @@ total :=0;
                 select sum (s.c) from (
                 select count(*) into total as c  from
                 (SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
-                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=1 and r.attachstatus is null and r.currentstate=1
+                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=user_post_id and r.attachstatus is null and r.currentlywith=user_post_id
                 AND EXTRACT(YEAR FROM r.createDate) = keyword
                 union 
                 SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
                 FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
                 from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
-                group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =1) as t on t.rmreceiptid =r.receiptid
-                where r.currentstate=1 and r.attachstatus is null AND EXTRACT(YEAR FROM r.createDate) = keyword) as tm
+                group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =user_post_id) as t on t.rmreceiptid =r.receiptid
+                where r.currentlywith=user_post_id and r.attachstatus is null AND EXTRACT(YEAR FROM r.createDate) = keyword) as tm
                 GROUP BY receiptid) as s;
             return total;
             END IF;
@@ -1113,14 +1112,14 @@ total :=0;
                 select sum (s.c) from (
                 select count(*)  into total as c  from
                 (SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
-                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=1 and r.attachstatus is null and r.currentstate=1
+                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=user_post_id and r.attachstatus is null and r.currentlywith=user_post_id
 
                 union 
                 SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
                 FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
                  from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
-                 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =1) as t on t.rmreceiptid =r.receiptid
-                 where r.currentstate=1 and r.attachstatus is null ) as tm
+                 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =user_post_id) as t on t.rmreceiptid =r.receiptid
+                 where r.currentlywith=user_post_id and r.attachstatus is null ) as tm
                  GROUP BY receiptid) as s;
             RETURN total;
         END IF;
@@ -1135,142 +1134,151 @@ ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
 --    -------------------------------------------------- Get Put in file List  ----------------------------------------------------
 
    
-   
- CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
+--      FUNCTION: public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
+
+DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, integer, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	userpostid bigint,
 	keyword integer,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying) 
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-    ROWS 1000
+   RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying,isread boolean ) 
+   LANGUAGE 'plpgsql'
+   COST 100
+   VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+   ROWS 1000
 
-    SET search_path=admin, pg_temp
+   SET search_path=admin, pg_temp
 AS $BODY$
-   
-   declare 
-       
-       _keyword text;
-       _offset int;
-       _limit int;
-       _orderBy text;
-       _order text;
-       _query text;
-       q1 text;
-       q2 text;
-       q3 text;
-   begin
-     
-     
-  q1='  SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, null as viewpdfurl , r.nature 
-   FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.attachstatus is null  ';
-
-   q2=' union 
-   SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
-   FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
-   from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
-   group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid ';
-   
-   q3:=') as t on t.rmreceiptid =r.receiptid
-   where  r.attachstatus is null  ';
-   _query :=q1||q2;
-                 
---         _keyword := '''%'||keyword||'%''';
-       _order :=_orderByType;
-       IF (_start <0 OR _start IS NULL) THEN
-           _offset:=0;
-       ELSE
-           _offset :=_start; 
-       END IF;
-       
-       IF (_end <=0 OR _end IS NULL) THEN
-               _limit :=4;
-           ELSE
-               _limit :=_end;
-       END IF;   
-       
-       IF (orderByCol ='' OR orderByCol IS NULL) THEN
-               _orderBy :='createdate';
-           ELSE
-               _orderBy :=orderByCol;
-       END IF;
-       IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
-               _order :='desc';
-           ELSE
-                _order :=_orderbytype;
-       END IF;
+  
+  declare 
       
-                       
-                       IF (userpostid !=0 )THEN
-                                              
-                            _query := q1|| ' AND r.currentlywith='|| userpostid ||'AND r.userpostid='||userpostid||q2||' where rm.receiverid = '||userpostid||q3;
-                           
-                              if (keyword !=0 AND keyword IS NOT NULL  ) THEN  
-                                       _query := '';
-                                    _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||'AND r.currentlywith= '|| userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
-                         
-                                    if (_orderby !='')  THEN 
-                   
-                                       _query := _query||' order by '||_orderby;
-                                       if (_order !='')  THEN 
-
-                                           _query := _query||' '||_order;
-                                           if (_offset >=0)  THEN 
-
-                                                _query := _query||' offset '||_offset;
-                                               if (_limit >0)  THEN 
-                                                   _query := _query||' limit '||_limit;
-
-                                                  
-                                                end if;
-                                      
-                                   
-                                    end if;
-                            
-                                end if;
-                           
-                            end if;
-                       
-                            
-                       end if;
-                       
-                        if (_orderby !='')  THEN 
-                   
-                                       _query := _query||' order by '||_orderby;
-                                       if (_order !='')  THEN 
-
-                                           _query := _query||' '||_order;
-                                           if (_offset >=0)  THEN 
-
-                                                _query := _query||' offset '||_offset;
-                                               if (_limit >0)  THEN 
-                                                   _query := _query||' limit '||_limit;
-
-                                                  
-                                                end if;
-                                      
-                                   
-                                    end if;
-                            
-                                end if;
-                           
-                            end if;
-                       
-               
-               end if;
-         return query execute _query;
-            
-    end;
+      _keyword text;
+      _offset int;
+      _limit int;
+      _orderBy text;
+      _order text;
+      _query text;
+      q1 text;
+      q2 text;
+      q3 text;
+  begin
     
+    
+ q1='  SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, null as viewpdfurl , r.nature, true as isread 
+  FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.attachstatus is null  ';
+
+  q2=' union 
+  SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature,( CASE 
+                                                                                                                                                  WHEN rmt.receivedon  IS NULL OR rmt.receivedon ='''' THEN false 
+                                                                                                                                                  WHEN rmt.receivedon = ''receive'' THEN true
+                                                                                                                                                  ELSE false
+                                                                                                                                                  END
+                                                                                                                                                  )  AS isread 
+  FROM PUBLIC.jet_process_receipt r INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on r.receiptid=rmt.receiptid  INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
+  from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
+  group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid ';
+  
+  q3:=') as t on t.rmreceiptid =r.receiptid
+  where  r.attachstatus is null  ';
+  _query :=q1||q2;
+                
+--         _keyword := '''%'||keyword||'%''';
+      _order :=_orderByType;
+      IF (_start <0 OR _start IS NULL) THEN
+          _offset:=0;
+      ELSE
+          _offset :=_start; 
+      END IF;
+      
+      IF (_end <=0 OR _end IS NULL) THEN
+              _limit :=4;
+          ELSE
+              _limit :=_end;
+      END IF;   
+      
+      IF (orderByCol ='' OR orderByCol IS NULL) THEN
+              _orderBy :='createdate';
+          ELSE
+              _orderBy :=orderByCol;
+      END IF;
+      IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
+              _order :='desc';
+          ELSE
+               _order :=_orderbytype;
+      END IF;
+     
+                      
+                      IF (userpostid !=0 )THEN
+                                             
+                           _query := q1|| ' AND r.currentlywith='|| userpostid ||'AND r.userpostid='||userpostid||q2||' where rm.receiverid = '||userpostid||q3;
+                          
+                             if (keyword !=0 AND keyword IS NOT NULL  ) THEN  
+                                      _query := '';
+                                   _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||'AND r.currentlywith= '|| userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
+                        
+                                   if (_orderby !='')  THEN 
+                  
+                                      _query := _query||' order by '||_orderby;
+                                      if (_order !='')  THEN 
+
+                                          _query := _query||' '||_order;
+                                          if (_offset >=0)  THEN 
+
+                                               _query := _query||' offset '||_offset;
+                                              if (_limit >0)  THEN 
+                                                  _query := _query||' limit '||_limit;
+
+                                                 
+                                               end if;
+                                     
+                                  
+                                   end if;
+                           
+                               end if;
+                          
+                           end if;
+                      
+                           
+                      end if;
+                      
+                       if (_orderby !='')  THEN 
+                  
+                                      _query := _query||' order by '||_orderby;
+                                      if (_order !='')  THEN 
+
+                                          _query := _query||' '||_order;
+                                          if (_offset >=0)  THEN 
+
+                                               _query := _query||' offset '||_offset;
+                                              if (_limit >0)  THEN 
+                                                  _query := _query||' limit '||_limit;
+
+                                                 
+                                               end if;
+                                     
+                                  
+                                   end if;
+                           
+                               end if;
+                          
+                           end if;
+                      
+              
+              end if;
+        return query execute _query;
+           
+   end;
+   
 
 $BODY$;
 
 ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
-    OWNER TO postgres;
+   OWNER TO postgres;
+
     
 --    -------------------------------------  Get File Movement Count  -----------------------------------------------
 
@@ -1765,6 +1773,162 @@ $BODY$;
 ALTER FUNCTION public.get_file_correspondence_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
+    
+    
+    
+    
+    
+    
+    
+--    ----------------------------------------------------- new query for put in file back up  -------------------------------------------------
+
+    
+    
+    -- FUNCTION: public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, integer, integer, integer, text, text);
+
+--CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
+--	userpostid bigint,
+--	keyword integer,
+--	_start integer,
+--	_end integer,
+--	orderbycol text,
+--	_orderbytype text)
+--    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying,isread boolean ) 
+--    LANGUAGE 'plpgsql'
+--    COST 100
+--    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+--    ROWS 1000
+--
+--    SET search_path=admin, pg_temp
+--AS $BODY$
+--   
+--   declare 
+--       
+--       _keyword text;
+--       _offset int;
+--       _limit int;
+--       _orderBy text;
+--       _order text;
+--       _query text;
+--       q1 text;
+--       q2 text;
+--       q3 text;
+--   begin
+--     
+--     
+--  q1='  SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, null as viewpdfurl , r.nature, true as isread 
+--   FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.attachstatus is null  ';
+--
+--   q2=' union 
+--   SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature,( CASE 
+--                                                                                                                                                   WHEN rmt.receivedon  IS NULL OR rmt.receivedon ='''' THEN false 
+--                                                                                                                                                   WHEN rmt.receivedon = ''receive'' THEN true
+--                                                                                                                                                   ELSE false
+--                                                                                                                                                   END
+--                                                                                                                                                   )  AS isread 
+--   FROM PUBLIC.jet_process_receipt r INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on r.receiptid=rmt.receiptid  INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
+--   from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
+--   group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid ';
+--   
+--   q3:=') as t on t.rmreceiptid =r.receiptid
+--   where  r.attachstatus is null  ';
+--   _query :=q1||q2;
+--                 
+----         _keyword := '''%'||keyword||'%''';
+--       _order :=_orderByType;
+--       IF (_start <0 OR _start IS NULL) THEN
+--           _offset:=0;
+--       ELSE
+--           _offset :=_start; 
+--       END IF;
+--       
+--       IF (_end <=0 OR _end IS NULL) THEN
+--               _limit :=4;
+--           ELSE
+--               _limit :=_end;
+--       END IF;   
+--       
+--       IF (orderByCol ='' OR orderByCol IS NULL) THEN
+--               _orderBy :='createdate';
+--           ELSE
+--               _orderBy :=orderByCol;
+--       END IF;
+--       IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
+--               _order :='desc';
+--           ELSE
+--                _order :=_orderbytype;
+--       END IF;
+--      
+--                       
+--                       IF (userpostid !=0 )THEN
+--                                              
+--                            _query := q1|| ' AND r.currentlywith='|| userpostid ||'AND r.userpostid='||userpostid||q2||' where rm.receiverid = '||userpostid||q3;
+--                           
+--                              if (keyword !=0 AND keyword IS NOT NULL  ) THEN  
+--                                       _query := '';
+--                                    _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||'AND r.currentlywith= '|| userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
+--                         
+--                                    if (_orderby !='')  THEN 
+--                   
+--                                       _query := _query||' order by '||_orderby;
+--                                       if (_order !='')  THEN 
+--
+--                                           _query := _query||' '||_order;
+--                                           if (_offset >=0)  THEN 
+--
+--                                                _query := _query||' offset '||_offset;
+--                                               if (_limit >0)  THEN 
+--                                                   _query := _query||' limit '||_limit;
+--
+--                                                  
+--                                                end if;
+--                                      
+--                                   
+--                                    end if;
+--                            
+--                                end if;
+--                           
+--                            end if;
+--                       
+--                            
+--                       end if;
+--                       
+--                        if (_orderby !='')  THEN 
+--                   
+--                                       _query := _query||' order by '||_orderby;
+--                                       if (_order !='')  THEN 
+--
+--                                           _query := _query||' '||_order;
+--                                           if (_offset >=0)  THEN 
+--
+--                                                _query := _query||' offset '||_offset;
+--                                               if (_limit >0)  THEN 
+--                                                   _query := _query||' limit '||_limit;
+--
+--                                                  
+--                                                end if;
+--                                      
+--                                   
+--                                    end if;
+--                            
+--                                end if;
+--                           
+--                            end if;
+--                       
+--               
+--               end if;
+--         return query execute _query;
+--            
+--    end;
+--    
+--
+--$BODY$;
+--
+--ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
+--    OWNER TO postgres;
+
     
     
  

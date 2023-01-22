@@ -316,6 +316,7 @@ public class ReceiptListImpl implements ReceiptList {
                     receiptList.setRemark(rs.getString("remark"));
                     receiptList.setViewPdfUrl(rs.getString("viewpdfurl"));
                     receiptList.setNature(rs.getString("nature"));
+                    receiptList.setRead(rs.getBoolean("isread"));
 					receiptMovementDTOList.add(receiptList);
 				}
 			}

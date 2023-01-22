@@ -230,6 +230,38 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 	}
 
+	
+	
+	// method for isReceiptAttachable 
+		public boolean isReceiptAttachable(long receiptId) throws PortalException {
+			logger.info("attach method");
+			System.out.println(" receiptId : "+receiptId);
+			boolean attachable = false;
+			List<ReceiptMovement> receiptMovementByReceiptId = receiptMovementLocalService
+					.getReceiptMovementByReceiptId(receiptId);
+			
+			System.out.println("receiptMovementByReceiptId : "+receiptMovementByReceiptId);
+			
+			for (ReceiptMovement receiptMovement : receiptMovementByReceiptId) {
+				logger.info("getPullBackRemark    " + receiptMovement.getPullBackRemark());
+				Receipt receipt = receiptLocalService.getReceipt(receiptMovement.getReceiptId());
+				logger.info("receipt.getCurrentState   " + receipt.getCurrentState());
+				if ((receiptMovement.getPullBackRemark().isEmpty()) && (receipt.getAttachStatus().isEmpty())
+						&& !receiptMovement.getActive()) {
+					logger.info("attachable true");
+					attachable = true;
+				} else {
+					logger.info("attachable false");
+					attachable = false;
+				}
+			}
+			return attachable;
+		}
+		
+
+	
+	
+	
 	@Reference
 	ReceiptLocalService receiptLocalService;
 

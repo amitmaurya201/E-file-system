@@ -43,5 +43,7 @@ public class MVCCommandNames {
 	public static final String RECEIPT_INBOX_READ_ACTION_COMMAND = "/receiptReadAction";
 	public static final String RECEIPT_INBOX_RECEIVE_ACTION_COMMAND = "/receiptReceiveAction";
 	public static final String RECEIPT_SEND_CHECKER_ACTION_COMMAND = "/sendReceiptURL";
+	
+	public static final String CORRESPONDENCES_INFO_RENDER_COMMAND="/correspondencesInfo";
 
 }

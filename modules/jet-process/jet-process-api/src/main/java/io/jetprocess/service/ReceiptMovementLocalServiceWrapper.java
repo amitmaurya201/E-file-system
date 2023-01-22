@@ -418,6 +418,13 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
+	public boolean isReceiptAttachable(long receiptId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptMovementLocalService.isReceiptAttachable(receiptId);
+	}
+
+	@Override
 	public boolean pullBackedAlready(long rmId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

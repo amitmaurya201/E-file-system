@@ -324,6 +324,9 @@ public interface ReceiptMovementLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isPullBackAvailable(long rmId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isReceiptAttachable(long receiptId) throws PortalException;
+
 	public boolean pullBackedAlready(long rmId) throws PortalException;
 
 	public void pullBackReceiptMovement(
