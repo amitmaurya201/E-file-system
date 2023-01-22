@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +71,10 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 			
 		session.setAttribute("preDelta", ""+delta+"");
 		List<FileMovementDTO> fileInboxList =_fileList.getFileInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
-		 renderRequest.setAttribute("fileInboxList",fileInboxList);
+        for (FileMovementDTO fileMovementDTO : fileInboxList) {
+			System.out.println("FileInboxRenderCommand ------;;;;;;;"+fileMovementDTO.getFileMovementId());
+		}		
+		renderRequest.setAttribute("fileInboxList",fileInboxList);
 		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
 		renderRequest.setAttribute("delta",delta);
 	}
@@ -97,7 +101,9 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	FileList _fileList;
+	private FileList _fileList;
+	
+	
 	
 }
 

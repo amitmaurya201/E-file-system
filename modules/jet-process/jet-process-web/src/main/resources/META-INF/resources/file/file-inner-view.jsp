@@ -3,8 +3,12 @@
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
 	String currURL = (String) request.getAttribute("CurrentURL");
+	long fileMovementId  = (long) request.getAttribute("fileMovementId");
+	
 	session.setAttribute("currentURL", currURL);
+	session.setAttribute("fileMovementId", fileMovementId);
 %>
+
 
 <div class="row">
 	<div class="body-side-nav col-2">

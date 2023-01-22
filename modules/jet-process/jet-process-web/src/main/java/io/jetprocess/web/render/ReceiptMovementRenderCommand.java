@@ -62,6 +62,8 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
+		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId", 0);
+
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		HttpSession session = themeDisplay.getRequest().getSession(); 
 
@@ -77,7 +79,7 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", ""+delta+"");
 		
 		if(receiptId != 0) {
-			receiptMovementList = 	receiptList.getReceiptMovementList(receiptId, "", start, end, "", "");
+			receiptMovementList = 	receiptList.getReceiptMovementList(receiptMovementId , receiptId, "", start, end, "", "");
 		}
 		
 		if(receiptMovementList != null) {

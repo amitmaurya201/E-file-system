@@ -63,6 +63,7 @@
 			<liferay-portlet:renderURL varImpl="viewDetails">
 			<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
 	      	<portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" />
+	      	<portlet:param name="fileMovementId" value="${sentFileListDTO.fileMovementId}" />
 	      
 	       	</liferay-portlet:renderURL>
 				

@@ -23,8 +23,9 @@
 </style>
 
 <%
-	String docFileId = renderRequest.getParameter("docFileId");
+	String docFileId =  renderRequest.getParameter("docFileId");
 	String curr = (String) session.getAttribute("currentURL");
+	long fileMovementId = (long) session.getAttribute("fileMovementId");
 %>
 
 
@@ -34,6 +35,7 @@
 		value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="fileMovementId" value="<%=String.valueOf(fileMovementId)%>" />
 
 </portlet:renderURL>
 <portlet:renderURL var="fileDetails">

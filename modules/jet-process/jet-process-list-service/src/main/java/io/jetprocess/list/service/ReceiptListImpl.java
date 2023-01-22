@@ -221,19 +221,20 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 	
 	@Override
-	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptId, String keyword, int start, int end,
+	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptMovementId ,long receiptId, String keyword, int start, int end,
 			String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?)");
-			prepareCall.setLong(1, receiptId);
-			prepareCall.setString(2, keyword);
-			prepareCall.setInt(3, start);
-			prepareCall.setInt(4, end);
-			prepareCall.setString(5, orderBy);
-			prepareCall.setString(6, order);
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_movement_list_new(?,?,?,?,?,?,?)");
+			prepareCall.setLong(1, receiptMovementId);
+			prepareCall.setLong(2, receiptId);
+			prepareCall.setString(3, keyword);
+			prepareCall.setInt(4, start);
+			prepareCall.setInt(5, end);
+			prepareCall.setString(6, orderBy);
+			prepareCall.setString(7, order);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
@@ -264,7 +265,6 @@ public class ReceiptListImpl implements ReceiptList {
 		return receiptMovementDTOList;
 
 	}
-
 	@Override
 	public int getReceiptMovementListCount(long userpostId, String keyword) {
 		Connection con = null;

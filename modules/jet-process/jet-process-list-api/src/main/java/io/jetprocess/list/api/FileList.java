@@ -30,13 +30,13 @@ public interface FileList {
 	
 	public int getFileMovementListCount(long userPostId, String keyword);
 	
-	public List<FileMovementDTO> getFileMovementList(long docfileId, String keyword, int start, int end,
+	public List<FileMovementDTO> getFileMovementList(long filemovementId , long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
 	
 	
 public int getFileCorrespondenceCount(long userPostId, String keyword);
 	
-	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long docfileId, String keyword, int start, int end,
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long filemovementId , long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
 	
 	

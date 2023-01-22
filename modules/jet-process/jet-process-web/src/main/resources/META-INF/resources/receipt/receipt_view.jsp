@@ -2,6 +2,8 @@
 <%
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
 	session.setAttribute("currentURL", currentURL);
+	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
+	session.setAttribute("receiptMovementId1", receiptMovementId);
 %>
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -17,6 +19,7 @@
 		<%
 			Receipt receipt = (Receipt) request.getAttribute("receipt");
 			session.setAttribute("receipt", receipt);
+		
 			String nature = receipt.getNature();
 			char currentNature = nature.charAt(0);
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
