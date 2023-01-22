@@ -62,7 +62,8 @@ public class FileInnerView implements MVCRenderCommand {
 				renderRequest.setAttribute("docFileId",docFileId);
 				renderRequest.setAttribute("docFileObj", docFile);
 				renderRequest.setAttribute("CurrentURL", currentURL);
-				
+				renderRequest.setAttribute("fileMovementId", fileMovementId);
+
 			} catch (PortalException e) {
 				
 			}
