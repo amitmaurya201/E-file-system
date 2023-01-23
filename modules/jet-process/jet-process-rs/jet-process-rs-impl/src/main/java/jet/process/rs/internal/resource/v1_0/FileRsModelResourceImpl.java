@@ -23,7 +23,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
 
 		contextHttpServletResponse.setHeader("status", "success");
-		contextHttpServletResponse.setHeader("result", "Successfully Created");
+		contextHttpServletResponse.setHeader("result", "Successfully created");
 
 		DocFile docFile = docFileLocalService.getDocFile();
 		String fileNumber = null;
@@ -38,7 +38,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			fileNumber = fileRsModel.getFileNumber();
 			if (fileNumber.isEmpty()) {
 				contextHttpServletResponse.setHeader("status", "error");
-				contextHttpServletResponse.setHeader("result", "File Number Cannot Be Empty");
+				contextHttpServletResponse.setHeader("result", "File number can not be empty");
 				return null;
 			}
 			List<DocFile> docFileList = docFileLocalService.getDocFileList();
@@ -46,7 +46,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 				if (fileNumber.equals(docFileObj.getFileNumber())) {
 					System.out.println("Already exist number");
 					contextHttpServletResponse.setHeader("status", "error");
-					contextHttpServletResponse.setHeader("result", "File Number Already Exists!");
+					contextHttpServletResponse.setHeader("result", "File number already exists!");
 					return null;
 				} else {
 					docFile.setFileNumber(fileNumber);
@@ -65,7 +65,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		}
 		if (subject.isEmpty()) {
 			contextHttpServletResponse.setHeader("status", "error");
-			contextHttpServletResponse.setHeader("result", "Subject Cannot be empty");
+			contextHttpServletResponse.setHeader("result", "Subject can not be empty");
 			return null;
 		}
 
@@ -85,10 +85,10 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
-		
+		System.out.println("fileSaved---->>>>>>");
 		fileMovementLocalService.saveFileMovement(fileRsModel.getUserPostId(), fileRsModel.getUserPostId(), docFile.getDocFileId(), "", "", "", false, FileStatus.CREADTED, MovementStatus.CREATED);
 		contextHttpServletResponse.setHeader("status", "success");
-		contextHttpServletResponse.setHeader("result", "File Created Successfully");
+		contextHttpServletResponse.setHeader("result", "File created successfully");
 		return fileRsModel;
 	}
 	// update method for file update
