@@ -137,7 +137,6 @@ AUI().use('aui-base', function(A){
             });          
      });
 });
-	
  /*   Add docFile   */
 
 $("#<portlet:namespace />add-docfile").on('click', function(e){
@@ -145,9 +144,21 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
         	 var formObj= $('#<portlet:namespace/>formId')[0];
              var jsonData = bindFormDataJson(formObj);
              var userPostId=  getUserPostId();
-             jsonData["userPostId"] = userPostId;
-           
-          var jsonObj = JSON.stringify(jsonData);  
+             jsonData["userPostId"] = userPostId;  
+             var jsonObj = JSON.stringify(jsonData);  
+          	var basicHeadId= $('#<portlet:namespace/>basicHeadId').val().length;
+        	var primaryHeadId=$('#<portlet:namespace/>primaryHeadId').val().length;
+        	var secondaryHeadId=$('#<portlet:namespace/>secondaryHeadId').val().length;
+        	var tertiaryHeadId=$('#<portlet:namespace/>tertiaryHeadId').val().length;
+        	var fileCodeId=$('#<portlet:namespace/>fileCodeId').val().length;
+        	var fileNumber=$('#<portlet:namespace/>fileNumber').val().length;
+        	var subject=$('#<portlet:namespace/>subject').val().length;
+        	var categoryId=$('#<portlet:namespace/>categoryId').val().length;
+        	var type = $('#<portlet:namespace/>type').val();
+        	console.log(type);
+        	
+        	 if(basicHeadId!=0 && primaryHeadId!=0 && secondaryHeadId!=0 && tertiaryHeadId!=0 && fileCodeId!=0 && subject!=0 && categoryId !=0 || fileNumber!=0 && categoryId!=0){
+        	  
         	 $.ajax({
         		    type: "POST",
         		    url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
@@ -165,7 +176,7 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
                           title: "Successfull!",
                           text: xhr.getResponseHeader("result")+" "+response.fileNumber,
                           icon: "success",
-                          button: "Ok" 
+                          button: "Ok"
                       }).then(function() {
                     	    window.location.href = "<%=createdFileList.toString()%>";
                       });
@@ -184,7 +195,15 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
     				  icon: "error",  
     				});  
     		 })
-        	
+        
+        	}else{
+        		swal({  
+        			title: " Oops!",  
+        			  	text: "Required fields should not be empty!",  
+        			  	icon: "error",
+        		}); 
+        		
+        	}
         });
              
 

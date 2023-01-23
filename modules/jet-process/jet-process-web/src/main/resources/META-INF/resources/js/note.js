@@ -18,6 +18,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	$('#addNoteButton').on('click',function(e){
 	 event.preventDefault();
 	 var fileId = $('#docFileId').val();
+	 console.log("fileId"+fileId);
 	 var content = CKEDITOR.instances.content.document.getBody().getText();
 	 var noteId = $('#noteId').val();
 	 console.log(noteId);
