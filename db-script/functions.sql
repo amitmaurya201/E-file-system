@@ -1953,6 +1953,10 @@ ALTER FUNCTION public.get_file_correspondence_list(bigint, text, integer, intege
 
 -- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text);
 
+-- FUNCTION: public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text);
+
 CREATE OR REPLACE FUNCTION public.get_receipt_movement_list_new(
 	_receiptmovementid bigint,
 	_receiptid bigint,
@@ -1996,13 +2000,13 @@ AS $BODY$
                   
         _keyword := '''%'||keyword||'%''';
         
-        IF (start <0 OR start IS NULL) THEN
+        IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
             _offset :=_start; 
         END IF;
         
-        IF (end <=0 OR end IS NULL) THEN
+        IF (_end <=0 OR _end IS NULL) THEN
                 _limit :=4;
             ELSE
                 _limit :=_end;
@@ -2013,7 +2017,7 @@ AS $BODY$
             ELSE
                 _orderBy :='r.'||orderByCol;
         END IF;
-         IF (orderByType ='' OR orderByType IS NULL) THEN
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
             ELSE
                 _order :=_orderByType;
@@ -2021,24 +2025,24 @@ AS $BODY$
        
                         IF (_receiptid !=0 )THEN
                         
-                             query := query|| 'AND rm.receiptid ='||_receiptid;
-                              query := query|| ' AND rm.rmid <='||_receiptMovementId;
+                             _query := _query|| 'AND rm.receiptid ='||_receiptid;
+                              _query := _query|| ' AND rm.rmid <='||_receiptMovementId;
                             
                                if (keyword IS NOT NULL) THEN  
                                                                 
---                                      query := query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+--                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
                           
                                      if (_orderby !='')  THEN 
                     
-                                         query := query||' order by '||_orderby;
+                                         _query := _query||' order by '||_orderby;
                                         if (_order !='')  THEN 
 
-                                            query := query||' '||_order;
+                                            _query := _query||' '||_order;
                                             if (_offset >=0)  THEN 
 
-                                                 query := query||' offset '||_offset;
+                                                 _query := _query||' offset '||_offset;
                                                 if (_limit >0)  THEN 
-                                                    query := query||' limit '||_limit;
+                                                    _query := _query||' limit '||_limit;
 
                                                  end if;
                                          
@@ -2060,8 +2064,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-
-    
+ 
     
     
     
@@ -2176,4 +2179,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
+    
+    
 
