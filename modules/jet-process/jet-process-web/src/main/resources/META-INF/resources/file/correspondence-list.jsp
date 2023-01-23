@@ -131,6 +131,7 @@
 var viewMode = "${param.viewMode}";
 if (viewMode == 'ViewModeFromSentRecipt') {
 		$('#<portlet:namespace />add_receipt').addClass('disabled');
+		$('.dropdown-content').css("display", "none");
 }
 
 

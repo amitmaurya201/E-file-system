@@ -47,6 +47,6 @@
 <script>
 var viewMode = "${param.viewMode}";
 if (viewMode == 'ViewModeFromSentRecipt') {
-		$('#note').addClass('disabled');
+	$('#note').css("display", "none");
 }
 </script>
