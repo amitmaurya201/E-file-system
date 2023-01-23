@@ -28,7 +28,7 @@ public interface FileList {
 			String orderBy, String order);
 	
 	
-	public int getFileMovementListCount(long userPostId, String keyword);
+	public int getFileMovementListCount(long filemovementId , long userPostId, String keyword);
 	
 	public List<FileMovementDTO> getFileMovementList(long filemovementId , long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
