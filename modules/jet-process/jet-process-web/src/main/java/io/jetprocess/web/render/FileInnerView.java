@@ -40,11 +40,15 @@ public class FileInnerView implements MVCRenderCommand {
 
 	@Reference
 	private DocFileLocalService docFileLocalService;
+	
+	long fileMovementId = 0;
+	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
-		
+		 fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
@@ -54,12 +58,12 @@ public class FileInnerView implements MVCRenderCommand {
 
 			try {
 				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-				//System.out.println(docFile.getNature());
 				renderRequest.setAttribute("nature",docFile.getNature() );
 				renderRequest.setAttribute("docFileId",docFileId);
 				renderRequest.setAttribute("docFileObj", docFile);
 				renderRequest.setAttribute("CurrentURL", currentURL);
-				
+				renderRequest.setAttribute("fileMovementId", fileMovementId);
+
 			} catch (PortalException e) {
 				
 			}
@@ -97,9 +101,8 @@ public class FileInnerView implements MVCRenderCommand {
 		currentPage=paginationConfig.get("currentPage");
 		
 		session.setAttribute("preDelta", "" + delta + "");
-		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileId, keywords, start, end, orderByCol, orderByType);
+		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId,fileId, keywords, start, end, orderByCol, orderByType);
 		
-		fileCorrespondence.forEach(c->System.out.println("-=-=======-----------=====------> "+c));
 		
 		logger.info("File Correspondence list------> : "+fileCorrespondence);
 		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);

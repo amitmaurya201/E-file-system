@@ -31,8 +31,13 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
-
+		System.out.println("receipt inbox.....");
+		System.out.println("Enter by ashwani.....");
+		System.out.println("receiptId-----"+receiptId);
+		System.out.println("rmId-----"+rmId);
+		
 		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
+		System.out.println("Enter by ashwani ---2");
 		if (state == false) {
 
 

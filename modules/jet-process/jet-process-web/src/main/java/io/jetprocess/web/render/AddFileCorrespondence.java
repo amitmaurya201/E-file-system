@@ -87,7 +87,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	
 	
 	List<ReceiptListViewDto> receiptList =_receiptList.getPutInFileList(userPost, keywords, start, end, "","");
-
+	receiptList.forEach(c->System.out.println(c.getReceiptId()+" : "+c.isRead()));
 	renderRequest.setAttribute("receiptFileList", receiptList);
 	renderRequest.setAttribute("delta",delta);
 	renderRequest.setAttribute("receiptCount",+count);

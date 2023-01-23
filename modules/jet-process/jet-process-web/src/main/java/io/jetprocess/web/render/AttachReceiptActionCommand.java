@@ -4,9 +4,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -15,6 +16,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.service.FileCorrReceiptLocalService;
+import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
@@ -28,44 +30,35 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
-		System.out.println("working--------");
+		System.out.println("status : ");
+		boolean status=receiptMovementLocalService.isReceiptAttachable(receiptPK);
+		System.out.println("status -----> : "+status);
+		if(status==false) {
+			
+			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
+			System.out.println("working--------");
+			
+			
+		}
+		else {
+			SessionErrors.add(actionRequest, "receipt-is-not-attachable");
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+		}
 		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
-			
-	}
-	
-	
-	/*
-	 * public Boolean isReceiptAttachable(long receiptId) throws PortalException {
-	 * logger.info("attach method"); boolean attachable = false;
-	 * List<ReceiptMovement> receiptMovementByReceiptId =
-	 * receiptMovementLocalService .getReceiptMovementByReceiptId(receiptId); for
-	 * (ReceiptMovement receiptMovement : receiptMovementByReceiptId) {
-	 * logger.info("getPullBackRemark    " + receiptMovement.getPullBackRemark());
-	 * Receipt receipt =
-	 * receiptLocalService.getReceipt(receiptMovement.getReceiptId());
-	 * logger.info("receipt.getCurrentState   " + receipt.getCurrentState()); if
-	 * ((receiptMovement.getPullBackRemark().isEmpty()) &&
-	 * (receipt.getAttachStatus().isEmpty()) && !receiptMovement.getActive() ){
-	 * 
-	 * logger.info("attachable true"); attachable = true; } else {
-	 * logger.info("attachable false"); attachable = false; } } return attachable; }
-	 */
+		
 
-	
-	
-    @Reference
-    private FileCorrReceiptLocalService fileCorrReceiptLocalService;
-	
+	}
+
+	@Reference
+	private ReceiptLocalService receiptLocalService;
+	@Reference
+	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
+	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
 	@Reference
 	private MVCActionCommand mvcActionCommand;
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
-	 
 
 }
-
-
-
-

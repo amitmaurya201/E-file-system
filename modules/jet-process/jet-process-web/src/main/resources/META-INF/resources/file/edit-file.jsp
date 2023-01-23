@@ -28,7 +28,7 @@
 		%>
 		<div class="container">
 			<div class="card">
-				<aui:form name="updateformId" onSubmit="editFile(event)">
+				<aui:form name="updateformId">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-12 col-sm-12">

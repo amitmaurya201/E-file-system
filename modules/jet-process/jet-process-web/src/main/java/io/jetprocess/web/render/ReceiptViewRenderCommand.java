@@ -21,8 +21,13 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		System.out.println("view");
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+		System.out.println("receiptMovementId -----"+receiptMovementId);
+
+		System.out.println("receiptId----"+receiptId);
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
 		renderRequest.setAttribute("CurrentURL", currentURL);
+		renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
 		return "/receipt/receipt_view.jsp";
 	}

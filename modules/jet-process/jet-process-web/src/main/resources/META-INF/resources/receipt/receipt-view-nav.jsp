@@ -25,7 +25,9 @@
 <%
 	String receiptId = renderRequest.getParameter("receiptId");
 	String curr = (String) session.getAttribute("currentURL");
+	long receiptMovementId = (long) session.getAttribute("receiptMovementId1");
 %>
+<%=receiptMovementId %>
 <portlet:renderURL var="receiptDetails">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
@@ -39,6 +41,7 @@
 		value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="receiptMovementId" value="<%=String.valueOf(receiptMovementId)%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="sendReceipt">

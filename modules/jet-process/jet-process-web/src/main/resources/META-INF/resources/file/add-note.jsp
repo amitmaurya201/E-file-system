@@ -1,4 +1,6 @@
 <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+
+
 <div style="background-color: #bef8c7; height: 400px">
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
 		id="note" height="30" class="shadow m-1 bg-white rounded-circle"
@@ -12,27 +14,30 @@
 			width="8%" height="30" class="shadow m-1 bg-white rounded-circle"
 			onclick="openYellowNote()" />
 	</div>
-
-	<div id="editor" style="display: none;">
-		<div style="background-color:green;">
-		<button type="button" class="btn-close" aria-label="Close"></button>
+	<aui:form name="addNote" >
+		<div id="editor" style="display: none;">
+			<div style="background-color:green;">
+			<button type="button" id="removeNote">
+			<i class="bi bi-clipboard-x-fill"></i>
+			</button>
+			<button type="button" id= "addNoteButton" >
+			<i class="bi bi-clipboard-minus-fill"></i>
+			</button>
+			</div>	
+         	<input name = "noteId" id = "noteId" value = "0" type= "hidden"/>
+			<textarea id = "content" name="content"></textarea>
 		</div>
-		<textarea name="editor-textarea"></textarea>
-	</div>
-
+	</aui:form>
+	
 </div>
-<script>
-	const notes = document.getElementById("notes");
-	const note = document.getElementById("note");
-	const editor = document.getElementById("editor");
-	function openNote() {
-		notes.style.display = "block";
-	}
 
-	function openGreenNote() {
-		notes.style.display = "none";
-		note.style.display = "none";
-		editor.style.display = "block";
-		CKEDITOR.replace('editor-textarea');
-	}
-</script>
+<br>
+<div id="my-content-div">
+	<div>
+	<p>Are you sure you want to delete note ?</p>
+		<button type = "button" id = "remove">Ok</button>
+		<button type = "button" id = "cancel">Cancel</button>
+	</div>
+</div>
+
+<!-- AUI Script For Modal Dialog POPUP -->

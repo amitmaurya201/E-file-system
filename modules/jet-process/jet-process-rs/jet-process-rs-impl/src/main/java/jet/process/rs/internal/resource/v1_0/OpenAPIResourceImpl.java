@@ -68,6 +68,8 @@ public class OpenAPIResourceImpl {
 		{
 			add(FileRsModelResourceImpl.class);
 
+			add(NoteRsModelResourceImpl.class);
+
 			add(ReceiptRsModelResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);

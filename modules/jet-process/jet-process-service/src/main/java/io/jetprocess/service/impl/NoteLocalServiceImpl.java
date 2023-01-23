@@ -44,34 +44,43 @@ import org.osgi.service.component.annotations.Reference;
 public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 
 	  // create Method for addNote in File 
-	public Note addNote(String content, long createdBy, long fileId) throws PortalException {
-	  long noteId = counterLocalService.increment(Note.class.getName()); 
-	  Note note = createNote(noteId);
-	 long fileMovementId = 0L;
-	  note.setNoteId(noteId);
-	  note.setCreatedBy(createdBy);
-	  note.setContent(content);
-	  UserPost userPost = userPostLocalService.getUserPost(createdBy);
-	  String userName = userPost.getUserName();
-	  String departmentName =  userPost.getDepartmentName();
-	  String postMarking =  userPost.getPostMarking();
-	 
-	  JSONObject jsonObject = JSONFactoryUtil.createJSONObject(); 
-	  jsonObject.put("userName", userName);
-	  jsonObject.put("departmentName", departmentName);
-	  jsonObject.put("postMarking", postMarking);
-	  String signature = jsonObject.toString();
-	  System.out.println("signature -->"+signature);
-	  
-	  note.setSignature(signature);
-	  noteLocalService.addNote(note);
-	  FileNote fileNote = fileNoteLocalService.createFileNote();
-	  fileNote.setNoteId(noteId);
-	  fileNote.setFileMovementId(fileMovementId);
-	  fileNote.setFileId(fileId);
-	  fileNote.setMovementType(MovementStatus.CREATED);
-	  fileNoteLocalService.addFileNote(fileNote);
-	   return note;
+	public Note addNote(String content, long createdBy, long fileId, long noteId) throws PortalException {
+		Note note =null;
+		if(noteId!=note.getNoteId()) {
+			System.out.println("create note");
+			 long generateNoteId = counterLocalService.increment(Note.class.getName()); 
+			
+			 note = createNote(generateNoteId);
+			 long fileMovementId = 0L;
+			  note.setNoteId(generateNoteId);
+			  note.setCreatedBy(createdBy);
+			  note.setContent(content);
+			  UserPost userPost = userPostLocalService.getUserPost(createdBy);
+			  String userName = userPost.getUserName();
+			  String departmentName =  userPost.getDepartmentName();
+			  String postMarking =  userPost.getPostMarking();
+			  JSONObject jsonObject = JSONFactoryUtil.createJSONObject(); 
+			  jsonObject.put("userName", userName);
+			  jsonObject.put("departmentName", departmentName);
+			  jsonObject.put("postMarking", postMarking);
+			  String signature = jsonObject.toString();
+			 
+			  note.setSignature(signature);
+			  noteLocalService.addNote(note);
+			  FileNote fileNote = fileNoteLocalService.createFileNote();
+			  fileNote.setNoteId(generateNoteId);
+			  fileNote.setFileMovementId(fileMovementId);
+			  fileNote.setFileId(fileId);
+			  fileNote.setMovementType(MovementStatus.CREATED);
+			  fileNoteLocalService.addFileNote(fileNote);		
+	   }
+			System.out.println("update");
+			 note= getNote(noteId);
+			note.setContent(content);
+			note = super.updateNote(note);  
+	
+		   return note;
+	
 	  }
 	  
 	  // create Method for delete note

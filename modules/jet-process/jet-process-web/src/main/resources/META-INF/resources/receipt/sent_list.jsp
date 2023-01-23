@@ -68,7 +68,8 @@
 
 <liferay-portlet:renderURL varImpl="viewDetails">
 			<portlet:param name="mvcRenderCommandName" value= "<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
-	       	<portlet:param name="receiptId" value="${receiptSentMovement.receiptId }" />       
+	       	<portlet:param name="receiptId" value="${receiptSentMovement.receiptId }" />   
+	       		<portlet:param name="receiptMovementId" value="${receiptSentMovement.receiptMovementId }" />       
 		</liferay-portlet:renderURL>
 
 				<c:set var="firstLetterOfNature"

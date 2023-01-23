@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
@@ -158,6 +159,17 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				receiptMovementLocalService.addReceiptMovement(receiptMovement);
 			}
 		}
+		 for (FileCorrReceipt fileCorr : fileCorrList) {
+			 if(fileCorr.getDocFileId() == fileId) {
+				 if(Validator.isNull(fileCorr.getFileMovementId())) {
+		         		fileCorr.setFileMovementId(fmId);
+		         		fileCorrReceiptLocalService.updateFileCorrReceipt(fileCorr);
+		         		System.out.println("setFileMovementId------");
+		         	} 
+				 
+			 }
+         	
+		 }
 	}
 
 	// Create a method for check Is File able to Read or Received

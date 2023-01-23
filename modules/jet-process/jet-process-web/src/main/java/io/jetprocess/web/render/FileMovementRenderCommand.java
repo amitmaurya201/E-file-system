@@ -53,7 +53,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 	private void setFileMovementList(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession session = themeDisplay.getRequest().getSession();
-
+		
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
@@ -64,6 +64,10 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
+		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId", 0);
+		System.out.println("fileMovementId --FileMovementRenderCommand == "+fileMovementId);
+
+		
 		int count = fileList.getFileMovementListCount(docFileId, "");
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
@@ -76,7 +80,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", "" + delta + "");
 		List<FileMovementDTO> fileMovementList = new ArrayList<>();
 		if (docFileId != 0) {
-			fileMovementList = fileList.getFileMovementList(docFileId, "", start, end, "", "");
+			fileMovementList = fileList.getFileMovementList(fileMovementId,docFileId, "", start, end, "", "");
 		}
 
 		if (fileMovementList != null) {

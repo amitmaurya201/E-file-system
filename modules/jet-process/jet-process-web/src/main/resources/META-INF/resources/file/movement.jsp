@@ -12,6 +12,7 @@
 -->
 </style>
 
+
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="/file/created-file-list.jsp" />
 </liferay-portlet:renderURL>

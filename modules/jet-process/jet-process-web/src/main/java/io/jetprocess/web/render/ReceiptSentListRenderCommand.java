@@ -68,7 +68,8 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		session.setAttribute("oldDelta", "" + delta + "");
 		List<ReceiptMovementDTO> receiptList = _receiptList.getReceiptSentList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
-		receiptList.forEach(c -> System.out.println(c));
+		
+		receiptList.forEach(c -> System.out.println(c.getReceiptMovementId()));
 		renderRequest.setAttribute("receiptList", receiptList);
 		renderRequest.setAttribute("receiptCount", count);
 		renderRequest.setAttribute("delta", delta);

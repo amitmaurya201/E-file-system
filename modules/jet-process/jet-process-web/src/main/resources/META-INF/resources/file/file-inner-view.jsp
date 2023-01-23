@@ -3,8 +3,12 @@
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
 	String currURL = (String) request.getAttribute("CurrentURL");
+	long fileMovementId  = (long) request.getAttribute("fileMovementId");
+	
 	session.setAttribute("currentURL", currURL);
+	session.setAttribute("fileMovementId", fileMovementId);
 %>
+
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -20,7 +24,9 @@
 				|
 				<%=docFile.getFileNumber()%>
 				|
-				<%=docFile.getSubject()%></div>
+				<%=docFile.getSubject()%>
+				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>
+				</div>
 		</div>
 		<div class="container row">
 
@@ -42,3 +48,4 @@
 		</div>
 	</div>
 </div>
+<%@ include file ="/js/note.js"%>

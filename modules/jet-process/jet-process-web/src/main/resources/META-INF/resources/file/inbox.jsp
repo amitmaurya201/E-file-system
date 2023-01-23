@@ -1,5 +1,5 @@
 <%@ include file="../init.jsp"%>
-
+<%@page import="io.jetprocess.service.FileMovementLocalServiceUtil"%>
 <%
 	String backURL = themeDisplay.getURLCurrent();
 	String backURL1 = backURL + "&a=12";
@@ -127,6 +127,8 @@
 					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
+						<portlet:param name="fileMovementId"
+						value="${fileinboxDtoList.getFileMovementId()}" />
 				</portlet:renderURL>
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
@@ -165,13 +167,11 @@
 								name="label-file-inbox-subject" cssClass="hover-tips bold" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips bold">
-								<%
-									FileMovement fileMvmt = FileMovementLocalServiceUtil
-																	.getFileMovement(fileinboxDtoList.getFileMovementId());
-															long senderId = fileMvmt.getSenderId();
-								%>
+								
+								<c:set value="${fileinboxDtoList.getFileMovementId()}" var="senderId"></c:set>
+								
 								<a href="#" class="button open"
-									onclick=" showModal(<%=senderId%>)"><%=fileinboxDtoList.getSentBy()%></a>
+									onclick=" showModal(${senderId})">${fileinboxDtoList.getSentBy()}</a>
 
 							</liferay-ui:search-container-column-text>
 
@@ -233,13 +233,10 @@
 								name="label-file-inbox-subject" cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
-								<%
-									FileMovement fileMvmt = FileMovementLocalServiceUtil
-																	.getFileMovement(fileinboxDtoList.getFileMovementId());
-															long senderId = fileMvmt.getSenderId();
-								%>
+								
+								
 								<a href="#" class="button open"
-									onclick=" showModal(<%=senderId%>)"><%=fileinboxDtoList.getSentBy()%></a>
+								onclick=" showModal(${senderId})">${fileinboxDtoList.getSentBy()}</a>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
