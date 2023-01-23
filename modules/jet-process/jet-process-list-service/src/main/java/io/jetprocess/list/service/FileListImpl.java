@@ -287,14 +287,15 @@ public class FileListImpl implements FileList {
 		return fileMovementDTOList;
 	}
 	@Override
-	public int getFileMovementListCount(long fileId, String keyword) {
+	public int getFileMovementListCount(long filemovementId ,  long fileId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select public.get_file_movement_list_count(?,?)");
-			prepareCall.setLong(1, fileId);
-			prepareCall.setString(2, keyword);
+			CallableStatement prepareCall = con.prepareCall("select public.get_file_movement_list_count_new(?,?,?)");
+			prepareCall.setLong(1, filemovementId);
+			prepareCall.setLong(2, fileId);
+			prepareCall.setString(3, keyword);
 			boolean execute = prepareCall.execute();
 
 			if (execute) {

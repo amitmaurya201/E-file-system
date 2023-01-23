@@ -68,7 +68,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		System.out.println("fileMovementId --FileMovementRenderCommand == "+fileMovementId);
 
 		
-		int count = fileList.getFileMovementListCount(docFileId, "");
+		int count = fileList.getFileMovementListCount(fileMovementId,docFileId, "");
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
