@@ -41,3 +41,12 @@
 </div>
 
 <!-- AUI Script For Modal Dialog POPUP -->
+
+
+
+<script>
+var viewMode = "${param.viewMode}";
+if (viewMode == 'ViewModeFromSentRecipt') {
+		$('#note').addClass('disabled');
+}
+</script>

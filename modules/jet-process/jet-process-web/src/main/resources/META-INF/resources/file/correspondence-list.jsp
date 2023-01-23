@@ -127,6 +127,13 @@
 </div>
 
 <aui:script use="liferay-util-window">	
+
+var viewMode = "${param.viewMode}";
+if (viewMode == 'ViewModeFromSentRecipt') {
+		$('#<portlet:namespace />add_receipt').addClass('disabled');
+}
+
+
 	$("#<portlet:namespace />add_receipt").click(()=>{
 		Liferay.Util.openWindow({ 
 					dialog: { 														 
