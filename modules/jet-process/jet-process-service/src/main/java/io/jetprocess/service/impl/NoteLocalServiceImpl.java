@@ -46,7 +46,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	  // create Method for addNote in File 
 	public Note addNote(String content, long createdBy, long fileId, long noteId) throws PortalException {
 		Note note =null;
-		if(noteId!=note.getNoteId()) {
+		if(noteId==0) {
 			System.out.println("create note");
 			 long generateNoteId = counterLocalService.increment(Note.class.getName()); 
 			
@@ -73,12 +73,13 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 			  fileNote.setFileId(fileId);
 			  fileNote.setMovementType(MovementStatus.CREATED);
 			  fileNoteLocalService.addFileNote(fileNote);		
-	   }
-			System.out.println("update");
+	   }else {
+		    System.out.println("update");
 			 note= getNote(noteId);
 			note.setContent(content);
 			note = super.updateNote(note);  
-	
+		   
+	   }
 		   return note;
 	
 	  }
