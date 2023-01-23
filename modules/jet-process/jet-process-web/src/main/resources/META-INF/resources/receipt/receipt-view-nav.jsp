@@ -26,13 +26,14 @@
 	String receiptId = renderRequest.getParameter("receiptId");
 	String curr = (String) session.getAttribute("currentURL");
 	long receiptMovementId = (long) session.getAttribute("receiptMovementId1");
+	String viewMode = renderRequest.getParameter("viewMode");
 %>
 <portlet:renderURL var="receiptDetails">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-
+	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="receiptMovement">
@@ -40,7 +41,9 @@
 		value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-	<portlet:param name="receiptMovementId" value="<%=String.valueOf(receiptMovementId)%>" />
+	<portlet:param name="receiptMovementId"
+		value="<%=String.valueOf(receiptMovementId)%>" />
+	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="sendReceipt">
@@ -48,7 +51,8 @@
 		value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-	<portlet:param name="receiptMovementId" value="<%=String.valueOf(receiptMovementId)%>" />
+	<portlet:param name="receiptMovementId"
+		value="<%=String.valueOf(receiptMovementId)%>" />
 
 </portlet:renderURL>
 <portlet:renderURL var="sendBack">
@@ -124,6 +128,11 @@
 <script>
 	var navId = "${param.selectedNav}";
 	var nav = document.getElementById(navId);
-
 	nav.style.color = 'blue';
+
+	var viewMode = "${param.viewMode}";
+	if (viewMode == 'ViewModeFromSentRecipt') {
+		$('#edit').addClass('disabled');
+		$('#send').addClass('disabled');
+	}
 </script>

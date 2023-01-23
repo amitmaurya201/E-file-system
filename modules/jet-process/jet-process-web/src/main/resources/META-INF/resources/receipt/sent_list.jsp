@@ -31,14 +31,13 @@
 	border: none;
 }
 
-.lexicon-icon-asterisk{
-    height: 8px;
+.lexicon-icon-asterisk {
+	height: 8px;
 }
 
-.remove-valdation{
+.remove-valdation {
 	display: none;
 }
-
 </style>
 <div class="row" id="bg_blur">
 	<div class="body-side-nav col-2">
@@ -48,7 +47,7 @@
 		<liferay-portlet:renderURL varImpl="iteratorURL">
 			<portlet:param name="mvcPath" value="/receipt/sent_list.jsp" />
 		</liferay-portlet:renderURL>
-		
+
 		<h1 class=" text-center">
 			<liferay-ui:message key="label-receipt-sent-heading" />
 		</h1>
@@ -66,11 +65,15 @@
 				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				modelVar="receiptSentMovement" keyProperty="receiptMovementId">
 
-<liferay-portlet:renderURL varImpl="viewDetails">
-			<portlet:param name="mvcRenderCommandName" value= "<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND %>" />
-	       	<portlet:param name="receiptId" value="${receiptSentMovement.receiptId }" />   
-	       		<portlet:param name="receiptMovementId" value="${receiptSentMovement.receiptMovementId }" />       
-		</liferay-portlet:renderURL>
+				<liferay-portlet:renderURL varImpl="viewDetails">
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
+					<portlet:param name="receiptId"
+						value="${receiptSentMovement.receiptId }" />
+					<portlet:param name="receiptMovementId"
+						value="${receiptSentMovement.receiptMovementId }" />
+					<portlet:param name="viewMode" value="ViewModeFromSentRecipt" />
+				</liferay-portlet:renderURL>
 
 				<c:set var="firstLetterOfNature"
 					value="${ receiptSentMovement.nature}" />
@@ -78,9 +81,9 @@
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-nature" value="${nature }" />
-				<liferay-ui:search-container-column-text href="${viewDetails }" property="receiptNumber"
-					name="label-receipt-list-receiptno" orderable="true"
-					orderableProperty="receiptNumber" />
+				<liferay-ui:search-container-column-text href="${viewDetails }"
+					property="receiptNumber" name="label-receipt-list-receiptno"
+					orderable="true" orderableProperty="receiptNumber" />
 				<liferay-ui:search-container-column-text property="subject"
 					name="label-receipt-list-subject" orderable="true"
 					orderableProperty="subject" cssClass="hover-tips" />
@@ -141,7 +144,7 @@
 			<input type="text" name="<portlet:namespace />receiptId"
 				id="receiptId" hidden>
 			<input type="hidden" name="<portlet:namespace/>senderId"
-				value="<%=selectedUserPostId%>" >
+				value="<%=selectedUserPostId%>">
 			<div style="text-align: left; height: 100px;">
 				<aui:input label="label-receipt-remark" name="remarks" id="remarks"
 					type="textarea" style="height:70px;">
@@ -152,8 +155,8 @@
 				</aui:input>
 			</div>
 
-			<hr style="margin: 2rem -1rem 1rem -1rem; " />
-			<div style="text-align: right; padding-bottom:10px;">
+			<hr style="margin: 2rem -1rem 1rem -1rem;" />
+			<div style="text-align: right; padding-bottom: 10px;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
 					<liferay-ui:message key="label-receipt-sent-button-submit" />
 				</button>

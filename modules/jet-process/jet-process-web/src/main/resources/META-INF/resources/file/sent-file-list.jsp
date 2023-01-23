@@ -66,7 +66,7 @@
 						value="${sentFileListDTO.docFileId}" />
 					<portlet:param name="fileMovementId"
 						value="${sentFileListDTO.fileMovementId}" />
-					<portlet:param name="viewMode" value="ViewModeFromSentRecipt" />
+					<portlet:param name="viewMode" value="ViewModeFromSentFile" />
 				</liferay-portlet:renderURL>
 
 				<portlet:actionURL var="fileSentActionUrl"
