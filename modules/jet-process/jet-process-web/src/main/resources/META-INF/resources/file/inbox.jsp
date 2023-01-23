@@ -103,6 +103,8 @@
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
+						<portlet:param name="docFileId"
+						value="${fileinboxDtoList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
 
