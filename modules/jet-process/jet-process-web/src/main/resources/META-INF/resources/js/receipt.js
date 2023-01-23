@@ -364,7 +364,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     			}else{
     			swal( {
     				title: "Successfull!",
-                    text: `You have successfully update your receipt!`,
+                    text: `You have successfully updated your receipt!`,
                     icon: "success",
                     button: "Ok"
     			}).then(function() {
