@@ -165,7 +165,7 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
                           title: "Successfull!",
                           text: xhr.getResponseHeader("result")+" "+response.fileNumber,
                           icon: "success",
-                          button: "Ok"
+                          button: "Ok" 
                       }).then(function() {
                     	    window.location.href = "<%=createdFileList.toString()%>";
                       });
