@@ -216,7 +216,7 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
    			  console.log(response);
    			  swal( {
                   title: "Successfully!",
-                  text: `You Have successfully Updated Your File! `,
+                  text: `You Have Successfully Updated Your File! `,
                   icon: "success",
                   button: "Ok"
               })		
