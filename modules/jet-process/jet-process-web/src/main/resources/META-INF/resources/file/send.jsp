@@ -9,6 +9,10 @@
 	rel="stylesheet" />
 <%
 	String currURL = (String) renderRequest.getAttribute("currentURL");
+
+long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
+
+
 %>
 
 <style>

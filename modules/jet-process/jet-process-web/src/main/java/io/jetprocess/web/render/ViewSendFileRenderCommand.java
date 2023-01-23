@@ -25,10 +25,13 @@ public class ViewSendFileRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currURL = ParamUtil.getString(renderRequest, "backPageURL");
+		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+				
 		try {
 			DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
 			renderRequest.setAttribute("docFile", docFile);
 			renderRequest.setAttribute("currentURL", currURL);
+			renderRequest.setAttribute("fileMovementId", fileMovementId);
 		} catch (PortalException e) {
 			logger.info(e.getMessage());
 		}
