@@ -59,27 +59,30 @@
 			<liferay-ui:search-container-row
 				className="io.jetprocess.list.model.FileMovementDTO"
 				modelVar="sentFileListDTO" keyProperty="fileMovementId">
-				
-			<liferay-portlet:renderURL varImpl="viewDetails">
-			<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
-	      	<portlet:param name="docFileId" value="${sentFileListDTO.docFileId}" />
-	      	<portlet:param name="fileMovementId" value="${sentFileListDTO.fileMovementId}" />
-	      
-	       	</liferay-portlet:renderURL>
-				
+
+				<liferay-portlet:renderURL varImpl="viewDetails">
+					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
+					<portlet:param name="docFileId"
+						value="${sentFileListDTO.docFileId}" />
+					<portlet:param name="fileMovementId"
+						value="${sentFileListDTO.fileMovementId}" />
+					<portlet:param name="viewMode" value="ViewModeFromSentRecipt" />
+				</liferay-portlet:renderURL>
+
 				<portlet:actionURL var="fileSentActionUrl"
 					name="<%=MVCCommandNames.PULL_BACK_FILE_ACTION_COMMAND%>">
 				</portlet:actionURL>
 				<liferay-ui:search-container-column-text name=""><%=sentFileListDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text href="${viewDetails}" name="File Number"
-					value="<%=sentFileListDTO.getFileNumber() != null ? sentFileListDTO.getFileNumber() : ""%>"
+				<liferay-ui:search-container-column-text href="${viewDetails}"
+					name="File Number"
+					value="<%=sentFileListDTO.getFileNumber() %>"
 					orderableProperty="fileNumber" orderable="true" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getSubject() != null ? sentFileListDTO.getSubject() : ""%>"
+					value="<%=sentFileListDTO.getSubject() %>"
 					orderableProperty="subject" orderable="true" cssClass="hover-tips"
 					name="Subject" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getSentTo() != null ? sentFileListDTO.getSentTo() : ""%>"
+					value="<%=sentFileListDTO.getSentTo()%>"
 					cssClass="hover-tips" name="Sent To" />
 				<%
 					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");

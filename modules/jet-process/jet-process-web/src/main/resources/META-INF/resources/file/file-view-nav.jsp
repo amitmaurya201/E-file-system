@@ -23,41 +23,43 @@
 </style>
 
 <%
-	String docFileId =  renderRequest.getParameter("docFileId");
+	String docFileId = renderRequest.getParameter("docFileId");
 	String curr = (String) session.getAttribute("currentURL");
 	long fileMovementId = (long) session.getAttribute("fileMovementId");
+	String viewMode = renderRequest.getParameter("viewMode");
 %>
 
 
 <portlet:renderURL var="fileMovement">
-	<%-- <portlet:param name="mvcPath" value="/file/movement.jsp"/> --%>
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-	<portlet:param name="fileMovementId" value="<%=String.valueOf(fileMovementId)%>" />
-
+	<portlet:param name="fileMovementId"
+		value="<%=String.valueOf(fileMovementId)%>" />
+	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
+
 <portlet:renderURL var="fileDetails">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-
+	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
+
 <portlet:renderURL var="editFile">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-
 </portlet:renderURL>
+
 <portlet:renderURL var="fileSend">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-
 </portlet:renderURL>
 
 <portlet:renderURL var="putinfile">
@@ -159,7 +161,7 @@
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
 				</div></li> --%>
-		<%-- <li class="nav-item border">
+			<%-- <li class="nav-item border">
 			     <a class="nav-link" href="<%= dispatch %>">Dispatch</a>
 			 </li>
 			 <li class="nav-item border">
@@ -191,6 +193,11 @@
 <script>
 	var navId = "${param.selectedNav}";
 	var nav = document.getElementById(navId);
-
 	nav.style.color = 'blue';
+
+	var viewMode = "${param.viewMode}";
+	if (viewMode == 'ViewModeFromSentRecipt') {
+		$('#edit').addClass('disabled');
+		$('#send').addClass('disabled');
+	}
 </script>
