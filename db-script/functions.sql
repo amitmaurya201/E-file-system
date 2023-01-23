@@ -2061,3 +2061,119 @@ $BODY$;
 ALTER FUNCTION public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
 
+    
+    
+    
+    
+    
+    
+    
+    
+    -- FUNCTION: public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_file_correspondence_list_new(
+	_filemovementid bigint,
+	_fileid bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        
+        _keyword text;
+        _offset int;
+        _limit int;
+        _orderBy text;
+        _order text;
+        _query text;
+    begin
+      
+      
+   _query='
+ SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, fc.createDate, fc.remarks  as remark , null as viewpdfurl,
+ 	r.nature, fc.correspondenceType as correspondenceType FROM PUBLIC.jet_process_receipt r INNER JOIN 
+ PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid';
+                  
+        _keyword := '''%'||keyword||'%''';
+        
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+                _orderBy :='r.createdate';
+            ELSE
+                _orderBy :='r.'||orderByCol;
+        END IF;
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
+                _order :='desc';
+            ELSE
+                _order :=_orderByType;
+        END IF;
+       
+                        
+                        IF (_fileId !=0 )THEN
+                        
+                             _query := _query|| ' where fc.docfileid ='||_fileId;
+                             _query := _query|| ' AND fc.filemovementId <='||_filemovementid;
+                            
+                               if (keyword IS NOT NULL) THEN  
+                                                                
+--                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+                          
+                                     if (_orderby !='')  THEN 
+                    
+                                        _query := _query||' order by '||_orderby;
+                                        if (_order !='')  THEN 
+
+                                            _query := _query||' '||_order;
+                                            if (_offset >=0)  THEN 
+
+                                                 _query := _query||' offset '||_offset;
+                                                if (_limit >0)  THEN 
+                                                    _query := _query||' limit '||_limit;
+
+                                                 end if;
+                                        
+
+                                             end if;
+
+                                         end if;
+
+                                     end if;
+                        
+                             
+                             end if;
+                             
+                    end if;
+                 
+                return query execute _query;
+       
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+
