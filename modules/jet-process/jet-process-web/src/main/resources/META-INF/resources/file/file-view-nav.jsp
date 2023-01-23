@@ -67,7 +67,7 @@
 		value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
-
+	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
 	<portlet:param name="mvcPath" value="/file/sendback.jsp" />
