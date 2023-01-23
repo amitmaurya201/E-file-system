@@ -24,7 +24,9 @@
 				|
 				<%=docFile.getFileNumber()%>
 				|
-				<%=docFile.getSubject()%></div>
+				<%=docFile.getSubject()%>
+				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>
+				</div>
 		</div>
 		<div class="container row">
 
@@ -46,3 +48,4 @@
 		</div>
 	</div>
 </div>
+<%@ include file ="/js/note.js"%>

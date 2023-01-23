@@ -60,10 +60,11 @@ public class NoteLocalServiceUtil {
 		return getService().addNote(note);
 	}
 
-	public static Note addNote(String content, long createdBy, long fileId)
+	public static Note addNote(
+			String content, long createdBy, long fileId, long noteId)
 		throws PortalException {
 
-		return getService().addNote(content, createdBy, fileId);
+		return getService().addNote(content, createdBy, fileId, noteId);
 	}
 
 	/**

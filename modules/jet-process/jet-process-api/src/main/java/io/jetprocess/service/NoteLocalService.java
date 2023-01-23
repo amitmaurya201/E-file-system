@@ -78,7 +78,8 @@ public interface NoteLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Note addNote(Note note);
 
-	public Note addNote(String content, long createdBy, long fileId)
+	public Note addNote(
+			String content, long createdBy, long fileId, long noteId)
 		throws PortalException;
 
 	/**

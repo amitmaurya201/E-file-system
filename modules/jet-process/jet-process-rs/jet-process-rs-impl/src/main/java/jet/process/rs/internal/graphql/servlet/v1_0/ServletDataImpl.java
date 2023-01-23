@@ -7,6 +7,7 @@ import javax.annotation.Generated;
 import jet.process.rs.internal.graphql.mutation.v1_0.Mutation;
 import jet.process.rs.internal.graphql.query.v1_0.Query;
 import jet.process.rs.resource.v1_0.FileRsModelResource;
+import jet.process.rs.resource.v1_0.NoteRsModelResource;
 import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 
 import org.osgi.framework.BundleContext;
@@ -28,6 +29,8 @@ public class ServletDataImpl implements ServletData {
 	public void activate(BundleContext bundleContext) {
 		Mutation.setFileRsModelResourceComponentServiceObjects(
 			_fileRsModelResourceComponentServiceObjects);
+		Mutation.setNoteRsModelResourceComponentServiceObjects(
+			_noteRsModelResourceComponentServiceObjects);
 		Mutation.setReceiptRsModelResourceComponentServiceObjects(
 			_receiptRsModelResourceComponentServiceObjects);
 
@@ -53,6 +56,10 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<FileRsModelResource>
 		_fileRsModelResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<NoteRsModelResource>
+		_noteRsModelResourceComponentServiceObjects;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ReceiptRsModelResource>

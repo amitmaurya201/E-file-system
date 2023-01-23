@@ -37,8 +37,8 @@ import org.osgi.service.component.annotations.Component;
 public class NoteServiceImpl extends NoteServiceBaseImpl {
 	
 	// addnote method 
-	public Note addNote(String content, long createdBy,long fileId) throws PortalException {
-		return noteLocalService.addNote(content, createdBy,fileId);
+	public Note addNote(String content, long createdBy,long fileId, long noteId) throws PortalException {
+		return noteLocalService.addNote(content, createdBy,fileId, noteId);
 	}
 	// delete note method 
 	public Note deleteNote(long noteId) throws PortalException {

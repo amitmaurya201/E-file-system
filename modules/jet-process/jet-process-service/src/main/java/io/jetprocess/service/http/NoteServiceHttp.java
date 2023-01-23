@@ -53,7 +53,7 @@ public class NoteServiceHttp {
 
 	public static io.jetprocess.model.Note addNote(
 			HttpPrincipal httpPrincipal, String content, long createdBy,
-			long fileId)
+			long fileId, long noteId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -61,7 +61,7 @@ public class NoteServiceHttp {
 				NoteServiceUtil.class, "addNote", _addNoteParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, content, createdBy, fileId);
+				methodKey, content, createdBy, fileId, noteId);
 
 			Object returnObj = null;
 
@@ -172,7 +172,7 @@ public class NoteServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(NoteServiceHttp.class);
 
 	private static final Class<?>[] _addNoteParameterTypes0 = new Class[] {
-		String.class, long.class, long.class
+		String.class, long.class, long.class, long.class
 	};
 	private static final Class<?>[] _deleteNoteParameterTypes1 = new Class[] {
 		long.class

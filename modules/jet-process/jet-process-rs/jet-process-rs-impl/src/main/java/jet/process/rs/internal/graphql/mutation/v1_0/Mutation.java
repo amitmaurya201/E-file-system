@@ -16,11 +16,14 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import jet.process.rs.dto.v1_0.FileRsModel;
+import jet.process.rs.dto.v1_0.NoteRsModel;
 import jet.process.rs.dto.v1_0.ReceiptRsModel;
 import jet.process.rs.resource.v1_0.FileRsModelResource;
+import jet.process.rs.resource.v1_0.NoteRsModelResource;
 import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -38,6 +41,14 @@ public class Mutation {
 
 		_fileRsModelResourceComponentServiceObjects =
 			fileRsModelResourceComponentServiceObjects;
+	}
+
+	public static void setNoteRsModelResourceComponentServiceObjects(
+		ComponentServiceObjects<NoteRsModelResource>
+			noteRsModelResourceComponentServiceObjects) {
+
+		_noteRsModelResourceComponentServiceObjects =
+			noteRsModelResourceComponentServiceObjects;
 	}
 
 	public static void setReceiptRsModelResourceComponentServiceObjects(
@@ -69,6 +80,38 @@ public class Mutation {
 			this::_populateResourceContext,
 			fileRsModelResource -> fileRsModelResource.updateDocFile(
 				fileRsModel));
+	}
+
+	@GraphQLField
+	public NoteRsModel createNote(
+			@GraphQLName("noteRsModel") NoteRsModel noteRsModel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteRsModelResource -> noteRsModelResource.createNote(noteRsModel));
+	}
+
+	@GraphQLField
+	public NoteRsModel editNote(
+			@GraphQLName("noteRsModel") NoteRsModel noteRsModel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteRsModelResource -> noteRsModelResource.editNote(noteRsModel));
+	}
+
+	@GraphQLField
+	public Response deleteNote(@GraphQLName("noteId") Long noteId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteRsModelResource -> noteRsModelResource.deleteNote(noteId));
 	}
 
 	@GraphQLField
@@ -148,6 +191,20 @@ public class Mutation {
 	}
 
 	private void _populateResourceContext(
+			NoteRsModelResource noteRsModelResource)
+		throws Exception {
+
+		noteRsModelResource.setContextAcceptLanguage(_acceptLanguage);
+		noteRsModelResource.setContextCompany(_company);
+		noteRsModelResource.setContextHttpServletRequest(_httpServletRequest);
+		noteRsModelResource.setContextHttpServletResponse(_httpServletResponse);
+		noteRsModelResource.setContextUriInfo(_uriInfo);
+		noteRsModelResource.setContextUser(_user);
+		noteRsModelResource.setGroupLocalService(_groupLocalService);
+		noteRsModelResource.setRoleLocalService(_roleLocalService);
+	}
+
+	private void _populateResourceContext(
 			ReceiptRsModelResource receiptRsModelResource)
 		throws Exception {
 
@@ -165,6 +222,8 @@ public class Mutation {
 
 	private static ComponentServiceObjects<FileRsModelResource>
 		_fileRsModelResourceComponentServiceObjects;
+	private static ComponentServiceObjects<NoteRsModelResource>
+		_noteRsModelResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ReceiptRsModelResource>
 		_receiptRsModelResourceComponentServiceObjects;
 

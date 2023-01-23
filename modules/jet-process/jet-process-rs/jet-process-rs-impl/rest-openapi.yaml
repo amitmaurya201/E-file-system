@@ -154,7 +154,25 @@ components:
           format: int64
           type: integer
            
-      type: object    
+      type: object   
+    NoteRsModel:
+      description: Contains all the data for note creation.
+      properties:
+        noteId:
+          format: int64
+          type: integer
+        content:
+          type: string
+        createdBy:
+          format: int64
+          type: integer
+        signature:
+          type: string
+        fileId:
+          format: int64
+          type: integer
+          
+      type: object      
 paths:
   /createFile:
     post:
@@ -267,4 +285,68 @@ paths:
               schema:
                   $ref: '#/components/schemas/ReceiptRsModel'
           description: ''
-      tags: ["ReceiptRsModel"]   
+      tags: ["ReceiptRsModel"]
+  /createNote:
+    post:
+      operationId: createNote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/NoteRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/NoteRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/NoteRsModel'
+          description: ''
+      tags: ["NoteRsModel"] 
+  /editNote:
+    put:
+      operationId: editNote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/NoteRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/NoteRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/NoteRsModel'
+          description: ''
+      tags: ["NoteRsModel"] 
+  /deleteNote/{noteId}:
+    post:
+      operationId: deleteNote
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: noteId to delete note.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags: ["NoteRsModel"]     
+      

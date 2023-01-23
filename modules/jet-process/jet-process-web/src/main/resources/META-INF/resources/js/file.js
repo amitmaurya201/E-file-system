@@ -191,7 +191,9 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
 
 	
 	/* update docFile */
-Liferay.provide(window,'editFile',function(event) {
+/*Liferay.provide(window,'editFile',function(event) {*/
+$("#<portlet:namespace />update-docfile").on('click', function(e){
+
 		event.preventDefault();
    	 var formObj= $('#<portlet:namespace/>updateformId')[0];
    	 console.log("formObj"+formObj);

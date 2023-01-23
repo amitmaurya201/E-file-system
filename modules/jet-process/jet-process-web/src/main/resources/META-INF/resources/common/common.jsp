@@ -88,5 +88,30 @@ String char_width = PropsUtil.get("max.width");
 	});
  
  
+ function noteFormDataJson(formObj){
+	   var formdata = new FormData(formObj);
+	   console.log(formdata);
+	var portletnamespace = '<portlet:namespace/>';
+	   var object = {};
+  	 formdata.forEach(function(value, key){
+  	 console.log("value"+value+"key"+key);
+  	  var keySpace = key.trim();
+   var splitnamespace = keySpace.split(portletnamespace)[1]; 
+  	  console.log("splitnamespace"+splitnamespace);
+  	 var splitkey = splitnamespace;
+  	
+  	 
+	   if (splitkey=="formDate" || splitkey == ""){
+		   delete object[splitkey] ;   
+	   }else{
+		 object[splitkey] = value;
+		 console.log(object);
+		
+	   } 	  
+	 });
+	 
+	 return object;
+	   
+   }
  	
  </aui:script>
