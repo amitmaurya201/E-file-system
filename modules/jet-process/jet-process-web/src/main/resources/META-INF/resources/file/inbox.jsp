@@ -173,7 +173,7 @@
 								<c:set value="${fileinboxDtoList.getFileMovementId()}" var="senderId"></c:set>
 								
 								<a href="#" class="button open"
-									onclick=" showModal(${senderId})">${fileinboxDtoList.getSentBy()}</a>
+									onclick=" showModal(<%=fileinboxDtoList.getSenderId() %>)">${fileinboxDtoList.getSentBy()}</a>
 
 							</liferay-ui:search-container-column-text>
 
@@ -205,7 +205,7 @@
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
 										<span><a href="#" class="button open"
-											onclick="receiveModal(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()} )">
+											onclick="receiveModal(<%=fileinboxDtoList.getSenderId() %>},${fileinboxDtoList.getFileMovementId()} )">
 												<liferay-ui:message key="label-file-inbox-action-receive" />
 										</a></span>&nbsp;
 											<span><a href="${sendURL}"> <liferay-ui:message
@@ -238,7 +238,7 @@
 								
 								
 								<a href="#" class="button open"
-								onclick=" showModal(${senderId})">${fileinboxDtoList.getSentBy()}</a>
+								onclick=" showModal(<%=fileinboxDtoList.getSenderId() %>)">${fileinboxDtoList.getSentBy()}</a>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
@@ -416,10 +416,12 @@ $("#alert-remove").slideUp(500);
 });
 	
 function showModal(id){
+	alert(id);
 	Liferay.Service(
 			'/masterdata.userpost/get-user-post-by-id',
 			{
-			    userPostId: id
+			userPostId: id
+			    
 			},
 			function(obj) {
 				var name=document.getElementById("name");
