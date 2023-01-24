@@ -58,9 +58,26 @@ taglib
 		margin-top: 0;
 	}
 }
+
+
+
+.angled{
+	
+	width:300px !important;
+	height:30px !important;
+	margin-top:10px !important;
+	margin-left:auto;
+    background-color: #e1e1e1 !important;
+	font-size: calc(1rem * 1.25) !important;
+    border-right: 50px solid white !important;
+    border-bottom: 50px solid transparent !important;
+    
+}
+
+
 </style>
 
-<c:set var="receipt" value="${ receipt}"></c:set>
+
 
 <div class="row mt-2 p-2 border border-dark  "
 	style="width: 100%; padding: 20px !important; marging: 20px; !important">
@@ -189,8 +206,8 @@ taglib
 					</nav>
 				</div>
 
-				<div class="col-md-12" style="margin-top: 10px !important">
-					<h5>
+				<div class="col-md-12 angled" style="margin-top: 10px !important" >
+					<h5 class="align-middle"> 
 						Movement History
 					</h5>
 				</div>

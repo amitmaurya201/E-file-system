@@ -250,10 +250,11 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 						&& !receiptMovement.getActive()) {
 					logger.info("attachable true");
 					attachable = true;
-				} else {
-					logger.info("attachable false");
-					attachable = false;
 				}
+//				else {
+//					logger.info("attachable false");
+//					attachable = false;
+//				}
 			}
 			return attachable;
 		}

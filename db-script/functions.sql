@@ -1072,7 +1072,7 @@ ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text
 --     ------------------------------ Get put in file list count  -----------------------------------------------------------------
 
     
-    
+   
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
 	user_post_id bigint,
 	keyword integer)
@@ -1094,33 +1094,29 @@ total :=0;
             IF  keyword !=0 AND keyword IS NOT NULL  THEN
    
                  
-                select sum (s.c) from (
-                select count(*) into total as c  from
-                (SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
-                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=user_post_id and r.attachstatus is null and r.currentlywith=user_post_id
-                AND EXTRACT(YEAR FROM r.createDate) = keyword
-                union 
-                SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
-                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
-                from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
-                group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =user_post_id) as t on t.rmreceiptid =r.receiptid
-                where r.currentlywith=user_post_id and r.attachstatus is null AND EXTRACT(YEAR FROM r.createDate) = keyword) as tm
-                GROUP BY receiptid) as s;
+                    SELECT COUNT(*) INTO total
+                    FROM PUBLIC.jet_process_receipt r 
+                    JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
+                                                                    where mov.active_ = true OR mov.movementtype=0
+                    group by mov.receiptId) as fmov on fmov.receiptId = r.receiptid
+                    INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on rmt.rmid=fmov.mreceiptId 
+
+                    JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
+    
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id  AND EXTRACT(YEAR FROM r.createDate) =keyword;
             return total;
             END IF;
                 
-                select sum (s.c) from (
-                select count(*)  into total as c  from
-                (SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature 
-                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.userpostid=user_post_id and r.attachstatus is null and r.currentlywith=user_post_id
+                SELECT COUNT(*) INTO total
+                    FROM PUBLIC.jet_process_receipt r 
+                    JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
+                                                                    where mov.active_ = true OR mov.movementtype=0
+                    group by mov.receiptId) as fmov on fmov.receiptId = r.receiptid
+                    INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on rmt.rmid=fmov.mreceiptId 
 
-                union 
-                SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature
-                FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
-                 from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
-                 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid where rm.receiverid =user_post_id) as t on t.rmreceiptid =r.receiptid
-                 where r.currentlywith=user_post_id and r.attachstatus is null ) as tm
-                 GROUP BY receiptid) as s;
+                    JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
+    
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id ;
             RETURN total;
         END IF;
 
@@ -1133,8 +1129,9 @@ ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
     
 --    -------------------------------------------------- Get Put in file List  ----------------------------------------------------
 
-   
+  
 --      FUNCTION: public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
+
 
 DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, integer, integer, integer, text, text);
 
@@ -1145,7 +1142,7 @@ CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-   RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying,isread boolean ) 
+   RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying,isread boolean,  receiptmovementid bigint ) 
    LANGUAGE 'plpgsql'
    COST 100
    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1168,23 +1165,21 @@ AS $BODY$
   begin
     
     
- q1='  SELECT r.receiptid, r.receiptnumber , r.subject, ca.categoryvalue as category, r.createDate, r.remarks as remark, null as viewpdfurl , r.nature, true as isread 
-  FROM PUBLIC.jet_process_receipt r INNER JOIN PUBLIC.md_category ca ON ca.categorydataid = r.receiptcategoryid where r.attachstatus is null  ';
-
-  q2=' union 
-  SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null, r.nature,( CASE 
-                                                                                                                                                  WHEN rmt.receivedon  IS NULL OR rmt.receivedon ='''' THEN false 
-                                                                                                                                                  WHEN rmt.receivedon = ''receive'' THEN true
-                                                                                                                                                  ELSE false
-                                                                                                                                                  END
-                                                                                                                                                  )  AS isread 
-  FROM PUBLIC.jet_process_receipt r INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on r.receiptid=rmt.receiptid  INNER JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid join(select rm.receiptid as rmreceiptid 
-  from PUBLIC.jet_process_receiptmovement rm Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true
-  group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid ';
+ q1='SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null,
+  r.nature,  ( CASE 
+                                                                                                                                                   
+  WHEN rmt.receivedon  IS NULL OR rmt.receivedon ='''' THEN false  WHEN rmt.receivedon=''receive'' THEN true ELSE false  END )  AS isread, rmt.rmid as receiptmovementid
+   FROM PUBLIC.jet_process_receipt r 
+   JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
+                                                    where mov.active_ = true OR mov.movementtype=0
+   group by mov.receiptId) as fmov on fmov.receiptId = r.receiptid
+    INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on rmt.rmid=fmov.mreceiptId 
+ 
+    JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
+    
+   where  r.attachstatus is null ';
   
-  q3:=') as t on t.rmreceiptid =r.receiptid
-  where  r.attachstatus is null  ';
-  _query :=q1||q2;
+ 
                 
 --         _keyword := '''%'||keyword||'%''';
       _order :=_orderByType;
@@ -1214,11 +1209,11 @@ AS $BODY$
                       
                       IF (userpostid !=0 )THEN
                                              
-                           _query := q1|| ' AND r.currentlywith='|| userpostid ||'AND r.userpostid='||userpostid||q2||' where rm.receiverid = '||userpostid||q3;
+                           _query := q1|| ' AND r.currentlywith='||userpostid;
                           
                              if (keyword !=0 AND keyword IS NOT NULL  ) THEN  
                                       _query := '';
-                                   _query := q1|| ' AND r.userpostid='||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ||q2||' where rm.receiverid= '||userpostid||q3 ||'AND r.currentlywith= '|| userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword ;
+                                   _query := q1|| ' AND r.currentlywith= '||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword;
                         
                                    if (_orderby !='')  THEN 
                   
@@ -1278,7 +1273,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
    OWNER TO postgres;
-
     
 --    -------------------------------------  Get File Movement Count  -----------------------------------------------
 

@@ -90,7 +90,7 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", ""+delta+"");
 		
 		if(receiptId != 0) {
-			receiptMovementList = 	recieptList.getReceiptMovementList(receiptId, 0, "", start, end, "", "");
+			receiptMovementList = 	recieptList.getReceiptMovementList(receiptId,0, "", start, end, "", "");
 		}
 		System.out.println("start : "+start+" , End : "+end);
 		renderRequest.setAttribute("receiptMovementList", receiptMovementList);

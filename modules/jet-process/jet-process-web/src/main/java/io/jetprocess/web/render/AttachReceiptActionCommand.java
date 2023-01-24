@@ -33,7 +33,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		System.out.println("status : ");
 		boolean status=receiptMovementLocalService.isReceiptAttachable(receiptPK);
 		System.out.println("status -----> : "+status);
-		if(status==false) {
+		if(status==true) {
 			
 			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
 			System.out.println("working--------");

@@ -19,7 +19,7 @@
 		displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
 		itemsTotal="${receiptCount}" searchContainerId="receiptList" />
 
-	<aui:form action="${attachReceipt}" id="formId" method="post"
+	<aui:form action="${attachReceipt}"  method="post"
 		name="attachReceipt">
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
@@ -43,12 +43,14 @@
 				</portlet:renderURL>
 				
 				<liferay-ui:search-container-column-text >
-					<aui:input type="radio" name="receipt"
-						value="<%=aReceiptListViewDto.getReceiptId()%>" />
-					<aui:input name="isRead" id="isRead"
-						value="<%=aReceiptListViewDto.isRead()%>" type="hidden"></aui:input>
+					<aui:input type="radio" onchange="receiptDetail(${aReceiptListViewDto.isRead()},
+					${aReceiptListViewDto.getReceiptId()},
+					 ${aReceiptListViewDto.getReceiptMovementId()})" 
+					name="receipt"
+					value="<%=aReceiptListViewDto.getReceiptId()%>" />
+					
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
+				<liferay-ui:search-container-column-text  name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="Receipt Number" />
@@ -63,7 +65,6 @@
 			<aui:validator name="required" />
 		</aui:input>
 
-		<aui:button cssClass="d-none" id="attachFormSubmit" type="submit"></aui:button>
 		<aui:button cssClass="btn btn-primary" id="attachForm"
 			style="float: right; margin-top: 10px;" type="button" value="Attach"></aui:button>
 
@@ -107,9 +108,9 @@
 				<h6>Do you wanna Read as received and continue</h6>
 				<aui:form action="${receiptReceive}" id="receiveForm" method="post"
 					name="receiveForm">
-					<aui:input name="receiptId" value="3004" type="hidden"></aui:input>
-					<aui:input name="rmId" value="1902"
-						type="hidden"></aui:input>
+					<aui:input name="receiptId"  type="text"></aui:input>
+					<aui:input name="rmId" 
+						type="text"></aui:input>
 					<aui:button type="button" class="btn btn-secondary"
 						data-dismiss="modal" value="No"></aui:button>
 					<aui:button type="submit" class="btn btn-primary" value="Yes"></aui:button>
@@ -133,26 +134,35 @@
 
 
 
-<aui:script>
+<script>
+var isRead;
+var receiptId;
+var receiptMovementId;
 
+function receiptDetail(_isRead, _receiptId, _receiptMovementId){
+	isRead=_isRead;
+	receiptId=_receiptId;
+	receiptMovementId=_receiptMovementId;
+	console.log(isRead+" : "+receiptId+" : "+receiptMovementId)
+}
 
 
 $('#<portlet:namespace />attachForm').click(function(){
-	var isRead=$('#<portlet:namespace />isRead').val();
 	alert(isRead)
-	if(isRead == 'false'){
+	console.log(isRead+" -:- "+receiptId+" -:- "+receiptMovementId)
+	if(isRead == false){
+		alert("IF.....")
+		$("#<portlet:namespace />receiptId").val(receiptId);
+		$("#<portlet:namespace />rmId").val(receiptMovementId);
+		
 		$('#isReadAlert').trigger('click');
+		
+		/* $("#<portlet:namespace />attachReceipt").submit(); */
 	}else{
 		alert("else...")
-		<%-- var url = '${attachReceipt}';
-	    document.forms["attachReceipt"].action=url;
-	    document.forms["attachReceipt"].submit(); --%>
-	    console.log($("#<portlet:namespace />formId"))
-		<%-- $("#<portlet:namespace />formId").get(0).submit(); --%>
-	<!-- $(this).submit(); -->
-		$("#<portlet:namespace />attachFormSubmit").click();
+		$("#<portlet:namespace />attachReceipt").submit();
 	}
 }) 
 
-</aui:script>
+</script>
 

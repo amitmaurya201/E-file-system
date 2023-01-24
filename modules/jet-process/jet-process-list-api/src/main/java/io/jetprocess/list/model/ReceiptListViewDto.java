@@ -13,12 +13,13 @@ public class ReceiptListViewDto {
 	private String viewPdfUrl;
 	private String nature;
 	private boolean isRead;
+	private long receiptMovementId;
 	public ReceiptListViewDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public ReceiptListViewDto(long receiptId, String receiptNumber, String subject, String category, Date createDate,
-			String remark, String viewPdfUrl, String nature, boolean isRead) {
+			String remark, String viewPdfUrl, String nature, boolean isRead, long receiptMovementId) {
 		super();
 		this.receiptId = receiptId;
 		this.receiptNumber = receiptNumber;
@@ -29,6 +30,7 @@ public class ReceiptListViewDto {
 		this.viewPdfUrl = viewPdfUrl;
 		this.nature = nature;
 		this.isRead = isRead;
+		this.receiptMovementId = receiptMovementId;
 	}
 	public long getReceiptId() {
 		return receiptId;
@@ -84,12 +86,20 @@ public class ReceiptListViewDto {
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
 	}
+	public long getReceiptMovementId() {
+		return receiptMovementId;
+	}
+	public void setReceiptMovementId(long receiptMovementId) {
+		this.receiptMovementId = receiptMovementId;
+	}
 	@Override
 	public String toString() {
 		return "ReceiptListViewDto [receiptId=" + receiptId + ", receiptNumber=" + receiptNumber + ", subject="
 				+ subject + ", category=" + category + ", createDate=" + createDate + ", remark=" + remark
-				+ ", viewPdfUrl=" + viewPdfUrl + ", nature=" + nature + ", isRead=" + isRead + "]";
+				+ ", viewPdfUrl=" + viewPdfUrl + ", nature=" + nature + ", isRead=" + isRead + ", receiptMovementId="
+				+ receiptMovementId + "]";
 	}
+	
 	
 	
 	

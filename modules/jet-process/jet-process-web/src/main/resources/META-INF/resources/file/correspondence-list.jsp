@@ -68,6 +68,11 @@
 		windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 		<portlet:param name="mvcRenderCommandName" value="<%="/correspondencesInfo" %>"/>
 	</portlet:renderURL>
+	
+	<portlet:renderURL var="receiptDetailsPopup">
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
+				</portlet:renderURL>
 
 <div>
 	<div class="" style="font-size: 18px">
@@ -89,22 +94,17 @@
 			className="io.jetprocess.list.model.FileCorrespondenceReceiptDTO"
 			modelVar="aFileCorrespondenceReceiptDTO">
 			<liferay-ui:search-container-column-text>
-			<a class="Info" onclick="test()">
+			<a class="Info" onclick="infoPopup(${aFileCorrespondenceReceiptDTO.receiptId })">
 				<i class="fa fa-info-circle"  style="color:blue;font-size:16px; cursor:help"></i>
 			</a>
-			<aui:input type="hidden" name="receiptId" value="${aFileCorrespondenceReceiptDTO.receiptId }"></aui:input>
 			</liferay-ui:search-container-column-text>
 		
 			<liferay-ui:search-container-column-text ><%=aFileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 			
-			<portlet:renderURL var="receiptDetails">
-					<portlet:param name="mvcRenderCommandName"
-						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
-					<portlet:param name="receiptId" value="${receipt.receiptId }" />
-					<portlet:param name="backPageURL" value=""></portlet:param>
-				</portlet:renderURL>
 			
-			<liferay-ui:search-container-column-text name = " Receipt No." property="receiptNumber" />
+			
+			<liferay-ui:search-container-column-text  name =" Receipt No." property="receiptNumber" />
+				
 			<liferay-ui:search-container-column-text property="subject" />
 		
 		<liferay-ui:search-container-column-text  name="type" property="correspondenceType"/>
@@ -157,10 +157,40 @@ if (viewMode == 'ViewModeFromSentRecipt') {
 					
 					
 	
-	$(".Info").click(()=>{
-	alert($("#<portlet:namespace />receiptId").val())
 	
-		 Liferay.Util.openWindow({ 
+	
+	</aui:script>
+	
+	<script>
+	
+	function infoPopup(receiptId){
+	alert(receiptId)
+	
+	 Liferay.Util.openWindow({ 
+				dialog: { 														 
+						height: 550,														 
+						destroyOnClose: true,														 
+						destroyOnHide: true, 														 
+						modal: true, 														 
+						width: 1200,
+						on: {
+          			 	destroy: function() { 
+               		parent.location.reload();                   
+               		 	}
+      					 }													 
+					}, 														 
+					id: '<portlet:namespace />dialog',														 
+					title: 'Correspondence Details', 														 
+					uri: '<%= correspondencesinfoViewPopup %>&<portlet:namespace />receiptId='+receiptId,			
+					});
+				 
+	
+	}
+	
+	function receiptDetailPopup(receiptId){
+		alert(receiptId)
+		
+		  Liferay.Util.openWindow({ 
 					dialog: { 														 
 							height: 550,														 
 							destroyOnClose: true,														 
@@ -168,16 +198,17 @@ if (viewMode == 'ViewModeFromSentRecipt') {
 							modal: true, 														 
 							width: 1200,
 							on: {
-               			 	destroy: function() { 
-                    		parent.location.reload();                   
-                    		 	}
-           					 }													 
+	          			 	destroy: function() { 
+	               		parent.location.reload();                   
+	               		 	}
+	      					 }													 
 						}, 														 
 						id: '<portlet:namespace />dialog',														 
-						title: 'Correspondence Details', 														 
-						uri: '<%= correspondencesinfoViewPopup %>&<portlet:namespace />receiptId='+$("#<portlet:namespace />receiptId").val(),			
+						title: 'Receipt Details', 														 
+						uri: '<%= receiptDetailsPopup %>&<portlet:namespace />receiptId='+receiptId,			
 						});
-					 
-					});	
-	</aui:script>
+					  
+		
+		}
+	</script>
 	
