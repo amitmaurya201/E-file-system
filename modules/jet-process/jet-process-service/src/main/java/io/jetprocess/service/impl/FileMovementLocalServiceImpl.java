@@ -255,8 +255,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			boolean active = fileMovementLocalService.isActive(docFileId);
 			if (active == false) {
 				docFile.setCurrentState(FileStatus.CREADTED);
-				docFileLocalService.updateDocFile(docFile);
 			}
+			docFileLocalService.updateDocFile(docFile);
 			SessionMessages.add(actionRequest, "pullback-available");
 		} else {
 			SessionErrors.add(actionRequest, "pullback-not-available");
