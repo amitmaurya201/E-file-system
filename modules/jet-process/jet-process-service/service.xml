@@ -349,9 +349,15 @@
 		<column name="content" type="String"></column>
 		<column name="createdBy" type="long"></column>
 		<column name="signature" type="String"></column>
+		
+		<finder name="userPostId" return-type="Note">
+  		<finder-column name="createdBy"></finder-column>
+  		</finder> 
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
+		
+		
 
 	</entity>
 	

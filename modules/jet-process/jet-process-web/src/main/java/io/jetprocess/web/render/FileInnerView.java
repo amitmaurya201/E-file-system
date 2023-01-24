@@ -28,7 +28,10 @@ import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
+import io.jetprocess.model.Note;
 import io.jetprocess.service.DocFileLocalService;
+import io.jetprocess.service.NoteLocalService;
+import io.jetprocess.service.persistence.NotePersistence;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
 
@@ -54,6 +57,10 @@ public class FileInnerView implements MVCRenderCommand {
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		sessionPutInFileId.setAttribute("putInFileId", docFileId);
 		
+		   String UpostId = (String) sessionPutInFileId.getAttribute("userPostId"); 
+		   long userPostId = Long.parseLong(UpostId);
+		   System.out.println("UpostId"+userPostId);
+		
 
 
 			try {
@@ -63,9 +70,12 @@ public class FileInnerView implements MVCRenderCommand {
 				renderRequest.setAttribute("docFileObj", docFile);
 				renderRequest.setAttribute("CurrentURL", currentURL);
 				renderRequest.setAttribute("fileMovementId", fileMovementId);
+				Note note = noteLocalService.getNoteByUserPostId(userPostId);
+				renderRequest.setAttribute("noteId", note.getNoteId());
+				renderRequest.setAttribute("noteObj", note);
 
 			} catch (PortalException e) {
-				
+			   e.printStackTrace();
 			}
 			setCorrespondenceListAttributes(renderRequest);
 			setCorrespondenceToolbarAttributes(renderRequest,renderResponse);
@@ -123,10 +133,14 @@ public class FileInnerView implements MVCRenderCommand {
 	 
 	private static Log logger = LogFactoryUtil.getLog(FileInnerView.class);
 	
-	 @Reference
+	@Reference
 	private Portal _portal;
-	 @Reference
+	@Reference
 	private FileList fileLists;
+	@Reference
+	private NoteLocalService noteLocalService;
+
+	 
 	
 
 }

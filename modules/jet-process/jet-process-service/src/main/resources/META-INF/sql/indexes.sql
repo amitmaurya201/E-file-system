@@ -16,6 +16,7 @@ create unique index IX_4B99535D on JET_PROCESS_FileMovement (uuid_[$COLUMN_LENGT
 create index IX_ED549ADE on JET_PROCESS_FileNote (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_366240E0 on JET_PROCESS_FileNote (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_B57C66C1 on JET_PROCESS_Note (createdBy);
 create index IX_7258B042 on JET_PROCESS_Note (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_B7745F44 on JET_PROCESS_Note (uuid_[$COLUMN_LENGTH:75$], groupId);
 

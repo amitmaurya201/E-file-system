@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1445,6 +1447,213 @@ public class NotePersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"note.companyId = ?";
 
+	private FinderPath _finderPathFetchByuserPostId;
+	private FinderPath _finderPathCountByuserPostId;
+
+	/**
+	 * Returns the note where createdBy = &#63; or throws a <code>NoSuchNoteException</code> if it could not be found.
+	 *
+	 * @param createdBy the created by
+	 * @return the matching note
+	 * @throws NoSuchNoteException if a matching note could not be found
+	 */
+	@Override
+	public Note findByuserPostId(long createdBy) throws NoSuchNoteException {
+		Note note = fetchByuserPostId(createdBy);
+
+		if (note == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("createdBy=");
+			sb.append(createdBy);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchNoteException(sb.toString());
+		}
+
+		return note;
+	}
+
+	/**
+	 * Returns the note where createdBy = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param createdBy the created by
+	 * @return the matching note, or <code>null</code> if a matching note could not be found
+	 */
+	@Override
+	public Note fetchByuserPostId(long createdBy) {
+		return fetchByuserPostId(createdBy, true);
+	}
+
+	/**
+	 * Returns the note where createdBy = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param createdBy the created by
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching note, or <code>null</code> if a matching note could not be found
+	 */
+	@Override
+	public Note fetchByuserPostId(long createdBy, boolean useFinderCache) {
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {createdBy};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByuserPostId, finderArgs);
+		}
+
+		if (result instanceof Note) {
+			Note note = (Note)result;
+
+			if (createdBy != note.getCreatedBy()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_NOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_USERPOSTID_CREATEDBY_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(createdBy);
+
+				List<Note> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByuserPostId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {createdBy};
+							}
+
+							_log.warn(
+								"NotePersistenceImpl.fetchByuserPostId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Note note = list.get(0);
+
+					result = note;
+
+					cacheResult(note);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Note)result;
+		}
+	}
+
+	/**
+	 * Removes the note where createdBy = &#63; from the database.
+	 *
+	 * @param createdBy the created by
+	 * @return the note that was removed
+	 */
+	@Override
+	public Note removeByuserPostId(long createdBy) throws NoSuchNoteException {
+		Note note = findByuserPostId(createdBy);
+
+		return remove(note);
+	}
+
+	/**
+	 * Returns the number of notes where createdBy = &#63;.
+	 *
+	 * @param createdBy the created by
+	 * @return the number of matching notes
+	 */
+	@Override
+	public int countByuserPostId(long createdBy) {
+		FinderPath finderPath = _finderPathCountByuserPostId;
+
+		Object[] finderArgs = new Object[] {createdBy};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_NOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_USERPOSTID_CREATEDBY_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(createdBy);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_USERPOSTID_CREATEDBY_2 =
+		"note.createdBy = ?";
+
 	public NotePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1472,6 +1681,10 @@ public class NotePersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {note.getUuid(), note.getGroupId()}, note);
+
+		finderCache.putResult(
+			_finderPathFetchByuserPostId, new Object[] {note.getCreatedBy()},
+			note);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1548,6 +1761,13 @@ public class NotePersistenceImpl
 
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(_finderPathFetchByUUID_G, args, noteModelImpl);
+
+		args = new Object[] {noteModelImpl.getCreatedBy()};
+
+		finderCache.putResult(
+			_finderPathCountByuserPostId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByuserPostId, args, noteModelImpl);
 	}
 
 	/**
@@ -2052,6 +2272,16 @@ public class NotePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByuserPostId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByuserPostId",
+			new String[] {Long.class.getName()}, new String[] {"createdBy"},
+			true);
+
+		_finderPathCountByuserPostId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByuserPostId",
+			new String[] {Long.class.getName()}, new String[] {"createdBy"},
+			false);
 
 		_setNoteUtilPersistence(this);
 	}

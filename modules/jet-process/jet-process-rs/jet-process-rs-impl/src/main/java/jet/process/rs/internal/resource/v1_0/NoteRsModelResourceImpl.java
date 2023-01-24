@@ -22,7 +22,6 @@ import io.jetprocess.service.NoteLocalService;
 public class NoteRsModelResourceImpl extends BaseNoteRsModelResourceImpl {
 	@Override
 	public NoteRsModel createNote(NoteRsModel noteRsModel) throws Exception {
-		System.out.println("noteRs");
 		Note note = noteLocalService.addNote(noteRsModel.getContent(), noteRsModel.getCreatedBy(), noteRsModel.getFileId(), noteRsModel.getNoteId());
 		long noteId = note.getNoteId();
 		System.out.println(noteId);
@@ -38,7 +37,6 @@ public class NoteRsModelResourceImpl extends BaseNoteRsModelResourceImpl {
 	public Response deleteNote(Long noteId)throws Exception {
 		noteLocalService.deleteNote(noteId);
 		Response.ResponseBuilder responseBuilder = Response.ok();
-
 		return responseBuilder.build();
 	}
 

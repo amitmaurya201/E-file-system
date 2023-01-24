@@ -1,5 +1,10 @@
 <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+<style>
+ textarea {
+  background-color : #bef8c7;
 
+}
+</style>
 
 <div style="background-color: #bef8c7; height: 400px">
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
@@ -25,7 +30,14 @@
 			</button>
 			</div>	
          	<input name = "noteId" id = "noteId" value = "0" type= "hidden"/>
-			<textarea id = "content" name="content"></textarea>
+         	<c:set var ="note" scope ="session" value = "${noteObj}" />
+         	<c:if test = "${ empty note.noteId }">
+         	<textarea id = "content" name="content"></textarea>
+         	</c:if>
+         	<c:if test ="${not empty note }">
+         	<textarea id = "content" name="content">${note.content}</textarea>
+         	</c:if>
+			
 		</div>
 	</aui:form>
 	

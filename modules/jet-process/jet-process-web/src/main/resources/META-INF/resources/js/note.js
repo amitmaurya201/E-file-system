@@ -44,8 +44,19 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 		 console.log(response);
 		noteId=response.noteId;
 		 $("#noteId").val(noteId).trigger('change');
+		 swal( {
+				title: "Successfull!",
+	             text: `Note is created successfully!`,
+	             icon: "success",
+				})
+			
 		 console.log("noteId"+noteId);
 	 }).fail(function(error){
+		 swal({  
+				title: " Oops!",  
+			  	text: "Note has not been created!",  
+			  	icon: "error",
+			})
 		 console.log(error);
 		 
 	 }) 
@@ -53,6 +64,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 
  function removeNote(){
 	 var noteId = $('#noteId').val();
+	 console.log("noteId"+noteId);
 	 $.ajax({
 		 type:"POST",
 		 url:"${setURL}/o/jet-process-rs/v1.0/deleteNote/"+noteId+"?p_auth=" + Liferay.authToken,
@@ -68,9 +80,9 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 			title: "Successfull!",
              text: `You have successfully deleted your note!`,
              icon: "success",
-			}).then (function(){
-				 window.location.reload( true );
-			})  
+			}).then(function(){
+				window.location.reload(true);
+			})
 		
 	 }).fail(function(error){
 		 $('#exampleModal').hide();
@@ -78,9 +90,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 				title: " Oops!",  
 			  	text: "Note has not been created!",  
 			  	icon: "error",
-			}).then (function(){
-				 window.location.reload( true );
-			})  
+			})
 	 })
 		 
 	}
