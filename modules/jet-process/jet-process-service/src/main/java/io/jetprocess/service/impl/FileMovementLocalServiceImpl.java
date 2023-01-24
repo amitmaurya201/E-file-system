@@ -153,7 +153,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				receiptMovement.setSenderId(senderId);
 				receiptMovement.setReceiptId(fileId);
 				receiptMovement.setRemark(remarkOfInFile);
-				receiptMovement.setActive(true);
+				receiptMovement.setActive(false);
 				receiptMovement.setMovementType(MovementStatus.IN_FILE);
 				receiptMovement.setFileInMovementId(fmId);
 				receiptMovementLocalService.addReceiptMovement(receiptMovement);

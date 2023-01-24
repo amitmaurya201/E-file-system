@@ -196,7 +196,7 @@
 	nav.style.color = 'blue';
 
 	var viewMode = "${param.viewMode}";
-	if (viewMode == 'ViewModeFromSentRecipt') {
+	if (viewMode == 'ViewModeFromSentFile') {
 		$('#edit').addClass('disabled');
 		$('#send').addClass('disabled');
 	}
