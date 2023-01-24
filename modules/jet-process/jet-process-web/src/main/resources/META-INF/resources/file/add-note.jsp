@@ -17,7 +17,7 @@
 	<aui:form name="addNote" >
 		<div id="editor" style="display: none;">
 			<div style="background-color:green;">
-			<button type="button" id="removeNote">
+			<button  id="removeNote" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 			<i class="bi bi-clipboard-x-fill"></i>
 			</button>
 			<button type="button" id= "addNoteButton" >
@@ -32,15 +32,27 @@
 </div>
 
 <br>
-<div id="my-content-div">
-	<div>
-	<p>Are you sure you want to delete note ?</p>
-		<button type = "button" id = "remove">Ok</button>
-		<button type = "button" id = "cancel">Cancel</button>
-	</div>
-</div>
 
-<!-- AUI Script For Modal Dialog POPUP -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>Are you sure you want to delete ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id = "cancel" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id = "deleteNote" onClick ="removeNote()" >Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

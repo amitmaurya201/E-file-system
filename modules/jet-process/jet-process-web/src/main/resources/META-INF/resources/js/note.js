@@ -15,11 +15,14 @@ function openGreenNote() {
 }
 
 var userPostId = $('#<portlet:namespace />userPostsVal').val();
+
 	$('#addNoteButton').on('click',function(e){
 	 event.preventDefault();
+	 console.log("userPostId"+userPostId);
 	 var fileId = $('#docFileId').val();
 	 console.log("fileId"+fileId);
 	 var content = CKEDITOR.instances.content.document.getBody().getText();
+	 console.log("content"+content);
 	 var noteId = $('#noteId').val();
 	 console.log(noteId);
 	var object = {};
@@ -48,26 +51,37 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 }) 
  })
 
+ function removeNote(){
+	 var noteId = $('#noteId').val();
+	 $.ajax({
+		 type:"POST",
+		 url:"${setURL}/o/jet-process-rs/v1.0/deleteNote/"+noteId+"?p_auth=" + Liferay.authToken,
+		 data:noteId,
+		    cache : false,
+		    processData: false,
+	        contentType : 'text/plain'
+		 
+		 
+	 }).done(function(response){
+		$('#exampleModal').hide();
+		 swal( {
+			title: "Successfull!",
+             text: `You have successfully deleted your note!`,
+             icon: "success",
+			}).then (function(){
+				 window.location.reload( true );
+			})  
+		
+	 }).fail(function(error){
+		 $('#exampleModal').hide();
+		 swal({  
+				title: " Oops!",  
+			  	text: "Note has not been created!",  
+			  	icon: "error",
+			}).then (function(){
+				 window.location.reload( true );
+			})  
+	 })
+		 
+	}
 </script>
- <aui:script use="aui-modal,aui-overlay-manager">
-	 A.one("#removeNote").on('click',function(event){
-	 	var dialog = new A.Modal({
-	 		title: "AUI Modal Popup Title",
-	 		bodyContent: A.one("#my-content-div").html(),
-	 		headerContent: 'Delete Note',
-	 		centered: true,
-	 		modal: true,
-	 		height: 200,
-	 		width:300,
-	 		render: '#my-content-div',
-	 		close: true
-	 	});
-	 	dialog.render();
-	 	$("#remove").on('click', function(e){
-	 		alert("teshhhhhhhh");
-	 });
-
-
-	
-})
-	 </aui:script>

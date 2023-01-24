@@ -153,10 +153,7 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
         	var fileCodeId=$('#<portlet:namespace/>fileCodeId').val().length;
         	var fileNumber=$('#<portlet:namespace/>fileNumber').val().length;
         	var subject=$('#<portlet:namespace/>subject').val().length;
-        	var categoryId=$('#<portlet:namespace/>categoryId').val().length;
-        	var type = $('#<portlet:namespace/>type').val();
-        	console.log(type);
-        	
+        	var categoryId=$('#<portlet:namespace/>categoryId').val().length;	
         	 if(basicHeadId!=0 && primaryHeadId!=0 && secondaryHeadId!=0 && tertiaryHeadId!=0 && fileCodeId!=0 && subject!=0 && categoryId !=0 || fileNumber!=0 && categoryId!=0){
         	  
         	 $.ajax({
