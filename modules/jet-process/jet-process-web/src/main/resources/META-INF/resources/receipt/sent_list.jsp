@@ -70,7 +70,7 @@
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptSentMovement.receiptId }" />
-					<portlet:param name="receiptMovementId"
+					<portlet:param name="rmId"
 						value="${receiptSentMovement.receiptMovementId }" />
 					<portlet:param name="viewMode" value="ViewModeFromSentRecipt" />
 				</liferay-portlet:renderURL>
