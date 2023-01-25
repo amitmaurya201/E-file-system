@@ -24,6 +24,7 @@ import java.util.Date;
 import javax.portlet.ActionRequest;
 
 import io.jetprocess.core.util.MovementStatus;
+import io.jetprocess.exception.NoSuchNoteException;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.FileNote;
@@ -47,7 +48,6 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	public Note addNote(String content, long createdBy, long fileId, long noteId) throws PortalException {
 		Note note =null;
 		if(noteId==0) {
-			System.out.println("create note");
 			 long generateNoteId = counterLocalService.increment(Note.class.getName()); 
 			
 			 note = createNote(generateNoteId);
@@ -74,7 +74,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 			  fileNote.setMovementType(MovementStatus.CREATED);
 			  fileNoteLocalService.addFileNote(fileNote);		
 	   }else {
-		    System.out.println("update");
+		   System.out.println("update");
 			 note= getNote(noteId);
 			note.setContent(content);
 			note = super.updateNote(note);  
@@ -84,10 +84,6 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	
 	  }
 	  
-	  // create Method for delete note
-	  public Note deleteNote(long noteId) throws PortalException{
-		  return  super.deleteNote(noteId);
-	  }
 	  // create Method for Edit Note 
 	  public Note editNote(long noteId, String content) throws PortalException {
 		  Note note = getNote(noteId);
@@ -96,6 +92,11 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		  note = super.updateNote(note);
 		  return note;	  
 	  }
+	 public Note getNoteByUserPostId(long userPostId) throws NoSuchNoteException {
+		 Note  note = notePersistence.findByuserPostId(userPostId);
+		 System.out.println(note);
+		 return note;
+	 }
 	  
 	 
  @Reference
