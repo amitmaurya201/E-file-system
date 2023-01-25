@@ -58,10 +58,6 @@
 				<liferay-ui:search-container-column-text
 					value="<%=fileMovementDTO.getRemark() != null ? fileMovementDTO.getRemark() : ""%>"
 					name="label-remarks" cssClass="hover-tips" />
-				<liferay-ui:search-container-column-text
-					value="<%=fileMovementDTO.getPullBackRemark() != null ? fileMovementDTO.getPullBackRemark() : ""%>"
-					name="label-pullback-remark" cssClass="hover-tips" />
-
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator

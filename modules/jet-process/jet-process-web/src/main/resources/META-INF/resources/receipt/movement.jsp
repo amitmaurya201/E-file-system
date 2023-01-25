@@ -52,10 +52,6 @@
 				<liferay-ui:search-container-column-text
 					value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
 					name="label-remarks" cssClass="hover-tips" />
-				<liferay-ui:search-container-column-text
-					value="<%=receiptMovementDTO.getPullBackRemark() != null ? receiptMovementDTO.getPullBackRemark()
-							: ""%>"
-					name="label-pullback-remark" cssClass="hover-tips" />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator markupView="lexicon" />
 		</liferay-ui:search-container>
