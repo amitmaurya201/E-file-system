@@ -233,29 +233,22 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	
 	
 	// method for isReceiptAttachable 
-		public boolean isReceiptAttachable(long receiptId) throws PortalException {
+		public boolean isReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
 			logger.info("attach method");
-			System.out.println(" receiptId : "+receiptId);
+			System.out.println(" receiptId : "+receiptId+", movement id : "+receiptMovementId);
 			boolean attachable = false;
-			List<ReceiptMovement> receiptMovementByReceiptId = receiptMovementLocalService
-					.getReceiptMovementByReceiptId(receiptId);
 			
-			System.out.println("receiptMovementByReceiptId : "+receiptMovementByReceiptId);
+			Receipt receipt = receiptLocalService.getReceipt(receiptId);
+			System.out.println("receipt : "+receipt);
+			ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+			System.out.println("receiptMovement : "+receiptMovement);
+			if ((receiptMovement.getPullBackRemark().isEmpty() || receiptMovement.getPullBackRemark()==null) && (receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
+					) {
+				logger.info("attachable true");
+				attachable = true;
+			}			
 			
-			for (ReceiptMovement receiptMovement : receiptMovementByReceiptId) {
-				logger.info("getPullBackRemark    " + receiptMovement.getPullBackRemark());
-				Receipt receipt = receiptLocalService.getReceipt(receiptMovement.getReceiptId());
-				logger.info("receipt.getCurrentState   " + receipt.getCurrentState());
-				if ((receiptMovement.getPullBackRemark().isEmpty()) && (receipt.getAttachStatus().isEmpty())
-						&& !receiptMovement.getActive()) {
-					logger.info("attachable true");
-					attachable = true;
-				}
-//				else {
-//					logger.info("attachable false");
-//					attachable = false;
-//				}
-			}
+			System.out.println("....."+attachable);
 			return attachable;
 		}
 		

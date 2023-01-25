@@ -24,6 +24,7 @@
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
 		<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>" />
+		
 
 		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="No Results Found" id="receiptList"
@@ -48,7 +49,7 @@
 					 ${aReceiptListViewDto.getReceiptMovementId()})" 
 					name="receipt"
 					value="<%=aReceiptListViewDto.getReceiptId()%>" />
-					
+					<aui:input name="receiptMovementId" type="hidden" value="${aReceiptListViewDto.getReceiptMovementId()}" />
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text  name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
@@ -81,12 +82,8 @@
 </div>
 
 
-
-<portlet:actionURL var="receiptReceive" name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND %>">
-						<portlet:param name="receiptId" value="${receipt.receiptId }" />
-	
-		<%-- <portlet:param name="redirect" value="/file/file-inner-view.jsp" />  --%>
-	</portlet:actionURL>
+	<portlet:resourceURL id="receiptReceive" var="receiptReceiveServe">
+</portlet:resourceURL>
 
 <!-- Button trigger modal -->
 <button type="button" id="isReadAlert" class="btn btn-primary" hidden
@@ -106,14 +103,13 @@
 			</div>
 			<div class="modal-body">
 				<h6>Do you wanna Read as received and continue</h6>
-				<aui:form action="${receiptReceive}" id="receiveForm" method="post"
+				<aui:form action="#"  method="post"
 					name="receiveForm">
-					<aui:input name="receiptId"  type="text"></aui:input>
-					<aui:input name="rmId" 
-						type="text"></aui:input>
-					<aui:button type="button" class="btn btn-secondary"
-						data-dismiss="modal" value="No"></aui:button>
-					<aui:button type="submit" class="btn btn-primary" value="Yes"></aui:button>
+					<aui:input name="receiptId"  type="hidden"></aui:input>
+					<aui:input name="rmId" type="hidden"></aui:input>
+					<aui:button type="button" cssClass="btn btn-secondary"
+					value="No" data-dismiss="modal" ></aui:button>
+					<aui:button type="button" cssClass="btn btn-primary" value="Yes" onclick="receiptReceive(true)" ></aui:button>
 				</aui:form>
 			</div>
 
@@ -139,6 +135,7 @@ var isRead;
 var receiptId;
 var receiptMovementId;
 
+
 function receiptDetail(_isRead, _receiptId, _receiptMovementId){
 	isRead=_isRead;
 	receiptId=_receiptId;
@@ -148,21 +145,52 @@ function receiptDetail(_isRead, _receiptId, _receiptMovementId){
 
 
 $('#<portlet:namespace />attachForm').click(function(){
-	alert(isRead)
 	console.log(isRead+" -:- "+receiptId+" -:- "+receiptMovementId)
 	if(isRead == false){
-		alert("IF.....")
 		$("#<portlet:namespace />receiptId").val(receiptId);
 		$("#<portlet:namespace />rmId").val(receiptMovementId);
-		
 		$('#isReadAlert').trigger('click');
-		
-		/* $("#<portlet:namespace />attachReceipt").submit(); */
 	}else{
-		alert("else...")
 		$("#<portlet:namespace />attachReceipt").submit();
 	}
-}) 
+});
 
+
+ function receiptReceive(accepted){
+	
+
+	if(accepted){
+		submitAttach()
+		/* 
+		$("#<portlet:namespace />receiveForm").submit();
+		alert("after receiveForm");
+		$("#<portlet:namespace />attachReceipt").submit();
+		alert("after attachReceipt"); */
+	}
+}
+ 
+ function submitAttach(){
+	   	AUI().use('aui-io-request','aui-base','io', function(A){
+		 var form = A.one("#<portlet:namespace/>receiveForm");
+	        A.io.request('<%=receiptReceiveServe.toString()%>', {
+	        	 method: 'post',
+	        	 form:{
+	                 id:form
+	             },
+	               on: {
+	                    success: function() {
+	                    	$("#<portlet:namespace />attachReceipt").submit()
+	                    }
+	               }
+	            });
+	    });
+		
+		
+		
+	     } 
+ 
+ 
+ 
+ 
 </script>
 

@@ -29,9 +29,10 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long receiptPK = ParamUtil.getLong(actionRequest, "receipt");
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
+		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		System.out.println("status : ");
-		boolean status=receiptMovementLocalService.isReceiptAttachable(receiptPK);
+		boolean status=receiptMovementLocalService.isReceiptAttachable(receiptPK, receiptMovementId);
 		System.out.println("status -----> : "+status);
 		if(status==true) {
 			
@@ -49,6 +50,12 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		actionResponse.sendRedirect(redirectURL);
 		
 
+		
+		
+		
+		
+		
+		
 	}
 
 	@Reference
@@ -62,3 +69,4 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }
+

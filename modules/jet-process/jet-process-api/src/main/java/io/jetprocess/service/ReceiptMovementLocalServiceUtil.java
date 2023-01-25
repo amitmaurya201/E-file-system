@@ -372,10 +372,11 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().isPullBackAvailable(rmId);
 	}
 
-	public static boolean isReceiptAttachable(long receiptId)
+	public static boolean isReceiptAttachable(
+			long receiptId, long receiptMovementId)
 		throws PortalException {
 
-		return getService().isReceiptAttachable(receiptId);
+		return getService().isReceiptAttachable(receiptId, receiptMovementId);
 	}
 
 	public static boolean pullBackedAlready(long rmId) throws PortalException {
