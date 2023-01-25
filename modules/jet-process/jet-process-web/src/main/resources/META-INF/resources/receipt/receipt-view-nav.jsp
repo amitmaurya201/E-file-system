@@ -134,5 +134,6 @@
 	if (viewMode == 'ViewModeFromSentRecipt') {
 		$('#edit').addClass('disabled');
 		$('#send').addClass('disabled');
+		$('#sendback').addClass('disabled');
 	}
 </script>

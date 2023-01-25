@@ -199,5 +199,6 @@
 	if (viewMode == 'ViewModeFromSentFile') {
 		$('#edit').addClass('disabled');
 		$('#send').addClass('disabled');
+		$('#sendback').addClass('disabled');
 	}
 </script>
