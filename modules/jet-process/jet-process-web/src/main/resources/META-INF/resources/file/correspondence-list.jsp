@@ -69,7 +69,7 @@
 		<portlet:param name="mvcRenderCommandName" value="<%="/correspondencesInfo" %>"/>
 	</portlet:renderURL>
 	
-	<portlet:renderURL var="receiptDetailsPopup">
+	<portlet:renderURL var="receiptDetailsPopup" windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 					<portlet:param name="mvcRenderCommandName"
 						value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
 				</portlet:renderURL>
@@ -168,7 +168,6 @@ if (viewMode == 'ViewModeFromSentRecipt') {
 	<script>
 	
 	function infoPopup(receiptId){
-	alert(receiptId)
 	
 	 Liferay.Util.openWindow({ 
 				dialog: { 														 
@@ -192,7 +191,6 @@ if (viewMode == 'ViewModeFromSentRecipt') {
 	}
 	
 	function receiptDetailPopup(receiptId){
-		alert(receiptId)
 		
 		  Liferay.Util.openWindow({ 
 					dialog: { 														 
