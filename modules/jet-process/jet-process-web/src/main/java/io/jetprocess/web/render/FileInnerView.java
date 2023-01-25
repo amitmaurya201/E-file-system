@@ -50,7 +50,7 @@ public class FileInnerView implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
-		 fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+		long  fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
@@ -70,9 +70,10 @@ public class FileInnerView implements MVCRenderCommand {
 				renderRequest.setAttribute("docFileObj", docFile);
 				renderRequest.setAttribute("CurrentURL", currentURL);
 				renderRequest.setAttribute("fileMovementId", fileMovementId);
-				Note note = noteLocalService.getNoteByUserPostId(userPostId);
-				renderRequest.setAttribute("noteId", note.getNoteId());
-				renderRequest.setAttribute("noteObj", note);
+			//	Note note = noteLocalService.getNoteByUserPostId(userPostId);
+			/*
+			 * renderRequest.setAttribute("noteId", note.getNoteId());
+			 */				//renderRequest.setAttribute("noteObj", note);
 
 			} catch (PortalException e) {
 			   e.printStackTrace();
@@ -111,11 +112,11 @@ public class FileInnerView implements MVCRenderCommand {
 		currentPage=paginationConfig.get("currentPage");
 		
 		session.setAttribute("preDelta", "" + delta + "");
-		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId,fileId, keywords, start, end, orderByCol, orderByType);
+		//List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId,fileId, keywords, start, end, orderByCol, orderByType);
 		
 		
-		logger.info("File Correspondence list------> : "+fileCorrespondence);
-		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
+		//logger.info("File Correspondence list------> : "+fileCorrespondence);
+		//renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCorrespondenceCount", count);
 	}

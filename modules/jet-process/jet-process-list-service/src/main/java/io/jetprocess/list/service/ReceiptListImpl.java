@@ -227,7 +227,7 @@ public class ReceiptListImpl implements ReceiptList {
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_movement_list_new(?,?,?,?,?,?,?)");
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptMovementId);
 			prepareCall.setLong(2, receiptId);
 			prepareCall.setString(3, keyword);
@@ -266,14 +266,15 @@ public class ReceiptListImpl implements ReceiptList {
 
 	}
 	@Override
-	public int getReceiptMovementListCount(long userpostId, String keyword) {
+	public int getReceiptMovementListCount(long receiptmovementId , long userpostId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("SELECT public.get_receipt_movement_list_count(?,?)");
+			CallableStatement prepareCall = con.prepareCall("SELECT public.get_receipt_movement_list_count(?,?,?)");
 			prepareCall.setLong(1, userpostId);
-			prepareCall.setString(2, keyword);
+			prepareCall.setLong(2, userpostId);
+			prepareCall.setString(3, keyword);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();

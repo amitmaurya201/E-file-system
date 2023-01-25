@@ -1284,11 +1284,18 @@ ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, te
 
 -- FUNCTION: public.get_file_movement_list_count(bigint, text)
 
--- DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint, text);
+-- DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint,bigint, text);
 
-CREATE OR REPLACE FUNCTION public.get_file_movement_list_count_new(
+
+   -- DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint, bigint, text);
+
+-- FUNCTION: public.get_file_movement_list_count(bigint, bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint, bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_file_movement_list_count(
 	filemovement_id bigint,
-    file_id bigint,
+	file_id bigint,
 	keyword text)
     RETURNS bigint
     LANGUAGE 'plpgsql'
@@ -1309,8 +1316,7 @@ total :=0;
 	FROM PUBLIC.jet_process_filemovement as fm 
 	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id
-    AND fm.fmid <= filemovement_id AND fm.movementtype != 0
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 
             AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
             
             return total;
@@ -1319,8 +1325,7 @@ total :=0;
 	FROM PUBLIC.jet_process_filemovement as fm 
 	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id 
-    AND fm.fmid <= filemovement_id AND fm.movementtype != 0  ;
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 ;
        RETURN total;
         END IF;
 
@@ -1328,16 +1333,11 @@ total :=0;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_file_movement_list_count_new(bigint , bigint, text)
+ALTER FUNCTION public.get_file_movement_list_count(bigint, bigint, text)
     OWNER TO postgres;
-  
-  
-  
-  
-  
-    
-    
-    
+
+   
+
     
     
     --    -------------------------------------  Get File Movement List  -----------------------------------------------
@@ -1346,9 +1346,9 @@ ALTER FUNCTION public.get_file_movement_list_count_new(bigint , bigint, text)
  
 -- FUNCTION: public.get_file_movement_list_new(bigint, bigint, text, integer, integer, text, text)
 
--- DROP FUNCTION IF EXISTS public.get_file_movement_list_new(bigint, bigint, text, integer, integer, text, text);
+-- DROP FUNCTION IF EXISTS public.get_file_movement_list(bigint, bigint, text, integer, integer, text, text);
 
-CREATE OR REPLACE FUNCTION public.get_file_movement_list_new(
+CREATE OR REPLACE FUNCTION public.get_file_movement_list(
 	_filemovementid bigint,
 	_fileid bigint,
 	keyword text,
@@ -1385,9 +1385,9 @@ AS $BODY$
 	fm.createdate as sentOn, null as readOn, null as dueDate , fm.remark as remark, null as receivedOn , 0 as currentlyWith, 
     null as nature, 0 as fileId, 0 as senderId , f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername
 	FROM PUBLIC.jet_process_filemovement as fm 
-	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid         
-	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.receiverid = up2.userpostid WHERE movementtype != 0
+	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.movementtype != 0
     ';
                   
         _keyword := '''%'||keyword||'%''';
@@ -1418,9 +1418,9 @@ AS $BODY$
                         
                         IF (_fileId !=0 )THEN
                         
-                             _query := _query|| 'AND fm.fileid = '||_fileId;
-                              _query := _query|| 'AND fm.fmid <= '||_filemovementid;
-                            
+                             _query := _query|| 'AND fm.fileId ='||_fileId;
+                                _query := _query|| 'AND fm.fmid <='||_filemovementid;
+
                                if (keyword IS NOT NULL) THEN  
                                                                 
 --                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
@@ -1458,7 +1458,7 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_file_movement_list_new(bigint, bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_file_movement_list(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
     --    -------------------------------------  Get Receipt Movement Count  ----------------------------------------------- 
@@ -1468,9 +1468,14 @@ ALTER FUNCTION public.get_file_movement_list_new(bigint, bigint, text, integer, 
     
     -- FUNCTION: public.get_receipt_movement_list_count(bigint, text)
 
--- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint, text);
+-- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint,bigint, text);
+
+-- FUNCTION: public.get_receipt_movement_list_count(bigint, bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint, bigint, text);
 
 CREATE OR REPLACE FUNCTION public.get_receipt_movement_list_count(
+	receiptmovement_id bigint,
 	receipt_id bigint,
 	keyword text)
     RETURNS bigint
@@ -1496,7 +1501,7 @@ total :=0;
 	FROM PUBLIC.jet_process_receiptmovement as rm 
 	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0
      AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
             
             return total;
@@ -1508,7 +1513,7 @@ total :=0;
             left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
             left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
             left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-            WHERE  rm.receiptid =receipt_id;
+            WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0;
             RETURN total;
         END IF;
 
@@ -1516,27 +1521,24 @@ total :=0;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_movement_list_count(bigint, text)
+ALTER FUNCTION public.get_receipt_movement_list_count(bigint, bigint, text)
     OWNER TO postgres;
-
     
     
     
     
     --    -------------------------------------  Get Receipt Movement List  -----------------------------------------------
-    
+-- DROP FUNCTION IF EXISTS public.get_receipt_movement_list(bigint, bigint, text, integer, integer, text, text);
 
- CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
+CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
+	_receiptmovementid bigint,
 	_receiptid bigint,
 	keyword text,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptmovementid bigint, receiptnumber text, 
-subject text, sender text, sentby text, sentto text, senton timestamp without time zone,
-readon text, duedate text, remark character varying, receivedon text, 
-nature text, receiptid integer, pullbackremark character varying) 
+    RETURNS TABLE(receiptmovementid bigint, receiptnumber text, subject text, sender text, sentby text, sentto text, senton timestamp without time zone, readon text, duedate text, remark character varying, receivedon text, nature text, receiptid integer, pullbackremark character varying) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1566,7 +1568,7 @@ AS $BODY$
 	FROM PUBLIC.jet_process_receiptmovement as rm 
 	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE movementtype != 0
     ';
                   
         _keyword := '''%'||keyword||'%''';
@@ -1596,7 +1598,8 @@ AS $BODY$
        
                         IF (_receiptid !=0 )THEN
                         
-                             _query := _query|| 'where rm.receiptid ='||_receiptid;
+                             _query := _query|| 'AND rm.receiptid ='||_receiptid;
+                              _query := _query|| ' AND rm.rmid <='||_receiptMovementId;
                             
                                if (keyword IS NOT NULL) THEN  
                                                                 
@@ -1632,9 +1635,8 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_movement_list(bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_receipt_movement_list(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
  
    
 --    ---------------------------------------  Get file correspondence list count   ---------------------------------------------
@@ -1679,108 +1681,6 @@ ALTER FUNCTION public.get_file_correspondence_list_count(bigint, text)
     --    ---------------------------------------  Get file correspondence list    ---------------------------------------------
     
     
-    CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
-	_fileid bigint,
-	keyword text,
-	_start integer,
-	_end integer,
-	orderbycol text,
-	_orderbytype text)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying(75), subject character varying(500), category text, createdate timestamp, remark character varying(75), viewpdfurl text, nature character varying(75),correspondenceType character varying(75)  ) 
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-    ROWS 1000
-
-    SET search_path=admin, pg_temp
-AS $BODY$
-    
-    declare 
-        
-        _keyword text;
-        _offset int;
-        _limit int;
-        _orderBy text;
-        _order text;
-        _query text;
-    begin
-      
-      
-   _query='
- SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, fc.createDate, fc.remarks  as remark , null as viewpdfurl,
- 	r.nature, fc.correspondenceType as correspondenceType FROM PUBLIC.jet_process_receipt r INNER JOIN 
- PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid';
-                  
-        _keyword := '''%'||keyword||'%''';
-        
-        IF (_start <0 OR _start IS NULL) THEN
-            _offset:=0;
-        ELSE
-            _offset :=_start; 
-        END IF;
-        
-        IF (_end <=0 OR _end IS NULL) THEN
-                _limit :=4;
-            ELSE
-                _limit :=_end;
-        END IF;   
-        
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
-                _orderBy :='r.createdate';
-            ELSE
-                _orderBy :='r.'||orderByCol;
-        END IF;
-         IF (_orderByType ='' OR _orderByType IS NULL) THEN
-                _order :='desc';
-            ELSE
-                _order :=_orderByType;
-        END IF;
-       
-                        
-                        IF (_fileId !=0 )THEN
-                        
-                             _query := _query|| ' where fc.docfileid ='||_fileId;
-                            
-                               if (keyword IS NOT NULL) THEN  
-                                                                
---                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
-                          
-                                     if (_orderby !='')  THEN 
-                    
-                                        _query := _query||' order by '||_orderby;
-                                        if (_order !='')  THEN 
-
-                                            _query := _query||' '||_order;
-                                            if (_offset >=0)  THEN 
-
-                                                 _query := _query||' offset '||_offset;
-                                                if (_limit >0)  THEN 
-                                                    _query := _query||' limit '||_limit;
-
-                                                 end if;
-                                        
-
-                                             end if;
-
-                                         end if;
-
-
-                                     end if;
-                        
-                             
-                             end if;
-                             
-                    end if;
-                 
-                return query execute _query;
-       
-     end;
-     
- 
-$BODY$;
-
-ALTER FUNCTION public.get_file_correspondence_list(bigint, text, integer, integer, text, text)
-    OWNER TO postgres;
     
     
     
@@ -1939,129 +1839,7 @@ ALTER FUNCTION public.get_file_correspondence_list(bigint, text, integer, intege
 --    OWNER TO postgres;
 
     
-  -- FUNCTION: public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text);
- 
-    -- FUNCTION: public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text);
-
--- FUNCTION: public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text);
-
-CREATE OR REPLACE FUNCTION public.get_receipt_movement_list_new(
-	_receiptmovementid bigint,
-	_receiptid bigint,
-	keyword text,
-	_start integer,
-	_end integer,
-	orderbycol text,
-	_orderbytype text)
-    RETURNS TABLE(receiptmovementid bigint, receiptnumber text, subject text, sender text, sentby text, sentto text, senton timestamp without time zone, readon text, duedate text, remark character varying, receivedon text, nature text, receiptid integer, pullbackremark character varying) 
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-    ROWS 1000
-
-    SET search_path=admin, pg_temp
-AS $BODY$
-    
-    declare 
-        
-        _keyword text;
-        _offset int;
-        _limit int;
-        _orderBy text;
-        _order text;
-        _query text;
-    begin
-      
-      
-   _query=' SELECT 
-	rmid as receiptMovementId, 
-	null as receiptnumber ,null as subject , null as sender ,
-	(SELECT concat(up2.username ,'' ('', up2.postmarking ,'') '', up2.sectionname ,'' , '', up2.departmentname)) as sentBy ,
-	(SELECT concat(up1.username ,'' ('', up1.postmarking,'') '', up1.sectionname ,'' , '', up1.departmentname)) as sentTo,
-	rm.createdate as sentOn, null as readOn , null as duedate , remark as remark, null as receivedOn,
-    null as nature, 0 as receiptId , rm.pullBackRemark as pullBackRemark
-	FROM PUBLIC.jet_process_receiptmovement as rm 
-	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-    left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE movementtype != 0
-    ';
-                  
-        _keyword := '''%'||keyword||'%''';
-        
-        IF (_start <0 OR _start IS NULL) THEN
-            _offset:=0;
-        ELSE
-            _offset :=_start; 
-        END IF;
-        
-        IF (_end <=0 OR _end IS NULL) THEN
-                _limit :=4;
-            ELSE
-                _limit :=_end;
-        END IF;   
-        
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
-                _orderBy :='rm.createdate';
-            ELSE
-                _orderBy :='r.'||orderByCol;
-        END IF;
-         IF (_orderByType ='' OR _orderByType IS NULL) THEN
-                _order :='desc';
-            ELSE
-                _order :=_orderByType;
-        END IF;
-       
-                        IF (_receiptid !=0 )THEN
-                        
-                             _query := _query|| 'AND rm.receiptid ='||_receiptid;
-                              _query := _query|| ' AND rm.rmid <='||_receiptMovementId;
-                            
-                               if (keyword IS NOT NULL) THEN  
-                                                                
---                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
-                          
-                                     if (_orderby !='')  THEN 
-                    
-                                         _query := _query||' order by '||_orderby;
-                                        if (_order !='')  THEN 
-
-                                            _query := _query||' '||_order;
-                                            if (_offset >=0)  THEN 
-
-                                                 _query := _query||' offset '||_offset;
-                                                if (_limit >0)  THEN 
-                                                    _query := _query||' limit '||_limit;
-
-                                                 end if;
-                                         
-                                             end if;
-
-                                         end if;
-
-                                     end if;
-                        
-                             end if;
-                        
-                    end if;
-                     return query execute _query;
-                    
-     end;
-     
- 
-$BODY$;
-
-ALTER FUNCTION public.get_receipt_movement_list_new(bigint, bigint, text, integer, integer, text, text)
-    OWNER TO postgres;
- 
-    
-    
-    
+   
     
     
     
@@ -2070,7 +1848,7 @@ ALTER FUNCTION public.get_receipt_movement_list_new(bigint, bigint, text, intege
 
 -- DROP FUNCTION IF EXISTS public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text);
 
-CREATE OR REPLACE FUNCTION public.get_file_correspondence_list_new(
+CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_filemovementid bigint,
 	_fileid bigint,
 	keyword text,
@@ -2171,7 +1949,7 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_file_correspondence_list(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
     

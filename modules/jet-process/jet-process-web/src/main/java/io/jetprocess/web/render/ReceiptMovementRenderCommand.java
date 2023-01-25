@@ -67,7 +67,7 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		HttpSession session = themeDisplay.getRequest().getSession(); 
 
-		int count=receiptList.getReceiptMovementListCount(receiptId, "");
+		int count=receiptList.getReceiptMovementListCount(receiptMovementId,receiptId, "");
 		int preDelta=0;
 		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
