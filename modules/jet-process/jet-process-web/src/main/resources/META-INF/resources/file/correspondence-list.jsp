@@ -133,7 +133,7 @@
 <aui:script use="liferay-util-window">	
 
 var viewMode = "${param.viewMode}";
-if (viewMode == 'ViewModeFromSentRecipt') {
+if (viewMode == 'ViewModeFromSentFile') {
 		$('#<portlet:namespace />add_receipt').addClass('disabled');
 		$('.dropdown-content').css("display", "none");
 }
