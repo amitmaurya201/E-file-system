@@ -17,6 +17,7 @@ import javax.portlet.ResourceResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.model.Receipt;
 import io.jetprocess.service.FileCorrReceiptLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
@@ -35,8 +36,24 @@ public class AddFileCorrespondence implements MVCResourceCommand {
 		long rmId = ParamUtil.getLong(resourceRequest, "rmId");
 		System.out.println("receipt inbox.....");
 		System.out.println("Enter by ashwani.....");
-		System.out.println("receiptId-----"+receiptId);
 		System.out.println("rmId-----"+rmId);
+		
+		Receipt receipt = null;
+		try {
+			receipt = receiptLocalService.getReceipt(receiptId);
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(receipt.getNature().equalsIgnoreCase("Electronic")) {
+			
+			boolean state = receiptMovementLocalService.saveReadMovement(receiptId , rmId);
+			if (state == false) {
+				SessionErrors.add(resourceRequest, "receipt-is-not-attachable");
+				SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			}
+		}else {
 		
 		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
 		System.out.println("Enter by ashwani ---2");
@@ -48,6 +65,11 @@ public class AddFileCorrespondence implements MVCResourceCommand {
 					PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
 		}
+		
+		}
+		
+		
+		
 		return false;
 	}
 

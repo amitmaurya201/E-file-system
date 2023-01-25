@@ -46,7 +46,7 @@
 				<liferay-ui:search-container-column-text >
 					<aui:input type="radio" onchange="receiptDetail(${aReceiptListViewDto.isRead()},
 					${aReceiptListViewDto.getReceiptId()},
-					 ${aReceiptListViewDto.getReceiptMovementId()})" 
+					 ${aReceiptListViewDto.getReceiptMovementId()},'${aReceiptListViewDto.getNature()}')" 
 					name="receipt"
 					value="<%=aReceiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden" value="${aReceiptListViewDto.getReceiptMovementId()}" />
@@ -82,6 +82,13 @@
 </div>
 
 
+<div class="ml-3" id="alert-read-remove"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
+	<liferay-ui:error key="receipt-is-not-attachable"
+		message="This Receipt is not attachable" />
+</div>
+
+
 	<portlet:resourceURL id="receiptReceive" var="receiptReceiveServe">
 </portlet:resourceURL>
 
@@ -102,7 +109,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<h6>Do you wanna Read as received and continue</h6>
+				<h6>Do you want to mark as <span id="msg"></span> continue</h6>
 				<aui:form action="#"  method="post"
 					name="receiveForm">
 					<aui:input name="receiptId"  type="hidden"></aui:input>
@@ -134,19 +141,26 @@
 var isRead;
 var receiptId;
 var receiptMovementId;
+var nature;
 
-
-function receiptDetail(_isRead, _receiptId, _receiptMovementId){
+function receiptDetail(_isRead, _receiptId, _receiptMovementId,_nature){
 	isRead=_isRead;
 	receiptId=_receiptId;
 	receiptMovementId=_receiptMovementId;
-	console.log(isRead+" : "+receiptId+" : "+receiptMovementId)
+	nature=_nature;
+	console.log(isRead+" : "+receiptId+" : "+receiptMovementId+", nature : "+nature)
 }
 
 
 $('#<portlet:namespace />attachForm').click(function(){
 	console.log(isRead+" -:- "+receiptId+" -:- "+receiptMovementId)
 	if(isRead == false){
+		if(nature==='Electronic'){
+			$("#msg").text('Read');
+		}
+		else{
+			$("#msg").text('Receive');
+		}
 		$("#<portlet:namespace />receiptId").val(receiptId);
 		$("#<portlet:namespace />rmId").val(receiptMovementId);
 		$('#isReadAlert').trigger('click');
