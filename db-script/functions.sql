@@ -17,6 +17,13 @@ DROP FUNCTION IF EXISTS public.get_file_inbox_list(bigint, text, integer, intege
 
 DROP FUNCTION IF EXISTS public.get_file_sent_list(bigint, text, integer, integer, text, text);
 
+DROP FUNCTION IF EXISTS public.get_file_movement_list(bigint,bigint, text, integer, integer, text, text);
+
+DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint , bigint,  text);
+
+DROP FUNCTION IF EXISTS public.get_receipt_movement_list(bigint,bigint, text, integer, integer, text, text);
+
+DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint , bigint, text);
 
 
 -- ---------------------File created list count  --------------------------
@@ -1348,6 +1355,10 @@ ALTER FUNCTION public.get_file_movement_list_count(bigint, bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_file_movement_list(bigint, bigint, text, integer, integer, text, text);
 
+-- FUNCTION: public.get_file_movement_list(bigint, bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_movement_list(bigint, bigint, text, integer, integer, text, text);
+
 CREATE OR REPLACE FUNCTION public.get_file_movement_list(
 	_filemovementid bigint,
 	_fileid bigint,
@@ -1387,7 +1398,7 @@ AS $BODY$
 	FROM PUBLIC.jet_process_filemovement as fm 
 	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.movementtype != 0
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.movementtype != 0 AND fm.active_ = true
     ';
                   
         _keyword := '''%'||keyword||'%''';
@@ -1460,7 +1471,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_movement_list(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
+ 
     --    -------------------------------------  Get Receipt Movement Count  ----------------------------------------------- 
     
     
@@ -1530,6 +1541,13 @@ ALTER FUNCTION public.get_receipt_movement_list_count(bigint, bigint, text)
     --    -------------------------------------  Get Receipt Movement List  -----------------------------------------------
 -- DROP FUNCTION IF EXISTS public.get_receipt_movement_list(bigint, bigint, text, integer, integer, text, text);
 
+    
+    
+    
+    -- FUNCTION: public.get_receipt_movement_list(bigint, bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_movement_list(bigint, bigint, text, integer, integer, text, text);
+
 CREATE OR REPLACE FUNCTION public.get_receipt_movement_list(
 	_receiptmovementid bigint,
 	_receiptid bigint,
@@ -1568,7 +1586,7 @@ AS $BODY$
 	FROM PUBLIC.jet_process_receiptmovement as rm 
 	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE movementtype != 0
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE movementtype != 0 AND active_ = true
     ';
                   
         _keyword := '''%'||keyword||'%''';
@@ -1637,8 +1655,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_movement_list(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
- 
-   
+
+
 --    ---------------------------------------  Get file correspondence list count   ---------------------------------------------
     
     
