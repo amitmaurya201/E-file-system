@@ -38,9 +38,11 @@ import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.FileMovement;
+import io.jetprocess.model.FileNote;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrReceiptLocalService;
+import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.service.base.FileMovementLocalServiceBaseImpl;
@@ -142,7 +144,25 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
 		docFileLocalService.updateDocFile(docFile);
-		List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		System.out.println("list sai phle");
+		List<FileNote> fileNoteList = fileNoteLocalService.getFileNotes(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		System.out.println("list-->"+fileNoteList);
+		for (FileNote fileNote : fileNoteList) {
+			if(fileId != fileNote.getFileId()) {
+				System.out.println("kuch ni hoga ");
+			} else if(fileId == fileNote.getFileId() ) {
+				System.out.println("fileNote sai noteId--->"+fileNote.getNoteId());
+				long fileNoteId = counterLocalService.increment(FileNote.class.getName());
+				FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
+				fileNote1.setFileNoteId(fileNoteId);
+				fileNote1.setFileId(fileId);
+				fileNote1.setFileMovementId(fmId);
+				fileNote1.setMovementType(MovementStatus.IN_FILE);
+				fileNote1.setNoteId(fileNote.getNoteId());
+				fileNoteLocalService.addFileNote(fileNote1);
+			}
+		}
+	List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		for (FileCorrReceipt fileCorrReceipt : fileCorrList) {
 			if (fileCorrReceipt.getDocFileId() == fileId) {
 				String remarkOfInFile = "inFile" + " - " +docFile.getFileNumber();
@@ -280,6 +300,9 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 	@Reference
 	ReceiptLocalService receiptLocalService;
+	
+	@Reference 
+	private FileNoteLocalService fileNoteLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
