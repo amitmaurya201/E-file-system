@@ -123,6 +123,8 @@
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
+						<portlet:param name="rmId"
+					value="${receiptMovementDTO.receiptMovementId}" />
 				</portlet:renderURL>
 				<c:choose>
 					<c:when

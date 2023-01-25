@@ -21,7 +21,7 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		System.out.println("view");
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
-		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+		long receiptMovementId = ParamUtil.getLong(renderRequest, "rmId");
 		System.out.println("receiptMovementId -----"+receiptMovementId);
 
 		System.out.println("receiptId----"+receiptId);
