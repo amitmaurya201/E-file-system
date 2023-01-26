@@ -168,7 +168,9 @@ total :=0;
 					JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid
 					JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
                     JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid
-					where fm.senderid = sender_id AND currentstate = 2  AND fm.active_ = true
+					where fm.senderid = sender_id AND currentstate = 2  
+
+					
                     AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
             
             return total;
@@ -1323,7 +1325,7 @@ total :=0;
 	FROM PUBLIC.jet_process_filemovement as fm 
 	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 AND fm.active_ = true
             AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
             
             return total;
@@ -1332,7 +1334,7 @@ total :=0;
 	FROM PUBLIC.jet_process_filemovement as fm 
 	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 ;
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 AND fm.active_ = true ;
        RETURN total;
         END IF;
 
@@ -1512,7 +1514,7 @@ total :=0;
 	FROM PUBLIC.jet_process_receiptmovement as rm 
 	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
     left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0 AND active_ = true
      AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
             
             return total;
@@ -1524,7 +1526,7 @@ total :=0;
             left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
             left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
             left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-            WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0;
+            WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0 AND active_ = true;
             RETURN total;
         END IF;
 
@@ -1660,8 +1662,13 @@ ALTER FUNCTION public.get_receipt_movement_list(bigint, bigint, text, integer, i
 --    ---------------------------------------  Get file correspondence list count   ---------------------------------------------
     
     
-    CREATE OR REPLACE FUNCTION public.get_file_correspondence_list_count(
-	file_id bigint,
+  -- FUNCTION: public.get_file_correspondence_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_correspondence_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_file_correspondence_list_count(
+	filemovement_id bigint,
+    file_id bigint,
 	keyword text)
     RETURNS bigint
     LANGUAGE 'plpgsql'
@@ -1678,12 +1685,12 @@ total :=0;
             IF  keyword !='' AND keyword IS NOT NULL  THEN
    
             SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-            PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id ; 
+            PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id ; 
             
             return total;
             END IF;
                     SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                    PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id ; 
+                    PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id AND fc.filemovementId <=filemovement_id; 
        RETURN total;
         END IF;
 
@@ -1691,9 +1698,8 @@ total :=0;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_file_correspondence_list_count(bigint, text)
+ALTER FUNCTION public.get_file_correspondence_list_count(bigint ,bigint, text)
     OWNER TO postgres;
-    
     
     
     --    ---------------------------------------  Get file correspondence list    ---------------------------------------------

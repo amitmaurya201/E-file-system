@@ -314,14 +314,15 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public int getFileCorrespondenceCount(long fileId, String keyword) {
+	public int getFileCorrespondenceCount(long filemovementId , long fileId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select public.get_file_correspondence_list_count(?,?)");
-			prepareCall.setLong(1, fileId);
-			prepareCall.setString(2, keyword);
+			CallableStatement prepareCall = con.prepareCall("select public.get_file_correspondence_list_count(?,?,?)");
+			prepareCall.setLong(1, filemovementId);
+			prepareCall.setLong(2, fileId);
+			prepareCall.setString(3, keyword);
 			boolean execute = prepareCall.execute();
 
 			if (execute) {
@@ -346,7 +347,7 @@ public class FileListImpl implements FileList {
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_correspondence_list_new(?,?,?,?,?,?,?)");
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, filemovementId);
 			prepareCall.setLong(2, docfileId);
 			prepareCall.setString(3, keyword);

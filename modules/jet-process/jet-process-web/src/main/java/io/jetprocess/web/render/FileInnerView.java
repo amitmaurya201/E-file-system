@@ -99,7 +99,7 @@ public class FileInnerView implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		
-		int count = fileLists.getFileCorrespondenceCount(fileId, keywords);
+		int count = fileLists.getFileCorrespondenceCount(fileMovementId,fileId, keywords);
 		logger.info("Count of File list : "+count);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
@@ -112,11 +112,11 @@ public class FileInnerView implements MVCRenderCommand {
 		currentPage=paginationConfig.get("currentPage");
 		
 		session.setAttribute("preDelta", "" + delta + "");
-		//List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId,fileId, keywords, start, end, orderByCol, orderByType);
+		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId,fileId, keywords, start, end, orderByCol, orderByType);
 		
 		
 		//logger.info("File Correspondence list------> : "+fileCorrespondence);
-		//renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
+		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCorrespondenceCount", count);
 	}
