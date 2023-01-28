@@ -5,6 +5,7 @@ import java.util.List;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
+import io.jetprocess.list.model.NoteDTO;
 
 
 
@@ -38,6 +39,8 @@ public int getFileCorrespondenceCount(long filemovementId, long userPostId, Stri
 	
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long filemovementId , long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
+	
+	public List<NoteDTO> getAttachedNoteList(long filemovementId , long docfileId);
 	
 	
 	

@@ -388,6 +388,98 @@ public interface FileNotePersistence extends BasePersistence<FileNote> {
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public FileNote findByFileIdAndNoteId(long fileId, long noteId)
+		throws NoSuchFileNoteException;
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public FileNote fetchByFileIdAndNoteId(long fileId, long noteId);
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public FileNote fetchByFileIdAndNoteId(
+		long fileId, long noteId, boolean useFinderCache);
+
+	/**
+	 * Removes the file note where fileId = &#63; and noteId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the file note that was removed
+	 */
+	public FileNote removeByFileIdAndNoteId(long fileId, long noteId)
+		throws NoSuchFileNoteException;
+
+	/**
+	 * Returns the number of file notes where fileId = &#63; and noteId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the number of matching file notes
+	 */
+	public int countByFileIdAndNoteId(long fileId, long noteId);
+
+	/**
+	 * Returns the file note where noteId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param noteId the note ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public FileNote findByNoteId(long noteId) throws NoSuchFileNoteException;
+
+	/**
+	 * Returns the file note where noteId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param noteId the note ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public FileNote fetchByNoteId(long noteId);
+
+	/**
+	 * Returns the file note where noteId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param noteId the note ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public FileNote fetchByNoteId(long noteId, boolean useFinderCache);
+
+	/**
+	 * Removes the file note where noteId = &#63; from the database.
+	 *
+	 * @param noteId the note ID
+	 * @return the file note that was removed
+	 */
+	public FileNote removeByNoteId(long noteId) throws NoSuchFileNoteException;
+
+	/**
+	 * Returns the number of file notes where noteId = &#63;.
+	 *
+	 * @param noteId the note ID
+	 * @return the number of matching file notes
+	 */
+	public int countByNoteId(long noteId);
+
+	/**
 	 * Caches the file note in the entity cache if it is enabled.
 	 *
 	 * @param fileNote the file note

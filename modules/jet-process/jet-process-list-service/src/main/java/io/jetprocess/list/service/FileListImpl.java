@@ -17,6 +17,7 @@ import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
+import io.jetprocess.list.model.NoteDTO;
 
 
 @Component(immediate = true, service = FileList.class)
@@ -380,4 +381,36 @@ public class FileListImpl implements FileList {
 		}
 		return fileCorrespondenceReceiptDTO;
 	}
+	@Override
+	public List<NoteDTO> getAttachedNoteList(long filemovementId, long docfileId) {
+        logger.info("getAttachedNoteList");
+		List<NoteDTO> noteDtoList = new ArrayList<>();
+		Connection con = null;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_all_attached_note_list(?,?)");
+			prepareCall.setLong(1, filemovementId);
+			prepareCall.setLong(2, docfileId);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				System.out.println("rs"+rs);
+				while (rs.next()) {
+					NoteDTO noteDTO = new NoteDTO();
+					noteDTO.setNoteId(rs.getLong("noteid"));
+					noteDTO.setSignature(rs.getString("signature"));
+					noteDTO.setCreateDate(rs.getTimestamp("createdate"));
+					noteDTO.setContent(rs.getString("content"));	
+					noteDtoList.add(noteDTO);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(con);
+		}
+		return noteDtoList;
+	}
+
 }

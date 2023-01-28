@@ -16,6 +16,7 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
 
@@ -29,15 +30,21 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
-
-	
-	
 	public FileNote createFileNote() {
 		  long fileNoteId = counterLocalService.increment(FileNote.class.getName());
 		  FileNote fileNote = fileNoteLocalService.createFileNote(fileNoteId);
 		return fileNote;
 	}
-	
+	 public FileNote  getNoteByFileIdAndUserpostId(long fileId, long noteId) throws NoSuchFileNoteException   {
+		FileNote fileNote= fileNotePersistence.findByFileIdAndNoteId(fileId, noteId);
+			 return fileNote;
+		 }
+	 
+	public void deleteFileNoteByNoteId(long noteId) throws NoSuchFileNoteException {
+		FileNote fileNote = fileNotePersistence.findByNoteId(noteId);
+		fileNoteLocalService.deleteFileNote(fileNote);
+		
+	}
 
 
 }

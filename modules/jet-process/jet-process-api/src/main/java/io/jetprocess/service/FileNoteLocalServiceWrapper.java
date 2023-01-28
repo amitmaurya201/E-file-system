@@ -115,6 +115,13 @@ public class FileNoteLocalServiceWrapper
 		return _fileNoteLocalService.deleteFileNote(fileNoteId);
 	}
 
+	@Override
+	public void deleteFileNoteByNoteId(long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		_fileNoteLocalService.deleteFileNoteByNoteId(noteId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -364,6 +371,15 @@ public class FileNoteLocalServiceWrapper
 		getIndexableActionableDynamicQuery() {
 
 		return _fileNoteLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public io.jetprocess.model.FileNote getNoteByFileIdAndUserpostId(
+			long fileId, long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return _fileNoteLocalService.getNoteByFileIdAndUserpostId(
+			fileId, noteId);
 	}
 
 	/**

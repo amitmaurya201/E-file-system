@@ -20,6 +20,8 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND }, service = MVCActionCommand.class)
+
+
 public class FileInboxReceiveActionCommand implements MVCActionCommand {
 
 	@Override

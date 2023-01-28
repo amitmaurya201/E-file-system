@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.model.FileNote;
 
 import java.io.Serializable;
@@ -121,6 +122,9 @@ public interface FileNoteLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public FileNote deleteFileNote(long fileNoteId) throws PortalException;
+
+	public void deleteFileNoteByNoteId(long noteId)
+		throws NoSuchFileNoteException;
 
 	/**
 	 * @throws PortalException
@@ -293,6 +297,10 @@ public interface FileNoteLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FileNote getNoteByFileIdAndUserpostId(long fileId, long noteId)
+		throws NoSuchFileNoteException;
 
 	/**
 	 * Returns the OSGi service identifier.

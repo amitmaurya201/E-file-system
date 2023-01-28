@@ -115,6 +115,12 @@ public class FileNoteLocalServiceUtil {
 		return getService().deleteFileNote(fileNoteId);
 	}
 
+	public static void deleteFileNoteByNoteId(long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		getService().deleteFileNoteByNoteId(noteId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -327,6 +333,13 @@ public class FileNoteLocalServiceUtil {
 			getIndexableActionableDynamicQuery() {
 
 		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	public static FileNote getNoteByFileIdAndUserpostId(
+			long fileId, long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getService().getNoteByFileIdAndUserpostId(fileId, noteId);
 	}
 
 	/**

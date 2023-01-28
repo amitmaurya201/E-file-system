@@ -528,6 +528,126 @@ public class FileNoteUtil {
 	}
 
 	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public static FileNote findByFileIdAndNoteId(long fileId, long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getPersistence().findByFileIdAndNoteId(fileId, noteId);
+	}
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public static FileNote fetchByFileIdAndNoteId(long fileId, long noteId) {
+		return getPersistence().fetchByFileIdAndNoteId(fileId, noteId);
+	}
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public static FileNote fetchByFileIdAndNoteId(
+		long fileId, long noteId, boolean useFinderCache) {
+
+		return getPersistence().fetchByFileIdAndNoteId(
+			fileId, noteId, useFinderCache);
+	}
+
+	/**
+	 * Removes the file note where fileId = &#63; and noteId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the file note that was removed
+	 */
+	public static FileNote removeByFileIdAndNoteId(long fileId, long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getPersistence().removeByFileIdAndNoteId(fileId, noteId);
+	}
+
+	/**
+	 * Returns the number of file notes where fileId = &#63; and noteId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the number of matching file notes
+	 */
+	public static int countByFileIdAndNoteId(long fileId, long noteId) {
+		return getPersistence().countByFileIdAndNoteId(fileId, noteId);
+	}
+
+	/**
+	 * Returns the file note where noteId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param noteId the note ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public static FileNote findByNoteId(long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getPersistence().findByNoteId(noteId);
+	}
+
+	/**
+	 * Returns the file note where noteId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param noteId the note ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public static FileNote fetchByNoteId(long noteId) {
+		return getPersistence().fetchByNoteId(noteId);
+	}
+
+	/**
+	 * Returns the file note where noteId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param noteId the note ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public static FileNote fetchByNoteId(long noteId, boolean useFinderCache) {
+		return getPersistence().fetchByNoteId(noteId, useFinderCache);
+	}
+
+	/**
+	 * Removes the file note where noteId = &#63; from the database.
+	 *
+	 * @param noteId the note ID
+	 * @return the file note that was removed
+	 */
+	public static FileNote removeByNoteId(long noteId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getPersistence().removeByNoteId(noteId);
+	}
+
+	/**
+	 * Returns the number of file notes where noteId = &#63;.
+	 *
+	 * @param noteId the note ID
+	 * @return the number of matching file notes
+	 */
+	public static int countByNoteId(long noteId) {
+		return getPersistence().countByNoteId(noteId);
+	}
+
+	/**
 	 * Caches the file note in the entity cache if it is enabled.
 	 *
 	 * @param fileNote the file note

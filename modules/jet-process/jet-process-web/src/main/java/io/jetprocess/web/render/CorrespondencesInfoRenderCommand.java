@@ -78,7 +78,7 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		HttpSession session = themeDisplay.getRequest().getSession(); 
 
-		int count=recieptList.getReceiptMovementListCount(receiptId, "");
+		int count=recieptList.getReceiptMovementListCount(0, receiptId, "");
 		int preDelta=0;
 		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
@@ -98,8 +98,6 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("receiptMovementCount",+count);
 		
 	}
-	
-	
 	
 	@Reference
 	private ReceiptLocalService receiptLocalService ;

@@ -10,6 +10,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import io.jetprocess.model.Note;
+import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
 
 /**
@@ -36,10 +37,14 @@ public class NoteRsModelResourceImpl extends BaseNoteRsModelResourceImpl {
 	@Override
 	public Response deleteNote(Long noteId)throws Exception {
 		noteLocalService.deleteNote(noteId);
+		//fileNoteLocalService.deleteFileNoteByNoteId(noteId);
 		Response.ResponseBuilder responseBuilder = Response.ok();
+		System.out.println(responseBuilder.build());
 		return responseBuilder.build();
 	}
 
 	@Reference
 	private NoteLocalService noteLocalService;
+	@Reference
+	private FileNoteLocalService fileNoteLocalService;
 }

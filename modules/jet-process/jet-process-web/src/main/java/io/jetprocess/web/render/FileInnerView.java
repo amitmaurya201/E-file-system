@@ -24,12 +24,17 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
+import io.jetprocess.exception.NoSuchFileNoteException;
+import io.jetprocess.exception.NoSuchNoteException;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
+import io.jetprocess.list.model.NoteDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
+import io.jetprocess.model.FileNote;
 import io.jetprocess.model.Note;
 import io.jetprocess.service.DocFileLocalService;
+import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.service.persistence.NotePersistence;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -60,7 +65,7 @@ public class FileInnerView implements MVCRenderCommand {
 		   String UpostId = (String) sessionPutInFileId.getAttribute("userPostId"); 
 		   long userPostId = Long.parseLong(UpostId);
 		   System.out.println("UpostId"+userPostId);
-		
+		   List <NoteDTO> noteList = null;
 
 
 			try {
@@ -70,10 +75,16 @@ public class FileInnerView implements MVCRenderCommand {
 				renderRequest.setAttribute("docFileObj", docFile);
 				renderRequest.setAttribute("CurrentURL", currentURL);
 				renderRequest.setAttribute("fileMovementId", fileMovementId);
-			//	Note note = noteLocalService.getNoteByUserPostId(userPostId);
-			/*
-			 * renderRequest.setAttribute("noteId", note.getNoteId());
-			 */				//renderRequest.setAttribute("noteObj", note);
+				FileNote fileNote=getFileNoteByUserpostId(docFileId,renderRequest);
+				if(fileNote!=null) {
+				Note note =noteLocalService.getNoteByUserPostId(userPostId);
+				renderRequest.setAttribute("noteContent", note.getContent());
+				renderRequest.setAttribute("noteObj", fileNote);
+				}
+			  noteList=fileLists.getAttachedNoteList(fileMovementId, docFileId);
+			  System.out.println("noteList"+noteList);
+			  renderRequest.setAttribute("noteList", noteList);
+
 
 			} catch (PortalException e) {
 			   e.printStackTrace();
@@ -131,6 +142,20 @@ public class FileInnerView implements MVCRenderCommand {
 				fileCorrespondenceManagementToolbarDisplayContext);
 
 	}
+	private FileNote getFileNoteByUserpostId(long docFileId, RenderRequest renderRequest ) throws NoSuchNoteException, NoSuchFileNoteException {
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
+		String UpostId = (String) sessionPutInFileId.getAttribute("userPostId"); 
+		long userPostId = Long.parseLong(UpostId);
+		FileNote fileNote =null;
+		Note noteObj =noteLocalService.getNoteByUserPostId(userPostId);
+		if(noteObj.getNoteId()!=0) {
+		fileNote = fileNoteLocalService.getNoteByFileIdAndUserpostId(docFileId,noteObj.getNoteId());
+		}
+		return fileNote;
+	
+	}
+
 	 
 	private static Log logger = LogFactoryUtil.getLog(FileInnerView.class);
 	
@@ -140,6 +165,10 @@ public class FileInnerView implements MVCRenderCommand {
 	private FileList fileLists;
 	@Reference
 	private NoteLocalService noteLocalService;
+	@Reference
+	private FileNoteLocalService fileNoteLocalService;
+
+
 
 	 
 	

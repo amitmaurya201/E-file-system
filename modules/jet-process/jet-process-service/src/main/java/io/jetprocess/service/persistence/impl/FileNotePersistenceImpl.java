@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1452,6 +1454,448 @@ public class FileNotePersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"fileNote.companyId = ?";
 
+	private FinderPath _finderPathFetchByFileIdAndNoteId;
+	private FinderPath _finderPathCountByFileIdAndNoteId;
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	@Override
+	public FileNote findByFileIdAndNoteId(long fileId, long noteId)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = fetchByFileIdAndNoteId(fileId, noteId);
+
+		if (fileNote == null) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("fileId=");
+			sb.append(fileId);
+
+			sb.append(", noteId=");
+			sb.append(noteId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileNoteException(sb.toString());
+		}
+
+		return fileNote;
+	}
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByFileIdAndNoteId(long fileId, long noteId) {
+		return fetchByFileIdAndNoteId(fileId, noteId, true);
+	}
+
+	/**
+	 * Returns the file note where fileId = &#63; and noteId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByFileIdAndNoteId(
+		long fileId, long noteId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {fileId, noteId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByFileIdAndNoteId, finderArgs);
+		}
+
+		if (result instanceof FileNote) {
+			FileNote fileNote = (FileNote)result;
+
+			if ((fileId != fileNote.getFileId()) ||
+				(noteId != fileNote.getNoteId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_SELECT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEIDANDNOTEID_FILEID_2);
+
+			sb.append(_FINDER_COLUMN_FILEIDANDNOTEID_NOTEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileId);
+
+				queryPos.add(noteId);
+
+				List<FileNote> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByFileIdAndNoteId, finderArgs,
+							list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {fileId, noteId};
+							}
+
+							_log.warn(
+								"FileNotePersistenceImpl.fetchByFileIdAndNoteId(long, long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					FileNote fileNote = list.get(0);
+
+					result = fileNote;
+
+					cacheResult(fileNote);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (FileNote)result;
+		}
+	}
+
+	/**
+	 * Removes the file note where fileId = &#63; and noteId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the file note that was removed
+	 */
+	@Override
+	public FileNote removeByFileIdAndNoteId(long fileId, long noteId)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = findByFileIdAndNoteId(fileId, noteId);
+
+		return remove(fileNote);
+	}
+
+	/**
+	 * Returns the number of file notes where fileId = &#63; and noteId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param noteId the note ID
+	 * @return the number of matching file notes
+	 */
+	@Override
+	public int countByFileIdAndNoteId(long fileId, long noteId) {
+		FinderPath finderPath = _finderPathCountByFileIdAndNoteId;
+
+		Object[] finderArgs = new Object[] {fileId, noteId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEIDANDNOTEID_FILEID_2);
+
+			sb.append(_FINDER_COLUMN_FILEIDANDNOTEID_NOTEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileId);
+
+				queryPos.add(noteId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FILEIDANDNOTEID_FILEID_2 =
+		"fileNote.fileId = ? AND ";
+
+	private static final String _FINDER_COLUMN_FILEIDANDNOTEID_NOTEID_2 =
+		"fileNote.noteId = ?";
+
+	private FinderPath _finderPathFetchByNoteId;
+	private FinderPath _finderPathCountByNoteId;
+
+	/**
+	 * Returns the file note where noteId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param noteId the note ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	@Override
+	public FileNote findByNoteId(long noteId) throws NoSuchFileNoteException {
+		FileNote fileNote = fetchByNoteId(noteId);
+
+		if (fileNote == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("noteId=");
+			sb.append(noteId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileNoteException(sb.toString());
+		}
+
+		return fileNote;
+	}
+
+	/**
+	 * Returns the file note where noteId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param noteId the note ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByNoteId(long noteId) {
+		return fetchByNoteId(noteId, true);
+	}
+
+	/**
+	 * Returns the file note where noteId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param noteId the note ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByNoteId(long noteId, boolean useFinderCache) {
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {noteId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByNoteId, finderArgs);
+		}
+
+		if (result instanceof FileNote) {
+			FileNote fileNote = (FileNote)result;
+
+			if (noteId != fileNote.getNoteId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_NOTEID_NOTEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(noteId);
+
+				List<FileNote> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByNoteId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {noteId};
+							}
+
+							_log.warn(
+								"FileNotePersistenceImpl.fetchByNoteId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					FileNote fileNote = list.get(0);
+
+					result = fileNote;
+
+					cacheResult(fileNote);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (FileNote)result;
+		}
+	}
+
+	/**
+	 * Removes the file note where noteId = &#63; from the database.
+	 *
+	 * @param noteId the note ID
+	 * @return the file note that was removed
+	 */
+	@Override
+	public FileNote removeByNoteId(long noteId) throws NoSuchFileNoteException {
+		FileNote fileNote = findByNoteId(noteId);
+
+		return remove(fileNote);
+	}
+
+	/**
+	 * Returns the number of file notes where noteId = &#63;.
+	 *
+	 * @param noteId the note ID
+	 * @return the number of matching file notes
+	 */
+	@Override
+	public int countByNoteId(long noteId) {
+		FinderPath finderPath = _finderPathCountByNoteId;
+
+		Object[] finderArgs = new Object[] {noteId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_NOTEID_NOTEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(noteId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NOTEID_NOTEID_2 =
+		"fileNote.noteId = ?";
+
 	public FileNotePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1480,6 +1924,15 @@ public class FileNotePersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {fileNote.getUuid(), fileNote.getGroupId()}, fileNote);
+
+		finderCache.putResult(
+			_finderPathFetchByFileIdAndNoteId,
+			new Object[] {fileNote.getFileId(), fileNote.getNoteId()},
+			fileNote);
+
+		finderCache.putResult(
+			_finderPathFetchByNoteId, new Object[] {fileNote.getNoteId()},
+			fileNote);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1559,6 +2012,21 @@ public class FileNotePersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, fileNoteModelImpl);
+
+		args = new Object[] {
+			fileNoteModelImpl.getFileId(), fileNoteModelImpl.getNoteId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByFileIdAndNoteId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByFileIdAndNoteId, args, fileNoteModelImpl);
+
+		args = new Object[] {fileNoteModelImpl.getNoteId()};
+
+		finderCache.putResult(_finderPathCountByNoteId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByNoteId, args, fileNoteModelImpl);
 	}
 
 	/**
@@ -2070,6 +2538,25 @@ public class FileNotePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByFileIdAndNoteId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByFileIdAndNoteId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"fileId", "noteId"}, true);
+
+		_finderPathCountByFileIdAndNoteId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByFileIdAndNoteId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"fileId", "noteId"}, false);
+
+		_finderPathFetchByNoteId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByNoteId",
+			new String[] {Long.class.getName()}, new String[] {"noteId"}, true);
+
+		_finderPathCountByNoteId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByNoteId",
+			new String[] {Long.class.getName()}, new String[] {"noteId"},
+			false);
 
 		_setFileNoteUtilPersistence(this);
 	}

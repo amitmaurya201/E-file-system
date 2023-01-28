@@ -42,22 +42,29 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	        contentType : 'application/json'
 	 }).done(function(response){
 		 console.log(response);
-		noteId=response.noteId;
-		 $("#noteId").val(noteId).trigger('change');
-		 swal( {
+		 if(response==null){
+			 swal({
+					title: "Successfull!",
+		             text: "Note can't be empty!",
+		             icon: "success",
+					}) 
+		}
+		/* noteId=response.noteId;
+		 $("#noteId").val(noteId).trigger('change');*/
+		 swal({
 				title: "Successfull!",
 	             text: `Note is created successfully!`,
 	             icon: "success",
+				}).then(function(){
+					window.location.reload(true);
 				})
-			
-		 console.log("noteId"+noteId);
+		
 	 }).fail(function(error){
 		 swal({  
 				title: " Oops!",  
-			  	text: "Note has not been created!",  
+			  	text: "Something went wrong!",  
 			  	icon: "error",
 			})
-		 console.log(error);
 		 
 	 }) 
  })
@@ -88,7 +95,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 		 $('#exampleModal').hide();
 		 swal({  
 				title: " Oops!",  
-			  	text: "Note has not been created!",  
+			  	text: "Something went wrong!",  
 			  	icon: "error",
 			})
 	 })

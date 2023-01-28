@@ -24,6 +24,7 @@ import java.util.Date;
 import javax.portlet.ActionRequest;
 
 import io.jetprocess.core.util.MovementStatus;
+import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.exception.NoSuchNoteException;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalService;
@@ -46,6 +47,8 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 
 	  // create Method for addNote in File 
 	public Note addNote(String content, long createdBy, long fileId, long noteId) throws PortalException {
+		System.out.println(content);
+		if(!content.equalsIgnoreCase(null) || !content.isEmpty()) {
 		Note note =null;
 		if(noteId==0) {
 			 long generateNoteId = counterLocalService.increment(Note.class.getName()); 
@@ -80,7 +83,11 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 			note = super.updateNote(note);  
 		   
 	   }
+		
 		   return note;
+		}else {
+			return null;
+		}
 	
 	  }
 	  
@@ -92,12 +99,10 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		  note = super.updateNote(note);
 		  return note;	  
 	  }
-	 public Note getNoteByUserPostId(long userPostId) throws NoSuchNoteException {
-		 Note  note = notePersistence.findByuserPostId(userPostId);
-		 System.out.println(note);
-		 return note;
-	 }
-	  
+	  public Note getNoteByUserPostId(long userPostId) throws NoSuchNoteException {
+			 Note  note = notePersistence.findByuserPostId(userPostId);
+			 return note;
+		 }
 	 
  @Reference
  FileNoteLocalService fileNoteLocalService;

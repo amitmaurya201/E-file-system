@@ -1976,6 +1976,35 @@ $BODY$;
 ALTER FUNCTION public.get_file_correspondence_list(bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
+ -- Note List
+   CREATE OR REPLACE FUNCTION public.get_all_attached_note_list(
+	_filemovementid bigint,
+	_fileid bigint)
+    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+	declare 
+       _query text;
+   
+    begin
+       IF (_fileid !=0  )THEN
+            _query :='SELECT n.noteid, n.signature, n.createdate,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
+					fn on n.noteid = fn.noteid where fn.fileid ='||_fileid||' AND fn.filemovementid <='||_filemovementid;
+                return query execute _query;
+       			END IF;
+     end;
+$BODY$;
+
+ALTER FUNCTION public.get_all_attached_note_list(bigint, bigint)
+    OWNER TO postgres;
+	--Select function public.get_all_attached_note_list(0,222);
+
     
     
 

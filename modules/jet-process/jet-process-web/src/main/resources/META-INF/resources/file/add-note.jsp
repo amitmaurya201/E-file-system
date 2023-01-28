@@ -1,32 +1,9 @@
 <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <style>
  textarea {
   background-color : #bef8c7;
-  
 
 }
-.saveButton{
-background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 2px 6px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-.deleteButton{
-background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 2px 6px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-
 </style>
 
 <div style="background-color: #bef8c7; height: 400px">
@@ -45,24 +22,39 @@ background-color: DodgerBlue;
 	<aui:form name="addNote" >
 		<div id="editor" style="display: none;">
 			<div style="background-color:green;">
-			<button  id="removeNote" type="button" class="deleteButton" data-toggle="modal" data-target="#exampleModal">
-			<i class="fa fa-trash"></i>
+			<button  id="removeNote" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			<i class="bi bi-clipboard-x-fill"></i>
 			</button>
-			<button type="button" id= "addNoteButton" class="saveButton" >
-		<i class="fa fa-save"></i>
+			<button type="button" id= "addNoteButton" >
+			<i class="bi bi-clipboard-minus-fill"></i>
 			</button>
 			</div>	
-         	<input name = "noteId" id = "noteId" value = "0" type= "hidden"/>
-         	<c:set var ="note" scope ="session" value = "${noteObj}" />
+         	
+         	<c:set var ="note" scope ="session" value = "${noteObj}"  />
          	<c:if test = "${ empty note.noteId }">
+         	<input name = "noteId" id = "noteId" value = "0" type= "hidden" />
          	<textarea id = "content" name="content"></textarea>
          	</c:if>
          	<c:if test ="${not empty note }">
-         	<textarea id = "content" name="content">${note.content}</textarea>
+         	<input name = "noteId" id= "noteId"  value = "${note.noteId }" >
+         	<textarea id = "content" name="content">${noteContent}</textarea>
          	</c:if>
 			
 		</div>
 	</aui:form>
+		<c:forEach items = "${noteList }" var ="name" varStatus="theCount" >
+		 Note #<c:out value = "${theCount.count }"></c:out>
+		 <br>
+		 <c:out value = "${name.createDate }"></c:out>
+		 <c:forEach items = "${name.signature }" var = "signature">
+		<%--  <c:out vaue= "${signature.userName }"></c:out>
+		 <c:out vaue= "${signature.departmentName }"></c:out><c:out value = "${signature.postMarking }"></c:out> --%>
+		 <c:out value = "${signature}"></c:out>
+		 </c:forEach>
+	
+			</c:forEach>
+			
+	
 	
 </div>
 
