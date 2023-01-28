@@ -27,6 +27,11 @@
 	String curr = (String) session.getAttribute("currentURL");
 	long fileMovementId = (long) session.getAttribute("fileMovementId");
 	String viewMode = renderRequest.getParameter("viewMode");
+	
+	HttpSession userPostId = themeDisplay.getRequest().getSession();
+	String userPostsValue = (String) userPostId.getAttribute("userPostId");
+	
+
 %>
 
 
@@ -60,6 +65,7 @@
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="userPostId" value="<%= userPostsValue %>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="putinfile">
@@ -85,7 +91,7 @@
 
 
 
-
+<%= userPostsValue %>
 <nav class="navbar navbar-expand-lg navbar-light  mt-1 "
 	style="background-color: #ddd; border-top: 2px solid #a19c9c; border-top-left-radius: 5px; border-top-right-radius: 5px;">
 

@@ -1977,10 +1977,14 @@ ALTER FUNCTION public.get_file_correspondence_list(bigint, bigint, text, integer
     OWNER TO postgres;
     
  -- Note List
-   CREATE OR REPLACE FUNCTION public.get_all_attached_note_list(
+  -- FUNCTION: public.get_all_attached_note_list(bigint, bigint)
+
+-- DROP FUNCTION IF EXISTS public.get_all_attached_note_list(bigint, bigint);
+
+CREATE OR REPLACE FUNCTION public.get_all_attached_note_list(
 	_filemovementid bigint,
 	_fileid bigint)
-    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text) 
+    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, _content text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1993,9 +1997,10 @@ AS $BODY$
        _query text;
    
     begin
+    _query :='SELECT n.noteid, n.signature, n.createdate,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
+					fn on n.noteid = fn.noteid';
        IF (_fileid !=0  )THEN
-            _query :='SELECT n.noteid, n.signature, n.createdate,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
-					fn on n.noteid = fn.noteid where fn.fileid ='||_fileid||' AND fn.filemovementid <='||_filemovementid;
+           _query=_query|| ' where fn.fileid ='||_fileid||' AND fn.movementtype = 2 AND fn.filemovementid <='||_filemovementid ||' AND fn.movementtype =2';
                 return query execute _query;
        			END IF;
      end;

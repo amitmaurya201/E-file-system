@@ -65,14 +65,15 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @throws PortalException
 	 */
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, String dueDate,
-			String remark, boolean active, int currentState, long movementType) throws PortalException {
+			String remark, boolean active, int currentState, long movementType ,long noteId) throws PortalException {
 		boolean state = isFileMovementAvailable(fileId);
+		FileMovement fm = null;
 		if (state == true) {
 			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
 		} else {
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
-			FileMovement fm;
+			
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 				DocFile docFile;
@@ -94,6 +95,19 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
+			System.out.println("fileMovement saved-->");
+		}
+		if(noteId != 0) {
+		System.out.println("filenote entry start--->");
+		long fileNoteId = counterLocalService.increment(FileNote.class.getName());
+		FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
+		fileNote1.setFileNoteId(fileNoteId);
+		fileNote1.setFileId(fileId);
+		fileNote1.setFileMovementId(fm.getFmId());
+		fileNote1.setMovementType(MovementStatus.IN_FILE);
+		fileNote1.setNoteId(noteId);
+		fileNoteLocalService.addFileNote(fileNote1);
+		System.out.println("file note entry successful--->");
 		}
 	}
 
@@ -144,25 +158,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
 		docFileLocalService.updateDocFile(docFile);
-		System.out.println("list sai phle");
-		List<FileNote> fileNoteList = fileNoteLocalService.getFileNotes(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-		System.out.println("list-->"+fileNoteList);
-		for (FileNote fileNote : fileNoteList) {
-			if(fileId != fileNote.getFileId()) {
-				System.out.println("kuch ni hoga ");
-			} else if(fileId == fileNote.getFileId() ) {
-				System.out.println("fileNote sai noteId--->"+fileNote.getNoteId());
-				long fileNoteId = counterLocalService.increment(FileNote.class.getName());
-				FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
-				fileNote1.setFileNoteId(fileNoteId);
-				fileNote1.setFileId(fileId);
-				fileNote1.setFileMovementId(fmId);
-				fileNote1.setMovementType(MovementStatus.IN_FILE);
-				fileNote1.setNoteId(fileNote.getNoteId());
-				fileNoteLocalService.addFileNote(fileNote1);
-			}
-		}
-	List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			
+		List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		for (FileCorrReceipt fileCorrReceipt : fileCorrList) {
 			if (fileCorrReceipt.getDocFileId() == fileId) {
 				String remarkOfInFile = "inFile" + " - " +docFile.getFileNumber();

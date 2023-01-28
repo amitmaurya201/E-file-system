@@ -16,6 +16,8 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import java.util.List;
+
 import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
@@ -46,5 +48,9 @@ public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
 		
 	}
 
+	 public List<FileNote> getFileNoteListByFileId(long fileId){
+			List<FileNote> fileNoteList = fileNotePersistence.findByFileNoteListByFileId(fileId);
+			  return fileNoteList;
+		   }
 
 }

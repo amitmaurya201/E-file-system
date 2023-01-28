@@ -247,6 +247,9 @@ public interface FileNoteLocalService
 	public FileNote getFileNoteByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileNote> getFileNoteListByFileId(long fileId);
+
 	/**
 	 * Returns a range of all the file notes.
 	 *

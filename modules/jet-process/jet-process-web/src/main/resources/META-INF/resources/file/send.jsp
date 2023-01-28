@@ -12,6 +12,8 @@
 
 long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
 
+long noteId = (long) renderRequest.getAttribute("noteId");
+
 
 %>
 
@@ -67,6 +69,8 @@ long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=currURL%>">
+					
+			    <input type="text" name="<portlet:namespace/>noteId" value="<%=noteId %>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">

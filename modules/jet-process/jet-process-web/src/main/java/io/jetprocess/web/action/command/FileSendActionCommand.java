@@ -38,13 +38,16 @@ public class FileSendActionCommand extends BaseMVCActionCommand {
 		String remark = ParamUtil.getString(actionRequest, "remark");
 		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
 		String priority = ParamUtil.getString(actionRequest, "priorty");
+	    long noteId = ParamUtil.getLong(actionRequest,"noteId");
 		boolean active = true;
 		int currentState = FileStatus.IN_MOVEMENT;
 		long movementType = MovementStatus.NORMAL;
 		try {
 			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark, active,
-					currentState, movementType);
+					currentState, movementType,noteId);
+			System.out.println("before page redirect --->");
 			actionResponse.sendRedirect(urlvalue);
+			System.out.println("after page redirect --->");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

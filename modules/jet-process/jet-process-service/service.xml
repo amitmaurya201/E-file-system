@@ -395,6 +395,12 @@
 		<finder return-type="FileNote" name="NoteId">
 		<finder-column name="noteId"></finder-column>
 		</finder>
+		
+		
+		<finder return-type="Collection" name="FileNoteListByFileId">
+		<finder-column name="fileId"></finder-column>
+		</finder>
+		
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 

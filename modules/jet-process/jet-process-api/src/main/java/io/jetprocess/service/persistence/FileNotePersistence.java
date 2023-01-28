@@ -480,6 +480,149 @@ public interface FileNotePersistence extends BasePersistence<FileNote> {
 	public int countByNoteId(long noteId);
 
 	/**
+	 * Returns all the file notes where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file notes
+	 */
+	public java.util.List<FileNote> findByFileNoteListByFileId(long fileId);
+
+	/**
+	 * Returns a range of all the file notes where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file notes
+	 * @param end the upper bound of the range of file notes (not inclusive)
+	 * @return the range of matching file notes
+	 */
+	public java.util.List<FileNote> findByFileNoteListByFileId(
+		long fileId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the file notes where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file notes
+	 * @param end the upper bound of the range of file notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file notes
+	 */
+	public java.util.List<FileNote> findByFileNoteListByFileId(
+		long fileId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the file notes where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file notes
+	 * @param end the upper bound of the range of file notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file notes
+	 */
+	public java.util.List<FileNote> findByFileNoteListByFileId(
+		long fileId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public FileNote findByFileNoteListByFileId_First(
+			long fileId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+				orderByComparator)
+		throws NoSuchFileNoteException;
+
+	/**
+	 * Returns the first file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public FileNote fetchByFileNoteListByFileId_First(
+		long fileId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+			orderByComparator);
+
+	/**
+	 * Returns the last file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public FileNote findByFileNoteListByFileId_Last(
+			long fileId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+				orderByComparator)
+		throws NoSuchFileNoteException;
+
+	/**
+	 * Returns the last file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public FileNote fetchByFileNoteListByFileId_Last(
+		long fileId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+			orderByComparator);
+
+	/**
+	 * Returns the file notes before and after the current file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileNoteId the primary key of the current file note
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file note
+	 * @throws NoSuchFileNoteException if a file note with the primary key could not be found
+	 */
+	public FileNote[] findByFileNoteListByFileId_PrevAndNext(
+			long fileNoteId, long fileId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileNote>
+				orderByComparator)
+		throws NoSuchFileNoteException;
+
+	/**
+	 * Removes all the file notes where fileId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 */
+	public void removeByFileNoteListByFileId(long fileId);
+
+	/**
+	 * Returns the number of file notes where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the number of matching file notes
+	 */
+	public int countByFileNoteListByFileId(long fileId);
+
+	/**
 	 * Caches the file note in the entity cache if it is enabled.
 	 *
 	 * @param fileNote the file note

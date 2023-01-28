@@ -1896,6 +1896,501 @@ public class FileNotePersistenceImpl
 	private static final String _FINDER_COLUMN_NOTEID_NOTEID_2 =
 		"fileNote.noteId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByFileNoteListByFileId;
+	private FinderPath _finderPathWithoutPaginationFindByFileNoteListByFileId;
+	private FinderPath _finderPathCountByFileNoteListByFileId;
+
+	/**
+	 * Returns all the file notes where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the matching file notes
+	 */
+	@Override
+	public List<FileNote> findByFileNoteListByFileId(long fileId) {
+		return findByFileNoteListByFileId(
+			fileId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the file notes where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file notes
+	 * @param end the upper bound of the range of file notes (not inclusive)
+	 * @return the range of matching file notes
+	 */
+	@Override
+	public List<FileNote> findByFileNoteListByFileId(
+		long fileId, int start, int end) {
+
+		return findByFileNoteListByFileId(fileId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the file notes where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file notes
+	 * @param end the upper bound of the range of file notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file notes
+	 */
+	@Override
+	public List<FileNote> findByFileNoteListByFileId(
+		long fileId, int start, int end,
+		OrderByComparator<FileNote> orderByComparator) {
+
+		return findByFileNoteListByFileId(
+			fileId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the file notes where fileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileNoteModelImpl</code>.
+	 * </p>
+	 *
+	 * @param fileId the file ID
+	 * @param start the lower bound of the range of file notes
+	 * @param end the upper bound of the range of file notes (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file notes
+	 */
+	@Override
+	public List<FileNote> findByFileNoteListByFileId(
+		long fileId, int start, int end,
+		OrderByComparator<FileNote> orderByComparator, boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByFileNoteListByFileId;
+				finderArgs = new Object[] {fileId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByFileNoteListByFileId;
+			finderArgs = new Object[] {fileId, start, end, orderByComparator};
+		}
+
+		List<FileNote> list = null;
+
+		if (useFinderCache) {
+			list = (List<FileNote>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (FileNote fileNote : list) {
+					if (fileId != fileNote.getFileId()) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILENOTELISTBYFILEID_FILEID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(FileNoteModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileId);
+
+				list = (List<FileNote>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	@Override
+	public FileNote findByFileNoteListByFileId_First(
+			long fileId, OrderByComparator<FileNote> orderByComparator)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = fetchByFileNoteListByFileId_First(
+			fileId, orderByComparator);
+
+		if (fileNote != null) {
+			return fileNote;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("fileId=");
+		sb.append(fileId);
+
+		sb.append("}");
+
+		throw new NoSuchFileNoteException(sb.toString());
+	}
+
+	/**
+	 * Returns the first file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByFileNoteListByFileId_First(
+		long fileId, OrderByComparator<FileNote> orderByComparator) {
+
+		List<FileNote> list = findByFileNoteListByFileId(
+			fileId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	@Override
+	public FileNote findByFileNoteListByFileId_Last(
+			long fileId, OrderByComparator<FileNote> orderByComparator)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = fetchByFileNoteListByFileId_Last(
+			fileId, orderByComparator);
+
+		if (fileNote != null) {
+			return fileNote;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("fileId=");
+		sb.append(fileId);
+
+		sb.append("}");
+
+		throw new NoSuchFileNoteException(sb.toString());
+	}
+
+	/**
+	 * Returns the last file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByFileNoteListByFileId_Last(
+		long fileId, OrderByComparator<FileNote> orderByComparator) {
+
+		int count = countByFileNoteListByFileId(fileId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<FileNote> list = findByFileNoteListByFileId(
+			fileId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the file notes before and after the current file note in the ordered set where fileId = &#63;.
+	 *
+	 * @param fileNoteId the primary key of the current file note
+	 * @param fileId the file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file note
+	 * @throws NoSuchFileNoteException if a file note with the primary key could not be found
+	 */
+	@Override
+	public FileNote[] findByFileNoteListByFileId_PrevAndNext(
+			long fileNoteId, long fileId,
+			OrderByComparator<FileNote> orderByComparator)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = findByPrimaryKey(fileNoteId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			FileNote[] array = new FileNoteImpl[3];
+
+			array[0] = getByFileNoteListByFileId_PrevAndNext(
+				session, fileNote, fileId, orderByComparator, true);
+
+			array[1] = fileNote;
+
+			array[2] = getByFileNoteListByFileId_PrevAndNext(
+				session, fileNote, fileId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected FileNote getByFileNoteListByFileId_PrevAndNext(
+		Session session, FileNote fileNote, long fileId,
+		OrderByComparator<FileNote> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_FILENOTE_WHERE);
+
+		sb.append(_FINDER_COLUMN_FILENOTELISTBYFILEID_FILEID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(FileNoteModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(fileId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(fileNote)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<FileNote> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the file notes where fileId = &#63; from the database.
+	 *
+	 * @param fileId the file ID
+	 */
+	@Override
+	public void removeByFileNoteListByFileId(long fileId) {
+		for (FileNote fileNote :
+				findByFileNoteListByFileId(
+					fileId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(fileNote);
+		}
+	}
+
+	/**
+	 * Returns the number of file notes where fileId = &#63;.
+	 *
+	 * @param fileId the file ID
+	 * @return the number of matching file notes
+	 */
+	@Override
+	public int countByFileNoteListByFileId(long fileId) {
+		FinderPath finderPath = _finderPathCountByFileNoteListByFileId;
+
+		Object[] finderArgs = new Object[] {fileId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILENOTELISTBYFILEID_FILEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FILENOTELISTBYFILEID_FILEID_2 =
+		"fileNote.fileId = ?";
+
 	public FileNotePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2557,6 +3052,25 @@ public class FileNotePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByNoteId",
 			new String[] {Long.class.getName()}, new String[] {"noteId"},
 			false);
+
+		_finderPathWithPaginationFindByFileNoteListByFileId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByFileNoteListByFileId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"fileId"}, true);
+
+		_finderPathWithoutPaginationFindByFileNoteListByFileId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByFileNoteListByFileId", new String[] {Long.class.getName()},
+			new String[] {"fileId"}, true);
+
+		_finderPathCountByFileNoteListByFileId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByFileNoteListByFileId", new String[] {Long.class.getName()},
+			new String[] {"fileId"}, false);
 
 		_setFileNoteUtilPersistence(this);
 	}

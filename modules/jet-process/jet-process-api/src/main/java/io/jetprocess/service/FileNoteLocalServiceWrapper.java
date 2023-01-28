@@ -302,6 +302,13 @@ public class FileNoteLocalServiceWrapper
 		return _fileNoteLocalService.getFileNoteByUuidAndGroupId(uuid, groupId);
 	}
 
+	@Override
+	public java.util.List<io.jetprocess.model.FileNote> getFileNoteListByFileId(
+		long fileId) {
+
+		return _fileNoteLocalService.getFileNoteListByFileId(fileId);
+	}
+
 	/**
 	 * Returns a range of all the file notes.
 	 *
