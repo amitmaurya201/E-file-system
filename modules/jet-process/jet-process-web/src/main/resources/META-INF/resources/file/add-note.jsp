@@ -4,6 +4,27 @@
   background-color : #bef8c7;
 
 }
+
+.saveButton{
+background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 2px 6px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.deleteButton{
+background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 2px 6px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+
 </style>
 
 <div style="background-color: #bef8c7; height: 400px">
@@ -22,11 +43,11 @@
 	<aui:form name="addNote" >
 		<div id="editor" style="display: none;">
 			<div style="background-color:green;">
-			<button  id="removeNote" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-			<i class="bi bi-clipboard-x-fill"></i>
+			<button  id="removeNote" type="button"  class="deleteButton" data-toggle="modal" data-target="#exampleModal">
+			<i class="fa fa-trash"></i>
 			</button>
-			<button type="button" id= "addNoteButton" >
-			<i class="bi bi-clipboard-minus-fill"></i>
+			<button type="button" id= "addNoteButton"   class="saveButton">
+				<i class="fa fa-save"></i>
 			</button>
 			</div>	
          	
