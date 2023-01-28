@@ -37,7 +37,7 @@ public class NoteRsModelResourceImpl extends BaseNoteRsModelResourceImpl {
 	@Override
 	public Response deleteNote(Long noteId)throws Exception {
 		noteLocalService.deleteNote(noteId);
-		//fileNoteLocalService.deleteFileNoteByNoteId(noteId);
+		fileNoteLocalService.deleteFileNoteByNoteId(noteId);
 		Response.ResponseBuilder responseBuilder = Response.ok();
 		System.out.println(responseBuilder.build());
 		return responseBuilder.build();

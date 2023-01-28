@@ -36,7 +36,7 @@
          	<textarea id = "content" name="content"></textarea>
          	</c:if>
          	<c:if test ="${not empty note }">
-         	<input name = "noteId" id= "noteId"  value = "${note.noteId }" >
+         	<input name = "noteId" id= "noteId"  value = "${note.noteId }" type = "hidden">
          	<textarea id = "content" name="content">${noteContent}</textarea>
          	</c:if>
 			
