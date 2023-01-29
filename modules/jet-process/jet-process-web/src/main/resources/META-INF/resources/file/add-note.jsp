@@ -27,7 +27,7 @@ background-color: DodgerBlue;
 
 </style>
 
-<div style="background-color: #bef8c7; height: 400px">
+<div style="background-color: #bef8c7; height: 400px" id="mydiv" >
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
 		id="note" height="30" class="shadow m-1 bg-white rounded-circle"
 		onclick="openNote()" />
@@ -63,21 +63,21 @@ background-color: DodgerBlue;
 			
 		</div>
 	</aui:form>
-		<c:forEach items = "${noteList }" var ="name" varStatus="theCount" >
+	<c:forEach items = "${noteList}" var ="name" varStatus="theCount" >
+			<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
 		 Note #<c:out value = "${theCount.count }"></c:out>
 		 <br>
 		 <c:out value = "${name.createDate }"></c:out>
-		 <c:forEach items = "${name.signature }" var = "signature">
-		<%--  <c:out vaue= "${signature.userName }"></c:out>
-		 <c:out vaue= "${signature.departmentName }"></c:out><c:out value = "${signature.postMarking }"></c:out> --%>
+		<c:out value = "${name.signature}"></c:out>
+		<%--  <c:forEach items = "${name.signature }" var = "signature">
 		 <c:out value = "${signature}"></c:out>
-		 </c:forEach>
-	
+		 </c:forEach> --%>
+	</div>
 			</c:forEach>
-			
+		</div>	
 	
 	
-</div>
+
 
 <br>
 
@@ -109,4 +109,8 @@ var viewMode = "${param.viewMode}";
 if (viewMode == 'ViewModeFromSentRecipt') {
 	$('#note').css("display", "none");
 }
+
+jQuery('#mydiv').css("overflow-y", "scroll");
+
+
 </script>
