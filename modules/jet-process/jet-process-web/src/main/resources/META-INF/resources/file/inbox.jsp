@@ -205,7 +205,7 @@
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
 										<span><a href="#" class="button open"
-											onclick="receiveModal(<%=fileinboxDtoList.getSenderId() %>},${fileinboxDtoList.getFileMovementId()} )">
+											onclick="receiveModal(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()} )">
 												<liferay-ui:message key="label-file-inbox-action-receive" />
 										</a></span>&nbsp;
 											<span><a href="${sendURL}"> <liferay-ui:message
