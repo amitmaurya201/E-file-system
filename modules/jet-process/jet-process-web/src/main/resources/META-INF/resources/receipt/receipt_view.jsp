@@ -5,6 +5,7 @@
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
 	session.setAttribute("receiptMovementId1", receiptMovementId);
 %>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
