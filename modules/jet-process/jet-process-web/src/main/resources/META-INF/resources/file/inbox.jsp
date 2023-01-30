@@ -416,7 +416,6 @@ $("#alert-remove").slideUp(500);
 });
 	
 function showModal(id){
-	alert(id);
 	Liferay.Service(
 			'/masterdata.userpost/get-user-post-by-id',
 			{
