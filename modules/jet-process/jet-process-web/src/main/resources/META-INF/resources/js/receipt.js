@@ -287,7 +287,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
     			var receiptNumber =response.receiptNumber;
 				swal({
 					 title: "Successfull!",
-	                 text: `You have successfully created your receipt! and your receipt number is `+receiptNumber,
+	                 text: `You have successfully created your receipt and your receipt number is `+receiptNumber,
 	                 icon: "success",
 	                 button: "Ok"
 				}).then(function() {
