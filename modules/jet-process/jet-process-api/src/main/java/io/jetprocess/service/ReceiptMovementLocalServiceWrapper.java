@@ -413,16 +413,26 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public Boolean isPullBackAvailable(long rmId) {
-		return _receiptMovementLocalService.isPullBackAvailable(rmId);
+	public boolean isCreatedReceiptAttachable(
+			long receiptId, long receiptMovementId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptMovementLocalService.isCreatedReceiptAttachable(
+			receiptId, receiptMovementId);
 	}
 
 	@Override
-	public boolean isReceiptAttachable(long receiptId, long receiptMovementId)
+	public boolean isInboxReceiptAttachable(
+			long receiptId, long receiptMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _receiptMovementLocalService.isReceiptAttachable(
+		return _receiptMovementLocalService.isInboxReceiptAttachable(
 			receiptId, receiptMovementId);
+	}
+
+	@Override
+	public Boolean isPullBackAvailable(long rmId) {
+		return _receiptMovementLocalService.isPullBackAvailable(rmId);
 	}
 
 	@Override

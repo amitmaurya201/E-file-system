@@ -15,6 +15,7 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.FileCorrReceiptLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
@@ -32,28 +33,36 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		System.out.println("status : ");
-		boolean status=receiptMovementLocalService.isReceiptAttachable(receiptPK, receiptMovementId);
+		
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+		
+		long movementType = receiptMovement.getMovementType();
+		boolean status=false;
+		System.out.println("----------------------movementType :------- "+movementType);
+		if(movementType==0) {
+			 status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
+		}
+		if(movementType==1) {
+			
+			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptPK, receiptMovementId);
+		}
+		
+		
 		System.out.println("status -----> : "+status);
-		fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
-		/*
-		 * if(status==true) {
-		 * 
-		 * fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId,
-		 * userPostId, remarks); System.out.println("working--------");
-		 * 
-		 * 
-		 * } else { SessionErrors.add(actionRequest, "receipt-is-not-attachable");
-		 * SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) +
-		 * SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE); }
-		 */
+		if(status==true) {
+			
+			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
+			System.out.println("working--------");
+			
+			
+		}
+		else {
+			SessionErrors.add(actionRequest, "receipt-is-not-attachable");
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+		}
 		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
-		
-
-		
-		
-		
-		
 		
 		
 	}

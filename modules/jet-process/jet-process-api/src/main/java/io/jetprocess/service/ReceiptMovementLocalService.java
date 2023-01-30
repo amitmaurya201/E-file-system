@@ -322,11 +322,17 @@ public interface ReceiptMovementLocalService
 	public Boolean isActive(long receiptId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Boolean isPullBackAvailable(long rmId);
+	public boolean isCreatedReceiptAttachable(
+			long receiptId, long receiptMovementId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isReceiptAttachable(long receiptId, long receiptMovementId)
+	public boolean isInboxReceiptAttachable(
+			long receiptId, long receiptMovementId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Boolean isPullBackAvailable(long rmId);
 
 	public boolean pullBackedAlready(long rmId) throws PortalException;
 

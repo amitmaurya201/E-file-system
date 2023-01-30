@@ -368,15 +368,24 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().isActive(receiptId);
 	}
 
-	public static Boolean isPullBackAvailable(long rmId) {
-		return getService().isPullBackAvailable(rmId);
-	}
-
-	public static boolean isReceiptAttachable(
+	public static boolean isCreatedReceiptAttachable(
 			long receiptId, long receiptMovementId)
 		throws PortalException {
 
-		return getService().isReceiptAttachable(receiptId, receiptMovementId);
+		return getService().isCreatedReceiptAttachable(
+			receiptId, receiptMovementId);
+	}
+
+	public static boolean isInboxReceiptAttachable(
+			long receiptId, long receiptMovementId)
+		throws PortalException {
+
+		return getService().isInboxReceiptAttachable(
+			receiptId, receiptMovementId);
+	}
+
+	public static Boolean isPullBackAvailable(long rmId) {
+		return getService().isPullBackAvailable(rmId);
 	}
 
 	public static boolean pullBackedAlready(long rmId) throws PortalException {
