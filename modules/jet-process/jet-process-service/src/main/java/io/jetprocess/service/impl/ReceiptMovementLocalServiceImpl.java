@@ -231,9 +231,30 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	}
 
 	
+
+	public boolean isCreatedReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
+		logger.info("attach method");
+		System.out.println(" receiptId : "+receiptId+", movement id : "+receiptMovementId);
+		boolean attachable = false;
+		
+		Receipt receipt = receiptLocalService.getReceipt(receiptId);
+		System.out.println("receipt : "+receipt);
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+		System.out.println("receiptMovement : "+receiptMovement);
+		if ((receiptMovement.getPullBackRemark().isEmpty() || receiptMovement.getPullBackRemark()==null) && (receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
+				&& receiptMovement.getActive()){	
+			logger.info("attachable true");
+			attachable = true;
+		}			
+		
+		System.out.println("....."+attachable);
+		return attachable;
+	}
+
+	
 	
 		// method for isReceiptAttachable 
-		public boolean isReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
+		public boolean isInboxReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
 			logger.info("attach method");
 			System.out.println(" receiptId : "+receiptId+", movement id : "+receiptMovementId);
 			boolean attachable = false;
@@ -243,7 +264,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 			System.out.println("receiptMovement : "+receiptMovement);
 			if ((receiptMovement.getPullBackRemark().isEmpty() || receiptMovement.getPullBackRemark()==null) && (receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
-					&& !receiptMovement.getActive()){
+					&& !receiptMovement.getActive()){	
 				logger.info("attachable true");
 				attachable = true;
 			}			
@@ -251,6 +272,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			System.out.println("....."+attachable);
 			return attachable;
 		}
+		
 		
 
 	
