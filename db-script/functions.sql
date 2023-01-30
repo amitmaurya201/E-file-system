@@ -1173,20 +1173,23 @@ AS $BODY$
       q3 text;
   begin
     
-    
- q1='SELECT r.receiptid, r.receiptnumber , r.subject, c.categoryvalue as category, r.createDate, r.remarks as remark, viewpdfurl as null,
-  r.nature,  ( CASE 
-                                                                                                                                                   
-  WHEN rmt.receivedon  IS NULL OR rmt.receivedon ='''' THEN false  WHEN rmt.receivedon=''receive'' THEN true ELSE false  END )  AS isread, rmt.rmid as receiptmovementid
-   FROM PUBLIC.jet_process_receipt r 
-   JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
-                                                    where mov.active_ = true OR mov.movementtype=0
-   group by mov.receiptId) as fmov on fmov.receiptId = r.receiptid
-    INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on rmt.rmid=fmov.mreceiptId 
- 
-    JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
-    
-   where  r.attachstatus is null ';
+--     receiptid bigint, receiptnumber character varying, subject character varying, category character varying, 
+--     createdate timestamp without time zone, remark character varying, viewpdfurl character varying,
+--     nature character varying,isread boolean,  receiptmovementid bigint ) 
+ q1='select r.receiptid as receiptid, r.receiptnumber as receiptnumber, r.subject as subject, c.categoryvalue as category, r.createDate as createdate, r.remarks as remark, r.viewpdfurl as null, r.nature as nature,
+     
+    (
+        case
+            when rmt.movementtype=0 then true
+            when rmt.readon=''read'' or rmt.receivedon=''receive'' then true
+            else false
+        end
+    ) as isread,  rmt.rmid as receiptmovementid
+    from public.jet_process_receipt as r 
+    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
+    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
+        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid)
+            and (rmt.active_ = true OR rmt.movementtype=0) and r.attachstatus is null ';
   
  
                 

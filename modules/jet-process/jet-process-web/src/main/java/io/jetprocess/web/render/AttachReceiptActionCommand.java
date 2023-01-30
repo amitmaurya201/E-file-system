@@ -34,18 +34,18 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		System.out.println("status : ");
 		boolean status=receiptMovementLocalService.isReceiptAttachable(receiptPK, receiptMovementId);
 		System.out.println("status -----> : "+status);
-		if(status==true) {
-			
-			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
-			System.out.println("working--------");
-			
-			
-		}
-		else {
-			SessionErrors.add(actionRequest, "receipt-is-not-attachable");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
+		fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
+		/*
+		 * if(status==true) {
+		 * 
+		 * fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId,
+		 * userPostId, remarks); System.out.println("working--------");
+		 * 
+		 * 
+		 * } else { SessionErrors.add(actionRequest, "receipt-is-not-attachable");
+		 * SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) +
+		 * SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE); }
+		 */
 		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
 		
