@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @throws PortalException
 	 */
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, String dueDate,
-			String remark, boolean active, int currentState, long movementType ,long noteId) throws PortalException {
+			String remark, boolean active, int currentState, long movementType, long noteId) throws PortalException {
 		boolean state = isFileMovementAvailable(fileId);
 		FileMovement fm = null;
 		if (state == true) {
@@ -73,7 +72,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 					movementType);
 		} else {
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
-			
+
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 				DocFile docFile;
@@ -95,19 +94,16 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
-			System.out.println("fileMovement saved-->");
 		}
-		if(noteId != 0) {
-		System.out.println("filenote entry start--->");
-		long fileNoteId = counterLocalService.increment(FileNote.class.getName());
-		FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
-		fileNote1.setFileNoteId(fileNoteId);
-		fileNote1.setFileId(fileId);
-		fileNote1.setFileMovementId(fm.getFmId());
-		fileNote1.setMovementType(MovementStatus.IN_FILE);
-		fileNote1.setNoteId(noteId);
-		fileNoteLocalService.addFileNote(fileNote1);
-		System.out.println("file note entry successful--->");
+		if (noteId != 0) {
+			long fileNoteId = counterLocalService.increment(FileNote.class.getName());
+			FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
+			fileNote1.setFileNoteId(fileNoteId);
+			fileNote1.setFileId(fileId);
+			fileNote1.setFileMovementId(fm.getFmId());
+			fileNote1.setMovementType(MovementStatus.IN_FILE);
+			fileNote1.setNoteId(noteId);
+			fileNoteLocalService.addFileNote(fileNote1);
 		}
 	}
 
@@ -158,11 +154,13 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
 		docFileLocalService.updateDocFile(docFile);
-			
-		List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS);
 		for (FileCorrReceipt fileCorrReceipt : fileCorrList) {
 			if (fileCorrReceipt.getDocFileId() == fileId) {
-				String remarkOfInFile = "inFile" + " - " +docFile.getFileNumber();
+				// update in receipt movement 
+				String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
 				long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
 				ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(rmId);
 				receiptMovement.setRmId(rmId);
@@ -174,19 +172,12 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				receiptMovement.setMovementType(MovementStatus.IN_FILE);
 				receiptMovement.setFileInMovementId(fmId);
 				receiptMovementLocalService.addReceiptMovement(receiptMovement);
+
+				// update in filecorrreceipt
+				fileCorrReceipt.setFileMovementId(fmId);
+				fileCorrReceiptLocalService.updateFileCorrReceipt(fileCorrReceipt);
 			}
 		}
-		 for (FileCorrReceipt fileCorr : fileCorrList) {
-			 if(fileCorr.getDocFileId() == fileId) {
-				 if(Validator.isNull(fileCorr.getFileMovementId())) {
-		         		fileCorr.setFileMovementId(fmId);
-		         		fileCorrReceiptLocalService.updateFileCorrReceipt(fileCorr);
-		         		System.out.println("setFileMovementId------");
-		         	} 
-				 
-			 }
-         	
-		 }
 	}
 
 	// Create a method for check Is File able to Read or Received
@@ -297,8 +288,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 	@Reference
 	ReceiptLocalService receiptLocalService;
-	
-	@Reference 
+
+	@Reference
 	private FileNoteLocalService fileNoteLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
