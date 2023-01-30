@@ -91,7 +91,6 @@
 
 
 
-<%= userPostsValue %>
 <nav class="navbar navbar-expand-lg navbar-light  mt-1 "
 	style="background-color: #ddd; border-top: 2px solid #a19c9c; border-top-left-radius: 5px; border-top-right-radius: 5px;">
 
