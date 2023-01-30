@@ -95,8 +95,13 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	@Override
 	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileRsModel.getDocFileId());
+		if(fileRsModel.getSubject()==null || fileRsModel.getSubject().isEmpty()) {
+			return null;
+			
+		}
 		docFile.setSubject(fileRsModel.getSubject());
 		docFile.setCategoryId(fileRsModel.getCategoryId());
+		
 		if (fileRsModel.getSubCategoryId() == null) {
 			docFile.setSubCategoryId(0);
 		} else if (fileRsModel.getSubCategoryId() != null) {

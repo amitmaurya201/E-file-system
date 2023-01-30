@@ -230,12 +230,21 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
    	        contentType : 'application/json'
    		  }).done(function(response) {
    			  console.log(response);
+   			  if(response==null){
+   				swal({  
+        			title: " Oops!",  
+        			  	text: "Required fields should not be empty!",  
+        			  	icon: "error",
+        		}); 
+   				  
+   			  }else{
    			  swal( {
                   title: "Successfull!",
                   text: `You have successfully updated your file! `,
                   icon: "success",
                   button: "Ok"
-              })		
+              })
+   			  }
    	 })
    	 
 	});
