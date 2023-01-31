@@ -69,7 +69,8 @@ taglib
 <%@page import="com.liferay.portal.kernel.portlet.LiferayPortletMode"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
-<%@page import="io.jetprocess.web.display.context.FileManagementToolbarDisplayContext"%>
+<%@page
+	import="io.jetprocess.web.display.context.FileManagementToolbarDisplayContext"%>
 <%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -96,7 +97,7 @@ taglib
 
 <%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@page
 	import="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"%>
@@ -104,4 +105,8 @@ taglib
 	import="io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext"%>
 <%@page
 	import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
-	
+
+<%
+	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
+	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+%>

@@ -61,8 +61,6 @@
 </style>
 <%
 	Receipt receipt = (Receipt) request.getAttribute("receipt");
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <div class="row mt-2 p-2 border border-dark  "
 	style="width: 100%; padding: 20px !important; marging: 20px; !important">

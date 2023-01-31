@@ -4,8 +4,7 @@
  HttpSession docFileIdValue = themeDisplay.getRequest().getSession();
  long corrFileId  = (long) docFileIdValue.getAttribute("putInFileId"); 	
 	//List<FileCorrespondenceReceiptDTO> receiptCorrList = MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+	
 %>
 <style>
 .crList th {
