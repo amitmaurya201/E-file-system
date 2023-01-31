@@ -1883,7 +1883,7 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying) 
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1905,7 +1905,7 @@ AS $BODY$
       
    _query='
  SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, fc.createDate, fc.remarks  as remark , null as viewpdfurl,
- 	r.nature, fc.correspondenceType as correspondenceType FROM PUBLIC.jet_process_receipt r INNER JOIN 
+ 	r.nature, fc.correspondenceType as correspondenceType, fc.receiptmovementid as receiptmovementid  FROM PUBLIC.jet_process_receipt r INNER JOIN 
  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid';
                   
         _keyword := '''%'||keyword||'%''';
