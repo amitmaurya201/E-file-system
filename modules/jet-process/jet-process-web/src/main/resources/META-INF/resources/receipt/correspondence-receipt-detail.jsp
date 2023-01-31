@@ -73,7 +73,7 @@
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-file-list-fileno" />:</th>
-										<td></td>
+										<td>${receipt.dmFileId }</td>
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-delivery-mode" />:</th>
