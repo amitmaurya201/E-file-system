@@ -23,8 +23,6 @@
 		
 			String nature = receipt.getNature();
 			char currentNature = nature.charAt(0);
-			SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-			simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 		%>
 		
 		<div class="container-fluid" style="background-color: #E8E8E8;">
@@ -60,7 +58,7 @@
 								<table class="line_height">
 									<tr>
 										<th><liferay-ui:message key="label-receipt-createdon" />:</th>
-										<td><%=simpleFormat.format(receipt.getCreateDate())%></td>
+										<td><%=simpleformat.format(receipt.getCreateDate())%></td>
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-nature" />:</th>
@@ -89,7 +87,7 @@
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-file-list-fileno" />:</th>
-										<td></td>
+										<td><%-- ${receipt.dmFileId } --%></td>
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-delivery-mode" />:</th>

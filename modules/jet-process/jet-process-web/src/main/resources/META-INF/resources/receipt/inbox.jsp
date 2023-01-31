@@ -166,10 +166,7 @@
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
-							<%
-								SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-													simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-							%>
+							
 							<liferay-ui:search-container-column-text cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" />
@@ -235,11 +232,6 @@
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
-
-							<%
-								SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-													simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-							%>
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"

@@ -41,66 +41,64 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-"mvc.command.name=/PutInFile" }, service = MVCRenderCommand.class)
+		"mvc.command.name=/PutInFile" }, service = MVCRenderCommand.class)
 public class FileInnerView implements MVCRenderCommand {
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
 
 	@Reference
 	private DocFileLocalService docFileLocalService;
-	
-	long fileMovementId = 0;
-	
+
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
-		long  fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-
+		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+		System.out.println("fileMovementId -----------aaaaaaaa" + fileMovementId);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		sessionPutInFileId.setAttribute("putInFileId", docFileId);
-		
-		   String UpostId = (String) sessionPutInFileId.getAttribute("userPostId"); 
-		   long userPostId = Long.parseLong(UpostId);
-		   System.out.println("UpostId"+userPostId);
-		   List <NoteDTO> noteList = null;
 
+		String UpostId = (String) sessionPutInFileId.getAttribute("userPostId");
+		long userPostId = Long.parseLong(UpostId);
+		System.out.println("UpostId" + userPostId);
+		List<NoteDTO> noteList = null;
 
-			try {
-				DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-				renderRequest.setAttribute("nature",docFile.getNature() );
-				renderRequest.setAttribute("docFileId",docFileId);
-				renderRequest.setAttribute("docFileObj", docFile);
-				renderRequest.setAttribute("CurrentURL", currentURL);
-				renderRequest.setAttribute("fileMovementId", fileMovementId);
-				FileNote fileNote=getFileNoteByUserpostId(docFileId,renderRequest);
-				if(fileNote!=null) {
-				Note note =noteLocalService.getNoteByUserPostId(userPostId);
+		try {
+			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+			renderRequest.setAttribute("nature", docFile.getNature());
+			renderRequest.setAttribute("docFileId", docFileId);
+			renderRequest.setAttribute("docFileObj", docFile);
+			renderRequest.setAttribute("CurrentURL", currentURL);
+			renderRequest.setAttribute("fileMovementId", fileMovementId);
+
+			FileNote fileNote = getFileNoteByUserpostId(docFileId, renderRequest);
+			if (fileNote != null) {
+				Note note = noteLocalService.getNoteByUserPostId(userPostId);
 				renderRequest.setAttribute("noteContent", note.getContent());
 				renderRequest.setAttribute("noteObj", fileNote);
-				}
-			  noteList=fileLists.getAttachedNoteList(fileMovementId, docFileId);
-			  System.out.println("noteList"+noteList);
-			  renderRequest.setAttribute("noteList", noteList);
-
-
-			} catch (PortalException e) {
-			   e.printStackTrace();
 			}
-			setCorrespondenceListAttributes(renderRequest);
-			setCorrespondenceToolbarAttributes(renderRequest,renderResponse);
-		
+			noteList = fileLists.getAttachedNoteList(fileMovementId, docFileId);
+			System.out.println("noteList" + noteList);
+			renderRequest.setAttribute("noteList", noteList);
+
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		setCorrespondenceListAttributes(renderRequest);
+		setCorrespondenceToolbarAttributes(renderRequest, renderResponse);
+
 		return "/file/file-inner-view.jsp";
 	}
-	 
+
 	private void setCorrespondenceListAttributes(RenderRequest renderRequest) {
 		logger.info("setting Correspondence list Attribute...");
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
+		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		HttpSession session = themeDisplay.getRequest().getSession();
@@ -109,29 +107,28 @@ public class FileInnerView implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		
-		int count = fileLists.getFileCorrespondenceCount(fileMovementId,fileId, keywords);
-		logger.info("Count of File list : "+count);
+
+		int count = fileLists.getFileCorrespondenceCount(fileMovementId, fileId, keywords);
+		logger.info("Count of File list : " + count);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
-			
+
 		}
-		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
-		start=paginationConfig.get("start");
-		currentPage=paginationConfig.get("currentPage");
-		
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
+		start = paginationConfig.get("start");
+		currentPage = paginationConfig.get("currentPage");
+
 		session.setAttribute("preDelta", "" + delta + "");
-		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId,fileId, keywords, start, end, orderByCol, orderByType);
-		
-		
-		//logger.info("File Correspondence list------> : "+fileCorrespondence);
+		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId, fileId,
+				keywords, start, end, orderByCol, orderByType);
+
+		// logger.info("File Correspondence list------> : "+fileCorrespondence);
 		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCorrespondenceCount", count);
 	}
-	
 
 	private void setCorrespondenceToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
@@ -142,23 +139,24 @@ public class FileInnerView implements MVCRenderCommand {
 				fileCorrespondenceManagementToolbarDisplayContext);
 
 	}
-	private FileNote getFileNoteByUserpostId(long docFileId, RenderRequest renderRequest ) throws NoSuchNoteException, NoSuchFileNoteException {
+
+	private FileNote getFileNoteByUserpostId(long docFileId, RenderRequest renderRequest)
+			throws NoSuchNoteException, NoSuchFileNoteException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
-		String UpostId = (String) sessionPutInFileId.getAttribute("userPostId"); 
+		String UpostId = (String) sessionPutInFileId.getAttribute("userPostId");
 		long userPostId = Long.parseLong(UpostId);
-		FileNote fileNote =null;
-		Note noteObj =noteLocalService.getNoteByUserPostId(userPostId);
-		if(noteObj.getNoteId()!=0) {
-		fileNote = fileNoteLocalService.getNoteByFileIdAndUserpostId(docFileId,noteObj.getNoteId());
+		FileNote fileNote = null;
+		Note noteObj = noteLocalService.getNoteByUserPostId(userPostId);
+		if (noteObj.getNoteId() != 0) {
+			fileNote = fileNoteLocalService.getNoteByFileIdAndUserpostId(docFileId, noteObj.getNoteId());
 		}
 		return fileNote;
-	
+
 	}
 
-	 
 	private static Log logger = LogFactoryUtil.getLog(FileInnerView.class);
-	
+
 	@Reference
 	private Portal _portal;
 	@Reference
@@ -167,10 +165,5 @@ public class FileInnerView implements MVCRenderCommand {
 	private NoteLocalService noteLocalService;
 	@Reference
 	private FileNoteLocalService fileNoteLocalService;
-
-
-
-	 
-	
 
 }

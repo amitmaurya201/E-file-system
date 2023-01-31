@@ -42,21 +42,16 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 
 		System.out.println("CorrespondencesInfoRenderCommand : ---------> ");
 		long receiptId=ParamUtil.getLong(renderRequest, "receiptId");
-		System.out.println("receiptId : "+receiptId);
-		Receipt receipt=null;
-		try {
-			receipt = receiptLocalService.getReceipt(receiptId);
-		} catch (PortalException e) {
-			e.printStackTrace();
-		}
+		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
+		
 		
 		setManagementToolbarAttributes(renderRequest,renderResponse );
 		setReceiptMovementList(renderRequest);
 //		List<ReceiptMovementDTO> receiptMovementList = recieptList.getReceiptMovementList(receiptId, "", 0, 10, "", "");
 		
-		System.out.println("    "+receipt);
+//		System.out.println("    "+receipt);
 //		receiptMovementList.forEach(c->System.out.println(c));
-		renderRequest.setAttribute("receipt", receipt);
+//		renderRequest.setAttribute("receipt", receipt);
 //		renderRequest.setAttribute("receiptMovementList", receiptMovementList);
 		return "/file/correspondencesInfo.jsp";
 	}
@@ -105,6 +100,9 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 	private ReceiptList recieptList;
 	@Reference
 	private Portal portal;
+
+	@Reference
+	private ReceiptViewHelper receiptViewHelper;
 
 }
 

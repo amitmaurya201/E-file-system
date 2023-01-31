@@ -84,10 +84,7 @@
 				<liferay-ui:search-container-column-text
 					value="<%=sentFileListDTO.getSentTo()%>"
 					cssClass="hover-tips" name="Sent To" />
-				<%
-					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-				%>
+			
 				<liferay-ui:search-container-column-text
 					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
 					name="Sent On" />

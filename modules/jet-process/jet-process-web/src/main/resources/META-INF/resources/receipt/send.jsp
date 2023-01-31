@@ -51,7 +51,7 @@
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
 			<div class="hover-tips"><%=firstChar%>
-				| ${receipt.receiptNumber}
+				| ${receipt.receiptNumber} | ${receipt.subject}
 			</div>
 		</div>
 

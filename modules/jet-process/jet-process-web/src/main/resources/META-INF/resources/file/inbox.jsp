@@ -132,11 +132,6 @@
 						<portlet:param name="fileMovementId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
 				</portlet:renderURL>
-				<%
-					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
-							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-				%>
-
 				<c:choose>
 					<c:when
 						test="${fileinboxDtoList.getNature()=='Electronic' || fileinboxDtoList.getNature()=='Physical'}">

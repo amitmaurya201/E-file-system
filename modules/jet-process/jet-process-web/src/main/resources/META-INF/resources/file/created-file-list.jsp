@@ -51,11 +51,6 @@
 					value="<%=filedto.getCategory() != null ? filedto.getCategory() : ""%>"
 					name="category" cssClass="hover-tips" />
 
-				<%
-					SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-				%>
-
 				<liferay-ui:search-container-column-text
 					value="<%=filedto.getCreateDate() != null ? simpleformat.format(filedto.getCreateDate()) : ""%>"
 					name="label-file-list-createon" />
