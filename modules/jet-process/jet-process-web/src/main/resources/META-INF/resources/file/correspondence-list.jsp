@@ -182,7 +182,7 @@ if (viewMode == 'ViewModeFromSentFile') {
 					}, 														 
 					id: '<portlet:namespace />dialog',														 
 					title: 'Correspondence Details', 														 
-					uri: '<%= correspondencesinfoViewPopup %>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId,			
+					uri: '<%= correspondencesinfoViewPopup %>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId+'&<portlet:namespace/>corrFileId=<%=corrFileId %>',			
 					});
 				 
 	
@@ -205,7 +205,7 @@ if (viewMode == 'ViewModeFromSentFile') {
 						}, 														 
 						id: '<portlet:namespace />dialog',														 
 						title: 'Receipt Details', 														 
-						uri: '<%= receiptDetailsPopup %>&<portlet:namespace />receiptId='+receiptId,			
+						uri: '<%= receiptDetailsPopup %>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace/>corrFileId=<%=corrFileId %>',			
 						});
 					  
 		

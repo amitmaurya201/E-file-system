@@ -25,7 +25,9 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptMovementDTO;
+import io.jetprocess.model.DocFile;
 import io.jetprocess.model.Receipt;
+import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptLocalServiceUtil;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -42,9 +44,17 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 
 		System.out.println("CorrespondencesInfoRenderCommand : ---------> ");
 		long receiptId=ParamUtil.getLong(renderRequest, "receiptId");
+		long corrFileId=ParamUtil.getLong(renderRequest, "corrFileId");
+		DocFile docFile=null;
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
+		try {
+			docFile = docFileLocalService.getDocFile(corrFileId);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 		
-		
+		System.out.println("---corrFileId------"+corrFileId);
+		renderRequest.setAttribute("fileNumber", docFile.getFileNumber());
 		setManagementToolbarAttributes(renderRequest,renderResponse );
 		setReceiptMovementList(renderRequest);
 //		List<ReceiptMovementDTO> receiptMovementList = recieptList.getReceiptMovementList(receiptId, "", 0, 10, "", "");
@@ -103,6 +113,8 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 	private ReceiptLocalService receiptLocalService ;
 	@Reference
 	private ReceiptList recieptList;
+	@Reference
+	private DocFileLocalService docFileLocalService;
 	@Reference
 	private Portal portal;
 
