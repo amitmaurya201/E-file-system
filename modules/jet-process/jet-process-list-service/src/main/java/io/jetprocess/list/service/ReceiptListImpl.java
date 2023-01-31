@@ -272,7 +272,7 @@ public class ReceiptListImpl implements ReceiptList {
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT public.get_receipt_movement_list_count(?,?,?)");
-			prepareCall.setLong(1, userpostId);
+			prepareCall.setLong(1, receiptmovementId);
 			prepareCall.setLong(2, userpostId);
 			prepareCall.setString(3, keyword);
 			boolean execute = prepareCall.execute();
