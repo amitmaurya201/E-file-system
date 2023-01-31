@@ -133,7 +133,7 @@
 						value="${fileinboxDtoList.getFileMovementId()}" />
 				</portlet:renderURL>
 				<%
-					SimpleDateFormat simpleformat = new SimpleDateFormat("dd-MM-yy hh:mm aa");
+					SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
 							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 				%>
 
