@@ -61,13 +61,13 @@
 </style>
 <%
 	Receipt receipt = (Receipt) request.getAttribute("receipt");
-
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
-
 <div class="row mt-2 p-2 border border-dark  "
 	style="width: 100%; padding: 20px !important; marging: 20px; !important">
+
+
 	<div class="col-md-12 mr-2 details-color">
 		<h5>
 			<aui:icon cssClass="fas fa-file-alt view_icon " />
@@ -78,7 +78,7 @@
 		<table class="mt-2 mb-2 file-dtls">
 			<tr>
 				<th><liferay-ui:message key="label-receipt-createdon" />:</th>
-				<td><%=simpleFormat.format(receipt.getCreateDate())%></td>
+				<td><%=simpleformat.format(receipt.getCreateDate())%></td>
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-nature" />:</th>
@@ -186,8 +186,8 @@
 	</div>
 
 
-	<div class="col-md-12 mt-5">
 
+	<div class="col-md-12 mt-5">
 		<div class="row">
 			<div class="col-md-12 ">
 				<h5 class="mb-2 p-2 details-color ">
@@ -226,7 +226,6 @@
 
 				<div class="col-md-12">
 
-
 					<liferay-ui:search-container delta="${delta }"
 						emptyResultsMessage="label-no-record-found"
 						total="${receiptMovementCount }"
@@ -239,7 +238,8 @@
 							className="io.jetprocess.list.model.ReceiptMovementDTO"
 							modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
 							<liferay-ui:search-container-column-text
-								value="${receiptMovementDTO.sentOn}" name="label-sent-on" />
+								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
+								name="label-sent-on" />
 							<liferay-ui:search-container-column-text
 								value="${receiptMovementDTO.sentBy}" name="label-sent-by"
 								cssClass="hover-tips" />
@@ -249,9 +249,6 @@
 							<liferay-ui:search-container-column-text
 								value="${receiptMovementDTO.remark}" name="label-remarks"
 								cssClass="hover-tips" />
-							<liferay-ui:search-container-column-text
-								value="${receiptMovementDTO.pullBackRemark}"
-								name="label-pullback-remark" cssClass="hover-tips" />
 						</liferay-ui:search-container-row>
 						<liferay-ui:search-iterator markupView="lexicon" />
 					</liferay-ui:search-container>
