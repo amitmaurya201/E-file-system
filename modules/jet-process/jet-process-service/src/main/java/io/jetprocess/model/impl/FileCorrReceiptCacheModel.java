@@ -85,14 +85,14 @@ public class FileCorrReceiptCacheModel
 		sb.append(receiptId);
 		sb.append(", userPostId=");
 		sb.append(userPostId);
+		sb.append(", receiptMovementId=");
+		sb.append(receiptMovementId);
 		sb.append(", correspondenceType=");
 		sb.append(correspondenceType);
 		sb.append(", remarks=");
 		sb.append(remarks);
 		sb.append(", fileMovementId=");
 		sb.append(fileMovementId);
-		sb.append(", receiptMovementId=");
-		sb.append(receiptMovementId);
 		sb.append("}");
 
 		return sb.toString();
@@ -131,6 +131,7 @@ public class FileCorrReceiptCacheModel
 		fileCorrReceiptImpl.setDocFileId(docFileId);
 		fileCorrReceiptImpl.setReceiptId(receiptId);
 		fileCorrReceiptImpl.setUserPostId(userPostId);
+		fileCorrReceiptImpl.setReceiptMovementId(receiptMovementId);
 
 		if (correspondenceType == null) {
 			fileCorrReceiptImpl.setCorrespondenceType("");
@@ -147,7 +148,6 @@ public class FileCorrReceiptCacheModel
 		}
 
 		fileCorrReceiptImpl.setFileMovementId(fileMovementId);
-		fileCorrReceiptImpl.setReceiptMovementId(receiptMovementId);
 
 		fileCorrReceiptImpl.resetOriginalValues();
 
@@ -173,12 +173,12 @@ public class FileCorrReceiptCacheModel
 		receiptId = objectInput.readLong();
 
 		userPostId = objectInput.readLong();
+
+		receiptMovementId = objectInput.readLong();
 		correspondenceType = objectInput.readUTF();
 		remarks = objectInput.readUTF();
 
 		fileMovementId = objectInput.readLong();
-
-		receiptMovementId = objectInput.readLong();
 	}
 
 	@Override
@@ -206,6 +206,8 @@ public class FileCorrReceiptCacheModel
 
 		objectOutput.writeLong(userPostId);
 
+		objectOutput.writeLong(receiptMovementId);
+
 		if (correspondenceType == null) {
 			objectOutput.writeUTF("");
 		}
@@ -221,8 +223,6 @@ public class FileCorrReceiptCacheModel
 		}
 
 		objectOutput.writeLong(fileMovementId);
-
-		objectOutput.writeLong(receiptMovementId);
 	}
 
 	public String uuid;
@@ -235,9 +235,9 @@ public class FileCorrReceiptCacheModel
 	public long docFileId;
 	public long receiptId;
 	public long userPostId;
+	public long receiptMovementId;
 	public String correspondenceType;
 	public String remarks;
 	public long fileMovementId;
-	public long receiptMovementId;
 
 }

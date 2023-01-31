@@ -233,7 +233,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	
 
 	public boolean isCreatedReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
-		logger.info("attach method");
+		System.out.println("isCreatedReceiptAttachable..............");
 		System.out.println(" receiptId : "+receiptId+", movement id : "+receiptMovementId);
 		boolean attachable = false;
 		
@@ -255,7 +255,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	
 		// method for isReceiptAttachable 
 		public boolean isInboxReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
-			logger.info("attach method");
+			System.out.println("isInboxReceiptAttachable...........");
 			System.out.println(" receiptId : "+receiptId+", movement id : "+receiptMovementId);
 			boolean attachable = false;
 			

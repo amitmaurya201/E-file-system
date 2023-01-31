@@ -344,6 +344,10 @@ public class FileListImpl implements FileList {
 	@Override
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long filemovementId ,  long docfileId, String keyword, int start, int end,
 			String orderBy, String order) {
+		
+		System.out.println("filemovementid from FileListImpl----"+filemovementId);
+		System.out.println("fileid from FileListImpl----"+docfileId);
+		
 		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -362,6 +366,7 @@ public class FileListImpl implements FileList {
 				while (rs.next()) {
 					FileCorrespondenceReceiptDTO filCorrespondenceDTO = new FileCorrespondenceReceiptDTO();
 					filCorrespondenceDTO.setReceiptId(rs.getLong("receiptid"));
+					filCorrespondenceDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					filCorrespondenceDTO.setReceiptNumber(rs.getString("receiptnumber"));
 					filCorrespondenceDTO.setSubject(rs.getString("subject"));
 					filCorrespondenceDTO.setCategory(rs.getString("category"));
@@ -370,6 +375,7 @@ public class FileListImpl implements FileList {
 					filCorrespondenceDTO.setViewPdfUrl(rs.getString("viewPdfUrl"));
 					filCorrespondenceDTO.setNature(rs.getString("nature"));
 					filCorrespondenceDTO.setCorrespondenceType(rs.getString("correspondenceType"));
+					
 					fileCorrespondenceReceiptDTO.add(filCorrespondenceDTO);
 				}
 			}

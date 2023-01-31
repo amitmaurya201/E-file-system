@@ -54,6 +54,9 @@ public class FileCorrReceiptTable extends BaseTable<FileCorrReceiptTable> {
 		"receiptId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileCorrReceiptTable, Long> userPostId = createColumn(
 		"userPostId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileCorrReceiptTable, Long> receiptMovementId =
+		createColumn(
+			"receiptMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileCorrReceiptTable, String> correspondenceType =
 		createColumn(
 			"correspondenceType", String.class, Types.VARCHAR,
@@ -63,9 +66,6 @@ public class FileCorrReceiptTable extends BaseTable<FileCorrReceiptTable> {
 	public final Column<FileCorrReceiptTable, Long> fileMovementId =
 		createColumn(
 			"fileMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<FileCorrReceiptTable, Long> receiptMovementId =
-		createColumn(
-			"receiptMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private FileCorrReceiptTable() {
 		super("JET_PROCESS_FileCorrReceipt", FileCorrReceiptTable::new);

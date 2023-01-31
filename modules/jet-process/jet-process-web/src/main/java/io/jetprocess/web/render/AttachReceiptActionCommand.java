@@ -37,13 +37,16 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 		
 		long movementType = receiptMovement.getMovementType();
-		boolean status=false;
+		boolean status = false;
 		System.out.println("----------------------movementType :------- "+movementType);
 		if(movementType==0) {
+			System.out.println("----------------------movementType :if movementType=0 ------- ");
 			 status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
+			 System.out.println("----------------------movementType :if movementType=0 ------- "+status);
 		}
 		if(movementType==1) {
 			
+			System.out.println("----------------------movementType :if movementType=1 ------- ");
 			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptPK, receiptMovementId);
 		}
 		
@@ -51,7 +54,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		System.out.println("status -----> : "+status);
 		if(status==true) {
 			
-			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks);
+			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks, receiptMovementId);
 			System.out.println("working--------");
 			
 			

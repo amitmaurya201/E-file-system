@@ -43,7 +43,7 @@
 								<table class="line_height">
 									<tr>
 										<th><liferay-ui:message key="label-receipt-createdon" />:</th>
-										<td><%=simpleFormat.format(receipt.getCreateDate())%></td>
+										<td></td>
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-nature" />:</th>

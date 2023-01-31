@@ -56,11 +56,12 @@ public class FileCorrReceiptLocalServiceWrapper
 
 	@Override
 	public void addReceiptInFile(
-			long receiptId, long docFileId, long userPostId, String remark)
+			long receiptId, long docFileId, long userPostId, String remark,
+			long receiptMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_fileCorrReceiptLocalService.addReceiptInFile(
-			receiptId, docFileId, userPostId, remark);
+			receiptId, docFileId, userPostId, remark, receiptMovementId);
 	}
 
 	/**

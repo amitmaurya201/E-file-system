@@ -53,10 +53,10 @@ public class FileCorrReceiptWrapper
 		attributes.put("docFileId", getDocFileId());
 		attributes.put("receiptId", getReceiptId());
 		attributes.put("userPostId", getUserPostId());
+		attributes.put("receiptMovementId", getReceiptMovementId());
 		attributes.put("correspondenceType", getCorrespondenceType());
 		attributes.put("remarks", getRemarks());
 		attributes.put("fileMovementId", getFileMovementId());
-		attributes.put("receiptMovementId", getReceiptMovementId());
 
 		return attributes;
 	}
@@ -123,6 +123,12 @@ public class FileCorrReceiptWrapper
 			setUserPostId(userPostId);
 		}
 
+		Long receiptMovementId = (Long)attributes.get("receiptMovementId");
+
+		if (receiptMovementId != null) {
+			setReceiptMovementId(receiptMovementId);
+		}
+
 		String correspondenceType = (String)attributes.get(
 			"correspondenceType");
 
@@ -140,12 +146,6 @@ public class FileCorrReceiptWrapper
 
 		if (fileMovementId != null) {
 			setFileMovementId(fileMovementId);
-		}
-
-		Long receiptMovementId = (Long)attributes.get("receiptMovementId");
-
-		if (receiptMovementId != null) {
-			setReceiptMovementId(receiptMovementId);
 		}
 	}
 

@@ -54,10 +54,10 @@ create table JET_PROCESS_FileCorrReceipt (
 	docFileId LONG,
 	receiptId LONG,
 	userPostId LONG,
+	receiptMovementId LONG,
 	correspondenceType VARCHAR(75) null,
 	remarks VARCHAR(75) null,
-	fileMovementId LONG,
-	receiptMovementId LONG
+	fileMovementId LONG
 );
 
 create table JET_PROCESS_FileMovement (

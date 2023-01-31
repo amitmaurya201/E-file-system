@@ -222,6 +222,20 @@ public interface FileCorrReceiptModel
 	public void setUserPostId(long userPostId);
 
 	/**
+	 * Returns the receipt movement ID of this file corr receipt.
+	 *
+	 * @return the receipt movement ID of this file corr receipt
+	 */
+	public long getReceiptMovementId();
+
+	/**
+	 * Sets the receipt movement ID of this file corr receipt.
+	 *
+	 * @param receiptMovementId the receipt movement ID of this file corr receipt
+	 */
+	public void setReceiptMovementId(long receiptMovementId);
+
+	/**
 	 * Returns the correspondence type of this file corr receipt.
 	 *
 	 * @return the correspondence type of this file corr receipt
@@ -264,20 +278,6 @@ public interface FileCorrReceiptModel
 	 * @param fileMovementId the file movement ID of this file corr receipt
 	 */
 	public void setFileMovementId(long fileMovementId);
-
-	/**
-	 * Returns the receipt movement ID of this file corr receipt.
-	 *
-	 * @return the receipt movement ID of this file corr receipt
-	 */
-	public long getReceiptMovementId();
-
-	/**
-	 * Sets the receipt movement ID of this file corr receipt.
-	 *
-	 * @param receiptMovementId the receipt movement ID of this file corr receipt
-	 */
-	public void setReceiptMovementId(long receiptMovementId);
 
 	@Override
 	public FileCorrReceipt cloneWithOriginalValues();

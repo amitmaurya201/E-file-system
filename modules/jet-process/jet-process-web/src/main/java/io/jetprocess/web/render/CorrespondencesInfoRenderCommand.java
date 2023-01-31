@@ -70,10 +70,13 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
+		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId", 0);
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		HttpSession session = themeDisplay.getRequest().getSession(); 
 
-		int count=recieptList.getReceiptMovementListCount(0, receiptId, "");
+		System.out.println("receiptMovementId : "+receiptMovementId+", receipt id : "+receiptId);
+		
+		int count=recieptList.getReceiptMovementListCount(receiptMovementId, receiptId, "");
 		int preDelta=0;
 		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
@@ -85,12 +88,14 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", ""+delta+"");
 		
 		if(receiptId != 0) {
-			receiptMovementList = 	recieptList.getReceiptMovementList(receiptId,0, "", start, end, "", "");
+			receiptMovementList = 	recieptList.getReceiptMovementList(receiptMovementId,receiptId, "", start, end, "", "");
 		}
 		System.out.println("start : "+start+" , End : "+end);
+		System.out.println(count);
+		receiptMovementList.forEach(c->System.out.println(c)); 
 		renderRequest.setAttribute("receiptMovementList", receiptMovementList);
 		renderRequest.setAttribute("delta", delta);
-		renderRequest.setAttribute("receiptMovementCount",+count);
+		renderRequest.setAttribute("receiptMovementCount",count);
 		
 	}
 	

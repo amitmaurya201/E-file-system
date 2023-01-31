@@ -93,7 +93,7 @@
 			className="io.jetprocess.list.model.FileCorrespondenceReceiptDTO"
 			modelVar="aFileCorrespondenceReceiptDTO">
 			<liferay-ui:search-container-column-text>
-			<a class="Info" onclick="infoPopup(${aFileCorrespondenceReceiptDTO.receiptId })">
+			<a class="Info" onclick="infoPopup(${aFileCorrespondenceReceiptDTO.receiptId }, ${aFileCorrespondenceReceiptDTO.receiptMovementId })">
 				<i class="fa fa-info-circle"  style="color:blue;font-size:16px; cursor:help"></i>
 			</a>
 			</liferay-ui:search-container-column-text>
@@ -166,8 +166,7 @@ if (viewMode == 'ViewModeFromSentFile') {
 	
 	<script>
 	
-	function infoPopup(receiptId){
-	
+	function infoPopup(receiptId, receiptMovementId){
 	 Liferay.Util.openWindow({ 
 				dialog: { 														 
 						height: 550,														 
@@ -183,7 +182,7 @@ if (viewMode == 'ViewModeFromSentFile') {
 					}, 														 
 					id: '<portlet:namespace />dialog',														 
 					title: 'Correspondence Details', 														 
-					uri: '<%= correspondencesinfoViewPopup %>&<portlet:namespace />receiptId='+receiptId,			
+					uri: '<%= correspondencesinfoViewPopup %>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId,			
 					});
 				 
 	

@@ -37,13 +37,14 @@ import org.osgi.service.component.annotations.Reference;
 public class FileCorrReceiptLocalServiceImpl
 	extends FileCorrReceiptLocalServiceBaseImpl {
 	
-	public void addReceiptInFile(long receiptId, long docFileId, long userPostId, String remark)
-			throws PortalException {
+	public void addReceiptInFile(long receiptId, long docFileId, long userPostId, String remark, long receiptMovementId)
+			throws PortalException {	
 
 		long fileCorrId = counterLocalService.increment();
 		FileCorrReceipt fileCorrReceipt = createFileCorrReceipt(fileCorrId);
 		fileCorrReceipt.setReceiptId(receiptId);
 		fileCorrReceipt.setDocFileId(docFileId);
+		fileCorrReceipt.setReceiptMovementId(receiptMovementId);
 		fileCorrReceipt.setUserPostId(userPostId);
 		fileCorrReceipt.setCorrespondenceType(FileStatus.RECEIPT_TYPE);
 		fileCorrReceipt.setRemarks(remark);
