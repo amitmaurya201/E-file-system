@@ -76,10 +76,6 @@
 				<liferay-ui:search-container-column-text
 					value="<%=receipt.getCategory() != null ? receipt.getCategory() : ""%>"
 					cssClass="hover-tips" name="label-receipt-list-category" />
-				<%
-					SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-							simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-				%>
 
 				<liferay-ui:search-container-column-text
 					value="<%=receipt.getCreateDate() != null ? simpleformat.format(receipt.getCreateDate()) : ""%>"

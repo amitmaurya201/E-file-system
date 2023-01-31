@@ -19,11 +19,7 @@
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
-		<%
-			SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-			simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-		%>
-
+		
 		<h2
 			style="text-align: center; text-decoration: underline; margin-top: 20px;">
 			<liferay-ui:message key="label-receipt-movement-heading" />

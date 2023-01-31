@@ -7,8 +7,8 @@
 	String setURl = serviceContext.getPortalURL();
 
 	/* for current date*/
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MMM/yyyy");
-	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
+	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="createdListReceipt">
 	<portlet:param name="mvcRenderCommandName"
@@ -96,7 +96,7 @@
 									<label><liferay-ui:message
 											key="label-receipt-createdon" /></label>
 									<aui:input label="" name="createdOn" id="createdOn"
-										value="<%=simpleformat.format(new Date())%>" disabled="true" />
+										value="<%=simpleFormat.format(new Date())%>" disabled="true" />
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
