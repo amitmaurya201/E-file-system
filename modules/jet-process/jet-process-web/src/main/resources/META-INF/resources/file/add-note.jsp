@@ -1,4 +1,6 @@
 <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 <style>
  textarea {
   background-color : #bef8c7;
@@ -29,10 +31,10 @@ background-color: DodgerBlue;
 
 <div style="background-color: #bef8c7; height: 400px" id="mydiv" >
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
-		id="note" height="30" class="shadow m-1 bg-white rounded-circle"
-		onclick="openNote()" />
-
-	<div id="notes" style="display: none;">
+		id="note" height="30" class="shadow m-1 bg-white rounded-circle addtoggle "
+	 />
+	<!-- onclick="openNote()" -->
+	<div id="notes" class="g" style="display: none;">
 		<img src='<%=request.getContextPath() + "/image/green-note.jpg"%>'
 			width="8%" height="30" class="shadow m-1 bg-white rounded-circle"
 			onclick="openGreenNote()" /> <br /> <img
@@ -109,8 +111,12 @@ var viewMode = "${param.viewMode}";
 if (viewMode == 'ViewModeFromSentRecipt') {
 	$('#note').css("display", "none");
 }
-
 jQuery('#mydiv').css("overflow-y", "scroll");
-
+/* for toggle note icon  */
+$(document).ready(function(){
+	$(".addtoggle").click(function(){
+	   $("#notes").toggle();
+	 });
+	});
 
 </script>

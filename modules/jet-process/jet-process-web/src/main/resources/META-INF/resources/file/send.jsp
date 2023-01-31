@@ -58,7 +58,10 @@ long noteId = (long) renderRequest.getAttribute("noteId");
 		<div class="container-fluid" style="background-color: #E8E8E8;">
 			<div class="hover-tips"><%=firstChar%>
 				|
-				<%=docFile.getFileNumber()%></div>
+				<%=docFile.getFileNumber()%>
+				| <%= docFile.getSubject() %>
+				</div>
+				
 		</div>
 		<aui:container cssClass="row">
 			<aui:form action="${sendFile}" cssClass="border border-dark col-6"
@@ -70,7 +73,7 @@ long noteId = (long) renderRequest.getAttribute("noteId");
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=currURL%>">
 					
-			    <input type="text" name="<portlet:namespace/>noteId" value="<%=noteId %>">
+			    <input type="hidden" name="<portlet:namespace/>noteId" value="<%=noteId %>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
