@@ -1,5 +1,6 @@
 package io.jetprocess.web.render;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -10,6 +11,8 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.model.DocFile;
+import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -23,7 +26,17 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		System.out.println("view");
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		long corrFileId=ParamUtil.getLong(renderRequest, "corrFileId");
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
+		DocFile docFile=null;
+		try {
+			docFile = docFileLocalService.getDocFile(corrFileId);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("---corrFileId------"+corrFileId);
+		renderRequest.setAttribute("fileNumber", docFile.getFileNumber());
 		return "/receipt/correspondence-receipt-detail.jsp";
 	}
 	
@@ -32,5 +45,8 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 	
 	@Reference
 	private ReceiptViewHelper receiptViewHelper;
+	
+	@Reference
+	private DocFileLocalService docFileLocalService;
 	
 }
