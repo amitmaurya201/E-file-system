@@ -135,8 +135,9 @@ background-color: DodgerBlue;
 
 <script>
 var viewMode = "${param.viewMode}";
-if (viewMode == 'ViewModeFromSentRecipt') {
-	$('#note').css("display", "none");
+console.log(viewMode);
+if (viewMode == 'ViewModeFromSentFile') {
+	$('#note').removeClass("addtoggle");
 }
 jQuery('#mydiv').css("overflow-y", "scroll");
 /* for toggle note icon  */
