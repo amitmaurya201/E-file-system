@@ -165,6 +165,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 		$("#<portlet:namespace />rmId").val(receiptMovementId);
 		$('#isReadAlert').trigger('click');
 	}else{
+		$("#<portlet:namespace />receiptMovementId").val(receiptMovementId);
 		$("#<portlet:namespace />attachReceipt").submit();
 	}
 });
@@ -193,6 +194,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 	             },
 	               on: {
 	                    success: function() {
+	                    	$("#<portlet:namespace />receiptMovementId").val(receiptMovementId);
 	                    	$("#<portlet:namespace />attachReceipt").submit()
 	                    }
 	               }

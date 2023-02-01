@@ -32,7 +32,9 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		System.out.println("status : ");
+		System.out.println("status : "+ParamUtil.getLong(actionRequest, "receiptMovementId"));
+		
+		System.out.println("receiptPK : "+receiptPK+", receiptMovementId : "+receiptMovementId);
 		
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 		
@@ -81,4 +83,6 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }
+
+
 

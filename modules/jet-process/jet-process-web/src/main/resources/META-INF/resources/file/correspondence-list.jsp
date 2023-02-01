@@ -98,6 +98,9 @@
 			</a>
 			</liferay-ui:search-container-column-text>
 		
+			<liferay-ui:search-container-column-text>
+			<span>${aFileCorrespondenceReceiptDTO.receiptMovementId }</span>
+			</liferay-ui:search-container-column-text>
 			<liferay-ui:search-container-column-text ><%=aFileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 			
 			
