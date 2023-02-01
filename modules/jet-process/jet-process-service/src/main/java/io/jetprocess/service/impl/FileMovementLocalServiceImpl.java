@@ -74,6 +74,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
 
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
+			System.out.println("fmid---------------"+fm);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 				DocFile docFile;
 				docFile = docFileLocalService.getDocFile(fileId);
@@ -92,15 +93,27 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				}
 				updateFileMovement(fm);
 			}
+			System.out.println("testing -------------------");
 			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
+			
+		
 		}
+		
 		if (noteId != 0) {
+			System.out.println("testing --------------2");
+		List<FileMovement> fileMovementList =	getFileMovementByFileId(fileId);
+		long fileMovementId = 0L ;
+		for (FileMovement fileMovement : fileMovementList) {
+	     fileMovementId = fileMovement.getFmId();	
+		}
+			System.out.println("fileMovementId --------by amit"+fileMovementId);
 			long fileNoteId = counterLocalService.increment(FileNote.class.getName());
 			FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
 			fileNote1.setFileNoteId(fileNoteId);
 			fileNote1.setFileId(fileId);
-			fileNote1.setFileMovementId(fm.getFmId());
+			System.out.println("Last movement id -->"+fileMovementId);
+			fileNote1.setFileMovementId(fileMovementId);
 			fileNote1.setMovementType(MovementStatus.IN_FILE);
 			fileNote1.setNoteId(noteId);
 			fileNoteLocalService.addFileNote(fileNote1);
@@ -140,6 +153,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 		long fmId = counterLocalService.increment(FileMovement.class.getName());
 		FileMovement fm = fileMovementLocalService.createFileMovement(fmId);
+		System.out.println("fileMovement----..,.,--->"+fmId);
 		fm.setFmId(fmId);
 		fm.setReceiverId(receiverId);
 		fm.setSenderId(senderId);

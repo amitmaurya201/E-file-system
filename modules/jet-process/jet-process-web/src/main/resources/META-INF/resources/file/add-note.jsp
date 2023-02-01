@@ -1,3 +1,7 @@
+<%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.json.JSONObject"%>
+<%@page import="io.jetprocess.list.model.NoteDTO"%>
+<%@page import="java.util.List"%>
 <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
@@ -65,23 +69,46 @@ background-color: DodgerBlue;
 			
 		</div>
 	</aui:form>
-	<c:forEach items = "${noteList}" var ="name" varStatus="theCount" >
+	<%-- <c:forEach items = "${noteList}" var ="name" varStatus="theCount" >
 			<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
 		 Note #<c:out value = "${theCount.count }"></c:out>
 		 <br>
 		 <c:out value = "${name.createDate }"></c:out>
 		<c:out value = "${name.signature}"></c:out>
-		<%--  <c:forEach items = "${name.signature }" var = "signature">
+		 <c:forEach items = "${name.signature }" var = "signature">
 		 <c:out value = "${signature}"></c:out>
-		 </c:forEach> --%>
+		 </c:forEach>
 	</div>
-			</c:forEach>
+			</c:forEach> --%>
+			
+			
+		<% List<NoteDTO> note =(List <NoteDTO>)request.getAttribute("noteList");
+		System.out.println("noteist"+note);
+		if(note!=null){
+			for(NoteDTO noteDTO : note){
+				JSONObject object = JSONFactoryUtil.createJSONObject(noteDTO.getSignature());
+				System.out.println("note------"+object);
+				int i = 1;
+				%>
+		<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
+		<b>Note # <%=i %></b> 
+		 <br>
+		        <%= noteDTO.getCreateDate()%>
+				<span><%= object.get("departmentName") %></span>
+				<span><%= object.get("userName") %></span>
+				<span><%= object.get("postMarking") %></span>
+				</div>
+				
+			  <%
+			  i++;
+			} 
+			
+		}
+		%>
 		</div>	
 	
-	
-
-
 <br>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -108,8 +135,9 @@ background-color: DodgerBlue;
 
 <script>
 var viewMode = "${param.viewMode}";
-if (viewMode == 'ViewModeFromSentRecipt') {
-	$('#note').css("display", "none");
+console.log(viewMode);
+if (viewMode == 'ViewModeFromSentFile') {
+	$('#note').removeClass("addtoggle");
 }
 jQuery('#mydiv').css("overflow-y", "scroll");
 /* for toggle note icon  */
