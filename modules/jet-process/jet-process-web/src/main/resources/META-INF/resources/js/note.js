@@ -18,6 +18,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 
 	$('#addNoteButton').on('click',function(e){
 	 event.preventDefault();
+	
 	 console.log("userPostId"+userPostId);
 	 var fileId = $('#docFileId').val();
 	 console.log("fileId"+fileId);
@@ -44,9 +45,9 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 		 console.log(response);
 		 if(response==null){
 			 swal({
-					title: "Successfull!",
+					title: "Oops!",
 		             text: "Note can't be empty!",
-		             icon: "success",
+		             icon: "Fail",
 					}) 
 		}
 		/* noteId=response.noteId;
@@ -101,4 +102,6 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 })
 		 
 	}
+
+
 </script>
