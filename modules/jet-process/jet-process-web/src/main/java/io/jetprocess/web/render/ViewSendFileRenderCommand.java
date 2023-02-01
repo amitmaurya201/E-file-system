@@ -52,7 +52,7 @@ public class ViewSendFileRenderCommand implements MVCRenderCommand {
 			}
 			
 		} else  if(!fileNoteList.isEmpty() || fileNoteList != null){
-			System.out.println("else part");
+			System.out.println("else part");	
 
 Note note = null;
 try {
