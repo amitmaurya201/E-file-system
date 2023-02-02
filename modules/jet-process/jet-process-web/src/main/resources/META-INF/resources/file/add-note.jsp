@@ -135,7 +135,6 @@ background-color: DodgerBlue;
 
 <script>
 var viewMode = "${param.viewMode}";
-console.log(viewMode);
 if (viewMode == 'ViewModeFromSentFile') {
 	$('#note').removeClass("addtoggle");
 }
