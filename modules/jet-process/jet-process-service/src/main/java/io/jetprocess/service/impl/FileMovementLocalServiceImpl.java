@@ -100,24 +100,20 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		
 		}
 		
-		if (noteId != 0) {
-			System.out.println("testing --------------2");
-		List<FileMovement> fileMovementList =	getFileMovementByFileId(fileId);
-		long fileMovementId = 0L ;
-		for (FileMovement fileMovement : fileMovementList) {
-	     fileMovementId = fileMovement.getFmId();	
-		}
-			System.out.println("fileMovementId --------by amit"+fileMovementId);
-			long fileNoteId = counterLocalService.increment(FileNote.class.getName());
-			FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
-			fileNote1.setFileNoteId(fileNoteId);
-			fileNote1.setFileId(fileId);
-			System.out.println("Last movement id -->"+fileMovementId);
-			fileNote1.setFileMovementId(fileMovementId);
-			fileNote1.setMovementType(MovementStatus.IN_FILE);
-			fileNote1.setNoteId(noteId);
-			fileNoteLocalService.addFileNote(fileNote1);
-		}
+		/*
+		 * if (noteId != 0) { System.out.println("testing --------------2");
+		 * List<FileMovement> fileMovementList = getFileMovementByFileId(fileId); long
+		 * fileMovementId = 0L ; for (FileMovement fileMovement : fileMovementList) {
+		 * fileMovementId = fileMovement.getFmId(); }
+		 * System.out.println("fileMovementId --------by amit"+fileMovementId); long
+		 * fileNoteId = counterLocalService.increment(FileNote.class.getName());
+		 * FileNote fileNote1 = fileNoteLocalService.createFileNote(fileNoteId);
+		 * fileNote1.setFileNoteId(fileNoteId); fileNote1.setFileId(fileId);
+		 * System.out.println("Last movement id -->"+fileMovementId);
+		 * fileNote1.setFileMovementId(fileMovementId);
+		 * fileNote1.setMovementType(MovementStatus.IN_FILE);
+		 * fileNote1.setNoteId(noteId); fileNoteLocalService.addFileNote(fileNote1); }
+		 */
 	}
 
 	public List<FileMovement> getFileMovementByFileId(long fileId) {

@@ -39,7 +39,8 @@ public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
 	}
 	 public FileNote  getNoteByFileIdAndUserpostId(long fileId, long noteId) throws NoSuchFileNoteException   {
 		FileNote fileNote= fileNotePersistence.findByFileIdAndNoteId(fileId, noteId);
-			 return fileNote;
+		return fileNote;
+			
 		 }
 	 
 	public void deleteFileNoteByNoteId(long noteId) throws NoSuchFileNoteException {

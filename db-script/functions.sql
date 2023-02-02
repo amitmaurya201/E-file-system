@@ -2012,7 +2012,7 @@ AS $BODY$
     _query :='SELECT n.noteid, n.signature, n.createdate,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
 					fn on n.noteid = fn.noteid';
        IF (_fileid !=0  )THEN
-           _query=_query|| ' where fn.fileid ='||_fileid||' AND fn.movementtype = 2 AND fn.filemovementid <='||_filemovementid ||' AND fn.movementtype =2';
+           _query=_query|| ' where fn.fileid ='||_fileid||' AND fn.filemovementid <='||_filemovementid;
                 return query execute _query;
        			END IF;
      end;

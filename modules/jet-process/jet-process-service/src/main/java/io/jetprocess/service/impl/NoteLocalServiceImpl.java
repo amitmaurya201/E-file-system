@@ -46,16 +46,13 @@ import org.osgi.service.component.annotations.Reference;
 public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 
 	  // create Method for addNote in File 
-	public Note addNote(String content, long createdBy, long fileId, long noteId) throws PortalException {
+	public Note addNote(String content, long createdBy, long fileId, long noteId, long fileMovementId ) throws PortalException {
 	
-		if(!content.equalsIgnoreCase(null) || !content.isEmpty()) {
-			return null;
-		}
+		if(content != null && !content.trim().isEmpty()) {
 		Note note =null;
 		if(noteId==0) {
 			 long generateNoteId = counterLocalService.increment(Note.class.getName()); 	
 			 note = createNote(generateNoteId);
-			 long fileMovementId = 0L;
 			  note.setNoteId(generateNoteId);
 			  note.setCreatedBy(createdBy);
 			  note.setContent(content);
@@ -85,9 +82,12 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	   }
 		
 		   return note;
-		
+		}else {
+			return null;
+		}
 	
 	  }
+
 	  
 	  // create Method for Edit Note 
 	  public Note editNote(long noteId, String content) throws PortalException {
@@ -98,8 +98,10 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		  return note;	  
 	  }
 	  public Note getNoteByUserPostId(long userPostId) throws NoSuchNoteException {
-			 Note  note = notePersistence.findByuserPostId(userPostId);
+			 Note  note = notePersistence.findByuserPostId(userPostId); 
 			 return note;
+	
+			
 		 }
 	 
  @Reference

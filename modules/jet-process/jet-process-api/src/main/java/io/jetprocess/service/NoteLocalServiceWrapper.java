@@ -51,10 +51,12 @@ public class NoteLocalServiceWrapper
 
 	@Override
 	public io.jetprocess.model.Note addNote(
-			String content, long createdBy, long fileId, long noteId)
+			String content, long createdBy, long fileId, long noteId,
+			long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteLocalService.addNote(content, createdBy, fileId, noteId);
+		return _noteLocalService.addNote(
+			content, createdBy, fileId, noteId, fileMovementId);
 	}
 
 	/**

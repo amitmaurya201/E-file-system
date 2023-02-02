@@ -130,6 +130,34 @@ public class NoteRsModel implements Serializable {
 	protected Long fileId;
 
 	@Schema
+	public Long getFileMovementId() {
+		return fileMovementId;
+	}
+
+	public void setFileMovementId(Long fileMovementId) {
+		this.fileMovementId = fileMovementId;
+	}
+
+	@JsonIgnore
+	public void setFileMovementId(
+		UnsafeSupplier<Long, Exception> fileMovementIdUnsafeSupplier) {
+
+		try {
+			fileMovementId = fileMovementIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long fileMovementId;
+
+	@Schema
 	public Long getNoteId() {
 		return noteId;
 	}
@@ -244,6 +272,16 @@ public class NoteRsModel implements Serializable {
 			sb.append("\"fileId\": ");
 
 			sb.append(fileId);
+		}
+
+		if (fileMovementId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"fileMovementId\": ");
+
+			sb.append(fileMovementId);
 		}
 
 		if (noteId != null) {

@@ -21,7 +21,8 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	
 	 console.log("userPostId"+userPostId);
 	 var fileId = $('#docFileId').val();
-	 console.log("fileId"+fileId);
+	 var fileMovementId = $('#fileMovementId').val();
+	 console.log("fileMovementId"+fileMovementId);
 	 var content = CKEDITOR.instances.content.document.getBody().getText();
 	 console.log("content"+content);
 	 var noteId = $('#noteId').val();
@@ -32,6 +33,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 jsonData["fileId"] = fileId;
 	 jsonData["content"] = content;
 	 jsonData["noteId"] =noteId;
+	 jsonData["fileMovementId"] =fileMovementId;
 	 var jsonObj = JSON.stringify(jsonData);
 	 $.ajax({
 		 type:"POST",
@@ -44,14 +46,15 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 }).done(function(response){
 		 console.log(response);
 		 if(response==null){
+			 console.log("response null");
 			 swal({
 					title: "Oops!",
 		             text: "Note can't be empty!",
 		             icon: "Fail",
 					}) 
 		}
-		/* noteId=response.noteId;
-		 $("#noteId").val(noteId).trigger('change');*/
+		 else{
+			 console.log("respose content");
 		 swal({
 				title: "Successfull!",
 	             text: `Note is created successfully!`,
@@ -59,15 +62,19 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 				}).then(function(){
 					window.location.reload(true);
 				})
+		 }
 		
 	 }).fail(function(error){
 		 swal({  
 				title: " Oops!",  
 			  	text: "Something went wrong!",  
 			  	icon: "error",
+			}).then(function(){
+				window.location.reload(true);
 			})
 		 
 	 }) 
+	 
  })
 
  function removeNote(){

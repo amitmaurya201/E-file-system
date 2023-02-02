@@ -80,7 +80,8 @@ public interface NoteLocalService
 	public Note addNote(Note note);
 
 	public Note addNote(
-			String content, long createdBy, long fileId, long noteId)
+			String content, long createdBy, long fileId, long noteId,
+			long fileMovementId)
 		throws PortalException;
 
 	/**

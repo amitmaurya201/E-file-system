@@ -171,6 +171,9 @@ components:
         fileId:
           format: int64
           type: integer
+        fileMovementId:
+          format: int64
+          type: integer  
           
       type: object      
 paths:

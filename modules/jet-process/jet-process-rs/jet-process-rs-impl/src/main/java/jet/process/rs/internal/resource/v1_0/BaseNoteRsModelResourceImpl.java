@@ -41,7 +41,7 @@ public abstract class BaseNoteRsModelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createNote' -d $'{"content": ___, "createdBy": ___, "fileId": ___, "noteId": ___, "signature": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/jet-process-rs/v1.0/createNote' -d $'{"content": ___, "createdBy": ___, "fileId": ___, "fileMovementId": ___, "noteId": ___, "signature": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "NoteRsModel")}
@@ -58,7 +58,7 @@ public abstract class BaseNoteRsModelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/jet-process-rs/v1.0/editNote' -d $'{"content": ___, "createdBy": ___, "fileId": ___, "noteId": ___, "signature": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/jet-process-rs/v1.0/editNote' -d $'{"content": ___, "createdBy": ___, "fileId": ___, "fileMovementId": ___, "noteId": ___, "signature": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "NoteRsModel")}
