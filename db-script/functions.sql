@@ -251,11 +251,15 @@ AS $BODY$
                 orderBy :='f.modifieddate';
             
         END IF;
-        IF (orderByCol ='filenumber' OR orderByCol ='fileNumber' AND orderByCol IS NULL) THEN
+        IF (orderByCol ='filenumber' OR orderByCol ='fileNumber') THEN
                 orderBy :='f.filenumber';
             
         END IF;
-        IF (orderByCol ='subject' AND orderByCol IS NULL) THEN
+        IF (orderByCol ='subject' ) THEN
+                orderBy :='f.subject';
+            
+        END IF;
+          IF (orderByCol ='createdOn' OR orderByCol ='createdon') THEN
                 orderBy :='f.subject';
             
         END IF;
@@ -369,6 +373,15 @@ AS $BODY$
         
         IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
                 _orderBy :='fm.modifieddate';
+           
+        END IF;
+        IF (orderByCol ='sentOn' OR orderByCol ='senton') THEN
+                _orderBy :='fm.createdate';
+           
+        END IF;
+        
+        IF (orderByCol ='dueDate' OR orderByCol ='duedate') THEN
+                _orderBy :='fm.duedate';
            
         END IF;
          
@@ -772,8 +785,8 @@ AS $BODY$
         IF (orderbycol ='' OR orderbycol ='modifieddate' OR orderbycol ='modifiedDate' OR orderbycol IS NULL) THEN
                 _orderBy :='modifieddate';
         END IF;
-        IF ( orderbycol ='createdon' OR orderbycol ='createdOn') THEN
-                _orderBy :='createDate';
+        IF ( orderbycol ='createdon' OR orderbycol ='createdOn' OR orderbycol='createDate' OR orderbycol='createdate') THEN
+                _orderBy :='createdate';
         END IF;
          IF (orderbycol ='receiptnumber' OR orderbycol ='receiptNumber') THEN
                 _orderBy :='receiptnumber';
@@ -912,7 +925,7 @@ AS $BODY$
            
         END IF;
          IF (orderByCol ='dueon' OR orderByCol ='dueOn' ) THEN
-                _orderBy :='r.duedate';
+                _orderBy :='rm.duedate';
            
         END IF;
          IF (orderByCol ='senton' OR orderByCol ='sentOn' ) THEN

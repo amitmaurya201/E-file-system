@@ -534,6 +534,181 @@ public class FileCorrReceiptUtil {
 	}
 
 	/**
+	 * Returns all the file corr receipts where docFileId = &#63;.
+	 *
+	 * @param docFileId the doc file ID
+	 * @return the matching file corr receipts
+	 */
+	public static List<FileCorrReceipt> findByfileCorrReceiptBydocFileId(
+		long docFileId) {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId(docFileId);
+	}
+
+	/**
+	 * Returns a range of all the file corr receipts where docFileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileCorrReceiptModelImpl</code>.
+	 * </p>
+	 *
+	 * @param docFileId the doc file ID
+	 * @param start the lower bound of the range of file corr receipts
+	 * @param end the upper bound of the range of file corr receipts (not inclusive)
+	 * @return the range of matching file corr receipts
+	 */
+	public static List<FileCorrReceipt> findByfileCorrReceiptBydocFileId(
+		long docFileId, int start, int end) {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId(
+			docFileId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the file corr receipts where docFileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileCorrReceiptModelImpl</code>.
+	 * </p>
+	 *
+	 * @param docFileId the doc file ID
+	 * @param start the lower bound of the range of file corr receipts
+	 * @param end the upper bound of the range of file corr receipts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file corr receipts
+	 */
+	public static List<FileCorrReceipt> findByfileCorrReceiptBydocFileId(
+		long docFileId, int start, int end,
+		OrderByComparator<FileCorrReceipt> orderByComparator) {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId(
+			docFileId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the file corr receipts where docFileId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileCorrReceiptModelImpl</code>.
+	 * </p>
+	 *
+	 * @param docFileId the doc file ID
+	 * @param start the lower bound of the range of file corr receipts
+	 * @param end the upper bound of the range of file corr receipts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file corr receipts
+	 */
+	public static List<FileCorrReceipt> findByfileCorrReceiptBydocFileId(
+		long docFileId, int start, int end,
+		OrderByComparator<FileCorrReceipt> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId(
+			docFileId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first file corr receipt in the ordered set where docFileId = &#63;.
+	 *
+	 * @param docFileId the doc file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file corr receipt
+	 * @throws NoSuchFileCorrReceiptException if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt findByfileCorrReceiptBydocFileId_First(
+			long docFileId,
+			OrderByComparator<FileCorrReceipt> orderByComparator)
+		throws io.jetprocess.exception.NoSuchFileCorrReceiptException {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId_First(
+			docFileId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first file corr receipt in the ordered set where docFileId = &#63;.
+	 *
+	 * @param docFileId the doc file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file corr receipt, or <code>null</code> if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt fetchByfileCorrReceiptBydocFileId_First(
+		long docFileId, OrderByComparator<FileCorrReceipt> orderByComparator) {
+
+		return getPersistence().fetchByfileCorrReceiptBydocFileId_First(
+			docFileId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file corr receipt in the ordered set where docFileId = &#63;.
+	 *
+	 * @param docFileId the doc file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file corr receipt
+	 * @throws NoSuchFileCorrReceiptException if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt findByfileCorrReceiptBydocFileId_Last(
+			long docFileId,
+			OrderByComparator<FileCorrReceipt> orderByComparator)
+		throws io.jetprocess.exception.NoSuchFileCorrReceiptException {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId_Last(
+			docFileId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file corr receipt in the ordered set where docFileId = &#63;.
+	 *
+	 * @param docFileId the doc file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file corr receipt, or <code>null</code> if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt fetchByfileCorrReceiptBydocFileId_Last(
+		long docFileId, OrderByComparator<FileCorrReceipt> orderByComparator) {
+
+		return getPersistence().fetchByfileCorrReceiptBydocFileId_Last(
+			docFileId, orderByComparator);
+	}
+
+	/**
+	 * Returns the file corr receipts before and after the current file corr receipt in the ordered set where docFileId = &#63;.
+	 *
+	 * @param fileCorrReceiptId the primary key of the current file corr receipt
+	 * @param docFileId the doc file ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file corr receipt
+	 * @throws NoSuchFileCorrReceiptException if a file corr receipt with the primary key could not be found
+	 */
+	public static FileCorrReceipt[]
+			findByfileCorrReceiptBydocFileId_PrevAndNext(
+				long fileCorrReceiptId, long docFileId,
+				OrderByComparator<FileCorrReceipt> orderByComparator)
+		throws io.jetprocess.exception.NoSuchFileCorrReceiptException {
+
+		return getPersistence().findByfileCorrReceiptBydocFileId_PrevAndNext(
+			fileCorrReceiptId, docFileId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the file corr receipts where docFileId = &#63; from the database.
+	 *
+	 * @param docFileId the doc file ID
+	 */
+	public static void removeByfileCorrReceiptBydocFileId(long docFileId) {
+		getPersistence().removeByfileCorrReceiptBydocFileId(docFileId);
+	}
+
+	/**
+	 * Returns the number of file corr receipts where docFileId = &#63;.
+	 *
+	 * @param docFileId the doc file ID
+	 * @return the number of matching file corr receipts
+	 */
+	public static int countByfileCorrReceiptBydocFileId(long docFileId) {
+		return getPersistence().countByfileCorrReceiptBydocFileId(docFileId);
+	}
+
+	/**
 	 * Caches the file corr receipt in the entity cache if it is enabled.
 	 *
 	 * @param fileCorrReceipt the file corr receipt

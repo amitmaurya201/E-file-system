@@ -55,7 +55,7 @@
 
 				<liferay-ui:search-container-column-text
 					value="<%=filedto.getCreateDate() != null ? simpleformat.format(filedto.getCreateDate()) : ""%>"
-					name="label-file-list-createon" />
+					name="label-file-list-createon" orderable="true" orderableProperty="createdOn" />
 
 				<liferay-ui:search-container-column-text
 					value="<%=filedto.getRemark() != null ? filedto.getRemark() : ""%>"

@@ -266,6 +266,12 @@ public class FileCorrReceiptLocalServiceUtil {
 		return getService().getFileCorrReceipt(fileCorrReceiptId);
 	}
 
+	public static List<FileCorrReceipt> getFileCorrReceiptByFileId(
+		long fileId) {
+
+		return getService().getFileCorrReceiptByFileId(fileId);
+	}
+
 	/**
 	 * Returns the file corr receipt matching the UUID and group.
 	 *

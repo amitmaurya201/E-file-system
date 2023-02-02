@@ -189,7 +189,7 @@
 		<div class="row">
 			<div class="col-md-12 ">
 				<h5 class="mb-2 p-2 details-color ">
-					<i class="fa-solid fa-timer" style="color: blue; font-size: 16px;"></i>Receipt(s)
+					<i class="fa-solid fa-timer" style="color: blue; font-size: 16px; margin-left:5px;"></i>Receipt(s)
 				</h5>
 				<div class="col-md-12 details-color">
 					<nav class="navbar navbar-expand-lg navbar-light  mt-1 "
@@ -219,7 +219,7 @@
 				</div>
 
 				<div class="col-md-12 angled" style="margin-top: 10px !important">
-					<h5 class="align-middle">Movement History</h5>
+					<h5 class="align-baseline" style="padding-top: 10px !important; padding-left: 7px !important;">Movement History</h5>
 				</div>
 
 				<div class="col-md-12">

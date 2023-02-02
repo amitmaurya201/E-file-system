@@ -18,11 +18,14 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.List;
+
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.base.FileCorrReceiptLocalServiceBaseImpl;
+import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,10 +51,12 @@ public class FileCorrReceiptLocalServiceImpl
 		fileCorrReceipt.setReceiptId(receiptId);
 		fileCorrReceipt.setDocFileId(docFileId);
 		fileCorrReceipt.setReceiptMovementId(receiptMovementId);
+		
 		fileCorrReceipt.setUserPostId(userPostId);
 		fileCorrReceipt.setCorrespondenceType(FileStatus.RECEIPT_TYPE);
 		fileCorrReceipt.setRemarks(remark);
 		fileCorrReceipt.setFileMovementId(fileMovementId);
+		System.out.println("...........file movement id : "+fileCorrReceipt.getFileMovementId());
 	        addFileCorrReceipt(fileCorrReceipt);
 		Receipt receiptObj = receiptLocalService.getReceipt(receiptId);
 		if (Validator.isNotNull(receiptObj)) {
@@ -63,6 +68,13 @@ public class FileCorrReceiptLocalServiceImpl
 	
 	}
 	
+	public List<FileCorrReceipt> getFileCorrReceiptByFileId(long fileId){
+
+		System.out.println("******* getFileCorrReceiptByFileId.....");
+		return fileCorrReceiptPersistence.findByfileCorrReceiptBydocFileId(fileId);
+	}
+	
 	@Reference
 	private ReceiptLocalService receiptLocalService;
+	
 }

@@ -299,6 +299,13 @@ public class FileCorrReceiptLocalServiceWrapper
 			fileCorrReceiptId);
 	}
 
+	@Override
+	public java.util.List<io.jetprocess.model.FileCorrReceipt>
+		getFileCorrReceiptByFileId(long fileId) {
+
+		return _fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
+	}
+
 	/**
 	 * Returns the file corr receipt matching the UUID and group.
 	 *

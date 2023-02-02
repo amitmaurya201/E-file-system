@@ -169,12 +169,12 @@
 							
 							<liferay-ui:search-container-column-text cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-senton" />
+								name="label-receipt-inbox-senton" orderableProperty="sentOn" orderable="true" />
 
 							<liferay-ui:search-container-column-text property="dueDate"
 								cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-dueon" />
+								name="label-receipt-inbox-dueon" orderableProperty="dueOn" orderable="true" />
 
 							<liferay-ui:search-container-column-text
 								cssClass="hover-tips bold" name="label-receipt-inbox-remarks"
@@ -235,10 +235,10 @@
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-senton" />
+								name="label-receipt-inbox-senton" orderableProperty="sentOn" orderable="true" />
 							<liferay-ui:search-container-column-text property="dueDate"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-dueon" />
+								name="label-receipt-inbox-dueon" orderableProperty="dueOn" orderable="true" />
 
 							<liferay-ui:search-container-column-text cssClass="hover-tips"
 								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"

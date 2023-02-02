@@ -176,10 +176,10 @@
 								value="<%=fileinboxDtoList.getSentOn() != null
 										? simpleformat.format(fileinboxDtoList.getSentOn())
 										: ""%>"
-								name="label-file-inbox-senton" cssClass="bold" />
+								name="label-file-inbox-senton" cssClass="bold" orderableProperty="sentOn" orderable="true" />
 
 							<liferay-ui:search-container-column-text property="dueDate"
-								name="label-file-inbox-dueon" cssClass="bold" />
+								name="label-file-inbox-dueon" cssClass="bold" orderableProperty="dueDate" orderable="true" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-remarks" cssClass="hover-tips bold">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
@@ -238,10 +238,10 @@
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
-								name="label-file-inbox-senton" />
+								name="label-file-inbox-senton" orderableProperty="sentOn" orderable="true" />
 
 							<liferay-ui:search-container-column-text property="dueDate"
-								name="label-file-inbox-dueon" />
+								name="label-file-inbox-dueon" orderableProperty="dueDate" orderable="true" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-remarks" cssClass="hover-tips">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">

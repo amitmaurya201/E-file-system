@@ -32,11 +32,12 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
+//		long fmid =ParamUtil.getLong(actionRequest, "fileMovementId");
 		
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		System.out.println("status : "+ParamUtil.getLong(actionRequest, "receiptMovementId"));
+//		System.out.println(" fmid......---:..... : "+fmid);
 		
-		long fileMovementId = masterdataLocalService.getMaximumFmIdByFileIdData(docFileId);
+		long fileMovementId =  ParamUtil.getLong(actionRequest, "fileMovementId");
 		
 		System.out.println("maximumFmIdByFileIdData....."+fileMovementId);
 		

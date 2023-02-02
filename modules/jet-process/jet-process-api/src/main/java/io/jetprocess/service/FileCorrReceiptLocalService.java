@@ -238,6 +238,9 @@ public interface FileCorrReceiptLocalService
 	public FileCorrReceipt getFileCorrReceipt(long fileCorrReceiptId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<FileCorrReceipt> getFileCorrReceiptByFileId(long fileId);
+
 	/**
 	 * Returns the file corr receipt matching the UUID and group.
 	 *

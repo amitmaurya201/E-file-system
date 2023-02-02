@@ -6,6 +6,7 @@
 	String redirectURL = themeDisplay.getURLCurrent();
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
 	session.setAttribute("currentURL", currentURL);
+	long fileMovementId=(long)session.getAttribute("fileMovementId");
 %>
 
 <div class="p-3">
@@ -50,6 +51,8 @@
 						name="receipt" value="<%=aReceiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${aReceiptListViewDto.getReceiptMovementId()}" />
+					<aui:input name="fileMovementId" type="hidden"
+						value="<%=fileMovementId %>" />	
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
@@ -66,10 +69,11 @@
 			<aui:input label="Remark" name="remarks" type="textarea">
 				<aui:validator name="required" />
 			</aui:input>
+			<aui:button cssClass="btn btn-primary" id="attachForm"
+				style="float: right; margin-top: 10px;" type="button" value="Attach"></aui:button>
 		</c:if>
 
-		<aui:button cssClass="btn btn-primary" id="attachForm"
-			style="float: right; margin-top: 10px;" type="button" value="Attach"></aui:button>
+
 
 	</aui:form>
 

@@ -85,7 +85,7 @@
 					value="<%=sentFileListDTO.getSentTo()%>"
 					cssClass="hover-tips" name="Sent To" />
 			
-				<liferay-ui:search-container-column-text
+				<liferay-ui:search-container-column-text orderableProperty="sentOn" orderable="true"
 					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
 					name="Sent On" />
 				<liferay-ui:search-container-column-text
@@ -94,7 +94,7 @@
 							: ""%>"
 					cssClass="hover-tips" name="Currently With" />
 				<liferay-ui:search-container-column-text property="dueDate"
-					cssClass="hover-tips" name="Due Date" />
+					cssClass="hover-tips" name="Due Date" orderableProperty="dueDate" orderable="true"  />
 				<liferay-ui:search-container-column-text name="Actions">
 					<c:if
 						test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
