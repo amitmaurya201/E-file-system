@@ -64,11 +64,12 @@ public class FileCorrReceiptLocalServiceUtil {
 
 	public static void addReceiptInFile(
 			long receiptId, long docFileId, long userPostId, String remark,
-			long receiptMovementId)
+			long receiptMovementId, long fileMovementId)
 		throws PortalException {
 
 		getService().addReceiptInFile(
-			receiptId, docFileId, userPostId, remark, receiptMovementId);
+			receiptId, docFileId, userPostId, remark, receiptMovementId,
+			fileMovementId);
 	}
 
 	/**

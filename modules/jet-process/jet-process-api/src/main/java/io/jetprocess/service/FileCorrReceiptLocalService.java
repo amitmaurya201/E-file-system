@@ -80,7 +80,7 @@ public interface FileCorrReceiptLocalService
 
 	public void addReceiptInFile(
 			long receiptId, long docFileId, long userPostId, String remark,
-			long receiptMovementId)
+			long receiptMovementId, long fileMovementId)
 		throws PortalException;
 
 	/**

@@ -15,6 +15,7 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.FileCorrReceiptLocalService;
 import io.jetprocess.service.ReceiptLocalService;
@@ -31,8 +32,13 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
+		
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		System.out.println("status : "+ParamUtil.getLong(actionRequest, "receiptMovementId"));
+		
+		long fileMovementId = masterdataLocalService.getMaximumFmIdByFileIdData(docFileId);
+		
+		System.out.println("maximumFmIdByFileIdData....."+fileMovementId);
 		
 		System.out.println("receiptPK : "+receiptPK+", receiptMovementId : "+receiptMovementId);
 		
@@ -56,7 +62,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		System.out.println("status -----> : "+status);
 		if(status==true) {
 			
-			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks, receiptMovementId);
+			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks, receiptMovementId, fileMovementId);
 			System.out.println("working--------");
 			
 			
@@ -68,7 +74,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		}
 		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
-		
+//		getMaximumFmIdByFileIdData
 		
 	}
 
@@ -78,6 +84,8 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
+	@Reference
+	private MasterdataLocalService masterdataLocalService; 
 	@Reference
 	private MVCActionCommand mvcActionCommand;
 	private Log logger = LogFactoryUtil.getLog(this.getClass());

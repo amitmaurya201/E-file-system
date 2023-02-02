@@ -53,8 +53,8 @@ public class FileInnerView implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
-		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-		System.out.println("fileMovementId -----------aaaaaaaa" + fileMovementId);
+		long fileMovementId =ParamUtil.getLong(renderRequest, "fileMovementId");
+		System.out.println("docFileId...."+docFileId+", fileMovementId -----------*****---- " + fileMovementId);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
@@ -107,7 +107,7 @@ public class FileInnerView implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-
+		System.out.println("fileMovementId....."+fileMovementId);
 		int count = fileLists.getFileCorrespondenceCount(fileMovementId, fileId, keywords);
 		logger.info("Count of File list : " + count);
 		int preDelta = 0;
