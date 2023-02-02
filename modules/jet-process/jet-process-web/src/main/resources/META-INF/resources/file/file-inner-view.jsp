@@ -25,6 +25,7 @@
 				|
 				<%=docFile.getSubject()%>
 				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>
+				<input id = "fileMovementId" value = "<%=fileMovementId %>" type = "hidden" />
 				</div>
 		</div>
 		<div class="container row">
