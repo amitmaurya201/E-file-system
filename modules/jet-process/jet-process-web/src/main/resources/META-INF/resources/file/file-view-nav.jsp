@@ -50,6 +50,8 @@
 		value="<%=MVCCommandNames.FILE_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="fileMovementId"
+		value="<%=String.valueOf(fileMovementId)%>" />
 	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
 
@@ -57,6 +59,8 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	<portlet:param name="fileMovementId"
+		value="<%=String.valueOf(fileMovementId)%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
 </portlet:renderURL>
 
@@ -66,12 +70,16 @@
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
 	<portlet:param name="userPostId" value="<%= userPostsValue %>" />
+	<portlet:param name="fileMovementId"
+		value="<%=String.valueOf(fileMovementId)%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="putinfile">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	<portlet:param name="fileMovementId"
+		value="<%=String.valueOf(fileMovementId)%>" />
 	<portlet:param name="backPageURL" value="<%=curr%>" />
 	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
