@@ -306,7 +306,7 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
     OWNER TO postgres;
 
 
-DROP FUNCTION get_file_created_list(bigint,text,integer,integer,text,text)
+--DROP FUNCTION get_file_created_list(bigint,text,integer,integer,text,text)
     
     
 
