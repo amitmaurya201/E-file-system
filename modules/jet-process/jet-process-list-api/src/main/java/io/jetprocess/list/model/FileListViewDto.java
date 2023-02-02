@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class FileListViewDto {
     
+	private long filemovementId;
 	private long docFileId;
 	private String fileNumber;
 	private String subject;
@@ -12,6 +13,12 @@ public class FileListViewDto {
 	private String remark;
 	private Date createDate;
 	private String nature;
+	public long getFilemovementId() {
+		return filemovementId;
+	}
+	public void setFilemovementId(long filemovementId) {
+		this.filemovementId = filemovementId;
+	}
 	public long getDocFileId() {
 		return docFileId;
 	}
@@ -54,9 +61,10 @@ public class FileListViewDto {
 	public void setNature(String nature) {
 		this.nature = nature;
 	}
-	public FileListViewDto(long docFileId, String fileNumber, String subject, String category, String remark,
-			Date createDate, String nature) {
+	public FileListViewDto(long filemovementId, long docFileId, String fileNumber, String subject, String category,
+			String remark, Date createDate, String nature) {
 		super();
+		this.filemovementId = filemovementId;
 		this.docFileId = docFileId;
 		this.fileNumber = fileNumber;
 		this.subject = subject;
@@ -69,6 +77,7 @@ public class FileListViewDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 }

@@ -68,6 +68,7 @@ public class FileListImpl implements FileList {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					FileListViewDto file = new FileListViewDto();
+					file.setFilemovementId(rs.getLong("fmid"));
 					file.setCategory(rs.getString("category"));
 					file.setCreateDate(rs.getTimestamp("createdon"));
 					file.setDocFileId(rs.getLong("docfileid"));

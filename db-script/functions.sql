@@ -198,6 +198,10 @@ ALTER FUNCTION public.get_file_sent_lists_count(bigint, text)
 -- ------------------------  Get File List  -----------------------------
 
 
+-- FUNCTION: public.get_file_created_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_created_list(bigint, text, integer, integer, text, text);
+
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	post_id bigint,
 	keyword text,
@@ -205,7 +209,7 @@ CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(docfileid bigint, filenumber character varying, subject character varying, category character varying, remark character varying, createdon timestamp without time zone, nature character varying) 
+    RETURNS TABLE(fmid bigint,docfileid bigint, filenumber character varying, subject character varying, category character varying, remark character varying, createdon timestamp without time zone, nature character varying) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -224,11 +228,13 @@ AS $BODY$
     begin
       
       _keyword := '''%'||keyword||'%''';
-      _query := 'Select  docfileid as docfileid, filenumber as filenumber , subject as subject , categoryvalue as category ,
-                        remarks as remark  , createDate as createdOn ,  nature as nature
-                        FROM public.jet_process_docfile  INNER JOIN public.md_category 
-                        ON categorydataid = categoryid
-                        where currentstate = 1 ';
+      _query := 'Select fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
+                        f.remarks as remark,f.createdate as createdon ,  f.nature as nature
+                        FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
+                        ON c.categorydataid = f.categoryid
+                        INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid
+                        
+                        where currentstate = 1   ';
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
@@ -242,15 +248,15 @@ AS $BODY$
         END IF;   
         
         IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
-                orderBy :='modifieddate';
+                orderBy :='f.modifieddate';
             
         END IF;
         IF (orderByCol ='filenumber' OR orderByCol ='fileNumber' AND orderByCol IS NULL) THEN
-                orderBy :='filenumber';
+                orderBy :='f.filenumber';
             
         END IF;
         IF (orderByCol ='subject' AND orderByCol IS NULL) THEN
-                orderBy :='subject';
+                orderBy :='f.subject';
             
         END IF;
          IF (_orderByType ='' OR _orderByType IS NULL) THEN
@@ -267,7 +273,7 @@ AS $BODY$
                             
                                if keyword IS NOT NULL THEN
                 
-                                     _query := _query||  'AND (filenumber ilike'|| _keyword ||'OR subject ilike'|| _keyword ||'OR  categoryvalue ilike'|| _keyword ||')';
+                                     _query := _query||  ' AND (filenumber ilike'|| _keyword ||'OR subject ilike'|| _keyword ||'OR  categoryvalue ilike'|| _keyword ||')';
                           
                                      if orderby !=''  THEN 
                     
@@ -298,6 +304,9 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+
+
+DROP FUNCTION get_file_created_list(bigint,text,integer,integer,text,text)
     
     
 
