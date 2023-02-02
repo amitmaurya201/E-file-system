@@ -54,7 +54,6 @@ public class FileInnerView implements MVCRenderCommand {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId =ParamUtil.getLong(renderRequest, "fileMovementId");
-		System.out.println("docFileId...."+docFileId+", fileMovementId -----------*****---- " + fileMovementId);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
@@ -107,7 +106,6 @@ public class FileInnerView implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		System.out.println("fileMovementId....."+fileMovementId);
 		int count = fileLists.getFileCorrespondenceCount(fileMovementId, fileId, keywords);
 		logger.info("Count of File list : " + count);
 		int preDelta = 0;
@@ -124,7 +122,6 @@ public class FileInnerView implements MVCRenderCommand {
 		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId, fileId,
 				keywords, start, end, orderByCol, orderByType);
 
-		// logger.info("File Correspondence list------> : "+fileCorrespondence);
 		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("fileCorrespondenceCount", count);

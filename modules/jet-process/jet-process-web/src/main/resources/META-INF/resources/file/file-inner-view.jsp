@@ -8,7 +8,6 @@
 	session.setAttribute("currentURL", currURL);
  	session.setAttribute("fileMovementId", fileMovementId);
 %>
-<%=fileMovementId %>
 
 <div class="row">
 	<div class="body-side-nav col-2">

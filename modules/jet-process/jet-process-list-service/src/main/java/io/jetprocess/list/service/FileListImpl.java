@@ -346,8 +346,7 @@ public class FileListImpl implements FileList {
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long filemovementId ,  long docfileId, String keyword, int start, int end,
 			String orderBy, String order) {
 		
-		System.out.println("filemovementid from FileListImpl----"+filemovementId);
-		System.out.println("fileid from FileListImpl----"+docfileId);
+
 		
 		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
 		Connection con = null;
@@ -401,7 +400,6 @@ public class FileListImpl implements FileList {
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
-				System.out.println("rs"+rs);
 				while (rs.next()) {
 					NoteDTO noteDTO = new NoteDTO();
 					noteDTO.setNoteId(rs.getLong("noteid"));

@@ -51,7 +51,6 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		 long docFileId  = (long) sessionPutInFileId.getAttribute("putInFileId");
-		 System.out.println("add-correspondemnce rendere" +docFileId);
 		renderRequest.setAttribute("docFileId", docFileId);
 		addFileToolbarAttributes(renderRequest,renderResponse);
 		addFileListAttributes(renderRequest);
@@ -73,7 +72,6 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	int keywords = ParamUtil.getInteger(renderRequest, "keywords");
 	int count=_receiptList.getPutInFileListCount(userPost, keywords);
 	
-	System.out.println(" count "+count);
 	
 	int preDelta = 0;
 	String d = (String) session.getAttribute("preDelta");

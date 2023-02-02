@@ -71,9 +71,7 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 			
 		session.setAttribute("preDelta", ""+delta+"");
 		List<FileMovementDTO> fileInboxList =_fileList.getFileInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
-        for (FileMovementDTO fileMovementDTO : fileInboxList) {
-			System.out.println("FileInboxRenderCommand ------;;;;;;;"+fileMovementDTO.getFileMovementId());
-		}		
+      		
 		renderRequest.setAttribute("fileInboxList",fileInboxList);
 		renderRequest.setAttribute("fileInboxCount",+fileInboxCount);
 		renderRequest.setAttribute("delta",delta);
