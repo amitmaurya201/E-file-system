@@ -19,12 +19,11 @@
 		displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
 		itemsTotal="${receiptCount}" searchContainerId="receiptList" />
 
-	<aui:form action="${attachReceipt}"  method="post"
-		name="attachReceipt">
+	<aui:form action="${attachReceipt}" method="post" name="attachReceipt">
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
 		<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>" />
-		
+
 
 		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="No Results Found" id="receiptList"
@@ -35,23 +34,24 @@
 			<liferay-ui:search-container-row
 				className="io.jetprocess.list.model.ReceiptListViewDto"
 				modelVar="aReceiptListViewDto">
-				
+
 				<portlet:renderURL var="receiptDetails">
 					<portlet:param name="mvcRenderCommandName"
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
 					<portlet:param name="backPageURL" value=""></portlet:param>
 				</portlet:renderURL>
-				
-				<liferay-ui:search-container-column-text >
-					<aui:input type="radio" onchange="receiptDetail(${aReceiptListViewDto.isRead()},
+
+				<liferay-ui:search-container-column-text>
+					<aui:input type="radio"
+						onchange="receiptDetail(${aReceiptListViewDto.isRead()},
 					${aReceiptListViewDto.getReceiptId()},
-					 ${aReceiptListViewDto.getReceiptMovementId()},'${aReceiptListViewDto.getNature()}')" 
-					name="receipt"
-					value="<%=aReceiptListViewDto.getReceiptId()%>" />
-					<aui:input name="receiptMovementId" type="hidden" value="${aReceiptListViewDto.getReceiptMovementId()}" />
+					 ${aReceiptListViewDto.getReceiptMovementId()},'${aReceiptListViewDto.getNature()}')"
+						name="receipt" value="<%=aReceiptListViewDto.getReceiptId()%>" />
+					<aui:input name="receiptMovementId" type="hidden"
+						value="${aReceiptListViewDto.getReceiptMovementId()}" />
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text  name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
+				<liferay-ui:search-container-column-text name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="Receipt Number" />
@@ -62,9 +62,11 @@
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 		</liferay-ui:search-container>
-		<aui:input label="Remark" name="remarks" type="textarea">
-			<aui:validator name="required" />
-		</aui:input>
+		<c:if test="${receiptCount!= 0}">
+			<aui:input label="Remark" name="remarks" type="textarea">
+				<aui:validator name="required" />
+			</aui:input>
+		</c:if>
 
 		<aui:button cssClass="btn btn-primary" id="attachForm"
 			style="float: right; margin-top: 10px;" type="button" value="Attach"></aui:button>
@@ -89,7 +91,7 @@
 </div>
 
 
-	<portlet:resourceURL id="receiptReceive" var="receiptReceiveServe">
+<portlet:resourceURL id="receiptReceive" var="receiptReceiveServe">
 </portlet:resourceURL>
 
 <!-- Button trigger modal -->
@@ -109,14 +111,16 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<h6>Do you want to mark as <span id="msg"></span> continue</h6>
-				<aui:form action="#"  method="post"
-					name="receiveForm">
-					<aui:input name="receiptId"  type="hidden"></aui:input>
+				<h6>
+					Do you want to mark as <span id="msg"></span> continue
+				</h6>
+				<aui:form action="#" method="post" name="receiveForm">
+					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
-					<aui:button type="button" cssClass="btn btn-secondary"
-					value="No" data-dismiss="modal" ></aui:button>
-					<aui:button type="button" cssClass="btn btn-primary" value="Yes" onclick="receiptReceive(true)" ></aui:button>
+					<aui:button type="button" cssClass="btn btn-secondary" value="No"
+						data-dismiss="modal"></aui:button>
+					<aui:button type="button" cssClass="btn btn-primary" value="Yes"
+						onclick="receiptReceive(true)"></aui:button>
 				</aui:form>
 			</div>
 
