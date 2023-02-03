@@ -314,6 +314,9 @@
 		<column name="remarks" type="String" />
 		<column name="fileMovementId" type="long"/>
 		
+		<finder name="fileCorrReceiptBydocFileId" return-type="Collection">
+			<finder-column name="docFileId"></finder-column>
+		</finder>
 		
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
