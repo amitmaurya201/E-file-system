@@ -96,6 +96,12 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "fileNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber", "File Number"));
 				});
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("createdOn".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "createdOn");
+					dropdownItem.setLabel(LanguageUtil.get(request, "createdOn", "Created On"));
+				});
 			}
 		};
 	}

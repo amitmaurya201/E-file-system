@@ -94,6 +94,17 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
+					dropdownItem.setLabel(LanguageUtil.get(request, "sentOn", "Sent On"));
+				});
+				add(dropdownItem -> {
+					dropdownItem.setActive("dueDate".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueDate");
+					dropdownItem.setLabel(LanguageUtil.get(request, "dueDate", "Due Date"));
+				});
 
 				
 			}
