@@ -2009,7 +2009,7 @@ ALTER FUNCTION public.get_file_correspondence_list(bigint, bigint, text, integer
 CREATE OR REPLACE FUNCTION public.get_all_attached_note_list(
 	_filemovementid bigint,
 	_fileid bigint)
-    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, _content text) 
+    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
