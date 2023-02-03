@@ -36,47 +36,14 @@ public class ViewSendFileRenderCommand implements MVCRenderCommand {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-		long userPostId = ParamUtil.getLong(renderRequest, "userPostId");
-		List<FileNote> fileNoteList = fileNoteLocalService.getFileNoteListByFileId(docFileId);
-		System.out.println("fileNoteList-->"+fileNoteList);
-		if (fileNoteList == null || fileNoteList.isEmpty()) {
-			System.out.println("if part --->");
-			try {
-				DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
-				renderRequest.setAttribute("docFile", docFile);
-				renderRequest.setAttribute("currentURL", currURL);
-				renderRequest.setAttribute("fileMovementId", fileMovementId);
-				renderRequest.setAttribute("noteId", 0L);
-			} catch (PortalException e) {
-				logger.info(e.getMessage());
-			}
-			
-		} else  if(!fileNoteList.isEmpty() || fileNoteList != null){
-			System.out.println("else part");	
+		try {
+			DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
+			renderRequest.setAttribute("docFile", docFile);
+			renderRequest.setAttribute("currentURL", currURL);
+			renderRequest.setAttribute("fileMovementId", fileMovementId);
 
-Note note = null;
-try {
-	note = noteLocalService.getNoteByUserPostId(userPostId);
-	System.out.println("note object when note id null" + note);
-	System.out.println("note ki id " + note.getNoteId());
-} catch (NoSuchNoteException e1) {
-	// TODO Auto-generated catch block
-	e1.printStackTrace();
-}
-
-try {
-	DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
-	renderRequest.setAttribute("docFile", docFile);
-	renderRequest.setAttribute("currentURL", currURL);
-	renderRequest.setAttribute("fileMovementId", fileMovementId);
-	renderRequest.setAttribute("noteId", note.getNoteId());
-} catch (PortalException e) {
-	logger.info(e.getMessage());
-}
-
-			
-			
-
+		} catch (PortalException e) {
+			logger.info(e.getMessage());
 		}
 
 		return "/file/send.jsp";

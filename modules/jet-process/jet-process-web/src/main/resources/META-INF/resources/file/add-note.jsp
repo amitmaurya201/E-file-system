@@ -33,6 +33,7 @@ background-color: DodgerBlue;
 
 </style>
 
+
 <div style="background-color: #bef8c7; height: 400px" id="mydiv" >
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
 		id="note" height="30" class="shadow m-1 bg-white rounded-circle addtoggle "
@@ -47,7 +48,8 @@ background-color: DodgerBlue;
 			onclick="openYellowNote()" />
 	</div>
 	<aui:form name="addNote" >
-		<div id="editor" style="display: none;">
+	<%-- <aui:input name="fileMovementId" type="hidden" value="<%= movementId%>"/>
+	 --%>	<div id="editor" style="display: none;">
 			<div style="background-color:green;">
 			<button  id="removeNote" type="button"  class="deleteButton" data-toggle="modal" data-target="#exampleModal">
 			<i class="fa fa-trash"></i>
@@ -56,7 +58,7 @@ background-color: DodgerBlue;
 				<i class="fa fa-save"></i>
 			</button>
 			</div>	
-         	
+         
          	<c:set var ="note" scope ="session" value = "${noteObj}"  />
          	<c:if test = "${ empty note.noteId }">
          	<input name = "noteId" id = "noteId" value = "0" type= "hidden" />
@@ -68,6 +70,7 @@ background-color: DodgerBlue;
          	</c:if>
 			
 		</div>
+		
 	</aui:form>
 	<%-- <c:forEach items = "${noteList}" var ="name" varStatus="theCount" >
 			<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
@@ -85,15 +88,16 @@ background-color: DodgerBlue;
 		<% List<NoteDTO> note =(List <NoteDTO>)request.getAttribute("noteList");
 		System.out.println("noteist"+note);
 		if(note!=null){
+			int i = 1;
 			for(NoteDTO noteDTO : note){
 				JSONObject object = JSONFactoryUtil.createJSONObject(noteDTO.getSignature());
 				System.out.println("note------"+object);
-				int i = 1;
 				%>
 		<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
 		<b>Note # <%=i %></b> 
 		 <br>
 		        <%= noteDTO.getCreateDate()%>
+		        <%= noteDTO.getContent() %>
 				<span><%= object.get("departmentName") %></span>
 				<span><%= object.get("userName") %></span>
 				<span><%= object.get("postMarking") %></span>

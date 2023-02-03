@@ -361,7 +361,7 @@ public interface FileMovementLocalService
 	public void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
 			String dueDate, String remark, boolean active, int currentState,
-			long movementType, long noteId)
+			long movementType)
 		throws PortalException;
 
 	/**

@@ -9,12 +9,7 @@
 	rel="stylesheet" />
 <%
 	String currURL = (String) renderRequest.getAttribute("currentURL");
-
 long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
-
-long noteId = (long) renderRequest.getAttribute("noteId");
-
-
 %>
 
 <style>
@@ -72,8 +67,6 @@ long noteId = (long) renderRequest.getAttribute("noteId");
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=currURL%>">
-					
-			    <input type="hidden" name="<portlet:namespace/>noteId" value="<%=noteId %>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">

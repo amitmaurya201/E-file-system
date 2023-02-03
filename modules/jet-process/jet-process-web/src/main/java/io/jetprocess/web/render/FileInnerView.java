@@ -63,6 +63,9 @@ public class FileInnerView implements MVCRenderCommand {
 		long userPostId = Long.parseLong(UpostId);
 		System.out.println("UpostId" + userPostId);
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(fileMovementId, docFileId);
+		System.out.println("fileMoventId--->"+fileMovementId);
+		System.out.println("DocFileId--->"+docFileId);
+		
 				System.out.println("fileinnerview noteList" + noteList);
 				renderRequest.setAttribute("noteList", noteList);
 
