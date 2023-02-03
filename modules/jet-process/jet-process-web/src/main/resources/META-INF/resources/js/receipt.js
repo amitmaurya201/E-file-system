@@ -316,6 +316,8 @@ $("#<portlet:namespace />update").on('click', function(e){
 	var docInput = $("#doc-input").val().length;
 	var uploadPdfSizeCss =$("#sizeValidation").css('display');
 	var uploadFileErrorCss = $("#error").css('display');
+	var editpdfurl = $("#editpdfurl").length;
+	console.log("editpdfurl====="+editpdfurl);
     jsonData["userPostId"] = userPostId;
 	if(tempFileId!=0){
 		jsonData["tempFileId"] = tempFileId; 
@@ -328,7 +330,8 @@ $("#<portlet:namespace />update").on('click', function(e){
     jsonData["dmFileId"]=dmFileId;
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
-    	if(nature =='Electronic' && docInput==0 && uploadFileErrorCss=='block' ){
+    	if(nature =='Electronic' && docInput==0 && uploadFileErrorCss=='block' && editpdfurl==0){
+    	/*if(){*/
     		swal({  
     			title: " Oops!",  
     			  	text: "Required field should not be empty!",  
