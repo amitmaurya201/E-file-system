@@ -103,6 +103,12 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("createDate".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "createDate");
+					dropdownItem.setLabel(LanguageUtil.get(request, "createDate", "Created On"));
+				});
 
 				
 				

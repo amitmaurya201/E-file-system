@@ -86,6 +86,13 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("receiptNumber".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
+					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt Number"));
+				});
+				
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
@@ -93,10 +100,20 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 				});
 
 				
+			
+				
+
 				add(dropdownItem -> {
-					dropdownItem.setActive("remarks".equals(getOrderByCol()));
-					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
-					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt Number"));
+					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
+					dropdownItem.setLabel(LanguageUtil.get(request, "sentOn", "Sent On"));
+				});
+				
+
+				add(dropdownItem -> {
+					dropdownItem.setActive("dueOn".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueOn");
+					dropdownItem.setLabel(LanguageUtil.get(request, "dueOn", "Due On"));
 				});
 				
 			

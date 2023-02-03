@@ -94,7 +94,7 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 		return new DropdownItemList() {
 			{
 				add(dropdownItem -> {
-					dropdownItem.setActive("receiptnumber".equals(getOrderByCol()));
+					dropdownItem.setActive("receiptNumber".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt number"));
 				});
@@ -103,6 +103,18 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
+				});
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
+					dropdownItem.setLabel(LanguageUtil.get(request, "sentOn", "Sent On"));
+				});
+				
+				add(dropdownItem -> {
+					dropdownItem.setActive("dueDate".equals(getOrderByCol()));
+					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueDate");
+					dropdownItem.setLabel(LanguageUtil.get(request, "dueDate", "Due Date"));
 				});
 			}
 		};
