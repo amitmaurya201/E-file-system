@@ -39,6 +39,7 @@ textarea {
 
 
 <div style="background-color: #bef8c7; height: 400px" id="mydiv">
+			
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
 		id="note" height="30"
 		class="shadow m-1 bg-white rounded-circle addtoggle " />
@@ -107,7 +108,7 @@ textarea {
 			<%=noteDTO.getContent() %>
 		</div>
 
-		<div>
+		<div class="mt-1">
 			<c:set var="now" value="<%= noteDTO.getCreateDate() %>" />
 			<fmt:formatDate type="both" dateStyle="short" timeStyle="short"
 				value="${now}" />
