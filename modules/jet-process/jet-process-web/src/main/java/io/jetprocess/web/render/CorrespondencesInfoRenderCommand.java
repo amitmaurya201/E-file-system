@@ -76,7 +76,7 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 	private void setReceiptMovementList(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_CUR);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 2);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
@@ -88,7 +88,7 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 
 		System.out.println("receiptMovementId : "+receiptMovementId+", receipt id : "+receiptId);
 		
-		int count=recieptList.getReceiptMovementListCount(receiptMovementId, receiptId, "");
+		int count=recieptList.getAttachReceiptMovementListCount(receiptId, "");
 		int preDelta=0;
 		String d=(String) session.getAttribute("preDelta");
 		if(d!=null) {
@@ -100,7 +100,7 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", ""+delta+"");
 		
 		if(receiptId != 0) {
-			receiptMovementList = 	recieptList.getReceiptMovementList(receiptMovementId,receiptId, "", start, end, "", "");
+			receiptMovementList = 	recieptList.getAttachReceiptMovementList(receiptId, "", start, end, "", "");
 		}
 		System.out.println("start : "+start+" , End : "+end);
 		System.out.println(count);

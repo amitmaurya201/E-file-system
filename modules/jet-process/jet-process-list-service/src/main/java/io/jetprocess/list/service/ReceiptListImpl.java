@@ -265,6 +265,52 @@ public class ReceiptListImpl implements ReceiptList {
 		return receiptMovementDTOList;
 
 	}
+	
+	@Override
+	public List<ReceiptMovementDTO> getAttachReceiptMovementList(long receiptId, String keyword,
+			int start, int end, String orderBy, String order) {
+		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
+		Connection con = null;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_attach_receipt_movement_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, receiptId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();
+				receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
+					receiptMovementDTO.setReceiptNumber(rs.getString("receiptnumber"));
+					receiptMovementDTO.setSubject(rs.getString("subject"));
+					receiptMovementDTO.setSender(rs.getString("sender"));
+					receiptMovementDTO.setSentBy(rs.getString("sentby"));
+					receiptMovementDTO.setSentTo(rs.getString("sentto"));
+					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
+					receiptMovementDTO.setReadOn(rs.getString("readon"));
+					receiptMovementDTO.setDueDate(rs.getString("duedate"));
+					receiptMovementDTO.setRemark(rs.getString("remark"));
+					receiptMovementDTO.setReceivedOn(rs.getString("receivedon"));
+					receiptMovementDTO.setNature(rs.getString("nature"));
+					receiptMovementDTO.setReceiptId(rs.getLong("receiptid"));
+					receiptMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
+					receiptMovementDTOList.add(receiptMovementDTO);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(con);
+		}
+		return receiptMovementDTOList;
+	}
+
+	
 	@Override
 	public int getReceiptMovementListCount(long receiptmovementId , long userpostId, String keyword) {
 		Connection con = null;
@@ -275,6 +321,31 @@ public class ReceiptListImpl implements ReceiptList {
 			prepareCall.setLong(1, receiptmovementId);
 			prepareCall.setLong(2, userpostId);
 			prepareCall.setString(3, keyword);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(con);
+		}
+		return count;
+	}
+	
+	
+	@Override
+	public int getAttachReceiptMovementListCount(long receiptId, String keyword) {
+		Connection con = null;
+		int count = 0;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("SELECT public.get_attach_receipt_movement_list_count(?,?)");
+			prepareCall.setLong(1, receiptId);
+			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
@@ -354,4 +425,6 @@ public class ReceiptListImpl implements ReceiptList {
 		}
 		return count;
 	}
+
+	
 }

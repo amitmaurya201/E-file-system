@@ -2037,4 +2037,177 @@ ALTER FUNCTION public.get_all_attached_note_list(bigint, bigint)
 
     
     
+    
+    
+    
+    -- FUNCTION: public.get_attach_receipt_movement_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_attach_receipt_movement_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_attach_receipt_movement_list_count(
+	receipt_id bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+DECLARE total BIGINT;
+_query text;
+BEGIN
+total :=0;      
+      
+        
+        IF receipt_id !=0 AND receipt_id IS NOT NULL THEN 
+            
+            
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
+   
+            
+ SELECT 
+	count(*) into total
+	FROM PUBLIC.jet_process_receiptmovement as rm 
+	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+    left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id  AND rm.movementtype != 0 AND active_ = true
+     AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
+            
+            return total;
+            END IF;
+             
+            SELECT 
+            count(*) into total
+            FROM PUBLIC.jet_process_receiptmovement as rm 
+            left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+            left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
+            left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
+            WHERE  rm.receiptid =receipt_id  AND rm.movementtype != 0 AND active_ = true;
+            RETURN total;
+        END IF;
+
+        RETURN total;
+END;
+$BODY$;
+
+ALTER FUNCTION public.get_attach_receipt_movement_list_count(bigint, text)
+    OWNER TO postgres;
+
+    
+    
+    
+    
+    
+    -- FUNCTION: public.get_attach_receipt_movement_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_attach_receipt_movement_list(bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_attach_receipt_movement_list(
+	_receiptid bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(receiptmovementid bigint, receiptnumber text, subject text, sender text, sentby text, sentto text, senton timestamp without time zone, readon text, duedate text, remark character varying, receivedon text, nature text, receiptid integer, pullbackremark character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        
+        _keyword text;
+        _offset int;
+        _limit int;
+        _orderBy text;
+        _order text;
+        _query text;
+    begin
+      
+      
+   _query=' SELECT 
+	rmid as receiptMovementId, 
+	null as receiptnumber ,null as subject , null as sender ,
+	(SELECT concat(up2.username ,'' ('', up2.postmarking ,'') '', up2.sectionname ,'' , '', up2.departmentname)) as sentBy ,
+	(SELECT concat(up1.username ,'' ('', up1.postmarking,'') '', up1.sectionname ,'' , '', up1.departmentname)) as sentTo,
+	rm.createdate as sentOn, null as readOn , null as duedate , remark as remark, null as receivedOn,
+    null as nature, 0 as receiptId , rm.pullBackRemark as pullBackRemark
+	FROM PUBLIC.jet_process_receiptmovement as rm 
+	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+    left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE movementtype != 0 AND active_ = true 
+    ';
+                  
+        _keyword := '''%'||keyword||'%''';
+        
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+                _orderBy :='rm.createdate';
+            ELSE
+                _orderBy :='r.'||orderByCol;
+        END IF;
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
+                _order :='desc';
+            ELSE
+                _order :=_orderByType;
+        END IF;
+       
+                        IF (_receiptid !=0 )THEN
+                        
+                             _query := _query|| 'AND rm.receiptid ='||_receiptid;
+                             
+                            
+                               if (keyword IS NOT NULL) THEN  
+                                                                
+--                                      _query := _query||' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+                          
+                                     if (_orderby !='')  THEN 
+                    
+                                         _query := _query||' order by '||_orderby;
+                                        if (_order !='')  THEN 
+
+                                            _query := _query||' '||_order;
+                                            if (_offset >=0)  THEN 
+
+                                                 _query := _query||' offset '||_offset;
+                                                if (_limit >0)  THEN 
+                                                    _query := _query||' limit '||_limit;
+
+                                                 end if;
+                                         
+                                             end if;
+
+                                         end if;
+
+                                     end if;
+                        
+                             end if;
+                        
+                    end if;
+                     return query execute _query;
+                    
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_attach_receipt_movement_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+
+    
 

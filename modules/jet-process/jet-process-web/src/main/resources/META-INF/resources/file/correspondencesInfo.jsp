@@ -184,6 +184,11 @@
 	</div>
 
 
+<%-- <portlet:renderURL var="movement">
+	<portlet:param name="mvcPath" value="/movement.jsp" />
+</portlet:renderURL> --%>
+
+
 
 	<div class="col-md-12 mt-5">
 		<div class="row">
@@ -204,8 +209,8 @@
 
 						<div class="navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav">
-								<li class="nav-item border "><a id="movement"
-									class="nav-link" href="#">Movement</a></li>
+								<li class="nav-item border" ><a id="movement"
+									class="nav-link" href="#" style="color: black;">Movement</a></li>
 								<li class="nav-item border "><a id="attached-detached"
 									class="nav-link" href="#">Attached/Detached</a></li>
 								<li class="nav-item border "><a id="dispatch"
@@ -257,3 +262,11 @@
 	</div>
 </div>
 
+
+<!-- <script>
+	var navId = "${param.selectedNav}";
+	var nav = document.getElementById(navId);
+	nav.style.color = 'blue';
+
+	
+</script> -->

@@ -29,7 +29,12 @@ public interface ReceiptList {
 	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptMovementId ,long receiptId, String keyword, int start, int end,
 			String orderBy, String order);
 	
+	public List<ReceiptMovementDTO> getAttachReceiptMovementList(long receiptId, String keyword, int start, int end,
+			String orderBy, String order);
+	
 	public int getReceiptMovementListCount(long receiptMovementId ,  long userpostId, String keyword);
+	
+	public int getAttachReceiptMovementListCount(long receiptId, String keyword);
 	
 	
 	public List<ReceiptListViewDto> getPutInFileList(long userPostId, int keyword, int start, int end,
