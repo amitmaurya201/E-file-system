@@ -477,12 +477,12 @@ public class FileMovementLocalServiceWrapper
 	public void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
 			String dueDate, String remark, boolean active, int currentState,
-			long movementType)
+			long movementType, long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_fileMovementLocalService.saveSendFile(
 			receiverId, senderId, fileId, priority, dueDate, remark, active,
-			currentState, movementType);
+			currentState, movementType, fileMovementId);
 	}
 
 	/**

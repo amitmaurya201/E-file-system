@@ -9,7 +9,8 @@
 	rel="stylesheet" />
 <%
 	String currURL = (String) renderRequest.getAttribute("currentURL");
-long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
+	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
+	out.print(fileMovementId);
 %>
 
 <style>
@@ -54,9 +55,10 @@ long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
 			<div class="hover-tips"><%=firstChar%>
 				|
 				<%=docFile.getFileNumber()%>
-				| <%= docFile.getSubject() %>
-				</div>
-				
+				|
+				<%=docFile.getSubject()%>
+			</div>
+
 		</div>
 		<aui:container cssClass="row">
 			<aui:form action="${sendFile}" cssClass="border border-dark col-6"
@@ -67,6 +69,8 @@ long fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId");
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=currURL%>">
+				<input type="hidden" name="<portlet:namespace/>fileMovementId"
+					value="<%=fileMovementId%>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">

@@ -64,9 +64,11 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @throws PortalException
 	 */
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, String dueDate,
-			String remark, boolean active, int currentState, long movementType) throws PortalException {
+			String remark, boolean active, int currentState, long movementType, long fileMovementId)
+			throws PortalException {
 		boolean state = isFileMovementAvailable(fileId);
 		FileMovement fm = null;
+		DocFile docFile = docFileLocalService.getDocFile(fileId);
 		if (state == true) {
 			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
@@ -75,8 +77,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
-				DocFile docFile;
-				docFile = docFileLocalService.getDocFile(fileId);
 				if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
 					if (fm.getActive() == false) {
 						fm.setReadOn("");
@@ -95,10 +95,25 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
 		}
+
+		List<FileCorrReceipt> fileCorrReceiptByFileId = fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
+		for (FileCorrReceipt fileCorrReceipt : fileCorrReceiptByFileId) {
+			String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
+			long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
+			ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(rmId);
+			receiptMovement.setRmId(rmId);
+			receiptMovement.setReceiverId(receiverId);
+			receiptMovement.setSenderId(senderId);
+			receiptMovement.setReceiptId(fileCorrReceipt.getReceiptId());
+			receiptMovement.setRemark(remarkOfInFile);
+			receiptMovement.setActive(true);
+			receiptMovement.setMovementType(MovementStatus.IN_FILE);
+			receiptMovement.setFileInMovementId(fileMovementId);
+			receiptMovementLocalService.addReceiptMovement(receiptMovement);
+		}
 	}
 
 	public List<FileMovement> getFileMovementByFileId(long fileId) {
-
 		return fileMovementPersistence.findByfileId(fileId);
 	}
 
@@ -145,29 +160,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		docFile.setCurrentState(currentState);
 		docFileLocalService.updateDocFile(docFile);
 
-		List<FileCorrReceipt> fileCorrList = fileCorrReceiptLocalService.getFileCorrReceipts(QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS);
-		for (FileCorrReceipt fileCorrReceipt : fileCorrList) {
-			if (fileCorrReceipt.getDocFileId() == fileId) {
-				// update in receipt movement 
-				String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
-				long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
-				ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(rmId);
-				receiptMovement.setRmId(rmId);
-				receiptMovement.setReceiverId(receiverId);
-				receiptMovement.setSenderId(senderId);
-				receiptMovement.setReceiptId(fileId);
-				receiptMovement.setRemark(remarkOfInFile);
-				receiptMovement.setActive(false);
-				receiptMovement.setMovementType(MovementStatus.IN_FILE);
-				receiptMovement.setFileInMovementId(fmId);
-				receiptMovementLocalService.addReceiptMovement(receiptMovement);
-
-				// update in filecorrreceipt
-				fileCorrReceipt.setFileMovementId(fmId);
-				fileCorrReceiptLocalService.updateFileCorrReceipt(fileCorrReceipt);
-			}
-		}
 	}
 
 	// Create a method for check Is File able to Read or Received
