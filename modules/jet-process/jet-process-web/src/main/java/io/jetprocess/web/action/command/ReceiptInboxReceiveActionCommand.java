@@ -7,6 +7,9 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+
+import java.io.IOException;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -31,6 +34,8 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
+		String url = ParamUtil.getString(actionRequest, "backPageURL");
+
 		System.out.println("receipt inbox.....");
 		System.out.println("Enter by ashwani.....");
 		System.out.println("receiptId-----"+receiptId);
@@ -46,7 +51,12 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
 		}
-		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
+		try {
+			actionResponse.sendRedirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 
