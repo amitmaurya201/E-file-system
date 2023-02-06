@@ -40,7 +40,7 @@ public int getFileCorrespondenceCount(String mode , long filemovementId, long us
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(String mode , long filemovementId , long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
 	
-	public List<NoteDTO> getAttachedNoteList(long filemovementId , long docfileId);
+	public List<NoteDTO> getAttachedNoteList(String mode , long filemovementId , long docfileId);
 	
 	
 	

@@ -65,15 +65,24 @@ public class FileInnerView implements MVCRenderCommand {
 
 		String UpostId = (String) sessionPutInFileId.getAttribute("userPostId");
 		long userPostId = Long.parseLong(UpostId);
+		String viewMode1 = ParamUtil.getString(renderRequest, "viewMode");
+
 		System.out.println("UpostId" + userPostId);
-		List<NoteDTO> noteList = fileLists.getAttachedNoteList(fileMovementId, docFileId);
+		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode1,fileMovementId, docFileId);
 		System.out.println("fileMoventId--->"+fileMovementId);
 		System.out.println("DocFileId--->"+docFileId);
+		if(Validator.isNull(viewMode1)) {
+			noteList = fileLists.getAttachedNoteList(viewMode1,fileMovementId, docFileId);
+			renderRequest.setAttribute("noteList", noteList);
+
+			
+		}else {
+			noteList = fileLists.getAttachedNoteList(viewMode1,fileMovementId, docFileId);
+			renderRequest.setAttribute("noteList", noteList);
+
+		}
 		
-				System.out.println("fileinnerview noteList" + noteList);
-				renderRequest.setAttribute("noteList", noteList);
-
-
+				
 		try {
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 			renderRequest.setAttribute("nature", docFile.getNature());
@@ -88,10 +97,8 @@ public class FileInnerView implements MVCRenderCommand {
 				renderRequest.setAttribute("noteContent", note.getContent());
 				renderRequest.setAttribute("noteObj", fileNote);
 			}
-			noteList = fileLists.getAttachedNoteList(fileMovementId, docFileId);
-			System.out.println("noteList" + noteList);
-			renderRequest.setAttribute("noteList", noteList);
-
+			
+		
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}

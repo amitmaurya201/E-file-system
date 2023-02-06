@@ -390,15 +390,16 @@ public class FileListImpl implements FileList {
 		return fileCorrespondenceReceiptDTO;
 	}
 	@Override
-	public List<NoteDTO> getAttachedNoteList(long filemovementId, long docfileId) {
+	public List<NoteDTO> getAttachedNoteList(String mode , long filemovementId, long docfileId) {
         logger.info("getAttachedNoteList");
 		List<NoteDTO> noteDtoList = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_all_attached_note_list(?,?)");
-			prepareCall.setLong(1, filemovementId);
-			prepareCall.setLong(2, docfileId);
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_all_attached_note_list(?,?,?)");
+			prepareCall.setString(1, mode);
+			prepareCall.setLong(2, filemovementId);
+			prepareCall.setLong(3, docfileId);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();

@@ -2041,7 +2041,12 @@ ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, i
 
 -- DROP FUNCTION IF EXISTS public.get_all_attached_note_list(bigint, bigint);
 
+-- FUNCTION: public.get_all_attached_note_list(bigint, bigint)
+
+-- DROP FUNCTION IF EXISTS public.get_all_attached_note_list(bigint, bigint);
+
 CREATE OR REPLACE FUNCTION public.get_all_attached_note_list(
+    _viewmode text,
 	_filemovementid bigint,
 	_fileid bigint)
     RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text) 
@@ -2055,19 +2060,34 @@ AS $BODY$
     
 	declare 
        _query text;
+       viewmode text;
    
     begin
     _query :='SELECT n.noteid, n.signature, n.createdate,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
 					fn on n.noteid = fn.noteid';
+                    
+         IF (_viewmode ='ViewModeFromSentFile') THEN
+                viewmode :='<';
+        END IF;
+        IF (_viewmode ='' OR _viewmode IS NULL) THEN
+                viewmode :='<=';
+        END IF;      
+                    
+                    
        IF (_fileid !=0  )THEN
-           _query=_query|| ' where fn.fileid ='||_fileid||' AND fn.filemovementid <'||_filemovementid;
+           _query=_query|| ' where fn.fileid ='||_fileid||' AND fn.filemovementid'||viewmode||_filemovementid;
                 return query execute _query;
        			END IF;
      end;
 $BODY$;
 
-ALTER FUNCTION public.get_all_attached_note_list(bigint, bigint)
+ALTER FUNCTION public.get_all_attached_note_list(text,bigint, bigint)
     OWNER TO postgres;
+
+
+    
+    
+    
 	--Select function public.get_all_attached_note_list(0,222);
 
     
