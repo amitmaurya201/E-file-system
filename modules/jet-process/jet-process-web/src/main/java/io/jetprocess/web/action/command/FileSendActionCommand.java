@@ -4,6 +4,8 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.Date;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
@@ -36,7 +38,7 @@ public class FileSendActionCommand extends BaseMVCActionCommand {
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
 		String remark = ParamUtil.getString(actionRequest, "remark");
-		String dueDate = ParamUtil.getString(actionRequest, "dueDate");
+		Date dueDate = ParamUtil.getDate(actionRequest, "dueDate", null);
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		boolean active = true;
 		int currentState = FileStatus.IN_MOVEMENT;

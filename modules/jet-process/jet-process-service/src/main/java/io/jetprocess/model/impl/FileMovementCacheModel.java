@@ -147,11 +147,11 @@ public class FileMovementCacheModel
 			fileMovementImpl.setPriority(priority);
 		}
 
-		if (dueDate == null) {
-			fileMovementImpl.setDueDate("");
+		if (dueDate == Long.MIN_VALUE) {
+			fileMovementImpl.setDueDate(null);
 		}
 		else {
-			fileMovementImpl.setDueDate(dueDate);
+			fileMovementImpl.setDueDate(new Date(dueDate));
 		}
 
 		if (remark == null) {
@@ -210,7 +210,7 @@ public class FileMovementCacheModel
 
 		fileId = objectInput.readLong();
 		priority = objectInput.readUTF();
-		dueDate = objectInput.readUTF();
+		dueDate = objectInput.readLong();
 		remark = objectInput.readUTF();
 		readOn = objectInput.readUTF();
 		receivedOn = objectInput.readUTF();
@@ -253,12 +253,7 @@ public class FileMovementCacheModel
 			objectOutput.writeUTF(priority);
 		}
 
-		if (dueDate == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(dueDate);
-		}
+		objectOutput.writeLong(dueDate);
 
 		if (remark == null) {
 			objectOutput.writeUTF("");
@@ -304,7 +299,7 @@ public class FileMovementCacheModel
 	public long senderId;
 	public long fileId;
 	public String priority;
-	public String dueDate;
+	public long dueDate;
 	public String remark;
 	public String readOn;
 	public String receivedOn;

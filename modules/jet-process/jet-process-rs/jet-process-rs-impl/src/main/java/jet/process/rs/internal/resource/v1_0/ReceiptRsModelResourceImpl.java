@@ -1,7 +1,5 @@
 package jet.process.rs.internal.resource.v1_0;
 
-import com.liferay.counter.kernel.service.CounterLocalService;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -35,7 +33,6 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
-		
 		receiptLocalService.updateReceipt(receiptRsModel.getReceiptId(),receiptRsModel.getGroupId(), receiptRsModel.getTypeId(),
 				receiptRsModel.getTempFileId(), receiptRsModel.getNature(),
 				receiptRsModel.getReceivedOn(), receiptRsModel.getLetterDate(), receiptRsModel.getReferenceNumber(),
@@ -51,10 +48,5 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	}
 
 	@Reference
-	private CounterLocalService counterLocalService;
-	@Reference
 	private ReceiptLocalService receiptLocalService;
-
-
-
 }

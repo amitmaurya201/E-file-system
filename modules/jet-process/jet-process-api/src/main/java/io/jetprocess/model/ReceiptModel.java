@@ -236,30 +236,28 @@ public interface ReceiptModel
 	 *
 	 * @return the received on of this receipt
 	 */
-	@AutoEscape
-	public String getReceivedOn();
+	public Date getReceivedOn();
 
 	/**
 	 * Sets the received on of this receipt.
 	 *
 	 * @param receivedOn the received on of this receipt
 	 */
-	public void setReceivedOn(String receivedOn);
+	public void setReceivedOn(Date receivedOn);
 
 	/**
 	 * Returns the letter date of this receipt.
 	 *
 	 * @return the letter date of this receipt
 	 */
-	@AutoEscape
-	public String getLetterDate();
+	public Date getLetterDate();
 
 	/**
 	 * Sets the letter date of this receipt.
 	 *
 	 * @param letterDate the letter date of this receipt
 	 */
-	public void setLetterDate(String letterDate);
+	public void setLetterDate(Date letterDate);
 
 	/**
 	 * Returns the reference number of this receipt.

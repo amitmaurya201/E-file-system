@@ -38,6 +38,7 @@ import io.jetprocess.model.Receipt;
 import java.io.IOException;
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -96,8 +97,8 @@ public interface ReceiptLocalService
 
 	public Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String nature, String receivedOn,
-			String letterDate, String referenceNumber, String modeNumber,
+			long deliveryModeId, String nature, Date receivedOn,
+			Date letterDate, String referenceNumber, String modeNumber,
 			long receiptCategoryId, long receiptSubCategoryId, String subject,
 			String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId,
@@ -331,7 +332,7 @@ public interface ReceiptLocalService
 
 	public Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			String nature, String receivedOn, String letterDate,
+			String nature, Date receivedOn, Date letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String name, String designation, String mobile, String email,

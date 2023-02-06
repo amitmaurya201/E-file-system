@@ -241,15 +241,14 @@ public interface FileMovementModel
 	 *
 	 * @return the due date of this file movement
 	 */
-	@AutoEscape
-	public String getDueDate();
+	public Date getDueDate();
 
 	/**
 	 * Sets the due date of this file movement.
 	 *
 	 * @param dueDate the due date of this file movement
 	 */
-	public void setDueDate(String dueDate);
+	public void setDueDate(Date dueDate);
 
 	/**
 	 * Returns the remark of this file movement.

@@ -79,7 +79,7 @@ public class FileMovementModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"receiverId", Types.BIGINT},
 		{"senderId", Types.BIGINT}, {"fileId", Types.BIGINT},
-		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
+		{"priority", Types.VARCHAR}, {"dueDate", Types.TIMESTAMP},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
 		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR},
 		{"active_", Types.BOOLEAN}, {"movementType", Types.BIGINT}
@@ -100,7 +100,7 @@ public class FileMovementModelImpl
 		TABLE_COLUMNS_MAP.put("senderId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("fileId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("priority", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("dueDate", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("dueDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("remark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
@@ -110,7 +110,7 @@ public class FileMovementModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,movementType LONG)";
+		"create table JET_PROCESS_FileMovement (uuid_ VARCHAR(75) null,fmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,fileId LONG,priority VARCHAR(75) null,dueDate DATE null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,movementType LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileMovement";
@@ -312,7 +312,7 @@ public class FileMovementModelImpl
 		attributeGetterFunctions.put("dueDate", FileMovement::getDueDate);
 		attributeSetterBiConsumers.put(
 			"dueDate",
-			(BiConsumer<FileMovement, String>)FileMovement::setDueDate);
+			(BiConsumer<FileMovement, Date>)FileMovement::setDueDate);
 		attributeGetterFunctions.put("remark", FileMovement::getRemark);
 		attributeSetterBiConsumers.put(
 			"remark",
@@ -582,17 +582,12 @@ public class FileMovementModelImpl
 
 	@JSON
 	@Override
-	public String getDueDate() {
-		if (_dueDate == null) {
-			return "";
-		}
-		else {
-			return _dueDate;
-		}
+	public Date getDueDate() {
+		return _dueDate;
 	}
 
 	@Override
-	public void setDueDate(String dueDate) {
+	public void setDueDate(Date dueDate) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -825,7 +820,7 @@ public class FileMovementModelImpl
 		fileMovementImpl.setPriority(
 			this.<String>getColumnOriginalValue("priority"));
 		fileMovementImpl.setDueDate(
-			this.<String>getColumnOriginalValue("dueDate"));
+			this.<Date>getColumnOriginalValue("dueDate"));
 		fileMovementImpl.setRemark(
 			this.<String>getColumnOriginalValue("remark"));
 		fileMovementImpl.setReadOn(
@@ -964,12 +959,13 @@ public class FileMovementModelImpl
 			fileMovementCacheModel.priority = null;
 		}
 
-		fileMovementCacheModel.dueDate = getDueDate();
+		Date dueDate = getDueDate();
 
-		String dueDate = fileMovementCacheModel.dueDate;
-
-		if ((dueDate != null) && (dueDate.length() == 0)) {
-			fileMovementCacheModel.dueDate = null;
+		if (dueDate != null) {
+			fileMovementCacheModel.dueDate = dueDate.getTime();
+		}
+		else {
+			fileMovementCacheModel.dueDate = Long.MIN_VALUE;
 		}
 
 		fileMovementCacheModel.remark = getRemark();
@@ -1112,7 +1108,7 @@ public class FileMovementModelImpl
 	private long _senderId;
 	private long _fileId;
 	private String _priority;
-	private String _dueDate;
+	private Date _dueDate;
 	private String _remark;
 	private String _readOn;
 	private String _receivedOn;

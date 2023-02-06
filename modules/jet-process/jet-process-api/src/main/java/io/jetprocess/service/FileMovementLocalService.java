@@ -37,6 +37,7 @@ import io.jetprocess.model.FileMovement;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -337,7 +338,7 @@ public interface FileMovementLocalService
 
 	public void saveFileMovement(
 			long receiverId, long senderId, long fileId, String priority,
-			String dueDate, String remark, boolean active, int currentState,
+			Date dueDate, String remark, boolean active, int currentState,
 			long movementType)
 		throws PortalException;
 
@@ -360,7 +361,7 @@ public interface FileMovementLocalService
 	 */
 	public void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
-			String dueDate, String remark, boolean active, int currentState,
+			Date dueDate, String remark, boolean active, int currentState,
 			long movementType, long fileMovementId)
 		throws PortalException;
 

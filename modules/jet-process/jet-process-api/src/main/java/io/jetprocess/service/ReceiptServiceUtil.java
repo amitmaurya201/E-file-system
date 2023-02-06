@@ -39,13 +39,14 @@ public class ReceiptServiceUtil {
 	 */
 	public static Receipt createReceipt(
 			long groupId, long typeId, long tempfileEntryId,
-			long deliveryModeId, String nature, String receivedOn,
-			String letterDate, String referenceNumber, String modeNumber,
-			long receiptCategoryId, long receiptSubCategoryId, String subject,
-			String remarks, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId)
+			long deliveryModeId, String nature, java.util.Date receivedOn,
+			java.util.Date letterDate, String referenceNumber,
+			String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId)
 		throws java.io.IOException, PortalException {
 
 		return getService().createReceipt(
@@ -77,7 +78,7 @@ public class ReceiptServiceUtil {
 
 	public static Receipt updateReceipt(
 			long receiptId, long groupId, long typeId, long tempfileEntryId,
-			String nature, String receivedOn, String letterDate,
+			String nature, java.util.Date receivedOn, java.util.Date letterDate,
 			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String name, String designation, String mobile, String email,

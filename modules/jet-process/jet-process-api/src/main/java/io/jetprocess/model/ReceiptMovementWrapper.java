@@ -134,7 +134,7 @@ public class ReceiptMovementWrapper
 			setPriority(priority);
 		}
 
-		String dueDate = (String)attributes.get("dueDate");
+		Date dueDate = (Date)attributes.get("dueDate");
 
 		if (dueDate != null) {
 			setDueDate(dueDate);
@@ -224,7 +224,7 @@ public class ReceiptMovementWrapper
 	 * @return the due date of this receipt movement
 	 */
 	@Override
-	public String getDueDate() {
+	public Date getDueDate() {
 		return model.getDueDate();
 	}
 
@@ -449,7 +449,7 @@ public class ReceiptMovementWrapper
 	 * @param dueDate the due date of this receipt movement
 	 */
 	@Override
-	public void setDueDate(String dueDate) {
+	public void setDueDate(Date dueDate) {
 		model.setDueDate(dueDate);
 	}
 

@@ -469,7 +469,7 @@ public class ReceiptMovementLocalServiceWrapper
 	@Override
 	public void saveReceiptMovement(
 		long receiverId, long senderId, long receiptId, String priority,
-		String dueDate, String remark, boolean active, int currentState,
+		java.util.Date dueDate, String remark, boolean active, int currentState,
 		long movementType) {
 
 		_receiptMovementLocalService.saveReceiptMovement(
@@ -486,8 +486,8 @@ public class ReceiptMovementLocalServiceWrapper
 	@Override
 	public void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			String dueDate, String remark, boolean active, int currentState,
-			long movementType)
+			java.util.Date dueDate, String remark, boolean active,
+			int currentState, long movementType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_receiptMovementLocalService.saveSendReceipt(

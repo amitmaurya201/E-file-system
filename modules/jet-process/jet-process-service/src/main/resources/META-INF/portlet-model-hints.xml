@@ -74,7 +74,7 @@
 		<field name="senderId" type="long" />
 		<field name="fileId" type="long" />
 		<field name="priority" type="String" />
-		<field name="dueDate" type="String" />
+		<field name="dueDate" type="Date" />
 		<field name="remark" type="String" />
 		<field name="readOn" type="String" />
 		<field name="receivedOn" type="String" />
@@ -126,8 +126,8 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="typeId" type="long" />
 		<field name="deliveryModeId" type="long" />
-		<field name="receivedOn" type="String" />
-		<field name="letterDate" type="String" />
+		<field name="receivedOn" type="Date" />
+		<field name="letterDate" type="Date" />
 		<field name="referenceNumber" type="String" />
 		<field name="modeNumber" type="String" />
 		<field name="receiptCategoryId" type="long" />
@@ -174,7 +174,7 @@
 		<field name="senderId" type="long" />
 		<field name="receiptId" type="long" />
 		<field name="priority" type="String" />
-		<field name="dueDate" type="String" />
+		<field name="dueDate" type="Date" />
 		<field name="remark" type="String" />
 		<field name="readOn" type="String" />
 		<field name="receivedOn" type="String" />

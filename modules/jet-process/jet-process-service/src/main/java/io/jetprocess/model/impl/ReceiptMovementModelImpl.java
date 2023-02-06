@@ -79,7 +79,7 @@ public class ReceiptMovementModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"receiverId", Types.BIGINT},
 		{"senderId", Types.BIGINT}, {"receiptId", Types.BIGINT},
-		{"priority", Types.VARCHAR}, {"dueDate", Types.VARCHAR},
+		{"priority", Types.VARCHAR}, {"dueDate", Types.TIMESTAMP},
 		{"remark", Types.VARCHAR}, {"readOn", Types.VARCHAR},
 		{"receivedOn", Types.VARCHAR}, {"pullBackRemark", Types.VARCHAR},
 		{"active_", Types.BOOLEAN}, {"fileInMovementId", Types.BIGINT},
@@ -101,7 +101,7 @@ public class ReceiptMovementModelImpl
 		TABLE_COLUMNS_MAP.put("senderId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("receiptId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("priority", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("dueDate", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("dueDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("remark", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("readOn", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receivedOn", Types.VARCHAR);
@@ -112,7 +112,7 @@ public class ReceiptMovementModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate VARCHAR(75) null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,fileInMovementId LONG,movementType LONG)";
+		"create table JET_PROCESS_ReceiptMovement (uuid_ VARCHAR(75) null,rmId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,receiptId LONG,priority VARCHAR(75) null,dueDate DATE null,remark VARCHAR(75) null,readOn VARCHAR(75) null,receivedOn VARCHAR(75) null,pullBackRemark VARCHAR(500) null,active_ BOOLEAN,fileInMovementId LONG,movementType LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_ReceiptMovement";
@@ -330,7 +330,7 @@ public class ReceiptMovementModelImpl
 		attributeGetterFunctions.put("dueDate", ReceiptMovement::getDueDate);
 		attributeSetterBiConsumers.put(
 			"dueDate",
-			(BiConsumer<ReceiptMovement, String>)ReceiptMovement::setDueDate);
+			(BiConsumer<ReceiptMovement, Date>)ReceiptMovement::setDueDate);
 		attributeGetterFunctions.put("remark", ReceiptMovement::getRemark);
 		attributeSetterBiConsumers.put(
 			"remark",
@@ -611,17 +611,12 @@ public class ReceiptMovementModelImpl
 
 	@JSON
 	@Override
-	public String getDueDate() {
-		if (_dueDate == null) {
-			return "";
-		}
-		else {
-			return _dueDate;
-		}
+	public Date getDueDate() {
+		return _dueDate;
 	}
 
 	@Override
-	public void setDueDate(String dueDate) {
+	public void setDueDate(Date dueDate) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -883,7 +878,7 @@ public class ReceiptMovementModelImpl
 		receiptMovementImpl.setPriority(
 			this.<String>getColumnOriginalValue("priority"));
 		receiptMovementImpl.setDueDate(
-			this.<String>getColumnOriginalValue("dueDate"));
+			this.<Date>getColumnOriginalValue("dueDate"));
 		receiptMovementImpl.setRemark(
 			this.<String>getColumnOriginalValue("remark"));
 		receiptMovementImpl.setReadOn(
@@ -1024,12 +1019,13 @@ public class ReceiptMovementModelImpl
 			receiptMovementCacheModel.priority = null;
 		}
 
-		receiptMovementCacheModel.dueDate = getDueDate();
+		Date dueDate = getDueDate();
 
-		String dueDate = receiptMovementCacheModel.dueDate;
-
-		if ((dueDate != null) && (dueDate.length() == 0)) {
-			receiptMovementCacheModel.dueDate = null;
+		if (dueDate != null) {
+			receiptMovementCacheModel.dueDate = dueDate.getTime();
+		}
+		else {
+			receiptMovementCacheModel.dueDate = Long.MIN_VALUE;
 		}
 
 		receiptMovementCacheModel.remark = getRemark();
@@ -1174,7 +1170,7 @@ public class ReceiptMovementModelImpl
 	private long _senderId;
 	private long _receiptId;
 	private String _priority;
-	private String _dueDate;
+	private Date _dueDate;
 	private String _remark;
 	private String _readOn;
 	private String _receivedOn;

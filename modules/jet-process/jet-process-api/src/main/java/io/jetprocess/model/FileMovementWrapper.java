@@ -133,7 +133,7 @@ public class FileMovementWrapper
 			setPriority(priority);
 		}
 
-		String dueDate = (String)attributes.get("dueDate");
+		Date dueDate = (Date)attributes.get("dueDate");
 
 		if (dueDate != null) {
 			setDueDate(dueDate);
@@ -217,7 +217,7 @@ public class FileMovementWrapper
 	 * @return the due date of this file movement
 	 */
 	@Override
-	public String getDueDate() {
+	public Date getDueDate() {
 		return model.getDueDate();
 	}
 
@@ -432,7 +432,7 @@ public class FileMovementWrapper
 	 * @param dueDate the due date of this file movement
 	 */
 	@Override
-	public void setDueDate(String dueDate) {
+	public void setDueDate(Date dueDate) {
 		model.setDueDate(dueDate);
 	}
 

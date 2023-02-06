@@ -54,8 +54,8 @@ public class ReceiptServiceHttp {
 	public static io.jetprocess.model.Receipt createReceipt(
 			HttpPrincipal httpPrincipal, long groupId, long typeId,
 			long tempfileEntryId, long deliveryModeId, String nature,
-			String receivedOn, String letterDate, String referenceNumber,
-			String modeNumber, long receiptCategoryId,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks,
 			String name, String designation, String mobile, String email,
 			String address, long countryId, long stateId, String pinCode,
@@ -110,13 +110,14 @@ public class ReceiptServiceHttp {
 
 	public static io.jetprocess.model.Receipt updateReceipt(
 			HttpPrincipal httpPrincipal, long receiptId, long groupId,
-			long typeId, long tempfileEntryId, String nature, String receivedOn,
-			String letterDate, String referenceNumber, String modeNumber,
-			long receiptCategoryId, long receiptSubCategoryId, String subject,
-			String remarks, String name, String designation, String mobile,
-			String email, String address, long countryId, long stateId,
-			String pinCode, long organizationId, long subOrganizationId,
-			String city, long userPostId, long dmFileId)
+			long typeId, long tempfileEntryId, String nature,
+			java.util.Date receivedOn, java.util.Date letterDate,
+			String referenceNumber, String modeNumber, long receiptCategoryId,
+			long receiptSubCategoryId, String subject, String remarks,
+			String name, String designation, String mobile, String email,
+			String address, long countryId, long stateId, String pinCode,
+			long organizationId, long subOrganizationId, String city,
+			long userPostId, long dmFileId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			   java.io.IOException {
 
@@ -250,19 +251,20 @@ public class ReceiptServiceHttp {
 	private static final Class<?>[] _createReceiptParameterTypes0 =
 		new Class[] {
 			long.class, long.class, long.class, long.class, String.class,
-			String.class, String.class, String.class, String.class, long.class,
-			long.class, String.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, long.class, long.class,
-			String.class, long.class, long.class, String.class, long.class
+			java.util.Date.class, java.util.Date.class, String.class,
+			String.class, long.class, long.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
+			String.class, long.class, long.class, String.class, long.class,
+			long.class, String.class, long.class
 		};
 	private static final Class<?>[] _updateReceiptParameterTypes1 =
 		new Class[] {
 			long.class, long.class, long.class, long.class, String.class,
-			String.class, String.class, String.class, String.class, long.class,
-			long.class, String.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, long.class, long.class,
+			java.util.Date.class, java.util.Date.class, String.class,
+			String.class, long.class, long.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
 			String.class, long.class, long.class, String.class, long.class,
-			long.class
+			long.class, String.class, long.class, long.class
 		};
 	private static final Class<?>[] _deleteReceiptParameterTypes2 =
 		new Class[] {long.class};

@@ -37,6 +37,7 @@ import io.jetprocess.model.ReceiptMovement;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -348,14 +349,14 @@ public interface ReceiptMovementLocalService
 
 	public void saveReceiptMovement(
 		long receiverId, long senderId, long receiptId, String priority,
-		String dueDate, String remark, boolean active, int currentState,
+		Date dueDate, String remark, boolean active, int currentState,
 		long movementType);
 
 	public boolean saveReceiveMovement(long receiptId, long rmId);
 
 	public void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			String dueDate, String remark, boolean active, int currentState,
+			Date dueDate, String remark, boolean active, int currentState,
 			long movementType)
 		throws PortalException;
 

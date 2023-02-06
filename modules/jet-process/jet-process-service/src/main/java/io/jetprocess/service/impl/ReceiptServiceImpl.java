@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -32,7 +33,7 @@ import io.jetprocess.service.base.ReceiptServiceBaseImpl;
 public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 	
 	public Receipt createReceipt(long groupId, long typeId, long tempfileEntryId, long deliveryModeId,String nature,
-			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
+			Date receivedOn, Date letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
 			long subOrganizationId, String city, long userPostId)
@@ -45,7 +46,7 @@ public class ReceiptServiceImpl extends ReceiptServiceBaseImpl {
 	}
 
 	public Receipt updateReceipt(long receiptId,long groupId, long typeId, long tempfileEntryId, String nature,
-			String receivedOn, String letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
+			Date receivedOn, Date letterDate, String referenceNumber, String modeNumber, long receiptCategoryId,
 			long receiptSubCategoryId, String subject, String remarks, String name, String designation, String mobile,
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
 			long subOrganizationId, String city, long userPostId, long dmFileId)

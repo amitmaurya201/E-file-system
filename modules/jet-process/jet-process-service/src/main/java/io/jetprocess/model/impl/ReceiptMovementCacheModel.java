@@ -149,11 +149,11 @@ public class ReceiptMovementCacheModel
 			receiptMovementImpl.setPriority(priority);
 		}
 
-		if (dueDate == null) {
-			receiptMovementImpl.setDueDate("");
+		if (dueDate == Long.MIN_VALUE) {
+			receiptMovementImpl.setDueDate(null);
 		}
 		else {
-			receiptMovementImpl.setDueDate(dueDate);
+			receiptMovementImpl.setDueDate(new Date(dueDate));
 		}
 
 		if (remark == null) {
@@ -213,7 +213,7 @@ public class ReceiptMovementCacheModel
 
 		receiptId = objectInput.readLong();
 		priority = objectInput.readUTF();
-		dueDate = objectInput.readUTF();
+		dueDate = objectInput.readLong();
 		remark = objectInput.readUTF();
 		readOn = objectInput.readUTF();
 		receivedOn = objectInput.readUTF();
@@ -258,12 +258,7 @@ public class ReceiptMovementCacheModel
 			objectOutput.writeUTF(priority);
 		}
 
-		if (dueDate == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(dueDate);
-		}
+		objectOutput.writeLong(dueDate);
 
 		if (remark == null) {
 			objectOutput.writeUTF("");
@@ -311,7 +306,7 @@ public class ReceiptMovementCacheModel
 	public long senderId;
 	public long receiptId;
 	public String priority;
-	public String dueDate;
+	public long dueDate;
 	public String remark;
 	public String readOn;
 	public String receivedOn;

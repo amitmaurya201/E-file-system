@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -63,7 +64,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @param remark
 	 * @throws PortalException
 	 */
-	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, String dueDate,
+	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType, long fileMovementId)
 			throws PortalException {
 		boolean state = isFileMovementAvailable(fileId);
@@ -140,7 +141,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return fileMovement;
 	}
 
-	public void saveFileMovement(long receiverId, long senderId, long fileId, String priority, String dueDate,
+	public void saveFileMovement(long receiverId, long senderId, long fileId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType) throws PortalException {
 
 		long fmId = counterLocalService.increment(FileMovement.class.getName());

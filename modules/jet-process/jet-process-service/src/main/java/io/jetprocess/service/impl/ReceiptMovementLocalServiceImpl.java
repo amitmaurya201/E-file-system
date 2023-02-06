@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -38,7 +39,7 @@ import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 @Component(property = "model.class.name=io.jetprocess.model.ReceiptMovement", service = AopService.class)
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
 
-	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, String dueDate,
+	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
 			String remark,boolean active ,int currentState , long movementType) throws PortalException {
 		boolean state = isReceiptMovementAvailable(receiptId);
 		if (state == true) {
@@ -69,7 +70,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 	}
 
-	public void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, String dueDate,
+	public void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
 			String remark,boolean active ,int currentState , long movementType  ) {
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
 		ReceiptMovement receiptMovement;

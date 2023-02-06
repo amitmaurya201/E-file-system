@@ -241,15 +241,14 @@ public interface ReceiptMovementModel
 	 *
 	 * @return the due date of this receipt movement
 	 */
-	@AutoEscape
-	public String getDueDate();
+	public Date getDueDate();
 
 	/**
 	 * Sets the due date of this receipt movement.
 	 *
 	 * @param dueDate the due date of this receipt movement
 	 */
-	public void setDueDate(String dueDate);
+	public void setDueDate(Date dueDate);
 
 	/**
 	 * Returns the remark of this receipt movement.

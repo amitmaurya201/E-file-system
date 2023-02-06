@@ -99,8 +99,8 @@
 		<!-- Other fields -->
 		<column name="typeId" type="long" />
 		<column name="deliveryModeId" type="long" />
-		<column name="receivedOn" type="String" />
-		<column name="letterDate" type="String" />
+		<column name="receivedOn" type="Date" />
+		<column name="letterDate" type="Date" />
 		<column name="referenceNumber" type="String" />
 		<column name="modeNumber" type="String" />
 		<column name="receiptCategoryId" type="long" />
@@ -182,7 +182,7 @@
 		<column name="senderId" type="long" />
 		<column name="fileId" type="long" />
 		<column name="priority" type="String" />
-		<column name="dueDate" type="String" />
+		<column name="dueDate" type="Date" />
 		<column name="remark" type="String" />
 		<column type="String" name="readOn" />
 		<column type="String" name="receivedOn" />
@@ -227,7 +227,7 @@
 		<column name="senderId" type="long" />
 		<column name="receiptId" type="long" />
 		<column name="priority" type="String" />
-		<column name="dueDate" type="String" />
+		<column name="dueDate" type="Date" />
 		<column name="remark" type="String" />
 		<column type="String" name="readOn" />
 		<column type="String" name="receivedOn" />
