@@ -48,11 +48,9 @@ components:
           format: int64
           type: integer
         receivedOn:
-         type: string
-         format: date
+          type: string
         letterDate:
-         type: string
-         format: date
+          type: string
         referenceNumber:
           type: string
         modeNumber:

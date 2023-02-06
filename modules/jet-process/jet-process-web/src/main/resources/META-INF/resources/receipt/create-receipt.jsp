@@ -5,10 +5,6 @@
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
-
-	/* for current date*/
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
-	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="createdListReceipt">
 	<portlet:param name="mvcRenderCommandName"
@@ -96,7 +92,7 @@
 									<label><liferay-ui:message
 											key="label-receipt-createdon" /></label>
 									<aui:input label="" name="createdOn" id="createdOn"
-										value="<%=simpleFormat.format(new Date())%>" disabled="true" />
+										disabled="true" />
 								</div>
 							</aui:col>
 							<aui:col md="6" cssClass="mt-3">
@@ -152,14 +148,16 @@
 											key="label-receipt-letter-date" /></label>
 
 									<aui:input type="text" label="" name="letterDate"
-										id="letterDate" placeholder="dd/mm/yyyy">
+										id="letterDate" placeholder="dd/mm/yyyy" >
 										<aui:validator name="custom"
 											errorMessage="error-receipt-letter-date-message">
 											function(val){
-												var date=new Date(val);
+												let d = val.split("/");
+    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												var createdOnValue= new Date(createdOn);
-												return (createdOnValue >= date);
+												let createdOnSplit = createdOn.split("/");
+    											let createdOnDate = new Date(createdOnSplit[2] + '/' + createdOnSplit[1] + '/' + createdOnSplit[0]);		
+												return (createdOnDate >= date);
 											}
 										</aui:validator>
 									</aui:input>
@@ -176,10 +174,13 @@
 											errorMessage="error-receipt-received-on-message1">
 											function(val){
 													var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-													var receivedDate=new Date(val);	
+													let letterDateSplit = letterDate.split("/");
+    												let letterDateValue = new Date(letterDateSplit[2] + '/' + letterDateSplit[1] + '/' + letterDateSplit[0]);		
+													let d = val.split("/");
+    												let receivedDate = new Date(d[2] + '/' + d[1] + '/' + d[0]);
 													if(letterDate != ""){
 														var newLetterDate=new Date(letterDate);
-														return (newLetterDate <= receivedDate);
+														return (letterDateValue <= receivedDate);
 													}
 													return "letter date null";
 												}
@@ -187,10 +188,12 @@
 										<aui:validator name="custom"
 											errorMessage="error-receipt-received-on-message2">
 											function(val){
-												var date=new Date(val);
+												let d = val.split("/");
+    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												var createdOnValue= new Date(createdOn);
-												return (createdOnValue >= date);
+												let createdOnSplit = createdOn.split("/");
+    											let createdOnDate = new Date(createdOnSplit[2] + '/' + createdOnSplit[1] + '/' + createdOnSplit[0]);		
+												return (createdOnDate >= date);
 											}
 										</aui:validator>
 									</aui:input>
@@ -488,12 +491,12 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#<portlet:namespace/>letterDate").datepicker({
-			format : 'dd/M/yyyy'
+		 $("#<portlet:namespace/>letterDate").datepicker({
+			format : 'dd/mm/yyyy'
 		});
-
+ 
 		$("#<portlet:namespace/>receivedOn").datepicker({
-			format : 'dd/M/yyyy'
+			format : 'dd/mm/yyyy'
 		});
 	});
 </script>

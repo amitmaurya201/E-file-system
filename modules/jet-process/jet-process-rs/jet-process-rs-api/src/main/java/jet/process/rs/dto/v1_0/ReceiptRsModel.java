@@ -15,10 +15,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -356,17 +352,17 @@ public class ReceiptRsModel implements Serializable {
 	protected Long groupId;
 
 	@Schema
-	public Date getLetterDate() {
+	public String getLetterDate() {
 		return letterDate;
 	}
 
-	public void setLetterDate(Date letterDate) {
+	public void setLetterDate(String letterDate) {
 		this.letterDate = letterDate;
 	}
 
 	@JsonIgnore
 	public void setLetterDate(
-		UnsafeSupplier<Date, Exception> letterDateUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> letterDateUnsafeSupplier) {
 
 		try {
 			letterDate = letterDateUnsafeSupplier.get();
@@ -381,7 +377,7 @@ public class ReceiptRsModel implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Date letterDate;
+	protected String letterDate;
 
 	@Schema
 	public String getMobile() {
@@ -748,17 +744,17 @@ public class ReceiptRsModel implements Serializable {
 	protected String receiptsubcategoryvalue;
 
 	@Schema
-	public Date getReceivedOn() {
+	public String getReceivedOn() {
 		return receivedOn;
 	}
 
-	public void setReceivedOn(Date receivedOn) {
+	public void setReceivedOn(String receivedOn) {
 		this.receivedOn = receivedOn;
 	}
 
 	@JsonIgnore
 	public void setReceivedOn(
-		UnsafeSupplier<Date, Exception> receivedOnUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> receivedOnUnsafeSupplier) {
 
 		try {
 			receivedOn = receivedOnUnsafeSupplier.get();
@@ -773,7 +769,7 @@ public class ReceiptRsModel implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Date receivedOn;
+	protected String receivedOn;
 
 	@Schema
 	public String getReferenceNumber() {
@@ -1138,9 +1134,6 @@ public class ReceiptRsModel implements Serializable {
 
 		sb.append("{");
 
-		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
-			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-
 		if (address != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1284,7 +1277,7 @@ public class ReceiptRsModel implements Serializable {
 
 			sb.append("\"");
 
-			sb.append(liferayToJSONDateFormat.format(letterDate));
+			sb.append(_escape(letterDate));
 
 			sb.append("\"");
 		}
@@ -1464,7 +1457,7 @@ public class ReceiptRsModel implements Serializable {
 
 			sb.append("\"");
 
-			sb.append(liferayToJSONDateFormat.format(receivedOn));
+			sb.append(_escape(receivedOn));
 
 			sb.append("\"");
 		}
