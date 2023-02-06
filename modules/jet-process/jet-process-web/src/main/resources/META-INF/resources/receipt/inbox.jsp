@@ -123,8 +123,8 @@
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
-						<portlet:param name="rmId"
-					value="${receiptMovementDTO.receiptMovementId}" />
+					<portlet:param name="rmId"
+						value="${receiptMovementDTO.receiptMovementId}" />
 				</portlet:renderURL>
 				<c:choose>
 					<c:when
@@ -166,15 +166,16 @@
 								<a href="#" class="button open"
 									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
-							
+
 							<liferay-ui:search-container-column-text cssClass="bold"
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-senton" orderableProperty="sentOn" orderable="true" />
+								name="label-receipt-inbox-senton" orderableProperty="sentOn"
+								orderable="true" />
 
-							<liferay-ui:search-container-column-text property="dueDate"
-								cssClass="bold"
-								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-dueon" orderableProperty="dueOn" orderable="true" />
+							<liferay-ui:search-container-column-text cssClass="bold"
+								value="<%=simpleFormat.format(receiptMovementDTO.getDueDate())%>"
+								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
+								orderable="true" />
 
 							<liferay-ui:search-container-column-text
 								cssClass="hover-tips bold" name="label-receipt-inbox-remarks"
@@ -235,10 +236,12 @@
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-senton" orderableProperty="sentOn" orderable="true" />
-							<liferay-ui:search-container-column-text property="dueDate"
-								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-receipt-inbox-dueon" orderableProperty="dueOn" orderable="true" />
+								name="label-receipt-inbox-senton" orderableProperty="sentOn"
+								orderable="true" />
+							<liferay-ui:search-container-column-text
+								value="<%=simpleFormat.format(receiptMovementDTO.getDueDate())%>"
+								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
+								orderable="true" />
 
 							<liferay-ui:search-container-column-text cssClass="hover-tips"
 								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
