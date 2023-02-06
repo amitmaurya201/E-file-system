@@ -324,7 +324,7 @@ CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark character varying, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid bigint, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
+    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid bigint, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -449,7 +449,7 @@ CREATE OR REPLACE FUNCTION public.get_file_sent_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark text, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid integer, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
+    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark text, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid integer, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -850,7 +850,7 @@ ALTER FUNCTION public.get_receipt_created_list(bigint, text, integer, integer, t
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptmovementid bigint, receiptnumber character varying, subject character varying, sender text, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark character varying, receiveon character varying, nature character varying, receiptid bigint, pullbackremark character varying) 
+    RETURNS TABLE(receiptmovementid bigint, receiptnumber character varying, subject character varying, sender text, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receiveon character varying, nature character varying, receiptid bigint, pullbackremark character varying) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -978,7 +978,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-    
 
     
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
@@ -990,7 +989,7 @@ ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, tex
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptmovementid bigint, receiptnumber character varying, subject character varying, sender character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate character varying, remark character varying, receivedon character varying, nature character varying, receiptid bigint, pullbackremark character varying) 
+    RETURNS TABLE(receiptmovementid bigint, receiptnumber character varying, subject character varying, sender character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receivedon character varying, nature character varying, receiptid bigint, pullbackremark character varying) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1103,10 +1102,10 @@ ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text
 --     ------------------------------ Get put in file list count  -----------------------------------------------------------------
 
     
-   
-CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
+
+    CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
 	user_post_id bigint,
-	keyword integer)
+	keyword text)
     RETURNS bigint
     LANGUAGE 'plpgsql'
     COST 100
@@ -1122,7 +1121,7 @@ total :=0;
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
             
-            IF  keyword !=0 AND keyword IS NOT NULL  THEN
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
    
                  
                     SELECT COUNT(*) INTO total
@@ -1134,7 +1133,7 @@ total :=0;
 
                     JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
     
-                    where  r.attachstatus is null  AND r.currentlywith= user_post_id  AND EXTRACT(YEAR FROM r.createDate) =keyword;
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id  AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
             return total;
             END IF;
                 
@@ -1155,31 +1154,26 @@ total :=0;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list_count(bigint, integer)
+ALTER FUNCTION public.get_put_in_file_list_count(bigint, text)
     OWNER TO postgres;
-    
 --    -------------------------------------------------- Get Put in file List  ----------------------------------------------------
 
-  
---      FUNCTION: public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
-
-
-DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, integer, integer, integer, text, text);
+ 
 
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	userpostid bigint,
-	keyword integer,
+	keyword text,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-   RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying,isread boolean,  receiptmovementid bigint ) 
-   LANGUAGE 'plpgsql'
-   COST 100
-   VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-   ROWS 1000
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, viewpdfurl character varying, nature character varying, isread boolean, receiptmovementid bigint) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
 
-   SET search_path=admin, pg_temp
+    SET search_path=admin, pg_temp
 AS $BODY$
   
   declare 
@@ -1195,9 +1189,6 @@ AS $BODY$
       q3 text;
   begin
     
---     receiptid bigint, receiptnumber character varying, subject character varying, category character varying, 
---     createdate timestamp without time zone, remark character varying, viewpdfurl character varying,
---     nature character varying,isread boolean,  receiptmovementid bigint ) 
  q1='select r.receiptid as receiptid, r.receiptnumber as receiptnumber, r.subject as subject, c.categoryvalue as category, r.createDate as createdate, r.remarks as remark, r.viewpdfurl as null, r.nature as nature,
      
     (
@@ -1215,7 +1206,7 @@ AS $BODY$
   
  
                 
---         _keyword := '''%'||keyword||'%''';
+        _keyword := '''%'||keyword||'%''';
       _order :=_orderByType;
       IF (_start <0 OR _start IS NULL) THEN
           _offset:=0;
@@ -1230,7 +1221,7 @@ AS $BODY$
       END IF;   
       
       IF (orderByCol ='' OR orderByCol IS NULL) THEN
-              _orderBy :='createdate';
+              _orderBy :='receiptnumber';
           ELSE
               _orderBy :=orderByCol;
       END IF;
@@ -1245,9 +1236,9 @@ AS $BODY$
                                              
                            _query := q1|| ' AND r.currentlywith='||userpostid;
                           
-                             if (keyword !=0 AND keyword IS NOT NULL  ) THEN  
-                                      _query := '';
-                                   _query := q1|| ' AND r.currentlywith= '||userpostid||' AND EXTRACT(YEAR FROM r.createDate) = '||keyword;
+                             if (keyword IS NOT NULL  ) THEN  
+                                   _query := '';
+                                   _query := q1|| ' AND r.currentlywith= '||userpostid||'  AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')';
                         
                                    if (_orderby !='')  THEN 
                   
@@ -1274,29 +1265,6 @@ AS $BODY$
                            
                       end if;
                       
-                       if (_orderby !='')  THEN 
-                  
-                                      _query := _query||' order by '||_orderby;
-                                      if (_order !='')  THEN 
-
-                                          _query := _query||' '||_order;
-                                          if (_offset >=0)  THEN 
-
-                                               _query := _query||' offset '||_offset;
-                                              if (_limit >0)  THEN 
-                                                  _query := _query||' limit '||_limit;
-
-                                                 
-                                               end if;
-                                     
-                                  
-                                   end if;
-                           
-                               end if;
-                          
-                           end if;
-                      
-              
               end if;
         return query execute _query;
            
@@ -1305,8 +1273,8 @@ AS $BODY$
 
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list(bigint, integer, integer, integer, text, text)
-   OWNER TO postgres;
+ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
     
 --    -------------------------------------  Get File Movement Count  -----------------------------------------------
 

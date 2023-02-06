@@ -37,10 +37,10 @@ public interface ReceiptList {
 	public int getAttachReceiptMovementListCount(long receiptId, String keyword);
 	
 	
-	public List<ReceiptListViewDto> getPutInFileList(long userPostId, int keyword, int start, int end,
+	public List<ReceiptListViewDto> getPutInFileList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order);
 	
-	public int getPutInFileListCount(long postId, int keyword);
+	public int getPutInFileListCount(long postId, String keyword);
 			
 	
 	

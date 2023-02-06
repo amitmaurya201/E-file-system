@@ -141,7 +141,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
 					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));				
 					fileMovementDTO.setReadOn(rs.getString("readon"));
-					fileMovementDTO.setDueDate(rs.getString("duedate"));
+					fileMovementDTO.setDueDate(rs.getDate("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
 					fileMovementDTO.setReceivedOn(rs.getString("receivedon"));
 					fileMovementDTO.setCurrentlyWith(rs.getLong("currentlywith"));
@@ -215,7 +215,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
 					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					fileMovementDTO.setReadOn(rs.getString("readon"));
-					fileMovementDTO.setDueDate(rs.getString("duedate"));
+					fileMovementDTO.setDueDate(rs.getDate("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
 					fileMovementDTO.setReceivedOn(rs.getString("receivedon"));
 					fileMovementDTO.setCurrentlyWith(rs.getLong("currentlywith"));
@@ -266,7 +266,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
 					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					fileMovementDTO.setReadOn(rs.getString("readon"));
-					fileMovementDTO.setDueDate(rs.getString("duedate"));
+					fileMovementDTO.setDueDate(rs.getDate("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
 					fileMovementDTO.setReceivedOn(rs.getString("receivedon"));
 					fileMovementDTO.setCurrentlyWith(rs.getLong("currentlywith"));

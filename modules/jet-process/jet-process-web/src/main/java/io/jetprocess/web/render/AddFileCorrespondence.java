@@ -69,7 +69,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	long userPost = userPostId;
 	String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 	String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
-	int keywords = ParamUtil.getInteger(renderRequest, "keywords");
+	String keywords = ParamUtil.getString(renderRequest, "keywords");
 	int count=_receiptList.getPutInFileListCount(userPost, keywords);
 	
 	

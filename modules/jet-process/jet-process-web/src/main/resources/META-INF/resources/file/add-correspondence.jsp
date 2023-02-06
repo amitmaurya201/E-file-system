@@ -54,7 +54,7 @@
 					<aui:input name="fileMovementId" type="hidden"
 						value="<%=fileMovementId %>" />	
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text name="type"><%=aReceiptListViewDto.getNature().charAt(0)%>
+				<liferay-ui:search-container-column-text name="Nature"><%=aReceiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="Receipt Number" />

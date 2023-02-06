@@ -133,7 +133,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
 					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
-					receiptMovementDTO.setDueDate(rs.getString("duedate"));
+					receiptMovementDTO.setDueDate(rs.getTimestamp("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
 					receiptMovementDTO.setReceivedOn(rs.getString("receiveon"));
 					receiptMovementDTO.setNature(rs.getString("nature"));
@@ -203,7 +203,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
 					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
-					receiptMovementDTO.setDueDate(rs.getString("duedate"));
+					receiptMovementDTO.setDueDate(rs.getTimestamp("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
 					receiptMovementDTO.setReceivedOn(rs.getString("receivedon"));
 					receiptMovementDTO.setNature(rs.getString("nature"));
@@ -248,7 +248,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
 					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
-					receiptMovementDTO.setDueDate(rs.getString("duedate"));
+					receiptMovementDTO.setDueDate(rs.getTimestamp("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
 					receiptMovementDTO.setReceivedOn(rs.getString("receivedon"));
 					receiptMovementDTO.setNature(rs.getString("nature"));
@@ -293,7 +293,7 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptMovementDTO.setSentTo(rs.getString("sentto"));
 					receiptMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					receiptMovementDTO.setReadOn(rs.getString("readon"));
-					receiptMovementDTO.setDueDate(rs.getString("duedate"));
+					receiptMovementDTO.setDueDate(rs.getTimestamp("duedate"));
 					receiptMovementDTO.setRemark(rs.getString("remark"));
 					receiptMovementDTO.setReceivedOn(rs.getString("receivedon"));
 					receiptMovementDTO.setNature(rs.getString("nature"));
@@ -362,7 +362,7 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public List<ReceiptListViewDto> getPutInFileList(long userPostId, int keyword, int start, int end,
+	public List<ReceiptListViewDto> getPutInFileList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {		
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
@@ -370,7 +370,7 @@ public class ReceiptListImpl implements ReceiptList {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_put_in_file_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
-			prepareCall.setInt(2, keyword);
+			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
 			prepareCall.setInt(4, end);
 			prepareCall.setString(5, orderBy);
@@ -403,14 +403,14 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public int getPutInFileListCount(long userPostId, int keyword) {		
+	public int getPutInFileListCount(long userPostId, String keyword) {		
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
-			prepareCall.setInt(2, keyword);
+			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
