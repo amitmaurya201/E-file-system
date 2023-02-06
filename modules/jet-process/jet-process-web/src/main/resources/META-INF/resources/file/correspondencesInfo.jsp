@@ -88,7 +88,7 @@
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-received-on" />:</th>
-				<td>${receipt.receivedOn}</td>
+				<td><%=simpleFormat.format(receipt.getReceivedOn())%></td>
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-reference-no" />:</th>
@@ -125,7 +125,7 @@
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-letter-date" />:</th>
-				<td>${receipt.letterDate}</td>
+				<td><%=simpleFormat.format(receipt.getLetterDate())%></td>
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-mode-no" />:</th>
