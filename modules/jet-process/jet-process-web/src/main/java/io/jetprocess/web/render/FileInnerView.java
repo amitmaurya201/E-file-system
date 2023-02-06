@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
@@ -54,6 +55,9 @@ public class FileInnerView implements MVCRenderCommand {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId =ParamUtil.getLong(renderRequest, "fileMovementId");
+		
+		System.out.println("fileMovement--9090909>"+fileMovementId);
+		System.out.println("DocFile-009090->"+docFileId);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
@@ -106,13 +110,22 @@ public class FileInnerView implements MVCRenderCommand {
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
+		int count=0;
 		HttpSession session = themeDisplay.getRequest().getSession();
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		long fileId = docFileId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int count = fileLists.getFileCorrespondenceCount(fileMovementId, fileId, keywords);
+		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
+		if(Validator.isNull(viewMode)) {
+			 count = fileLists.getFileCorrespondenceCount(viewMode,fileMovementId, fileId, keywords);
+		}else {
+			
+			 count = fileLists.getFileCorrespondenceCount(viewMode,fileMovementId, fileId, keywords);
+		}
+		
+		
 		logger.info("Count of File list : " + count);
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
@@ -123,14 +136,28 @@ public class FileInnerView implements MVCRenderCommand {
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-
+		String viewMode1 = ParamUtil.getString(renderRequest, "viewMode");
+		System.out.println("viewMode -----"+viewMode);
 		session.setAttribute("preDelta", "" + delta + "");
-		List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(fileMovementId, fileId,
-				keywords, start, end, orderByCol, orderByType);
-
-		renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
-		renderRequest.setAttribute("delta", delta);
-		renderRequest.setAttribute("fileCorrespondenceCount", count);
+		System.out.println("fileMovementId................id : "+fileMovementId);
+		
+		if(Validator.isNull(viewMode1)) {
+			List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(viewMode,fileMovementId, fileId,
+					keywords, start, end, orderByCol, orderByType);
+			renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
+			renderRequest.setAttribute("delta", delta);
+			renderRequest.setAttribute("fileCorrespondenceCount", count);
+		}
+		else {
+			List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(viewMode,fileMovementId, fileId,
+					keywords, start, end, orderByCol, orderByType);
+			renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);
+			renderRequest.setAttribute("delta", delta);
+			renderRequest.setAttribute("fileCorrespondenceCount", count);
+		}
+		
+		
+		
 	}
 
 	private void setCorrespondenceToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {

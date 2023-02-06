@@ -1691,9 +1691,11 @@ ALTER FUNCTION public.get_receipt_movement_list(bigint, bigint, text, integer, i
 
 -- DROP FUNCTION IF EXISTS public.get_file_correspondence_list_count(bigint, text);
 
+
 CREATE OR REPLACE FUNCTION public.get_file_correspondence_list_count(
-	filemovement_id bigint,
-    file_id bigint,
+	_viewmode text,
+    filemovement_id bigint,
+	file_id bigint,
 	keyword text)
     RETURNS bigint
     LANGUAGE 'plpgsql'
@@ -1703,29 +1705,51 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list_count(
 AS $BODY$
 DECLARE total BIGINT;
 _query text;
+viewmode text;
 BEGIN
 total :=0;
+
   	 IF file_id !=0 AND file_id IS NOT NULL THEN 
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
-   
-            SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-            PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id ; 
             
-            return total;
+                IF( _viewmode ='ViewModeFromSentFile') THEN
+   
+                SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
+                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id ; 
+                return total;
+                END IF;
+               
+              IF(_viewmode ='' OR _viewmode IS NULL) THEN
+                  SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
+                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id ; 
+
+                return total;
+              END IF;
             END IF;
-                    SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                    PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id AND fc.filemovementId <=filemovement_id; 
-       RETURN total;
+                     IF( _viewmode ='ViewModeFromSentFile') THEN
+   
+                SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
+                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id ; 
+                return total;
+                END IF;
+               
+              IF(_viewmode ='' OR _viewmode IS NULL) THEN
+                  SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
+                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id ; 
+
+                return total;
+              END IF;
+                
         END IF;
 
         RETURN total;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_file_correspondence_list_count(bigint ,bigint, text)
+ALTER FUNCTION public.get_file_correspondence_list_count(text,bigint, bigint, text)
     OWNER TO postgres;
-    
+  
     
     --    ---------------------------------------  Get file correspondence list    ---------------------------------------------
     
@@ -1897,7 +1921,10 @@ ALTER FUNCTION public.get_file_correspondence_list_count(bigint ,bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text);
 
+
+    
 CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
+	_viewmode text,
 	_filemovementid bigint,
 	_fileid bigint,
 	keyword text,
@@ -1915,7 +1942,7 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 AS $BODY$
     
     declare 
-        
+        viewmode text;
         _keyword text;
         _offset int;
         _limit int;
@@ -1954,12 +1981,18 @@ AS $BODY$
             ELSE
                 _order :=_orderByType;
         END IF;
+        IF (_viewmode ='ViewModeFromSentFile') THEN
+                viewmode :='<';
+        END IF;
+        IF (_viewmode ='' OR _viewmode IS NULL) THEN
+                viewmode :='<=';
+        END IF;
        
                         
                         IF (_fileId !=0 )THEN
                         
                              _query := _query|| ' where fc.docfileid ='||_fileId;
-                             _query := _query|| ' AND fc.filemovementId <='||_filemovementid;
+                             _query := _query|| ' AND fc.filemovementId '||viewmode||_filemovementid;
                             
                                if (keyword IS NOT NULL) THEN  
                                                                 
@@ -1998,8 +2031,10 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_file_correspondence_list(bigint, bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+   
+    
     
  -- Note List
   -- FUNCTION: public.get_all_attached_note_list(bigint, bigint)

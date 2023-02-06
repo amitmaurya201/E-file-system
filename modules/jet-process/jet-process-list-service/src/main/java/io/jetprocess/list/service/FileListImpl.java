@@ -316,15 +316,16 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public int getFileCorrespondenceCount(long filemovementId , long fileId, String keyword) {
+	public int getFileCorrespondenceCount(String mode ,long filemovementId , long fileId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select public.get_file_correspondence_list_count(?,?,?)");
-			prepareCall.setLong(1, filemovementId);
-			prepareCall.setLong(2, fileId);
-			prepareCall.setString(3, keyword);
+			CallableStatement prepareCall = con.prepareCall("select public.get_file_correspondence_list_count(?,?,?,?)");
+			prepareCall.setString(1, mode);
+			prepareCall.setLong(2, filemovementId);
+			prepareCall.setLong(3, fileId);
+			prepareCall.setString(4, keyword);
 			boolean execute = prepareCall.execute();
 
 			if (execute) {
@@ -343,7 +344,7 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long filemovementId ,  long docfileId, String keyword, int start, int end,
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(String mode , long filemovementId ,  long docfileId, String keyword, int start, int end,
 			String orderBy, String order) {
 		
 
@@ -352,14 +353,15 @@ public class FileListImpl implements FileList {
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?)");
-			prepareCall.setLong(1, filemovementId);
-			prepareCall.setLong(2, docfileId);
-			prepareCall.setString(3, keyword);
-			prepareCall.setInt(4, start);
-			prepareCall.setInt(5, end);
-			prepareCall.setString(6, orderBy);
-			prepareCall.setString(7, order);
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?,?)");
+			prepareCall.setString(1, mode);
+			prepareCall.setLong(2, filemovementId);
+			prepareCall.setLong(3, docfileId);
+			prepareCall.setString(4, keyword);
+			prepareCall.setInt(5, start);
+			prepareCall.setInt(6, end);
+			prepareCall.setString(7, orderBy);
+			prepareCall.setString(8, order);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();

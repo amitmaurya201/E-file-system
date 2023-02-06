@@ -35,9 +35,9 @@ public interface FileList {
 			String orderBy, String order);
 	
 	
-public int getFileCorrespondenceCount(long filemovementId, long userPostId, String keyword);
+public int getFileCorrespondenceCount(String mode , long filemovementId, long userPostId, String keyword);
 	
-	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(long filemovementId , long docfileId, String keyword, int start, int end,
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(String mode , long filemovementId , long docfileId, String keyword, int start, int end,
 			String orderBy, String order);
 	
 	public List<NoteDTO> getAttachedNoteList(long filemovementId , long docfileId);
