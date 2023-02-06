@@ -4,8 +4,6 @@
 	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String setURl = serviceContext.getPortalURL();
-	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MMM/yyyy");
-	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 <portlet:renderURL var="editReceipt">
 	<portlet:param name="mvcRenderCommandName"
@@ -95,7 +93,7 @@
 						<aui:col md="6" cssClass="mt-3">
 							<div class="textOnInput">
 								<label><liferay-ui:message key="label-receipt-createdon" /></label>
-								<aui:input label="" name="createdOn" id="createdOn"
+								<aui:input label="" name="createdon" id="createdon"
 									value="<%=simpleFormat.format(receipt.getCreateDate())%>"
 									disabled="true" />
 							</div>
@@ -137,15 +135,17 @@
 								<label><liferay-ui:message
 										key="label-receipt-letter-date" /></label>
 								<aui:input type="text" label="" name="letterDate"
-									id="letterDate" value="${receipt.letterDate}"
+									id="letterDate" value="<%=simpleFormat.format(receipt.getLetterDate())%>"
 									placeholder="dd/mm/yyyy">
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
-												var date=new Date(val);
+												let d = val.split("/");
+    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												var createdOnValue= new Date(createdOn);
-												return (createdOnValue >= date);
+												let createdOnSplit = createdOn.split("/");
+    											let createdOnDate = new Date(createdOnSplit[2] + '/' + createdOnSplit[1] + '/' + createdOnSplit[0]);		
+												return (createdOnDate >= date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -156,17 +156,20 @@
 								<label><liferay-ui:message
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
 								<aui:input type="text" label="" name="receivedOn"
-									id="receivedOn" value="${receipt.receivedOn}"
+									id="receivedOn" value="<%=simpleFormat.format(receipt.getReceivedOn())%>"
 									placeholder="dd/mm/yyyy">
 									<aui:validator name="required" />
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message1">
 											function(val){
 													var letterDate = (document.getElementById("<portlet:namespace />letterDate").value);
-													var receivedDate=new Date(val);	
+													let letterDateSplit = letterDate.split("/");
+    												let letterDateValue = new Date(letterDateSplit[2] + '/' + letterDateSplit[1] + '/' + letterDateSplit[0]);		
+													let d = val.split("/");
+    												let receivedDate = new Date(d[2] + '/' + d[1] + '/' + d[0]);
 													if(letterDate != ""){
 														var newLetterDate=new Date(letterDate);
-														return (newLetterDate <= receivedDate);
+														return (letterDateValue <= receivedDate);
 													}
 													return "letter date null";
 												}
@@ -174,10 +177,12 @@
 									<aui:validator name="custom"
 										errorMessage="error-receipt-received-on-message2">
 											function(val){
-												var date=new Date(val);
+												let d = val.split("/");
+    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
 												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
-												var createdOnValue= new Date(createdOn);
-												return (createdOnValue >= date);
+												let createdOnSplit = createdOn.split("/");
+    											let createdOnDate = new Date(createdOnSplit[2] + '/' + createdOnSplit[1] + '/' + createdOnSplit[0]);		
+												return (createdOnDate >= date);
 											}
 										</aui:validator>
 								</aui:input>
@@ -491,11 +496,11 @@
 
 	$(document).ready(function() {
 		$("#<portlet:namespace/>letterDate").datepicker({
-			format : 'dd/M/yyyy'
+			format : 'dd/mm/yyyy'
 		});
 
 		$("#<portlet:namespace/>receivedOn").datepicker({
-			format : 'dd/M/yyyy'
+			format : 'dd/mm/yyyy'
 		});
 
 	});

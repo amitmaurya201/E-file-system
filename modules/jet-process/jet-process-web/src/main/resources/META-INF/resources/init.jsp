@@ -107,6 +107,9 @@ taglib
 	import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
 
 <%
-	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yy hh:mm aa");
+	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+	
+	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy");
+	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>

@@ -109,11 +109,11 @@
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
 									function(val){
-												var date=new Date(val);
+												let d = val.split("/");
+    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
 												var today = new Date();
-												const yesterday = new Date(today);
-												yesterday.setDate(yesterday.getDate() - 1);
-												console.log(today+'--'+date);
+												const yesterday = new Date(today)
+												yesterday.setDate(yesterday.getDate() - 1)
 												return (yesterday < date);
 											}
 										</aui:validator>
@@ -165,7 +165,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#<portlet:namespace/>dueDate").datepicker({
-			format : 'dd/M/yyyy'
+			format : 'dd/mm/yyyy'
 		});
 	});
 </script>
