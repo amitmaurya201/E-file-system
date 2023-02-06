@@ -103,13 +103,13 @@
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
-						<portlet:param name="fileMovementId"
+					<portlet:param name="fileMovementId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
 
 				<portlet:actionURL var="fileReceiveAction"
-					name="<%= MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND %>">
+					name="<%=MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"
@@ -129,7 +129,7 @@
 					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
-						<portlet:param name="fileMovementId"
+					<portlet:param name="fileMovementId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
 				</portlet:renderURL>
 				<c:choose>
@@ -164,11 +164,12 @@
 								name="label-file-inbox-subject" cssClass="hover-tips bold" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips bold">
-								
-								<c:set value="${fileinboxDtoList.getFileMovementId()}" var="senderId"></c:set>
-								
+
+								<c:set value="${fileinboxDtoList.getFileMovementId()}"
+									var="senderId"></c:set>
+
 								<a href="#" class="button open"
-									onclick=" showModal(<%=fileinboxDtoList.getSenderId() %>)">${fileinboxDtoList.getSentBy()}</a>
+									onclick=" showModal(<%=fileinboxDtoList.getSenderId()%>)">${fileinboxDtoList.getSentBy()}</a>
 
 							</liferay-ui:search-container-column-text>
 
@@ -176,10 +177,16 @@
 								value="<%=fileinboxDtoList.getSentOn() != null
 										? simpleformat.format(fileinboxDtoList.getSentOn())
 										: ""%>"
-								name="label-file-inbox-senton" cssClass="bold" orderableProperty="sentOn" orderable="true" />
+								name="label-file-inbox-senton" cssClass="bold"
+								orderableProperty="sentOn" orderable="true" />
 
-							<liferay-ui:search-container-column-text property="dueDate"
-								name="label-file-inbox-dueon" cssClass="bold" orderableProperty="dueDate" orderable="true" />
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-dueon" cssClass="bold"
+								orderableProperty="dueDate" orderable="true">
+								<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+									timeZone="Asia/Calcutta" value="${fileinboxDtoList.dueDate}" />
+							</liferay-ui:search-container-column-text>
+
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-remarks" cssClass="hover-tips bold">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">
@@ -230,18 +237,23 @@
 								name="label-file-inbox-subject" cssClass="hover-tips" />
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-sentby" cssClass="hover-tips">
-								
-								
+
+
 								<a href="#" class="button open"
-								onclick=" showModal(<%=fileinboxDtoList.getSenderId() %>)">${fileinboxDtoList.getSentBy()}</a>
+									onclick=" showModal(<%=fileinboxDtoList.getSenderId()%>)">${fileinboxDtoList.getSentBy()}</a>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
 								value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
-								name="label-file-inbox-senton" orderableProperty="sentOn" orderable="true" />
+								name="label-file-inbox-senton" orderableProperty="sentOn"
+								orderable="true" />
 
-							<liferay-ui:search-container-column-text property="dueDate"
-								name="label-file-inbox-dueon" orderableProperty="dueDate" orderable="true" />
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-dueon" orderableProperty="dueDate"
+								orderable="true">
+								<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+									timeZone="Asia/Calcutta" value="${fileinboxDtoList.dueDate}" />
+							</liferay-ui:search-container-column-text>
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-remarks" cssClass="hover-tips">
 								<c:if test="${not empty fileinboxDtoList.getRemark()}">

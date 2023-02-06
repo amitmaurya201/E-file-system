@@ -93,8 +93,11 @@
 							? sentFileListDTO.getCurrentlyWithUserName()
 							: ""%>"
 					cssClass="hover-tips" name="Currently With" />
-				<liferay-ui:search-container-column-text property="dueDate"
-					cssClass="hover-tips" name="Due Date" orderableProperty="dueDate" orderable="true"  />
+				<liferay-ui:search-container-column-text 
+					cssClass="hover-tips" name="Due Date" orderableProperty="dueDate" orderable="true"  >
+					<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+						timeZone="Asia/Calcutta" value="${sentFileListDTO.dueDate}" />
+				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text name="Actions">
 					<c:if
 						test="${(empty sentFileListDTO.getReadOn()) and (empty sentFileListDTO.getReceivedOn())}">
