@@ -28,8 +28,7 @@
 				<portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
-					<portlet:param name="fileMovementId" value="<%=String.valueOf(filedto.getFilemovementId()) %>" />
-					
+					<portlet:param name="fileMovementId" value="<%=String.valueOf(filedto.getFilemovementId()) %>" />					
 					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 				</portlet:renderURL>
 

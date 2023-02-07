@@ -24,23 +24,24 @@
 
 <%
 	String docFileId = renderRequest.getParameter("docFileId");
-	String curr = (String) session.getAttribute("currentURL");
+	
+	 
+
 	long fileMovementId = (long) session.getAttribute("fileMovementId");
 	String viewMode = renderRequest.getParameter("viewMode");
 	
 	HttpSession userPostId = themeDisplay.getRequest().getSession();
 	String userPostsValue = (String) userPostId.getAttribute("userPostId");
+	String currentURL = (String) renderRequest.getAttribute("currURL2");
 	
 
 %>
-
-
 <portlet:renderURL var="fileMovement">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
-	<portlet:param name="fileMovementId"
+ 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
+ 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
 	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
@@ -49,8 +50,8 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
-	<portlet:param name="fileMovementId"
+	<portlet:param name="backPageURL" value="<%=currentURL%>" />
+ 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
 	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
@@ -61,14 +62,14 @@
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
+ 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="fileSend">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
+ 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
 	<portlet:param name="userPostId" value="<%= userPostsValue %>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
@@ -80,8 +81,8 @@
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
-	<portlet:param name="viewMode" value="<%=viewMode%>" />
+ 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
+ 	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
 	<portlet:param name="mvcPath" value="/file/sendback.jsp" />
@@ -201,6 +202,8 @@
 
 	</div>
 </nav>
+
+
 
 
 <script>

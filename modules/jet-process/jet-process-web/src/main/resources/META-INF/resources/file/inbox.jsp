@@ -123,7 +123,7 @@
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-				</portlet:actionURL>
+ 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
@@ -131,6 +131,8 @@
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fileMovementId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
+						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+						
 				</portlet:renderURL>
 				<c:choose>
 					<c:when

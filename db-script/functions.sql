@@ -683,7 +683,11 @@ ALTER FUNCTION public.get_receipt_inbox_list_count(bigint,text)
 
 --    ------------------------------------- Get Receipt Sent List Count -------------------------------------------
 
-    CREATE OR REPLACE FUNCTION public.get_receipt_sent_list_count(
+  -- FUNCTION: public.get_receipt_sent_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_sent_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_receipt_sent_list_count(
 	post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -711,7 +715,7 @@ AS $BODY$
                  FROM PUBLIC.jet_process_receiptmovement as rm 
                  JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
                  JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-                 where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark
+                 where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark and rm.movementtype = 1
                  is null AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
                                     
             return total; 
@@ -720,7 +724,7 @@ AS $BODY$
 		        FROM PUBLIC.jet_process_receiptmovement as rm 
 		        JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
 		        JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-                where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark is null;
+                where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1;
             RETURN total;
         END IF;
 
@@ -729,9 +733,8 @@ AS $BODY$
   
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_sent_list_count(bigint,text)
+ALTER FUNCTION public.get_receipt_sent_list_count(bigint, text)
     OWNER TO postgres;
-    
 
     
  -- --------------------------------------------- Receipt List  --------------------------------------
@@ -982,7 +985,12 @@ ALTER FUNCTION public.get_receipt_inbox_list(bigint, text, integer, integer, tex
     
 --    ------------------------------------- Get Receipt Sent List  -------------------------------------------
 
-   CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
+  
+    -- FUNCTION: public.get_receipt_sent_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_sent_list(bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_receipt_sent_list(
 	_senderid bigint,
 	keyword text,
 	_start integer,
@@ -1017,7 +1025,7 @@ AS $BODY$
 		FROM PUBLIC.jet_process_receiptmovement as rm 
 		JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
 		JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-        where rm.active_ = true and rm.pullbackremark is null ';
+        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1 ';
                   
         _keyword := '''%'||keyword||'%''';
         
@@ -1098,6 +1106,9 @@ $BODY$;
 ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
 
+    
+    
+    
     
 --     ------------------------------ Get put in file list count  -----------------------------------------------------------------
 

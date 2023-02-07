@@ -3,11 +3,14 @@
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
 	String currURL = (String) request.getAttribute("CurrentURL");
- 	long fileMovementId  = (long) request.getAttribute("fileMovementId");
+    renderRequest.setAttribute("currURL2", currURL);
+	long fileMovementId  = (long) request.getAttribute("fileMovementId");
  
-	session.setAttribute("currentURL", currURL);
  	session.setAttribute("fileMovementId", fileMovementId);
+	
 %>
+
+
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -22,7 +25,6 @@
 			<div class="hover-tips"><%=docFile.getNature().charAt(0)%>
 				|
 				<%=docFile.getFileNumber()%>
-				|
 				<%=docFile.getSubject()%>
 				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>
 				<input id = "fileMovementId" value = "<%=fileMovementId %>" type = "hidden" />
