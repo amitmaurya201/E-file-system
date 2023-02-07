@@ -125,7 +125,7 @@
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-letter-date" />:</th>
-				<td><%=simpleFormat.format(receipt.getLetterDate())%></td>
+				<td>${letterDate}</td>
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-receipt-mode-no" />:</th>

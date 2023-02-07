@@ -10,7 +10,6 @@
 <%
 	String currURL = (String) renderRequest.getAttribute("currentURL");
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
-	out.print(fileMovementId);
 %>
 
 <style>
