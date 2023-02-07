@@ -114,6 +114,7 @@
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
+						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="fileReadAction"
