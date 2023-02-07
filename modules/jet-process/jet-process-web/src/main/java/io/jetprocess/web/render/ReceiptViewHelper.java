@@ -2,6 +2,8 @@ package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.text.SimpleDateFormat;
+
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -23,6 +25,12 @@ public class ReceiptViewHelper {
 		try {
 			receipt = receiptLocalService.getReceipt(receiptId);
 			renderRequest.setAttribute("receipt", receipt);
+
+			if (receipt.getLetterDate() != null) {
+				SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
+				String letterDate = simpleformat.format(receipt.getLetterDate());
+				renderRequest.setAttribute("letterDate", letterDate);
+			}
 
 			Masterdata typeById = masterdataLocalService.getTypeById(receipt.getTypeId());
 			renderRequest.setAttribute("typeValue", typeById.getValue());

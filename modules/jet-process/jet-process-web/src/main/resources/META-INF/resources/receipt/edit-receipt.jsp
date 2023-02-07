@@ -69,8 +69,8 @@
 									id="doc-select-btn"><liferay-ui:message
 										key="label-receipt-pdf-file" /></span> <input name="doc-input"
 									id="doc-input" type="file" hidden accept=".pdf" />
-								<p id="error" class="text-danger" style="display:none">This field is required
-								</p>
+								<p id="error" class="text-danger" style="display: none">This
+									field is required</p>
 								<p id="sizeValidation" style="display: none; color: red;">size
 									must be less then 25 mb</p>
 							</div>
@@ -135,14 +135,13 @@
 								<label><liferay-ui:message
 										key="label-receipt-letter-date" /></label>
 								<aui:input type="text" label="" name="letterDate"
-									id="letterDate" value="<%=simpleFormat.format(receipt.getLetterDate())%>"
-									placeholder="dd/mm/yyyy">
+									id="letterDate" placeholder="dd/mm/yyyy" value="${letterDate }">
 									<aui:validator name="custom"
 										errorMessage="error-receipt-letter-date-message">
 											function(val){
 												let d = val.split("/");
-    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
-												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
+    											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);	
+												var createdOn = (document.getElementById("<portlet:namespace />createdon").value);
 												let createdOnSplit = createdOn.split("/");
     											let createdOnDate = new Date(createdOnSplit[2] + '/' + createdOnSplit[1] + '/' + createdOnSplit[0]);		
 												return (createdOnDate >= date);
@@ -156,7 +155,8 @@
 								<label><liferay-ui:message
 										key="label-receipt-received-on" /><span class='text-danger'>*</span></label>
 								<aui:input type="text" label="" name="receivedOn"
-									id="receivedOn" value="<%=simpleFormat.format(receipt.getReceivedOn())%>"
+									id="receivedOn"
+									value="<%=simpleFormat.format(receipt.getReceivedOn())%>"
 									placeholder="dd/mm/yyyy">
 									<aui:validator name="required" />
 									<aui:validator name="custom"
@@ -179,7 +179,7 @@
 											function(val){
 												let d = val.split("/");
     											let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
-												var createdOn = (document.getElementById("<portlet:namespace />createdOn").value);
+												var createdOn = (document.getElementById("<portlet:namespace />createdon").value);
 												let createdOnSplit = createdOn.split("/");
     											let createdOnDate = new Date(createdOnSplit[2] + '/' + createdOnSplit[1] + '/' + createdOnSplit[0]);		
 												return (createdOnDate >= date);

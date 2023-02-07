@@ -20,13 +20,15 @@
 		<%
 			Receipt receipt = (Receipt) request.getAttribute("receipt");
 			session.setAttribute("receipt", receipt);
-		
+
 			String nature = receipt.getNature();
 			char currentNature = nature.charAt(0);
 		%>
-		
+
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}</div>
+			<div class="hover-tips"><%=currentNature%>
+				| ${receipt.receiptNumber} | ${receipt.subject}
+			</div>
 		</div>
 		<div class="receipt_view">
 			<div class="container">
@@ -47,7 +49,7 @@
 
 					</div>
 					<div class="border col-7 mb-2 ">
-						<div class="row border heading" >
+						<div class="row border heading">
 							<h5>
 								<aui:icon cssClass="fas fa-file-alt view_icon " />
 								<liferay-ui:message key="label-receipt-diary-details" />
@@ -87,7 +89,9 @@
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-file-list-fileno" />:</th>
-										<td><%-- ${receipt.dmFileId } --%></td>
+										<td>
+											<%-- ${receipt.dmFileId } --%>
+										</td>
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-delivery-mode" />:</th>
@@ -95,7 +99,7 @@
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-letter-date" />:</th>
-										<td><%=simpleFormat.format(receipt.getLetterDate())%></td>
+										<td>${letterDate}</td>
 									</tr>
 									<tr>
 										<th><liferay-ui:message key="label-receipt-mode-no" />:</th>
@@ -136,7 +140,7 @@
 								</table>
 							</div>
 						</div>
-						<div class="border row heading"  >
+						<div class="border row heading">
 							<h5>
 								<aui:icon cssClass="fas fa-envelope view_icon" />
 								<liferay-ui:message key="label-receipt-sender-details" />

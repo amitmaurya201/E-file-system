@@ -27,6 +27,7 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 		if(receiptRsModel.getLetterDate() != "") {
 			 letterDate = simpleformat.parse(receiptRsModel.getLetterDate());
 		}
+		
 		Receipt receipt = receiptLocalService.createReceipt(receiptRsModel.getGroupId(), receiptRsModel.getTypeId(),
 				receiptRsModel.getTempFileId(), receiptRsModel.getDeliveryModeId(), receiptRsModel.getNature(),
 				receivedOn, letterDate, receiptRsModel.getReferenceNumber(), receiptRsModel.getModeNumber(),
