@@ -1,7 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
-	session.setAttribute("currentURL", currentURL);
+    renderRequest.setAttribute("currentURL", currentURL);
+	/* session.setAttribute("currentURL", currentURL); */
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
 	session.setAttribute("receiptMovementId1", receiptMovementId);
 %>

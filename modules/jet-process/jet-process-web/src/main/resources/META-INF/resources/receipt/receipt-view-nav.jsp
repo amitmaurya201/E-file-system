@@ -24,7 +24,7 @@
 
 <%
 	String receiptId = renderRequest.getParameter("receiptId");
-	String curr = (String) session.getAttribute("currentURL");
+	String curr = (String) renderRequest.getAttribute("currentURL");
 	long receiptMovementId = (long) session.getAttribute("receiptMovementId1");
 	String viewMode = renderRequest.getParameter("viewMode");
 %>
