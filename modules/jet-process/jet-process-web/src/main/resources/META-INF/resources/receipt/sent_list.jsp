@@ -96,8 +96,11 @@
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
 						timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text  value="<%=simpleFormat.format(receiptSentMovement.getDueDate()) %>" 
-					name="label-receipt-sent-due-date" orderableProperty="dueDate" orderable="true" />
+				<liferay-ui:search-container-column-text 
+					name="label-receipt-sent-due-date" orderableProperty="dueDate" orderable="true">
+					<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+						timeZone="Asia/Calcutta" value="${receiptSentMovement.dueDate}" />
+					</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					value="<%=receiptSentMovement.getRemark() != null ? receiptSentMovement.getRemark() : ""%>"
 					name="label-receipt-sent-remark" cssClass="hover-tips" />

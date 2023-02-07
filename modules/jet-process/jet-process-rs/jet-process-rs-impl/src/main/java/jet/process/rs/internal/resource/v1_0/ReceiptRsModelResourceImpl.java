@@ -1,8 +1,6 @@
 package jet.process.rs.internal.resource.v1_0;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
@@ -21,11 +19,14 @@ import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 
 	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
+	
 	@Override
 	public ReceiptRsModel createReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		Date receivedOn = simpleformat.parse(receiptRsModel.getReceivedOn());
-		Date letterDate = simpleformat.parse(receiptRsModel.getLetterDate());
-
+		Date letterDate =null;
+		if(receiptRsModel.getLetterDate() != "") {
+			 letterDate = simpleformat.parse(receiptRsModel.getLetterDate());
+		}
 		Receipt receipt = receiptLocalService.createReceipt(receiptRsModel.getGroupId(), receiptRsModel.getTypeId(),
 				receiptRsModel.getTempFileId(), receiptRsModel.getDeliveryModeId(), receiptRsModel.getNature(),
 				receivedOn, letterDate, receiptRsModel.getReferenceNumber(), receiptRsModel.getModeNumber(),
@@ -42,7 +43,10 @@ public class ReceiptRsModelResourceImpl extends BaseReceiptRsModelResourceImpl {
 	@Override
 	public ReceiptRsModel updateReceipt(ReceiptRsModel receiptRsModel) throws Exception {
 		Date receivedOn = simpleformat.parse(receiptRsModel.getReceivedOn());
-		Date letterDate = simpleformat.parse(receiptRsModel.getLetterDate());
+		Date letterDate =null;
+		if(receiptRsModel.getLetterDate() != "") {
+			 letterDate = simpleformat.parse(receiptRsModel.getLetterDate());
+		}
 		
 		receiptLocalService.updateReceipt(receiptRsModel.getReceiptId(), receiptRsModel.getGroupId(),
 				receiptRsModel.getTypeId(), receiptRsModel.getTempFileId(), receiptRsModel.getNature(), receivedOn,
