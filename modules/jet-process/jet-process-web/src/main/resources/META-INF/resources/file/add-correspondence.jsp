@@ -6,7 +6,7 @@
 	String redirectURL = themeDisplay.getURLCurrent();
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
 	session.setAttribute("currentURL", currentURL);
-	long fileMovementId=(long)session.getAttribute("fileMovementId");
+	long fileMovementId = (long) session.getAttribute("fileMovementId");
 %>
 
 <div class="p-3">
@@ -52,7 +52,7 @@
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${aReceiptListViewDto.getReceiptMovementId()}" />
 					<aui:input name="fileMovementId" type="hidden"
-						value="<%=fileMovementId %>" />	
+						value="<%=fileMovementId%>" />
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text name="Nature"><%=aReceiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
@@ -158,23 +158,38 @@ function receiptDetail(_isRead, _receiptId, _receiptMovementId,_nature){
 	nature=_nature;
 	console.log(isRead+" : "+receiptId+" : "+receiptMovementId+", nature : "+nature)
 }
-
+function validateForm(attachReceipt) {
+	var liferayForm = Liferay.Form.get(attachReceipt);
+    if (liferayForm) {
+        var validator = liferayForm.formValidator;
+        validator.validate();
+        var hasErrors = validator.hasErrors();
+        if (hasErrors) {
+        	validator.focusInvalidField();
+            return false;
+        }
+   	}
+    return true;
+};
 
 $('#<portlet:namespace />attachForm').click(function(){
-	console.log(isRead+" -:- "+receiptId+" -:- "+receiptMovementId)
-	if(isRead == false){
-		if(nature==='Electronic'){
-			$("#msg").text('Read');
+	if(receiptMovementId != null  && validateForm('<portlet:namespace/>attachReceipt')){
+		if(isRead == false){
+			if(nature==='Electronic'){
+				$("#msg").text('Read');
+			}
+			else{
+				$("#msg").text('Receive');
+			}
+			$("#<portlet:namespace />receiptId").val(receiptId);
+			$("#<portlet:namespace />rmId").val(receiptMovementId);
+			$('#isReadAlert').trigger('click');
+		}else{
+			$("#<portlet:namespace />receiptMovementId").val(receiptMovementId);
+			$("#<portlet:namespace />attachReceipt").submit();
 		}
-		else{
-			$("#msg").text('Receive');
-		}
-		$("#<portlet:namespace />receiptId").val(receiptId);
-		$("#<portlet:namespace />rmId").val(receiptMovementId);
-		$('#isReadAlert').trigger('click');
 	}else{
-		$("#<portlet:namespace />receiptMovementId").val(receiptMovementId);
-		$("#<portlet:namespace />attachReceipt").submit();
+		return false;
 	}
 });
 
@@ -183,6 +198,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 	
 
 	if(accepted){
+		
 		submitAttach()
 		/* 
 		$("#<portlet:namespace />receiveForm").submit();

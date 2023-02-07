@@ -155,7 +155,7 @@ if (viewMode == 'ViewModeFromSentFile') {
            					 }													 
 						}, 														 
 						id: '<portlet:namespace />dialog',														 
-						title: 'Put In File', 														 
+						title: 'Put In Receipt(s)', 														 
 						uri: '<%= fileInnerViewPopup %>&<portlet:namespace/>corrFileId=<%=corrFileId %>',			
 						});
 					});	

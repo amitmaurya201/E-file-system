@@ -1213,7 +1213,7 @@ AS $BODY$
     inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
     inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
         where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid)
-            and (rmt.active_ = true OR rmt.movementtype=0) and r.attachstatus is null ';
+            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null ';
   
  
                 
@@ -1232,7 +1232,7 @@ AS $BODY$
       END IF;   
       
       IF (orderByCol ='' OR orderByCol IS NULL) THEN
-              _orderBy :='receiptnumber';
+              _orderBy :='r.createDate';
           ELSE
               _orderBy :=orderByCol;
       END IF;
