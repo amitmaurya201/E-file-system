@@ -405,6 +405,11 @@
 		<finder-column name="fileId"></finder-column>
 		</finder>
 		
+		<finder return-type="FileNote" name="filemovementId">
+        <finder-column name="fileMovementId"></finder-column>
+        </finder>
+		
+		
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 

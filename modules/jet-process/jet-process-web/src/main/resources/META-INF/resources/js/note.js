@@ -1,13 +1,15 @@
 <script>
 
-const notes = document.getElementById("notes");
-const note = document.getElementById("note");
-const editor = document.getElementById("editor");
+
 function openNote() {
+	const notes = document.getElementById("notes");
 	notes.style.display = "block";
 }
 
 function openGreenNote() {
+	const notes = document.getElementById("notes");
+	const note = document.getElementById("note");
+	const editor = document.getElementById("editor");
 	notes.style.display = "none";
 	note.style.display = "none";
 	editor.style.display = "block";
@@ -52,23 +54,20 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 		             text: "Note can't be empty!",
 		             icon: "Fail",
 					}) 
-		}
-		 else{
+		}	 else{
 			 console.log("respose content");
-		 swal({
-				title: "Successfull!",
-	             text: `Note is created successfully!`,
-	             icon: "success",
-				}).then(function(){
+			 swal({
+					
+		             text: `Note is created successfully!`,
+		        
+					})
 					window.location.reload(true);
-				})
-		 }
+			 }
 		
 	 }).fail(function(error){
 		 swal({  
-				title: " Oops!",  
-			  	text: "Something went wrong!",  
-			  	icon: "error",
+				
+			  	text: "Note can't be empty!",  
 			}).then(function(){
 				window.location.reload(true);
 			})
@@ -108,6 +107,11 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 			})
 	 })
 		 
+	}
+	
+	var noteId = '${note.noteId }';
+	if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
+		openGreenNote();
 	}
 
 

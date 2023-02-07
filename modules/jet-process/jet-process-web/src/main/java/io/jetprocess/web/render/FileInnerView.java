@@ -90,16 +90,16 @@ public class FileInnerView implements MVCRenderCommand {
 			renderRequest.setAttribute("docFileObj", docFile);
 			renderRequest.setAttribute("CurrentURL", currentURL);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
-
-			FileNote fileNote = getFileNoteByUserpostId(docFileId, renderRequest);
-			if (fileNote != null) {
-				Note note = noteLocalService.getNoteByUserPostId(userPostId);
-				renderRequest.setAttribute("noteContent", note.getContent());
-				renderRequest.setAttribute("noteObj", fileNote);
+			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
+			if(fileNote!=null) {
+			Note note = noteLocalService.getNote(fileNote.getNoteId()) ;
+			renderRequest.setAttribute("noteContent", note.getContent());
+			renderRequest.setAttribute("noteObj", fileNote); 
 			}
-			
-		
+
 		} catch (PortalException e) {
+			renderRequest.setAttribute("noteContent", "");
+			renderRequest.setAttribute("noteObj", null); 
 			e.printStackTrace();
 		}
 		setCorrespondenceListAttributes(renderRequest);

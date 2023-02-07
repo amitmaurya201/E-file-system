@@ -286,6 +286,14 @@ public class FileNoteLocalServiceWrapper
 		return _fileNoteLocalService.getFileNote(fileNoteId);
 	}
 
+	@Override
+	public io.jetprocess.model.FileNote getFileNoteByFilemovementId(
+		long filemovementId) {
+
+		return _fileNoteLocalService.getFileNoteByFilemovementId(
+			filemovementId);
+	}
+
 	/**
 	 * Returns the file note matching the UUID and group.
 	 *

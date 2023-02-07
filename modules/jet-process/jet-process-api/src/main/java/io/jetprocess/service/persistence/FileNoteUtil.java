@@ -816,6 +816,65 @@ public class FileNoteUtil {
 	}
 
 	/**
+	 * Returns the file note where fileMovementId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	public static FileNote findByfilemovementId(long fileMovementId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getPersistence().findByfilemovementId(fileMovementId);
+	}
+
+	/**
+	 * Returns the file note where fileMovementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public static FileNote fetchByfilemovementId(long fileMovementId) {
+		return getPersistence().fetchByfilemovementId(fileMovementId);
+	}
+
+	/**
+	 * Returns the file note where fileMovementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	public static FileNote fetchByfilemovementId(
+		long fileMovementId, boolean useFinderCache) {
+
+		return getPersistence().fetchByfilemovementId(
+			fileMovementId, useFinderCache);
+	}
+
+	/**
+	 * Removes the file note where fileMovementId = &#63; from the database.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the file note that was removed
+	 */
+	public static FileNote removeByfilemovementId(long fileMovementId)
+		throws io.jetprocess.exception.NoSuchFileNoteException {
+
+		return getPersistence().removeByfilemovementId(fileMovementId);
+	}
+
+	/**
+	 * Returns the number of file notes where fileMovementId = &#63;.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the number of matching file notes
+	 */
+	public static int countByfilemovementId(long fileMovementId) {
+		return getPersistence().countByfilemovementId(fileMovementId);
+	}
+
+	/**
 	 * Caches the file note in the entity cache if it is enabled.
 	 *
 	 * @param fileNote the file note

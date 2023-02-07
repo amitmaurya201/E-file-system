@@ -51,7 +51,16 @@ public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
 
 	 public List<FileNote> getFileNoteListByFileId(long fileId){
 			List<FileNote> fileNoteList = fileNotePersistence.findByFileNoteListByFileId(fileId);
-			  return fileNoteList;
+			return fileNoteList;
 		   }
-
+	 
+	 public FileNote getFileNoteByFilemovementId(long filemovementId) {
+		 try {
+			return fileNotePersistence.findByfilemovementId(filemovementId);
+		} catch (NoSuchFileNoteException e) {
+			e.printStackTrace();
+			return null;
+		}
+			 
+	 }
 }

@@ -235,6 +235,9 @@ public interface FileNoteLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FileNote getFileNote(long fileNoteId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FileNote getFileNoteByFilemovementId(long filemovementId);
+
 	/**
 	 * Returns the file note matching the UUID and group.
 	 *

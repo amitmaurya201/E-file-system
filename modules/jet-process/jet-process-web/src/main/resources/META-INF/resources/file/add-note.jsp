@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.model.FileNote"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.util.TimeZone"%>
@@ -80,26 +81,19 @@ textarea {
 		</div>
 
 	</aui:form>
-	<%-- <c:forEach items = "${noteList}" var ="name" varStatus="theCount" >
-			<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
-		 Note #<c:out value = "${theCount.count }"></c:out>
-		 <br>
-		 <c:out value = "${name.createDate }"></c:out>
-		<c:out value = "${name.signature}"></c:out>
-		 <c:forEach items = "${name.signature }" var = "signature">
-		 <c:out value = "${signature}"></c:out>
-		 </c:forEach>
-	</div>
-			</c:forEach> --%>
 
+	<% 
 
-	<% List<NoteDTO> note =(List <NoteDTO>)request.getAttribute("noteList");
-		System.out.println("noteist"+note);
-		if(note!=null){
+	List<NoteDTO> noteList =(List <NoteDTO>)request.getAttribute("noteList");
+		if(!noteList.isEmpty()){
+			
 			int i = 1;
-			for(NoteDTO noteDTO : note){
+			for(NoteDTO noteDTO : noteList){
 				JSONObject object = JSONFactoryUtil.createJSONObject(noteDTO.getSignature());
-				System.out.println("note------"+object);
+				FileNote fileNote =(FileNote)request.getAttribute("noteObj");
+				if(fileNote!=null){
+				  long noteId=fileNote.getNoteId();
+				if(noteId!=noteDTO.getNoteId()){
 				%>
 	<div
 		style="height: auto;  padding :0px 10px; border-color: gray; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
@@ -110,7 +104,7 @@ textarea {
 
 		<div class="mt-1">
 			<c:set var="now" value="<%= noteDTO.getCreateDate() %>" />
-			<fmt:formatDate type="both" dateStyle="short" timeStyle="short"
+			<fmt:formatDate type="both" pattern="dd/MM/yyyy"
 				value="${now}" />
 			<span style="float: right;"> <%=object.get("userName")%></span>
 
@@ -128,6 +122,35 @@ textarea {
 			  i++;
 			} 
 			
+		}else{
+			%>
+<div
+	style="height: auto;  padding :0px 10px; border-color: gray; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
+	<b>Note # <%=i %></b> <br>
+	<div class="container">
+		<%=noteDTO.getContent() %>
+	</div>
+
+	<div class="mt-1">
+		<c:set var="now" value="<%= noteDTO.getCreateDate() %>" />
+		<fmt:formatDate type="both" dateStyle="short" timeStyle="short"
+			value="${now}" />
+		<span style="float: right;"> <%=object.get("userName")%></span>
+
+		<p style="text-align: right;">
+
+			<span><%= object.get("departmentName")%></span> <span><%= object.get("postMarking") %></span>
+		</p>
+	</div>
+
+
+
+
+</div>
+<%
+		  i++;
+		}
+		}
 		}
 		%>
 </div>
@@ -164,6 +187,7 @@ textarea {
 
 <script>
 var viewMode = "${param.viewMode}";
+console.log("viewMode"+viewMode);
 if (viewMode == 'ViewModeFromSentFile') {
 	$('#note').removeClass("addtoggle");
 }

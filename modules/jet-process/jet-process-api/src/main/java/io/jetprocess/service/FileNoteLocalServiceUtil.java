@@ -258,6 +258,10 @@ public class FileNoteLocalServiceUtil {
 		return getService().getFileNote(fileNoteId);
 	}
 
+	public static FileNote getFileNoteByFilemovementId(long filemovementId) {
+		return getService().getFileNoteByFilemovementId(filemovementId);
+	}
+
 	/**
 	 * Returns the file note matching the UUID and group.
 	 *

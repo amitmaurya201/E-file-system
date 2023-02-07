@@ -24,7 +24,6 @@ public class NoteRsModelResourceImpl extends BaseNoteRsModelResourceImpl {
 	@Override
 	public NoteRsModel createNote(NoteRsModel noteRsModel) throws Exception {
 		Note note = noteLocalService.addNote(noteRsModel.getContent(), noteRsModel.getCreatedBy(), noteRsModel.getFileId(), noteRsModel.getNoteId(),noteRsModel.getFileMovementId());
-		System.out.println("noters"+note);
 		long noteId = note.getNoteId();
 		noteRsModel.setNoteId(noteId);
 		return noteRsModel;

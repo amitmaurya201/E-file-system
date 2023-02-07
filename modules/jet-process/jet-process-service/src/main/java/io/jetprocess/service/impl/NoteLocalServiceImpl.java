@@ -51,6 +51,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		if(content != null && !content.trim().isEmpty()) {
 		Note note =null;
 		if(noteId==0) {
+			System.out.println("created");
 			 long generateNoteId = counterLocalService.increment(Note.class.getName()); 	
 			 note = createNote(generateNoteId);
 			  note.setNoteId(generateNoteId);
@@ -75,6 +76,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 			  fileNote.setMovementType(MovementStatus.CREATED);
 			  fileNoteLocalService.addFileNote(fileNote);		
 	   }else {
+		   System.out.println("update");
 			 note= getNote(noteId);
 			note.setContent(content);
 			note = super.updateNote(note);  
@@ -87,8 +89,6 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		}
 	
 	  }
-
-	  
 	  // create Method for Edit Note 
 	  public Note editNote(long noteId, String content) throws PortalException {
 		  Note note = getNote(noteId);
@@ -99,9 +99,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	  }
 	  public Note getNoteByUserPostId(long userPostId) throws NoSuchNoteException {
 			 Note  note = notePersistence.findByuserPostId(userPostId); 
-			 return note;
-	
-			
+			 return note;	
 		 }
 	 
  @Reference

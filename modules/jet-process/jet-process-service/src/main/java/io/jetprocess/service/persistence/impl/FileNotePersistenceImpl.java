@@ -2391,6 +2391,219 @@ public class FileNotePersistenceImpl
 	private static final String _FINDER_COLUMN_FILENOTELISTBYFILEID_FILEID_2 =
 		"fileNote.fileId = ?";
 
+	private FinderPath _finderPathFetchByfilemovementId;
+	private FinderPath _finderPathCountByfilemovementId;
+
+	/**
+	 * Returns the file note where fileMovementId = &#63; or throws a <code>NoSuchFileNoteException</code> if it could not be found.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the matching file note
+	 * @throws NoSuchFileNoteException if a matching file note could not be found
+	 */
+	@Override
+	public FileNote findByfilemovementId(long fileMovementId)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = fetchByfilemovementId(fileMovementId);
+
+		if (fileNote == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("fileMovementId=");
+			sb.append(fileMovementId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileNoteException(sb.toString());
+		}
+
+		return fileNote;
+	}
+
+	/**
+	 * Returns the file note where fileMovementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByfilemovementId(long fileMovementId) {
+		return fetchByfilemovementId(fileMovementId, true);
+	}
+
+	/**
+	 * Returns the file note where fileMovementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file note, or <code>null</code> if a matching file note could not be found
+	 */
+	@Override
+	public FileNote fetchByfilemovementId(
+		long fileMovementId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {fileMovementId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByfilemovementId, finderArgs);
+		}
+
+		if (result instanceof FileNote) {
+			FileNote fileNote = (FileNote)result;
+
+			if (fileMovementId != fileNote.getFileMovementId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEMOVEMENTID_FILEMOVEMENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileMovementId);
+
+				List<FileNote> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByfilemovementId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {fileMovementId};
+							}
+
+							_log.warn(
+								"FileNotePersistenceImpl.fetchByfilemovementId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					FileNote fileNote = list.get(0);
+
+					result = fileNote;
+
+					cacheResult(fileNote);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (FileNote)result;
+		}
+	}
+
+	/**
+	 * Removes the file note where fileMovementId = &#63; from the database.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the file note that was removed
+	 */
+	@Override
+	public FileNote removeByfilemovementId(long fileMovementId)
+		throws NoSuchFileNoteException {
+
+		FileNote fileNote = findByfilemovementId(fileMovementId);
+
+		return remove(fileNote);
+	}
+
+	/**
+	 * Returns the number of file notes where fileMovementId = &#63;.
+	 *
+	 * @param fileMovementId the file movement ID
+	 * @return the number of matching file notes
+	 */
+	@Override
+	public int countByfilemovementId(long fileMovementId) {
+		FinderPath finderPath = _finderPathCountByfilemovementId;
+
+		Object[] finderArgs = new Object[] {fileMovementId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_FILENOTE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEMOVEMENTID_FILEMOVEMENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileMovementId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FILEMOVEMENTID_FILEMOVEMENTID_2 =
+		"fileNote.fileMovementId = ?";
+
 	public FileNotePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2428,6 +2641,10 @@ public class FileNotePersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByNoteId, new Object[] {fileNote.getNoteId()},
 			fileNote);
+
+		finderCache.putResult(
+			_finderPathFetchByfilemovementId,
+			new Object[] {fileNote.getFileMovementId()}, fileNote);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -2522,6 +2739,13 @@ public class FileNotePersistenceImpl
 		finderCache.putResult(_finderPathCountByNoteId, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByNoteId, args, fileNoteModelImpl);
+
+		args = new Object[] {fileNoteModelImpl.getFileMovementId()};
+
+		finderCache.putResult(
+			_finderPathCountByfilemovementId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByfilemovementId, args, fileNoteModelImpl);
 	}
 
 	/**
@@ -3071,6 +3295,16 @@ public class FileNotePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 			"countByFileNoteListByFileId", new String[] {Long.class.getName()},
 			new String[] {"fileId"}, false);
+
+		_finderPathFetchByfilemovementId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByfilemovementId",
+			new String[] {Long.class.getName()},
+			new String[] {"fileMovementId"}, true);
+
+		_finderPathCountByfilemovementId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByfilemovementId",
+			new String[] {Long.class.getName()},
+			new String[] {"fileMovementId"}, false);
 
 		_setFileNoteUtilPersistence(this);
 	}
