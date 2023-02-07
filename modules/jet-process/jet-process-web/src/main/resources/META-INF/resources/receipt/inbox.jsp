@@ -108,6 +108,8 @@
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
+						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+						
 				</portlet:actionURL>
 				<portlet:actionURL var="receiptReadAction"
 					name="<%=MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND%>">
