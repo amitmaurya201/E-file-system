@@ -147,6 +147,9 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
 --  ----------------  File Sent List  count ---------------
 
  
+-- FUNCTION: public.get_file_sent_lists_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_sent_lists_count(bigint, text);
 
 CREATE OR REPLACE FUNCTION public.get_file_sent_lists_count(
 	sender_id bigint,
@@ -198,6 +201,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_sent_lists_count(bigint, text)
     OWNER TO postgres;
+
 
 
 
