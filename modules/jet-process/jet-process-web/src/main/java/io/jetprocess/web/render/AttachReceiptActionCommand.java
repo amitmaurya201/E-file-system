@@ -32,40 +32,24 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
-//		long fmid =ParamUtil.getLong(actionRequest, "fileMovementId");
 		
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-//		System.out.println(" fmid......---:..... : "+fmid);
-		
 		long fileMovementId =  ParamUtil.getLong(actionRequest, "fileMovementId");
-		
-		System.out.println("maximumFmIdByFileIdData....."+fileMovementId);
-		
-		System.out.println("receiptPK : "+receiptPK+", receiptMovementId : "+receiptMovementId);
-		
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 		
 		long movementType = receiptMovement.getMovementType();
 		boolean status = false;
-		System.out.println("----------------------movementType :------- "+movementType);
 		if(movementType==0) {
-			System.out.println("----------------------movementType :if movementType=0 ------- ");
 			 status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
-			 System.out.println("----------------------movementType :if movementType=0 ------- "+status);
-		}
-		if(movementType==1) {
+		}else if(movementType==1 && (receiptMovement.getPullBackRemark()==null || receiptMovement.getPullBackRemark().isEmpty() )) {
 			
-			System.out.println("----------------------movementType :if movementType=1 ------- ");
 			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptPK, receiptMovementId);
+		}else {
+			status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
 		}
 		
-		
-		System.out.println("status -----> : "+status);
 		if(status==true) {
-			
 			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks, receiptMovementId, fileMovementId);
-			System.out.println("working--------");
-			
 			
 		}
 		else {
@@ -75,7 +59,6 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		}
 		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
-//		getMaximumFmIdByFileIdData
 		
 	}
 

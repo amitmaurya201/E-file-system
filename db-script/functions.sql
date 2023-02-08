@@ -78,7 +78,7 @@ ALTER FUNCTION public.get_file_created_list_count(bigint, text)
 --    --------------------- File inbox list count -------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_lists_count(
-	sender_id bigint,
+	_receiverid bigint,
 	keyword text)
     RETURNS bigint
     LANGUAGE 'plpgsql'
@@ -95,7 +95,7 @@ total :=0;
         
       
         
-        IF sender_id !=0 AND sender_id IS NOT NULL THEN 
+        IF _receiverid !=0 AND _receiverid IS NOT NULL THEN 
             
             
             IF  keyword IS NOT NULL  THEN
@@ -104,11 +104,11 @@ total :=0;
         SELECT count(*) into total
 		FROM PUBLIC.jet_process_filemovement as fm 
         Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
-		  JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
-		 JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
-		 JOIN PUBLIC.masterdata_userpost as up2
-		ON fm.receiverid = up2.userpostid 
-	    where fm.receiverid = 1 AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
+		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
+		JOIN PUBLIC.masterdata_userpost as up2
+		ON fm.receiverid = up2.userpostid  
+	    where fm.receiverid = _receiverid AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
             
             return total;
             END IF;
@@ -120,7 +120,7 @@ total :=0;
 		 JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		 JOIN PUBLIC.masterdata_userpost as up2
 		ON fm.receiverid = up2.userpostid 
-	    where fm.receiverid = 1;
+	    where fm.receiverid = _receiverid;
 
 			
 
@@ -1205,6 +1205,7 @@ AS $BODY$
     (
         case
             when rmt.movementtype=0 then true
+            when rmt.pullbackremark IS NOT NULL then true
             when rmt.readon=''read'' or rmt.receivedon=''receive'' then true
             else false
         end

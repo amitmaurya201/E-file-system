@@ -242,7 +242,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		System.out.println("receipt : "+receipt);
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 		System.out.println("receiptMovement : "+receiptMovement);
-		if ((receiptMovement.getPullBackRemark().isEmpty() || receiptMovement.getPullBackRemark()==null) && (receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
+		if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
 				&& !receiptMovement.getActive()){	
 			logger.info("attachable true");
 			attachable = true;
@@ -264,7 +264,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			System.out.println("receipt : "+receipt);
 			ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 			System.out.println("receiptMovement : "+receiptMovement);
-			if ((receiptMovement.getPullBackRemark().isEmpty() || receiptMovement.getPullBackRemark()==null) && (receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
+			if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
 					&& receiptMovement.getActive()){	
 				logger.info("attachable true");
 				attachable = true;
