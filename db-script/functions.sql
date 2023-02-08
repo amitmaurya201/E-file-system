@@ -199,6 +199,58 @@ ALTER FUNCTION public.get_file_sent_lists_count(bigint, text)
 
 -- ------------------------  Get File List  -----------------------------
 
+    
+    -- FUNCTION: public.get_file_created_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_created_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_file_created_list_count(
+	post_id bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+DECLARE total BIGINT;
+_query text;
+BEGIN
+total :=0;
+
+        
+      
+        
+        IF post_id !=0 AND post_id IS NOT NULL THEN 
+            
+            
+            IF  keyword IS NOT NULL  THEN
+   
+            Select  count(*) into total FROM public.jet_process_docfile  
+            INNER JOIN public.md_category  
+            ON categorydataid = categoryid 
+            where userpostid = post_id  AND  currentstate = 1 
+            AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
+            
+            return total;
+            END IF;
+             Select  count(*) into total FROM public.jet_process_docfile  
+            INNER JOIN public.md_category  
+            ON categorydataid = categoryid 
+            where userpostid = post_id  AND  currentstate = 1 ;
+            RETURN total;
+        END IF;
+
+        RETURN total;
+END;
+$BODY$;
+
+ALTER FUNCTION public.get_file_created_list_count(bigint, text)
+    OWNER TO postgres;
+
+    
+    
+    
 
 -- FUNCTION: public.get_file_created_list(bigint, text, integer, integer, text, text)
 
