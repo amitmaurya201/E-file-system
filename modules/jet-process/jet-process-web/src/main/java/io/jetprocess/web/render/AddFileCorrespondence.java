@@ -52,6 +52,9 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		 long docFileId  = (long) sessionPutInFileId.getAttribute("putInFileId");
 		renderRequest.setAttribute("docFileId", docFileId);
+		long fileMovementId  = ParamUtil.getLong(renderRequest, "fileMovementId");
+		System.out.println("fileMovementId-------AddFileCorrespondence----"+fileMovementId);
+		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		addFileToolbarAttributes(renderRequest,renderResponse);
 		addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";

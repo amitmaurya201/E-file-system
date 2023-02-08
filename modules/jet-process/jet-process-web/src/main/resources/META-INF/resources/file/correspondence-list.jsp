@@ -1,12 +1,15 @@
 <%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
+
 <%
 	//long corrFileId = (long) request.getAttribute("docFileId");
  HttpSession docFileIdValue = themeDisplay.getRequest().getSession();
  long corrFileId  = (long) docFileIdValue.getAttribute("putInFileId"); 	
- 
+ long  fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId"); 
 	//List<FileCorrespondenceReceiptDTO> receiptCorrList = MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
 	
 %>
+
+<%=fileMovementId1 %>
 <style>
 .crList th {
 	display: inline-block;
@@ -62,6 +65,7 @@
 <portlet:renderURL var="fileInnerViewPopup"
 		windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 		<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.CORRESPONCE_FILE_RENDER %>" />
+		<portlet:param name="fileMovementId" value="<%=String.valueOf(fileMovementId) %>" />
 	</portlet:renderURL>
 	
 	<portlet:renderURL var="correspondencesinfoViewPopup"

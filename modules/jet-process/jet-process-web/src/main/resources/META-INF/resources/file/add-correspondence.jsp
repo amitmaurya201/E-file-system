@@ -6,7 +6,7 @@
 	String redirectURL = themeDisplay.getURLCurrent();
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
 	session.setAttribute("currentURL", currentURL);
-	long fileMovementId = (long) session.getAttribute("fileMovementId");
+ long fileMovementId = (long) renderRequest.getAttribute("fileMovementId"); 
 %>
 
 <div class="p-3">
