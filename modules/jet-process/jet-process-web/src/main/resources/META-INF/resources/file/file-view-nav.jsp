@@ -126,7 +126,7 @@
 					class="fa fa-caret-down"></i>
 			</a>
 				<div class="dropdown-menu ">
-					<a id="option1" class="dropdown-item" href="<%=option1%>">Option1</a>
+					<a id="option1" class="dropdown-item" href="#">Option1</a>
 					<a class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
@@ -135,14 +135,14 @@
 			<li class="nav-item border"><a id="send" class="nav-link"
 				href="<%=fileSend%>">Send</a></li>
 			<li class="nav-item border"><a id="sendback" class="nav-link"
-				href="<%=sendback%>">Send Back</a></li>
+				href="#">Send Back</a></li>
 			<li class="nav-item dropdown border"><a
 				class="nav-link dropdown-toggle" href="#" role="button"
 				data-toggle="dropdown" aria-expanded="false"> Link <i
 					class="fa fa-caret-down"></i>
 			</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="<%=option1%>">Option1</a> <a
+					<a class="dropdown-item" href="#">Option1</a> <a
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
@@ -152,7 +152,7 @@
 					class="fa fa-caret-down"></i>
 			</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="<%=option1%>">Option1</a> <a
+					<a class="dropdown-item" href="#">Option1</a> <a
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
@@ -188,7 +188,7 @@
 					class="fa fa-caret-down"></i>
 			</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="<%=option1%>">Option1</a> <a
+					<a class="dropdown-item" href="#">Option1</a> <a
 						class="dropdown-item" href="#">Option2</a> <a
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>

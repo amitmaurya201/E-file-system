@@ -100,7 +100,7 @@
 			<li class="nav-item"><a id="send" class="nav-link "
 				href="<%=sendReceipt%>"> Send </a></li>
 			<li class="nav-item"><a id="sendback" class="nav-link "
-				href="<%=sendBack%>"> Send Back </a></li>
+				href="#"> Send Back </a></li>
 			<%-- <li class="nav-item"><a id="putFile" class="nav-link "
 				href="<%=putFile%>"> Put in a file </a></li>
 			<li class="nav-item"><a id="dispatch" class="nav-link "
@@ -108,14 +108,14 @@
 			<li class="nav-item"><a id="edit" class="nav-link "
 				href="<%=editReceipt%>"> Edit </a></li>
 			<li class="nav-item"><a id="actionDetails" class="nav-link "
-				href="<%=actionDetails%>"> Action Details </a></li>
+				href="#"> Action Details </a></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Attach<i
 					class="fa fa-caret-down"></i>
 
 			</a>
 				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="<%=attach%>"> Submenu
+					<li><a class="dropdown-item" href="#"> Submenu
 							item 1</a></li>
 					<li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
 					<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
