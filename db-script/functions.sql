@@ -28,6 +28,11 @@ DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint , bigint, 
 
 -- ---------------------File created list count  --------------------------
 
+
+
+
+
+
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	post_id bigint,
 	keyword text,
@@ -368,8 +373,78 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
     
     
 
---  -----------------------  Get File Inbox List  ----------------------------------
 
+    --  -----------------------  Get File Inbox List  ----------------------------------
+
+    
+    
+    
+    
+    -- FUNCTION: public.get_file_inbox_lists_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_file_inbox_lists_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_file_inbox_lists_count(
+	_receiverid bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+DECLARE total BIGINT;
+_query text;
+_keyword text;
+BEGIN
+total :=0;
+
+        
+      
+        
+        IF _receiverid !=0 AND _receiverid IS NOT NULL THEN 
+            
+            
+            IF  keyword IS NOT NULL  THEN
+   
+           
+        SELECT count(*) into total
+		FROM PUBLIC.jet_process_filemovement as fm 
+        Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
+		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
+		JOIN PUBLIC.masterdata_userpost as up2
+		ON fm.receiverid = up2.userpostid  
+	    where fm.receiverid = _receiverid AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
+            
+            return total;
+            END IF;
+                
+        SELECT count(*) into total
+		FROM PUBLIC.jet_process_filemovement as fm 
+        Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
+		  JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+		 JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
+		 JOIN PUBLIC.masterdata_userpost as up2
+		ON fm.receiverid = up2.userpostid 
+	    where fm.receiverid = _receiverid;
+
+			
+
+            RETURN total;
+        END IF;
+
+        RETURN total;
+END;
+$BODY$;
+
+ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
+    OWNER TO postgres;
+
+    
+    
+    
+    
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	receiverid bigint,
