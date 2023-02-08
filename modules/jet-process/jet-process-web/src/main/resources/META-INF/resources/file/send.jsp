@@ -51,11 +51,7 @@
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%>
-				|
-				<%=docFile.getFileNumber()%>
-				|
-				<%=docFile.getSubject()%>
+			<div class="hover-tips"><%=firstChar%>|<%=docFile.getFileNumber()%>|<%=docFile.getSubject()%>
 			</div>
 
 		</div>
@@ -68,8 +64,6 @@
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=currURL%>">
-				<input type="text" name="<portlet:namespace/>fileMovementId"
-					value="<%=fileMovementId%>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
