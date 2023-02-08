@@ -21,6 +21,10 @@
 	display: none;
 }
 
+.filesend{
+cursor: pointer;
+
+}
 .popup {
 	width: 50%;
 	height: 50%;
@@ -66,6 +70,12 @@
 .bold {
 	font-size: 15px;
 	font-weight: bold;
+}
+
+.btn-secondary {
+	background-color: #f2f2f2;
+	border-color: #f2f2f2;
+	color: #000;
 }
 </style>
 
@@ -211,9 +221,8 @@
 										<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+										<a class="filesend" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -226,9 +235,8 @@
 											<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+										<a class="filesend" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
@@ -284,9 +292,8 @@
 										<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+										<a class="filesend" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -295,9 +302,8 @@
 										<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+										<a class="filesend" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>

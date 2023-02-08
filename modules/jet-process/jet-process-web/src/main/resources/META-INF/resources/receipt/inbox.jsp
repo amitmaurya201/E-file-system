@@ -13,6 +13,10 @@
 	border-right: 1px solid white;
 }
 
+.filesend{
+cursor: pointer;
+
+}
 .popup, .read-popup, .receive-popup {
 	position: absolute;
 	background: #96b4d6;
@@ -84,10 +88,10 @@
 			itemsTotal="${inboxReceiptCount}"
 			searchContainerId="assignmentEntries"
 			managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}" />
-			
-			
-			
-				<portlet:renderURL var="receiptSendURL"
+
+
+
+		<portlet:renderURL var="receiptSendURL"
 			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 			<portlet:param name="mvcRenderCommandName"
 				value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND_POP_UP%>" />
@@ -116,8 +120,8 @@
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-						
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+
 				</portlet:actionURL>
 				<portlet:actionURL var="receiptReadAction"
 					name="<%=MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND%>">
@@ -135,7 +139,7 @@
 						value="${receiptMovementDTO.getReceiptId()}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:renderURL>
 				<c:choose>
 					<c:when
@@ -202,9 +206,9 @@
 										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+										<a class="filesend" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -214,9 +218,8 @@
 											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
-										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+										<a class="filesend" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
 										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span> --%>
@@ -271,9 +274,9 @@
 										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+												<a class="filesend" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+								
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -282,9 +285,9 @@
 										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span> --%>
-										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
-											cssClass="btn btn-primary"></aui:button>
+											<a class="filesend" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+								
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
