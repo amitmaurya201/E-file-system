@@ -94,7 +94,9 @@ public class FileInnerView implements MVCRenderCommand {
 			if(fileNote!=null) {
 			Note note = noteLocalService.getNote(fileNote.getNoteId()) ;
 			renderRequest.setAttribute("noteContent", note.getContent());
+			renderRequest.setAttribute("modifiedDate",note.getModifiedDate());
 			renderRequest.setAttribute("noteObj", fileNote); 
+		
 			}
 
 		} catch (PortalException e) {

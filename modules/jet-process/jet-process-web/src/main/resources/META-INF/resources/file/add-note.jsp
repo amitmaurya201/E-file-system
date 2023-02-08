@@ -1,3 +1,4 @@
+<%@page import="java.util.logging.SimpleFormatter"%>
 <%@page import="io.jetprocess.model.FileNote"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.sql.Timestamp"%>
@@ -61,8 +62,9 @@ textarea {
 				<button type="button" id="addNoteButton" class="saveButton">
 					<i class="fa fa-save"></i>
 				</button>	
-				<span style="padding: 0 19%;">Last Saved :<fmt:formatDate pattern="dd/MM/yyyy hh:mm:ss aa" type="both" dateStyle="short" timeStyle="medium"
-				value="${note.modifiedDate}" /></span>	
+				<span style="padding: 0 19%;">Last Saved :<fmt:formatDate type="both" pattern="dd/MM/yyyy  hh:mm aa"
+									timeZone="Asia/Calcutta" value="${modifiedDate}" />
+				</span>	
 			</div>
 			<c:if test="${ empty note.noteId }">
 				<input name="noteId" id="noteId" value="0" type="hidden" />
@@ -145,10 +147,14 @@ textarea {
 				<p>Are you sure you want to delete ?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" id="cancel"
-					data-dismiss="modal">Close</button>
+			<div >
+			<button type="button" class="btn btn-primary" id="cancel"
+					data-dismiss="modal" >Close</button>
 				<button type="button" class="btn btn-primary" id="deleteNote"
 					onClick="removeNote()">Ok</button>
+					
+			</div>
+				
 			</div>
 		</div>
 	</div>
