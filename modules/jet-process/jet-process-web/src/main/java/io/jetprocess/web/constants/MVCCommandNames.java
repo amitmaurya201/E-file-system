@@ -46,5 +46,9 @@ public class MVCCommandNames {
 	
 	public static final String CORRESPONDENCES_INFO_RENDER_COMMAND="/correspondencesInfo";
 	public static final String CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND="/CorrespondenceReceiptDetail";
+	
+    public static final String FILE_SEND_RENDER_COMMAND_POP_UP = "/fileSendRenderCommandPopUp";
+    
+    public static final String RECEIPT_SEND_RENDER_COMMAND_POP_UP = "/receiptSendRenderCommandPopUp";
 
 }
