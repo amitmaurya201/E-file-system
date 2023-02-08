@@ -32,7 +32,7 @@ DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint , bigint, 
 
 
 
-                        
+
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	post_id bigint,
 	keyword text,
