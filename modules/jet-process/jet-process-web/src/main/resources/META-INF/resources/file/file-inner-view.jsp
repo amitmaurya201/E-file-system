@@ -5,11 +5,9 @@
 	String currURL = (String) request.getAttribute("CurrentURL");
     renderRequest.setAttribute("currURL2", currURL);
 	long fileMovementId  = (long) request.getAttribute("fileMovementId");
- 
- 	session.setAttribute("fileMovementId", fileMovementId);
+	renderRequest.setAttribute("fileMovementId", fileMovementId);
 	
 %>
-
 
 
 <div class="row">
@@ -23,9 +21,9 @@
 		</liferay-util:include>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
 			<div class="hover-tips"><%=docFile.getNature().charAt(0)%>
-				|
-				<%=docFile.getFileNumber()%>
-				<%=docFile.getSubject()%>
+				|<%=docFile.getFileNumber()%>|<%=docFile.getSubject()%>
+				
+				
 				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>
 				<input id = "fileMovementId" value = "<%=fileMovementId %>" type = "hidden" />
 				</div>

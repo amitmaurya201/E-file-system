@@ -37,6 +37,10 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		
+		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+
+		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		setManagementToolbarAttributes(renderRequest, renderResponse);
 		setFileMovementList(renderRequest);
 		return "/file/movement.jsp";
@@ -65,8 +69,6 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId", 0);
-		System.out.println("fileMovementId --FileMovementRenderCommand == "+fileMovementId);
-
 		
 		int count = fileList.getFileMovementListCount(fileMovementId,docFileId, "");
 		int preDelta = 0;

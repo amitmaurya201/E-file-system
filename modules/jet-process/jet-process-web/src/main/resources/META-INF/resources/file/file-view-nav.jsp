@@ -27,7 +27,7 @@
 	
 	 
 
-	long fileMovementId = (long) session.getAttribute("fileMovementId");
+	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 	String viewMode = renderRequest.getParameter("viewMode");
 	
 	HttpSession userPostId = themeDisplay.getRequest().getSession();
@@ -60,9 +60,10 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.EDIT_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
+	
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
- 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="fileSend">
@@ -79,9 +80,9 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
+	 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
- 	<portlet:param name="backPageURL" value="<%=currentURL%>" />
  	<portlet:param name="viewMode" value="<%=viewMode%>" />
 </portlet:renderURL>
 <portlet:renderURL var="sendback">
