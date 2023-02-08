@@ -63,7 +63,7 @@
 						yesterday.setDate(yesterday.getDate() - 1)
 						return (yesterday < date);
 					}
-				</aui:validator>										
+				</aui:validator>
 			</aui:input>
 		</div>
 	</aui:col>
