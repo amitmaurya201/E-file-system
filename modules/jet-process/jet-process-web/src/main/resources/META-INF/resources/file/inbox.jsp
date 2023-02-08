@@ -475,8 +475,8 @@ function showModal(id){
 				name.append(obj.userName);
 				marking.append(obj.postMarking);
 				section.append(obj.sectionName);
-				email.append(obj.email);
-				design.append(obj.designation);
+				email.append();
+				design.append();
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
 			}
