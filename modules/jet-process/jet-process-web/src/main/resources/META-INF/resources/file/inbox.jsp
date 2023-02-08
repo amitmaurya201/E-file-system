@@ -87,6 +87,13 @@
 			displayContext="${fileInboxManagementToolbarDisplayContext}"
 			itemsTotal="${fileInboxCount}" searchContainerId="FileInboxEntries" />
 
+
+		<portlet:renderURL var="fileSendURL"
+			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+			<portlet:param name="mvcRenderCommandName"
+				value="<%=MVCCommandNames.FILE_SEND_RENDER_COMMAND_POP_UP%>" />
+		</portlet:renderURL>
+
 		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="No record found" id="FileInboxEntries"
 			total="${fileInboxCount}"
@@ -98,7 +105,7 @@
 				className="io.jetprocess.list.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
-				<portlet:actionURL var="sendURL"
+				<%-- <portlet:actionURL var="sendURL"
 					name="<%=MVCCommandNames.FILE_SEND_CHECKER_ACTION_COMMAND%>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="docFileId"
@@ -107,14 +114,14 @@
 						value="${fileinboxDtoList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 				</portlet:actionURL>
-
+ --%>
 				<portlet:actionURL var="fileReceiveAction"
 					name="<%=MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
-						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="fileReadAction"
@@ -124,7 +131,7 @@
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
- 				</portlet:actionURL>
+				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
 					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
@@ -132,8 +139,8 @@
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fileMovementId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
-						<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-						
+					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+
 				</portlet:renderURL>
 				<c:choose>
 					<c:when
@@ -268,17 +275,23 @@
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
@@ -463,6 +476,32 @@ function showModal(id){
 		  $("#file_inbox").removeClass("active");
 		});
 	}
+	
+	
+
+function OpenSendPopUp(fileId,fileMovementId){
+var fileURL = '<%=fileSendURL%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>fileMovementId='+fileMovementId;
+alert(fileURL);
+	alert(fileId);
+	alert(fileMovementId)
+    <!-- alert("open"); -->
+	Liferay.Util.openWindow({
+		dialog: {
+			centered: true,
+			height: 500,
+			destroyOnClose: true,														 
+			destroyOnHide: true, 
+			modal: true,
+			width: 500
+		},
+		id: '<portlet:namespace/>dialog',
+		title: 'Send',
+		uri: fileURL
+		
+	});
+}
+
+	
 </script>
 
 <!--end  -->
