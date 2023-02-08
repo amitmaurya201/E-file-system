@@ -60,16 +60,18 @@
 							<c:set var="removeFlag" value="${true} }"></c:set>
 							<div id="targetDiv" class="targetDiv text-center">
 								<div class="dropzone-wrapper ">
-									<i class="glyphicon glyphicon-download-alt"></i>
-									<p>
-										<liferay-ui:message key="label-receipt-pdf-drag" />
-									</p>
-									<span class="btn btn-info" style="font-size: 15px;"
-										id="doc-select-btn"><liferay-ui:message
-											key="label-receipt-pdf-file" /></span> <input name="doc-input"
-										id="doc-input" type="file" hidden accept=".pdf" />
-									<p id="error" class="text-danger" style = "display:none">This field is required
-									<p>
+									<div class="drag-drop-div" style="margin: 13rem 0;">
+										<i class="glyphicon glyphicon-download-alt"></i>
+										<p>
+											<liferay-ui:message key="label-receipt-pdf-drag" />
+										</p>
+										<span class="btn btn-info" style="font-size: 15px;"
+											id="doc-select-btn"><liferay-ui:message
+												key="label-receipt-pdf-file" /></span> <input name="doc-input"
+											id="doc-input" type="file" hidden accept=".pdf" />
+										<p id="error" class="text-danger" style="display: none">This
+											field is required</p>
+									</div>
 								</div>
 							</div>
 						</aui:col>
@@ -91,7 +93,7 @@
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-receipt-createdon" /></label>
-									<aui:input label="" name="createdOn" id="createdOn"
+									<aui:input label="" name="createdOn" id="createdOn" value="<%=simpleFormat.format(new Date()) %>"
 										disabled="true" />
 								</div>
 							</aui:col>
@@ -148,7 +150,7 @@
 											key="label-receipt-letter-date" /></label>
 
 									<aui:input type="text" label="" name="letterDate"
-										id="letterDate" placeholder="dd/mm/yyyy" >
+										id="letterDate" placeholder="dd/mm/yyyy">
 										<aui:validator name="custom"
 											errorMessage="error-receipt-letter-date-message">
 											function(val){
@@ -491,10 +493,11 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		 $("#<portlet:namespace/>letterDate").datepicker({
+
+		$("#<portlet:namespace/>letterDate").datepicker({
 			format : 'dd/mm/yyyy'
 		});
- 
+
 		$("#<portlet:namespace/>receivedOn").datepicker({
 			format : 'dd/mm/yyyy'
 		});

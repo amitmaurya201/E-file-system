@@ -61,18 +61,20 @@
 
 							</embed>
 							<div class="dropzone-wrapper" style="display: none">
-								<i class="glyphicon glyphicon-download-alt"></i>
-								<p>
-									<liferay-ui:message key="label-receipt-pdf-drag" />
-								</p>
-								<span class="btn btn-info" style="font-size: 15px;"
-									id="doc-select-btn"><liferay-ui:message
-										key="label-receipt-pdf-file" /></span> <input name="doc-input"
-									id="doc-input" type="file" hidden accept=".pdf" />
-								<p id="error" class="text-danger" style="display: none">This
-									field is required</p>
-								<p id="sizeValidation" style="display: none; color: red;">size
-									must be less then 25 mb</p>
+								<div class="drag-drop-div" style="margin: 13rem 0;">
+									<i class="glyphicon glyphicon-download-alt"></i>
+									<p>
+										<liferay-ui:message key="label-receipt-pdf-drag" />
+									</p>
+									<span class="btn btn-info" style="font-size: 15px;"
+										id="doc-select-btn"><liferay-ui:message
+											key="label-receipt-pdf-file" /></span> <input name="doc-input"
+										id="doc-input" type="file" hidden accept=".pdf" />
+									<p id="error" class="text-danger" style="display: none">This
+										field is required</p>
+									<p id="sizeValidation" style="display: none; color: red;">size
+										must be less then 25 mb</p>
+								</div>
 							</div>
 						</div>
 

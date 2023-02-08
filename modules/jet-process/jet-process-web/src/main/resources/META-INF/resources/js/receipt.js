@@ -478,7 +478,7 @@ function validateSize(file) {
 	const fileSize = file.size ;
 	if (fileSize > 1024*1024* 25) {
 		$("#error").hide();
-	    $('.dropzone-wrapper').append('<p id="sizeValidation" class="text-danger" >Size must be less then 25MB</p>');
+	    $('.drag-drop-div').append('<p id="sizeValidation" class="text-danger" >Size must be less then 25MB</p>');
 	}else {
 		$("#sizeValidation").remove();
 		displayPreview(file);
@@ -504,39 +504,5 @@ $(document).ready(function(){
 		}
 	}
 });
-
-$(document).ready(function(){
-	const today = new Date();
-	const yyyy = today.getFullYear();
-	let mm = today.getMonth() + 1; // Months start at 0!
-	let dd = today.getDate();
-	if (dd < 10) dd = '0' + dd;
-	if (mm < 10) mm = '0' + mm;
-	const formattedToday = dd + '/' + mm + '/' + yyyy;
-      $('#<portlet:namespace />createdOn').attr('value',formattedToday);
-});
-
-
-/*var url='${receipt.viewPdfUrl}';*/
-/* if nature is elcetronic */
-/*$("#<portlet:namespace />nature").on('change',mySeletedNature);
-function mySeletedNature(){
-	var nature= $('#<portlet:namespace/>nature').val(); 
-	if(nature == 'Electronic' && tempFileId == 0 ){
-		if(url == '' || url == null || url == undefined ){
-			console.log('--error  '+$("#error").length);
-    		console.log('--sizeValidation  '+$("#sizeValidation").length);
-	    	if((($("#error").length) == 0) && (($('#sizeValidation').length) ==0) ){
-	    		$('.dropzone-wrapper').append('<p id="error" class="text-danger">This field is required.<p>');
-	    	}
-	    	return true;
-		}else{
-			return false;
-		}
-     }else{
-    	 $("#error ").remove();
-    	 return false;
-     }
-}*/
 
 </aui:script>
