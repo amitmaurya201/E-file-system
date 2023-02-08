@@ -68,7 +68,7 @@
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=currURL%>">
-				<input type="hidden" name="<portlet:namespace/>fileMovementId"
+				<input type="text" name="<portlet:namespace/>fileMovementId"
 					value="<%=fileMovementId%>">
 				<aui:col cssClass="mt-3">
 					<div>

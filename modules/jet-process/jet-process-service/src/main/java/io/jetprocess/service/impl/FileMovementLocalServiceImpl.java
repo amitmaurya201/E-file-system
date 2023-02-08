@@ -15,7 +15,6 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -38,7 +37,6 @@ import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.FileMovement;
-import io.jetprocess.model.FileNote;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrReceiptLocalService;
@@ -65,13 +63,14 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @throws PortalException
 	 */
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, Date dueDate,
-			String remark, boolean active, int currentState, long movementType, long fileMovementId)
+			String remark, boolean active, int currentState, long movementType)
 			throws PortalException {
 		boolean state = isFileMovementAvailable(fileId);
 		FileMovement fm = null;
+		FileMovement saveFileMovement ;
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
 		if (state == true) {
-			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
+			 saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
 		} else {
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
@@ -93,7 +92,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				}
 				updateFileMovement(fm);
 			}
-			saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
+			saveFileMovement =	saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
 					movementType);
 		}
 
@@ -109,7 +108,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			receiptMovement.setRemark(remarkOfInFile);
 			receiptMovement.setActive(true);
 			receiptMovement.setMovementType(MovementStatus.IN_FILE);
-			receiptMovement.setFileInMovementId(fileMovementId);
+			receiptMovement.setFileInMovementId(saveFileMovement.getFmId());
 			receiptMovementLocalService.addReceiptMovement(receiptMovement);
 		}
 	}
@@ -141,7 +140,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return fileMovement;
 	}
 
-	public void saveFileMovement(long receiverId, long senderId, long fileId, String priority, Date dueDate,
+	public FileMovement saveFileMovement(long receiverId, long senderId, long fileId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType) throws PortalException {
 
 		long fmId = counterLocalService.increment(FileMovement.class.getName());
@@ -155,11 +154,13 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		fm.setDueDate(dueDate);
 		fm.setActive(active);
 		fm.setMovementType(movementType);
-		fileMovementLocalService.addFileMovement(fm);
+		FileMovement fileMovement = fileMovementLocalService.addFileMovement(fm);
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
 		docFileLocalService.updateDocFile(docFile);
+		
+		return fileMovement;
 
 	}
 

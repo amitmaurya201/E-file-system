@@ -36,10 +36,9 @@ public class SendFileResourceCommand implements MVCResourceCommand  {
 		boolean active = true;
 		int currentState = FileStatus.IN_MOVEMENT;
 		long movementType = MovementStatus.NORMAL;
-		long fileMovementId = ParamUtil.getLong(resourceRequest, "fileMovementId");
 		try {
 			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark, active,
-					currentState, movementType,fileMovementId);
+					currentState, movementType);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

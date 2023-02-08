@@ -336,7 +336,7 @@ public interface FileMovementLocalService
 			long fileId, long fileMovementId, String remarks)
 		throws PortalException;
 
-	public void saveFileMovement(
+	public FileMovement saveFileMovement(
 			long receiverId, long senderId, long fileId, String priority,
 			Date dueDate, String remark, boolean active, int currentState,
 			long movementType)
@@ -362,7 +362,7 @@ public interface FileMovementLocalService
 	public void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
 			Date dueDate, String remark, boolean active, int currentState,
-			long movementType, long fileMovementId)
+			long movementType)
 		throws PortalException;
 
 	/**
