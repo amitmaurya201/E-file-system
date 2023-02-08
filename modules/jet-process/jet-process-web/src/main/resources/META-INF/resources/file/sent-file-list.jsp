@@ -74,27 +74,27 @@
 				</portlet:actionURL>
 				<liferay-ui:search-container-column-text name=""><%=sentFileListDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text href="${viewDetails}"
-					name="File Number"
-					value="<%=sentFileListDTO.getFileNumber() %>"
+					name="File Number" value="<%=sentFileListDTO.getFileNumber() %>"
 					orderableProperty="fileNumber" orderable="true" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getSubject() %>"
+					value="<%=sentFileListDTO.getSubject()%>"
 					orderableProperty="subject" orderable="true" cssClass="hover-tips"
 					name="Subject" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getSentTo()%>"
-					cssClass="hover-tips" name="Sent To" />
-			
-				<liferay-ui:search-container-column-text orderableProperty="sentOn" orderable="true"
+					value="<%=sentFileListDTO.getSentTo()%>" cssClass="hover-tips"
+					name="Sent To" />
+
+				<liferay-ui:search-container-column-text orderableProperty="sentOn"
+					orderable="true"
 					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
 					name="Sent On" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getCurrentlyWithUserName() != null
+					valuejava.lang.String fileInbox = (java.lang.String) pageContext.getAttribute("fileInbox");.getCurrentlyWithUserName() != null
 							? sentFileListDTO.getCurrentlyWithUserName()
 							: ""%>"
 					cssClass="hover-tips" name="Currently With" />
-				<liferay-ui:search-container-column-text 
-					cssClass="hover-tips" name="Due Date" orderableProperty="dueDate" orderable="true"  >
+				<liferay-ui:search-container-column-text cssClass="hover-tips"
+					name="Due Date" orderableProperty="dueDate" orderable="true">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy"
 						timeZone="Asia/Calcutta" value="${sentFileListDTO.dueDate}" />
 				</liferay-ui:search-container-column-text>
