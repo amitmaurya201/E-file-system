@@ -58,6 +58,9 @@
 	border-right: 50px solid white !important;
 	border-bottom: 50px solid transparent !important;
 }
+.container-view {
+	padding-top: 1px;
+}
 </style>
 <%
 	Receipt receipt = (Receipt) request.getAttribute("receipt");
@@ -223,11 +226,10 @@
 					</nav>
 				</div>
 
-				<div class="col-md-12 angled" style="margin-top: 10px !important">
+				<div class="col-md-12 angled" style="margin-top: 10px !important; background:#96b4d6 !important">
 					<h5 class="align-baseline" style="padding-top: 10px !important; padding-left: 7px !important;">Movement History</h5>
 				</div>
 
-				<div class="col-md-12">
 
 					<liferay-ui:search-container delta="${delta }"
 						emptyResultsMessage="label-no-record-found"
@@ -256,7 +258,6 @@
 						<liferay-ui:search-iterator markupView="lexicon" />
 					</liferay-ui:search-container>
 
-				</div>
 			</div>
 		</div>
 	</div>

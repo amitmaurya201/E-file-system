@@ -116,15 +116,18 @@
 			</div>
 			<div class="modal-body">
 				<h6>
-					Do you want to mark as <span id="msg"></span> continue
+					Do you want to mark as <span id="msg"></span> and continue
 				</h6>
 				<aui:form action="#" method="post" name="receiveForm">
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
-					<aui:button type="button" cssClass="btn btn-secondary" value="No"
-						data-dismiss="modal"></aui:button>
-					<aui:button type="button" cssClass="btn btn-primary" value="Yes"
-						onclick="receiptReceive(true)"></aui:button>
+					<div class="float-right">
+						<aui:button type="button" cssClass="btn btn-primary" value="Yes"
+							onclick="receiptReceive(true)"></aui:button>
+						<aui:button type="button" cssClass="btn btn-primary" value="No"
+							data-dismiss="modal"></aui:button>
+					</div>
+
 				</aui:form>
 			</div>
 
