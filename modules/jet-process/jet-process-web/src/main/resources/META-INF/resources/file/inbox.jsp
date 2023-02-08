@@ -208,9 +208,12 @@
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
-										<span><a href="${sendURL}"> <liferay-ui:message
+										<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -220,9 +223,12 @@
 											onclick="receiveModal(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()} )">
 												<liferay-ui:message key="label-file-inbox-action-receive" />
 										</a></span>&nbsp;
-											<span><a href="${sendURL}"> <liferay-ui:message
+											<%-- <span><a href="${sendURL}"> <liferay-ui:message
 													key="label-file-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendFile" name="sendFile"
+											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
@@ -480,27 +486,26 @@ function showModal(id){
 	
 
 function OpenSendPopUp(fileId,fileMovementId){
-var fileURL = '<%=fileSendURL%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>fileMovementId='+fileMovementId;
-alert(fileURL);
-	alert(fileId);
-	alert(fileMovementId)
-    <!-- alert("open"); -->
-	Liferay.Util.openWindow({
-		dialog: {
-			centered: true,
-			height: 500,
-			destroyOnClose: true,														 
-			destroyOnHide: true, 
-			modal: true,
-			width: 500
-		},
-		id: '<portlet:namespace/>dialog',
-		title: 'Send',
-		uri: fileURL
-		
-	});
-}
-
+	var fileURL = '<%=fileSendURL%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>fileMovementId='+fileMovementId;
+	alert(fileURL);
+		alert(fileId);
+		alert(fileMovementId)
+	    <!-- alert("open"); -->
+		Liferay.Util.openWindow({
+			dialog: {
+				centered: true,
+				height: 500,
+				destroyOnClose: true,														 
+				destroyOnHide: true, 
+				modal: true,
+				width: 500
+			},
+			id: '<portlet:namespace/>dialog',
+			title: 'Send',
+			uri: fileURL
+			
+		});
+	}
 	
 </script>
 

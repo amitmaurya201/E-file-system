@@ -84,6 +84,14 @@
 			itemsTotal="${inboxReceiptCount}"
 			searchContainerId="assignmentEntries"
 			managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}" />
+			
+			
+			
+				<portlet:renderURL var="receiptSendURL"
+			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+			<portlet:param name="mvcRenderCommandName"
+				value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND_POP_UP%>" />
+		</portlet:renderURL>
 
 		<liferay-ui:search-container delta="${delta }"
 			emptyResultsMessage="no record found" id="assignmentEntries"
@@ -94,13 +102,13 @@
 				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
-				<portlet:actionURL var="sendReceiptURL"
+				<%-- <portlet:actionURL var="sendReceiptURL"
 					name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND%>">
 					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
 					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-				</portlet:actionURL>
+				</portlet:actionURL> --%>
 
 				<portlet:actionURL var="receiptReceiveAction"
 					name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND%>">
@@ -191,9 +199,12 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendReceiptURL}"> <liferay-ui:message
+										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -203,9 +214,12 @@
 											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
 												<liferay-ui:message key="label-receipt-inbox-action-receive" />
 										</a></span>
-										<span><a href="${sendReceiptURL}"> <liferay-ui:message
+										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
+										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
@@ -254,17 +268,23 @@
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendReceiptURL}"> <liferay-ui:message
+										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<span><a href="${sendReceiptURL}"> <liferay-ui:message
+										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
-										</a></span>
+										</a></span> --%>
+										<aui:button value="Send" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})"
+											cssClass="btn btn-primary"></aui:button>
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>
@@ -447,6 +467,40 @@ function showModal(id){
 		  $("#rec_inbox").removeClass("active");
 		});
 	}
+	
+	
+	
+function OpenSendPopUp(receiptId,receiptmovementId){
+	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptmovementId='+receiptmovementId;
+	alert(receiptURL);
+		alert(receiptId);
+		alert(receiptmovementId)
+	    <!-- alert("open"); -->
+		Liferay.Util.openWindow({
+			dialog: {
+				centered: true,
+				height: 500,
+				destroyOnClose: true,														 
+				destroyOnHide: true, 
+				modal: true,
+				width: 500
+			},
+			id: '<portlet:namespace/>dialog',
+			title: 'Send',
+			uri: receiptURL
+			
+		});
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 <!--end  -->
