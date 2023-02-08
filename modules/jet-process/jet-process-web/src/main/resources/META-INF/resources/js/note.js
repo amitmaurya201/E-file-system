@@ -14,6 +14,7 @@ function openGreenNote() {
 	note.style.display = "none";
 	editor.style.display = "block";
 	CKEDITOR.replace('content');
+	
 }
 
 var userPostId = $('#<portlet:namespace />userPostsVal').val();
@@ -25,7 +26,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 var fileId = $('#docFileId').val();
 	 var fileMovementId = $('#fileMovementId').val();
 	 console.log("fileMovementId"+fileMovementId);
-	 var content = CKEDITOR.instances.content.document.getBody().getText();
+	 var content = CKEDITOR.instances["content"].getData();
 	 console.log("content"+content);
 	 var noteId = $('#noteId').val();
 	 console.log(noteId);
