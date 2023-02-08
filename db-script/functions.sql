@@ -32,7 +32,115 @@ DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint , bigint, 
 
 
 
-	java
+                        
+CREATE OR REPLACE FUNCTION public.get_file_created_list(
+	post_id bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(fmid bigint,docfileid bigint, filenumber character varying, subject character varying, category character varying, remark character varying, createdon timestamp without time zone, nature character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        _query text;
+        _keyword text;
+        _offset bigint :=0;
+        _limit bigint :=4;
+        orderby text :='createdate';
+       _order text :='desc';
+    begin
+      
+      _keyword := '''%'||keyword||'%''';
+      _query := 'Select fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
+                        f.remarks as remark,f.createdate as createdon ,  f.nature as nature
+                        FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
+                        ON c.categorydataid = f.categoryid
+                        INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid
+                        
+                        where fm.movementtype=0 AND currentstate = 1   ';
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
+                orderBy :='f.modifieddate';
+            
+        END IF;
+        IF (orderByCol ='filenumber' OR orderByCol ='fileNumber') THEN
+                orderBy :='f.filenumber';
+            
+        END IF;
+        IF (orderByCol ='subject' ) THEN
+                orderBy :='f.subject';
+            
+        END IF;
+          IF (orderByCol ='createdOn' OR orderByCol ='createdon') THEN
+                orderBy :='f.subject';
+            
+        END IF;
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
+                _order :='desc';
+            ELSE
+                _order :=_orderByType;
+        END IF;
+       
+       
+                        
+                        IF post_id !=0 THEN
+                        
+                             _query := _query|| ' AND userpostid = '||post_id;
+                            
+                               if keyword IS NOT NULL THEN
+                
+                                     _query := _query||  ' AND (filenumber ilike'|| _keyword ||'OR subject ilike'|| _keyword ||'OR  categoryvalue ilike'|| _keyword ||')';
+                          
+                                     if orderby !=''  THEN 
+                    
+                                        _query := _query||' order by '||orderby;
+                                        if _order !=''  THEN 
+
+                                            _query := _query||' '||_order;
+                                            if _offset >=0  THEN 
+
+                                                 _query := _query||' offset '||_offset;
+                                                if _limit >0  THEN 
+                                                    _query := _query||' limit '||_limit;
+
+                                                 END IF;
+                                         END IF;
+                                       
+                                      END IF;
+                                
+                                    END IF;
+                             END IF;
+                             return query execute _query;
+                END IF;
+         
+             
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+    
     
     
     
