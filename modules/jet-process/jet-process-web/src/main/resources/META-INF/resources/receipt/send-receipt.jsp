@@ -14,13 +14,11 @@ long receiptmovementId = (long) renderRequest.getAttribute("receiptmovementId");
 long receiptId = (long) renderRequest.getAttribute("receiptId");
 
 %>
- 
 
-<portlet:actionURL
-			name="<%=MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND%>" var="sendReceipt" />
+ <portlet:resourceURL id="<%=MVCCommandNames.RECEIPT_SEND_RESOURCE_COMMAND %>" var="sendReceiptResourceURL">
+</portlet:resourceURL>
 
- 
-<aui:form action="${sendReceipt}"style="padding: 4% !important">
+<aui:form action="#"style="padding: 4% !important" name="sendForm"  method="post">
 				 <input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">  
 				 <input type="hidden" name="<portlet:namespace/>receiptId"
@@ -119,15 +117,38 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 					</div>
 				</aui:col>
 				<aui:button-row>
-					<aui:button type="submit" class="btn btn-primary"
+					<aui:button type="submit" class="btn btn-primary" onClick="submitSendForm()"
 						style=" margin: auto 40%;" value="label-send-submit-button" />
 				</aui:button-row>
 			</aui:form>
 
 			<script type="text/javascript">
-	$(document).ready(function() {
-		$("#<portlet:namespace/>dueDate").datepicker({
-			format : 'dd/M/yyyy'
-		});
-	});
+			
+			 function submitSendForm(){
+				 
+				   	AUI().use('aui-io-request','aui-base','io', function(A){
+					 var form = A.one("#<portlet:namespace/>sendForm");
+				        A.io.request('<%=sendReceiptResourceURL.toString()%>', {
+				        	 method: 'post',
+				        	 form:{
+
+				                 id:form
+				             },
+				               on: {
+				                    success: function() {
+				                    	parent.location.reload();
+				                    }
+				               }
+				            });
+				    });
+					
+					
+					
+				     }
+			 $(document).ready(function() {
+					$("#<portlet:namespace/>dueDate").datepicker({
+						format : 'dd/M/yyyy'
+					});
+				});		
+	
 </script>

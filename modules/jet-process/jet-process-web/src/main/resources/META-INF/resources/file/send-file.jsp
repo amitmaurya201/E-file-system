@@ -3,18 +3,15 @@
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 	long fileId = (long) renderRequest.getAttribute("fileId");
 %>
-<portlet:actionURL name="<%=MVCCommandNames.FILE_SEND_ACTION_COMMAND%>"
-	var="sendFile" />
+<portlet:resourceURL id="<%=MVCCommandNames.FILE_SEND_RESOURCE_COMMAND %>" var="sendFileResourceURL">
+</portlet:resourceURL>
 
-
-<aui:form action="${sendFile}" style="padding: 4% !important">
+<aui:form action="#"  name="sendForm"  method="post" style="padding: 4% !important">
 	<input type="hidden" name="<portlet:namespace/>senderId"
 		value="<%=selectedUserPostId%>">
 	<input type="hidden" name="<portlet:namespace/>fileId"
 		value="<%=fileId%>">
-	<%-- <input type="text" name="<portlet:namespace/>pageURL"
-					value="<%=currURL%>">  
-				 --%>
+	
 	<input type="hidden" name="<portlet:namespace/>fileMovementId"
 		value="<%=fileMovementId%>">
 	<aui:col cssClass="mt-3">
@@ -101,12 +98,33 @@
 		</div>
 	</aui:col>
 	<aui:button-row>
-		<aui:button type="submit" class="btn btn-primary"
+		<aui:button type="submit" class="btn btn-primary"  onClick="submitSendForm()"
 			style=" margin: auto 40%;" value="label-send-submit-button" />
 	</aui:button-row>
 </aui:form>
 
 <script type="text/javascript">
+
+function submitSendForm(){
+	
+   	AUI().use('aui-io-request','aui-base','io', function(A){
+	 var form = A.one("#<portlet:namespace/>sendForm");
+        A.io.request('<%=sendFileResourceURL.toString()%>', {
+        	 method: 'post',
+        	 form:{
+                 id:form
+             },
+               on: {
+                    success: function() {
+                    	parent.location.reload();
+                    }
+               }
+            });
+    });
+	
+     }
+
+
 	$(document).ready(function() {
 		$("#<portlet:namespace/>dueDate").datepicker({
 			format : 'dd/mm/yyyy'

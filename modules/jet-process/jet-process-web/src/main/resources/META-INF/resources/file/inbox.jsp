@@ -487,10 +487,7 @@ function showModal(id){
 
 function OpenSendPopUp(fileId,fileMovementId){
 	var fileURL = '<%=fileSendURL%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>fileMovementId='+fileMovementId;
-	alert(fileURL);
-		alert(fileId);
-		alert(fileMovementId)
-	    <!-- alert("open"); -->
+	
 		Liferay.Util.openWindow({
 			dialog: {
 				centered: true,

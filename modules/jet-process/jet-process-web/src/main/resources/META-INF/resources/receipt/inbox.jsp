@@ -472,10 +472,7 @@ function showModal(id){
 	
 function OpenSendPopUp(receiptId,receiptmovementId){
 	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptmovementId='+receiptmovementId;
-	alert(receiptURL);
-		alert(receiptId);
-		alert(receiptmovementId)
-	    <!-- alert("open"); -->
+	
 		Liferay.Util.openWindow({
 			dialog: {
 				centered: true,

@@ -51,4 +51,8 @@ public class MVCCommandNames {
     
     public static final String RECEIPT_SEND_RENDER_COMMAND_POP_UP = "/receiptSendRenderCommandPopUp";
 
+    public static final String FILE_SEND_RESOURCE_COMMAND = "/fileSendResourceCommand";
+
+    public static final String RECEIPT_SEND_RESOURCE_COMMAND = "/receiptSendRenderCommand";
+
 }
