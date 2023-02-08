@@ -63,7 +63,7 @@ AS $BODY$
                         f.remarks as remark,f.createdate as createdon ,  f.nature as nature
                         FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
                         ON c.categorydataid = f.categoryid
-                        INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid
+                        INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid AND fm.movementtype=0
                         
                         where currentstate = 1   ';
         IF (_start <0 OR _start IS NULL) THEN
@@ -237,7 +237,7 @@ total :=0;
             Select  count(*) into total FROM public.jet_process_docfile  
             INNER JOIN public.md_category  
             ON categorydataid = categoryid 
-            where userpostid = post_id  AND  currentstate = 1 
+            where userpostid = post_id  AND  currentstate = 1 AND fm.movementtype=0 
             AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
             
             return total;
@@ -245,7 +245,7 @@ total :=0;
              Select  count(*) into total FROM public.jet_process_docfile  
             INNER JOIN public.md_category  
             ON categorydataid = categoryid 
-            where userpostid = post_id  AND  currentstate = 1 ;
+            where userpostid = post_id  AND  currentstate = 1 AND fm.movementtype=0 ;
             RETURN total;
         END IF;
 
