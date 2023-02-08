@@ -147,6 +147,7 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
 --  ----------------  File Sent List  count ---------------
 
  
+
 CREATE OR REPLACE FUNCTION public.get_file_sent_lists_count(
 	sender_id bigint,
 	keyword text)
@@ -170,24 +171,22 @@ total :=0;
             
             IF  keyword IS NOT NULL  THEN
    
-           SELECT count(*) into total
-					FROM PUBLIC.jet_process_filemovement as fm 
-					JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid
-					JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
-                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid
-					where fm.senderid = sender_id AND currentstate = 2  
-
-					
+					SELECT count(*) into total
+                    FROM PUBLIC.jet_process_filemovement as fm 
+                    JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+                    JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
+                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
+                    where currentstate = 2  AND fm.active_ = true  AND fm.senderid = sender_id
                     AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
             
             return total;
             END IF;
                 SELECT count(*) into total
-					FROM PUBLIC.jet_process_filemovement as fm 
-					JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid
-					JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
-                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid
-					where fm.senderid = sender_id AND currentstate = 2  AND fm.active_ = true AND fm.pullbackremark is null;
+                FROM PUBLIC.jet_process_filemovement as fm 
+                JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+                JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
+                JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
+                where currentstate = 2  AND fm.active_ = true  AND fm.senderid = sender_id;
 			
 
             RETURN total;
@@ -431,6 +430,7 @@ total :=0;
 
 			
 
+	    
             RETURN total;
         END IF;
 
