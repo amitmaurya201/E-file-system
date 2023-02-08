@@ -28,7 +28,7 @@ public class FileListImpl implements FileList {
 		logger.info("Getting created file list count");
 		Connection con = null;
 		int count = 0;
-		try {
+		try { 
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
