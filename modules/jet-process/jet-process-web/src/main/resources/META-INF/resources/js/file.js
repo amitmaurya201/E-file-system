@@ -15,7 +15,6 @@
                 function(obj) {
                console.log(obj);
             $.each(obj,function(key,value){
-            	
             	console.log(key);
             basicheadText = value.value;
             basicheadValue = value.masterdataId;
@@ -27,9 +26,9 @@
  	            
          /* get primaryHead data */ 	            
 	  $("#<portlet:namespace />basicHeadId").on('change', function(){
-	
 			var basicHeadId = $("#<portlet:namespace />basicHeadId").val();
-	       
+			$("#<portlet:namespace/>primaryHeadId").empty();
+			  $("#<portlet:namespace />primaryHeadId").append(new Option("Choose One",0)); 
 	       AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-primary-head-masterdata`,
@@ -51,6 +50,8 @@
 /* get secondary head data */
 $("#<portlet:namespace />primaryHeadId").on('change', function(){
 	 var primaryHeadId = $("#<portlet:namespace />primaryHeadId").val();
+	 $("#<portlet:namespace/>secondaryHeadId").empty();
+	  $("#<portlet:namespace />secondaryHeadId").append(new Option("Choose One",0)); 
 	         AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-secondary-head-masterdata`,
@@ -70,6 +71,8 @@ $("#<portlet:namespace />primaryHeadId").on('change', function(){
 /* get tertiary head data */       
 $("#<portlet:namespace />secondaryHeadId").on('change', function(){
 	var secondarHeadId = $("#<portlet:namespace />secondaryHeadId").val();
+	 $("#<portlet:namespace/>tertiaryHeadId").empty();
+	 $("#<portlet:namespace />tertiaryHeadId").append(new Option("Choose One",0)); 
 	 console.log(secondarHeadId);
 		   AUI().use('aui-base', function(A){
 	       Liferay.Service(
@@ -106,7 +109,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />categoryId").on('change', function(){
 	var categoryId = $("#<portlet:namespace />categoryId").val();
     $("#<portlet:namespace />subCategoryId").empty();
-    $("#<portlet:namespace />subCategoryId").append(new Option("Select",""));
+    $("#<portlet:namespace />subCategoryId").append(new Option("Choose One",""));
     AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-sub-category-masterdata`,
