@@ -61,10 +61,12 @@ textarea {
 				</button>
 				<button type="button" id="addNoteButton" class="saveButton">
 					<i class="fa fa-save"></i>
-				</button>	
+				</button>
+					<c:if test="${not empty note.noteId }">	
 				<span style="padding: 0 19%;">Last Saved :<fmt:formatDate type="both" pattern="dd/MM/yyyy  hh:mm aa"
 									timeZone="Asia/Calcutta" value="${modifiedDate}" />
 				</span>	
+				</c:if>
 			</div>
 			<c:if test="${ empty note.noteId }">
 				<input name="noteId" id="noteId" value="0" type="hidden" />
@@ -146,14 +148,13 @@ textarea {
 			<div class="modal-body">
 				<p>Are you sure you want to delete ?</p>
 			</div>
-			<div class="modal-footer">
-			<div >
-			<button type="button" class="btn btn-primary" id="cancel"
-					data-dismiss="modal" >Close</button>
-				<button type="button" class="btn btn-primary" id="deleteNote"
-					onClick="removeNote()">Ok</button>
-					
-			</div>
+			<div class="modal-footer" style="justify-content: end !important;">
+				<div>
+					<button type="button" class="btn btn-primary" id="deleteNote"
+						onClick="removeNote()">Ok</button>
+					<button type="button" class="btn btn-primary mr-auto" id="cancel"
+							data-dismiss="modal" >Close</button>
+				</div>
 				
 			</div>
 		</div>
