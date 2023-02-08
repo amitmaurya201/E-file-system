@@ -1,12 +1,10 @@
 <%@ include file="../init.jsp"%>
 <%
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
-    renderRequest.setAttribute("currentURL", currentURL);
-	/* session.setAttribute("currentURL", currentURL); */
+    renderRequest.setAttribute("currentURL3", currentURL);
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
-	session.setAttribute("receiptMovementId1", receiptMovementId);
+	renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 %>
-
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>

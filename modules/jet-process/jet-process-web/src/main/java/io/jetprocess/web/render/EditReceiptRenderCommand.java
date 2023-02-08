@@ -19,6 +19,8 @@ public class EditReceiptRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+		renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
 		return "/receipt/edit-receipt.jsp";
 	}

@@ -43,6 +43,9 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		
+		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+        renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 		setReceiptMovementList(renderRequest);
 		setManagementToolbarAttributes(renderRequest, renderResponse);
 		return "/receipt/movement.jsp";
