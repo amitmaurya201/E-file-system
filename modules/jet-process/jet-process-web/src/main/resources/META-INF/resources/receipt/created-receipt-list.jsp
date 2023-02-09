@@ -41,7 +41,7 @@
 			itemsTotal="${receiptCount}" searchContainerId="recieptId" />
 
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="no-Receipt-List" id="recieptId"
+			emptyResultsMessage="No Results Found" id="recieptId"
 			total="${receiptCount}"
 			iteratorURL="${receiptManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptFileList}" />

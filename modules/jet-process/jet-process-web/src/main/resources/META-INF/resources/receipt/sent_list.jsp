@@ -56,7 +56,7 @@
 			itemsTotal="${receiptCount}" searchContainerId="receiptSendEntries"
 			managementToolbarDisplayContext="${sendReceiptManagementToolbarDisplayContext}" />
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="no record found" id="receiptSendEntries"
+			emptyResultsMessage="No Results Found" id="receiptSendEntries"
 			total="${receiptCount}"
 			iteratorURL="${sendReceiptManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptList}" />

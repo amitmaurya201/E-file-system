@@ -51,7 +51,7 @@
 		</liferay-portlet:renderURL>
 
 		<liferay-ui:search-container delta="4"
-			emptyResultsMessage="No-Sent-File-List" id="sendFileListEntries"
+			emptyResultsMessage="No Results Found" id="sendFileListEntries"
 			total="${sendFileCount}"
 			iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${sentFileList}" />
@@ -84,6 +84,7 @@
 				<liferay-ui:search-container-column-text
 					value="<%=sentFileListDTO.getSentTo()%>"
 					cssClass="hover-tips" name="Sent To" />
+					
 			
 				<liferay-ui:search-container-column-text orderableProperty="sentOn" orderable="true"
 					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
@@ -148,9 +149,9 @@
 				</aui:input>
 			</div>
 			<input type="text" name="<portlet:namespace />docFileId"
-				id="docFileId" hidden />
+				id="docFileId"  />
 			<input type="text" name="<portlet:namespace />fileMovementId"
-				id="fileMovementId" hidden>
+				id="fileMovementId" >
 			<hr style="margin: 1.4rem -14px;" />
 			<div style="text-align: right; padding-bottom: 10px;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
