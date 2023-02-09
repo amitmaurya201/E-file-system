@@ -679,7 +679,6 @@ ALTER FUNCTION public.get_receipt_inbox_list_count(bigint,text)
 
 --    ------------------------------------- Get Receipt Sent List Count -------------------------------------------
 
-  -- FUNCTION: public.get_receipt_sent_list_count(bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_receipt_sent_list_count(bigint, text);
 
