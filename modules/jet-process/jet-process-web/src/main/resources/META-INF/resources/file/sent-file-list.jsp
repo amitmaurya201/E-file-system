@@ -153,9 +153,9 @@
 					</aui:validator>
 				</aui:input>
 			</div>
-			<input type="text" name="<portlet:namespace />docFileId"
+			<input type="hidden" name="<portlet:namespace />docFileId"
 				id="docFileId"  />
-			<input type="text" name="<portlet:namespace />fileMovementId"
+			<input type="hidden" name="<portlet:namespace />fileMovementId"
 				id="fileMovementId" >
 			<hr style="margin: 1.4rem -14px;" />
 			<div style="text-align: right; padding-bottom: 10px;">
