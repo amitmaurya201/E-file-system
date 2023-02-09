@@ -1,10 +1,8 @@
 <%@ include file="../init.jsp"%>
 <style>
-
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
   color: #000000;
 }
-
 .details-color {
 	background-color: gainsboro;
 	width: 100%;
@@ -63,6 +61,7 @@
 	border-right: 50px solid white !important;
 	border-bottom: 50px solid transparent !important;
 }
+
 .container-view {
 	padding-top: 1px;
 }
@@ -121,7 +120,12 @@
 		<table class="mt-2 file-dtls">
 			<tr>
 				<th><liferay-ui:message key="label-receipt-list-receiptno" />:</th>
-				<td>${receipt.receiptNumber}</td>
+				<td>${receipt.receiptNumber}<c:if
+						test="${not empty receipt.viewPdfUrl}">
+						<i style="cursor: pointer;" class="fa fa-file-pdf openPdf"
+							data-url="${receipt.viewPdfUrl}"></i>
+					</c:if>
+				</td>
 			</tr>
 			<tr>
 				<th><liferay-ui:message key="label-file-list-fileno" />:</th>
@@ -192,7 +196,29 @@
 	</div>
 
 
-<%-- <portlet:renderURL var="movement">
+	<portlet:renderURL var="viewPdf"
+		windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+		<portlet:param name="mvcPath" value="/receipt/pdf_view.jsp" />
+		<portlet:param name="pdfUrl" value="${receipt.viewPdfUrl }" />
+	</portlet:renderURL>
+
+	<div id="popup" class="modal invisible" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content" style="max-width: 70rem; margin: 0 auto;">
+				<div class="modal-body" style="padding: 0">
+					<button type="button" class="btn btn-white btn-close"
+						data-bs-dismiss="modal" aria-label="Close"
+						style="color: black; margin-right: 9px; margin-top: -3px; float: right;">&#10005;</button>
+					<br>
+					<div id="pdf"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<%-- <portlet:renderURL var="movement">
 	<portlet:param name="mvcPath" value="/movement.jsp" />
 </portlet:renderURL> --%>
 
@@ -202,7 +228,8 @@
 		<div class="row">
 			<div class="col-md-12 ">
 				<h5 class="mb-2 p-2 details-color ">
-					<i class="fa-solid fa-timer" style="color: blue; font-size: 16px; margin-left:5px;"></i>Receipt(s)
+					<i class="fa-solid fa-timer"
+						style="color: blue; font-size: 16px; margin-left: 5px;"></i>Receipt(s)
 				</h5>
 				<div class="col-md-12 details-color">
 					<nav class="navbar navbar-expand-lg navbar-light  mt-1 "
@@ -217,7 +244,7 @@
 
 						<div class="navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav">
-								<li class="nav-item border" ><a id="movement"
+								<li class="nav-item border"><a id="movement"
 									class="nav-link" href="#" style="color: black;">Movement</a></li>
 								<li class="nav-item border "><a id="attached-detached"
 									class="nav-link" href="#">Attached/Detached</a></li>
@@ -231,37 +258,40 @@
 					</nav>
 				</div>
 
-				<div class="col-md-12 angled" style="margin-top: 10px !important; background:#96b4d6 !important">
-					<h5 class="align-baseline" style="padding-top: 10px !important; padding-left: 7px !important;">Movement History</h5>
+				<div class="col-md-12 angled"
+					style="margin-top: 10px !important; background: #96b4d6 !important">
+					<h5 class="align-baseline"
+						style="padding-top: 10px !important; padding-left: 7px !important;">Movement
+						History</h5>
 				</div>
 
 
-					<liferay-ui:search-container delta="${delta }"
-						emptyResultsMessage="label-no-record-found"
-						total="${receiptMovementCount }"
-						iteratorURL="${correspondencesInfoManagementToolbarDisplayContext._getCurrentURL()}">
+				<liferay-ui:search-container delta="${delta }"
+					emptyResultsMessage="label-no-record-found"
+					total="${receiptMovementCount }"
+					iteratorURL="${correspondencesInfoManagementToolbarDisplayContext._getCurrentURL()}">
 
-						<liferay-ui:search-container-results
-							results="${receiptMovementList}" />
+					<liferay-ui:search-container-results
+						results="${receiptMovementList}" />
 
-						<liferay-ui:search-container-row
-							className="io.jetprocess.list.model.ReceiptMovementDTO"
-							modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
-							<liferay-ui:search-container-column-text
-								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
-								name="label-sent-on" />
-							<liferay-ui:search-container-column-text
-								value="${receiptMovementDTO.sentBy}" name="label-sent-by"
-								cssClass="hover-tips" />
-							<liferay-ui:search-container-column-text
-								value="${receiptMovementDTO.sentTo}" name="label-sent-to"
-								cssClass="hover-tips" />
-							<liferay-ui:search-container-column-text
-								value="${receiptMovementDTO.remark}" name="label-remarks"
-								cssClass="hover-tips" />
-						</liferay-ui:search-container-row>
-						<liferay-ui:search-iterator markupView="lexicon" />
-					</liferay-ui:search-container>
+					<liferay-ui:search-container-row
+						className="io.jetprocess.list.model.ReceiptMovementDTO"
+						modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
+						<liferay-ui:search-container-column-text
+							value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
+							name="label-sent-on" />
+						<liferay-ui:search-container-column-text
+							value="${receiptMovementDTO.sentBy}" name="label-sent-by"
+							cssClass="hover-tips" />
+						<liferay-ui:search-container-column-text
+							value="${receiptMovementDTO.sentTo}" name="label-sent-to"
+							cssClass="hover-tips" />
+						<liferay-ui:search-container-column-text
+							value="${receiptMovementDTO.remark}" name="label-remarks"
+							cssClass="hover-tips" />
+					</liferay-ui:search-container-row>
+					<liferay-ui:search-iterator markupView="lexicon" />
+				</liferay-ui:search-container>
 
 			</div>
 		</div>
@@ -276,3 +306,30 @@
 
 	
 </script> -->
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$('.btn-close').on('click', function(e) {
+					$('#popup').modal('hide');
+				});
+
+				$(".openPdf").on(
+						'click',
+						function(e) {
+							let url = themeDisplay.getPortalURL()
+									+ ($(this).attr('data-url')).trim();
+							$('#popup').modal({
+								keyboard : false
+							});
+							$('#popup').removeClass('invisible').addClass(
+									'visible');
+							$('#popup').find('div#pdf').empty();
+							let embeded = $('<embed/>', {
+								type : 'application/pdf',
+								width : '100%',
+								height : '500'
+							}).appendTo($('#popup').find('div#pdf'));
+							embeded.attr('src', url);
+						});
+			});
+</script>
