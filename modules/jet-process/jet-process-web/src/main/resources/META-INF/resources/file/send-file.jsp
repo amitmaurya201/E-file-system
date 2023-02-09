@@ -98,31 +98,56 @@
 		</div>
 	</aui:col>
 	<aui:button-row>
-		<aui:button type="submit" class="btn btn-primary"  onClick="submitSendForm()"
+		<aui:button type="button" class="btn btn-primary"  id="click" onClick="submitSendForm()"
 			style=" margin: auto 40%;" value="label-send-submit-button" />
 	</aui:button-row>
 </aui:form>
 
 <script type="text/javascript">
+function validateForm(sendForm){
+	var liferayForm = Liferay.Form.get(sendForm);
+		if(liferayForm){
+		 var validator = liferayForm.formValidator;
+		 validator.validate();
+		 var hasErrors = validator.hasErrors();
+		 if(hasErrors){
+			 validator.focusInvalidField();
+			 return false;
+		 }
+		}
+		return true;
+	}
 
-function submitSendForm(){
-	
-   	AUI().use('aui-io-request','aui-base','io', function(A){
-	 var form = A.one("#<portlet:namespace/>sendForm");
-        A.io.request('<%=sendFileResourceURL.toString()%>', {
-        	 method: 'post',
-        	 form:{
-                 id:form
-             },
-               on: {
-                    success: function() {                    	 
-                     	parent.location.reload();
-                   }
-               }
-            });
-    });
-	
-     }
+
+	function pageReload() {
+		parent.location.reload();
+		}
+
+	function submitSendForm(){
+		if(validateForm('<portlet:namespace/>sendForm')){
+		   	AUI().use('aui-io-request','aui-base','io', function(A){
+			 var form = A.one("#<portlet:namespace/>sendForm");
+			 
+		        A.io.request('<%=sendFileResourceURL.toString()%>', {
+		        	 method: 'post',
+		        	 form:{
+		                 id:form
+		             },
+		               on: {
+		                    success: function() {
+		                    	 swal({
+		         		             text: `File send successfully!`,        
+		        					})
+		        					setTimeout(pageReload, 1000);
+		                    }
+		               }
+		            });
+		    });
+			
+		}else{
+	    	return false; 
+	     }
+	}
 
 
 	$(document).ready(function() {
