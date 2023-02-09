@@ -45,6 +45,9 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+		  String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+		  System.out.println("ReceiptMovementRenderCommand------"+backPageURL);
+		  renderRequest.setAttribute("backPageURL", backPageURL);
         renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 		setReceiptMovementList(renderRequest);
 		setManagementToolbarAttributes(renderRequest, renderResponse);

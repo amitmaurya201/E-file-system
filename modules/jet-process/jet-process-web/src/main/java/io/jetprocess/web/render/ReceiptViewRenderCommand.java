@@ -22,8 +22,10 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "rmId");
 		System.out.println("---------------rmid----------"+receiptMovementId);
-		  String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
-		  renderRequest.setAttribute("CurrentURL", currentURL);
+		  String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+			System.out.println("-----ReceiptViewRenderCommand------"+backPageURL);
+
+		  renderRequest.setAttribute("backPageURL", backPageURL);
 		 renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
 		return "/receipt/receipt_view.jsp";

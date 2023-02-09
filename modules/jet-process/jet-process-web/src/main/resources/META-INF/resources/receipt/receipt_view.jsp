@@ -1,7 +1,7 @@
 <%@ include file="../init.jsp"%>
 <%
-	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
-    renderRequest.setAttribute("currentURL3", currentURL);
+	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
+    renderRequest.setAttribute("backPageURL", backPageURL);
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
 	renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 %>
@@ -25,8 +25,7 @@
 		%>
 
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=currentNature%>
-				| ${receipt.receiptNumber} | ${receipt.subject}
+			<div class="hover-tips"><%=currentNature%>| ${receipt.receiptNumber} | ${receipt.subject}
 			</div>
 		</div>
 		<div class="receipt_view">

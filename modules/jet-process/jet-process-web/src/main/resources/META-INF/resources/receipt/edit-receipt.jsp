@@ -11,6 +11,11 @@
 	<portlet:param name="receiptId" value="${receipt.receiptId}" />
 </portlet:renderURL>
 
+<%
+String backPageURL = (String) renderRequest.getAttribute("backPageURL");
+%>
+
+
 <style>
 <!--
 .datepicker {

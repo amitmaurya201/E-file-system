@@ -8,7 +8,7 @@
 	rel="stylesheet" />
 
 <%
-	String currURL = (String) renderRequest.getAttribute("currentURL");
+	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
 %>
 
 <style>
@@ -50,8 +50,7 @@
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%>
-				| ${receipt.receiptNumber} | ${receipt.subject}
+			<div class="hover-tips"><%=firstChar%>| ${receipt.receiptNumber} | ${receipt.subject}
 			</div>
 		</div>
 
@@ -64,7 +63,7 @@
 					value="<%=receipt.getReceiptId()%>">
 				<aui:col cssClass="mt-3">
 					<input type="hidden" name="<portlet:namespace/>pageURL"
-						value="<%=currURL%>">
+						value="<%=backPageURL%>">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
 							<liferay-ui:message key="label-send-heading" />

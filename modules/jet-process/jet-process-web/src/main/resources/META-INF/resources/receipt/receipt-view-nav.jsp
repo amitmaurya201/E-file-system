@@ -24,7 +24,7 @@
 
 <%
 	String receiptId = renderRequest.getParameter("receiptId");
-	String curr = (String) renderRequest.getAttribute("currentURL3");
+	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
 
 	long receiptMovementId = (long)renderRequest.getAttribute("receiptMovementId");
 	
@@ -34,7 +34,7 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 	<portlet:param name="rmId"
 		value="<%=String.valueOf(receiptMovementId)%>" />
 	<portlet:param name="viewMode" value="<%=viewMode%>" />
@@ -44,7 +44,7 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 	<portlet:param name="receiptMovementId"
 		value="<%=String.valueOf(receiptMovementId)%>" />
 	<portlet:param name="viewMode" value="<%=viewMode%>" />
@@ -54,7 +54,7 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.RECEIPT_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 	<portlet:param name="receiptMovementId"
 		value="<%=String.valueOf(receiptMovementId)%>" />
 
@@ -68,7 +68,7 @@
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="receiptMovementId"
 		value="<%=String.valueOf(receiptMovementId)%>" />
-	<portlet:param name="backPageURL" value="<%=curr%>" />
+	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 </portlet:renderURL>
 <%-- <portlet:renderURL var="putFile">
 	<portlet:param name="mvcPath" value="/receipt/put_in_a_file.jsp" />
