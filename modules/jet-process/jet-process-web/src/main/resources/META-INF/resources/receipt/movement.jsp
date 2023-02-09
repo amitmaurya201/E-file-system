@@ -29,7 +29,7 @@
 		</h2>
 
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="label-no-record-found"
+			emptyResultsMessage="No results Found"
 			total="${ receiptMovementCount}"
 			iteratorURL="${receiptMovementDisplayContext.getCurrentURL()}">
 
