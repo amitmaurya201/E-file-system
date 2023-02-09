@@ -136,7 +136,7 @@ function validateForm(sendForm){
 		               on: {
 		                    success: function() {
 		                    	 swal({
-		         		             text: `File send successfully!`,        
+		         		             text: this.get('responseData'),        
 		        					})
 		        					setTimeout(pageReload, 1000);
 		                    }
