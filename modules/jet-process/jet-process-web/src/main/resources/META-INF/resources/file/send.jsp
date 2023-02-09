@@ -8,7 +8,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
 	rel="stylesheet" />
 <%
-	String currURL = (String) renderRequest.getAttribute("currentURL");
+	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 %>
 
@@ -63,7 +63,7 @@
 				<input type="hidden" name="<portlet:namespace/>fileId"
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
-					value="<%=currURL%>">
+					value="<%=backPageURL%>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">

@@ -20,11 +20,10 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-
 		renderRequest.setAttribute("fileMovementId", fileMovementId);
-		renderRequest.setAttribute("CurrentURL", currentURL);
+		renderRequest.setAttribute("backPageURL", backPageURL);
 		fileViewDetailsHelper.setFileDetails(docFileId, renderRequest);
 		return "/file/details.jsp";
 	}

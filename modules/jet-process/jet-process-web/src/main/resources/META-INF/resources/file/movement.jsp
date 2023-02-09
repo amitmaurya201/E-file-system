@@ -12,6 +12,9 @@
 -->
 </style>
 
+<%
+String backPageURL = (String) request.getAttribute("backPageURL");
+%>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="/file/created-file-list.jsp" />

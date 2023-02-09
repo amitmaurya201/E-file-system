@@ -1,29 +1,19 @@
 package io.jetprocess.web.render;
 
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
-
-import java.util.List;
-
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import io.jetprocess.exception.NoSuchNoteException;
 import io.jetprocess.model.DocFile;
-import io.jetprocess.model.FileNote;
-import io.jetprocess.model.Note;
 import io.jetprocess.service.DocFileLocalServiceUtil;
 import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
-import io.jetprocess.service.persistence.NotePersistence;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
@@ -34,12 +24,12 @@ public class ViewSendFileRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		String currURL = ParamUtil.getString(renderRequest, "backPageURL");
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		try {
 			DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
 			renderRequest.setAttribute("docFile", docFile);
-			renderRequest.setAttribute("currentURL", currURL);
+			renderRequest.setAttribute("backPageURL", backPageURL);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
 
 		} catch (PortalException e) {

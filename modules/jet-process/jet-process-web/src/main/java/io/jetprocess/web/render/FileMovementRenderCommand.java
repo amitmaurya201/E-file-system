@@ -39,7 +39,8 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+		renderRequest.setAttribute("backPageURL", backPageURL);
 		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		setManagementToolbarAttributes(renderRequest, renderResponse);
 		setFileMovementList(renderRequest);

@@ -53,11 +53,8 @@ public class FileInnerView implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		String currentURL = ParamUtil.getString(renderRequest, "backPageURL");
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId =ParamUtil.getLong(renderRequest, "fileMovementId");
-		
-		System.out.println("fileMovement--9090909>"+fileMovementId);
-		System.out.println("DocFile-009090->"+docFileId);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
@@ -71,6 +68,7 @@ public class FileInnerView implements MVCRenderCommand {
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode1,fileMovementId, docFileId);
 		System.out.println("fileMoventId--->"+fileMovementId);
 		System.out.println("DocFileId--->"+docFileId);
+		renderRequest.setAttribute("backPageURL", backPageURL);
 		if(Validator.isNull(viewMode1)) {
 			noteList = fileLists.getAttachedNoteList(viewMode1,fileMovementId, docFileId);
 			renderRequest.setAttribute("noteList", noteList);
@@ -88,7 +86,7 @@ public class FileInnerView implements MVCRenderCommand {
 			renderRequest.setAttribute("nature", docFile.getNature());
 			renderRequest.setAttribute("docFileId", docFileId);
 			renderRequest.setAttribute("docFileObj", docFile);
-			renderRequest.setAttribute("CurrentURL", currentURL);
+			
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
 			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
 			if(fileNote!=null) {

@@ -115,9 +115,9 @@ function submitSendForm(){
                  id:form
              },
                on: {
-                    success: function() {
-                    	parent.location.reload();
-                    }
+                    success: function() {                    	 
+                     	parent.location.reload();
+                   }
                }
             });
     });

@@ -19,7 +19,9 @@ public class ViewFileEditedRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+		renderRequest.setAttribute("backPageURL", backPageURL);
+		
 		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		fileViewDetailsHelpler.setFileDetails(docFileId, renderRequest);
 		return "/file/edit-file.jsp";

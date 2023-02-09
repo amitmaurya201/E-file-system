@@ -1,6 +1,10 @@
 <%@page import="io.jetprocess.core.constant.util.FileConstants"%>
 <%@ include file="../init.jsp"%>
 
+<%
+String backPageURL = (String) request.getAttribute("backPageURL");
+%>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>

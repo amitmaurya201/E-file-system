@@ -19,6 +19,9 @@
 }
 </style>
 
+<%
+String backPageURL = (String) request.getAttribute("backPageURL");
+%>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -67,11 +70,7 @@
 		%>
 
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%>
-				|
-				<%=docFile.getFileNumber()%>
-				|
-				<%=docFile.getSubject()%></div>
+			<div class="hover-tips"><%=firstChar%>|<%=docFile.getFileNumber()%>|<%=docFile.getSubject()%></div>
 		</div>
 
 		<div class="row mt-2 p-2 border border-dark">
