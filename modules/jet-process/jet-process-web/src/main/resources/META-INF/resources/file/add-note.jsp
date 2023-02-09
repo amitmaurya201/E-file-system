@@ -38,7 +38,6 @@ textarea {
 	border-radius: 50%;
 }
 </style>
-
 <c:set var="note" scope="session" value="${noteObj}" />
 <div style="background-color: #bef8c7; height: 400px" id="mydiv">
 	<img src='<%=request.getContextPath() + "/image/note.png"%>' width="8%"
@@ -50,7 +49,7 @@ textarea {
 			onclick="openGreenNote()" /> <br /> <img
 			src='<%=request.getContextPath() + "/image/yellow-note.jpg"%>'
 			width="8%" height="30" class="shadow m-1 bg-white rounded-circle"
-			onclick="openYellowNote()" />
+			onclick="openYellowNote()" />			
 	</div>
 	<aui:form name="addNote">
 		<div id="editor" style="display: none;">
@@ -64,9 +63,9 @@ textarea {
 				</button>
 					<c:if test="${not empty note.noteId }">	
 				<span style="padding: 0 19%;">Last Saved :<fmt:formatDate type="both" pattern="dd/MM/yyyy  hh:mm aa"
-									timeZone="Asia/Calcutta" value="${modifiedDate}" />
-				</span>	
-				</c:if>
+					timeZone="Asia/Calcutta" value="${modifiedDate}" />
+				</span>		
+				</c:if>	
 			</div>
 			<c:if test="${ empty note.noteId }">
 				<input name="noteId" id="noteId" value="0" type="hidden" />
@@ -92,13 +91,13 @@ textarea {
 			if(noteId!=noteDTO.getNoteId()){
 	%>
 	<div style="height: auto;  padding :0px 10px; border-color: gray; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
-		<b>Note # <%=i %></b> <br>
+	<b>Note # <%=i %></b> 
 		<div class="container">
 			<%=noteDTO.getContent() %>
 		</div>
 		<div class="mt-1">
 			<c:set var="now" value="<%= noteDTO.getCreateDate() %>" />
-			<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+			<fmt:formatDate type="both"  pattern="dd/MM/yyyy  hh:mm aa" timeZone="Asia/Calcutta"
 				value="${now}" />
 			<span style="float: right;"> <%=object.get("userName")%></span>
 			<p style="text-align: right;">
@@ -117,7 +116,7 @@ textarea {
 	</div>
 	<div class="mt-1">
 		<c:set var="now" value="<%= noteDTO.getCreateDate() %>" />
-		<fmt:formatDate type="both" dateStyle="short" timeStyle="short"
+		<fmt:formatDate type="both"  pattern="dd/MM/yyyy  hh:mm aa" timeZone="Asia/Calcutta"
 			value="${now}" />
 		<span style="float: right;"> <%=object.get("userName")%></span>
 		<p style="text-align: right;">
