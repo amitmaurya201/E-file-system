@@ -20,7 +20,7 @@
 			<liferay-util:param name="selectedNav" value="putinfile" />
 		</liferay-util:include>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=docFile.getNature().charAt(0)%>|<%=docFile.getFileNumber()%>|<%=docFile.getSubject()%>
+			<div class="hover-tips"><%=docFile.getNature().charAt(0)%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
 				
 				
 				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>

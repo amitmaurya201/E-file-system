@@ -51,9 +51,8 @@
 			char firstChar = type.charAt(0);
 		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=firstChar%>|<%=docFile.getFileNumber()%>|<%=docFile.getSubject()%>
+			<div class="hover-tips"><%=firstChar%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
 			</div>
-
 		</div>
 		<aui:container cssClass="row">
 			<aui:form action="${sendFile}" cssClass="border border-dark col-6"

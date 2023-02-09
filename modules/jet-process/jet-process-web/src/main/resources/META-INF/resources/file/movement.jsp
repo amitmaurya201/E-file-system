@@ -1,9 +1,10 @@
 <%@ include file="../init.jsp"%>
 
 <style>
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+	color: #000000;
 }
+
 <!--
 .text-secondary {
 	color: #0c5460;
@@ -16,7 +17,10 @@
 </style>
 
 <%
-String backPageURL = (String) request.getAttribute("backPageURL");
+	String backPageURL = (String) request.getAttribute("backPageURL");
+	DocFile docFile = (DocFile) request.getAttribute("docFile");
+	String type = (String) docFile.getNature();
+	char firstChar = type.charAt(0);
 %>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
@@ -32,14 +36,16 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
-
+		<div class="container-fluid" style="background-color: #E8E8E8;">
+			<div class="hover-tips"><%=firstChar%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
+			</div>
+		</div>
 		<h2
 			style="text-align: center; text-decoration: underline; margin-top: 20px;">
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="No Results Found"
-			total="${fileMovementCount}"
+			emptyResultsMessage="No Results Found" total="${fileMovementCount}"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileMovementList}" />
 

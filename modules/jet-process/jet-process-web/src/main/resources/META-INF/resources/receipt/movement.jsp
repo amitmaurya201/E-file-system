@@ -8,10 +8,10 @@
 	font-size: 25px;
 	margin-right: 15px;
 }
--->
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
   color: #000000;
 }
+-->
 </style>
 
 <%

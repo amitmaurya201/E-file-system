@@ -1,6 +1,7 @@
 package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -27,6 +28,8 @@ import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
+import io.jetprocess.model.DocFile;
+import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileMovementDisplayContext;
@@ -37,13 +40,20 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		
+		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
-		renderRequest.setAttribute("backPageURL", backPageURL);
-		renderRequest.setAttribute("fileMovementId", fileMovementId);
-		setManagementToolbarAttributes(renderRequest, renderResponse);
-		setFileMovementList(renderRequest);
+		try {
+			renderRequest.setAttribute("backPageURL", backPageURL);
+			DocFile docFile = docFileLocalService.getDocFile(docFileId);
+			renderRequest.setAttribute("docFile", docFile);
+			renderRequest.setAttribute("fileMovementId", fileMovementId);
+			setManagementToolbarAttributes(renderRequest, renderResponse);
+			setFileMovementList(renderRequest);
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/file/movement.jsp";
 	}
 
@@ -58,7 +68,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 	private void setFileMovementList(RenderRequest renderRequest) {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession session = themeDisplay.getRequest().getSession();
-		
+
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
@@ -70,8 +80,8 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId", 0);
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId", 0);
-		
-		int count = fileList.getFileMovementListCount(fileMovementId,docFileId, "");
+
+		int count = fileList.getFileMovementListCount(fileMovementId, docFileId, "");
 		int preDelta = 0;
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
@@ -83,7 +93,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", "" + delta + "");
 		List<FileMovementDTO> fileMovementList = new ArrayList<>();
 		if (docFileId != 0) {
-			fileMovementList = fileList.getFileMovementList(fileMovementId,docFileId, "", start, end, "", "");
+			fileMovementList = fileList.getFileMovementList(fileMovementId, docFileId, "", start, end, "", "");
 		}
 
 		if (fileMovementList != null) {
@@ -101,5 +111,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 	private Portal portal;
 	@Reference
 	private FileList fileList;
+	@Reference
+	private DocFileLocalService docFileLocalService;
 
 }
