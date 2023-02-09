@@ -114,8 +114,8 @@
 			
 			
 			
-			<liferay-ui:search-container-column-text  name =" Receipt No.">
-				<a class="Info" onclick="receiptDetailPopup(${aFileCorrespondenceReceiptDTO.receiptId })" style="cursor:pointer">
+			<liferay-ui:search-container-column-text  name =" Receipt No."  cssClass="hyperlink-css">
+				<a class="Info"  onclick="receiptDetailPopup(${aFileCorrespondenceReceiptDTO.receiptId })" style="cursor:pointer">
 					${aFileCorrespondenceReceiptDTO.receiptNumber }
 				</a>
 			</liferay-ui:search-container-column-text>

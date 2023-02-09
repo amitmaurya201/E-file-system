@@ -9,6 +9,9 @@
 	margin-right: 15px;
 }
 -->
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
 </style>
 
 <%
@@ -31,7 +34,7 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 		</h2>
 
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="label-no-record-found"
+			emptyResultsMessage="No results Found"
 			total="${ receiptMovementCount}"
 			iteratorURL="${receiptMovementDisplayContext.getCurrentURL()}">
 

@@ -45,7 +45,7 @@
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
-					name="label-file-list-fileno"
+					name="label-file-list-fileno"  cssClass="hyperlink-css"
 					value="<%=filedto.getFileNumber() != null ? filedto.getFileNumber() : ""%>"
 					orderableProperty="filenumber" orderable="true" />
 

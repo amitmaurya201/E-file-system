@@ -1,5 +1,10 @@
 <%@ include file="../init.jsp"%>
 <style>
+
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
+
 .details-color {
 	background-color: gainsboro;
 	width: 100%;

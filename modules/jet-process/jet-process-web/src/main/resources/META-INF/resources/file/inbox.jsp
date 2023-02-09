@@ -170,13 +170,13 @@ cursor: pointer;
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										href="${fileReadAction }" name="label-file-inbox-fileno"
-										cssClass="bold" orderableProperty="fileNumber"
+										cssClass="bold hyperlink-css" orderableProperty="fileNumber"
 										orderable="true"
 										value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
 								</c:when>
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
-										name="label-file-inbox-fileno" cssClass="bold phfile"
+										name="label-file-inbox-fileno" cssClass="bold hyperlink-css phfile"
 										orderableProperty="fileNumber" orderable="true"
 										value="<%=fileinboxDtoList.getFileNumber() != null
 												? fileinboxDtoList.getFileNumber()
@@ -255,7 +255,7 @@ cursor: pointer;
 
 							<liferay-ui:search-container-column-text
 								href="<%=fileInnerView%>" orderableProperty="fileNumber"
-								orderable="true"
+								orderable="true" cssClass="hyperlink-css"
 								value="<%=fileinboxDtoList.getFileNumber() != null
 										? fileinboxDtoList.getFileNumber()
 										: ""%>"

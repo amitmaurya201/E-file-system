@@ -1,6 +1,9 @@
 <%@ include file="../init.jsp"%>
 
 <style>
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
 <!--
 .text-secondary {
 	color: #0c5460;
@@ -35,7 +38,7 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="label-no-record-found"
+			emptyResultsMessage="No Results Found"
 			total="${fileMovementCount}"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileMovementList}" />

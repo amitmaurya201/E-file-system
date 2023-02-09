@@ -9,6 +9,10 @@
 </liferay-portlet:renderURL>
 
 <style>
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
+
 .table thead th {
 	border-right: 1px solid white;
 }
@@ -154,7 +158,7 @@ cursor: pointer;
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										href="${receiptReadAction }"
-										name="label-receipt-inbox-receiptno" cssClass="bold hyberlink-css"
+										name="label-receipt-inbox-receiptno" cssClass="bold hyperlink-css"
 										orderableProperty="receiptNumber" orderable="true"
 										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
 								</c:when>
@@ -234,7 +238,7 @@ cursor: pointer;
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" cssClass="hyberlink-css"
+							<liferay-ui:search-container-column-text property="receiptNumber" cssClass="hyperlink-css"
 								orderableProperty="receiptNumber" orderable="true"
 								href="<%=receiptDetails%>" name="label-receipt-inbox-receiptno" />
 
