@@ -1,6 +1,9 @@
 <%@ include file="../init.jsp"%>
 
 <style>
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
 <!--
 .text-secondary {
 	color: #0c5460;

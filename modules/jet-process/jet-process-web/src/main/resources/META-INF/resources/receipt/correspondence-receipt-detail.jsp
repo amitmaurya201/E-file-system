@@ -15,6 +15,8 @@
 		</div>
 		<div class="receipt_view">
 			<div class="">
+			
+			
 				<div class="row border border-dark scroll"
 					style="height: 440px; overflow: overlay">
 					<div class="col-5" class="border">

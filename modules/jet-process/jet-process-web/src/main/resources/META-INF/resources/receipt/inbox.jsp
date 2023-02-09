@@ -9,6 +9,10 @@
 </liferay-portlet:renderURL>
 
 <style>
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
+
 .table thead th {
 	border-right: 1px solid white;
 }
