@@ -1,14 +1,5 @@
 <%@ include file="../init.jsp"%>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css"
-	rel="stylesheet" />
-
  <%	
 long receiptmovementId = (long) renderRequest.getAttribute("receiptmovementId");
 long receiptId = (long) renderRequest.getAttribute("receiptId");
@@ -27,13 +18,6 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 					value="<%=currURL%>">  
 				 --%>  <input type="hidden" name="<portlet:namespace/>receiptmovementId"
 					value="<%=receiptmovementId%>">  
-				<aui:col cssClass="mt-3">
-					<div>
-						<h2 style="text-align: center; text-decoration: underline;">
-							<liferay-ui:message key="label-send-heading" />
-						</h2>
-					</div>
-				</aui:col>
 				<aui:col cssClass="mt-3">
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-send-to" /><span
@@ -72,13 +56,14 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 							placeholder="dd/mm/yyyy">
 							<aui:validator name="required" />
 							<aui:validator name="custom" errorMessage="error-send-due-date">
-									function(val){
-												var date=new Date(val);
-												var today = new Date();
-												const yesterday = new Date(today)
-												yesterday.setDate(yesterday.getDate() - 1)
-												return (yesterday < date);
-											}
+								function(val){
+						             let d = val.split("/");
+    				                 let date = new Date(d[2] + '/' + d[1] + '/' + d[0]);		
+						             var today = new Date();
+						             const yesterday = new Date(today)
+						             yesterday.setDate(yesterday.getDate() - 1)
+						             return (yesterday < date);
+					                 }   
 										</aui:validator>
 						</aui:input>
 					</div>
@@ -117,15 +102,34 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 					</div>
 				</aui:col>
 				<aui:button-row>
-					<aui:button type="submit" class="btn btn-primary" onClick="submitSendForm()"
+					<aui:button type="button" class="btn btn-primary" onClick="submitSendForm()"
 						style=" margin: auto 40%;" value="label-send-submit-button" />
 				</aui:button-row>
 			</aui:form>
 
 			<script type="text/javascript">
 			
+			function validateForm(sendForm){
+				var liferayForm = Liferay.Form.get(sendForm);
+					if(liferayForm){
+					 var validator = liferayForm.formValidator;
+					 validator.validate();
+					 var hasErrors = validator.hasErrors();
+					 if(hasErrors){
+						 validator.focusInvalidField();
+						 return false;
+					 }
+					}
+					return true;
+				}
+
+			function pageReload() {
+				parent.location.reload();
+				}
+			
+			/* send receipt pop up with validation  */
 			 function submitSendForm(){
-				 
+				 if(validateForm('<portlet:namespace/>sendForm')){
 				   	AUI().use('aui-io-request','aui-base','io', function(A){
 					 var form = A.one("#<portlet:namespace/>sendForm");
 				        A.io.request('<%=sendReceiptResourceURL.toString()%>', {
@@ -136,19 +140,26 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 				             },
 				               on: {
 				                    success: function() {
-				                    	parent.location.reload();
+				                    	
+				                    	swal({
+				         		             text: this.get('responseData'),        
+				        					})
+				        					setTimeout(pageReload, 1000);
 				                    }
 				               }
 				            });
 				    });
 					
-					
-					
+				 }else{
+				    	return false; 
+			     }
 				     }
+			 
+			 
 			 $(document).ready(function() {
 					$("#<portlet:namespace/>dueDate").datepicker({
-						format : 'dd/M/yyyy'
+						format : 'dd/mm/yyyy'
 					});
-				});		
+				});	
 	
 </script>
