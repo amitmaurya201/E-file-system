@@ -10,7 +10,13 @@
 %>
 
 <%=fileMovementId1 %>
+
 <style>
+
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
+
 .crList th {
 	display: inline-block;
 	width: max-content;

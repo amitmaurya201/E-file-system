@@ -4,6 +4,12 @@
 	String backURL = themeDisplay.getURLCurrent();
 %>
 
+<style>
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
+}
+</style>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -43,7 +49,7 @@
 					value="<%=filedto.getFileNumber() != null ? filedto.getFileNumber() : ""%>"
 					orderableProperty="filenumber" orderable="true" />
 
-				<liferay-ui:search-container-column-text
+				<liferay-ui:search-container-column-text 
 					value="<%=filedto.getSubject() != null ? filedto.getSubject() : ""%>"
 					orderable="true" orderableProperty="subject" cssClass="hover-tips"
 					name="label-file-list-subject" />
