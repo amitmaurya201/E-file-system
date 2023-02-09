@@ -15,7 +15,10 @@
 </style>
 
 <%
-String backPageURL = (String) request.getAttribute("backPageURL");
+	String backPageURL = (String) request.getAttribute("backPageURL");
+	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
+	String type = (String) receipt.getNature();
+	char firstChar = type.charAt(0);
 %>
 
 <div class="row">
@@ -27,7 +30,10 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
-		
+		<div class="container-fluid" style="background-color: #E8E8E8;">
+			<div class="hover-tips"><%=firstChar%> | ${receipt.receiptNumber} | ${receipt.subject}
+			</div>
+		</div>
 		<h2
 			style="text-align: center; text-decoration: underline; margin-top: 20px;">
 			<liferay-ui:message key="label-receipt-movement-heading" />

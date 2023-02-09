@@ -25,7 +25,7 @@
 		%>
 
 		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=currentNature%>| ${receipt.receiptNumber} | ${receipt.subject}
+			<div class="hover-tips"><%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}
 			</div>
 		</div>
 		<div class="receipt_view">
