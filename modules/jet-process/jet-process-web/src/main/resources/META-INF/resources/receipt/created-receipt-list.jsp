@@ -67,7 +67,7 @@
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text name="" value="${nature }" />
 
-				<liferay-ui:search-container-column-text href="<%=receiptDetails%>" cssClass="hyberlink-css"
+				<liferay-ui:search-container-column-text href="<%=receiptDetails%>" cssClass="hyperlink-css"
 					value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
 					name="label-receipt-list-receiptno"
 					orderableProperty="receiptNumber" orderable="true" />

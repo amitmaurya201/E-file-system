@@ -80,7 +80,7 @@
 				<liferay-ui:search-container-column-text name=""><%=sentFileListDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text href="${viewDetails}"
 					name="File Number"
-					value="<%=sentFileListDTO.getFileNumber() %>"
+					value="<%=sentFileListDTO.getFileNumber() %>" cssClass="hyperlink-css"
 					orderableProperty="fileNumber" orderable="true" />
 				<liferay-ui:search-container-column-text
 					value="<%=sentFileListDTO.getSubject() %>"
