@@ -91,7 +91,7 @@
 												if (newUserPostList != null) {
 													for (UserPost userPost : newUserPostList) {
 							%>
-							<aui:option value="<%=userPost.getUserPostId()%>"><%=userPost.getShortName()%></aui:option>
+							<aui:option value="<%=userPost.getUserPostId()%>"><%=userPost.getUserName() %>(<%=userPost.getPostMarking()%>)<%=userPost.getSectionName()%></aui:option>
 							<%
 								}
 												}
