@@ -1,6 +1,7 @@
 package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.Validator;
 
 import javax.portlet.RenderRequest;
 
@@ -31,7 +32,12 @@ public class FileViewDetailsHelper {
 				Masterdata secondaryHeadValue = masterdataLocalService.getSecondary(docFile.getSecondaryHeadId());
 				renderRequest.setAttribute("SecondaryHeadValue", secondaryHeadValue.getValue());
 				Masterdata tertiaryHeadValue = masterdataLocalService.getTertiary(docFile.getTertiaryHeadId());
-				renderRequest.setAttribute("TertiaryHeadValue", tertiaryHeadValue.getValue());
+				if(Validator.isNull(tertiaryHeadValue)) {
+					renderRequest.setAttribute("TertiaryHeadValue", "");
+				}else {
+					renderRequest.setAttribute("TertiaryHeadValue", tertiaryHeadValue.getValue());
+
+				}
 				Masterdata fileCodeValue = masterdataLocalService.getFileById(docFile.getFileCodeId());
 				renderRequest.setAttribute("FileCodeValue", fileCodeValue.getValue());
 				if (docFile.getCategoryId() != 0) {
