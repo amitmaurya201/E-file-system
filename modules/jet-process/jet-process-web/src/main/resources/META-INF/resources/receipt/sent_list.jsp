@@ -86,7 +86,7 @@
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text
 					name="label-receipt-sent-nature" value="${nature }" />
-				<liferay-ui:search-container-column-text href="${viewDetails }"
+				<liferay-ui:search-container-column-text href="${viewDetails }" cssClass="hyberlink-css"
 					property="receiptNumber" name="label-receipt-list-receiptno"
 					orderable="true" orderableProperty="receiptNumber" />
 				<liferay-ui:search-container-column-text property="subject"

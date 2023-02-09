@@ -154,7 +154,7 @@ cursor: pointer;
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										href="${receiptReadAction }"
-										name="label-receipt-inbox-receiptno" cssClass="bold"
+										name="label-receipt-inbox-receiptno" cssClass="bold hyberlink-css"
 										orderableProperty="receiptNumber" orderable="true"
 										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
 								</c:when>
@@ -234,7 +234,7 @@ cursor: pointer;
 								<%=receiptMovementDTO.getNature().charAt(0)%>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber"
+							<liferay-ui:search-container-column-text property="receiptNumber" cssClass="hyberlink-css"
 								orderableProperty="receiptNumber" orderable="true"
 								href="<%=receiptDetails%>" name="label-receipt-inbox-receiptno" />
 
@@ -457,8 +457,8 @@ function showModal(id){
 				name.append(obj.userName);
 				marking.append(obj.postMarking);
 				section.append(obj.sectionName);
-				email.append(obj.email);
-				design.append(obj.designation);
+				email.append();
+				design.append();
 				post.append(obj.postName);
 				dept.append(obj.departmentName);
 			}
