@@ -711,7 +711,7 @@ AS $BODY$
                  FROM PUBLIC.jet_process_receiptmovement as rm 
                  JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
                  JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-                 where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark and rm.movementtype = 1
+                 where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark 
                  is null AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
                                     
             return total; 
@@ -720,7 +720,7 @@ AS $BODY$
 		        FROM PUBLIC.jet_process_receiptmovement as rm 
 		        JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
 		        JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-                where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1;
+                where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark is null ;
             RETURN total;
         END IF;
 
