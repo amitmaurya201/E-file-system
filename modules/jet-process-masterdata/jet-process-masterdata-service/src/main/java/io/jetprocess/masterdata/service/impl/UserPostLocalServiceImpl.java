@@ -15,19 +15,8 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.dao.orm.Criterion;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.Junction;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.Session;
-import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
@@ -35,11 +24,10 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.servlet.http.HttpSession;
 
-import io.jetprocess.masterdata.model.UserPost;
-import io.jetprocess.masterdata.service.UserPostLocalServiceUtil;
-import io.jetprocess.masterdata.service.base.UserPostLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
+
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.base.UserPostLocalServiceBaseImpl;
 
 /**
  * @author Brian Wing Shun Chan
@@ -53,9 +41,6 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 	}
 
 	public UserPost getUserPostById(long userPostId) {
-		
-		
-
 		try {
 			return  userPostLocalService.getUserPost(userPostId) ;
 		} catch (PortalException e) {
@@ -65,27 +50,6 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 		return null;
 	}
 
-	public List<UserPost> getUserPostSearchedData(String data) {
-		List<UserPost> userPostList = null;
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(UserPost.class,
-				PortalClassLoaderUtil.getClassLoader());
-		Criterion criterion = null;
-		if (Validator.isNotNull(data)) {
-			criterion = RestrictionsFactoryUtil.like("shortName", new String(data));
-			criterion = RestrictionsFactoryUtil.or(criterion,
-					RestrictionsFactoryUtil.like("description", new String(data)));
-			criterion = RestrictionsFactoryUtil.or(criterion,
-					RestrictionsFactoryUtil.like("departmentName", new String(data)));
-			criterion = RestrictionsFactoryUtil.or(criterion,
-					RestrictionsFactoryUtil.like("postName", new String(data)));
-			 dynamicQuery.add(criterion);
-			userPostList = UserPostLocalServiceUtil.dynamicQuery(dynamicQuery);
-
-		}
-
-		return userPostList;
-		
-	}
 	 // create method for get userpost id 
 	public long getUserPostId(ActionRequest actionRequest) {
 		

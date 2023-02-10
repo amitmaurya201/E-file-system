@@ -55,10 +55,6 @@ public class UserPostServiceUtil {
 		return getService().getUserPostList(userId);
 	}
 
-	public static List<UserPost> getUserPostSearchedData(String data) {
-		return getService().getUserPostSearchedData(data);
-	}
-
 	public static UserPostService getService() {
 		return _service;
 	}

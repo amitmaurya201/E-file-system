@@ -16,11 +16,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO;
-import io.jetprocess.masterdata.model.FileListViewDto;
 import io.jetprocess.masterdata.model.FileMovementDTO;
 import io.jetprocess.masterdata.model.GenericModelMapper;
 import io.jetprocess.masterdata.model.Masterdata;
-import io.jetprocess.masterdata.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.model.ReceiptMovementDTO;
 import io.jetprocess.masterdata.model.impl.MasterdataImpl;
 import io.jetprocess.masterdata.service.persistence.MasterdataFinder;

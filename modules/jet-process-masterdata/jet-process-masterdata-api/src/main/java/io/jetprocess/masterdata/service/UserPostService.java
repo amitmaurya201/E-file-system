@@ -66,7 +66,4 @@ public interface UserPostService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserPost> getUserPostList(long userId);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<UserPost> getUserPostSearchedData(String data);
-
 }

@@ -45,9 +45,6 @@ public class UserPostServiceImpl extends UserPostServiceBaseImpl {
 
 		return userPostLocalService.getUserPostById(userPostId);
 	}
-	public List<UserPost> getUserPostSearchedData(String data) {
-		return userPostLocalService.getUserPostSearchedData(data);
-	}
 	
 	
 }
