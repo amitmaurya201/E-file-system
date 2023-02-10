@@ -1,4 +1,5 @@
-package io.jetprocess.web.render;
+package io.jetprocess.web.action.command;
+
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
