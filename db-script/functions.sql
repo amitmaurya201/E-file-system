@@ -682,7 +682,8 @@ ALTER FUNCTION public.get_receipt_inbox_list_count(bigint,text)
 
 -- DROP FUNCTION IF EXISTS public.get_receipt_sent_list_count(bigint, text);
 
-CREATE OR REPLACE FUNCTION public.get_receipt_sent_list_count(
+ 
+    CREATE OR REPLACE FUNCTION public.get_receipt_sent_list_count(
 	post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -708,18 +709,17 @@ AS $BODY$
    
                  SELECT count(*) into total
                  FROM PUBLIC.jet_process_receiptmovement as rm 
-                 JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-                 JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-                 where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark 
-                 is null AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
+		JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+		JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
+        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
                                     
             return total; 
             END IF;
                 SELECT count(*) into total
 		        FROM PUBLIC.jet_process_receiptmovement as rm 
-		        JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-		        JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-                where rm.senderid = post_id and rm.active_ = true and rm.pullbackremark is null ;
+		JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+		JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
+        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id;
             RETURN total;
         END IF;
 
@@ -730,7 +730,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_sent_list_count(bigint, text)
     OWNER TO postgres;
-
+    
     
  -- --------------------------------------------- Receipt List  --------------------------------------
   
