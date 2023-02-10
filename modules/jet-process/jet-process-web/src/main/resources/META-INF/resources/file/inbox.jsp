@@ -8,6 +8,19 @@
 
 
 <style>
+
+
+html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.modal-header {
+    background: #007bFF;
+    color: white;
+}
+html:not(#__):not(#___) .cadmin .close {
+ 
+    color: white;
+
+}
+
+
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
   color: #000000;
 }
@@ -82,6 +95,7 @@ cursor: pointer;
 	border-color: #f2f2f2;
 	color: #000;
 }
+
 </style>
 
 

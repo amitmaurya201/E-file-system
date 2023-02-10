@@ -13,9 +13,7 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 					value="<%=selectedUserPostId%>">  
 				 <input type="hidden" name="<portlet:namespace/>receiptId"
 					value="<%=receiptId%>">
-			  <%-- <input type="text" name="<portlet:namespace/>pageURL"
-					value="<%=currURL%>">  
-				 --%>  <input type="hidden" name="<portlet:namespace/>receiptmovementId"
+			   <input type="hidden" name="<portlet:namespace/>receiptmovementId"
 					value="<%=receiptmovementId%>">  
 				<aui:col cssClass="mt-3">
 					<div class="textOnInput">
@@ -138,7 +136,6 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 				             },
 				               on: {
 				                    success: function() {
-				                    	
 				                    	swal({
 				         		             text: this.get('responseData'),        
 				        					})
