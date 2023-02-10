@@ -25,7 +25,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.MovementStatus;
-import io.jetprocess.exception.NoSuchNoteException;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.FileNote;
