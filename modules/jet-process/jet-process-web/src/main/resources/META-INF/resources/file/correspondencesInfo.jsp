@@ -6,7 +6,7 @@
 .details-color {
 	background-color: gainsboro;
 	width: 100%;
-	font-size: 14px;
+	/* font-size: 14px; */
 	vertical-align: top;
 	padding-left: 3px;
 }
