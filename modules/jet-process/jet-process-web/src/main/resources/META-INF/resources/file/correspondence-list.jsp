@@ -83,9 +83,9 @@
 						value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
 				</portlet:renderURL>
 
-<div>
+<div class="row">
 
-	<div class="" style="font-size: 18px">
+	<div class="col-md-12" style="font-size: 18px">
 		<text class="pr-4 float-left put-heading" style="border-radius:0px 100px 0px 0px; ">List Of Correspondences     </text>
 		<div class="pl-2 pr-2 dropdown float-right put-heading" style="border-radius:100px 0px 0px 100px;">
 			<i class="fa fa-bars " >TOC</i>
@@ -94,7 +94,10 @@
 			</div>
 		</div>
 	</div>
-	<liferay-ui:search-container total="${fileCorrespondenceCount }"
+	
+	<div class="col-md-12">
+	
+		<liferay-ui:search-container total="${fileCorrespondenceCount }"
 		delta="${delta }" deltaConfigurable="true"  iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
 		emptyResultsMessage="No Results Found">
 		<liferay-ui:search-container-results
@@ -113,7 +116,7 @@
 			
 			
 			
-			<liferay-ui:search-container-column-text  name =" Receipt No."  cssClass="hyperlink-css">
+			<liferay-ui:search-container-column-text  name =" Receipt No."  cssClass="hyperlink-css" orderable="true" orderableProperty="receiptNo" >
 				<a class="Info"  onclick="receiptDetailPopup(${aFileCorrespondenceReceiptDTO.receiptId })" style="cursor:pointer">
 					${aFileCorrespondenceReceiptDTO.receiptNumber }
 				</a>
@@ -123,18 +126,23 @@
 		
 		<liferay-ui:search-container-column-text  name="type" property="correspondenceType"/>
 		
-		<liferay-ui:search-container-column-text  name="Attached On" value="<%=simpleformat.format(aFileCorrespondenceReceiptDTO.getCreateDate())%>"/>
-			<liferay-ui:search-container-column-text name = "Remarks" property="remark" />
+		<liferay-ui:search-container-column-text   name="Attached On" value="<%=simpleformat.format(aFileCorrespondenceReceiptDTO.getCreateDate())%>"  orderable="true" orderableProperty="attachOn"  />
+		
+		<liferay-ui:search-container-column-text name = "Remarks" property="remark" />
 		</liferay-ui:search-container-row>
 
-		<liferay-ui:search-iterator markupView="lexicon" />
+		<liferay-ui:search-iterator paginate="false" />
+		<liferay-ui:search-paginator searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 	</liferay-ui:search-container>
-
-
-	<div>
-		<aui:button cssClass="btn btn-primary" style="float: right;"
+	
+	<div class="float-right mt-3">
+		<aui:button cssClass="btn btn-primary" 
 			name="add_receipt" id="add_receipt" value="Add Receipt" >
 		</aui:button>
+	</div>
+
+
+	
 		
 	</div>
 

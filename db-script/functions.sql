@@ -1946,10 +1946,11 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='attachOn' OR orderByCol IS NULL) THEN
                 _orderBy :='r.createdate';
-            ELSE
-                _orderBy :='r.'||orderByCol;
+        END IF;
+         IF ( orderByCol ='receiptNo' OR orderByCol ='receiptno' OR orderByCol ='receiptnumber' ) THEN
+                _orderBy :='r.receiptnumber';
         END IF;
          IF (_orderByType ='' OR _orderByType IS NULL) THEN
                 _order :='desc';
