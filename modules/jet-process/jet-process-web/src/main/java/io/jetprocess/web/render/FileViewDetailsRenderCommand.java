@@ -29,6 +29,6 @@ public class FileViewDetailsRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	FileViewDetailsHelper  fileViewDetailsHelper;
+	private FileViewDetailsHelper  fileViewDetailsHelper;
 
 }

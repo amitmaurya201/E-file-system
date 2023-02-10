@@ -28,6 +28,6 @@ public class ViewFileEditedRenderCommand implements MVCRenderCommand {
 	}
 
 @Reference	
-FileViewDetailsHelper fileViewDetailsHelpler;
+private FileViewDetailsHelper fileViewDetailsHelpler;
 
 }

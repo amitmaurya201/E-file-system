@@ -26,7 +26,6 @@ public class ViewSendReceiptRenderCommand implements MVCRenderCommand {
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
-		System.out.println("ViewSendReceiptRenderCommand------"+backPageURL);
 		logger.info("receiptId---> " + receiptId);
 		try {
 			Receipt receiptId1 = ReceiptLocalServiceUtil.getReceipt(receiptId);

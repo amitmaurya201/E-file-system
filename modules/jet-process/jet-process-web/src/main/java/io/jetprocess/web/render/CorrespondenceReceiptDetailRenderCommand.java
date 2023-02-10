@@ -24,7 +24,6 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		System.out.println("view");
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		long corrFileId=ParamUtil.getLong(renderRequest, "corrFileId");
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
@@ -33,9 +32,7 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 			docFile = docFileLocalService.getDocFile(corrFileId);
 		} catch (PortalException e) {
 			e.printStackTrace();
-		}
-		
-		System.out.println("---corrFileId------"+corrFileId);
+		}	
 		renderRequest.setAttribute("fileNumber", docFile.getFileNumber());
 		return "/receipt/correspondence-receipt-detail.jsp";
 	}

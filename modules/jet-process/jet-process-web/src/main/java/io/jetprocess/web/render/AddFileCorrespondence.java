@@ -7,8 +7,6 @@ import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -28,14 +26,10 @@ import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.masterdata.service.MasterdataLocalServiceUtil;
 import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext;
-import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
-import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
-import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
 
 @Component(
 	immediate = true, 
@@ -53,7 +47,6 @@ public class AddFileCorrespondence implements MVCRenderCommand{
 		 long docFileId  = (long) sessionPutInFileId.getAttribute("putInFileId");
 		renderRequest.setAttribute("docFileId", docFileId);
 		long fileMovementId  = ParamUtil.getLong(renderRequest, "fileMovementId");
-		System.out.println("fileMovementId-------AddFileCorrespondence----"+fileMovementId);
 		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		addFileToolbarAttributes(renderRequest,renderResponse);
 		addFileListAttributes(renderRequest);

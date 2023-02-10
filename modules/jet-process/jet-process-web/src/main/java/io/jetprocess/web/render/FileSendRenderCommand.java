@@ -20,8 +20,6 @@ public class FileSendRenderCommand implements MVCRenderCommand{
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 	long fileId =  ParamUtil.getLong(renderRequest, "fileId");
 	long fileMovementId  = ParamUtil.getLong(renderRequest,"fileMovementId");
-	System.out.println("fileId--->"+fileId);
-	System.out.println("fileMovementIdn -->"+fileMovementId);
 	renderRequest.setAttribute("fileId", fileId);
 	renderRequest.setAttribute("fileMovementId", fileMovementId);
 		return "/file/send-file.jsp";	

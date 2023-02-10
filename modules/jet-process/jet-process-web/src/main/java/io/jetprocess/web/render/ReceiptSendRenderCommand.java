@@ -30,18 +30,5 @@ public class ReceiptSendRenderCommand implements MVCRenderCommand{
 		renderRequest.setAttribute("receiptmovementId", receiptmovementId);
 			return "/receipt/send-receipt.jsp";
 	}
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

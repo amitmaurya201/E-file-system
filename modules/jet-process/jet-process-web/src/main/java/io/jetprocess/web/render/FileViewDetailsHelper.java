@@ -66,9 +66,9 @@ public class FileViewDetailsHelper {
 	}
 	
 	@Reference
-	DocFileLocalService docFileLocalService;
+	private DocFileLocalService docFileLocalService;
 	@Reference
-	MasterdataLocalService masterdataLocalService;
+	private MasterdataLocalService masterdataLocalService;
 	
 	
 	

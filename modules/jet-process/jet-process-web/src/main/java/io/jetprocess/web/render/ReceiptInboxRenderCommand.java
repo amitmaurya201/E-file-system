@@ -101,5 +101,5 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	ReceiptList _receiptList;
+	private ReceiptList _receiptList;
 }

@@ -101,6 +101,6 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	FileList _fileList;
+	private FileList _fileList;
 
 }

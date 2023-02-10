@@ -69,7 +69,6 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 		List<ReceiptMovementDTO> receiptList = _receiptList.getReceiptSentList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
 		
-		receiptList.forEach(c -> System.out.println(c.getReceiptMovementId()));
 		renderRequest.setAttribute("receiptList", receiptList);
 		renderRequest.setAttribute("receiptCount", count);
 		renderRequest.setAttribute("delta", delta);
@@ -96,5 +95,5 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	ReceiptList _receiptList;
+    private	ReceiptList _receiptList;
 }
