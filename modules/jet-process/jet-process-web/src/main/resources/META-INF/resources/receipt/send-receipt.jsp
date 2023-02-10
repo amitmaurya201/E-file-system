@@ -142,7 +142,7 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 				                    	swal({
 				         		             text: this.get('responseData'),        
 				        					})
-				        					setTimeout(pageReload, 1000);
+				        					setTimeout(pageReload, 1500);
 				                    }
 				               }
 				            });

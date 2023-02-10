@@ -32,13 +32,11 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 			throws PortletException {
 
 	 long receiptMovementId = ParamUtil.getLong(resourceRequest, "receiptmovementId");
-	 System.out.println("receipt movementid --->"+receiptMovementId);
-		
+	
 	try {
 		boolean state =  receiptMovementLocalService.pullBackedAlready(receiptMovementId);
 		
 		if(state == true) {
-			System.out.println("receipt send successfully --->");
 			long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
 			long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
 			long receiptId = ParamUtil.get(resourceRequest, "receiptId", 0);
@@ -53,13 +51,12 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 				receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState, movementType);
 				resourceResponse.setContentType("text/html");
 		        PrintWriter out = resourceResponse.getWriter();
-		        out.println("Receipt Send Successfully");
+		        out.println("Receipt send successfully");
 		        out.flush();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}	
 		} else if (state == false) {
-			System.out.println("pull backed receipt -->");
 			resourceResponse.setContentType("text/html");
 	        PrintWriter out = resourceResponse.getWriter();
 	        out.println("This receipt already pullbacked");

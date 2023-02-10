@@ -48,7 +48,7 @@ public class SendFileResourceCommand implements MVCResourceCommand  {
 							currentState, movementType);
 					resourceResponse.setContentType("text/html");
 			        PrintWriter out = resourceResponse.getWriter();
-			        out.println("File Send Successfully");
+			        out.println("File send successfully");
 			        out.flush();
 				} catch (Exception e) {
 					e.printStackTrace();
