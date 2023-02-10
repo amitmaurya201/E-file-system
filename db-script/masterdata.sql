@@ -490,7 +490,8 @@ CREATE TABLE IF NOT EXISTS "md_tertiaryhead" (
 -- Dumping data for table public.md_tertiaryhead: 20 rows
 /*!40000 ALTER TABLE "md_tertiaryhead" DISABLE KEYS */;
 INSERT INTO "md_tertiaryhead" ("tertiaryheadid", "tertiaryheadvalue", "secondaryheadid") VALUES
-	(1, 'Medicine purchase in emergency', 1),
+	(1, 'Medicine purchase in emergency
+', 1),
 	(2, 'Medicines purchase for medical centre from authorized chemist', 1),
 	(3, 'Medicines purchased from GMSD karnal', 1),
 	(4, 'Medicines purchase from chronic patients', 2),
