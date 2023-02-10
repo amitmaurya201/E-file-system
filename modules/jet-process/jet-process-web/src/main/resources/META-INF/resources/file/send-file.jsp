@@ -99,7 +99,7 @@
 	</aui:col>
 	<aui:button-row>
 		<aui:button type="button" class="btn btn-primary"  id="click" onClick="submitSendForm()"
-			style=" margin: auto 40%;" value="label-send-submit-button" />
+			style=" margin: auto 40%;  background-color: #007bff; border-color: #007bff !important;" value="label-send-submit-button" />
 	</aui:button-row>
 </aui:form>
 

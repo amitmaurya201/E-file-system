@@ -3,13 +3,12 @@
  <%	
 long receiptmovementId = (long) renderRequest.getAttribute("receiptmovementId");
 long receiptId = (long) renderRequest.getAttribute("receiptId");
-
 %>
 
  <portlet:resourceURL id="<%=MVCCommandNames.RECEIPT_SEND_RESOURCE_COMMAND %>" var="sendReceiptResourceURL">
 </portlet:resourceURL>
 
-<aui:form action="#"style="padding: 4% !important" name="sendForm"  method="post">
+<aui:form action="#"style="padding: 4% !important" name="sendReceipt"  method="post">
 				 <input type="hidden" name="<portlet:namespace/>senderId"
 					value="<%=selectedUserPostId%>">  
 				 <input type="hidden" name="<portlet:namespace/>receiptId"
@@ -102,15 +101,15 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 					</div>
 				</aui:col>
 				<aui:button-row>
-					<aui:button type="button" class="btn btn-primary" onClick="submitSendForm()"
-						style=" margin: auto 40%;" value="label-send-submit-button" />
+					<aui:button type="button" class="btn btn-primary" onClick="submitSendReceiptForm()"
+						style=" margin: auto 40%;  background-color: #007bff; border-color: #007bff !important;" value="label-send-submit-button" />
 				</aui:button-row>
 			</aui:form>
 
 			<script type="text/javascript">
 			
-			function validateForm(sendForm){
-				var liferayForm = Liferay.Form.get(sendForm);
+			function validateForm(sendReceipt){
+				var liferayForm = Liferay.Form.get(sendReceipt);
 					if(liferayForm){
 					 var validator = liferayForm.formValidator;
 					 validator.validate();
@@ -125,18 +124,17 @@ long receiptId = (long) renderRequest.getAttribute("receiptId");
 
 			function pageReload() {
 				parent.location.reload();
-				}
+				}	
 			
 			/* send receipt pop up with validation  */
-			 function submitSendForm(){
-				 if(validateForm('<portlet:namespace/>sendForm')){
+			 function submitSendReceiptForm(){
+				 if(validateForm('<portlet:namespace/>sendReceipt')){
 				   	AUI().use('aui-io-request','aui-base','io', function(A){
-					 var form = A.one("#<portlet:namespace/>sendForm");
+					 var form = A.one("#<portlet:namespace/>sendReceipt");
 				        A.io.request('<%=sendReceiptResourceURL.toString()%>', {
 				        	 method: 'post',
 				        	 form:{
-
-				                 id:form
+                                    id:form
 				             },
 				               on: {
 				                    success: function() {
