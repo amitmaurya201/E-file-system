@@ -16,51 +16,35 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
-import java.util.List;
+import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
 
-import org.osgi.service.component.annotations.Component;
-
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.model.FileNote",
-	service = AopService.class
-)
+@Component(property = "model.class.name=io.jetprocess.model.FileNote", service = AopService.class)
 public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
+	
 	public FileNote createFileNote() {
-		  long fileNoteId = counterLocalService.increment(FileNote.class.getName());
-		  FileNote fileNote = fileNoteLocalService.createFileNote(fileNoteId);
-		return fileNote;
+		long fileNoteId = counterLocalService.increment(FileNote.class.getName());
+		return fileNoteLocalService.createFileNote(fileNoteId);
 	}
-	 public FileNote  getNoteByFileIdAndUserpostId(long fileId, long noteId) throws NoSuchFileNoteException   {
-		FileNote fileNote= fileNotePersistence.findByFileIdAndNoteId(fileId, noteId);
-		return fileNote;
-			
-		 }
-	 
+
 	public void deleteFileNoteByNoteId(long noteId) throws NoSuchFileNoteException {
 		FileNote fileNote = fileNotePersistence.findByNoteId(noteId);
 		fileNoteLocalService.deleteFileNote(fileNote);
-		
 	}
 
-	 public List<FileNote> getFileNoteListByFileId(long fileId){
-			List<FileNote> fileNoteList = fileNotePersistence.findByFileNoteListByFileId(fileId);
-			return fileNoteList;
-		   }
-	 
-	 public FileNote getFileNoteByFilemovementId(long filemovementId) {
-		 try {
-			return fileNotePersistence.findByfilemovementId(filemovementId);
+	public FileNote getFileNoteByFilemovementId(long filemovementId) {
+		FileNote fileNote = null;
+		try {
+			fileNote = fileNotePersistence.findByfilemovementId(filemovementId);
 		} catch (NoSuchFileNoteException e) {
 			e.printStackTrace();
-			return null;
 		}
-			 
-	 }
+		return fileNote;
+	}
 }

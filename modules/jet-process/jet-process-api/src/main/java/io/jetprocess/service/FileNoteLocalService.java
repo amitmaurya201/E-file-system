@@ -250,9 +250,6 @@ public interface FileNoteLocalService
 	public FileNote getFileNoteByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<FileNote> getFileNoteListByFileId(long fileId);
-
 	/**
 	 * Returns a range of all the file notes.
 	 *
@@ -303,10 +300,6 @@ public interface FileNoteLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public FileNote getNoteByFileIdAndUserpostId(long fileId, long noteId)
-		throws NoSuchFileNoteException;
 
 	/**
 	 * Returns the OSGi service identifier.

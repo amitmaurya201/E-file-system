@@ -523,64 +523,6 @@ public class NoteUtil {
 	}
 
 	/**
-	 * Returns the note where createdBy = &#63; or throws a <code>NoSuchNoteException</code> if it could not be found.
-	 *
-	 * @param createdBy the created by
-	 * @return the matching note
-	 * @throws NoSuchNoteException if a matching note could not be found
-	 */
-	public static Note findByuserPostId(long createdBy)
-		throws io.jetprocess.exception.NoSuchNoteException {
-
-		return getPersistence().findByuserPostId(createdBy);
-	}
-
-	/**
-	 * Returns the note where createdBy = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param createdBy the created by
-	 * @return the matching note, or <code>null</code> if a matching note could not be found
-	 */
-	public static Note fetchByuserPostId(long createdBy) {
-		return getPersistence().fetchByuserPostId(createdBy);
-	}
-
-	/**
-	 * Returns the note where createdBy = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param createdBy the created by
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching note, or <code>null</code> if a matching note could not be found
-	 */
-	public static Note fetchByuserPostId(
-		long createdBy, boolean useFinderCache) {
-
-		return getPersistence().fetchByuserPostId(createdBy, useFinderCache);
-	}
-
-	/**
-	 * Removes the note where createdBy = &#63; from the database.
-	 *
-	 * @param createdBy the created by
-	 * @return the note that was removed
-	 */
-	public static Note removeByuserPostId(long createdBy)
-		throws io.jetprocess.exception.NoSuchNoteException {
-
-		return getPersistence().removeByuserPostId(createdBy);
-	}
-
-	/**
-	 * Returns the number of notes where createdBy = &#63;.
-	 *
-	 * @param createdBy the created by
-	 * @return the number of matching notes
-	 */
-	public static int countByuserPostId(long createdBy) {
-		return getPersistence().countByuserPostId(createdBy);
-	}
-
-	/**
 	 * Caches the note in the entity cache if it is enabled.
 	 *
 	 * @param note the note

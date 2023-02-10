@@ -266,12 +266,6 @@ public class NoteLocalServiceUtil {
 		return getService().getNote(noteId);
 	}
 
-	public static Note getNoteByUserPostId(long userPostId)
-		throws io.jetprocess.exception.NoSuchNoteException {
-
-		return getService().getNoteByUserPostId(userPostId);
-	}
-
 	/**
 	 * Returns the note matching the UUID and group.
 	 *

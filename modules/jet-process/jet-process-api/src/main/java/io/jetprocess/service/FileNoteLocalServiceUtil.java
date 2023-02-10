@@ -277,10 +277,6 @@ public class FileNoteLocalServiceUtil {
 		return getService().getFileNoteByUuidAndGroupId(uuid, groupId);
 	}
 
-	public static List<FileNote> getFileNoteListByFileId(long fileId) {
-		return getService().getFileNoteListByFileId(fileId);
-	}
-
 	/**
 	 * Returns a range of all the file notes.
 	 *
@@ -341,13 +337,6 @@ public class FileNoteLocalServiceUtil {
 			getIndexableActionableDynamicQuery() {
 
 		return getService().getIndexableActionableDynamicQuery();
-	}
-
-	public static FileNote getNoteByFileIdAndUserpostId(
-			long fileId, long noteId)
-		throws io.jetprocess.exception.NoSuchFileNoteException {
-
-		return getService().getNoteByFileIdAndUserpostId(fileId, noteId);
 	}
 
 	/**

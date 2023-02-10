@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import io.jetprocess.exception.NoSuchNoteException;
 import io.jetprocess.model.Note;
 
 import java.io.Serializable;
@@ -239,9 +238,6 @@ public interface NoteLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Note getNote(long noteId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Note getNoteByUserPostId(long userPostId) throws NoSuchNoteException;
 
 	/**
 	 * Returns the note matching the UUID and group.

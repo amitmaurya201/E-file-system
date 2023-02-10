@@ -290,13 +290,6 @@ public class NoteLocalServiceWrapper
 		return _noteLocalService.getNote(noteId);
 	}
 
-	@Override
-	public io.jetprocess.model.Note getNoteByUserPostId(long userPostId)
-		throws io.jetprocess.exception.NoSuchNoteException {
-
-		return _noteLocalService.getNoteByUserPostId(userPostId);
-	}
-
 	/**
 	 * Returns the note matching the UUID and group.
 	 *
