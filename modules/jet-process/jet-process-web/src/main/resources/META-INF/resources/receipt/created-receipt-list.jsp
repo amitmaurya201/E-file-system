@@ -31,6 +31,10 @@
 .modal-body {
 	position: relative;
 }
+
+#popup {
+	pointer-events: none;
+}
 </style>
 
 <div class="row">

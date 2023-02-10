@@ -65,6 +65,10 @@
 .container-view {
 	padding-top: 1px;
 }
+
+#popup {
+	pointer-events: none;
+}
 </style>
 <%
 	Receipt receipt = (Receipt) request.getAttribute("receipt");
@@ -204,7 +208,7 @@
 
 	<div id="popup" class="modal invisible" tabindex="-1">
 		<div class="modal-dialog">
-			<div class="modal-content" style="max-width: 70rem; margin: 0 auto;">
+			<div class="modal-content" style="max-width: 70rem; margin: -21px auto;">
 				<div class="modal-body" style="padding: 0">
 					<button type="button" class="btn btn-white btn-close"
 						data-bs-dismiss="modal" aria-label="Close"
@@ -327,7 +331,7 @@
 							let embeded = $('<embed/>', {
 								type : 'application/pdf',
 								width : '100%',
-								height : '500'
+								height : '430'
 							}).appendTo($('#popup').find('div#pdf'));
 							embeded.attr('src', url);
 						});
