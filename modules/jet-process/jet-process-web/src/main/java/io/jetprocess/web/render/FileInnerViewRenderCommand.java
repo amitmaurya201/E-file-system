@@ -37,13 +37,13 @@ import io.jetprocess.model.Note;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
-import io.jetprocess.service.persistence.NotePersistence;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=/PutInFile" }, service = MVCRenderCommand.class)
-public class FileInnerView implements MVCRenderCommand {
+public class FileInnerViewRenderCommand implements MVCRenderCommand {
+	
 	@Reference
 	private MasterdataLocalService masterdataLocalService;
 
@@ -192,7 +192,7 @@ public class FileInnerView implements MVCRenderCommand {
 
 	}
 
-	private static Log logger = LogFactoryUtil.getLog(FileInnerView.class);
+	private static Log logger = LogFactoryUtil.getLog(FileInnerViewRenderCommand.class);
 
 	@Reference
 	private Portal _portal;
