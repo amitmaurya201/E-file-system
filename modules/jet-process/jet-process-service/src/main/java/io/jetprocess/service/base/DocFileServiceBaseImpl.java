@@ -28,7 +28,6 @@ import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileService;
 import io.jetprocess.service.DocFileServiceUtil;
 import io.jetprocess.service.persistence.DocFilePersistence;
-import io.jetprocess.service.persistence.FileCorrPersistence;
 import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
 import io.jetprocess.service.persistence.FileMovementPersistence;
 import io.jetprocess.service.persistence.FileNotePersistence;
@@ -144,9 +143,6 @@ public abstract class DocFileServiceBaseImpl
 
 	@Reference
 	protected DocFilePersistence docFilePersistence;
-
-	@Reference
-	protected FileCorrPersistence fileCorrPersistence;
 
 	@Reference
 	protected FileCorrReceiptPersistence fileCorrReceiptPersistence;

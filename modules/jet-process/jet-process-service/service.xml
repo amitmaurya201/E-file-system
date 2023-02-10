@@ -255,41 +255,7 @@
 		<reference entity="AssetTag"
 			package-path="com.liferay.portlet.asset" />
 	</entity>
-	<entity name="FileCorr" local-service="true"
-		remote-service="true" uuid="true">
-
-		<!-- PK fields -->
-		<column name="fileCorrId" primary="true" type="long" />
-		<!-- Group instance -->
-		<column name="groupId" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-		<column name="docFileId" type="long" />
-		<column name="receiptId" type="long" />
-		<column name="userPostId" type="long" />
-		<column name="correspondenceType" type="String" />
-		<column name="remarks" type="String" />
-		<column name="fileMovementId" type="long" />
-		<column name="receiptMovementId" type="long" />
-
-		<!-- Group Reference -->
-		<reference entity="Group" package-path="com.liferay.portal" />
-
-		<!-- References -->
-
-		<reference entity="AssetEntry"
-			package-path="com.liferay.portlet.asset" />
-		<reference entity="AssetTag"
-			package-path="com.liferay.portlet.asset" />
-	</entity>
-
+	
 	<!-- File Correspondence Receipt -->
 	<entity name="FileCorrReceipt" local-service="true"
 		remote-service="true" uuid="true">

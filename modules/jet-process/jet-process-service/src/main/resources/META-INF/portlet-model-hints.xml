@@ -30,22 +30,6 @@
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
 	</model>
-	<model name="io.jetprocess.model.FileCorr">
-		<field name="uuid" type="String" />
-		<field name="fileCorrId" type="long" />
-		<field name="groupId" type="long" />
-		<field name="companyId" type="long" />
-		<field name="userId" type="long" />
-		<field name="createDate" type="Date" />
-		<field name="modifiedDate" type="Date" />
-		<field name="docFileId" type="long" />
-		<field name="receiptId" type="long" />
-		<field name="userPostId" type="long" />
-		<field name="correspondenceType" type="String" />
-		<field name="remarks" type="String" />
-		<field name="fileMovementId" type="long" />
-		<field name="receiptMovementId" type="long" />
-	</model>
 	<model name="io.jetprocess.model.FileCorrReceipt">
 		<field name="uuid" type="String" />
 		<field name="fileCorrReceiptId" type="long" />
