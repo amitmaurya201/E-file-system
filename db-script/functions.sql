@@ -1898,6 +1898,7 @@ ALTER FUNCTION public.get_file_correspondence_list_count(text,bigint, bigint, te
 
 
     
+   
 CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_viewmode text,
 	_filemovementid bigint,
@@ -1946,7 +1947,7 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
-        IF (orderByCol ='' OR orderByCol ='attachOn' OR orderByCol IS NULL) THEN
+        IF (orderByCol ='' OR orderByCol ='attachOn' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
                 _orderBy :='r.createdate';
         END IF;
          IF ( orderByCol ='receiptNo' OR orderByCol ='receiptno' OR orderByCol ='receiptnumber' ) THEN
@@ -2009,7 +2010,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-   
     
     
  -- Note List
