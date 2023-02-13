@@ -142,7 +142,7 @@ $("#<portlet:namespace />organizationId").on('change', function(){
 					     }
 				     });
 				 });
-    });
+		 });
 });
 
 // ---master data suborganization for edit---
@@ -229,7 +229,7 @@ $(document).ready(function(e){
 				    		$("#<portlet:namespace />stateId").append(new Option(optionText,optionValue));
 				    		}
 				    });	
-					});
+				});
 	 });
 	 });
 
@@ -310,6 +310,8 @@ $("#<portlet:namespace />generate").on('click', function(e){
 /* update receipt */
 $("#<portlet:namespace />update").on('click', function(e){
 	e.preventDefault();
+	var $this = $(this);
+    $this.attr('disabled', true);
 	var formObj= $('#<portlet:namespace/>receiptForm')[0];
     var jsonData = bindFormDataJson(formObj);
 	var nature= $('#<portlet:namespace/>nature').val(); 
@@ -331,12 +333,13 @@ $("#<portlet:namespace />update").on('click', function(e){
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
     	if(nature =='Electronic' && docInput==0 && uploadFileErrorCss=='block' && editpdfurl==0){
-    	/*if(){*/
     		swal({  
     			title: " Oops!",  
     			  	text: "Required field should not be empty!",  
     			  	icon: "error",
-    		}); 
+    		}).then(function() {
+				window.location.href = '<%= editReceipt.toString() %>';
+			}); 
     		return false;
     	}
     	if(uploadPdfSizeCss=='block'){
@@ -344,10 +347,11 @@ $("#<portlet:namespace />update").on('click', function(e){
     			title: " Oops!",  
     			  	text: "Required field should not be empty!",  
     			  	icon: "error",
-    		}); 
+    		}).then(function() {
+				window.location.href = '<%= editReceipt.toString() %>';
+			}); 
     		return false;
     	}
-    	/*if(!mySeletedNature()){*/
     		$.ajax({
     			type: "PUT",
 			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
@@ -363,7 +367,9 @@ $("#<portlet:namespace />update").on('click', function(e){
         				title: " Oops!",  
       				  	text: "Required field should not be empty!",  
       				  	icon: "error",
-    				});  
+    				}).then(function() {
+        				window.location.href = '<%= editReceipt.toString() %>';
+        			});  
     			}else{
     			swal( {
     				title: "Successfull!",
@@ -379,8 +385,12 @@ $("#<portlet:namespace />update").on('click', function(e){
     				title: " Oops!",  
   				  	text: "Something went wrong, you should choose again!",  
   				  	icon: "error",
-				});  
+				}).then(function() {
+    				window.location.href = '<%= editReceipt.toString() %>';
+    			})
+    			
 		 	})
+		 	
     }
     	
     else{
@@ -388,6 +398,8 @@ $("#<portlet:namespace />update").on('click', function(e){
 			title: " Oops!",  
 			  	text: "Required field should not be empty!",  
 			  	icon: "error",
+		}).then(function() {
+			window.location.href = '<%= editReceipt.toString() %>';
 		}); 
     	return false;
     }
