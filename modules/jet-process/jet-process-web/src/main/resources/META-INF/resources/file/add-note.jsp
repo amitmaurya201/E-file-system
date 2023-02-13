@@ -8,7 +8,7 @@
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>
 <%@page import="io.jetprocess.list.model.NoteDTO"%>
 <%@page import="java.util.List"%>
-<script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -137,9 +137,9 @@ textarea {
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Discard Confirmation</h5>
-				<button type="button" class="close" data-dismiss="modal"
+			<div class="modal-header" style = "background-color:#007bff";>
+				<h5 class="modal-title" style ="color:#FFFFFF" id="exampleModalLabel">Discard Confirmation</h5>
+				<button type="button" class="close" style= "color:#FFFFFF" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
