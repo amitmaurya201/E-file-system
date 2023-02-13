@@ -15,12 +15,15 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
+
 
 /**
  * @author Brian Wing Shun Chan
@@ -43,8 +46,12 @@ public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
 		try {
 			fileNote = fileNotePersistence.findByfilemovementId(filemovementId);
 		} catch (NoSuchFileNoteException e) {
-			e.printStackTrace();
+			
+			logger.info(e.getMessage());
 		}
 		return fileNote;
 	}
+	
+	private static Log logger = LogFactoryUtil.getLog(FileNoteLocalServiceImpl.class);
+
 }
