@@ -286,7 +286,7 @@ $("#<portlet:namespace />generate").on('click', function(e){
     			}else{
     			var receiptNumber =response.receiptNumber;
 				swal({
-					 title: "Successfull!",
+					 title: "Successful!",
 	                 text: `You have successfully created your receipt and your receipt number is `+receiptNumber,
 	                 icon: "success",
 	                 button: "Ok"
@@ -372,7 +372,7 @@ $("#<portlet:namespace />update").on('click', function(e){
         			});  
     			}else{
     			swal( {
-    				title: "Successfull!",
+    				title: "Successful!",
                     text: `You have successfully updated your receipt!`,
                     icon: "success",
                     button: "Ok"

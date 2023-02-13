@@ -173,7 +173,7 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
         			  console.log(xhr.getResponseHeader("result"));
         			  if(xhr.getResponseHeader("status") === "success"){
         			  swal( {
-                          title: "Successfull!",
+                          title: "Successful!",
                           text: xhr.getResponseHeader("result")+" "+response.fileNumber,
                           icon: "success",
                           button: "Ok"
@@ -242,7 +242,7 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
    				  
    			  }else{
    			  swal( {
-                  title: "Successfull!",
+                  title: "Successful!",
                   text: `You have successfully updated your file! `,
                   icon: "success",
                   button: "Ok"
