@@ -1,4 +1,9 @@
 
+<%@page import="io.jetprocess.model.FileNote"%>
+<%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.json.JSONObject"%>
+<%@page import="io.jetprocess.list.model.NoteDTO"%>
+<%@page import="java.util.List"%>
 <style>
 textarea {
 	background-color: #bef8c7;
