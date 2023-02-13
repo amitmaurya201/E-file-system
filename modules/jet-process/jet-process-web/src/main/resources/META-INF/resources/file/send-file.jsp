@@ -6,7 +6,7 @@
 <portlet:resourceURL id="<%=MVCCommandNames.FILE_SEND_RESOURCE_COMMAND %>" var="sendFileResourceURL">
 </portlet:resourceURL>
 
-<aui:form action="#"  name="sendForm"  method="post" style="padding: 4% !important">
+<aui:form action="#"  name="sendFileForm"  method="post" style="padding: 4% !important">
 	<input type="hidden" name="<portlet:namespace/>senderId"
 		value="<%=selectedUserPostId%>">
 	<input type="hidden" name="<portlet:namespace/>fileId"
@@ -98,14 +98,14 @@
 		</div>
 	</aui:col>
 	<aui:button-row>
-		<aui:button type="button" class="btn btn-primary"  id="click" onClick="submitSendForm()"
+		<aui:button type="button" class="btn btn-primary"  id="click" onClick="submitSendFileForm()"
 			style=" margin: auto 40%;  background-color: #007bff; border-color: #007bff !important;" value="label-send-submit-button" />
 	</aui:button-row>
 </aui:form>
 
 <script type="text/javascript">
-function validateForm(sendForm){
-	var liferayForm = Liferay.Form.get(sendForm);
+function validateForm(sendFileForm){
+	var liferayForm = Liferay.Form.get(sendFileForm);
 		if(liferayForm){
 		 var validator = liferayForm.formValidator;
 		 validator.validate();
@@ -123,10 +123,10 @@ function validateForm(sendForm){
 		parent.location.reload();
 		}
 
-	function submitSendForm(){
-		if(validateForm('<portlet:namespace/>sendForm')){
+	function submitSendFileForm(){
+		if(validateForm('<portlet:namespace/>sendFileForm')){
 		   	AUI().use('aui-io-request','aui-base','io', function(A){
-			 var form = A.one("#<portlet:namespace/>sendForm");
+			 var form = A.one("#<portlet:namespace/>sendFileForm");
 			 
 		        A.io.request('<%=sendFileResourceURL.toString()%>', {
 		        	 method: 'post',
