@@ -710,10 +710,10 @@ public class ReceiptMovementUtil {
 	 * @param fileInMovementId the file in movement ID
 	 * @return the matching receipt movements
 	 */
-	public static List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(long fileInMovementId) {
+	public static List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
+		long fileInMovementId) {
 
-		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+		return getPersistence().findByReceiptMovementsByfileMovementId(
 			fileInMovementId);
 	}
 
@@ -729,11 +729,10 @@ public class ReceiptMovementUtil {
 	 * @param end the upper bound of the range of receipt movements (not inclusive)
 	 * @return the range of matching receipt movements
 	 */
-	public static List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(
-			long fileInMovementId, int start, int end) {
+	public static List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
+		long fileInMovementId, int start, int end) {
 
-		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+		return getPersistence().findByReceiptMovementsByfileMovementId(
 			fileInMovementId, start, end);
 	}
 
@@ -750,12 +749,11 @@ public class ReceiptMovementUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching receipt movements
 	 */
-	public static List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(
-			long fileInMovementId, int start, int end,
-			OrderByComparator<ReceiptMovement> orderByComparator) {
+	public static List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
+		long fileInMovementId, int start, int end,
+		OrderByComparator<ReceiptMovement> orderByComparator) {
 
-		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+		return getPersistence().findByReceiptMovementsByfileMovementId(
 			fileInMovementId, start, end, orderByComparator);
 	}
 
@@ -773,13 +771,12 @@ public class ReceiptMovementUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching receipt movements
 	 */
-	public static List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(
-			long fileInMovementId, int start, int end,
-			OrderByComparator<ReceiptMovement> orderByComparator,
-			boolean useFinderCache) {
+	public static List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
+		long fileInMovementId, int start, int end,
+		OrderByComparator<ReceiptMovement> orderByComparator,
+		boolean useFinderCache) {
 
-		return getPersistence().findBygetReceiptMovementsByfileMovementId(
+		return getPersistence().findByReceiptMovementsByfileMovementId(
 			fileInMovementId, start, end, orderByComparator, useFinderCache);
 	}
 
@@ -791,13 +788,12 @@ public class ReceiptMovementUtil {
 	 * @return the first matching receipt movement
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public static ReceiptMovement
-			findBygetReceiptMovementsByfileMovementId_First(
-				long fileInMovementId,
-				OrderByComparator<ReceiptMovement> orderByComparator)
+	public static ReceiptMovement findByReceiptMovementsByfileMovementId_First(
+			long fileInMovementId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
 		throws io.jetprocess.exception.NoSuchReceiptMovementException {
 
-		return getPersistence().findBygetReceiptMovementsByfileMovementId_First(
+		return getPersistence().findByReceiptMovementsByfileMovementId_First(
 			fileInMovementId, orderByComparator);
 	}
 
@@ -808,14 +804,12 @@ public class ReceiptMovementUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
-	public static ReceiptMovement
-		fetchBygetReceiptMovementsByfileMovementId_First(
-			long fileInMovementId,
-			OrderByComparator<ReceiptMovement> orderByComparator) {
+	public static ReceiptMovement fetchByReceiptMovementsByfileMovementId_First(
+		long fileInMovementId,
+		OrderByComparator<ReceiptMovement> orderByComparator) {
 
-		return getPersistence().
-			fetchBygetReceiptMovementsByfileMovementId_First(
-				fileInMovementId, orderByComparator);
+		return getPersistence().fetchByReceiptMovementsByfileMovementId_First(
+			fileInMovementId, orderByComparator);
 	}
 
 	/**
@@ -826,13 +820,12 @@ public class ReceiptMovementUtil {
 	 * @return the last matching receipt movement
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public static ReceiptMovement
-			findBygetReceiptMovementsByfileMovementId_Last(
-				long fileInMovementId,
-				OrderByComparator<ReceiptMovement> orderByComparator)
+	public static ReceiptMovement findByReceiptMovementsByfileMovementId_Last(
+			long fileInMovementId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
 		throws io.jetprocess.exception.NoSuchReceiptMovementException {
 
-		return getPersistence().findBygetReceiptMovementsByfileMovementId_Last(
+		return getPersistence().findByReceiptMovementsByfileMovementId_Last(
 			fileInMovementId, orderByComparator);
 	}
 
@@ -843,12 +836,11 @@ public class ReceiptMovementUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
-	public static ReceiptMovement
-		fetchBygetReceiptMovementsByfileMovementId_Last(
-			long fileInMovementId,
-			OrderByComparator<ReceiptMovement> orderByComparator) {
+	public static ReceiptMovement fetchByReceiptMovementsByfileMovementId_Last(
+		long fileInMovementId,
+		OrderByComparator<ReceiptMovement> orderByComparator) {
 
-		return getPersistence().fetchBygetReceiptMovementsByfileMovementId_Last(
+		return getPersistence().fetchByReceiptMovementsByfileMovementId_Last(
 			fileInMovementId, orderByComparator);
 	}
 
@@ -862,13 +854,13 @@ public class ReceiptMovementUtil {
 	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
 	 */
 	public static ReceiptMovement[]
-			findBygetReceiptMovementsByfileMovementId_PrevAndNext(
+			findByReceiptMovementsByfileMovementId_PrevAndNext(
 				long rmId, long fileInMovementId,
 				OrderByComparator<ReceiptMovement> orderByComparator)
 		throws io.jetprocess.exception.NoSuchReceiptMovementException {
 
 		return getPersistence().
-			findBygetReceiptMovementsByfileMovementId_PrevAndNext(
+			findByReceiptMovementsByfileMovementId_PrevAndNext(
 				rmId, fileInMovementId, orderByComparator);
 	}
 
@@ -877,10 +869,10 @@ public class ReceiptMovementUtil {
 	 *
 	 * @param fileInMovementId the file in movement ID
 	 */
-	public static void removeBygetReceiptMovementsByfileMovementId(
+	public static void removeByReceiptMovementsByfileMovementId(
 		long fileInMovementId) {
 
-		getPersistence().removeBygetReceiptMovementsByfileMovementId(
+		getPersistence().removeByReceiptMovementsByfileMovementId(
 			fileInMovementId);
 	}
 
@@ -890,10 +882,10 @@ public class ReceiptMovementUtil {
 	 * @param fileInMovementId the file in movement ID
 	 * @return the number of matching receipt movements
 	 */
-	public static int countBygetReceiptMovementsByfileMovementId(
+	public static int countByReceiptMovementsByfileMovementId(
 		long fileInMovementId) {
 
-		return getPersistence().countBygetReceiptMovementsByfileMovementId(
+		return getPersistence().countByReceiptMovementsByfileMovementId(
 			fileInMovementId);
 	}
 

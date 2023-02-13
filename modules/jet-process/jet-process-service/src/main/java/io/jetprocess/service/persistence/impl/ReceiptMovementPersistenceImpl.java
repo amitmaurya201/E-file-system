@@ -1964,10 +1964,10 @@ public class ReceiptMovementPersistenceImpl
 		"receiptMovement.receiptId = ?";
 
 	private FinderPath
-		_finderPathWithPaginationFindBygetReceiptMovementsByfileMovementId;
+		_finderPathWithPaginationFindByReceiptMovementsByfileMovementId;
 	private FinderPath
-		_finderPathWithoutPaginationFindBygetReceiptMovementsByfileMovementId;
-	private FinderPath _finderPathCountBygetReceiptMovementsByfileMovementId;
+		_finderPathWithoutPaginationFindByReceiptMovementsByfileMovementId;
+	private FinderPath _finderPathCountByReceiptMovementsByfileMovementId;
 
 	/**
 	 * Returns all the receipt movements where fileInMovementId = &#63;.
@@ -1976,10 +1976,10 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the matching receipt movements
 	 */
 	@Override
-	public List<ReceiptMovement> findBygetReceiptMovementsByfileMovementId(
+	public List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
 		long fileInMovementId) {
 
-		return findBygetReceiptMovementsByfileMovementId(
+		return findByReceiptMovementsByfileMovementId(
 			fileInMovementId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -1996,10 +1996,10 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the range of matching receipt movements
 	 */
 	@Override
-	public List<ReceiptMovement> findBygetReceiptMovementsByfileMovementId(
+	public List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
 		long fileInMovementId, int start, int end) {
 
-		return findBygetReceiptMovementsByfileMovementId(
+		return findByReceiptMovementsByfileMovementId(
 			fileInMovementId, start, end, null);
 	}
 
@@ -2017,11 +2017,11 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the ordered range of matching receipt movements
 	 */
 	@Override
-	public List<ReceiptMovement> findBygetReceiptMovementsByfileMovementId(
+	public List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
 		long fileInMovementId, int start, int end,
 		OrderByComparator<ReceiptMovement> orderByComparator) {
 
-		return findBygetReceiptMovementsByfileMovementId(
+		return findByReceiptMovementsByfileMovementId(
 			fileInMovementId, start, end, orderByComparator, true);
 	}
 
@@ -2040,7 +2040,7 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the ordered range of matching receipt movements
 	 */
 	@Override
-	public List<ReceiptMovement> findBygetReceiptMovementsByfileMovementId(
+	public List<ReceiptMovement> findByReceiptMovementsByfileMovementId(
 		long fileInMovementId, int start, int end,
 		OrderByComparator<ReceiptMovement> orderByComparator,
 		boolean useFinderCache) {
@@ -2053,13 +2053,13 @@ public class ReceiptMovementPersistenceImpl
 
 			if (useFinderCache) {
 				finderPath =
-					_finderPathWithoutPaginationFindBygetReceiptMovementsByfileMovementId;
+					_finderPathWithoutPaginationFindByReceiptMovementsByfileMovementId;
 				finderArgs = new Object[] {fileInMovementId};
 			}
 		}
 		else if (useFinderCache) {
 			finderPath =
-				_finderPathWithPaginationFindBygetReceiptMovementsByfileMovementId;
+				_finderPathWithPaginationFindByReceiptMovementsByfileMovementId;
 			finderArgs = new Object[] {
 				fileInMovementId, start, end, orderByComparator
 			};
@@ -2098,7 +2098,7 @@ public class ReceiptMovementPersistenceImpl
 			sb.append(_SQL_SELECT_RECEIPTMOVEMENT_WHERE);
 
 			sb.append(
-				_FINDER_COLUMN_GETRECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2);
+				_FINDER_COLUMN_RECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -2150,13 +2150,13 @@ public class ReceiptMovementPersistenceImpl
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
 	@Override
-	public ReceiptMovement findBygetReceiptMovementsByfileMovementId_First(
+	public ReceiptMovement findByReceiptMovementsByfileMovementId_First(
 			long fileInMovementId,
 			OrderByComparator<ReceiptMovement> orderByComparator)
 		throws NoSuchReceiptMovementException {
 
 		ReceiptMovement receiptMovement =
-			fetchBygetReceiptMovementsByfileMovementId_First(
+			fetchByReceiptMovementsByfileMovementId_First(
 				fileInMovementId, orderByComparator);
 
 		if (receiptMovement != null) {
@@ -2183,11 +2183,11 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
 	@Override
-	public ReceiptMovement fetchBygetReceiptMovementsByfileMovementId_First(
+	public ReceiptMovement fetchByReceiptMovementsByfileMovementId_First(
 		long fileInMovementId,
 		OrderByComparator<ReceiptMovement> orderByComparator) {
 
-		List<ReceiptMovement> list = findBygetReceiptMovementsByfileMovementId(
+		List<ReceiptMovement> list = findByReceiptMovementsByfileMovementId(
 			fileInMovementId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2206,13 +2206,13 @@ public class ReceiptMovementPersistenceImpl
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
 	@Override
-	public ReceiptMovement findBygetReceiptMovementsByfileMovementId_Last(
+	public ReceiptMovement findByReceiptMovementsByfileMovementId_Last(
 			long fileInMovementId,
 			OrderByComparator<ReceiptMovement> orderByComparator)
 		throws NoSuchReceiptMovementException {
 
 		ReceiptMovement receiptMovement =
-			fetchBygetReceiptMovementsByfileMovementId_Last(
+			fetchByReceiptMovementsByfileMovementId_Last(
 				fileInMovementId, orderByComparator);
 
 		if (receiptMovement != null) {
@@ -2239,18 +2239,17 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
 	@Override
-	public ReceiptMovement fetchBygetReceiptMovementsByfileMovementId_Last(
+	public ReceiptMovement fetchByReceiptMovementsByfileMovementId_Last(
 		long fileInMovementId,
 		OrderByComparator<ReceiptMovement> orderByComparator) {
 
-		int count = countBygetReceiptMovementsByfileMovementId(
-			fileInMovementId);
+		int count = countByReceiptMovementsByfileMovementId(fileInMovementId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<ReceiptMovement> list = findBygetReceiptMovementsByfileMovementId(
+		List<ReceiptMovement> list = findByReceiptMovementsByfileMovementId(
 			fileInMovementId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2270,10 +2269,9 @@ public class ReceiptMovementPersistenceImpl
 	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
 	 */
 	@Override
-	public ReceiptMovement[]
-			findBygetReceiptMovementsByfileMovementId_PrevAndNext(
-				long rmId, long fileInMovementId,
-				OrderByComparator<ReceiptMovement> orderByComparator)
+	public ReceiptMovement[] findByReceiptMovementsByfileMovementId_PrevAndNext(
+			long rmId, long fileInMovementId,
+			OrderByComparator<ReceiptMovement> orderByComparator)
 		throws NoSuchReceiptMovementException {
 
 		ReceiptMovement receiptMovement = findByPrimaryKey(rmId);
@@ -2285,13 +2283,13 @@ public class ReceiptMovementPersistenceImpl
 
 			ReceiptMovement[] array = new ReceiptMovementImpl[3];
 
-			array[0] = getBygetReceiptMovementsByfileMovementId_PrevAndNext(
+			array[0] = getByReceiptMovementsByfileMovementId_PrevAndNext(
 				session, receiptMovement, fileInMovementId, orderByComparator,
 				true);
 
 			array[1] = receiptMovement;
 
-			array[2] = getBygetReceiptMovementsByfileMovementId_PrevAndNext(
+			array[2] = getByReceiptMovementsByfileMovementId_PrevAndNext(
 				session, receiptMovement, fileInMovementId, orderByComparator,
 				false);
 
@@ -2305,12 +2303,10 @@ public class ReceiptMovementPersistenceImpl
 		}
 	}
 
-	protected ReceiptMovement
-		getBygetReceiptMovementsByfileMovementId_PrevAndNext(
-			Session session, ReceiptMovement receiptMovement,
-			long fileInMovementId,
-			OrderByComparator<ReceiptMovement> orderByComparator,
-			boolean previous) {
+	protected ReceiptMovement getByReceiptMovementsByfileMovementId_PrevAndNext(
+		Session session, ReceiptMovement receiptMovement, long fileInMovementId,
+		OrderByComparator<ReceiptMovement> orderByComparator,
+		boolean previous) {
 
 		StringBundler sb = null;
 
@@ -2326,7 +2322,7 @@ public class ReceiptMovementPersistenceImpl
 		sb.append(_SQL_SELECT_RECEIPTMOVEMENT_WHERE);
 
 		sb.append(
-			_FINDER_COLUMN_GETRECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2);
+			_FINDER_COLUMN_RECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2424,11 +2420,11 @@ public class ReceiptMovementPersistenceImpl
 	 * @param fileInMovementId the file in movement ID
 	 */
 	@Override
-	public void removeBygetReceiptMovementsByfileMovementId(
+	public void removeByReceiptMovementsByfileMovementId(
 		long fileInMovementId) {
 
 		for (ReceiptMovement receiptMovement :
-				findBygetReceiptMovementsByfileMovementId(
+				findByReceiptMovementsByfileMovementId(
 					fileInMovementId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
@@ -2443,11 +2439,9 @@ public class ReceiptMovementPersistenceImpl
 	 * @return the number of matching receipt movements
 	 */
 	@Override
-	public int countBygetReceiptMovementsByfileMovementId(
-		long fileInMovementId) {
-
+	public int countByReceiptMovementsByfileMovementId(long fileInMovementId) {
 		FinderPath finderPath =
-			_finderPathCountBygetReceiptMovementsByfileMovementId;
+			_finderPathCountByReceiptMovementsByfileMovementId;
 
 		Object[] finderArgs = new Object[] {fileInMovementId};
 
@@ -2459,7 +2453,7 @@ public class ReceiptMovementPersistenceImpl
 			sb.append(_SQL_COUNT_RECEIPTMOVEMENT_WHERE);
 
 			sb.append(
-				_FINDER_COLUMN_GETRECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2);
+				_FINDER_COLUMN_RECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2);
 
 			String sql = sb.toString();
 
@@ -2490,7 +2484,7 @@ public class ReceiptMovementPersistenceImpl
 	}
 
 	private static final String
-		_FINDER_COLUMN_GETRECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2 =
+		_FINDER_COLUMN_RECEIPTMOVEMENTSBYFILEMOVEMENTID_FILEINMOVEMENTID_2 =
 			"receiptMovement.fileInMovementId = ?";
 
 	public ReceiptMovementPersistenceImpl() {
@@ -3149,26 +3143,26 @@ public class ReceiptMovementPersistenceImpl
 			new String[] {Long.class.getName()}, new String[] {"receiptId"},
 			false);
 
-		_finderPathWithPaginationFindBygetReceiptMovementsByfileMovementId =
+		_finderPathWithPaginationFindByReceiptMovementsByfileMovementId =
 			new FinderPath(
 				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-				"findBygetReceiptMovementsByfileMovementId",
+				"findByReceiptMovementsByfileMovementId",
 				new String[] {
 					Long.class.getName(), Integer.class.getName(),
 					Integer.class.getName(), OrderByComparator.class.getName()
 				},
 				new String[] {"fileInMovementId"}, true);
 
-		_finderPathWithoutPaginationFindBygetReceiptMovementsByfileMovementId =
+		_finderPathWithoutPaginationFindByReceiptMovementsByfileMovementId =
 			new FinderPath(
 				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-				"findBygetReceiptMovementsByfileMovementId",
+				"findByReceiptMovementsByfileMovementId",
 				new String[] {Long.class.getName()},
 				new String[] {"fileInMovementId"}, true);
 
-		_finderPathCountBygetReceiptMovementsByfileMovementId = new FinderPath(
+		_finderPathCountByReceiptMovementsByfileMovementId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countBygetReceiptMovementsByfileMovementId",
+			"countByReceiptMovementsByfileMovementId",
 			new String[] {Long.class.getName()},
 			new String[] {"fileInMovementId"}, false);
 

@@ -540,7 +540,7 @@ public interface ReceiptMovementPersistence
 	 * @return the matching receipt movements
 	 */
 	public java.util.List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(long fileInMovementId);
+		findByReceiptMovementsByfileMovementId(long fileInMovementId);
 
 	/**
 	 * Returns a range of all the receipt movements where fileInMovementId = &#63;.
@@ -555,7 +555,7 @@ public interface ReceiptMovementPersistence
 	 * @return the range of matching receipt movements
 	 */
 	public java.util.List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(
+		findByReceiptMovementsByfileMovementId(
 			long fileInMovementId, int start, int end);
 
 	/**
@@ -572,7 +572,7 @@ public interface ReceiptMovementPersistence
 	 * @return the ordered range of matching receipt movements
 	 */
 	public java.util.List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(
+		findByReceiptMovementsByfileMovementId(
 			long fileInMovementId, int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
 				orderByComparator);
@@ -592,7 +592,7 @@ public interface ReceiptMovementPersistence
 	 * @return the ordered range of matching receipt movements
 	 */
 	public java.util.List<ReceiptMovement>
-		findBygetReceiptMovementsByfileMovementId(
+		findByReceiptMovementsByfileMovementId(
 			long fileInMovementId, int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
 				orderByComparator,
@@ -606,7 +606,7 @@ public interface ReceiptMovementPersistence
 	 * @return the first matching receipt movement
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement findBygetReceiptMovementsByfileMovementId_First(
+	public ReceiptMovement findByReceiptMovementsByfileMovementId_First(
 			long fileInMovementId,
 			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
 				orderByComparator)
@@ -619,7 +619,7 @@ public interface ReceiptMovementPersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement fetchBygetReceiptMovementsByfileMovementId_First(
+	public ReceiptMovement fetchByReceiptMovementsByfileMovementId_First(
 		long fileInMovementId,
 		com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
 			orderByComparator);
@@ -632,7 +632,7 @@ public interface ReceiptMovementPersistence
 	 * @return the last matching receipt movement
 	 * @throws NoSuchReceiptMovementException if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement findBygetReceiptMovementsByfileMovementId_Last(
+	public ReceiptMovement findByReceiptMovementsByfileMovementId_Last(
 			long fileInMovementId,
 			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
 				orderByComparator)
@@ -645,7 +645,7 @@ public interface ReceiptMovementPersistence
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching receipt movement, or <code>null</code> if a matching receipt movement could not be found
 	 */
-	public ReceiptMovement fetchBygetReceiptMovementsByfileMovementId_Last(
+	public ReceiptMovement fetchByReceiptMovementsByfileMovementId_Last(
 		long fileInMovementId,
 		com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
 			orderByComparator);
@@ -659,11 +659,10 @@ public interface ReceiptMovementPersistence
 	 * @return the previous, current, and next receipt movement
 	 * @throws NoSuchReceiptMovementException if a receipt movement with the primary key could not be found
 	 */
-	public ReceiptMovement[]
-			findBygetReceiptMovementsByfileMovementId_PrevAndNext(
-				long rmId, long fileInMovementId,
-				com.liferay.portal.kernel.util.OrderByComparator
-					<ReceiptMovement> orderByComparator)
+	public ReceiptMovement[] findByReceiptMovementsByfileMovementId_PrevAndNext(
+			long rmId, long fileInMovementId,
+			com.liferay.portal.kernel.util.OrderByComparator<ReceiptMovement>
+				orderByComparator)
 		throws NoSuchReceiptMovementException;
 
 	/**
@@ -671,8 +670,7 @@ public interface ReceiptMovementPersistence
 	 *
 	 * @param fileInMovementId the file in movement ID
 	 */
-	public void removeBygetReceiptMovementsByfileMovementId(
-		long fileInMovementId);
+	public void removeByReceiptMovementsByfileMovementId(long fileInMovementId);
 
 	/**
 	 * Returns the number of receipt movements where fileInMovementId = &#63;.
@@ -680,8 +678,7 @@ public interface ReceiptMovementPersistence
 	 * @param fileInMovementId the file in movement ID
 	 * @return the number of matching receipt movements
 	 */
-	public int countBygetReceiptMovementsByfileMovementId(
-		long fileInMovementId);
+	public int countByReceiptMovementsByfileMovementId(long fileInMovementId);
 
 	/**
 	 * Caches the receipt movement in the entity cache if it is enabled.

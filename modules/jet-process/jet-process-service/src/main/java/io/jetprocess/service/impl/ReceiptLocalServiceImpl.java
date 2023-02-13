@@ -56,7 +56,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		}
 		 
 		if (tempfileEntryId != 0) {
-			long dmFileId = receiptLocalService.getDmFileId(tempfileEntryId, groupId);
+			long dmFileId = getDmFileId(tempfileEntryId, groupId);
 			String viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 			receipt.setViewPdfUrl(viewFileUrl);
 			receipt.setDmFileId(dmFileId);
@@ -104,7 +104,6 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			String email, String address, long countryId, long stateId, String pinCode, long organizationId,
 			long subOrganizationId, String city, long userPostId, long dmFileId)
 			throws PortalException, IOException {
-		
 		Receipt receipt = getReceipt(receiptId);
 		String viewFileUrl = null;
 		receipt.setTypeId(typeId);
@@ -135,10 +134,11 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 			}
 			  else { 
 				  receipt.setViewPdfUrl(""); 
-			      receipt.setDmFileId(0); }	 
+			      receipt.setDmFileId(0); 
+			      }	 
 		} 
 		else {
-			dmFileId = receiptLocalService.getDmFileId(tempfileEntryId, groupId);
+			dmFileId =getDmFileId(tempfileEntryId, groupId);
 			viewFileUrl = docstore.ViewDocumentAndMediaFile(dmFileId);
 			receipt.setViewPdfUrl(viewFileUrl);
 			receipt.setDmFileId(dmFileId);
@@ -157,13 +157,14 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 	public long getDmFileId(long tempFileId, long groupId) throws PortalException, IOException {
 		String changeLog = "docStore";
 		FileEntry fileEntry = docstore.getTempFile(tempFileId);
+	
 		String title = fileEntry.getFileName();
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
 		long documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
 				"");
-		docstore.deleteTempFile(tempFileId);
 		return documentAndMediaFileId;
+		
 	}
 
 	public Boolean isSendAvailable(long userPostId, long receiptId) throws PortalException {

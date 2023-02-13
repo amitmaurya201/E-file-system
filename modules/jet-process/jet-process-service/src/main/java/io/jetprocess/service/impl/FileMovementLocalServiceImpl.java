@@ -65,14 +65,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType)
 			throws PortalException {
-		boolean state = isFileMovementAvailable(fileId);
 		FileMovement fm = null;
-		FileMovement saveFileMovement ;
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
-		if (state == true) {
-			 saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
-					movementType);
-		} else {
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
 
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
@@ -92,9 +86,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 				}
 				updateFileMovement(fm);
 			}
-			saveFileMovement =	saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,
-					movementType);
-		}
+			FileMovement  saveFileMovement =	saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, active, currentState,movementType);
 
 		List<FileCorrReceipt> fileCorrReceiptByFileId = fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
 		for (FileCorrReceipt fileCorrReceipt : fileCorrReceiptByFileId) {
@@ -196,14 +188,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 		}
 		return state;
-	}
-
-	private boolean isFileMovementAvailable(long fileId) {
-		List<FileMovement> findByfileId = fileMovementPersistence.findByfileId(fileId);
-		if (findByfileId.isEmpty()) {
-			return true;
-		}
-		return false;
 	}
 
 	public boolean saveReceiveMovement(long fileId, long fmId) throws PortalException {
