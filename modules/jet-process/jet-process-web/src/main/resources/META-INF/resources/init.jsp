@@ -113,3 +113,11 @@ taglib
 	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
+
+
+<%@page import="io.jetprocess.model.FileNote"%>
+<%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.json.JSONObject"%>
+<%@page import="io.jetprocess.list.model.NoteDTO"%>
+
+<script src="//cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>

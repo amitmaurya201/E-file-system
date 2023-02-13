@@ -1,17 +1,3 @@
-<%@page import="java.util.logging.SimpleFormatter"%>
-<%@page import="io.jetprocess.model.FileNote"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.sql.Timestamp"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
-<%@page import="com.liferay.portal.kernel.json.JSONObject"%>
-<%@page import="io.jetprocess.list.model.NoteDTO"%>
-<%@page import="java.util.List"%>
-<script src="//cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style>
 textarea {
