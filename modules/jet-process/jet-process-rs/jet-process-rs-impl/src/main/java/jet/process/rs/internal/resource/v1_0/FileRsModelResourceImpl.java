@@ -85,7 +85,6 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 		docFile.setCurrentState(FileStatus.CREADTED);
 		docFile.setCurrentlyWith(fileRsModel.getUserPostId());
 		docFileLocalService.addDocFile(docFile);
-		System.out.println("fileSaved---->>>>>>");
 		fileMovementLocalService.saveFileMovement(fileRsModel.getUserPostId(), fileRsModel.getUserPostId(), docFile.getDocFileId(), "", null, "", false, FileStatus.CREADTED, MovementStatus.CREATED);
 		contextHttpServletResponse.setHeader("status", "success");
 		contextHttpServletResponse.setHeader("result", "File created successfully");

@@ -236,27 +236,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		return state;
 	}
 
-	// method for when active is true then set false for pullback
-	public void isActiveTrue(long docFileId, long userpost, long fileMovementId, String pullBackRemark,
-			ActionRequest actionRequest) throws PortalException {
-		boolean pullBackAvailable = isPullBackAvailable(fileMovementId);
-		if (pullBackAvailable) {
-			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			docFile.setCurrentlyWith(userpost);
-			fileMovementLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
-			boolean active = fileMovementLocalService.isActive(docFileId);
-			if (active == false) {
-				docFile.setCurrentState(FileStatus.CREADTED);
-			}
-			docFileLocalService.updateDocFile(docFile);
-			SessionMessages.add(actionRequest, "pullback-available");
-		} else {
-			SessionErrors.add(actionRequest, "pullback-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
 
-	}
 
 	@Reference
 	DocFileLocalService docFileLocalService;

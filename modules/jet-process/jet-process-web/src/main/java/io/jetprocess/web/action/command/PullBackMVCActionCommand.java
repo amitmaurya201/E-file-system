@@ -1,5 +1,6 @@
 package io.jetprocess.web.action.command;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -41,12 +42,36 @@ public class PullBackMVCActionCommand extends BaseMVCActionCommand {
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
 		String pullBackRemark = ParamUtil.getString(actionRequest, "pullBackRemark");
-		fileMovementLocalService.isActiveTrue(docFileId, userpost, fileMovementId, pullBackRemark, actionRequest);
+		isActiveTrue(docFileId, userpost, fileMovementId, pullBackRemark, actionRequest);
 		List<ReceiptMovement> receiptMovementList = receiptMovementLocalService.getReceiptMovementByFileMovementId(fileMovementId);
 		receiptMovementLocalService.pullBackReceiptsAttatchWithFile(receiptMovementList, fileMovementId);
 		actionResponse.setRenderParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 	}
 
+	
+	// method for when active is true then set false for pullback
+	public void isActiveTrue(long docFileId, long userpost, long fileMovementId, String pullBackRemark,
+			ActionRequest actionRequest) throws PortalException {
+		boolean pullBackAvailable = fileMovementLocalService.isPullBackAvailable(fileMovementId);
+		if (pullBackAvailable) {
+			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+			docFile.setCurrentlyWith(userpost);
+			fileMovementLocalService.pullBackFileMovement(docFileId, fileMovementId, pullBackRemark);
+			boolean active = fileMovementLocalService.isActive(docFileId);
+			System.out.println("pulll backk--");
+			if (active == false) {
+				docFile.setCurrentState(FileStatus.CREADTED);
+			}
+			docFileLocalService.updateDocFile(docFile);
+			SessionMessages.add(actionRequest, "pullback-available");
+		} else {
+			SessionErrors.add(actionRequest, "pullback-not-available");
+			SessionMessages.add(actionRequest,
+					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+		}
+
+	}
+	
 	@Reference
 	FileMovementLocalService fileMovementLocalService;
 	@Reference

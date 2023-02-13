@@ -48,19 +48,19 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 				categoryValue = (String) request.getAttribute("CategoryValue");
 				subCategoryValue = (String) request.getAttribute("SubCategoryValue");
 
-				session.setAttribute("BasicHeadValue", basicHeadValue);
-				session.setAttribute("PrimaryHeadValue", primaryHeadValue);
-				session.setAttribute("SecondaryHeadValue", secondaryHeadValue);
-				session.setAttribute("TertiaryHeadValue", tertiaryHeadValue);
-				session.setAttribute("FileCodeValue", fileCodeValue);
-				session.setAttribute("CategoryVaue", categoryValue);
-				session.setAttribute("SubCategoryValue", subCategoryValue);
+				renderRequest.setAttribute("BasicHeadValue", basicHeadValue);
+				renderRequest.setAttribute("PrimaryHeadValue", primaryHeadValue);
+				renderRequest.setAttribute("SecondaryHeadValue", secondaryHeadValue);
+				renderRequest.setAttribute("TertiaryHeadValue", tertiaryHeadValue);
+				renderRequest.setAttribute("FileCodeValue", fileCodeValue);
+				renderRequest.setAttribute("CategoryVaue", categoryValue);
+				renderRequest.setAttribute("SubCategoryValue", subCategoryValue);
 			} else {
 				categoryValue = (String) request.getAttribute("SfsCategoryValue");
 				subCategoryValue = (String) request.getAttribute("SfsSubCategoryValue");
 
-				session.setAttribute("SfsCategoryValue", categoryValue);
-				session.setAttribute("SfsSubCategoryValue", subCategoryValue);
+				renderRequest.setAttribute("SfsCategoryValue", categoryValue);
+				renderRequest.setAttribute("SfsSubCategoryValue", subCategoryValue);
 			}
 		%>
 

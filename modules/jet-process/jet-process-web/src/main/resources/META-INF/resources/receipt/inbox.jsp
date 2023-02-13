@@ -16,7 +16,7 @@ html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.m
 }
 html:not(#__):not(#___) .cadmin .close {
  
-    color: white;
+    color: white !important;
 
 }
 

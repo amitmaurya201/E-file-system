@@ -40,8 +40,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
-
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -320,12 +318,6 @@ public interface FileMovementLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isActive(long docFileId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void isActiveTrue(
-			long docFileId, long userpost, long fileMovementId,
-			String pullBackRemark, ActionRequest actionRequest)
-		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Boolean isPullBackAvailable(long fmId) throws PortalException;
