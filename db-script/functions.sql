@@ -1201,7 +1201,7 @@ AS $BODY$
     from public.jet_process_receipt as r 
     inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
     inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid)
+        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark is null)
             and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null ';
   
  
