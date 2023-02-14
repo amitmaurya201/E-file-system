@@ -15,10 +15,8 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.FileCorrReceiptLocalService;
-import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
@@ -63,15 +61,11 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	private ReceiptLocalService receiptLocalService;
-	@Reference
 	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
+	
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
-	@Reference
-	private MVCActionCommand mvcActionCommand;
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }
