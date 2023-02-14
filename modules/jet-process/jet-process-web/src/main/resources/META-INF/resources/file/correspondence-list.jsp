@@ -5,10 +5,46 @@
 	long corrFileId = (long) docFileIdValue.getAttribute("putInFileId");
 %>
 <style>
-.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
-	color: #000000;
-}
+.lfr-search-container-wrapper
 
+ 
+
+a
+
+
+:not
+
+ 
+
+(
+.component-action
+
+ 
+
+)
+:not
+
+ 
+
+(
+.btn
+
+ 
+
+)
+{
+color
+
+
+:
+
+ 
+
+#000000
+
+
+;
+}
 .crList th {
 	display: inline-block;
 	width: max-content;
@@ -112,10 +148,7 @@
 						style="color: blue; font-size: 16px; cursor: help"></i>
 					</a>
 				</liferay-ui:search-container-column-text>
-
 				<liferay-ui:search-container-column-text><%=fileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
-
-
 
 				<liferay-ui:search-container-column-text name=" Receipt No."
 					cssClass="hyperlink-css" orderable="true"
@@ -149,12 +182,7 @@
 				id="add_receipt" value="Add Receipt">
 			</aui:button>
 		</div>
-
-
-
-
 	</div>
-
 </div>
 
 <aui:script use="liferay-util-window">	
@@ -165,77 +193,66 @@ if (viewMode == 'ViewModeFromSentFile') {
 		$('.dropdown-content').css("display", "none");
 }
 
-
-	$("#<portlet:namespace />add_receipt").click(()=>{
-		Liferay.Util.openWindow({ 
-					dialog: { 														 
-							height: 800,														 
-							destroyOnClose: true,														 
-							destroyOnHide: true, 														 
-							modal: true, 														 
-							width: 900,
-							on: {
-               			 	destroy: function() { 
-                    		parent.location.reload();                   
-                    		 	}
-           					 }													 
-						}, 														 
-						id: '<portlet:namespace />dialog',														 
-						title: 'Put In Receipt(s)', 														 
-						uri: '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>',			
-						});
-					});	
-					
-					
-	
-	
-	
-	</aui:script>
+$("#<portlet:namespace />add_receipt").click(()=>{
+	Liferay.Util.openWindow({ 
+		dialog: { 														 
+			height: 800,														 
+			destroyOnClose: true,														 
+			destroyOnHide: true, 														 
+			modal: true, 														 
+			width: 900,
+			on: {
+            	destroy: function() { 
+                	parent.location.reload();                   
+            	}
+		 	}													 
+		}, 														 
+	id: '<portlet:namespace />dialog',														 
+	title: 'Put In Receipt(s)', 														 
+	uri: '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>',			
+	});
+});		
+</aui:script>
 
 <script>
-	
-	function infoPopup(receiptId, receiptMovementId){
-	 Liferay.Util.openWindow({ 
-				dialog: { 														 
-						height: 550,														 
-						destroyOnClose: true,														 
-						destroyOnHide: true, 														 
-						modal: true, 														 
-						width: 1200,
-						on: {
-          			 	destroy: function() { 
-               		parent.location.reload();                   
-               		 	}
-      					 }													 
-					}, 														 
-					id: '<portlet:namespace />dialog',														 
-					title: 'Correspondence Details', 														 
-					uri: '<%=correspondencesinfoViewPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
-					});
-				 
-	
+
+function infoPopup(receiptId, receiptMovementId){
+	Liferay.Util.openWindow({ 
+		dialog: { 														 
+			height: 550,														 
+			destroyOnClose: true,														 
+			destroyOnHide: true, 														 
+			modal: true, 														 
+			width: 1200,
+			on: {
+          		destroy: function() { 
+               		parent.location.reload();   
+               		}
 	}
+	},											
+	id: '<portlet:namespace />dialog',														 
+	title: 'Correspondence Details', 														 
+	uri: '<%=correspondencesinfoViewPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
+	});
+}
 	
-	function receiptDetailPopup(receiptId){
-		
-		  Liferay.Util.openWindow({ 
-					dialog: { 														 
-							height: 550,														 
-							destroyOnClose: true,														 
-							destroyOnHide: true, 														 
-							modal: true, 														 
-							width: 1200,
-							on: {
-	          			 	destroy: function() { 
-	               		parent.location.reload();                   
-	               		 	}
-	      					 }													 
-						}, 														 
-						id: '<portlet:namespace />dialog',														 
-						title: 'Receipt Details', 														 
-						uri: '<%=receiptDetailsPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
-						});
-					  
-		
-		}
-	</script>
+function receiptDetailPopup(receiptId){
+	Liferay.Util.openWindow({ 
+		dialog: { 														 
+			height: 550,														 
+			destroyOnClose: true,														 
+			destroyOnHide: true, 														 
+			modal: true, 														 
+			width: 1200,
+			on: {
+	        	destroy: function() { 
+	           		parent.location.reload();                   
+	       	 	}
+	      	}													 
+		}, 														 
+		id: '<portlet:namespace />dialog',														 
+		title: 'Receipt Details', 														 
+		uri: '<%=receiptDetailsPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
+		});	  
+	}
+</script>
