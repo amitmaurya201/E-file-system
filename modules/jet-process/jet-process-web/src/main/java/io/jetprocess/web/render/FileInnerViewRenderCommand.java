@@ -28,7 +28,6 @@ import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.NoteDTO;
-import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.model.Note;
@@ -75,8 +74,6 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 
 			}
 		} catch (PortalException e) {
-			renderRequest.setAttribute("noteContent", "");
-			renderRequest.setAttribute("noteObj", null);
 			e.printStackTrace();
 		}
 		setCorrespondenceListAttributes(renderRequest);
@@ -113,7 +110,6 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		String d = (String) session.getAttribute("preDelta");
 		if (d != null) {
 			preDelta = Integer.parseInt(d);
-
 		}
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
 		start = paginationConfig.get("start");
@@ -159,9 +155,6 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 	@Reference
 	private FileNoteLocalService fileNoteLocalService;
 	
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
-
 	@Reference
 	private DocFileLocalService docFileLocalService;
 

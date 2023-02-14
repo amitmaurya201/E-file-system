@@ -3,12 +3,10 @@
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
 	String backPageURL = (String) request.getAttribute("backPageURL");
-    renderRequest.setAttribute("backPageURL", backPageURL);
-	long fileMovementId  = (long) request.getAttribute("fileMovementId");
+	renderRequest.setAttribute("backPageURL", backPageURL);
+	long fileMovementId = (long) request.getAttribute("fileMovementId");
 	renderRequest.setAttribute("fileMovementId", fileMovementId);
-	
 %>
-
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -19,16 +17,16 @@
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="putinfile" />
 		</liferay-util:include>
-		<div class="container-fluid" style="background-color: #E8E8E8;">
-			<div class="hover-tips"><%=docFile.getNature().charAt(0)%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
-				
-				
-				<input id = "docFileId" value = "<%=docFile.getDocFileId() %>" type= "hidden"/>
-				<input id = "fileMovementId" value = "<%=fileMovementId %>" type = "hidden" />
-				</div>
+		<div class="hover-tips"><%=docFile.getNature().charAt(0)%>
+			|
+			<%=docFile.getFileNumber()%>
+			|
+			<%=docFile.getSubject()%>
+			<input id="docFileId" value="<%=docFile.getDocFileId()%>"
+				type="hidden" /> <input id="fileMovementId"
+				value="<%=fileMovementId%>" type="hidden" />
 		</div>
 		<div class="container row">
-
 			<c:set var="type" scope="session" value="${nature}" />
 			<c:if test="${type=='Electronic'}">
 				<div class="col-6" style="padding-right: 7px !important;">
@@ -39,7 +37,6 @@
 				</div>
 			</c:if>
 			<c:if test="${type=='Physical'}">
-
 				<div class="col-12">
 					<%@include file="/file/correspondence-list.jsp"%>
 				</div>
@@ -47,4 +44,4 @@
 		</div>
 	</div>
 </div>
-<%@ include file ="/js/note.js"%>
+<%@ include file="/js/note.js"%>
