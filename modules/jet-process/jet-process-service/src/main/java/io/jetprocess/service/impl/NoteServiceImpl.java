@@ -16,13 +16,13 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
-import javax.portlet.ActionRequest;
+import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.model.Note;
 import io.jetprocess.service.base.NoteServiceBaseImpl;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
@@ -38,19 +38,20 @@ public class NoteServiceImpl extends NoteServiceBaseImpl {
 	
 	// addnote method 
 	public Note addNote(String content, long createdBy,long fileId, long noteId,long fileMovementId) throws PortalException {
+		logger.info("add note method called");
 		return noteLocalService.addNote(content, createdBy,fileId, noteId, fileMovementId);
 	}
 	// delete note method 
 	public Note deleteNote(long noteId) throws PortalException {
+		logger.info("delete note method called");
 		return noteLocalService.deleteNote(noteId);
 	}
-	// Create Method for EditNote 
 	
+	// Create Method for EditNote 
 	public Note editNote(long noteId, String content) throws PortalException {
+		logger.info("edit note method called");
 		return noteLocalService.editNote(noteId,content);	
 	}
 	
-	
-	
-	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

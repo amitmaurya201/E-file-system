@@ -16,65 +16,55 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.base.FileCorrReceiptLocalServiceBaseImpl;
-import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.model.FileCorrReceipt",
-	service = AopService.class
-)
-public class FileCorrReceiptLocalServiceImpl
-	extends FileCorrReceiptLocalServiceBaseImpl {
-	
-	public void addReceiptInFile(long receiptId, long docFileId, long userPostId, String remark, long receiptMovementId, long fileMovementId)
-			throws PortalException {	
-		
-		System.out.println("addReceiptInFile service...........");
-		System.out.println("receiptId : "+receiptId+", receiptMovementId : "+receiptMovementId);
-		
+@Component(property = "model.class.name=io.jetprocess.model.FileCorrReceipt", service = AopService.class)
+public class FileCorrReceiptLocalServiceImpl extends FileCorrReceiptLocalServiceBaseImpl {
+
+	public void addReceiptInFile(long receiptId, long docFileId, long userPostId, String remark, long receiptMovementId,
+			long fileMovementId) throws PortalException {
+		logger.info("add receipt in file called");
 		long fileCorrId = counterLocalService.increment();
 		FileCorrReceipt fileCorrReceipt = createFileCorrReceipt(fileCorrId);
 		fileCorrReceipt.setReceiptId(receiptId);
 		fileCorrReceipt.setDocFileId(docFileId);
 		fileCorrReceipt.setReceiptMovementId(receiptMovementId);
-		
 		fileCorrReceipt.setUserPostId(userPostId);
 		fileCorrReceipt.setCorrespondenceType(FileStatus.RECEIPT_TYPE);
 		fileCorrReceipt.setRemarks(remark);
 		fileCorrReceipt.setFileMovementId(fileMovementId);
-		System.out.println("...........file movement id : "+fileCorrReceipt.getFileMovementId());
-	        addFileCorrReceipt(fileCorrReceipt);
+		addFileCorrReceipt(fileCorrReceipt);
 		Receipt receiptObj = receiptLocalService.getReceipt(receiptId);
 		if (Validator.isNotNull(receiptObj)) {
 			receiptObj.setAttachStatus(FileStatus.ATTACH_STATUS);
 			receiptLocalService.updateReceipt(receiptObj);
-
 		}
-	
-	
 	}
-	
-	public List<FileCorrReceipt> getFileCorrReceiptByFileId(long fileId){
 
-		System.out.println("******* getFileCorrReceiptByFileId.....");
+	public List<FileCorrReceipt> getFileCorrReceiptByFileId(long fileId) {
+		logger.info("get FileCorrReceipt by fileId method called");
 		return fileCorrReceiptPersistence.findByfileCorrReceiptBydocFileId(fileId);
 	}
-	
+
 	@Reference
 	private ReceiptLocalService receiptLocalService;
 	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
+
 }

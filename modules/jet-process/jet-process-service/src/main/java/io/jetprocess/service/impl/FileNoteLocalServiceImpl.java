@@ -32,21 +32,23 @@ import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
 public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
 	
 	public FileNote createFileNote() {
+		logger.info("Create FileNote method called");
 		long fileNoteId = counterLocalService.increment(FileNote.class.getName());
 		return fileNoteLocalService.createFileNote(fileNoteId);
 	}
 
 	public void deleteFileNoteByNoteId(long noteId) throws NoSuchFileNoteException {
+		logger.info("delete FileNoteByNoteId method called");
 		FileNote fileNote = fileNotePersistence.findByNoteId(noteId);
 		fileNoteLocalService.deleteFileNote(fileNote);
 	}
 
 	public FileNote getFileNoteByFilemovementId(long filemovementId) {
+		logger.info("getFileNoteByFilemovementId method called");
 		FileNote fileNote = null;
 		try {
 			fileNote = fileNotePersistence.findByfilemovementId(filemovementId);
 		} catch (NoSuchFileNoteException e) {
-			
 			logger.info(e.getMessage());
 		}
 		return fileNote;
