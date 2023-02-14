@@ -1,7 +1,7 @@
 <%@ include file="../init.jsp"%>
 <style>
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+	color: #000000;
 }
 
 .details-color {
@@ -298,23 +298,27 @@
 
 <script type="text/javascript">
 	$(document).ready(
-		function() {
-			$('.btn-close').on('click', function(e) {
-				$('#popup').modal('hide');
-			});
-			$(".openPdf").on('click',function(e) {
-				let url = themeDisplay.getPortalURL() + ($(this).attr('data-url')).trim();
-				$('#popup').modal({
-					keyboard : false
+			function() {
+				$('.btn-close').on('click', function(e) {
+					$('#popup').modal('hide');
 				});
-				$('#popup').removeClass('invisible').addClass('visible');
-				$('#popup').find('div#pdf').empty();
-				let embeded = $('<embed/>', {
-					type : 'application/pdf',
-					width : '100%',
-					height : '430'
-				}).appendTo($('#popup').find('div#pdf'));
-					embeded.attr('src', url);
-				});
+				$(".openPdf").on(
+						'click',
+						function(e) {
+							let url = themeDisplay.getPortalURL()
+									+ ($(this).attr('data-url')).trim();
+							$('#popup').modal({
+								keyboard : false
+							});
+							$('#popup').removeClass('invisible').addClass(
+									'visible');
+							$('#popup').find('div#pdf').empty();
+							let embeded = $('<embed/>', {
+								type : 'application/pdf',
+								width : '100%',
+								height : '430'
+							}).appendTo($('#popup').find('div#pdf'));
+							embeded.attr('src', url);
+						});
 			});
 </script>
