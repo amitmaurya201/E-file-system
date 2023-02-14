@@ -51,7 +51,7 @@ public class SendReceiptActionCommand implements MVCActionCommand {
 	}
 
 	@Reference
-	ReceiptLocalService receiptLocalService;
+	private ReceiptLocalService receiptLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

@@ -54,9 +54,9 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	ReceiptMovementLocalService receiptMovementLocalService;
+	private ReceiptMovementLocalService receiptMovementLocalService;
 	@Reference
-	ReceiptLocalService receiptLocalService;
+	private ReceiptLocalService receiptLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

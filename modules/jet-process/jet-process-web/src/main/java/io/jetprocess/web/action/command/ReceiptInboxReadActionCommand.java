@@ -35,11 +35,9 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
-
-		
+	
 		boolean state = receiptMovementLocalService.saveReadMovement(receiptId , rmId);
 		if (state == false) {
-
 			
 			SessionErrors.add(actionRequest, "read-not-available");
 			SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);

@@ -32,14 +32,11 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
-		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
-		
+		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");		
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		long fileMovementId =  ParamUtil.getLong(actionRequest, "fileMovementId");
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
-		
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);		
 		long movementType = receiptMovement.getMovementType();
-		System.out.println("..... movementType id : "+movementType);
 		boolean status = false;
 		
 		
