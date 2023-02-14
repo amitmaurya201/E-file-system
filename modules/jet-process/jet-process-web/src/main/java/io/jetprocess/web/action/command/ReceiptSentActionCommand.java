@@ -37,7 +37,6 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 		Long receiptMovementId = ParamUtil.getLong(actionRequest, "rmId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		Long userPostId = ParamUtil.getLong(actionRequest, "senderId");
-	
 		Boolean pullBackAvailable = receiptMovementLocalService.isPullBackAvailable(receiptMovementId);
 			if (pullBackAvailable) {
 				logger.info("working");
@@ -45,7 +44,6 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 				SessionMessages.add(actionRequest, "pullback-available");
 			} else {
 				logger.info("already pull back");
-				
 				SessionErrors.add(actionRequest, "pullback-not-available");
 				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 			}
@@ -54,9 +52,9 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	ReceiptMovementLocalService receiptMovementLocalService;
+	private ReceiptMovementLocalService receiptMovementLocalService;
 	@Reference
-	ReceiptLocalService receiptLocalService;
+	private ReceiptLocalService receiptLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }
