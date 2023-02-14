@@ -88,12 +88,6 @@
 </div>
 
 
-<div class="ml-3" id="alert-read-remove"
-	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
-	<liferay-ui:error key="receipt-is-not-attachable"
-		message="This Receipt is not attachable" />
-</div>
-
 
 <portlet:resourceURL id="receiptReceive" var="receiptReceiveServe">
 </portlet:resourceURL>
