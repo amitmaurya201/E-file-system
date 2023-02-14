@@ -4,8 +4,6 @@
 	//long corrFileId = (long) request.getAttribute("docFileId");
  HttpSession docFileIdValue = themeDisplay.getRequest().getSession();
  long corrFileId  = (long) docFileIdValue.getAttribute("putInFileId"); 	
- long  fileMovementId1 = (long) renderRequest.getAttribute("fileMovementId"); 
-	//List<FileCorrespondenceReceiptDTO> receiptCorrList = MasterdataLocalServiceUtil.getFileCorrespondenceReceipteDetail(corrFileId);
 	
 %>
 
