@@ -48,7 +48,7 @@
 						onchange="receiptDetail(${aReceiptListViewDto.isRead()},
 					${aReceiptListViewDto.getReceiptId()},
 					 ${aReceiptListViewDto.getReceiptMovementId()},'${aReceiptListViewDto.getNature()}')"
-						name="receipt" value="<%=aReceiptListViewDto.getReceiptId()%>" />
+						name="receiptId" value="<%=aReceiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${aReceiptListViewDto.getReceiptMovementId()}" />
 					<aui:input name="fileMovementId" type="hidden"

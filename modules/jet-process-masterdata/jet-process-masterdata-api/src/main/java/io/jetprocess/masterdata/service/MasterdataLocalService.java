@@ -239,6 +239,9 @@ public interface MasterdataLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileMovementDTO> getFileMovementListByFileId(long fileId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getLastActiveRmIdByReceiptId(long receiptId);
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *

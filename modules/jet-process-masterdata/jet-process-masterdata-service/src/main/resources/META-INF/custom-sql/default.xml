@@ -314,5 +314,15 @@ WHERE receiptid = ? ;
 ]]>
 
 	</sql>
+	
+	<sql id="getLastActiveRmIdByReceiptId">
+<![CDATA[
+
+select MAX(rmid) AS fmid from public.jet_process_receiptmovement
+WHERE receiptid = ? AND pullbackremark is NULL
+
+]]>
+
+	</sql>
 
 </custom-sql>

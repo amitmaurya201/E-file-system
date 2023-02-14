@@ -218,6 +218,11 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 		return masterdataFinder.getMaximumRmIdByReceiptId(receiptId);
 	}
+	
+	public long getLastActiveRmIdByReceiptId(long receiptId) {
+
+		return masterdataFinder.getLastActiveRmIdByReceiptId(receiptId);
+	}
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 

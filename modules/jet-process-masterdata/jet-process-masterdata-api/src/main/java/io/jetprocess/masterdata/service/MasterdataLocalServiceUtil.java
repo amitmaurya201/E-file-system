@@ -263,6 +263,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getFileMovementListByFileId(fileId);
 	}
 
+	public static long getLastActiveRmIdByReceiptId(long receiptId) {
+		return getService().getLastActiveRmIdByReceiptId(receiptId);
+	}
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *

@@ -317,6 +317,11 @@ public class MasterdataLocalServiceWrapper
 		return _masterdataLocalService.getFileMovementListByFileId(fileId);
 	}
 
+	@Override
+	public long getLastActiveRmIdByReceiptId(long receiptId) {
+		return _masterdataLocalService.getLastActiveRmIdByReceiptId(receiptId);
+	}
+
 	/**
 	 * Returns the masterdata with the primary key.
 	 *

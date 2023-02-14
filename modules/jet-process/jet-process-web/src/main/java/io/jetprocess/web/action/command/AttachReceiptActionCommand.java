@@ -29,7 +29,7 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		System.out.println("attach receipt");
-		long receiptPK = ParamUtil.getLong(actionRequest, "receipt");
+		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
 		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
@@ -48,14 +48,14 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		if(movementType==1) {
 			System.out.println("----------- send file....");
 			
-			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptPK, receiptMovementId);
+			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptId, receiptMovementId);
 		}else {
 			System.out.println("---------- created file ......");
-			status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
+			status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptId, receiptMovementId);
 		}
 		
 		if(status==true) {
-			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks, receiptMovementId, fileMovementId);
+			fileCorrReceiptLocalService.addReceiptInFile(receiptId, docFileId, userPostId, remarks, receiptMovementId, fileMovementId);
 			
 		}else {
 			SessionErrors.add(actionRequest, "receipt-is-not-attachable");

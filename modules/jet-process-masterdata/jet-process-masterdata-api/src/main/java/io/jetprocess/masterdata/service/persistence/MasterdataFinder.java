@@ -129,4 +129,6 @@ public interface MasterdataFinder {
 
 	public long getMaximumRmIdByReceiptId(long receiptId);
 
+	public long getLastActiveRmIdByReceiptId(long receiptId);
+
 }
