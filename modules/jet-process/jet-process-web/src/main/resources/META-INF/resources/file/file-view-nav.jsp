@@ -78,7 +78,7 @@
 
 <portlet:renderURL var="putinfile">
 	<portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND%>" />
+		value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND%>" />
 	<portlet:param name="docFileId" value="<%=docFileId%>" />
 	 	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 	<portlet:param name="fileMovementId"
