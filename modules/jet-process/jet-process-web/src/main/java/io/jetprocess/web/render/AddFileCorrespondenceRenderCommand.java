@@ -38,7 +38,7 @@ import io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDispl
 		"mvc.command.name="+MVCCommandNames.CORRESPONCE_FILE_RENDER
 	}, 
 	service = MVCRenderCommand.class)
-public class AddFileCorrespondence implements MVCRenderCommand{
+public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand{
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
@@ -98,7 +98,7 @@ private void addFileListAttributes(RenderRequest renderRequest) {
 	}
 	
 
-	private static Log logger = LogFactoryUtil.getLog(AddFileCorrespondence.class);
+	private static Log logger = LogFactoryUtil.getLog(AddFileCorrespondenceRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;
 	@Reference
