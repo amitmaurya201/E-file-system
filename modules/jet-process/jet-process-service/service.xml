@@ -241,8 +241,7 @@
 		</finder>
 
 		<!-- Finder method for get ReceiptMovementByFileMovementId -->
-		<finder name="getReceiptMovementsByfileMovementId"
-			return-type="Collection">
+		   <finder name="ReceiptMovementsByfileMovementId" return-type="Collection">
 			<finder-column name="fileInMovementId"></finder-column>
 		</finder>
 		<!-- Group Reference -->

@@ -48,6 +48,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		// Get Group(Site) and user Information
 		Group group = groupLocalService.getGroup(groupId);
 		String receiptNumber =null;
+		System.out.println("tempfileEntryId"+tempfileEntryId);
 		
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
 		Receipt receipt = createReceipt(receiptId);
@@ -161,8 +162,7 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		String title = fileEntry.getFileName();
 		InputStream is = fileEntry.getContentStream();
 		String mimeType = fileEntry.getMimeType();
-		long documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,
-				"");
+		long documentAndMediaFileId = docstore.documentAndMediaFileUpload(groupId, is, title, mimeType, changeLog, 0l,"");
 		return documentAndMediaFileId;
 		
 	}
