@@ -39,21 +39,27 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 		
 		long movementType = receiptMovement.getMovementType();
+		System.out.println("..... movementType id : "+movementType);
 		boolean status = false;
-		if(movementType==0) {
-			 status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
-		}else if(movementType==1 && (receiptMovement.getPullBackRemark()==null || receiptMovement.getPullBackRemark().isEmpty() )) {
+		
+		long maxMovId=masterdataLocalService.getLastActiveRmIdByReceiptId(receiptPK);
+		
+		
+		System.out.println("maxMovId................"+maxMovId);
+		
+		if(movementType==1) {
+			System.out.println("----------- send file....");
 			
 			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptPK, receiptMovementId);
 		}else {
+			System.out.println("---------- created file ......");
 			status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptPK, receiptMovementId);
 		}
 		
 		if(status==true) {
 			fileCorrReceiptLocalService.addReceiptInFile(receiptPK, docFileId, userPostId, remarks, receiptMovementId, fileMovementId);
 			
-		}
-		else {
+		}else {
 			SessionErrors.add(actionRequest, "receipt-is-not-attachable");
 			SessionMessages.add(actionRequest,
 					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
