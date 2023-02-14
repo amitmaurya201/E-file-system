@@ -2,20 +2,16 @@ package io.jetprocess.web.action.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
-import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -73,13 +69,13 @@ public class PullBackMVCActionCommand extends BaseMVCActionCommand {
 	}
 	
 	@Reference
-	FileMovementLocalService fileMovementLocalService;
+	private FileMovementLocalService fileMovementLocalService;
 	@Reference
-	DocFileLocalService docFileLocalService;
+	private DocFileLocalService docFileLocalService;
 	@Reference
-	ReceiptMovementLocalService receiptMovementLocalService;
+	private ReceiptMovementLocalService receiptMovementLocalService;
 	@Reference
-	UserPostLocalService userPostLocalSerive;
+	private UserPostLocalService userPostLocalSerive;
 	
 
 }

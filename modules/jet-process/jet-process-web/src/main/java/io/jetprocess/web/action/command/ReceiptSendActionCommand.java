@@ -3,7 +3,6 @@ package io.jetprocess.web.action.command;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -48,5 +47,5 @@ public class ReceiptSendActionCommand implements MVCActionCommand {
 	}
 
 	@Reference
-	ReceiptMovementLocalService receiptMovementLocalService;
+	private ReceiptMovementLocalService receiptMovementLocalService;
 }

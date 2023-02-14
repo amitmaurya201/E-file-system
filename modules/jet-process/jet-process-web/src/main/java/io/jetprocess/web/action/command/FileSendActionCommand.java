@@ -30,7 +30,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 public class FileSendActionCommand extends BaseMVCActionCommand {
 
 	@Reference
-	FileMovementLocalService fileMovementLocalService;
+	private FileMovementLocalService fileMovementLocalService;
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {

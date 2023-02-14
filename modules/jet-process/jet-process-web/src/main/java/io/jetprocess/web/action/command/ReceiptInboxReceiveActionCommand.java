@@ -35,21 +35,12 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
-
-		System.out.println("receipt inbox.....");
-		System.out.println("Enter by ashwani.....");
-		System.out.println("receiptId-----"+receiptId);
-		System.out.println("rmId-----"+rmId);
-		
 		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
-		System.out.println("Enter by ashwani ---2");
 		if (state == false) {
-
 
 			SessionErrors.add(actionRequest, "receive-not-available");
 			SessionMessages.add(actionRequest,
 					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-
 		}
 		try {
 			actionResponse.sendRedirect(url);

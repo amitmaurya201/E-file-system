@@ -50,8 +50,8 @@ public class SendFileActionCommand  implements MVCActionCommand{
 	}
 
 	
-	@Reference
-	DocFileLocalService docFileLocalSerive;
+	 @Reference
+	 private DocFileLocalService docFileLocalSerive;
 
 
 }
