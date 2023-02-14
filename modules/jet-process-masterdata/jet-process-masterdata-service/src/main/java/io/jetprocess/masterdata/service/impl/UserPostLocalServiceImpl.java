@@ -15,10 +15,12 @@
 package io.jetprocess.masterdata.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -63,5 +65,17 @@ public class UserPostLocalServiceImpl extends UserPostLocalServiceBaseImpl {
 	}
 	
 	
+	public List<UserPost> getUserPostExceptGivenUserPostId(long userPostId) throws PortalException{
+		
+		List<UserPost> userPostList = getUserPosts(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		List<UserPost> newUserPostList = new ArrayList<>(userPostList);
+		UserPost selectedUserPost = getUserPost(userPostId);
+		boolean isUserPostAvailable = newUserPostList.contains(selectedUserPost);
+		if (isUserPostAvailable) {
+			newUserPostList.remove(selectedUserPost);
+		}
+
+		return newUserPostList;
+			}
 	
 }

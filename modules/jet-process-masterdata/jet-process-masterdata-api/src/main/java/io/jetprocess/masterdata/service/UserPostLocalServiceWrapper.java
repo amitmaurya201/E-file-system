@@ -321,6 +321,15 @@ public class UserPostLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.UserPost>
+			getUserPostExceptGivenUserPostId(long userPostId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userPostLocalService.getUserPostExceptGivenUserPostId(
+			userPostId);
+	}
+
+	@Override
 	public long getUserPostId(javax.portlet.ActionRequest actionRequest) {
 		return _userPostLocalService.getUserPostId(actionRequest);
 	}

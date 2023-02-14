@@ -4,14 +4,22 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.List;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalServiceUtil;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -26,8 +34,15 @@ public class ViewSendReceiptRenderCommand implements MVCRenderCommand {
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		HttpSession session = themeDisplay.getRequest().getSession();
+		String sessionUserPostId = (String) session.getAttribute("userPostId");
+		long userPostId = Long.parseLong(sessionUserPostId);
+		
 		logger.info("receiptId---> " + receiptId);
 		try {
+			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
+			renderRequest.setAttribute("userPostList", userPostList);
 			Receipt receiptId1 = ReceiptLocalServiceUtil.getReceipt(receiptId);
 			renderRequest.setAttribute("receipt", receiptId1);
 			renderRequest.setAttribute("receiptMovementId", receiptMovementId);
@@ -39,4 +54,7 @@ public class ViewSendReceiptRenderCommand implements MVCRenderCommand {
 	}
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
+	
+	@Reference
+	private UserPostLocalService userPostLocalService; 
 }

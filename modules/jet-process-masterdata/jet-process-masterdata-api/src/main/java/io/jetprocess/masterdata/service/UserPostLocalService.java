@@ -259,6 +259,10 @@ public interface UserPostLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserPost> getUserPostExceptGivenUserPostId(long userPostId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getUserPostId(ActionRequest actionRequest);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

@@ -284,6 +284,13 @@ public class UserPostLocalServiceUtil {
 		return getService().getUserPostByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static List<UserPost> getUserPostExceptGivenUserPostId(
+			long userPostId)
+		throws PortalException {
+
+		return getService().getUserPostExceptGivenUserPostId(userPostId);
+	}
+
 	public static long getUserPostId(
 		javax.portlet.ActionRequest actionRequest) {
 
