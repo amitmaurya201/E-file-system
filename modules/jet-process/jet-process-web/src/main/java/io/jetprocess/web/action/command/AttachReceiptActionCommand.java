@@ -1,6 +1,5 @@
 package io.jetprocess.web.action.command;
 
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -28,40 +27,39 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-		System.out.println("attach receipt");
+		logger.info("Attaching receipt...");
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long docFileId = ParamUtil.getLong(actionRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(actionRequest, "userPostId");
-		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");		
+		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		long fileMovementId =  ParamUtil.getLong(actionRequest, "fileMovementId");
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);		
+		long fileMovementId = ParamUtil.getLong(actionRequest, "fileMovementId");
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
 		long movementType = receiptMovement.getMovementType();
 		boolean status = false;
-		
-		
-		
-		
-		if(movementType==1) {
-			System.out.println("----------- send file....");
-			
-			status=receiptMovementLocalService.isInboxReceiptAttachable(receiptId, receiptMovementId);
-		}else {
-			System.out.println("---------- created file ......");
-			status=receiptMovementLocalService.isCreatedReceiptAttachable(receiptId, receiptMovementId);
+
+		if (movementType == 1) {
+			logger.info("Checked Receipt Movement Type : "+movementType);
+			status = receiptMovementLocalService.isInboxReceiptAttachable(receiptId, receiptMovementId);
+		} else {
+			logger.info("Checked Receipt Movement Type : "+movementType);
+			status = receiptMovementLocalService.isCreatedReceiptAttachable(receiptId, receiptMovementId);
 		}
-		
-		if(status==true) {
-			fileCorrReceiptLocalService.addReceiptInFile(receiptId, docFileId, userPostId, remarks, receiptMovementId, fileMovementId);
-			
-		}else {
+
+		if (status == true) {
+			fileCorrReceiptLocalService.addReceiptInFile(receiptId, docFileId, userPostId, remarks, receiptMovementId,
+					fileMovementId);
+			logger.info("Rceipt successfully Attached..");
+
+		} else {
 			SessionErrors.add(actionRequest, "receipt-is-not-attachable");
 			SessionMessages.add(actionRequest,
 					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			logger.error("Rceipt is not attachable..");
 		}
 		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
-		
+
 	}
 
 	@Reference
@@ -71,12 +69,9 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
 	@Reference
-	private MasterdataLocalService masterdataLocalService; 
+	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private MVCActionCommand mvcActionCommand;
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }
-
-
-

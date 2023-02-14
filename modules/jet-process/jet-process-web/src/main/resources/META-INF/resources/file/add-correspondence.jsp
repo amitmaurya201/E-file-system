@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@ include file="../init.jsp"%>
 <%
 	HttpSession userPostId = themeDisplay.getRequest().getSession();
@@ -48,7 +49,7 @@
 						onchange="receiptDetail(${aReceiptListViewDto.isRead()},
 					${aReceiptListViewDto.getReceiptId()},
 					 ${aReceiptListViewDto.getReceiptMovementId()},'${aReceiptListViewDto.getNature()}')"
-						name="receiptId" value="<%=aReceiptListViewDto.getReceiptId()%>" />
+						name="receiptId" label="Receipt Id" value="<%=aReceiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${aReceiptListViewDto.getReceiptMovementId()}" />
 					<aui:input name="fileMovementId" type="hidden"
@@ -84,8 +85,15 @@
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
 	<liferay-ui:error key="receipt-is-not-attachable"
-		message="This Receipt is not attachable" />
+		message="receipt-attach-error" />
 </div>
+
+<!-- This commented code is for future purpose. For Custom success message  -->
+<%-- <div class="ml-3" id="alert-read-remove"
+	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
+	<liferay-ui:success key="pullback-available"
+		message="Your Receipt is Attached successfully !" />
+</div> --%>
 
 
 
