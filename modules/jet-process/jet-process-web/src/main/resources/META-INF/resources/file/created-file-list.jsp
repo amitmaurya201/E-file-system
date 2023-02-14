@@ -32,7 +32,7 @@
 				keyProperty="fileNumber" modelVar="filedto">
 
 				<portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
+					<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND %>" />
 					<portlet:param name="docFileId" value="${filedto.docFileId}" />
 					<portlet:param name="fileMovementId" value="<%=String.valueOf(filedto.getFilemovementId()) %>" />					
 					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>

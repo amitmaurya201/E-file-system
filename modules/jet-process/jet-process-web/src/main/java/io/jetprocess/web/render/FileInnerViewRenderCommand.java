@@ -36,10 +36,11 @@ import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
+import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=/PutInFile" }, service = MVCRenderCommand.class)
+		"mvc.command.name="+MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class FileInnerViewRenderCommand implements MVCRenderCommand {
 
 	@Override
@@ -52,15 +53,15 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
 		sessionPutInFileId.setAttribute("putInFileId", docFileId);
 
-		String viewMode1 = ParamUtil.getString(renderRequest, "viewMode");
+		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
 
-		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode1, fileMovementId, docFileId);
+		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 		renderRequest.setAttribute("backPageURL", backPageURL);
-		if (Validator.isNull(viewMode1)) {
-			noteList = fileLists.getAttachedNoteList(viewMode1, fileMovementId, docFileId);
+		if (Validator.isNull(viewMode)) {
+			noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 			renderRequest.setAttribute("noteList", noteList);
 		} else {
-			noteList = fileLists.getAttachedNoteList(viewMode1, fileMovementId, docFileId);
+			noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 			renderRequest.setAttribute("noteList", noteList);
 		}
 		try {

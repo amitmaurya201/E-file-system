@@ -66,7 +66,7 @@
 				modelVar="sentFileListDTO" keyProperty="fileMovementId">
 
 				<liferay-portlet:renderURL varImpl="viewDetails">
-					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
+					<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND %>" />
 					<portlet:param name="docFileId"
 						value="${sentFileListDTO.docFileId}" />
 					<portlet:param name="fileMovementId"

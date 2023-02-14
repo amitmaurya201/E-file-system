@@ -71,7 +71,7 @@ public class FileCorrespondenceManagementToolbarDisplayContext extends BaseManag
 
 			PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
-			searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND);
+			searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND);
 			String navigation = ParamUtil.getString(request, "navigation", "entries");
 			searchURL.setParameter("navigation", navigation);
 			searchURL.setParameter("orderByCol", getOrderByCol());
@@ -88,7 +88,7 @@ public class FileCorrespondenceManagementToolbarDisplayContext extends BaseManag
 		private PortletURL _getCurrentSortingURL() throws PortletException {
 			PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-			sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND);
+			sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND);
 
 			// Reset current page.
 
@@ -105,7 +105,7 @@ public class FileCorrespondenceManagementToolbarDisplayContext extends BaseManag
 		public PortletURL _getCurrentURL() throws PortletException {
 			PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 
-			sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.PUT_IN_FILE_RENDER_COMMAND);
+			sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND);
 
 			return sortingURL;
 		}

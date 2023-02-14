@@ -163,7 +163,7 @@ cursor: pointer;
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName" value="/PutInFile" />
+					<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND %>" />
 					<portlet:param name="docFileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fileMovementId"

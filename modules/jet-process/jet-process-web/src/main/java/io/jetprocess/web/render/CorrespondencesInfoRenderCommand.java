@@ -70,12 +70,9 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		int end = delta;
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId", 0);
-		System.out.println("receiptId............"+receiptId);
-		System.out.println("receiptMovementId............"+receiptMovementId);
 		List<ReceiptMovementDTO>  receiptMovementList = new ArrayList();
 		HttpSession session = themeDisplay.getRequest().getSession(); 
 
-		System.out.println("receiptMovementId : "+receiptMovementId+", receipt id : "+receiptId);
 		
 		int count=recieptList.getAttachReceiptMovementListCount(receiptId, "");
 		int preDelta=0;
