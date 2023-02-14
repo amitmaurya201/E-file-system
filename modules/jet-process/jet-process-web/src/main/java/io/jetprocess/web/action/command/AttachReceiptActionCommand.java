@@ -42,10 +42,8 @@ public class AttachReceiptActionCommand extends BaseMVCActionCommand {
 		System.out.println("..... movementType id : "+movementType);
 		boolean status = false;
 		
-		long maxMovId=masterdataLocalService.getLastActiveRmIdByReceiptId(receiptPK);
 		
 		
-		System.out.println("maxMovId................"+maxMovId);
 		
 		if(movementType==1) {
 			System.out.println("----------- send file....");
