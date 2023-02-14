@@ -42,9 +42,8 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand{
 	
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
-		 long docFileId  = (long) sessionPutInFileId.getAttribute("putInFileId");
+	
+	    long docFileId = ParamUtil.getLong(renderRequest,"docFileId");
 		renderRequest.setAttribute("docFileId", docFileId);
 		long fileMovementId  = ParamUtil.getLong(renderRequest, "fileMovementId");
 		renderRequest.setAttribute("fileMovementId", fileMovementId);

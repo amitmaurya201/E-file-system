@@ -21,10 +21,6 @@ import jet.process.rs.resource.v1_0.FileRsModelResource;
 public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	@Override
 	public FileRsModel createFile(FileRsModel fileRsModel) throws Exception {
-
-		contextHttpServletResponse.setHeader("status", "success");
-		contextHttpServletResponse.setHeader("result", "Successfully created");
-
 		DocFile docFile = docFileLocalService.getDocFile();
 		String fileNumber = null;
 		String subject = fileRsModel.getSubject();

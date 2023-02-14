@@ -1,8 +1,7 @@
 <%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 
 <%
-	HttpSession docFileIdValue = themeDisplay.getRequest().getSession();
-	long corrFileId = (long) docFileIdValue.getAttribute("putInFileId");
+long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 %>
 <style>
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
@@ -66,6 +65,8 @@
 		value="<%=MVCCommandNames.CORRESPONCE_FILE_RENDER%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
+		<portlet:param name="docFileId" value="<%=String.valueOf(docFile.getDocFileId()) %>"/>
+		
 </portlet:renderURL>
 
 <portlet:renderURL var="correspondencesinfoViewPopup"

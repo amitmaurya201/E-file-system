@@ -72,7 +72,7 @@ $("#<portlet:namespace />primaryHeadId").on('change', function(){
 $("#<portlet:namespace />secondaryHeadId").on('change', function(){
 	var secondarHeadId = $("#<portlet:namespace />secondaryHeadId").val();
 	 $("#<portlet:namespace/>tertiaryHeadId").empty();
-	 $("#<portlet:namespace />tertiaryHeadId").append(new Option("Choose One",0)); 
+	 $("#<portlet:namespace />tertiaryHeadId").append(new Option("Choose One","")); 
 	 console.log(secondarHeadId);
 		   AUI().use('aui-base', function(A){
 	       Liferay.Service(

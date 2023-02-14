@@ -48,11 +48,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		HttpSession sessionPutInFileId = themeDisplay.getRequest().getSession();
-		sessionPutInFileId.setAttribute("putInFileId", docFileId);
-
+		renderRequest.setAttribute("putInFileId", docFileId);
 		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
 
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
