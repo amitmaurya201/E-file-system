@@ -15,7 +15,6 @@ import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileLocalService;
-import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
@@ -39,9 +38,6 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 		}	
 		return "/receipt/correspondence-receipt-detail.jsp";
 	}
-	
-	@Reference
-	private ReceiptLocalService receiptLocalService; 
 	
 	@Reference
 	private ReceiptViewHelper receiptViewHelper;
