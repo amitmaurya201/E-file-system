@@ -233,7 +233,7 @@
 			<div class="col-md-12 ">
 				<h5 class="mb-2 p-2 details-color ">
 					<i class="fa-solid fa-timer"
-						style="color: blue; font-size: 16px; margin-left: 5px;"></i>Receipt(s)
+						style="color: blue; font-size: 16px; margin-left: 5px;"></i><liferay-ui:message key="corr-info-detail-receipt-heading" />
 				</h5>
 				<div class="col-md-12 details-color">
 					<nav class="navbar navbar-expand-lg navbar-light  mt-1 "
@@ -263,8 +263,7 @@
 				<div class="col-md-12 angled"
 					style="margin-top: 10px !important; background: #96b4d6 !important">
 					<h5 class="align-baseline"
-						style="padding-top: 10px !important; padding-left: 7px !important;">Movement
-						History</h5>
+						style="padding-top: 10px !important; padding-left: 7px !important;"><liferay-ui:message key="corr-info-detail-receipt-movement-heading" /></h5>
 				</div>
 
 				<liferay-ui:search-container delta="${delta }"

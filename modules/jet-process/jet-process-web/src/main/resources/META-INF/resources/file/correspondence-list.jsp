@@ -71,7 +71,7 @@
 <portlet:renderURL var="correspondencesinfoViewPopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcRenderCommandName"
-		value="<%="/correspondencesInfo"%>" />
+		value="<%=MVCCommandNames.CORRESPONDENCES_INFO_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="receiptDetailsPopup"
@@ -123,7 +123,7 @@
 						${fileCorrespondenceReceiptDTO.receiptNumber } </a>
 				</liferay-ui:search-container-column-text>
 
-				<liferay-ui:search-container-column-text property="subject" />
+				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" />
 
 				<liferay-ui:search-container-column-text name="type"
 					property="correspondenceType" />
@@ -133,7 +133,7 @@
 					orderable="true" orderableProperty="attachOn" />
 
 				<liferay-ui:search-container-column-text name="Remarks"
-					property="remark" />
+					property="remark" cssClass="hover-tips" />
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator paginate="false" />

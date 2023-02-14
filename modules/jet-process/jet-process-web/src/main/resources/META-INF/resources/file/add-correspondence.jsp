@@ -1,4 +1,4 @@
-<%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
+
 <%@ include file="../init.jsp"%>
 <%
 	HttpSession userPostId = themeDisplay.getRequest().getSession();
@@ -11,22 +11,15 @@
 %>
 
 <div class="p-3">
-
-
-
 	<portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
-		<%-- <portlet:param name="redirect" value="/file/file-inner-view.jsp" />  --%>
 	</portlet:actionURL>
 	<clay:management-toolbar disabled="${receiptCount eq 0}"
 		displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
 		itemsTotal="${receiptCount}" searchContainerId="receiptList" />
-
 	<aui:form action="${attachReceipt}" method="post" name="attachReceipt">
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
 		<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>" />
-
-
 		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="No Results Found" id="receiptList"
 			total="${receiptCount}"
@@ -35,7 +28,7 @@
 
 			<liferay-ui:search-container-row
 				className="io.jetprocess.list.model.ReceiptListViewDto"
-				modelVar="aReceiptListViewDto">
+				modelVar="receiptListViewDto">
 
 				<portlet:renderURL var="receiptDetails">
 					<portlet:param name="mvcRenderCommandName"
@@ -46,21 +39,21 @@
 
 				<liferay-ui:search-container-column-text>
 					<aui:input type="radio"
-						onchange="receiptDetail(${aReceiptListViewDto.isRead()},
-					${aReceiptListViewDto.getReceiptId()},
-					 ${aReceiptListViewDto.getReceiptMovementId()},'${aReceiptListViewDto.getNature()}')"
-						name="receiptId" label="Receipt Id" value="<%=aReceiptListViewDto.getReceiptId()%>" />
+						onchange="receiptDetail(${receiptListViewDto.isRead()},
+					${receiptListViewDto.getReceiptId()},
+					 ${receiptListViewDto.getReceiptMovementId()},'${receiptListViewDto.getNature()}')"
+						name="receiptId" label="label-put-in-receipt-id" value="<%=receiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
-						value="${aReceiptListViewDto.getReceiptMovementId()}" />
+						value="${receiptListViewDto.getReceiptMovementId()}" />
 					<aui:input name="fileMovementId" type="hidden"
 						value="<%=fileMovementId%>" />
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text name="Nature"><%=aReceiptListViewDto.getNature().charAt(0)%>
+				<liferay-ui:search-container-column-text name="label-put-in-receipt-type" ><%=receiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="receiptNumber"
-					name="Receipt Number" />
+					name="label-put-in-receipt-number" />
 				<liferay-ui:search-container-column-text property="subject"
-					name="Subject" />
+					name="label-put-in-receipt-subject" />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
@@ -73,14 +66,8 @@
 			<aui:button cssClass="btn btn-primary" id="attachForm"
 				style="float: right; margin-top: 10px;" type="button" value="Attach"></aui:button>
 		</c:if>
-
-
-
 	</aui:form>
-
 </div>
-
-
 
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
@@ -89,22 +76,19 @@
 </div>
 
 <!-- This commented code is for future purpose. For Custom success message  -->
+
 <%-- <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
 	<liferay-ui:success key="pullback-available"
 		message="Your Receipt is Attached successfully !" />
 </div> --%>
 
-
-
 <portlet:resourceURL id="receiptReceive" var="receiptReceiveServe">
 </portlet:resourceURL>
 
-<!-- Button trigger modal -->
 <button type="button" id="isReadAlert" class="btn btn-primary" hidden
 	data-toggle="modal" data-target="#exampleModal"></button>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -136,20 +120,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 var isRead;
 var receiptId;
@@ -198,18 +168,9 @@ $('#<portlet:namespace />attachForm').click(function(){
 	}
 });
 
-
  function receiptReceive(accepted){
-	
-
 	if(accepted){
-		
 		submitAttach()
-		/* 
-		$("#<portlet:namespace />receiveForm").submit();
-		alert("after receiveForm");
-		$("#<portlet:namespace />attachReceipt").submit();
-		alert("after attachReceipt"); */
 	}
 }
  
@@ -229,13 +190,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 	               }
 	            });
 	    });
-		
-		
-		
 	     } 
- 
- 
- 
  
 </script>
 
