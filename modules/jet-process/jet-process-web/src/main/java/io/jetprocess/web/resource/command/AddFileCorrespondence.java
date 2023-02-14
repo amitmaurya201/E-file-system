@@ -3,7 +3,6 @@ package io.jetprocess.web.resource.command;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -18,7 +17,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.model.Receipt;
-import io.jetprocess.service.FileCorrReceiptLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -31,56 +29,39 @@ public class AddFileCorrespondence implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 
-		System.out.println("receiptReceive....");
+		logger.info("receiptReceive....");
 		long receiptId = ParamUtil.getLong(resourceRequest, "receiptId");
 		long rmId = ParamUtil.getLong(resourceRequest, "rmId");
-		System.out.println("receipt inbox.....");
-		System.out.println("Enter by ashwani.....");
-		System.out.println("rmId-----"+rmId);
-		
 		Receipt receipt = null;
 		try {
 			receipt = receiptLocalService.getReceipt(receiptId);
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e);
 		}
-		
-		if(receipt.getNature().equalsIgnoreCase("Electronic")) {
-			
-			boolean state = receiptMovementLocalService.saveReadMovement(receiptId , rmId);
+		if (receipt.getNature().equalsIgnoreCase("Electronic")) {
+			boolean state = receiptMovementLocalService.saveReadMovement(receiptId, rmId);
 			if (state == false) {
 				SessionErrors.add(resourceRequest, "receipt-is-not-attachable");
-				SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+				SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest)
+						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 			}
-		}else {
-		
-		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
-		System.out.println("Enter by ashwani ---2");
-		if (state == false) {
-
-
-			SessionErrors.add(resourceRequest, "receive-not-available");
-			SessionMessages.add(resourceRequest,
-					PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-
+		} else {
+			boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId, rmId);
+			if (state == false) {
+				SessionErrors.add(resourceRequest, "receive-not-available");
+				SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest)
+						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			}
 		}
-		
-		}
-		
-		
-		
 		return false;
 	}
 
 	@Reference
 	private ReceiptLocalService receiptLocalService;
-	@Reference
-	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
+	
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
-	@Reference
-	private MVCActionCommand mvcActionCommand;
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

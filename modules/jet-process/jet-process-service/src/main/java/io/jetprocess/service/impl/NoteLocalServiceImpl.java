@@ -18,6 +18,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.util.Date;
 
@@ -41,6 +43,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	// create Method for addNote in File
 	public Note addNote(String content, long createdBy, long fileId, long noteId, long fileMovementId)
 			throws PortalException {
+		logger.info(" add note method called ");
 		Note note = null;
 		if (content != null && !content.trim().isEmpty()) {
 			if (noteId == 0) {
@@ -79,6 +82,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 
 	// create Method for Edit Note
 	public Note editNote(long noteId, String content) throws PortalException {
+		logger.info(" edit note method called ");
 		Note note = getNote(noteId);
 		note.setContent(content);
 		note.setModifiedDate(new Date());
@@ -91,4 +95,6 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	
 	@Reference
 	private UserPostLocalService userPostLocalService;
+	
+	private static Log logger = LogFactoryUtil.getLog(NoteLocalServiceImpl.class);
 }
