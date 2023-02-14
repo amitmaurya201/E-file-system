@@ -84,8 +84,7 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 <div class="row">
 	<div class="col-md-12" style="font-size: 18px">
 		<text class="pr-4 float-left put-heading"
-			style="border-radius:0px 100px 0px 0px; ">List Of
-		Correspondences </text>
+			style="border-radius:0px 100px 0px 0px; "><liferay-ui:message key="corr-list-heading" /> </text>
 		<div class="pl-2 pr-2 dropdown float-right put-heading"
 			style="border-radius: 100px 0px 0px 100px;">
 			<i class="fa fa-bars ">TOC</i>
@@ -115,7 +114,7 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text><%=fileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 
-				<liferay-ui:search-container-column-text name=" Receipt No."
+				<liferay-ui:search-container-column-text name="label-receipt-list-receiptno"
 					cssClass="hyperlink-css" orderable="true"
 					orderableProperty="receiptNo">
 					<a class="Info"
@@ -124,16 +123,16 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 						${fileCorrespondenceReceiptDTO.receiptNumber } </a>
 				</liferay-ui:search-container-column-text>
 
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" />
+				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="label-receipt-list-subject" />
 
-				<liferay-ui:search-container-column-text name="type"
+				<liferay-ui:search-container-column-text name="corr-info-detail-label-receipt-type"
 					property="correspondenceType" />
 
-				<liferay-ui:search-container-column-text name="Attached On"
+				<liferay-ui:search-container-column-text name="corr-info-detail-label-receipt-attached-on"
 					value="<%=simpleformat.format(fileCorrespondenceReceiptDTO.getCreateDate())%>"
 					orderable="true" orderableProperty="attachOn" />
 
-				<liferay-ui:search-container-column-text name="Remarks"
+				<liferay-ui:search-container-column-text name="label-receipt-list-remark"
 					property="remark" cssClass="hover-tips" />
 			</liferay-ui:search-container-row>
 
