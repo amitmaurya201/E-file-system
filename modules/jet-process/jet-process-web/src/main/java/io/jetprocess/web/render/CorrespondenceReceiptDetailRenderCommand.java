@@ -1,6 +1,8 @@
 package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -24,16 +26,17 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		logger.info("render method of correspondence receipt detail");
 		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		long corrFileId=ParamUtil.getLong(renderRequest, "corrFileId");
-		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
 		DocFile docFile=null;
 		try {
+			receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
 			docFile = docFileLocalService.getDocFile(corrFileId);
+			renderRequest.setAttribute("fileNumber", docFile.getFileNumber());
 		} catch (PortalException e) {
-			e.printStackTrace();
+			logger.info(e);
 		}	
-		renderRequest.setAttribute("fileNumber", docFile.getFileNumber());
 		return "/receipt/correspondence-receipt-detail.jsp";
 	}
 	
@@ -45,5 +48,7 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 	
 	@Reference
 	private DocFileLocalService docFileLocalService;
+	
+	private static Log logger = LogFactoryUtil.getLog(CorrespondenceReceiptDetailRenderCommand.class);
 	
 }
