@@ -78,23 +78,10 @@
 							<aui:option value=''>
 								<liferay-ui:message key="label-send-default-option" />
 							</aui:option>
-							<%
-								List<UserPost> userPostList = UserPostLocalServiceUtil.getUserPosts(-1, -1);
-												List<UserPost> newUserPostList = new ArrayList<>(userPostList);
-												UserPost selectedUserPost = UserPostLocalServiceUtil
-														.getUserPost(Long.parseLong(selectedUserPostId));
-												boolean isUserPostAvailable = newUserPostList.contains(selectedUserPost);
-												if (isUserPostAvailable) {
-													newUserPostList.remove(selectedUserPost);
-												}
-												if (newUserPostList != null) {
-													for (UserPost userPost : newUserPostList) {
-							%>
-							<aui:option value="<%=userPost.getUserPostId()%>"><%=userPost.getUserName() %>(<%=userPost.getPostMarking()%>)<%=userPost.getSectionName()%></aui:option>
-							<%
-								}
-												}
-							%>
+						   <c:forEach var="userPost" items="${userPostList}">
+							<aui:option value="${userPost.getUserPostId()}">${userPost.getUserName() }(${userPost.getPostMarking()})${userPost.getSectionName()}</aui:option>
+						  </c:forEach>
+							
 							<aui:validator name="required" />
 						</aui:select>
 					</div>
