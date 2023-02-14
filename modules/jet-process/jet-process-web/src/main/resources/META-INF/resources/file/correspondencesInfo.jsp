@@ -3,10 +3,10 @@
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
   color: #000000;
 }
+
 .details-color {
 	background-color: gainsboro;
 	width: 100%;
-	/* font-size: 14px; */
 	vertical-align: top;
 	padding-left: 3px;
 }
@@ -75,8 +75,6 @@
 %>
 <div class="row mt-2 p-2 border border-dark  "
 	style="width: 100%; padding: 20px !important; marging: 20px; !important">
-
-
 	<div class="col-md-12 mr-2 details-color">
 		<h5>
 			<aui:icon cssClass="fas fa-file-alt view_icon " />
@@ -167,7 +165,8 @@
 	<div class="col-6">
 		<table class="mt-2 file-dtls">
 			<tr>
-				<th><liferay-ui:message key="label-receipt-view-sender" />:</th>
+				<th style="padding-right: 53.54px;"><liferay-ui:message
+						key="label-receipt-view-sender" />:</th>
 				<td>${receipt.name}</td>
 			</tr>
 			<tr>
@@ -208,7 +207,8 @@
 
 	<div id="popup" class="modal invisible" tabindex="-1">
 		<div class="modal-dialog">
-			<div class="modal-content" style="max-width: 70rem; margin: -21px auto;">
+			<div class="modal-content"
+				style="max-width: 70rem; margin: -21px auto;">
 				<div class="modal-body" style="padding: 0">
 					<button type="button" class="btn btn-white btn-close"
 						data-bs-dismiss="modal" aria-label="Close"
@@ -245,7 +245,6 @@
 							aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
 						</button>
-
 						<div class="navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav">
 								<li class="nav-item border"><a id="movement"
@@ -256,7 +255,6 @@
 									class="nav-link" href="#">Dispatch</a></li>
 								<li class="nav-item border "><a id="close" class="nav-link"
 									href="#">Close</a></li>
-
 							</ul>
 						</div>
 					</nav>
@@ -269,15 +267,12 @@
 						History</h5>
 				</div>
 
-
 				<liferay-ui:search-container delta="${delta }"
 					emptyResultsMessage="label-no-record-found"
 					total="${receiptMovementCount }"
 					iteratorURL="${correspondencesInfoManagementToolbarDisplayContext._getCurrentURL()}">
-
 					<liferay-ui:search-container-results
 						results="${receiptMovementList}" />
-
 					<liferay-ui:search-container-row
 						className="io.jetprocess.list.model.ReceiptMovementDTO"
 						modelVar="receiptMovementDTO" keyProperty="receiptMovementId">
@@ -296,44 +291,30 @@
 					</liferay-ui:search-container-row>
 					<liferay-ui:search-iterator markupView="lexicon" />
 				</liferay-ui:search-container>
-
 			</div>
 		</div>
 	</div>
 </div>
 
-
-<!-- <script>
-	var navId = "${param.selectedNav}";
-	var nav = document.getElementById(navId);
-	nav.style.color = 'blue';
-
-	
-</script> -->
 <script type="text/javascript">
 	$(document).ready(
-			function() {
-				$('.btn-close').on('click', function(e) {
-					$('#popup').modal('hide');
+		function() {
+			$('.btn-close').on('click', function(e) {
+				$('#popup').modal('hide');
+			});
+			$(".openPdf").on('click',function(e) {
+				let url = themeDisplay.getPortalURL() + ($(this).attr('data-url')).trim();
+				$('#popup').modal({
+					keyboard : false
 				});
-
-				$(".openPdf").on(
-						'click',
-						function(e) {
-							let url = themeDisplay.getPortalURL()
-									+ ($(this).attr('data-url')).trim();
-							$('#popup').modal({
-								keyboard : false
-							});
-							$('#popup').removeClass('invisible').addClass(
-									'visible');
-							$('#popup').find('div#pdf').empty();
-							let embeded = $('<embed/>', {
-								type : 'application/pdf',
-								width : '100%',
-								height : '430'
-							}).appendTo($('#popup').find('div#pdf'));
-							embeded.attr('src', url);
-						});
+				$('#popup').removeClass('invisible').addClass('visible');
+				$('#popup').find('div#pdf').empty();
+				let embeded = $('<embed/>', {
+					type : 'application/pdf',
+					width : '100%',
+					height : '430'
+				}).appendTo($('#popup').find('div#pdf'));
+					embeded.attr('src', url);
+				});
 			});
 </script>
