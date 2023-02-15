@@ -4,13 +4,16 @@
 <%@taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
 <%@taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
 <%@taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet"%>
-<%@taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<liferay-theme:defineObjects />
+<portlet:defineObjects />
 <%@taglib prefix="clay" uri="http://liferay.com/tld/clay"%>
 <%@page import="java.util.Collections"%>
 <%@page import="org.apache.commons.beanutils.BeanComparator"%>
 <%@page import="com.liferay.portal.kernel.service.ServiceContext"%>
-<%@page import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
+<%@page
+	import="com.liferay.portal.kernel.service.ServiceContextThreadLocal"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Locale"%>
@@ -22,7 +25,8 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.liferay.portal.kernel.util.ListUtil"%>
 <%@page import="com.liferay.portal.kernel.dao.orm.QueryUtil"%>
-<%@page import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
+<%@page
+	import="io.jetprocess.masterdata.service.MasterdataLocalServiceUtil"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="com.liferay.portal.kernel.util.Validator"%>
 <%@page import="io.jetprocess.model.DocFile"%>
@@ -38,21 +42,27 @@
 <%@page import="io.jetprocess.masterdata.model.ReceiptMovementDTO"%>
 <%@page import="com.liferay.portal.kernel.util.SessionParamUtil"%>
 <%@page import="com.liferay.portal.kernel.model.User"%>
-<%@page import="io.jetprocess.masterdata.service.UserPostLocalServiceUtil"%>
+<%@page
+	import="io.jetprocess.masterdata.service.UserPostLocalServiceUtil"%>
 <%@page import="io.jetprocess.masterdata.model.UserPost"%>
-<%@page import="com.liferay.portal.kernel.servlet.PortalSessionThreadLocal"%>
+<%@page
+	import="com.liferay.portal.kernel.servlet.PortalSessionThreadLocal"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayPortletMode"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
-<%@page import="io.jetprocess.web.display.context.FileManagementToolbarDisplayContext"%>
+<%@page
+	import="io.jetprocess.web.display.context.FileManagementToolbarDisplayContext"%>
 <%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
 <%@page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"%>
-<%@page import="io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext"%>
-<%@page import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
+<%@page
+	import="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"%>
+<%@page
+	import="io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext"%>
+<%@page
+	import="io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext"%>
 <%@page import="io.jetprocess.model.FileNote"%>
 <%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>
@@ -61,15 +71,18 @@
 <!-- Includes -->
 <%@include file="/common/common.jsp"%>
 <!-- link element -->
-<link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/datepicker/bootstrap-datepicker.min.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/datepicker/bootstrap-datepicker.min.css" />
 
 <!-- Script Element -->
 <script src="//cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
-<script src="<%=request.getContextPath()%>/datepicker/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-<liferay-theme:defineObjects />
-<portlet:defineObjects />
+<script
+	src="<%=request.getContextPath()%>/datepicker/bootstrap-datepicker.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
 <!-- Getting the User Post Id from the session -->
 <%
 	String selectedUserPostId = "1";
@@ -79,7 +92,7 @@
 	}
 	SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
 	simpleformat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-	
+
 	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
