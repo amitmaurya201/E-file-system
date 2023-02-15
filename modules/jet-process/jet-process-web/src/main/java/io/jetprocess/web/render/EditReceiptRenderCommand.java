@@ -18,7 +18,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 public class EditReceiptRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
 		  String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		  renderRequest.setAttribute("backPageURL", backPageURL);
