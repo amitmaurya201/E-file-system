@@ -1,6 +1,8 @@
 package io.jetprocess.list.service;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -18,12 +20,26 @@ import io.jetprocess.list.model.ReceiptMovementDTO;
 @Component(immediate = true, service = ReceiptList.class)
 public class ReceiptListImpl implements ReceiptList {
 
+	private static Log logger = LogFactoryUtil.getLog(FileListImpl.class);
+	
+	Connection con = null;
+	{
+		try {
+			con=DataAccess.getConnection();
+			logger.info("Getting Jdbc Connection....");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error("Couldn't able to get jdbc connection....");
+		}
+	}
+	
+	
 	@Override
 	public int getReceiptListCount(long userpostId, String keyword) {
-		Connection con = null;
+		
 		int count = 0;
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
@@ -46,9 +62,9 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptListViewDto> getReceiptList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
 		List<ReceiptListViewDto> receiptList = new ArrayList<>();
-		Connection con = null;
+		
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
@@ -84,10 +100,10 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getReceiptInboxListCount(long userpostId, String keyword) {
-		Connection con = null;
+		
 		int count = 0;
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
@@ -110,9 +126,9 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		Connection con = null;
+		
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -155,10 +171,10 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getReceiptSentListCount(long userpostId, String keyword) {
-		Connection con = null;
+		
 		int count = 0;
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select public.get_receipt_sent_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
@@ -181,9 +197,9 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		Connection con = null;
+		
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_sent_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -225,9 +241,9 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptMovementId, long receiptId, String keyword,
 			int start, int end, String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		Connection con = null;
+		
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptMovementId);
@@ -272,9 +288,9 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptMovementDTO> getAttachReceiptMovementList(long receiptId, String keyword, int start, int end,
 			String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		Connection con = null;
+		
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_attach_receipt_movement_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptId);
@@ -315,10 +331,10 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getReceiptMovementListCount(long receiptmovementId, long userpostId, String keyword) {
-		Connection con = null;
+		
 		int count = 0;
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("SELECT public.get_receipt_movement_list_count(?,?,?)");
 			prepareCall.setLong(1, receiptmovementId);
 			prepareCall.setLong(2, userpostId);
@@ -340,10 +356,10 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getAttachReceiptMovementListCount(long receiptId, String keyword) {
-		Connection con = null;
+		
 		int count = 0;
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con
 					.prepareCall("SELECT public.get_attach_receipt_movement_list_count(?,?)");
 			prepareCall.setLong(1, receiptId);
@@ -367,9 +383,9 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptListViewDto> getPutInFileList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
-		Connection con = null;
+		
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_put_in_file_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -406,10 +422,10 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getPutInFileListCount(long userPostId, String keyword) {
-		Connection con = null;
+		
 		int count = 0;
 		try {
-			con = DataAccess.getConnection();
+			
 			CallableStatement prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
