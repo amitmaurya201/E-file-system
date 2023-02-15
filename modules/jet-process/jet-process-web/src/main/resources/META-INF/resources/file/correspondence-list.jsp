@@ -1,13 +1,85 @@
-<%@page import="io.jetprocess.web.constants.MVCCommandNames"%>
+
 
 <%
-long corrFileId = (long) renderRequest.getAttribute("putInFileId");
+	long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 %>
 <style>
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
-}
+.lfr-search-container-wrapper
 
+
+
+ 
+
+
+
+a
+
+
+
+
+
+
+:not
+
+
+
+ 
+
+
+
+(
+.component-action
+
+
+
+ 
+
+
+
+)
+:not
+
+
+
+ 
+
+
+
+(
+.btn
+
+
+
+ 
+
+
+
+)
+{
+color
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
+#000000
+
+
+
+
+
+
+;
+}
 .crList th {
 	display: inline-block;
 	width: max-content;
@@ -65,8 +137,9 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 		value="<%=MVCCommandNames.CORRESPONCE_FILE_RENDER%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
-		<portlet:param name="docFileId" value="<%=String.valueOf(docFile.getDocFileId()) %>"/>
-		
+	<portlet:param name="docFileId"
+		value="<%=String.valueOf(docFile.getDocFileId())%>" />
+
 </portlet:renderURL>
 
 <portlet:renderURL var="correspondencesinfoViewPopup"
@@ -84,10 +157,12 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 <div class="row">
 	<div class="col-md-12" style="font-size: 18px">
 		<text class="pr-4 float-left put-heading"
-			style="border-radius:0px 100px 0px 0px; "><liferay-ui:message key="corr-list-heading" /> </text>
+			style="border-radius:0px 100px 0px 0px; "> <liferay-ui:message
+			key="corr-list-heading" /> </text>
 		<div class="pl-2 pr-2 dropdown float-right put-heading"
 			style="border-radius: 100px 0px 0px 100px;">
-			<i class="fa fa-bars "><liferay-ui:message key="corr-list-toc-heading" /></i>
+			<i class="fa fa-bars "><liferay-ui:message
+					key="corr-list-toc-heading" /></i>
 			<div class="dropdown-content">
 				<a href="#">Link 1</a> <a href="#">Link 2</a> <a href="#">Link 3</a>
 			</div>
@@ -114,26 +189,30 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text><%=fileCorrespondenceReceiptDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
 
-				<liferay-ui:search-container-column-text name="label-receipt-list-receiptno"
-					cssClass="hyperlink-css" orderable="true"
-					orderableProperty="receiptNo">
+				<liferay-ui:search-container-column-text
+					name="label-receipt-list-receiptno" cssClass="hyperlink-css"
+					orderable="true" orderableProperty="receiptNo">
 					<a class="Info"
 						onclick="receiptDetailPopup(${fileCorrespondenceReceiptDTO.receiptId })"
 						style="cursor: pointer">
 						${fileCorrespondenceReceiptDTO.receiptNumber } </a>
 				</liferay-ui:search-container-column-text>
 
-				<liferay-ui:search-container-column-text property="subject" cssClass="hover-tips" name="label-receipt-list-subject" />
+				<liferay-ui:search-container-column-text property="subject"
+					cssClass="hover-tips" name="label-receipt-list-subject" />
 
-				<liferay-ui:search-container-column-text name="corr-info-detail-label-receipt-type"
+				<liferay-ui:search-container-column-text
+					name="corr-info-detail-label-receipt-type"
 					property="correspondenceType" />
 
-				<liferay-ui:search-container-column-text name="corr-info-detail-label-receipt-attached-on"
+				<liferay-ui:search-container-column-text
+					name="corr-info-detail-label-receipt-attached-on"
 					value="<%=simpleformat.format(fileCorrespondenceReceiptDTO.getCreateDate())%>"
 					orderable="true" orderableProperty="attachOn" />
 
-				<liferay-ui:search-container-column-text name="label-receipt-list-remark"
-					property="remark" cssClass="hover-tips" />
+				<liferay-ui:search-container-column-text
+					name="label-receipt-list-remark" property="remark"
+					cssClass="hover-tips" />
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator paginate="false" />
@@ -158,7 +237,7 @@ if (viewMode == 'ViewModeFromSentFile') {
 }
 
 $("#<portlet:namespace />add_receipt").click(()=>{
-var title="<liferay-ui:message key='title-corr-put-in-receipt'/>";
+var title="<liferay-ui:message key='title-corr-put-in-receipt' />";
 	Liferay.Util.openWindow({ 
 		dialog: { 														 
 			height: 800,														 
