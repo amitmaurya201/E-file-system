@@ -263,13 +263,14 @@ $("#<portlet:namespace />generate").on('click', function(e){
     var jsonData = bindFormDataJson(formObj);
     jsonData["userPostId"] = userPostId;
     jsonData["tempFileId"] = tempFileId; 
+   console.log("tempFileId"+tempFileId);
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
     	/*if(!mySeletedNature()){*/
     		$.ajax({
     			type: "POST",
-			    url: "${setURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
+			    url: "${portalURL}/o/jet-process-rs/v1.0/createReceipt?p_auth=" + Liferay.authToken,
 			    data: jsonObj,
 			    dataType: 'json',
 			    cache : false,
@@ -354,7 +355,7 @@ $("#<portlet:namespace />update").on('click', function(e){
     	}
     		$.ajax({
     			type: "PUT",
-			    url: "${setURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
+			    url: "${portalURL}/o/jet-process-rs/v1.0/updateReceipt?p_auth=" + Liferay.authToken,
 			    data: jsonObj,
 			    dataType: 'json',
 			    cache : false,
@@ -462,7 +463,7 @@ function displayPreview(file){
 	formData.append('groupId', groupId);
 	$.ajax({
 		 type: "POST",
-		 url: "${setURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
+		 url: "${portalURL}/o/jet-process-docs/v1.0/tempFileUpload?p_auth=" + Liferay.authToken,
 		 data: formData,
 		 cache : false,
 		 processData: false,

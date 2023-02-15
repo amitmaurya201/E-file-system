@@ -32,7 +32,7 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 var jsonObj = JSON.stringify(jsonData);
 	 $.ajax({
 		 type:"POST",
-		 url:"${setURL}/o/jet-process-rs/v1.0/createNote?p_auth=" + Liferay.authToken,
+		 url:"${portalURL}/o/jet-process-rs/v1.0/createNote?p_auth=" + Liferay.authToken,
 		 data:jsonObj,
 		 dataType: 'json',
 		 cache : false,
@@ -64,7 +64,7 @@ function removeNote(){
 		var noteId = $('#noteId').val();
 		$.ajax({
 			type:"POST",
-			url:"${setURL}/o/jet-process-rs/v1.0/deleteNote/"+noteId+"?p_auth=" + Liferay.authToken,
+			url:"${portalURL}/o/jet-process-rs/v1.0/deleteNote/"+noteId+"?p_auth=" + Liferay.authToken,
 			data:noteId,
 			cache : false,
 			processData: false,

@@ -3,7 +3,7 @@
 <%
 	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-	String setURl = serviceContext.getPortalURL();
+	String portalURL = serviceContext.getPortalURL();
 %>
 <%
 String backPageURL = (String) renderRequest.getAttribute("backPageURL");

@@ -4,7 +4,7 @@
 
 <%
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-	String setURl = serviceContext.getPortalURL();
+	String portalURL = serviceContext.getPortalURL();
 %>
 <portlet:renderURL var="createdListReceipt">
 	<portlet:param name="mvcRenderCommandName"

@@ -17,7 +17,7 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-			String setURl = serviceContext.getPortalURL();
+			String portalURL = serviceContext.getPortalURL();
 			DocFile docFile = (DocFile) renderRequest.getAttribute("DocFile");
 			String basicHeadValue = (String) renderRequest.getAttribute("BasicHeadValue");
 			String primaryHeadValue = (String) renderRequest.getAttribute("PrimaryHeadValue");

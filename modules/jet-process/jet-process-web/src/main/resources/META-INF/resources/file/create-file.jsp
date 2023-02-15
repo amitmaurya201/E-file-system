@@ -10,7 +10,7 @@
 	<div class="col-10">
 		<%
 			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-			String setURl = serviceContext.getPortalURL();
+			String portalURL = serviceContext.getPortalURL();
 		%>
 		<portlet:renderURL var="FileList">
 			<portlet:param name="mvcRenderCommandName"

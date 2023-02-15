@@ -161,7 +161,7 @@ $("#<portlet:namespace />add-docfile").on('click', function(e){
         	  
         	 $.ajax({
         		    type: "POST",
-        		    url: "${setURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
+        		    url: "${portalURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
         		    data: jsonObj,
         		    dataType: 'json',
         		    cache : false,
@@ -225,7 +225,7 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
      console.log("jsonObj-->"+jsonObj);
    	 $.ajax({
    		    type: 'PUT',
-   		    url: "${setURL}/o/jet-process-rs/v1.0/updateDocFile?p_auth=" + Liferay.authToken,
+   		    url: "${portalURL}/o/jet-process-rs/v1.0/updateDocFile?p_auth=" + Liferay.authToken,
    		    data: jsonObj,
    		    dataType: 'json',
    		    cache : false,
