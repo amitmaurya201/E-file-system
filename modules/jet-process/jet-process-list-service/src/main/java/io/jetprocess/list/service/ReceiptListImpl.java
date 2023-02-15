@@ -124,7 +124,8 @@ public class ReceiptListImpl implements ReceiptList {
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
-					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();				
+					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();	
+					receiptMovementDTO.setSenderId(rs.getLong("senderId"));
 					receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receiptMovementDTO.setReceiptNumber(rs.getString("receiptnumber"));
 					receiptMovementDTO.setSubject(rs.getString("subject"));

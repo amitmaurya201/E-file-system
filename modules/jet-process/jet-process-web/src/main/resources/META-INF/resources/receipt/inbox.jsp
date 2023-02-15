@@ -195,7 +195,7 @@ cursor: pointer;
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
 								<a href="#" class="button open"
-									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
+									onclick=" showModal(<%=receiptMovementDTO.getSenderId()%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text cssClass="bold"
@@ -258,16 +258,11 @@ cursor: pointer;
 								cssClass="hover-tips" orderableProperty="subject"
 								orderable="true" name="label-receipt-inbox-subject" />
 
-							<%
-								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
-															.getReceiptMovement(receiptMovementDTO.getReceiptMovementId());
-													long senderId = receiptMvmt.getSenderId();
-							%>
-
+						
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips">
 								<a href="#" class="button open"
-									onclick=" showModal(<%=senderId%>)"><%=receiptMovementDTO.getSentBy()%></a>
+									onclick=" showModal(<%=receiptMovementDTO.getSenderId()%>)"><%=receiptMovementDTO.getSentBy()%></a>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text

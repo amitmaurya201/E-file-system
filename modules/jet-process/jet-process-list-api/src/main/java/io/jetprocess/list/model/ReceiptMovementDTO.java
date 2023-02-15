@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ReceiptMovementDTO {
 
+	private long senderId;
 	private long receiptMovementId;
 	private String receiptNumber;
 	private String subject;
@@ -18,28 +19,11 @@ public class ReceiptMovementDTO {
 	private String nature;
 	private long receiptId;
 	private String pullBackRemark;
-	public ReceiptMovementDTO() {
-		super();
-		// TODO Auto-generated constructor stub
+	public long getSenderId() {
+		return senderId;
 	}
-	public ReceiptMovementDTO(long receiptMovementId, String receiptNumber, String subject, String sender,
-			String sentBy, String sentTo, Date sentOn, String readOn, Date dueDate, String remark, String receivedOn,
-			String nature, long receiptId, String pullBackRemark) {
-		super();
-		this.receiptMovementId = receiptMovementId;
-		this.receiptNumber = receiptNumber;
-		this.subject = subject;
-		this.sender = sender;
-		this.sentBy = sentBy;
-		this.sentTo = sentTo;
-		this.sentOn = sentOn;
-		this.readOn = readOn;
-		this.dueDate = dueDate;
-		this.remark = remark;
-		this.receivedOn = receivedOn;
-		this.nature = nature;
-		this.receiptId = receiptId;
-		this.pullBackRemark = pullBackRemark;
+	public void setSenderId(long senderId) {
+		this.senderId = senderId;
 	}
 	public long getReceiptMovementId() {
 		return receiptMovementId;
@@ -125,14 +109,30 @@ public class ReceiptMovementDTO {
 	public void setPullBackRemark(String pullBackRemark) {
 		this.pullBackRemark = pullBackRemark;
 	}
-	@Override
-	public String toString() {
-		return "ReceiptMovementDTO [receiptMovementId=" + receiptMovementId + ", receiptNumber=" + receiptNumber
-				+ ", subject=" + subject + ", sender=" + sender + ", sentBy=" + sentBy + ", sentTo=" + sentTo
-				+ ", sentOn=" + sentOn + ", readOn=" + readOn + ", dueDate=" + dueDate + ", remark=" + remark
-				+ ", receivedOn=" + receivedOn + ", nature=" + nature + ", receiptId=" + receiptId + ", pullBackRemark="
-				+ pullBackRemark + "]";
+	public ReceiptMovementDTO(long senderId, long receiptMovementId, String receiptNumber, String subject,
+			String sender, String sentBy, String sentTo, Date sentOn, String readOn, Date dueDate, String remark,
+			String receivedOn, String nature, long receiptId, String pullBackRemark) {
+		super();
+		this.senderId = senderId;
+		this.receiptMovementId = receiptMovementId;
+		this.receiptNumber = receiptNumber;
+		this.subject = subject;
+		this.sender = sender;
+		this.sentBy = sentBy;
+		this.sentTo = sentTo;
+		this.sentOn = sentOn;
+		this.readOn = readOn;
+		this.dueDate = dueDate;
+		this.remark = remark;
+		this.receivedOn = receivedOn;
+		this.nature = nature;
+		this.receiptId = receiptId;
+		this.pullBackRemark = pullBackRemark;
 	}
-
+	public ReceiptMovementDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }
