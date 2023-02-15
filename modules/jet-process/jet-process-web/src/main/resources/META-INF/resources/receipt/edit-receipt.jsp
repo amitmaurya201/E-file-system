@@ -4,9 +4,7 @@
 	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 	ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
 	String portalURL = serviceContext.getPortalURL();
-%>
-<%
-String backPageURL = (String) renderRequest.getAttribute("backPageURL");
+	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
 %>
 
 <portlet:renderURL var="editReceipt">

@@ -1,8 +1,19 @@
 <%@page import="io.jetprocess.core.constant.util.FileConstants"%>
 <%@ include file="../init.jsp"%>
-
 <%
 String backPageURL = (String) request.getAttribute("backPageURL");
+ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+String portalURL = serviceContext.getPortalURL();
+DocFile docFile = (DocFile) renderRequest.getAttribute("DocFile");
+String basicHeadValue = (String) renderRequest.getAttribute("BasicHeadValue");
+String primaryHeadValue = (String) renderRequest.getAttribute("PrimaryHeadValue");
+String secondaryHeadValue = (String) renderRequest.getAttribute("SecondaryHeadValue");
+String tertiaryHeadValue = (String) renderRequest.getAttribute("TertiaryHeadValue");
+String fileCodeValue = (String) renderRequest.getAttribute("FileCodeValue");
+String categoryValue = (String) renderRequest.getAttribute("CategoryValue");
+String subcategoryValue = (String) renderRequest.getAttribute("SubCategoryValue");
+String sfsCategoryValue = (String) renderRequest.getAttribute("SfsCategoryValue");
+String sfsSubCategoryValue = (String) renderRequest.getAttribute("SfsSubCategoryValue");
 %>
 
 <div class="row">
@@ -14,22 +25,6 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="edit" />
 		</liferay-util:include>
-
-		<%
-			ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
-			String portalURL = serviceContext.getPortalURL();
-			DocFile docFile = (DocFile) renderRequest.getAttribute("DocFile");
-			String basicHeadValue = (String) renderRequest.getAttribute("BasicHeadValue");
-			String primaryHeadValue = (String) renderRequest.getAttribute("PrimaryHeadValue");
-			String secondaryHeadValue = (String) renderRequest.getAttribute("SecondaryHeadValue");
-			String tertiaryHeadValue = (String) renderRequest.getAttribute("TertiaryHeadValue");
-			String fileCodeValue = (String) renderRequest.getAttribute("FileCodeValue");
-			String categoryValue = (String) renderRequest.getAttribute("CategoryValue");
-			String subcategoryValue = (String) renderRequest.getAttribute("SubCategoryValue");
-
-			String sfsCategoryValue = (String) renderRequest.getAttribute("SfsCategoryValue");
-			String sfsSubCategoryValue = (String) renderRequest.getAttribute("SfsSubCategoryValue");
-		%>
 		<div class="container">
 			<div class="card">
 				<aui:form name="updateformId">
