@@ -1,84 +1,9 @@
-
-
 <%
 	long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 %>
 <style>
-.lfr-search-container-wrapper
-
-
-
- 
-
-
-
-a
-
-
-
-
-
-
-:not
-
-
-
- 
-
-
-
-(
-.component-action
-
-
-
- 
-
-
-
-)
-:not
-
-
-
- 
-
-
-
-(
-.btn
-
-
-
- 
-
-
-
-)
-{
-color
-
-
-
-
-
-
-:
-
-
-
- 
-
-
-
-#000000
-
-
-
-
-
-
-;
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+  color: #000000;
 }
 .crList th {
 	display: inline-block;
@@ -251,9 +176,9 @@ var title="<liferay-ui:message key='title-corr-put-in-receipt' />";
             	}
 		 	}													 
 		}, 														 
-	id: '<portlet:namespace />dialog',														 
-	title:title , 														 
-	uri: '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>',			
+		id: '<portlet:namespace />dialog',														 
+		title:title , 														 
+		uri: '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>',			
 	});
 });		
 </aui:script>
@@ -273,11 +198,11 @@ function infoPopup(receiptId, receiptMovementId){
           		destroy: function() { 
                		parent.location.reload();   
                		}
-	}
-	},											
-	id: '<portlet:namespace />dialog',														 
-	title: title, 														 
-	uri: '<%=correspondencesinfoViewPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
+			}
+		},											
+		id: '<portlet:namespace />dialog',														 
+		title: title, 														 
+		uri: '<%=correspondencesinfoViewPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
 	});
 }
 	

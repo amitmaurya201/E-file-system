@@ -1,4 +1,3 @@
-
 <%@ include file="../init.jsp"%>
 <%
 	HttpSession userPostId = themeDisplay.getRequest().getSession();
@@ -7,7 +6,7 @@
 	String redirectURL = themeDisplay.getURLCurrent();
 	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
 	session.setAttribute("currentURL", currentURL);
- long fileMovementId = (long) renderRequest.getAttribute("fileMovementId"); 
+	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 %>
 
 <div class="p-3">
@@ -15,7 +14,8 @@
 	</portlet:actionURL>
 	<clay:management-toolbar disabled="${receiptCount eq 0}"
 		displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
-		itemsTotal="${receiptCount}" searchContainerId="receiptList" selectable="false" />
+		itemsTotal="${receiptCount}" searchContainerId="receiptList"
+		selectable="false" />
 	<aui:form action="${attachReceipt}" method="post" name="attachReceipt">
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
@@ -42,13 +42,15 @@
 						onchange="receiptDetail(${receiptListViewDto.isRead()},
 					${receiptListViewDto.getReceiptId()},
 					 ${receiptListViewDto.getReceiptMovementId()},'${receiptListViewDto.getNature()}')"
-						name="receiptId" label="label-put-in-receipt" value="<%=receiptListViewDto.getReceiptId()%>" />
+						name="receiptId" label="label-put-in-receipt"
+						value="<%=receiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${receiptListViewDto.getReceiptMovementId()}" />
 					<aui:input name="fileMovementId" type="hidden"
 						value="<%=fileMovementId%>" />
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text name="label-put-in-receipt-type" ><%=receiptListViewDto.getNature().charAt(0)%>
+				<liferay-ui:search-container-column-text
+					name="label-put-in-receipt-type"><%=receiptListViewDto.getNature().charAt(0)%>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="label-put-in-receipt-number" />
@@ -60,11 +62,11 @@
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
 		</liferay-ui:search-container>
 		<c:if test="${receiptCount!= 0}">
-			<aui:input label="Remark" name="remarks" type="textarea">
+			<aui:input label="label-put-in-receipt-remark" name="remarks" type="textarea">
 				<aui:validator name="required" />
 			</aui:input>
 			<aui:button cssClass="btn btn-primary" id="attachForm"
-				style="float: right; margin-top: 10px;" type="button" value="Attach"></aui:button>
+				style="float: right; margin-top: 10px;" type="button" value="label-put-in-receipt-attach"></aui:button>
 		</c:if>
 	</aui:form>
 </div>
@@ -94,7 +96,9 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><liferay-ui:message key="label-put-in-receipt-Confirmation-heading" /></h5>
+				<h5 class="modal-title" id="exampleModalLabel">
+					<liferay-ui:message key="label-put-in-receipt-Confirmation-heading" />
+				</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -102,15 +106,21 @@
 			</div>
 			<div class="modal-body">
 				<h6>
-					<liferay-ui:message key="message-put-in-receipt-Confirmation-accept1" /> <span id="msg"></span> <liferay-ui:message key="message-put-in-receipt-Confirmation-accept2" />
+					<liferay-ui:message
+						key="message-put-in-receipt-Confirmation-accept1" />
+					<span id="msg"></span>
+					<liferay-ui:message
+						key="message-put-in-receipt-Confirmation-accept2" />
 				</h6>
 				<aui:form action="#" method="post" name="receiveForm">
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
 					<div class="float-right">
-						<aui:button type="button" cssClass="btn btn-primary" value="label-put-in-receipt-confirmation-button"
+						<aui:button type="button" cssClass="btn btn-primary"
+							value="label-put-in-receipt-confirmation-button"
 							onclick="receiptReceive(true)"></aui:button>
-						<aui:button type="button" cssClass="btn btn-primary" value="label-put-in-receipt-confirmation-cancel"
+						<aui:button type="button" cssClass="btn btn-primary"
+							value="label-put-in-receipt-confirmation-cancel"
 							data-dismiss="modal"></aui:button>
 					</div>
 				</aui:form>
