@@ -15,7 +15,6 @@ import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 
-
 @Component(immediate = true, service = ReceiptList.class)
 public class ReceiptListImpl implements ReceiptList {
 
@@ -25,7 +24,7 @@ public class ReceiptListImpl implements ReceiptList {
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)" );
+			CallableStatement prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -40,7 +39,7 @@ public class ReceiptListImpl implements ReceiptList {
 		} finally {
 			DataAccess.cleanUp(con);
 		}
-	return count;
+		return count;
 	}
 
 	@Override
@@ -50,7 +49,8 @@ public class ReceiptListImpl implements ReceiptList {
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -61,7 +61,7 @@ public class ReceiptListImpl implements ReceiptList {
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
-					ReceiptListViewDto receipt = new ReceiptListViewDto();		
+					ReceiptListViewDto receipt = new ReceiptListViewDto();
 					receipt.setReceiptId(rs.getLong("receiptId"));
 					receipt.setReceiptNumber(rs.getString("receiptnumber"));
 					receipt.setSubject(rs.getString("subject"));
@@ -124,7 +124,7 @@ public class ReceiptListImpl implements ReceiptList {
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
-					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();	
+					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();
 					receiptMovementDTO.setSenderId(rs.getLong("senderId"));
 					receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receiptMovementDTO.setReceiptNumber(rs.getString("receiptnumber"));
@@ -195,7 +195,7 @@ public class ReceiptListImpl implements ReceiptList {
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
-					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();				
+					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();
 					receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receiptMovementDTO.setReceiptNumber(rs.getString("receiptnumber"));
 					receiptMovementDTO.setSubject(rs.getString("subject"));
@@ -220,15 +220,16 @@ public class ReceiptListImpl implements ReceiptList {
 		}
 		return receiptMovementDTOList;
 	}
-	
+
 	@Override
-	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptMovementId ,long receiptId, String keyword, int start, int end,
-			String orderBy, String order) {
+	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptMovementId, long receiptId, String keyword,
+			int start, int end, String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptMovementId);
 			prepareCall.setLong(2, receiptId);
 			prepareCall.setString(3, keyword);
@@ -241,7 +242,7 @@ public class ReceiptListImpl implements ReceiptList {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();
-				receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
+					receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receiptMovementDTO.setReceiptNumber(rs.getString("receiptnumber"));
 					receiptMovementDTO.setSubject(rs.getString("subject"));
 					receiptMovementDTO.setSender(rs.getString("sender"));
@@ -266,15 +267,16 @@ public class ReceiptListImpl implements ReceiptList {
 		return receiptMovementDTOList;
 
 	}
-	
+
 	@Override
-	public List<ReceiptMovementDTO> getAttachReceiptMovementList(long receiptId, String keyword,
-			int start, int end, String orderBy, String order) {
+	public List<ReceiptMovementDTO> getAttachReceiptMovementList(long receiptId, String keyword, int start, int end,
+			String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_attach_receipt_movement_list(?,?,?,?,?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("select * from public.get_attach_receipt_movement_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -286,7 +288,7 @@ public class ReceiptListImpl implements ReceiptList {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					ReceiptMovementDTO receiptMovementDTO = new ReceiptMovementDTO();
-				receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
+					receiptMovementDTO.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receiptMovementDTO.setReceiptNumber(rs.getString("receiptnumber"));
 					receiptMovementDTO.setSubject(rs.getString("subject"));
 					receiptMovementDTO.setSender(rs.getString("sender"));
@@ -311,9 +313,8 @@ public class ReceiptListImpl implements ReceiptList {
 		return receiptMovementDTOList;
 	}
 
-	
 	@Override
-	public int getReceiptMovementListCount(long receiptmovementId , long userpostId, String keyword) {
+	public int getReceiptMovementListCount(long receiptmovementId, long userpostId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
@@ -336,15 +337,15 @@ public class ReceiptListImpl implements ReceiptList {
 		}
 		return count;
 	}
-	
-	
+
 	@Override
 	public int getAttachReceiptMovementListCount(long receiptId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("SELECT public.get_attach_receipt_movement_list_count(?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("SELECT public.get_attach_receipt_movement_list_count(?,?)");
 			prepareCall.setLong(1, receiptId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -364,7 +365,7 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public List<ReceiptListViewDto> getPutInFileList(long userPostId, String keyword, int start, int end,
-			String orderBy, String order) {		
+			String orderBy, String order) {
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -385,12 +386,12 @@ public class ReceiptListImpl implements ReceiptList {
 					receiptList.setReceiptNumber(rs.getString("receiptnumber"));
 					receiptList.setSubject(rs.getString("subject"));
 					receiptList.setCategory(rs.getString("category"));
-			 		receiptList.setCreateDate(rs.getTimestamp("createdate"));
-                    receiptList.setRemark(rs.getString("remark"));
-                    receiptList.setViewPdfUrl(rs.getString("viewpdfurl"));
-                    receiptList.setNature(rs.getString("nature"));
-                    receiptList.setRead(rs.getBoolean("isread"));
-                    receiptList.setReceiptMovementId(rs.getLong("receiptmovementid"));
+					receiptList.setCreateDate(rs.getTimestamp("createdate"));
+					receiptList.setRemark(rs.getString("remark"));
+					receiptList.setViewPdfUrl(rs.getString("viewpdfurl"));
+					receiptList.setNature(rs.getString("nature"));
+					receiptList.setRead(rs.getBoolean("isread"));
+					receiptList.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receiptMovementDTOList.add(receiptList);
 				}
 			}
@@ -404,7 +405,7 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public int getPutInFileListCount(long userPostId, String keyword) {		
+	public int getPutInFileListCount(long userPostId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
@@ -427,5 +428,4 @@ public class ReceiptListImpl implements ReceiptList {
 		return count;
 	}
 
-	
 }
