@@ -31,14 +31,13 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
-	
+
 	/**
 	 * Returns the sort order column.
 	 * 
 	 * @return sort column
 	 */
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "receiptNumber");
 	}
 
@@ -48,7 +47,6 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
 
@@ -59,9 +57,7 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 	 */
 	@Override
 	public String getSearchActionURL() {
-
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.CORRESPONCE_FILE_RENDER);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
@@ -79,29 +75,25 @@ public class AddCorrespondenceManagementToolbarDisplayContext extends BaseManage
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.CORRESPONCE_FILE_RENDER);
 
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
-	
+
 	public PortletURL _getCurrentURL() throws PortletException {
-		
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.CORRESPONCE_FILE_RENDER);
 		return sortingURL;
 	}
 
 	private final PortalPreferences _portalPreferences;
+
 	private final ThemeDisplay _themeDisplay;
 
 }

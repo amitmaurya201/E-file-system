@@ -114,7 +114,6 @@ taglib
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
 
-
 <%@page import="io.jetprocess.model.FileNote"%>
 <%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>

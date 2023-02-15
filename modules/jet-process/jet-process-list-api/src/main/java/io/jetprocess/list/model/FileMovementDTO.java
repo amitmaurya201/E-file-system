@@ -3,26 +3,26 @@ package io.jetprocess.list.model;
 import java.util.Date;
 
 public class FileMovementDTO {
-	
+
 	private long fileMovementId; // fmid from filemovement table
-	private String fileNumber;  // filenumber form docfile table
-	private String subject;     // subject form docfile table 
-	private String sentBy;     // sender details from userpost table
-	private String sentTo;    // receiver details from userpost table
-	private Date sentOn;      // create date in filemovement table 
-	private String readOn;    // readOn from filemovement table
-	private Date dueDate;  // duedate from filemovement table
-	private String remark;    // remarks from filemovement table
-	private String receivedOn;  // receiveOn from filemovement table
-	private long currentlyWith;  // currentlyWith from docfile table
-	private String nature;		// nature from docFile table
+	private String fileNumber; // filenumber form docfile table
+	private String subject; // subject form docfile table
+	private String sentBy; // sender details from userpost table
+	private String sentTo; // receiver details from userpost table
+	private Date sentOn; // create date in filemovement table
+	private String readOn; // readOn from filemovement table
+	private Date dueDate; // duedate from filemovement table
+	private String remark; // remarks from filemovement table
+	private String receivedOn; // receiveOn from filemovement table
+	private long currentlyWith; // currentlyWith from docfile table
+	private String nature; // nature from docFile table
 	private long fileId;
 	private long senderId;
 	private int currentState;
 	private long docFileId;
 	private String pullBackRemark;
 	private String currentlyWithUserName;
-	
+
 	public FileMovementDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -206,9 +206,5 @@ public class FileMovementDTO {
 				+ ", currentState=" + currentState + ", docFileId=" + docFileId + ", pullBackRemark=" + pullBackRemark
 				+ ", currentlyWithUserName=" + currentlyWithUserName + "]";
 	}
-	
-	
-	
 
-		
-	}
+}

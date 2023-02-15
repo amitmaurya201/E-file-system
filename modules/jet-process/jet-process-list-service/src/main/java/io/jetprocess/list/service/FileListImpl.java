@@ -19,16 +19,16 @@ import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.list.model.NoteDTO;
 
-
 @Component(immediate = true, service = FileList.class)
 public class FileListImpl implements FileList {
-	
+
 	private static Log logger = LogFactoryUtil.getLog(FileListImpl.class);
+
 	public int getFileCreatedListCount(long userPostId, String keyword) {
 		logger.info("Getting created file list count");
 		Connection con = null;
 		int count = 0;
-		try { 
+		try {
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
@@ -46,7 +46,7 @@ public class FileListImpl implements FileList {
 		} finally {
 			DataAccess.cleanUp(con);
 		}
-		logger.info("created file list count : "+count);
+		logger.info("created file list count : " + count);
 		return count;
 	}
 
@@ -111,7 +111,7 @@ public class FileListImpl implements FileList {
 		} finally {
 			DataAccess.cleanUp(con);
 		}
-		logger.info("File inbox list count : "+count);
+		logger.info("File inbox list count : " + count);
 		return count;
 	}
 
@@ -139,7 +139,7 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setSubject(rs.getString("subject"));
 					fileMovementDTO.setSentBy(rs.getString("sentby"));
 					fileMovementDTO.setSentTo(rs.getString("sentto"));
-					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));				
+					fileMovementDTO.setSentOn(rs.getTimestamp("senton"));
 					fileMovementDTO.setReadOn(rs.getString("readon"));
 					fileMovementDTO.setDueDate(rs.getDate("duedate"));
 					fileMovementDTO.setRemark(rs.getString("remark"));
@@ -240,13 +240,14 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public List<FileMovementDTO> getFileMovementList(long fileMovementId , long docfileId, String keyword, int start, int end,
-			String orderBy, String order) {
+	public List<FileMovementDTO> getFileMovementList(long fileMovementId, long docfileId, String keyword, int start,
+			int end, String orderBy, String order) {
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, fileMovementId);
 			prepareCall.setLong(2, docfileId);
 			prepareCall.setString(3, keyword);
@@ -288,8 +289,9 @@ public class FileListImpl implements FileList {
 		}
 		return fileMovementDTOList;
 	}
+
 	@Override
-	public int getFileMovementListCount(long filemovementId ,  long fileId, String keyword) {
+	public int getFileMovementListCount(long filemovementId, long fileId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
@@ -316,12 +318,13 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public int getFileCorrespondenceCount(String mode ,long filemovementId , long fileId, String keyword) {
+	public int getFileCorrespondenceCount(String mode, long filemovementId, long fileId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select public.get_file_correspondence_list_count(?,?,?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("select public.get_file_correspondence_list_count(?,?,?,?)");
 			prepareCall.setString(1, mode);
 			prepareCall.setLong(2, filemovementId);
 			prepareCall.setLong(3, fileId);
@@ -344,16 +347,15 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(String mode , long filemovementId ,  long docfileId, String keyword, int start, int end,
-			String orderBy, String order) {
-		
+	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(String mode, long filemovementId, long docfileId,
+			String keyword, int start, int end, String orderBy, String order) {
 
-		
 		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?,?)");
+			CallableStatement prepareCall = con
+					.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?,?)");
 			prepareCall.setString(1, mode);
 			prepareCall.setLong(2, filemovementId);
 			prepareCall.setLong(3, docfileId);
@@ -377,7 +379,7 @@ public class FileListImpl implements FileList {
 					filCorrespondenceDTO.setViewPdfUrl(rs.getString("viewPdfUrl"));
 					filCorrespondenceDTO.setNature(rs.getString("nature"));
 					filCorrespondenceDTO.setCorrespondenceType(rs.getString("correspondenceType"));
-					
+
 					fileCorrespondenceReceiptDTO.add(filCorrespondenceDTO);
 				}
 			}
@@ -389,9 +391,10 @@ public class FileListImpl implements FileList {
 		}
 		return fileCorrespondenceReceiptDTO;
 	}
+
 	@Override
-	public List<NoteDTO> getAttachedNoteList(String mode , long filemovementId, long docfileId) {
-        logger.info("getAttachedNoteList");
+	public List<NoteDTO> getAttachedNoteList(String mode, long filemovementId, long docfileId) {
+		logger.info("getAttachedNoteList");
 		List<NoteDTO> noteDtoList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -408,7 +411,7 @@ public class FileListImpl implements FileList {
 					noteDTO.setNoteId(rs.getLong("noteid"));
 					noteDTO.setSignature(rs.getString("signature"));
 					noteDTO.setCreateDate(rs.getTimestamp("createdate"));
-					noteDTO.setContent(rs.getString("content"));	
+					noteDTO.setContent(rs.getString("content"));
 					noteDtoList.add(noteDTO);
 				}
 			}

@@ -17,19 +17,21 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 public class ReceiptMovementDisplayContext extends BaseManagementToolbarDisplayContext {
 
-	public ReceiptMovementDisplayContext(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
+	public ReceiptMovementDisplayContext(LiferayPortletRequest liferayPortletRequest,
+			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(httpServletRequest, liferayPortletRequest, liferayPortletResponse);
 		portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		
+
 	}
-	
+
 	public PortletURL getCurrentURL() throws PortletException {
 		PortletURL currentURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 		currentURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_MOVEMENT_RENDER_COMMAND);
 		return currentURL;
 	}
-	
+
 	private final PortalPreferences portalPreferences;
+	
 	private final ThemeDisplay themeDisplay;
 }

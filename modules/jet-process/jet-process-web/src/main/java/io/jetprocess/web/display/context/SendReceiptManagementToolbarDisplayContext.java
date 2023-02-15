@@ -25,37 +25,33 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 public class SendReceiptManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
 
-/**
- * Assigments management toolbar display context.
- *
- * This class passes contextual information to the user interface for the Clay
- * management toolbar.
- *
- * @author liferay
- */
+	/**
+	 * Assigments management toolbar display context.
+	 *
+	 * This class passes contextual information to the user interface for the Clay
+	 * management toolbar.
+	 *
+	 * @author liferay
+	 */
 
 	public SendReceiptManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
-			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) { 
+			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
-
-	
 
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
 
-	
 	/**
 	 * Returns the sort order column.
 	 * 
 	 * @return sort column
 	 */
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "receiptNumber");
 	}
 
@@ -65,7 +61,6 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
 
@@ -76,9 +71,7 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 	 */
 	@Override
 	public String getSearchActionURL() {
-
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
@@ -86,9 +79,7 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
- 
-	
-	
+
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
@@ -98,19 +89,16 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt number"));
 				});
-
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
 					dropdownItem.setLabel(LanguageUtil.get(request, "sentOn", "Sent On"));
 				});
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("dueDate".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueDate");
@@ -129,31 +117,24 @@ public class SendReceiptManagementToolbarDisplayContext extends BaseManagementTo
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
-
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
-	
+
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND);
-
 		return sortingURL;
 	}
 
 	private final PortalPreferences _portalPreferences;
+
 	private final ThemeDisplay _themeDisplay;
-	
-	
+
 }

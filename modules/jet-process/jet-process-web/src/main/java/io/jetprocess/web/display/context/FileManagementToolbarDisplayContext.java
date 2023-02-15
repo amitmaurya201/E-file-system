@@ -51,18 +51,18 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	 * @return sort column
 	 */
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "fileNumber");
 	}
+
 	/**
 	 * Returns the sort type (ascending / descending).
 	 * 
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
+
 	/**
 	 * Returns the action URL for the search.
 	 *
@@ -72,7 +72,6 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	public String getSearchActionURL() {
 
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
@@ -96,7 +95,7 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "fileNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber", "File Number"));
 				});
-				
+
 				add(dropdownItem -> {
 					dropdownItem.setActive("createdOn".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "createdOn");
@@ -115,28 +114,24 @@ public class FileManagementToolbarDisplayContext extends BaseManagementToolbarDi
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
 		// Reset current page.
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
 
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_FILE_LIST_RENDER_COMMAND);
-
 		return sortingURL;
 	}
 
 	private final PortalPreferences _portalPreferences;
+
 	private final ThemeDisplay _themeDisplay;
 
 }

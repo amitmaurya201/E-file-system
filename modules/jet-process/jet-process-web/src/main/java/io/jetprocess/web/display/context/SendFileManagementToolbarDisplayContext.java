@@ -37,14 +37,12 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 		return getSearchActionURL();
 	}
 
-	
 	/**
 	 * Returns the sort order column.
 	 * 
 	 * @return sort column
 	 */
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "subject");
 	}
 
@@ -54,7 +52,6 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
 
@@ -65,36 +62,29 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 	 */
 	@Override
 	public String getSearchActionURL() {
-
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-
-		searchURL.setParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
- 
-	
-	
+
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("fileNumber".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "fileNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber", "File number"));
 				});
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
@@ -105,8 +95,6 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueDate");
 					dropdownItem.setLabel(LanguageUtil.get(request, "dueDate", "Due Date"));
 				});
-
-				
 			}
 		};
 	}
@@ -120,29 +108,23 @@ public class SendFileManagementToolbarDisplayContext extends BaseManagementToolb
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
-
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
-	
+
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
-		sortingURL.setParameter("mvcRenderCommandName",MVCCommandNames.FILE_SENT_RENDER_COMMAND);
-
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_SENT_RENDER_COMMAND);
 		return sortingURL;
 	}
 
 	private final PortalPreferences _portalPreferences;
+
 	private final ThemeDisplay _themeDisplay;
 }

@@ -30,7 +30,6 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
 
-
 	public ReceiptInboxManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
@@ -44,7 +43,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	}
 
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "subject");
 	}
 
@@ -54,7 +52,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
 
@@ -65,8 +62,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	 */
 	@Override
 	public String getSearchActionURL() {
-
-		
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
@@ -75,7 +70,6 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
-
 
 	/**
 	 * Return the option items for the sort column menu.
@@ -86,37 +80,26 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("receiptNumber".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber", "Receipt Number"));
 				});
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
-
-				
-			
-				
-
 				add(dropdownItem -> {
 					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
 					dropdownItem.setLabel(LanguageUtil.get(request, "sentOn", "Sent On"));
 				});
-				
-
 				add(dropdownItem -> {
 					dropdownItem.setActive("dueOn".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "dueOn");
 					dropdownItem.setLabel(LanguageUtil.get(request, "dueOn", "Due On"));
 				});
-				
-			
 			}
 		};
 	}
@@ -130,35 +113,26 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
-
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
 
 		return sortingURL;
 	}
-	private static Log logger = LogFactoryUtil.getLog(ReceiptManagementToolbarDisplayContext.class);
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
+
 	private final PortalPreferences _portalPreferences;
+	
 	private final ThemeDisplay _themeDisplay;
-	
-	
-	
+
 }

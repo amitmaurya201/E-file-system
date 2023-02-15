@@ -16,18 +16,20 @@ import javax.servlet.http.HttpServletRequest;
 import io.jetprocess.web.constants.MVCCommandNames;
 
 public class FileMovementDisplayContext extends BaseManagementToolbarDisplayContext {
-	public FileMovementDisplayContext(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
+	public FileMovementDisplayContext(LiferayPortletRequest liferayPortletRequest,
+			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(httpServletRequest, liferayPortletRequest, liferayPortletResponse);
 		portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
-	
+
 	public PortletURL getCurrentURL() throws PortletException {
 		PortletURL currentURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 		currentURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_MOVEMENT_RENDER_COMMAND);
 		return currentURL;
 	}
-	
+
 	private final PortalPreferences portalPreferences;
+	
 	private final ThemeDisplay themeDisplay;
 }

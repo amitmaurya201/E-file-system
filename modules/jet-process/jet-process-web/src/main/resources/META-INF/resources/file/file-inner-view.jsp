@@ -17,11 +17,7 @@
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="putinfile" />
 		</liferay-util:include>
-		<div class="hover-tips"><%=docFile.getNature().charAt(0)%>
-			|
-			<%=docFile.getFileNumber()%>
-			|
-			<%=docFile.getSubject()%>
+		<div class="hover-tips"><%=docFile.getNature().charAt(0)%> | <%=docFile.getFileNumber()%> | <%=docFile.getSubject()%>
 			<input id="docFileId" value="<%=docFile.getDocFileId()%>"
 				type="hidden" /> <input id="fileMovementId"
 				value="<%=fileMovementId%>" type="hidden" />

@@ -1,7 +1,5 @@
 package io.jetprocess.web.display.context;
 
-
-
 import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.BaseManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import io.jetprocess.web.constants.MVCCommandNames;
 
-public class FileInboxManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext{
+public class FileInboxManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
 
 	public FileInboxManagementToolbarDisplayContext(LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
@@ -33,11 +31,12 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
+
 	@Override
 	public String getClearResultsURL() {
 		return getSearchActionURL();
 	}
-	
+
 	/**
 	 * Returns the sort order column.
 	 * 
@@ -67,7 +66,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 	public String getSearchActionURL() {
 
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
@@ -75,7 +73,7 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
-	
+
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
@@ -85,13 +83,13 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "fileNumber");
 					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber", "File Number"));
 				});
-				
+
 				add(dropdownItem -> {
 					dropdownItem.setActive("subject".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
-				
+
 				add(dropdownItem -> {
 					dropdownItem.setActive("sentOn".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "sentOn");
@@ -104,10 +102,10 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 					dropdownItem.setLabel(LanguageUtil.get(request, "dueDate", "Due On"));
 				});
 
-				
 			}
 		};
 	}
+
 	/**
 	 * Returns the current sorting URL.
 	 *
@@ -117,7 +115,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
 		// Reset current page.
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
@@ -126,19 +123,17 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
-	
+
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_INBOX_RENDER_COMMAND);
-
 		return sortingURL;
 	}
+
 	private final PortalPreferences _portalPreferences;
+
 	private final ThemeDisplay _themeDisplay;
-	
-	
+
 }

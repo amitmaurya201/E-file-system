@@ -1,4 +1,4 @@
- package io.jetprocess.web.display.context;
+package io.jetprocess.web.display.context;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.BaseManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
@@ -51,7 +51,6 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	}
 
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "createDate");
 	}
 
@@ -61,7 +60,6 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
 
@@ -72,17 +70,15 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	 */
 	@Override
 	public String getSearchActionURL() {
-
-		
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-
 		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
-		searchURL.setParameter("orderByType", getOrderByType());				
+		searchURL.setParameter("orderByType", getOrderByType());
 		return searchURL.toString();
 	}
+
 	/**
 	 * Return the option items for the sort column menu.
 	 *
@@ -92,7 +88,7 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
 			{
-				
+
 				add(dropdownItem -> {
 					dropdownItem.setActive("receiptNumber".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "receiptNumber");
@@ -103,15 +99,11 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "subject");
 					dropdownItem.setLabel(LanguageUtil.get(request, "subject", "Subject"));
 				});
-				
 				add(dropdownItem -> {
 					dropdownItem.setActive("createDate".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(), "orderByCol", "createDate");
 					dropdownItem.setLabel(LanguageUtil.get(request, "createDate", "Created On"));
 				});
-
-				
-				
 			}
 		};
 	}
@@ -125,34 +117,25 @@ public class ReceiptManagementToolbarDisplayContext extends BaseManagementToolba
 	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
-
 		// Reset current page.
-
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
 		String keywords = ParamUtil.getString(request, "keywords");
-
 		if (Validator.isNotNull(keywords)) {
 			sortingURL.setParameter("keywords", keywords);
 		}
-
 		return sortingURL;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND);
-
 		return sortingURL;
-	}	
-	
-	private static Log logger = LogFactoryUtil.getLog(ReceiptManagementToolbarDisplayContext.class);
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
+	}
+
 	private final PortalPreferences _portalPreferences;
+
 	private final ThemeDisplay _themeDisplay;
 
 }
