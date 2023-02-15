@@ -35,11 +35,12 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		logger.info("View Render...");
+		logger.info("receipt inbox render command called ");
 		setReceiptInboxListAttributes(renderRequest);
 		setReceiptInboxToolbarAttributes(renderRequest, renderResponse);
 		return "/receipt/inbox.jsp";
 	}
+
 	/***
 	 * 
 	 * Adds File list related attributes to the request.**
@@ -59,15 +60,12 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int count = _receiptList.getReceiptInboxListCount(userPostId, keywords);
-			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count);
-			start=paginationConfig.get("start");
-			currentPage=paginationConfig.get("currentPage");
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
+		start = paginationConfig.get("start");
+		currentPage = paginationConfig.get("currentPage");
 		List<ReceiptMovementDTO> receiptInboxList = _receiptList.getReceiptInboxList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
-		receiptInboxList.forEach(c->{
-			System.out.println("senderId --- in inboxlit ---"+c.getSenderId());
-			
-		});
+		logger.info("list fetched");
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
 		renderRequest.setAttribute("inboxReceiptCount", count);
 		renderRequest.setAttribute("delta", delta);
@@ -88,7 +86,7 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 				receiptInboxManagementToolbarDisplayContext);
 	}
 
-	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 	@Reference
 	private Portal _portal;
