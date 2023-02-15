@@ -219,6 +219,15 @@ public class DocFileLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static DocFile editDocFile(
+			String subject, long docFileId, long categoryId, long subCategoryId,
+			String remarks, String reference)
+		throws PortalException {
+
+		return getService().editDocFile(
+			subject, docFileId, categoryId, subCategoryId, remarks, reference);
+	}
+
 	public static DocFile fetchDocFile(long docFileId) {
 		return getService().fetchDocFile(docFileId);
 	}

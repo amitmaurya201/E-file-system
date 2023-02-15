@@ -209,6 +209,11 @@ public interface DocFileLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
+	public DocFile editDocFile(
+			String subject, long docFileId, long categoryId, long subCategoryId,
+			String remarks, String reference)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DocFile fetchDocFile(long docFileId);
 

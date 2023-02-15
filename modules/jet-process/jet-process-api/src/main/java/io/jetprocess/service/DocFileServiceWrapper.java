@@ -58,6 +58,16 @@ public class DocFileServiceWrapper
 	}
 
 	@Override
+	public io.jetprocess.model.DocFile editDocFile(
+			String subject, long docFileId, long categoryId, long subCategoryId,
+			String remarks, String reference)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _docFileService.editDocFile(
+			subject, docFileId, categoryId, subCategoryId, remarks, reference);
+	}
+
+	@Override
 	public io.jetprocess.model.DocFile getDocFileByDocFileId(long docFileId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

@@ -33,9 +33,7 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 			docFile.setFileCodeId(0);
 			fileNumber = fileRsModel.getFileNumber();
 			if (fileNumber.isEmpty()) {
-				contextHttpServletResponse.setHeader("status", "error");
-				contextHttpServletResponse.setHeader("result", "File number can not be empty");
-				return null;
+				 return null;
 			}
 			List<DocFile> docFileList = docFileLocalService.getDocFileList();
 			for (DocFile docFileObj : docFileList) {
@@ -89,24 +87,13 @@ public class FileRsModelResourceImpl extends BaseFileRsModelResourceImpl {
 	// update method for file update
 	@Override
 	public FileRsModel updateDocFile(FileRsModel fileRsModel) throws Exception {
-		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileRsModel.getDocFileId());
-		if(fileRsModel.getSubject()==null || fileRsModel.getSubject().isEmpty()) {
-			return null;
-			
-		}
-		docFile.setSubject(fileRsModel.getSubject());
-		docFile.setCategoryId(fileRsModel.getCategoryId());
 		
-		if (fileRsModel.getSubCategoryId() == null) {
-			docFile.setSubCategoryId(0);
-		} else if (fileRsModel.getSubCategoryId() != null) {
-			docFile.setSubCategoryId(fileRsModel.getSubCategoryId());
-		}
-		docFile.setRemarks(fileRsModel.getRemarks());
-		docFile.setReference(fileRsModel.getReference());
-		docFileLocalService.updateDocFile(docFile);
-
+	 DocFile docFile	= docFileLocalService.editDocFile(fileRsModel.getSubject(), fileRsModel.getDocFileId(), fileRsModel.getCategoryId(), fileRsModel.getSubCategoryId(), fileRsModel.getRemarks(), fileRsModel.getReference());	
+	 if(docFile.getSubject()==null || docFile.getSubject().isEmpty()) {
+		 return null;
+	 }
 		return fileRsModel;
+	
 	}
 
 	private String generateFileNumber(long fileId) {

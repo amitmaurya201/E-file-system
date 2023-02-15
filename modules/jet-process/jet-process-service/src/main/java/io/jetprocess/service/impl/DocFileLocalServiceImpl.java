@@ -216,6 +216,28 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		return state;
 	}
 	
+	// create method for update file call this method in rs model 
+	
+	public DocFile editDocFile(String subject,long docFileId,long categoryId, long subCategoryId,String remarks,String reference) throws PortalException {
+		
+		DocFile docFile = getDocFileByDocFileId(docFileId);
+		docFile.setSubject(subject);
+		docFile.setCategoryId(categoryId);
+		docFile.setSubCategoryId(subCategoryId);
+		docFile.setRemarks(remarks);
+		docFile.setReference(reference);
+		docFile = super.updateDocFile(docFile);
+
+		return docFile;
+
+		
+		
+		
+		
+	}
+	
+	
+	
 	@Reference
 	private FileValidator fileValidator;
 	/*

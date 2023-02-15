@@ -64,6 +64,11 @@ public interface DocFileService extends BaseService {
 
 	public DocFile deleteDocFile(long docFileId) throws PortalException;
 
+	public DocFile editDocFile(
+			String subject, long docFileId, long categoryId, long subCategoryId,
+			String remarks, String reference)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DocFile getDocFileByDocFileId(long docFileId) throws PortalException;
 

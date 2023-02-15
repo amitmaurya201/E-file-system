@@ -109,7 +109,7 @@ AUI().use('aui-base', function(A){
 $("#<portlet:namespace />categoryId").on('change', function(){
 	var categoryId = $("#<portlet:namespace />categoryId").val();
     $("#<portlet:namespace />subCategoryId").empty();
-    $("#<portlet:namespace />subCategoryId").append(new Option("Choose One",""));
+    $("#<portlet:namespace />subCategoryId").append(new Option("Choose One","0"));
     AUI().use('aui-base', function(A){
 	       Liferay.Service(
 	        		`/masterdata.masterdata/get-sub-category-masterdata`,
@@ -221,8 +221,18 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
         var userPostId=  getUserPostId();
         console.log("userPostId"+userPostId);
         jsonData["userPostId"] = userPostId;
-     var jsonObj = JSON.stringify(jsonData);  
+     var jsonObj = JSON.stringify(jsonData);
+ 	var subject=$('#<portlet:namespace/>subject').val().length;
+ 	console.log("subject --->"+subject);
      console.log("jsonObj-->"+jsonObj);
+     if(subject == 0){
+    	 swal({  
+ 			title: " Oops!",  
+ 			  	text: "Required fields should not be empty!",  
+ 			  	icon: "error",
+ 		}); 
+			  
+     } else if(subject != 0){
    	 $.ajax({
    		    type: 'PUT',
    		    url: "${portalURL}/o/jet-process-rs/v1.0/updateDocFile?p_auth=" + Liferay.authToken,
@@ -233,23 +243,14 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
    	        contentType : 'application/json'
    		  }).done(function(response) {
    			  console.log(response);
-   			  if(response==null){
-   				swal({  
-        			title: " Oops!",  
-        			  	text: "Required fields should not be empty!",  
-        			  	icon: "error",
-        		}); 
-   				  
-   			  }else{
-   			  swal( {
-                  title: "Successful!",
-                  text: `You have successfully updated your file! `,
-                  icon: "success",
-                  button: "Ok"
-              })
-   			  }
+   			swal( {
+                title: "Successful!",
+                text: `You have successfully updated your file! `,
+                icon: "success",
+                button: "Ok"
+            })		  
    	 })
-   	 
+     }
 	});
 $(document).ready(function(e){
 

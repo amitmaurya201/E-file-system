@@ -255,6 +255,49 @@ public class DocFileServiceHttp {
 		}
 	}
 
+	public static io.jetprocess.model.DocFile editDocFile(
+			HttpPrincipal httpPrincipal, String subject, long docFileId,
+			long categoryId, long subCategoryId, String remarks,
+			String reference)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				DocFileServiceUtil.class, "editDocFile",
+				_editDocFileParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, subject, docFileId, categoryId, subCategoryId,
+				remarks, reference);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (io.jetprocess.model.DocFile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DocFileServiceHttp.class);
 
 	private static final Class<?>[] _deleteDocFileParameterTypes0 =
@@ -275,5 +318,9 @@ public class DocFileServiceHttp {
 		};
 	private static final Class<?>[] _getDocFileByDocFileIdParameterTypes4 =
 		new Class[] {long.class};
+	private static final Class<?>[] _editDocFileParameterTypes5 = new Class[] {
+		String.class, long.class, long.class, long.class, String.class,
+		String.class
+	};
 
 }

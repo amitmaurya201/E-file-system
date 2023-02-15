@@ -58,6 +58,15 @@ public class DocFileServiceUtil {
 		return getService().deleteDocFile(docFileId);
 	}
 
+	public static DocFile editDocFile(
+			String subject, long docFileId, long categoryId, long subCategoryId,
+			String remarks, String reference)
+		throws PortalException {
+
+		return getService().editDocFile(
+			subject, docFileId, categoryId, subCategoryId, remarks, reference);
+	}
+
 	public static DocFile getDocFileByDocFileId(long docFileId)
 		throws PortalException {
 

@@ -74,4 +74,12 @@ public class DocFileServiceImpl extends DocFileServiceBaseImpl {
 	  }
 	 
 
+	 // test edit method 
+	  
+	  public DocFile editDocFile(String subject,long docFileId,long categoryId, long subCategoryId,String remarks,String reference) throws PortalException {
+		  return docFileLocalService.editDocFile(subject, docFileId, categoryId, subCategoryId, remarks, reference);
+				  
+	  }
+	  
+	    
 }
