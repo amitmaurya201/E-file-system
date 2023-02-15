@@ -94,7 +94,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementPersistence.findByreceiptId(receiptId);
 	}
 
-	public Boolean isPullBackAvailable(long rmId) {
+	public boolean isPullBackAvailable(long rmId) {
 		boolean pullable = false;
 		ReceiptMovement receiptMovement;
 		try {
@@ -123,7 +123,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			}
 			// for set current state as 1 in receipt
 			Receipt receipt = receiptLocalService.getReceipt(receiptId);
-			Boolean active = isActive(receiptId);
+			boolean active = isActive(receiptId);
 			if (!active) {
 				receipt.setCurrentState(FileStatus.CREADTED);
 			}
@@ -134,7 +134,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		}
 	}
 
-	public Boolean isActive(long receiptId) {
+	public boolean isActive(long receiptId) {
 		boolean state = false;
 		List<ReceiptMovement> receiptMovementByReceiptIdList = getReceiptMovementByReceiptId(receiptId);
 		for (ReceiptMovement receiptMovementByReceiptId : receiptMovementByReceiptIdList) {

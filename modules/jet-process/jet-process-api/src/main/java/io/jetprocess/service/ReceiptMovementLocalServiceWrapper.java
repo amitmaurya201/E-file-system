@@ -408,7 +408,7 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public Boolean isActive(long receiptId) {
+	public boolean isActive(long receiptId) {
 		return _receiptMovementLocalService.isActive(receiptId);
 	}
 
@@ -431,7 +431,7 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public Boolean isPullBackAvailable(long rmId) {
+	public boolean isPullBackAvailable(long rmId) {
 		return _receiptMovementLocalService.isPullBackAvailable(rmId);
 	}
 

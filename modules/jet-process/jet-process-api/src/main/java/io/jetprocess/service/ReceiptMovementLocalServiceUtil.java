@@ -364,7 +364,7 @@ public class ReceiptMovementLocalServiceUtil {
 		return getService().getReceiptMovementsCount();
 	}
 
-	public static Boolean isActive(long receiptId) {
+	public static boolean isActive(long receiptId) {
 		return getService().isActive(receiptId);
 	}
 
@@ -384,7 +384,7 @@ public class ReceiptMovementLocalServiceUtil {
 			receiptId, receiptMovementId);
 	}
 
-	public static Boolean isPullBackAvailable(long rmId) {
+	public static boolean isPullBackAvailable(long rmId) {
 		return getService().isPullBackAvailable(rmId);
 	}
 

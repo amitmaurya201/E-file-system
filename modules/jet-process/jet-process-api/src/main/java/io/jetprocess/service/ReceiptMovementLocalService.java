@@ -320,7 +320,7 @@ public interface ReceiptMovementLocalService
 	public int getReceiptMovementsCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Boolean isActive(long receiptId);
+	public boolean isActive(long receiptId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean isCreatedReceiptAttachable(
@@ -333,7 +333,7 @@ public interface ReceiptMovementLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Boolean isPullBackAvailable(long rmId);
+	public boolean isPullBackAvailable(long rmId);
 
 	public boolean pullBackedAlready(long rmId) throws PortalException;
 
