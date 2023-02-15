@@ -55,17 +55,9 @@ public class FileInboxRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int fileInboxCount=_fileList.getFileInboxListCount(userPostId, keywords);
-		int preDelta=0;
-		String d=(String) session.getAttribute("preDelta");
-		if(d!=null) {
-			preDelta=Integer.parseInt(d);
-			
-		}
-			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, fileInboxCount, preDelta);
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, fileInboxCount);
 			start=paginationConfig.get("start");
 			currentPage=paginationConfig.get("currentPage");
-			
-		session.setAttribute("preDelta", ""+delta+"");
 		List<FileMovementDTO> fileInboxList =_fileList.getFileInboxList(userPostId, keywords, start, end, orderByCol, orderByType);
       		
 		renderRequest.setAttribute("fileInboxList",fileInboxList);

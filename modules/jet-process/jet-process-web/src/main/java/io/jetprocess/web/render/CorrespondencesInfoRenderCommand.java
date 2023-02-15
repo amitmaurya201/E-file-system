@@ -74,18 +74,11 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 		int end = delta;
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId", 0);
 		List<ReceiptMovementDTO> receiptMovementList = new ArrayList();
-		HttpSession session = themeDisplay.getRequest().getSession();
-
 		int count = recieptList.getAttachReceiptMovementListCount(receiptId, "");
-		int preDelta = 0;
-		String d = (String) session.getAttribute("preDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-		}
-		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
+		
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		session.setAttribute("preDelta", "" + delta + "");
 		if (receiptId != 0) {
 			receiptMovementList = recieptList.getAttachReceiptMovementList(receiptId, "", start, end, "", "");
 		}

@@ -80,15 +80,10 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		HttpSession session = themeDisplay.getRequest().getSession();
 
 		int count = receiptList.getReceiptMovementListCount(receiptMovementId, receiptId, "");
-		int preDelta = 0;
-		String d = (String) session.getAttribute("preDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-		}
-		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
+		
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		session.setAttribute("preDelta", "" + delta + "");
 
 		if (receiptId != 0) {
 			receiptMovementList = receiptList.getReceiptMovementList(receiptMovementId, receiptId, "", start, end, "",

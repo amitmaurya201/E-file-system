@@ -55,17 +55,10 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int count = _receiptList.getReceiptSentListCount(userPostId, keywords);
-		int preDelta = 0;
-		String d = (String) session.getAttribute("oldDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-		}
-			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count);
 			start=paginationConfig.get("start");
 			currentPage=paginationConfig.get("currentPage");
 			
-
-		session.setAttribute("oldDelta", "" + delta + "");
 		List<ReceiptMovementDTO> receiptList = _receiptList.getReceiptSentList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
 		
@@ -76,7 +69,6 @@ public class ReceiptSentListRenderCommand implements MVCRenderCommand {
 
 	/**
 	 * Adds Clay management toolbar context object to the request.*
-	 * 
 	 * @param renderRequest
 	 * @param renderResponse
 	 */

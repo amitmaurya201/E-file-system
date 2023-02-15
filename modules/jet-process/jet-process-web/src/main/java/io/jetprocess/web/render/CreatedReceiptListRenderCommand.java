@@ -58,17 +58,10 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		int receiptCount = _receiptList.getReceiptListCount(userPostId, keywords);
-		int preDelta = 0;
-		String d = (String) session.getAttribute("pDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-		}
 		
-		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, receiptCount, preDelta);
+		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, receiptCount);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
-		
-		session.setAttribute("pDelta", "" + delta + "");
 		List<ReceiptListViewDto> receiptList = _receiptList.getReceiptList(userPostId, keywords, start, end, orderByCol,
 				orderByType);
 		renderRequest.setAttribute("receiptFileList", receiptList);

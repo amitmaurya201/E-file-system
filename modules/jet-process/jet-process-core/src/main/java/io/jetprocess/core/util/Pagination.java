@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Pagination {
 
-	public static Map<String, Integer> getOffset(int delta, int currentPage, int count, int preDelta) {
+	public static Map<String, Integer> getOffset(int delta, int currentPage, int count) {
 		int start = delta * (currentPage - 1);
 		int currPage = currentPage;
 		Map<String, Integer> config = new HashMap<>();
@@ -18,7 +18,7 @@ public class Pagination {
 		return config;
 	}
 
-	//recournation method
+	//recursion method
 	private static int getCurrentPage(int currentPage, int delta, int count) {
 		currentPage = currentPage - 1;
 		if (delta * (currentPage - 1) < count) {

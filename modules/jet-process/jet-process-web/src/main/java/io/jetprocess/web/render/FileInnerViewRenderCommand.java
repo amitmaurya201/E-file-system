@@ -50,15 +50,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("putInFileId", docFileId);
 		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
 
-		List<NoteDTO> noteList = null;
-		
-		if (Validator.isNull(viewMode)) {
-			noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
-
-		} else {
-			noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
-
-		}
+		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 		renderRequest.setAttribute("noteList", noteList);
 		try {
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
@@ -108,18 +100,12 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 			count = fileLists.getFileCorrespondenceCount(viewMode, fileMovementId, fileId, keywords);
 		}
 		logger.info("Count of File list : " + count);
-		int preDelta = 0;
-		String d = (String) session.getAttribute("preDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-		}
-		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
+		
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		String viewMode1 = ParamUtil.getString(renderRequest, "viewMode");
-		session.setAttribute("preDelta", "" + delta + "");
 
-		if (Validator.isNull(viewMode1)) {
+		if (Validator.isNull(viewMode)) {
 			List<FileCorrespondenceReceiptDTO> fileCorrespondence = fileLists.getFileCorrespondence(viewMode,
 					fileMovementId, fileId, keywords, start, end, orderByCol, orderByType);
 			renderRequest.setAttribute("fileCorrespondence", fileCorrespondence);

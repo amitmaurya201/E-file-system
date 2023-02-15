@@ -59,15 +59,10 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		int count = _receiptList.getPutInFileListCount(userPost, keywords);
-		int preDelta = 0;
-		String d = (String) session.getAttribute("preDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-		}
-		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count, preDelta);
+		
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		session.setAttribute("preDelta", "" + delta + "");
 		List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(userPost, keywords, start, end, "", "");
 		receiptList.forEach(c -> logger
 				.info(c.getReceiptId() + ", : " + c.isRead() + ", : file movement id :  " + c.getReceiptMovementId()));

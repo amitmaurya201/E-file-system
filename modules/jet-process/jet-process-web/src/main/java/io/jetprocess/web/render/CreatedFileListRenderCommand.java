@@ -59,16 +59,10 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		
 		int count = fileLists.getFileCreatedListCount(userPost, keywords);
 		logger.info("Count of File list : "+count);
-		int preDelta = 0;
-		String d = (String) session.getAttribute("preDelta");
-		if (d != null) {
-			preDelta = Integer.parseInt(d);
-			
-		}
-		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
+
+		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
-		session.setAttribute("preDelta", "" + delta + "");
 		List<FileListViewDto> fileList = fileLists.getFileList(userPost, keywords, start, end, orderByCol, orderByType);
 		logger.info("Created File list : "+fileList);
 		renderRequest.setAttribute("fileList", fileList);

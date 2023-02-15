@@ -59,17 +59,9 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		
 		int sendFileCount=_fileList.getFileSentListCount(userPostId, keywords);
-		int preDelta=0;
-		String d=(String) session.getAttribute("preDelta");
-		if(d!=null) {
-			preDelta=Integer.parseInt(d);
-			
-		}
-			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, sendFileCount, preDelta);
+			Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, sendFileCount);
 			start=paginationConfig.get("start");
 			currentPage=paginationConfig.get("currentPage");
-			
-		session.setAttribute("preDelta", ""+delta+"");
 		List<FileMovementDTO> sendFileList =_fileList.getFileSentList(userPostId, keywords, start, end, orderByCol, orderByType);
 		renderRequest.setAttribute("sentFileList", sendFileList);
 		renderRequest.setAttribute("sendFileCount", +sendFileCount);
