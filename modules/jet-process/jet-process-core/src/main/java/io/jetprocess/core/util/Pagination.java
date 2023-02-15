@@ -18,6 +18,7 @@ public class Pagination {
 		return config;
 	}
 
+	//recournation method
 	private static int getCurrentPage(int currentPage, int delta, int count) {
 		currentPage = currentPage - 1;
 		if (delta * (currentPage - 1) < count) {
