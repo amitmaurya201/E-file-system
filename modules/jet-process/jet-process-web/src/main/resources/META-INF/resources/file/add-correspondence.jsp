@@ -15,7 +15,7 @@
 	</portlet:actionURL>
 	<clay:management-toolbar disabled="${receiptCount eq 0}"
 		displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
-		itemsTotal="${receiptCount}" searchContainerId="receiptList" />
+		itemsTotal="${receiptCount}" searchContainerId="receiptList" selectable="false" />
 	<aui:form action="${attachReceipt}" method="post" name="attachReceipt">
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
