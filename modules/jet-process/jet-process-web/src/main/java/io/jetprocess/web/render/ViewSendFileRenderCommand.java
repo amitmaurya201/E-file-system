@@ -4,16 +4,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -26,6 +23,7 @@ import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
+import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.FILE_SEND_RENDER_COMMAND }, service = MVCRenderCommand.class)
@@ -36,16 +34,11 @@ public class ViewSendFileRenderCommand implements MVCRenderCommand {
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		HttpSession session = themeDisplay.getRequest().getSession();
-		String sessionUserPostId = (String) session.getAttribute("userPostId");
-		long userPostId = Long.parseLong(sessionUserPostId);
-		
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);		
 		try {
 			DocFile docFile = DocFileLocalServiceUtil.getDocFile(docFileId);
 			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
 			renderRequest.setAttribute("userPostList", userPostList);
-
 			renderRequest.setAttribute("docFile", docFile);
 			renderRequest.setAttribute("backPageURL", backPageURL);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);

@@ -73,6 +73,10 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		session.setAttribute("preDelta", "" + delta + "");
 		List<ReceiptMovementDTO> receiptInboxList = _receiptList.getReceiptInboxList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
+		receiptInboxList.forEach(c->{
+			System.out.println("senderId --- in inboxlit ---"+c.getSenderId());
+			
+		});
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
 		renderRequest.setAttribute("inboxReceiptCount", count);
 		renderRequest.setAttribute("delta", delta);

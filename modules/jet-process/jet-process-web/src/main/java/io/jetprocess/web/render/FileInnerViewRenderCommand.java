@@ -39,7 +39,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name="+MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND }, service = MVCRenderCommand.class)
+		"mvc.command.name=" + MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class FileInnerViewRenderCommand implements MVCRenderCommand {
 
 	@Override
@@ -50,21 +50,23 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("putInFileId", docFileId);
 		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
 
-		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
-		renderRequest.setAttribute("backPageURL", backPageURL);
+		List<NoteDTO> noteList = null;
+		
 		if (Validator.isNull(viewMode)) {
 			noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
-			renderRequest.setAttribute("noteList", noteList);
+
 		} else {
 			noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
-			renderRequest.setAttribute("noteList", noteList);
+
 		}
+		renderRequest.setAttribute("noteList", noteList);
 		try {
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 			renderRequest.setAttribute("nature", docFile.getNature());
 			renderRequest.setAttribute("docFileId", docFileId);
 			renderRequest.setAttribute("docFileObj", docFile);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
+			renderRequest.setAttribute("backPageURL", backPageURL);
 			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
 			if (fileNote != null) {
 				Note note = noteLocalService.getNote(fileNote.getNoteId());
@@ -145,16 +147,16 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private Portal _portal;
-	
+
 	@Reference
 	private FileList fileLists;
-	
+
 	@Reference
 	private NoteLocalService noteLocalService;
-	
+
 	@Reference
 	private FileNoteLocalService fileNoteLocalService;
-	
+
 	@Reference
 	private DocFileLocalService docFileLocalService;
 
