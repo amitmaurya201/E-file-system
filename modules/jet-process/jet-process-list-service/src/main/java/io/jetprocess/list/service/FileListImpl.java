@@ -24,22 +24,12 @@ public class FileListImpl implements FileList {
 
 	private static Log logger = LogFactoryUtil.getLog(FileListImpl.class);
 
-	Connection con = null;
-	{
-		try {
-			con=DataAccess.getConnection();
-			logger.info("Getting Jdbc Connection....");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			logger.error("Couldn't able to get jdbc connection....");
-		}
-	}
 	public int getFileCreatedListCount(long userPostId, String keyword) {
 		logger.info("Getting created file list count");
-		
+		Connection con = null;
 		int count = 0;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -63,9 +53,9 @@ public class FileListImpl implements FileList {
 	public List<FileListViewDto> getFileList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
 		List<FileListViewDto> fileList = new ArrayList<>();
-		
+		Connection con = null;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT * from PUBLIC.get_file_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -101,10 +91,10 @@ public class FileListImpl implements FileList {
 
 	@Override
 	public int getFileInboxListCount(long userpostId, String keyword) {
-		
+		Connection con = null;
 		int count = 0;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select get_file_inbox_lists_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
@@ -129,9 +119,9 @@ public class FileListImpl implements FileList {
 	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-		
+		Connection con = null;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_inbox_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -176,10 +166,10 @@ public class FileListImpl implements FileList {
 
 	@Override
 	public int getFileSentListCount(long postId, String keyword) {
-		
+		Connection con = null;
 		int count = 0;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select get_file_sent_lists_count(?,?)");
 			prepareCall.setLong(1, postId);
 			prepareCall.setString(2, keyword);
@@ -203,9 +193,9 @@ public class FileListImpl implements FileList {
 	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-		
+		Connection con = null;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_sent_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
@@ -253,9 +243,9 @@ public class FileListImpl implements FileList {
 	public List<FileMovementDTO> getFileMovementList(long fileMovementId, long docfileId, String keyword, int start,
 			int end, String orderBy, String order) {
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-		
+		Connection con = null;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, fileMovementId);
@@ -302,10 +292,10 @@ public class FileListImpl implements FileList {
 
 	@Override
 	public int getFileMovementListCount(long filemovementId, long fileId, String keyword) {
-		
+		Connection con = null;
 		int count = 0;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select public.get_file_movement_list_count(?,?,?)");
 			prepareCall.setLong(1, filemovementId);
 			prepareCall.setLong(2, fileId);
@@ -329,10 +319,10 @@ public class FileListImpl implements FileList {
 
 	@Override
 	public int getFileCorrespondenceCount(String mode, long filemovementId, long fileId, String keyword) {
-		
+		Connection con = null;
 		int count = 0;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con
 					.prepareCall("select public.get_file_correspondence_list_count(?,?,?,?)");
 			prepareCall.setString(1, mode);
@@ -361,9 +351,9 @@ public class FileListImpl implements FileList {
 			String keyword, int start, int end, String orderBy, String order) {
 
 		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
-		
+		Connection con = null;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?,?)");
 			prepareCall.setString(1, mode);
@@ -406,9 +396,9 @@ public class FileListImpl implements FileList {
 	public List<NoteDTO> getAttachedNoteList(String mode, long filemovementId, long docfileId) {
 		logger.info("getAttachedNoteList");
 		List<NoteDTO> noteDtoList = new ArrayList<>();
-		
+		Connection con = null;
 		try {
-			
+			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select * from public.get_all_attached_note_list(?,?,?)");
 			prepareCall.setString(1, mode);
 			prepareCall.setLong(2, filemovementId);

@@ -124,7 +124,7 @@ cursor: pointer;
 		</portlet:renderURL>
 
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="No Results Found" id="FileInboxEntries"
+			emptyResultsMessage="message-record-not-found" id="FileInboxEntries"
 			total="${fileInboxCount}"
 			iteratorURL="${fileInboxManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileInboxList}" />

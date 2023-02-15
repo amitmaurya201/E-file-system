@@ -45,7 +45,7 @@
 			<liferay-ui:message key="label-file-movement-heading" />
 		</h2>
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="No Results Found" total="${fileMovementCount}"
+			emptyResultsMessage="message-record-not-found" total="${fileMovementCount}"
 			iteratorURL="${fileMovementDisplayContext.getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileMovementList}" />
 

@@ -267,7 +267,7 @@
 				</div>
 
 				<liferay-ui:search-container delta="${delta }"
-					emptyResultsMessage="label-no-record-found"
+					emptyResultsMessage="message-record-not-found"
 					total="${receiptMovementCount }"
 					iteratorURL="${correspondencesInfoManagementToolbarDisplayContext._getCurrentURL()}">
 					<liferay-ui:search-container-results

@@ -22,7 +22,7 @@
 			itemsTotal="${fileCount}" searchContainerId="assignmentEntries" />
 
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="No Results Found" id="assignmentEntries"
+			emptyResultsMessage="message-record-not-found" id="assignmentEntries"
 			total="${fileCount}"
 			iteratorURL="${fileManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileList}" />

@@ -56,7 +56,7 @@
 		</liferay-portlet:renderURL>
 
 		<liferay-ui:search-container delta="4"
-			emptyResultsMessage="No Results Found" id="sendFileListEntries"
+			emptyResultsMessage="message-record-not-found" id="sendFileListEntries"
 			total="${sendFileCount}"
 			iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${sentFileList}" />

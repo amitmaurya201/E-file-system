@@ -99,7 +99,7 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 		<liferay-ui:search-container total="${fileCorrespondenceCount }"
 			delta="${delta }" deltaConfigurable="true"
 			iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
-			emptyResultsMessage="No Results Found">
+			emptyResultsMessage="message-record-not-found">
 			<liferay-ui:search-container-results results="${fileCorrespondence}" />
 
 			<liferay-ui:search-container-row
