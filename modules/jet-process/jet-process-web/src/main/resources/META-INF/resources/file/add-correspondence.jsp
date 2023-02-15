@@ -42,7 +42,7 @@
 						onchange="receiptDetail(${receiptListViewDto.isRead()},
 					${receiptListViewDto.getReceiptId()},
 					 ${receiptListViewDto.getReceiptMovementId()},'${receiptListViewDto.getNature()}')"
-						name="receiptId" label="label-put-in-receipt-id" value="<%=receiptListViewDto.getReceiptId()%>" />
+						name="receiptId" label="label-put-in-receipt" value="<%=receiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${receiptListViewDto.getReceiptMovementId()}" />
 					<aui:input name="fileMovementId" type="hidden"
@@ -53,7 +53,7 @@
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="label-put-in-receipt-number" />
 				<liferay-ui:search-container-column-text property="subject"
-					name="label-put-in-receipt-subject" />
+					name="label-put-in-receipt-subject" cssClass="hover-tips" />
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
