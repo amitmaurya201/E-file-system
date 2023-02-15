@@ -21,7 +21,7 @@
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
 		<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>" />
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="No Results Found" id="receiptList"
+			emptyResultsMessage="message-record-not-found" id="receiptList"
 			total="${receiptCount}"
 			iteratorURL="${addCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptFileList }" />
