@@ -141,7 +141,7 @@ cursor: pointer;
 				</portlet:actionURL>
 				<portlet:actionURL var="receiptReadAction"
 					name="<%=MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND%>">
-					<portlet:param name="receiptId1"
+					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />

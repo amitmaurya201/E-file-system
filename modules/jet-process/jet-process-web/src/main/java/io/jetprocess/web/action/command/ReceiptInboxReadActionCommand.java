@@ -32,7 +32,7 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
-		long receiptId = ParamUtil.getLong(actionRequest, "receiptId1");
+		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
 	
