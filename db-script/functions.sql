@@ -25,25 +25,25 @@ DROP FUNCTION IF EXISTS public.get_file_movement_list_count(bigint , bigint,  te
 
 DROP FUNCTION IF EXISTS public.get_receipt_movement_list_count(bigint , bigint, text);
 
-DROP FUNCTION IF EXISTS public.get_receipt_created_list(bigint, text, integer, integer, text, text)
+DROP FUNCTION IF EXISTS public.get_receipt_created_list(bigint, text, integer, integer, text, text);
 
-DROP FUNCTION IF EXISTS public.get_receipt_inbox_list(bigint, text, integer, integer, text, text)
+DROP FUNCTION IF EXISTS public.get_receipt_inbox_list(bigint, text, integer, integer, text, text);
 
 DROP FUNCTION IF EXISTS public.get_receipt_sent_list(bigint, text, integer, integer, text, text);
 
-DROP FUNCTION IF EXISTS public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text)
+DROP FUNCTION IF EXISTS public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text);
 
 DROP FUNCTION IF EXISTS public.get_all_attached_note_list(bigint, bigint);
 
 DROP FUNCTION IF EXISTS public.get_attach_receipt_movement_list(bigint, text, integer, integer, text, text);
 
-DROP FUNCTION IF EXISTS public.get_receipt_created_list_count(bigint, text)
+DROP FUNCTION IF EXISTS public.get_receipt_created_list_count(bigint, text);
 
-DROP FUNCTION IF EXISTS public.get_receipt_inbox_list_count(bigint,text)
+DROP FUNCTION IF EXISTS public.get_receipt_inbox_list_count(bigint,text);
 
 DROP FUNCTION IF EXISTS public.get_receipt_sent_list_count(bigint, text);
 
-DROP FUNCTION IF EXISTS public.get_file_correspondence_list_count(text,bigint, bigint, text)
+DROP FUNCTION IF EXISTS public.get_file_correspondence_list_count(text,bigint, bigint, text);
 
 DROP FUNCTION IF EXISTS public.get_attach_receipt_movement_list_count(bigint, text);
 
