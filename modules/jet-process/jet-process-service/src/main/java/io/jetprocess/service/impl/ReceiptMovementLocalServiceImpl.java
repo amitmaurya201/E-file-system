@@ -41,7 +41,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
 			String remark,boolean active ,int currentState , long movementType) throws PortalException {
-			Long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
+			long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
 			ReceiptMovement rm= receiptMovementLocalService.getReceiptMovement(rmId);
 			if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
 				Receipt receipt = receiptLocalService.getReceipt(receiptId);
