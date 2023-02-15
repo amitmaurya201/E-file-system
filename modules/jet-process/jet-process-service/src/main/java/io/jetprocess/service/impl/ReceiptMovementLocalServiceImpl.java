@@ -171,8 +171,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		try {
 			state = pullBackedAlready(rmId);
 			if (state == true) {
-				List<ReceiptMovement> receiptMovement = receiptMovementLocalService
-						.getReceiptMovementByReceiptId(receiptId);
+				List<ReceiptMovement> receiptMovement = getReceiptMovementByReceiptId(receiptId);
 				for (ReceiptMovement receiptMovement2 : receiptMovement) {
 					if (receiptMovement2.getReceiptId() == receiptId) {
 						receiptMovement2.setReadOn("read");
@@ -212,7 +211,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			for (ReceiptMovement receiptMovement : receiptMovementList) {
 				if (fileMovementId == receiptMovement.getFileInMovementId()) {
 					receiptMovement.setActive(false);
-					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+					updateReceiptMovement(receiptMovement);
 				}
 			}
 		}
@@ -221,7 +220,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 	public boolean isCreatedReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
 		boolean attachable = false;
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
 		if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
 				&& !receiptMovement.getActive()){	
 			logger.info("isCreatedList attachable true");
@@ -235,7 +234,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			logger.info("isInboxReceiptAttachable..........."+" receiptId : "+receiptId+", movement id : "+receiptMovementId);
 			boolean attachable = false;
 			Receipt receipt = receiptLocalService.getReceipt(receiptId);
-			ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+			ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
 			if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
 					&& receiptMovement.getActive()){	
 				logger.info("attachable true");
