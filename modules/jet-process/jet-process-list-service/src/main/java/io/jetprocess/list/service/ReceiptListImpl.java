@@ -1,6 +1,8 @@
 package io.jetprocess.list.service;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -18,11 +20,13 @@ import io.jetprocess.list.model.ReceiptMovementDTO;
 @Component(immediate = true, service = ReceiptList.class)
 public class ReceiptListImpl implements ReceiptList {
 
+	private static Log logger = LogFactoryUtil.getLog(ReceiptListImpl.class);
 	@Override
 	public int getReceiptListCount(long userpostId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
+			logger.info("Getting Receipt List Count...");
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
@@ -35,9 +39,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}
@@ -45,6 +51,7 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public List<ReceiptListViewDto> getReceiptList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
+		logger.info("Getting Receipt List");
 		List<ReceiptListViewDto> receiptList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -75,8 +82,10 @@ public class ReceiptListImpl implements ReceiptList {
 
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
+			logger.info("Cleaning up connection");
 			DataAccess.cleanUp(con);
 		}
 		return receiptList;
@@ -84,6 +93,8 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getReceiptInboxListCount(long userpostId, String keyword) {
+		
+		logger.info("Getting Receipt inbox");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -99,8 +110,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
+			logger.info("Cleaning up connection");
 			DataAccess.cleanUp(con);
 		}
 		return count;
@@ -109,6 +123,7 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public List<ReceiptMovementDTO> getReceiptInboxList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
+		logger.info("Getting Receipt Inbox list");
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -144,8 +159,10 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
+			logger.info("Cleaning up connection");
 			DataAccess.cleanUp(con);
 
 		}
@@ -155,6 +172,7 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getReceiptSentListCount(long userpostId, String keyword) {
+		logger.info("Getting Receipt sent count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -170,8 +188,10 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
+			logger.info("Cleaning up connection");
 			DataAccess.cleanUp(con);
 		}
 		return count;
@@ -180,6 +200,7 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public List<ReceiptMovementDTO> getReceiptSentList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
+		logger.info("Getting Receipt sent list ");
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -214,9 +235,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return receiptMovementDTOList;
 	}
@@ -227,6 +250,7 @@ public class ReceiptListImpl implements ReceiptList {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
+			logger.info("Getting Receipt Movement list");
 			con = DataAccess.getConnection();
 			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
@@ -260,9 +284,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return receiptMovementDTOList;
 
@@ -271,6 +297,7 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public List<ReceiptMovementDTO> getAttachReceiptMovementList(long receiptId, String keyword, int start, int end,
 			String orderBy, String order) {
+		logger.info("Getting Attach receipt movement list ");
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -306,15 +333,19 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
+			
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return receiptMovementDTOList;
 	}
 
 	@Override
 	public int getReceiptMovementListCount(long receiptmovementId, long userpostId, String keyword) {
+		logger.info("Getting Receipt Movement count ");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -331,15 +362,18 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}
 
 	@Override
 	public int getAttachReceiptMovementListCount(long receiptId, String keyword) {
+		logger.info("Getting attach receipt movement count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -356,9 +390,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}
@@ -366,6 +402,7 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public List<ReceiptListViewDto> getPutInFileList(long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
+		logger.info("Getting put in file list");
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -396,9 +433,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 
 		}
 		return receiptMovementDTOList;
@@ -406,6 +445,7 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getPutInFileListCount(long userPostId, String keyword) {
+		logger.info("Getting put in file count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -421,9 +461,11 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}

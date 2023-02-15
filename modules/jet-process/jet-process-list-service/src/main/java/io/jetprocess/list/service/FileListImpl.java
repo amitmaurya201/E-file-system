@@ -109,6 +109,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
+			logger.info("Cleaning up connection");
 			DataAccess.cleanUp(con);
 		}
 		logger.info("File inbox list count : " + count);
@@ -118,6 +119,7 @@ public class FileListImpl implements FileList {
 	@Override
 	public List<FileMovementDTO> getFileInboxList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
+		logger.info("Getting file inbox list");
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -160,12 +162,14 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return fileMovementDTOList;
 	}
 
 	@Override
 	public int getFileSentListCount(long postId, String keyword) {
+		logger.info("Getting file sent list count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -185,6 +189,7 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}
@@ -192,6 +197,7 @@ public class FileListImpl implements FileList {
 	@Override
 	public List<FileMovementDTO> getFileSentList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
+		logger.info("Getting file sent list count");
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -235,6 +241,7 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return fileMovementDTOList;
 	}
@@ -242,6 +249,7 @@ public class FileListImpl implements FileList {
 	@Override
 	public List<FileMovementDTO> getFileMovementList(long fileMovementId, long docfileId, String keyword, int start,
 			int end, String orderBy, String order) {
+		logger.info("Getting file movement list");
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -286,12 +294,14 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return fileMovementDTOList;
 	}
 
 	@Override
 	public int getFileMovementListCount(long filemovementId, long fileId, String keyword) {
+		logger.info("Getting file movement list count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -313,12 +323,14 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}
 
 	@Override
 	public int getFileCorrespondenceCount(String mode, long filemovementId, long fileId, String keyword) {
+		logger.info("Getting file correspondence count");
 		Connection con = null;
 		int count = 0;
 		try {
@@ -342,6 +354,7 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return count;
 	}
@@ -349,7 +362,7 @@ public class FileListImpl implements FileList {
 	@Override
 	public List<FileCorrespondenceReceiptDTO> getFileCorrespondence(String mode, long filemovementId, long docfileId,
 			String keyword, int start, int end, String orderBy, String order) {
-
+		logger.info("Getting file correspondencelist");
 		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -388,13 +401,14 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return fileCorrespondenceReceiptDTO;
 	}
 
 	@Override
 	public List<NoteDTO> getAttachedNoteList(String mode, long filemovementId, long docfileId) {
-		logger.info("getAttachedNoteList");
+		logger.info("get Attached Note List");
 		List<NoteDTO> noteDtoList = new ArrayList<>();
 		Connection con = null;
 		try {
@@ -420,6 +434,7 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
 		}
 		return noteDtoList;
 	}
