@@ -223,9 +223,11 @@ $("#<portlet:namespace />update-docfile").on('click', function(e){
         jsonData["userPostId"] = userPostId;
      var jsonObj = JSON.stringify(jsonData);
  	var subject=$('#<portlet:namespace/>subject').val().length;
+ 	var subjectvalue = $('#<portlet:namespace/>subject').val();
+ 	console.log("subject value=--->"+subjectvalue+"--->");
  	console.log("subject --->"+subject);
-     console.log("jsonObj-->"+jsonObj);
-     if(subject == 0){
+    console.log("jsonObj-->"+jsonObj);
+     if(subject == 0 || subjectvalue.trim() == ""){
     	 swal({  
  			title: " Oops!",  
  			  	text: "Required fields should not be empty!",  
