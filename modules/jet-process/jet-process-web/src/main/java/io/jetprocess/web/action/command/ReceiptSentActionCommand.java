@@ -15,7 +15,6 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -33,10 +32,10 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-		Long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
-		Long receiptMovementId = ParamUtil.getLong(actionRequest, "rmId");
+		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
+		long receiptMovementId = ParamUtil.getLong(actionRequest, "rmId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
-		Long userPostId = ParamUtil.getLong(actionRequest, "senderId");
+		long userPostId = ParamUtil.getLong(actionRequest, "senderId");
 		Boolean pullBackAvailable = receiptMovementLocalService.isPullBackAvailable(receiptMovementId);
 			if (pullBackAvailable) {
 				logger.info("working");
@@ -53,8 +52,6 @@ public class ReceiptSentActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
-	@Reference
-	private ReceiptLocalService receiptLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

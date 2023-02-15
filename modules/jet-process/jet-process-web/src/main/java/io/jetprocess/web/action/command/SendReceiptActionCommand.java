@@ -28,9 +28,10 @@ public class SendReceiptActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
+		logger.info("send receipt render called");
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long userPostId = ParamUtil.getLong(actionRequest,"userPostId");
-		Boolean sendAvailable = false;
+		boolean sendAvailable = false;
 		try {
 			sendAvailable = receiptLocalService.isSendAvailable(userPostId, receiptId);
 			if (sendAvailable) {
@@ -42,7 +43,6 @@ public class SendReceiptActionCommand implements MVCActionCommand {
 				SessionErrors.add(actionRequest, "send-not-available");
 				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 				actionResponse.getRenderParameters().setValue("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
-				sendAvailable=false;
 			}
 		} catch (PortalException e) {
 			logger.info(e.getMessage());

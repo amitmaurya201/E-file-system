@@ -25,8 +25,6 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptMovementDTO;
-import io.jetprocess.masterdata.service.MasterdataLocalService;
-import io.jetprocess.masterdata.service.MasterdataService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.ReceiptInboxManagementToolbarDisplayContext;
@@ -91,10 +89,7 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	}
 
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
-	@Reference
-	private MasterdataService masterData;
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
+
 	@Reference
 	private Portal _portal;
 	@Reference
