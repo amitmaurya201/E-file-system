@@ -94,7 +94,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+				<h5 class="modal-title" id="exampleModalLabel"><liferay-ui:message key="label-put-in-receipt-Confirmation-heading" /></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -102,18 +102,17 @@
 			</div>
 			<div class="modal-body">
 				<h6>
-					Do you want to mark as <span id="msg"></span> and continue
+					<liferay-ui:message key="message-put-in-receipt-Confirmation-accept1" /> <span id="msg"></span> <liferay-ui:message key="message-put-in-receipt-Confirmation-accept2" />
 				</h6>
 				<aui:form action="#" method="post" name="receiveForm">
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
 					<div class="float-right">
-						<aui:button type="button" cssClass="btn btn-primary" value="Yes"
+						<aui:button type="button" cssClass="btn btn-primary" value="label-put-in-receipt-confirmation-button"
 							onclick="receiptReceive(true)"></aui:button>
-						<aui:button type="button" cssClass="btn btn-primary" value="No"
+						<aui:button type="button" cssClass="btn btn-primary" value="label-put-in-receipt-confirmation-cancel"
 							data-dismiss="modal"></aui:button>
 					</div>
-
 				</aui:form>
 			</div>
 
@@ -134,6 +133,7 @@ function receiptDetail(_isRead, _receiptId, _receiptMovementId,_nature){
 	console.log(isRead+" : "+receiptId+" : "+receiptMovementId+", nature : "+nature)
 }
 function validateForm(attachReceipt) {
+	
 	var liferayForm = Liferay.Form.get(attachReceipt);
     if (liferayForm) {
         var validator = liferayForm.formValidator;
@@ -148,13 +148,16 @@ function validateForm(attachReceipt) {
 };
 
 $('#<portlet:namespace />attachForm').click(function(){
+	
 	if(receiptMovementId != null  && validateForm('<portlet:namespace/>attachReceipt')){
 		if(isRead == false){
 			if(nature==='Electronic'){
-				$("#msg").text('Read');
+				let message="<liferay-ui:message key='message-put-in-receipt-confirmation-electronic'/>";
+				$("#msg").text(message);
 			}
 			else{
-				$("#msg").text('Receive');
+				let message="<liferay-ui:message key='message-put-in-receipt-confirmation-physical'/>";
+				$("#msg").text(message);
 			}
 			$("#<portlet:namespace />receiptId").val(receiptId);
 			$("#<portlet:namespace />rmId").val(receiptMovementId);

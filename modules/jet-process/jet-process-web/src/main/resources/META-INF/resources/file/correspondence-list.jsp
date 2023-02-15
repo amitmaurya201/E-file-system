@@ -87,7 +87,7 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 			style="border-radius:0px 100px 0px 0px; "><liferay-ui:message key="corr-list-heading" /> </text>
 		<div class="pl-2 pr-2 dropdown float-right put-heading"
 			style="border-radius: 100px 0px 0px 100px;">
-			<i class="fa fa-bars ">TOC</i>
+			<i class="fa fa-bars "><liferay-ui:message key="corr-list-toc-heading" /></i>
 			<div class="dropdown-content">
 				<a href="#">Link 1</a> <a href="#">Link 2</a> <a href="#">Link 3</a>
 			</div>
@@ -143,7 +143,7 @@ long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 
 		<div class="float-right mt-3">
 			<aui:button cssClass="btn btn-primary" name="add_receipt"
-				id="add_receipt" value="Add Receipt">
+				id="add_receipt" value="label-add-receipt-corr-list">
 			</aui:button>
 		</div>
 	</div>
@@ -158,6 +158,7 @@ if (viewMode == 'ViewModeFromSentFile') {
 }
 
 $("#<portlet:namespace />add_receipt").click(()=>{
+var title="<liferay-ui:message key='title-corr-put-in-receipt'/>";
 	Liferay.Util.openWindow({ 
 		dialog: { 														 
 			height: 800,														 
@@ -172,7 +173,7 @@ $("#<portlet:namespace />add_receipt").click(()=>{
 		 	}													 
 		}, 														 
 	id: '<portlet:namespace />dialog',														 
-	title: 'Put In Receipt(s)', 														 
+	title:title , 														 
 	uri: '<%=fileInnerViewPopup%>&<portlet:namespace />corrFileId=<%=corrFileId%>',			
 	});
 });		
@@ -181,6 +182,7 @@ $("#<portlet:namespace />add_receipt").click(()=>{
 <script>
 
 function infoPopup(receiptId, receiptMovementId){
+	var title="<liferay-ui:message key='title-corr-receiptDetailPopup'/>";
 	Liferay.Util.openWindow({ 
 		dialog: { 														 
 			height: 550,														 
@@ -195,12 +197,13 @@ function infoPopup(receiptId, receiptMovementId){
 	}
 	},											
 	id: '<portlet:namespace />dialog',														 
-	title: 'Correspondence Details', 														 
+	title: title, 														 
 	uri: '<%=correspondencesinfoViewPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace />receiptMovementId='+receiptMovementId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
 	});
 }
 	
 function receiptDetailPopup(receiptId){
+	var title="<liferay-ui:message key='title-corr-receiptDetailPopup'/>";
 	Liferay.Util.openWindow({ 
 		dialog: { 														 
 			height: 550,														 
@@ -215,7 +218,7 @@ function receiptDetailPopup(receiptId){
 	      	}													 
 		}, 														 
 		id: '<portlet:namespace />dialog',														 
-		title: 'Receipt Details', 														 
+		title: title, 														 
 		uri: '<%=receiptDetailsPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
 		});	  
 	}
