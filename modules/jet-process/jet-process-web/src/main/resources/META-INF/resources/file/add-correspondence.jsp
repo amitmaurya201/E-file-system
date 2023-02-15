@@ -140,7 +140,6 @@ function receiptDetail(_isRead, _receiptId, _receiptMovementId,_nature){
 	receiptId=_receiptId;
 	receiptMovementId=_receiptMovementId;
 	nature=_nature;
-	console.log(isRead+" : "+receiptId+" : "+receiptMovementId+", nature : "+nature)
 }
 function validateForm(attachReceipt) {
 	
