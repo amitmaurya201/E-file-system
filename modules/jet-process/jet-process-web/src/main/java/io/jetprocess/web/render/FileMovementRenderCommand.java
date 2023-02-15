@@ -40,6 +40,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		logger.info("FileMovementRenderComand--->");
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
@@ -51,7 +52,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 			setManagementToolbarAttributes(renderRequest, renderResponse);
 			setFileMovementList(renderRequest);
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return "/file/movement.jsp";

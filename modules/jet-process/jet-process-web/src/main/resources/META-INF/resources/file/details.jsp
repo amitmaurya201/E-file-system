@@ -20,7 +20,38 @@
 </style>
 
 <%
-String backPageURL = (String) request.getAttribute("backPageURL");
+	String backPageURL = (String) request.getAttribute("backPageURL");
+	DocFile docFile = (DocFile) request.getAttribute("DocFile");
+	session.setAttribute("DocFile", docFile);
+	String categoryValue;
+	String subCategoryValue;
+	String basicHeadValue;
+	if (docFile.getType().equalsIgnoreCase(FileConstants.NON_SFS_TYPE)) {
+	basicHeadValue = (String) request.getAttribute("BasicHeadValue");
+	String primaryHeadValue = (String) request.getAttribute("PrimaryHeadValue");
+	String secondaryHeadValue = (String) request.getAttribute("SecondaryHeadValue");
+	String tertiaryHeadValue = (String) request.getAttribute("TertiaryHeadValue");
+	String fileCodeValue = (String) request.getAttribute("FileCodeValue");
+	categoryValue = (String) request.getAttribute("CategoryValue");
+	subCategoryValue = (String) request.getAttribute("SubCategoryValue");
+
+	renderRequest.setAttribute("BasicHeadValue", basicHeadValue);
+	renderRequest.setAttribute("PrimaryHeadValue", primaryHeadValue);
+	renderRequest.setAttribute("SecondaryHeadValue", secondaryHeadValue);
+	renderRequest.setAttribute("TertiaryHeadValue", tertiaryHeadValue);
+	renderRequest.setAttribute("FileCodeValue", fileCodeValue);
+	renderRequest.setAttribute("CategoryVaue", categoryValue);
+	renderRequest.setAttribute("SubCategoryValue", subCategoryValue);
+} else {
+	categoryValue = (String) request.getAttribute("SfsCategoryValue");
+	subCategoryValue = (String) request.getAttribute("SfsSubCategoryValue");
+
+	renderRequest.setAttribute("SfsCategoryValue", categoryValue);
+	renderRequest.setAttribute("SfsSubCategoryValue", subCategoryValue);
+	
+}
+String type = (String) docFile.getNature();
+char firstChar = type.charAt(0);
 %>
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -34,39 +65,7 @@ String backPageURL = (String) request.getAttribute("backPageURL");
 		</liferay-util:include>
 
 		<%
-			DocFile docFile = (DocFile) request.getAttribute("DocFile");
-			session.setAttribute("DocFile", docFile);
-			String categoryValue;
-			String subCategoryValue;
-			String basicHeadValue;
-			if (docFile.getType().equalsIgnoreCase(FileConstants.NON_SFS_TYPE)) {
-				basicHeadValue = (String) request.getAttribute("BasicHeadValue");
-				String primaryHeadValue = (String) request.getAttribute("PrimaryHeadValue");
-				String secondaryHeadValue = (String) request.getAttribute("SecondaryHeadValue");
-				String tertiaryHeadValue = (String) request.getAttribute("TertiaryHeadValue");
-				String fileCodeValue = (String) request.getAttribute("FileCodeValue");
-				categoryValue = (String) request.getAttribute("CategoryValue");
-				subCategoryValue = (String) request.getAttribute("SubCategoryValue");
-
-				renderRequest.setAttribute("BasicHeadValue", basicHeadValue);
-				renderRequest.setAttribute("PrimaryHeadValue", primaryHeadValue);
-				renderRequest.setAttribute("SecondaryHeadValue", secondaryHeadValue);
-				renderRequest.setAttribute("TertiaryHeadValue", tertiaryHeadValue);
-				renderRequest.setAttribute("FileCodeValue", fileCodeValue);
-				renderRequest.setAttribute("CategoryVaue", categoryValue);
-				renderRequest.setAttribute("SubCategoryValue", subCategoryValue);
-			} else {
-				categoryValue = (String) request.getAttribute("SfsCategoryValue");
-				subCategoryValue = (String) request.getAttribute("SfsSubCategoryValue");
-
-				renderRequest.setAttribute("SfsCategoryValue", categoryValue);
-				renderRequest.setAttribute("SfsSubCategoryValue", subCategoryValue);
-			}
-		%>
-
-		<%
-			String type = (String) docFile.getNature();
-			char firstChar = type.charAt(0);
+			
 		%>
 
 		<div class="container-fluid" style="background-color: #E8E8E8;">

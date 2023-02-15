@@ -9,6 +9,9 @@
 
 <%
 	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
+	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
+	String type = (String) receipt.getNature();
+	char firstChar = type.charAt(0);
 %>
 
 <style>
@@ -44,11 +47,6 @@
 		<portlet:actionURL
 			name="<%=MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND%>"
 			var="sendReceiptAction" />
-		<%
-			Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
-			String type = (String) receipt.getNature();
-			char firstChar = type.charAt(0);
-		%>
 		<div class="container-fluid" style="background-color: #E8E8E8;">
 			<div class="hover-tips"><%=firstChar%> | ${receipt.receiptNumber} | ${receipt.subject}
 			</div>

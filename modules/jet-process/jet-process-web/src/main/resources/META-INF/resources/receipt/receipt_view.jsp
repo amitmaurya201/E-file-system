@@ -4,26 +4,19 @@
     renderRequest.setAttribute("backPageURL", backPageURL);
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
 	renderRequest.setAttribute("receiptMovementId", receiptMovementId);
+	Receipt receipt = (Receipt) request.getAttribute("receipt");
+	String nature = receipt.getNature();
+	char currentNature = nature.charAt(0);
 %>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
-
 		<liferay-util:include page="/receipt/receipt-view-nav.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="details" />
 		</liferay-util:include>
-
-		<%
-			Receipt receipt = (Receipt) request.getAttribute("receipt");
-			session.setAttribute("receipt", receipt);
-
-			String nature = receipt.getNature();
-			char currentNature = nature.charAt(0);
-		%>
-
 		<div class="container-fluid" style="background-color: #E8E8E8;">
 			<div class="hover-tips"><%=currentNature%> | ${receipt.receiptNumber} | ${receipt.subject}
 			</div>

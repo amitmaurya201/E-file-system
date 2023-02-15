@@ -68,7 +68,6 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 		Map<String, Integer> paginationConfig=Pagination.getOffset(delta, currentPage, count, preDelta);
 		start=paginationConfig.get("start");
 		currentPage=paginationConfig.get("currentPage");
-		
 		session.setAttribute("preDelta", "" + delta + "");
 		List<FileListViewDto> fileList = fileLists.getFileList(userPost, keywords, start, end, orderByCol, orderByType);
 		logger.info("Created File list : "+fileList);
@@ -86,7 +85,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	FileList fileLists;
+	private FileList fileLists;
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;

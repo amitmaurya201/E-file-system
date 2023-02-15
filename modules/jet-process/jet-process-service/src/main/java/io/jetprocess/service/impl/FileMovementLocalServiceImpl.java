@@ -13,25 +13,15 @@
  */
 
 package io.jetprocess.service.impl;
-
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.util.PortalUtil;
-
 import java.util.Date;
 import java.util.List;
-
-import javax.portlet.ActionRequest;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
 import io.jetprocess.core.constant.util.FileConstants;
-import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
@@ -68,7 +58,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		FileMovement fm = null;
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
 			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
-
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 				if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
@@ -127,14 +116,12 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 	// get Filemovement by fileMovementId
 	public FileMovement getFileMovementById(long fmId) throws PortalException {
-
 		FileMovement fileMovement = fileMovementLocalService.getFileMovement(fmId);
 		return fileMovement;
 	}
 
 	public FileMovement saveFileMovement(long receiverId, long senderId, long fileId, String priority, Date dueDate,
-			String remark, boolean active, int currentState, long movementType) throws PortalException {
-
+		String remark, boolean active, int currentState, long movementType) throws PortalException {
 		long fmId = counterLocalService.increment(FileMovement.class.getName());
 		FileMovement fm = fileMovementLocalService.createFileMovement(fmId);
 		fm.setFmId(fmId);

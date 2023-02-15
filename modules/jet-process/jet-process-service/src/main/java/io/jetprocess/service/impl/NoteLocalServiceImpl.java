@@ -57,10 +57,13 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 				String userName = userPost.getUserName();
 				String departmentName = userPost.getDepartmentName();
 				String postMarking = userPost.getPostMarking();
+				String section = userPost.getSectionName();
 				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 				jsonObject.put("userName", userName);
-				jsonObject.put("departmentName", departmentName);
 				jsonObject.put("postMarking", postMarking);
+				jsonObject.put("section", section);
+				jsonObject.put("departmentName", departmentName);
+			
 				String signature = jsonObject.toString();
 
 				note.setSignature(signature);
