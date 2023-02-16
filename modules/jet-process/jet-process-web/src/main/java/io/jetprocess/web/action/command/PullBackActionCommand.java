@@ -30,7 +30,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.PULL_BACK_FILE_ACTION_COMMAND }, service = MVCActionCommand.class)
 
-public class PullBackMVCActionCommand extends BaseMVCActionCommand {
+public class PullBackActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {

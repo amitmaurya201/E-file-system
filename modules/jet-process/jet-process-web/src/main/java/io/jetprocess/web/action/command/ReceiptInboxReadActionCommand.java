@@ -32,25 +32,23 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
+		logger.info("ReceiptActionReadActionCommand------>");
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
 		long rmId = ParamUtil.getLong(actionRequest, "rmId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
-	
 		boolean state = receiptMovementLocalService.saveReadMovement(receiptId , rmId);
-		if (state == false) {
-			
+		if (state == false) {	
 			SessionErrors.add(actionRequest, "read-not-available");
 			SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 		}
-		try {
-			actionResponse.sendRedirect(url);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				actionResponse.sendRedirect(url);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		return false;
 	}
-
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

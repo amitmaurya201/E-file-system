@@ -57,7 +57,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			throws PortalException {
 		FileMovement fm = null;
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
-			Long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
+			long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 				if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
@@ -156,9 +156,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		FileMovement fileMovement = getFileMovementById(fmId);
 		if ((fileMovement.getReceivedOn().isEmpty()) && (fileMovement.getReadOn().isEmpty())) {
 			pullable = true;
-		} else {
-			pullable = false;
-		}
+		} 
 		return pullable;
 	}
 

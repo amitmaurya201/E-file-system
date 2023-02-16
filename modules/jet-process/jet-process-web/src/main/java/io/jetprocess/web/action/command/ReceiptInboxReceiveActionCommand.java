@@ -24,7 +24,6 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND }, service = MVCActionCommand.class)
 public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
-
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
 
@@ -37,10 +36,8 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
 		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
 		if (state == false) {
-
 			SessionErrors.add(actionRequest, "receive-not-available");
-			SessionMessages.add(actionRequest,
-					PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			SessionMessages.add(actionRequest,PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 		}
 		try {
 			actionResponse.sendRedirect(url);
