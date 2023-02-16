@@ -1171,7 +1171,7 @@ AS $BODY$
         END IF;   
         
         IF (orderByCol ='' OR orderByCol ='attachOn' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
-                _orderBy :='r.createdate';
+                _orderBy :='fc.createdate';
         END IF;
          IF ( orderByCol ='receiptNo' OR orderByCol ='receiptno' OR orderByCol ='receiptnumber' ) THEN
                 _orderBy :='r.receiptnumber';
