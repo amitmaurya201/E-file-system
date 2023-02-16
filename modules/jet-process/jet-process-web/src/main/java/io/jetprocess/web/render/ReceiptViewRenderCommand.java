@@ -19,7 +19,7 @@ public class ReceiptViewRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		Long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "rmId");
 		  String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 
