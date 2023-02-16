@@ -40,33 +40,33 @@ import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
-			String remark,boolean active ,int currentState , long movementType) throws PortalException {
-			long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
-			ReceiptMovement rm= receiptMovementLocalService.getReceiptMovement(rmId);
-			if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
-				Receipt receipt = receiptLocalService.getReceipt(receiptId);
-				if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-					if (rm.getActive() == false) {
-						rm.setReadOn("");
-					} else {
-						rm.setReadOn(FileConstants.READ);
-					}
-				} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
-					if (rm.getActive() == false) {
-						rm.setReadOn("");
-					} else {
-						rm.setReceivedOn(FileConstants.RECEIVE);
-					}
+			String remark, boolean active, int currentState, long movementType) throws PortalException {
+		long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
+		ReceiptMovement rm = receiptMovementLocalService.getReceiptMovement(rmId);
+		if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
+			Receipt receipt = receiptLocalService.getReceipt(receiptId);
+			if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+				if (rm.getActive() == false) {
+					rm.setReadOn("");
+				} else {
+					rm.setReadOn(FileConstants.READ);
 				}
-				updateReceiptMovement(rm);
-				
+			} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
+				if (rm.getActive() == false) {
+					rm.setReadOn("");
+				} else {
+					rm.setReceivedOn(FileConstants.RECEIVE);
+				}
 			}
-			saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState, movementType);
+			updateReceiptMovement(rm);
+
 		}
-	
+		saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState,
+				movementType);
+	}
 
 	public void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
-			String remark,boolean active ,int currentState , long movementType  ) {
+			String remark, boolean active, int currentState, long movementType) {
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
 		ReceiptMovement receiptMovement;
 		try {
@@ -158,9 +158,10 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return state;
 	}
 
-// Create method for getReceiptMovementByFileMovementId 
+	// Create method for getReceiptMovementByFileMovementId 
 	public List<ReceiptMovement> getReceiptMovementByFileMovementId(long fileMovementId) {
-		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence.findByReceiptMovementsByfileMovementId(fileMovementId);
+		List<ReceiptMovement> receiptMovementList = receiptMovementPersistence
+				.findByReceiptMovementsByfileMovementId(fileMovementId);
 		return receiptMovementList;
 	}
 
@@ -219,28 +220,29 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		boolean attachable = false;
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
-		if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
-				&& !receiptMovement.getActive()){	
+		if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() == null)
+				&& !receiptMovement.getActive()) {
 			logger.info("isCreatedList attachable true");
 			attachable = true;
-		}			
-		
+		}
+
 		return attachable;
 	}
-		// method for isReceiptAttachable 
-		public boolean isInboxReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
-			logger.info("isInboxReceiptAttachable..........."+" receiptId : "+receiptId+", movement id : "+receiptMovementId);
-			boolean attachable = false;
-			Receipt receipt = receiptLocalService.getReceipt(receiptId);
-			ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
-			if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() ==null)
-					&& receiptMovement.getActive()){	
-				logger.info("attachable true");
-				attachable = true;
-			}			
-			return attachable;
+
+	// method for isReceiptAttachable
+	public boolean isInboxReceiptAttachable(long receiptId, long receiptMovementId) throws PortalException {
+		logger.info("isInboxReceiptAttachable..........." + " receiptId : " + receiptId + ", movement id : "
+				+ receiptMovementId);
+		boolean attachable = false;
+		Receipt receipt = receiptLocalService.getReceipt(receiptId);
+		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
+		if ((receipt.getAttachStatus().isEmpty() || receipt.getAttachStatus() == null) && receiptMovement.getActive()) {
+			logger.info("attachable true");
+			attachable = true;
 		}
-		
+		return attachable;
+	}
+
 	@Reference
 	private ReceiptLocalService receiptLocalService;
 
