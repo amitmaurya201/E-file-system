@@ -26,7 +26,6 @@ public class EditReceiptRenderCommand implements MVCRenderCommand {
 		receiptViewHelper.setRecieptDetails(receiptId, renderRequest, renderResponse);
 		return "/receipt/edit-receipt.jsp";
 	}
-
 	@Reference
 	private ReceiptViewHelper receiptViewHelper;
 }
