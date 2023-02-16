@@ -859,14 +859,18 @@ ALTER FUNCTION public.get_receipt_created_list(bigint, text, integer, integer, t
     
 --    ------------------------------------- Get Receipt Inbox List  -------------------------------------------
 
- CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list(
+ -- FUNCTION: public.get_receipt_inbox_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_inbox_list(bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list(
 	receiverid bigint,
 	keyword text,
 	_start integer,
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptmovementid bigint, receiptnumber character varying, subject character varying, sender text, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receiveon character varying, nature character varying, receiptid bigint, pullbackremark character varying) 
+    RETURNS TABLE(senderid bigint, receiptmovementid bigint, receiptnumber character varying, subject character varying, sender text, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receiveon character varying, nature character varying, receiptid bigint, pullbackremark character varying) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -888,7 +892,8 @@ AS $BODY$
       
    
       
-   _query='   SELECT 
+   _query='   SELECT
+                rm.senderid AS senderid,
                 rm.rmid AS receiptMovementId,
                 r.receiptnumber AS receiptNumber,
                 r.subject AS subject,	
