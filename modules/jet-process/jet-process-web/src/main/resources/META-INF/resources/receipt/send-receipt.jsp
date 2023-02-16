@@ -118,8 +118,7 @@
 		if(validateForm('<portlet:namespace/>sendReceipt')){
 			AUI().use('aui-io-request','aui-base','io', function(A){
 				var form = A.one("#<portlet:namespace/>sendReceipt");
-				     A.io.request('<%=sendReceiptResourceURL.toString()%>
-	', {
+				     A.io.request('<%=sendReceiptResourceURL.toString()%>', {
 					method : 'post',
 					form : {
 						id : form
