@@ -55,4 +55,6 @@ public class MVCCommandNames {
 
     public static final String RECEIPT_SEND_RESOURCE_COMMAND = "/receiptSendResourceCommand";
 
+    public static final String RECEIPT_CLOSE_LIST_RENDER_COMMAND = "/receiptClosedList";
+    
 }

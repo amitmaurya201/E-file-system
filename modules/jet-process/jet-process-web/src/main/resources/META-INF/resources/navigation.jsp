@@ -122,7 +122,11 @@
 			value="<%=MVCCommandNames.RECEIPT_SENT_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptSent" />
 	</portlet:renderURL>
-
+	<portlet:renderURL var="receiptClosedList">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND%>" />
+		<portlet:param name="selectedNav" value="receiptClosedList" />
+	</portlet:renderURL>
 
 
 	<!-- <nav class="navbar navbar-expand-lg"> -->
@@ -152,7 +156,7 @@
 				id="receiptList" href="<%=createdListReceipt%>">Created List</a> <a
 				id="receiptInbox" href="<%=receiptInbox%>">Inbox</a> <a
 				id="receiptSent" href="<%=receiptSent%>">Sent</a>
-
+			<a id="receiptCloseList" href="<%=receiptClosedList %>">Closed List</a>
 		</div>
 
 	</div>
