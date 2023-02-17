@@ -279,6 +279,49 @@ public interface FileCorrReceiptModel
 	 */
 	public void setFileMovementId(long fileMovementId);
 
+	/**
+	 * Returns the detach remark of this file corr receipt.
+	 *
+	 * @return the detach remark of this file corr receipt
+	 */
+	@AutoEscape
+	public String getDetachRemark();
+
+	/**
+	 * Sets the detach remark of this file corr receipt.
+	 *
+	 * @param detachRemark the detach remark of this file corr receipt
+	 */
+	public void setDetachRemark(String detachRemark);
+
+	/**
+	 * Returns the detach by of this file corr receipt.
+	 *
+	 * @return the detach by of this file corr receipt
+	 */
+	public long getDetachBy();
+
+	/**
+	 * Sets the detach by of this file corr receipt.
+	 *
+	 * @param detachBy the detach by of this file corr receipt
+	 */
+	public void setDetachBy(long detachBy);
+
+	/**
+	 * Returns the detach on of this file corr receipt.
+	 *
+	 * @return the detach on of this file corr receipt
+	 */
+	public Date getDetachOn();
+
+	/**
+	 * Sets the detach on of this file corr receipt.
+	 *
+	 * @param detachOn the detach on of this file corr receipt
+	 */
+	public void setDetachOn(Date detachOn);
+
 	@Override
 	public FileCorrReceipt cloneWithOriginalValues();
 

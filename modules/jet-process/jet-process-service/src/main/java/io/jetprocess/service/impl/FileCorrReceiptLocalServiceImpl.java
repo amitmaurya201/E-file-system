@@ -20,12 +20,14 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.exception.NoSuchFileCorrReceiptException;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
@@ -61,6 +63,37 @@ public class FileCorrReceiptLocalServiceImpl extends FileCorrReceiptLocalService
 		logger.info("get FileCorrReceipt by fileId method called");
 		return fileCorrReceiptPersistence.findByfileCorrReceiptBydocFileId(fileId);
 	}
+	
+public boolean detachFileCorrReceipt(long receiptId, long receiptMovementId, String detachRemark, long detachBy) {
+		System.out.println("----- File Correspondence detach ------");
+		FileCorrReceipt fileCorrReceipt = getFileCorrReceiptByReceiptIdAndReceiptMovementId(receiptId,receiptMovementId );
+		fileCorrReceipt.setDetachRemark(detachRemark);
+		fileCorrReceipt.setDetachBy(detachBy);
+		fileCorrReceipt.setDetachOn(new Date());
+		Receipt receipt=null;
+		try {
+			receipt = receiptLocalService.getReceipt(receiptId);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		
+		receipt.setAttachStatus(null);
+		receiptLocalService.updateReceipt(receipt);
+		fileCorrReceiptLocalService.updateFileCorrReceipt(fileCorrReceipt);
+		return false;
+	}
+	public FileCorrReceipt getFileCorrReceiptByReceiptIdAndReceiptMovementId(long receiptId, long receiptMovementId) {
+		logger.info("Getting File Correspondence Receipt By Receipt And Receipt Movement Id");
+		FileCorrReceipt fileCorrReceipt=null; 
+		try {
+			fileCorrReceipt = fileCorrReceiptPersistence.findByFileCorrReceipt(receiptId, receiptMovementId);
+		} catch (NoSuchFileCorrReceiptException e) {
+			logger.error(e);
+		}
+		return fileCorrReceipt;
+	}
+    
+	
 
 	@Reference
 	private ReceiptLocalService receiptLocalService;

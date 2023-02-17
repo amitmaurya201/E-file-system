@@ -134,6 +134,10 @@ public interface FileCorrReceiptLocalService
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
 
+	public boolean detachFileCorrReceipt(
+		long receiptId, long receiptMovementId, String detachRemark,
+		long detachBy);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public <T> T dslQuery(DSLQuery dslQuery);
 
@@ -240,6 +244,10 @@ public interface FileCorrReceiptLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<FileCorrReceipt> getFileCorrReceiptByFileId(long fileId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FileCorrReceipt getFileCorrReceiptByReceiptIdAndReceiptMovementId(
+		long receiptId, long receiptMovementId);
 
 	/**
 	 * Returns the file corr receipt matching the UUID and group.

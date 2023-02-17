@@ -137,6 +137,14 @@ public class FileCorrReceiptLocalServiceUtil {
 		return getService().deletePersistedModel(persistedModel);
 	}
 
+	public static boolean detachFileCorrReceipt(
+		long receiptId, long receiptMovementId, String detachRemark,
+		long detachBy) {
+
+		return getService().detachFileCorrReceipt(
+			receiptId, receiptMovementId, detachRemark, detachBy);
+	}
+
 	public static <T> T dslQuery(DSLQuery dslQuery) {
 		return getService().dslQuery(dslQuery);
 	}
@@ -270,6 +278,14 @@ public class FileCorrReceiptLocalServiceUtil {
 		long fileId) {
 
 		return getService().getFileCorrReceiptByFileId(fileId);
+	}
+
+	public static FileCorrReceipt
+		getFileCorrReceiptByReceiptIdAndReceiptMovementId(
+			long receiptId, long receiptMovementId) {
+
+		return getService().getFileCorrReceiptByReceiptIdAndReceiptMovementId(
+			receiptId, receiptMovementId);
 	}
 
 	/**

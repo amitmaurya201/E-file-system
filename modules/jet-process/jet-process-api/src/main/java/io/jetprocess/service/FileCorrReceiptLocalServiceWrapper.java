@@ -141,6 +141,15 @@ public class FileCorrReceiptLocalServiceWrapper
 	}
 
 	@Override
+	public boolean detachFileCorrReceipt(
+		long receiptId, long receiptMovementId, String detachRemark,
+		long detachBy) {
+
+		return _fileCorrReceiptLocalService.detachFileCorrReceipt(
+			receiptId, receiptMovementId, detachRemark, detachBy);
+	}
+
+	@Override
 	public <T> T dslQuery(com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
 		return _fileCorrReceiptLocalService.dslQuery(dslQuery);
 	}
@@ -304,6 +313,16 @@ public class FileCorrReceiptLocalServiceWrapper
 		getFileCorrReceiptByFileId(long fileId) {
 
 		return _fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
+	}
+
+	@Override
+	public io.jetprocess.model.FileCorrReceipt
+		getFileCorrReceiptByReceiptIdAndReceiptMovementId(
+			long receiptId, long receiptMovementId) {
+
+		return _fileCorrReceiptLocalService.
+			getFileCorrReceiptByReceiptIdAndReceiptMovementId(
+				receiptId, receiptMovementId);
 	}
 
 	/**

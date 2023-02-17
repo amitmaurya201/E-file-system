@@ -66,6 +66,13 @@ public class FileCorrReceiptTable extends BaseTable<FileCorrReceiptTable> {
 	public final Column<FileCorrReceiptTable, Long> fileMovementId =
 		createColumn(
 			"fileMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileCorrReceiptTable, String> detachRemark =
+		createColumn(
+			"detachRemark", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileCorrReceiptTable, Long> detachBy = createColumn(
+		"detachBy", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileCorrReceiptTable, Date> detachOn = createColumn(
+		"detachOn", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 
 	private FileCorrReceiptTable() {
 		super("JET_PROCESS_FileCorrReceipt", FileCorrReceiptTable::new);

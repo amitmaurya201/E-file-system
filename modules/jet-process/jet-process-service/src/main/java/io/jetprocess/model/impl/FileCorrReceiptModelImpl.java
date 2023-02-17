@@ -81,7 +81,8 @@ public class FileCorrReceiptModelImpl
 		{"receiptId", Types.BIGINT}, {"userPostId", Types.BIGINT},
 		{"receiptMovementId", Types.BIGINT},
 		{"correspondenceType", Types.VARCHAR}, {"remarks", Types.VARCHAR},
-		{"fileMovementId", Types.BIGINT}
+		{"fileMovementId", Types.BIGINT}, {"detachRemark", Types.VARCHAR},
+		{"detachBy", Types.BIGINT}, {"detachOn", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -102,10 +103,13 @@ public class FileCorrReceiptModelImpl
 		TABLE_COLUMNS_MAP.put("correspondenceType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("detachRemark", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("detachBy", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("detachOn", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileCorrReceipt (uuid_ VARCHAR(75) null,fileCorrReceiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,docFileId LONG,receiptId LONG,userPostId LONG,receiptMovementId LONG,correspondenceType VARCHAR(75) null,remarks VARCHAR(75) null,fileMovementId LONG)";
+		"create table JET_PROCESS_FileCorrReceipt (uuid_ VARCHAR(75) null,fileCorrReceiptId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,docFileId LONG,receiptId LONG,userPostId LONG,receiptMovementId LONG,correspondenceType VARCHAR(75) null,remarks VARCHAR(75) null,fileMovementId LONG,detachRemark VARCHAR(75) null,detachBy LONG,detachOn DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileCorrReceipt";
@@ -144,14 +148,26 @@ public class FileCorrReceiptModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 8L;
+	public static final long RECEIPTID_COLUMN_BITMASK = 8L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long RECEIPTMOVEMENTID_COLUMN_BITMASK = 16L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 32L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long FILECORRRECEIPTID_COLUMN_BITMASK = 16L;
+	public static final long FILECORRRECEIPTID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -335,6 +351,20 @@ public class FileCorrReceiptModelImpl
 			"fileMovementId",
 			(BiConsumer<FileCorrReceipt, Long>)
 				FileCorrReceipt::setFileMovementId);
+		attributeGetterFunctions.put(
+			"detachRemark", FileCorrReceipt::getDetachRemark);
+		attributeSetterBiConsumers.put(
+			"detachRemark",
+			(BiConsumer<FileCorrReceipt, String>)
+				FileCorrReceipt::setDetachRemark);
+		attributeGetterFunctions.put("detachBy", FileCorrReceipt::getDetachBy);
+		attributeSetterBiConsumers.put(
+			"detachBy",
+			(BiConsumer<FileCorrReceipt, Long>)FileCorrReceipt::setDetachBy);
+		attributeGetterFunctions.put("detachOn", FileCorrReceipt::getDetachOn);
+		attributeSetterBiConsumers.put(
+			"detachOn",
+			(BiConsumer<FileCorrReceipt, Date>)FileCorrReceipt::setDetachOn);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -542,6 +572,16 @@ public class FileCorrReceiptModelImpl
 		_receiptId = receiptId;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalReceiptId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("receiptId"));
+	}
+
 	@JSON
 	@Override
 	public long getUserPostId() {
@@ -570,6 +610,16 @@ public class FileCorrReceiptModelImpl
 		}
 
 		_receiptMovementId = receiptMovementId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalReceiptMovementId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("receiptMovementId"));
 	}
 
 	@JSON
@@ -625,6 +675,56 @@ public class FileCorrReceiptModelImpl
 		}
 
 		_fileMovementId = fileMovementId;
+	}
+
+	@JSON
+	@Override
+	public String getDetachRemark() {
+		if (_detachRemark == null) {
+			return "";
+		}
+		else {
+			return _detachRemark;
+		}
+	}
+
+	@Override
+	public void setDetachRemark(String detachRemark) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_detachRemark = detachRemark;
+	}
+
+	@JSON
+	@Override
+	public long getDetachBy() {
+		return _detachBy;
+	}
+
+	@Override
+	public void setDetachBy(long detachBy) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_detachBy = detachBy;
+	}
+
+	@JSON
+	@Override
+	public Date getDetachOn() {
+		return _detachOn;
+	}
+
+	@Override
+	public void setDetachOn(Date detachOn) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_detachOn = detachOn;
 	}
 
 	@Override
@@ -703,6 +803,9 @@ public class FileCorrReceiptModelImpl
 		fileCorrReceiptImpl.setCorrespondenceType(getCorrespondenceType());
 		fileCorrReceiptImpl.setRemarks(getRemarks());
 		fileCorrReceiptImpl.setFileMovementId(getFileMovementId());
+		fileCorrReceiptImpl.setDetachRemark(getDetachRemark());
+		fileCorrReceiptImpl.setDetachBy(getDetachBy());
+		fileCorrReceiptImpl.setDetachOn(getDetachOn());
 
 		fileCorrReceiptImpl.resetOriginalValues();
 
@@ -741,6 +844,12 @@ public class FileCorrReceiptModelImpl
 			this.<String>getColumnOriginalValue("remarks"));
 		fileCorrReceiptImpl.setFileMovementId(
 			this.<Long>getColumnOriginalValue("fileMovementId"));
+		fileCorrReceiptImpl.setDetachRemark(
+			this.<String>getColumnOriginalValue("detachRemark"));
+		fileCorrReceiptImpl.setDetachBy(
+			this.<Long>getColumnOriginalValue("detachBy"));
+		fileCorrReceiptImpl.setDetachOn(
+			this.<Date>getColumnOriginalValue("detachOn"));
 
 		return fileCorrReceiptImpl;
 	}
@@ -882,6 +991,25 @@ public class FileCorrReceiptModelImpl
 
 		fileCorrReceiptCacheModel.fileMovementId = getFileMovementId();
 
+		fileCorrReceiptCacheModel.detachRemark = getDetachRemark();
+
+		String detachRemark = fileCorrReceiptCacheModel.detachRemark;
+
+		if ((detachRemark != null) && (detachRemark.length() == 0)) {
+			fileCorrReceiptCacheModel.detachRemark = null;
+		}
+
+		fileCorrReceiptCacheModel.detachBy = getDetachBy();
+
+		Date detachOn = getDetachOn();
+
+		if (detachOn != null) {
+			fileCorrReceiptCacheModel.detachOn = detachOn.getTime();
+		}
+		else {
+			fileCorrReceiptCacheModel.detachOn = Long.MIN_VALUE;
+		}
+
 		return fileCorrReceiptCacheModel;
 	}
 
@@ -989,6 +1117,9 @@ public class FileCorrReceiptModelImpl
 	private String _correspondenceType;
 	private String _remarks;
 	private long _fileMovementId;
+	private String _detachRemark;
+	private long _detachBy;
+	private Date _detachOn;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1033,6 +1164,9 @@ public class FileCorrReceiptModelImpl
 		_columnOriginalValues.put("correspondenceType", _correspondenceType);
 		_columnOriginalValues.put("remarks", _remarks);
 		_columnOriginalValues.put("fileMovementId", _fileMovementId);
+		_columnOriginalValues.put("detachRemark", _detachRemark);
+		_columnOriginalValues.put("detachBy", _detachBy);
+		_columnOriginalValues.put("detachOn", _detachOn);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1083,6 +1217,12 @@ public class FileCorrReceiptModelImpl
 		columnBitmasks.put("remarks", 4096L);
 
 		columnBitmasks.put("fileMovementId", 8192L);
+
+		columnBitmasks.put("detachRemark", 16384L);
+
+		columnBitmasks.put("detachBy", 32768L);
+
+		columnBitmasks.put("detachOn", 65536L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

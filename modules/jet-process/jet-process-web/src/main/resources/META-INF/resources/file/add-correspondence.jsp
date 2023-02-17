@@ -115,6 +115,7 @@
 				<aui:form action="#" method="post" name="receiveForm">
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
+					
 					<div class="float-right">
 						<aui:button type="button" cssClass="btn btn-primary"
 							value="label-put-in-receipt-confirmation-button"

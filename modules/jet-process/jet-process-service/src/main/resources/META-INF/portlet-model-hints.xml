@@ -45,6 +45,9 @@
 		<field name="correspondenceType" type="String" />
 		<field name="remarks" type="String" />
 		<field name="fileMovementId" type="long" />
+		<field name="detachRemark" type="String" />
+		<field name="detachBy" type="long" />
+		<field name="detachOn" type="Date" />
 	</model>
 	<model name="io.jetprocess.model.FileMovement">
 		<field name="uuid" type="String" />

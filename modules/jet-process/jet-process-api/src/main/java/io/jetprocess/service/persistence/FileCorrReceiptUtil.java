@@ -709,6 +709,80 @@ public class FileCorrReceiptUtil {
 	}
 
 	/**
+	 * Returns the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; or throws a <code>NoSuchFileCorrReceiptException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the matching file corr receipt
+	 * @throws NoSuchFileCorrReceiptException if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt findByFileCorrReceipt(
+			long receiptId, long receiptMovementId)
+		throws io.jetprocess.exception.NoSuchFileCorrReceiptException {
+
+		return getPersistence().findByFileCorrReceipt(
+			receiptId, receiptMovementId);
+	}
+
+	/**
+	 * Returns the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the matching file corr receipt, or <code>null</code> if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt fetchByFileCorrReceipt(
+		long receiptId, long receiptMovementId) {
+
+		return getPersistence().fetchByFileCorrReceipt(
+			receiptId, receiptMovementId);
+	}
+
+	/**
+	 * Returns the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file corr receipt, or <code>null</code> if a matching file corr receipt could not be found
+	 */
+	public static FileCorrReceipt fetchByFileCorrReceipt(
+		long receiptId, long receiptMovementId, boolean useFinderCache) {
+
+		return getPersistence().fetchByFileCorrReceipt(
+			receiptId, receiptMovementId, useFinderCache);
+	}
+
+	/**
+	 * Removes the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the file corr receipt that was removed
+	 */
+	public static FileCorrReceipt removeByFileCorrReceipt(
+			long receiptId, long receiptMovementId)
+		throws io.jetprocess.exception.NoSuchFileCorrReceiptException {
+
+		return getPersistence().removeByFileCorrReceipt(
+			receiptId, receiptMovementId);
+	}
+
+	/**
+	 * Returns the number of file corr receipts where receiptId = &#63; and receiptMovementId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the number of matching file corr receipts
+	 */
+	public static int countByFileCorrReceipt(
+		long receiptId, long receiptMovementId) {
+
+		return getPersistence().countByFileCorrReceipt(
+			receiptId, receiptMovementId);
+	}
+
+	/**
 	 * Caches the file corr receipt in the entity cache if it is enabled.
 	 *
 	 * @param fileCorrReceipt the file corr receipt

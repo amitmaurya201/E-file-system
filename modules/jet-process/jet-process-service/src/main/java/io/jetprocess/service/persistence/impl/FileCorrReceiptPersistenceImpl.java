@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1973,6 +1975,250 @@ public class FileCorrReceiptPersistenceImpl
 		_FINDER_COLUMN_FILECORRRECEIPTBYDOCFILEID_DOCFILEID_2 =
 			"fileCorrReceipt.docFileId = ?";
 
+	private FinderPath _finderPathFetchByFileCorrReceipt;
+	private FinderPath _finderPathCountByFileCorrReceipt;
+
+	/**
+	 * Returns the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; or throws a <code>NoSuchFileCorrReceiptException</code> if it could not be found.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the matching file corr receipt
+	 * @throws NoSuchFileCorrReceiptException if a matching file corr receipt could not be found
+	 */
+	@Override
+	public FileCorrReceipt findByFileCorrReceipt(
+			long receiptId, long receiptMovementId)
+		throws NoSuchFileCorrReceiptException {
+
+		FileCorrReceipt fileCorrReceipt = fetchByFileCorrReceipt(
+			receiptId, receiptMovementId);
+
+		if (fileCorrReceipt == null) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("receiptId=");
+			sb.append(receiptId);
+
+			sb.append(", receiptMovementId=");
+			sb.append(receiptMovementId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileCorrReceiptException(sb.toString());
+		}
+
+		return fileCorrReceipt;
+	}
+
+	/**
+	 * Returns the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the matching file corr receipt, or <code>null</code> if a matching file corr receipt could not be found
+	 */
+	@Override
+	public FileCorrReceipt fetchByFileCorrReceipt(
+		long receiptId, long receiptMovementId) {
+
+		return fetchByFileCorrReceipt(receiptId, receiptMovementId, true);
+	}
+
+	/**
+	 * Returns the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching file corr receipt, or <code>null</code> if a matching file corr receipt could not be found
+	 */
+	@Override
+	public FileCorrReceipt fetchByFileCorrReceipt(
+		long receiptId, long receiptMovementId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {receiptId, receiptMovementId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByFileCorrReceipt, finderArgs);
+		}
+
+		if (result instanceof FileCorrReceipt) {
+			FileCorrReceipt fileCorrReceipt = (FileCorrReceipt)result;
+
+			if ((receiptId != fileCorrReceipt.getReceiptId()) ||
+				(receiptMovementId != fileCorrReceipt.getReceiptMovementId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_SELECT_FILECORRRECEIPT_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILECORRRECEIPT_RECEIPTID_2);
+
+			sb.append(_FINDER_COLUMN_FILECORRRECEIPT_RECEIPTMOVEMENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(receiptId);
+
+				queryPos.add(receiptMovementId);
+
+				List<FileCorrReceipt> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByFileCorrReceipt, finderArgs,
+							list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									receiptId, receiptMovementId
+								};
+							}
+
+							_log.warn(
+								"FileCorrReceiptPersistenceImpl.fetchByFileCorrReceipt(long, long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					FileCorrReceipt fileCorrReceipt = list.get(0);
+
+					result = fileCorrReceipt;
+
+					cacheResult(fileCorrReceipt);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (FileCorrReceipt)result;
+		}
+	}
+
+	/**
+	 * Removes the file corr receipt where receiptId = &#63; and receiptMovementId = &#63; from the database.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the file corr receipt that was removed
+	 */
+	@Override
+	public FileCorrReceipt removeByFileCorrReceipt(
+			long receiptId, long receiptMovementId)
+		throws NoSuchFileCorrReceiptException {
+
+		FileCorrReceipt fileCorrReceipt = findByFileCorrReceipt(
+			receiptId, receiptMovementId);
+
+		return remove(fileCorrReceipt);
+	}
+
+	/**
+	 * Returns the number of file corr receipts where receiptId = &#63; and receiptMovementId = &#63;.
+	 *
+	 * @param receiptId the receipt ID
+	 * @param receiptMovementId the receipt movement ID
+	 * @return the number of matching file corr receipts
+	 */
+	@Override
+	public int countByFileCorrReceipt(long receiptId, long receiptMovementId) {
+		FinderPath finderPath = _finderPathCountByFileCorrReceipt;
+
+		Object[] finderArgs = new Object[] {receiptId, receiptMovementId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_FILECORRRECEIPT_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILECORRRECEIPT_RECEIPTID_2);
+
+			sb.append(_FINDER_COLUMN_FILECORRRECEIPT_RECEIPTMOVEMENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(receiptId);
+
+				queryPos.add(receiptMovementId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FILECORRRECEIPT_RECEIPTID_2 =
+		"fileCorrReceipt.receiptId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_FILECORRRECEIPT_RECEIPTMOVEMENTID_2 =
+			"fileCorrReceipt.receiptMovementId = ?";
+
 	public FileCorrReceiptPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2003,6 +2249,14 @@ public class FileCorrReceiptPersistenceImpl
 			_finderPathFetchByUUID_G,
 			new Object[] {
 				fileCorrReceipt.getUuid(), fileCorrReceipt.getGroupId()
+			},
+			fileCorrReceipt);
+
+		finderCache.putResult(
+			_finderPathFetchByFileCorrReceipt,
+			new Object[] {
+				fileCorrReceipt.getReceiptId(),
+				fileCorrReceipt.getReceiptMovementId()
 			},
 			fileCorrReceipt);
 	}
@@ -2088,6 +2342,16 @@ public class FileCorrReceiptPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, fileCorrReceiptModelImpl);
+
+		args = new Object[] {
+			fileCorrReceiptModelImpl.getReceiptId(),
+			fileCorrReceiptModelImpl.getReceiptMovementId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByFileCorrReceipt, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByFileCorrReceipt, args, fileCorrReceiptModelImpl);
 	}
 
 	/**
@@ -2632,6 +2896,16 @@ public class FileCorrReceiptPersistenceImpl
 			"countByfileCorrReceiptBydocFileId",
 			new String[] {Long.class.getName()}, new String[] {"docFileId"},
 			false);
+
+		_finderPathFetchByFileCorrReceipt = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByFileCorrReceipt",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"receiptId", "receiptMovementId"}, true);
+
+		_finderPathCountByFileCorrReceipt = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByFileCorrReceipt",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"receiptId", "receiptMovementId"}, false);
 
 		_setFileCorrReceiptUtilPersistence(this);
 	}

@@ -1,10 +1,12 @@
+
 <%
 	long corrFileId = (long) renderRequest.getAttribute("putInFileId");
 %>
 <style>
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+	color: #000000;
 }
+
 .crList th {
 	display: inline-block;
 	width: max-content;
@@ -138,6 +140,14 @@
 				<liferay-ui:search-container-column-text
 					name="label-receipt-list-remark" property="remark"
 					cssClass="hover-tips" />
+
+				<liferay-ui:search-container-column-text
+					name="detach-action-heading">
+					<aui:button cssClass="btn btn-primary" id="dettah-id"
+						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })"
+						type="button" value="detach-button"></aui:button>
+				</liferay-ui:search-container-column-text>
+
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator paginate="false" />
@@ -149,6 +159,59 @@
 			<aui:button cssClass="btn btn-primary" name="add_receipt"
 				id="add_receipt" value="label-add-receipt-corr-list">
 			</aui:button>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<portlet:resourceURL id="detachReceipt"
+	var="detachReceiptResourceCommand">
+</portlet:resourceURL>
+
+<button type="button" id="detach-conformation" class="btn btn-primary"
+	hidden data-toggle="modal" data-target="#modal"></button>
+
+<div class="modal fade" id="modal" tabindex="-1"
+	aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel">
+					<liferay-ui:message key="detach-confirmation-heading" />
+				</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h6>
+					<liferay-ui:message key="detach-confirmation-message" />
+					<!-- <span id="msg"></span>
+					<liferay-ui:message
+						key="message-put-in-receipt-Confirmation-accept2" /> -->
+				</h6>
+				<aui:form action="#" method="post" name="detachReceiptForm">
+					<aui:input name="receiptId" type="text"></aui:input>
+					<aui:input name="rmId" type="text"></aui:input>
+					<aui:input label="label-put-in-receipt-remark" name="remarks"
+						type="textarea">
+						<aui:validator name="required" />
+					</aui:input>
+					<div class="float-right">
+						<aui:button type="button" cssClass="btn btn-primary"
+							value="label-detach-confirmation-button"
+							onclick="receiptReceive(true)"></aui:button>
+						<aui:button type="button" cssClass="btn btn-primary"
+							value="label-detach-confirmation-cancel" data-dismiss="modal"></aui:button>
+					</div>
+				</aui:form>
+			</div>
+
 		</div>
 	</div>
 </div>
@@ -226,4 +289,27 @@ function receiptDetailPopup(receiptId){
 		uri: '<%=receiptDetailsPopup%>&<portlet:namespace />receiptId='+receiptId+'&<portlet:namespace/>corrFileId=<%=corrFileId%>',			
 		});	  
 	}
+	
+	function detachFun(receiptId, receiptMovementId){
+		$("#<portlet:namespace />receiptId").val(receiptId);
+		$("#<portlet:namespace />rmId").val(receiptMovementId);
+		$('#detach-conformation').trigger('click');
+	}
+	
+	
+	function receiptReceive(accepted){
+		   	AUI().use('aui-io-request','aui-base','io', function(A){
+			 var form = A.one("#<portlet:namespace/>detachReceiptForm");
+		        A.io.request('<%=detachReceiptResourceCommand.toString()%>', {
+		        	 method: 'post',
+		        	 form:{
+		                 id:form
+		             },
+		               on: {
+		            	   
+		               }
+		            });
+		    });
+	}
+	
 </script>

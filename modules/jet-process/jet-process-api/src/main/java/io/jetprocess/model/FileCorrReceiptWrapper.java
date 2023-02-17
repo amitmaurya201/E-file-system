@@ -57,6 +57,9 @@ public class FileCorrReceiptWrapper
 		attributes.put("correspondenceType", getCorrespondenceType());
 		attributes.put("remarks", getRemarks());
 		attributes.put("fileMovementId", getFileMovementId());
+		attributes.put("detachRemark", getDetachRemark());
+		attributes.put("detachBy", getDetachBy());
+		attributes.put("detachOn", getDetachOn());
 
 		return attributes;
 	}
@@ -147,6 +150,24 @@ public class FileCorrReceiptWrapper
 		if (fileMovementId != null) {
 			setFileMovementId(fileMovementId);
 		}
+
+		String detachRemark = (String)attributes.get("detachRemark");
+
+		if (detachRemark != null) {
+			setDetachRemark(detachRemark);
+		}
+
+		Long detachBy = (Long)attributes.get("detachBy");
+
+		if (detachBy != null) {
+			setDetachBy(detachBy);
+		}
+
+		Date detachOn = (Date)attributes.get("detachOn");
+
+		if (detachOn != null) {
+			setDetachOn(detachOn);
+		}
 	}
 
 	@Override
@@ -182,6 +203,36 @@ public class FileCorrReceiptWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the detach by of this file corr receipt.
+	 *
+	 * @return the detach by of this file corr receipt
+	 */
+	@Override
+	public long getDetachBy() {
+		return model.getDetachBy();
+	}
+
+	/**
+	 * Returns the detach on of this file corr receipt.
+	 *
+	 * @return the detach on of this file corr receipt
+	 */
+	@Override
+	public Date getDetachOn() {
+		return model.getDetachOn();
+	}
+
+	/**
+	 * Returns the detach remark of this file corr receipt.
+	 *
+	 * @return the detach remark of this file corr receipt
+	 */
+	@Override
+	public String getDetachRemark() {
+		return model.getDetachRemark();
 	}
 
 	/**
@@ -347,6 +398,36 @@ public class FileCorrReceiptWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the detach by of this file corr receipt.
+	 *
+	 * @param detachBy the detach by of this file corr receipt
+	 */
+	@Override
+	public void setDetachBy(long detachBy) {
+		model.setDetachBy(detachBy);
+	}
+
+	/**
+	 * Sets the detach on of this file corr receipt.
+	 *
+	 * @param detachOn the detach on of this file corr receipt
+	 */
+	@Override
+	public void setDetachOn(Date detachOn) {
+		model.setDetachOn(detachOn);
+	}
+
+	/**
+	 * Sets the detach remark of this file corr receipt.
+	 *
+	 * @param detachRemark the detach remark of this file corr receipt
+	 */
+	@Override
+	public void setDetachRemark(String detachRemark) {
+		model.setDetachRemark(detachRemark);
 	}
 
 	/**

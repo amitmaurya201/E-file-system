@@ -241,7 +241,8 @@
 		</finder>
 
 		<!-- Finder method for get ReceiptMovementByFileMovementId -->
-		   <finder name="ReceiptMovementsByfileMovementId" return-type="Collection">
+		<finder name="ReceiptMovementsByfileMovementId"
+			return-type="Collection">
 			<finder-column name="fileInMovementId"></finder-column>
 		</finder>
 		<!-- Group Reference -->
@@ -254,7 +255,7 @@
 		<reference entity="AssetTag"
 			package-path="com.liferay.portlet.asset" />
 	</entity>
-	
+
 	<!-- File Correspondence Receipt -->
 	<entity name="FileCorrReceipt" local-service="true"
 		remote-service="true" uuid="true">
@@ -279,13 +280,27 @@
 		<column name="remarks" type="String" />
 		<column name="fileMovementId" type="long" />
 
+		<!-- Detach Field -->
+		<column name="detachRemark" type="String" />
+		<column name="detachBy" type="long" />
+		<column name="detachOn" type="Date" />
+
 		<finder name="fileCorrReceiptBydocFileId"
 			return-type="Collection">
 			<finder-column name="docFileId"></finder-column>
 		</finder>
 
+		<finder name="FileCorrReceipt"
+			return-type="FileCorrReceipt">
+			<finder-column name="receiptId"></finder-column>
+			<finder-column name="receiptMovementId"></finder-column>
+		</finder>
+
+
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
+
+
 
 		<!-- References -->
 		<reference entity="AssetEntry"
@@ -354,13 +369,13 @@
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 	</entity>
-	
+
 	<!-- ReceiptCloseDetail -->
-	
-	<entity local-service="true" name="ReceiptCloseDetail" uuid="true"
-		remote-service="true">	
-	
-	<!-- PK fields -->
+
+	<entity local-service="true" name="ReceiptCloseDetail"
+		uuid="true" remote-service="true">
+
+		<!-- PK fields -->
 		<column name="ReceiptClosedId" primary="true" type="long"></column>
 
 		<!-- Group instance -->
@@ -378,15 +393,15 @@
 		<column name="closedBy" type="long"></column>
 		<column name="closingRemarks" type="String"></column>
 		<column name="reopenDate" type="Date"></column>
-        <column name="reopenRemarks" type="String"></column>
+		<column name="reopenRemarks" type="String"></column>
 		<column name="closingReceiptMovementId" type="long"></column>
 		<column name="reopenBy" type="long"></column>
-       
+
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
-		
-		</entity>
-	
-	
-	
+
+	</entity>
+
+
+
 </service-builder>

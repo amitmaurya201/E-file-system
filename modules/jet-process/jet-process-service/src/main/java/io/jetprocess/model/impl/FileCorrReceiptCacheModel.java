@@ -63,7 +63,7 @@ public class FileCorrReceiptCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -93,6 +93,12 @@ public class FileCorrReceiptCacheModel
 		sb.append(remarks);
 		sb.append(", fileMovementId=");
 		sb.append(fileMovementId);
+		sb.append(", detachRemark=");
+		sb.append(detachRemark);
+		sb.append(", detachBy=");
+		sb.append(detachBy);
+		sb.append(", detachOn=");
+		sb.append(detachOn);
 		sb.append("}");
 
 		return sb.toString();
@@ -149,6 +155,22 @@ public class FileCorrReceiptCacheModel
 
 		fileCorrReceiptImpl.setFileMovementId(fileMovementId);
 
+		if (detachRemark == null) {
+			fileCorrReceiptImpl.setDetachRemark("");
+		}
+		else {
+			fileCorrReceiptImpl.setDetachRemark(detachRemark);
+		}
+
+		fileCorrReceiptImpl.setDetachBy(detachBy);
+
+		if (detachOn == Long.MIN_VALUE) {
+			fileCorrReceiptImpl.setDetachOn(null);
+		}
+		else {
+			fileCorrReceiptImpl.setDetachOn(new Date(detachOn));
+		}
+
 		fileCorrReceiptImpl.resetOriginalValues();
 
 		return fileCorrReceiptImpl;
@@ -179,6 +201,10 @@ public class FileCorrReceiptCacheModel
 		remarks = objectInput.readUTF();
 
 		fileMovementId = objectInput.readLong();
+		detachRemark = objectInput.readUTF();
+
+		detachBy = objectInput.readLong();
+		detachOn = objectInput.readLong();
 	}
 
 	@Override
@@ -223,6 +249,16 @@ public class FileCorrReceiptCacheModel
 		}
 
 		objectOutput.writeLong(fileMovementId);
+
+		if (detachRemark == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(detachRemark);
+		}
+
+		objectOutput.writeLong(detachBy);
+		objectOutput.writeLong(detachOn);
 	}
 
 	public String uuid;
@@ -239,5 +275,8 @@ public class FileCorrReceiptCacheModel
 	public String correspondenceType;
 	public String remarks;
 	public long fileMovementId;
+	public String detachRemark;
+	public long detachBy;
+	public long detachOn;
 
 }
