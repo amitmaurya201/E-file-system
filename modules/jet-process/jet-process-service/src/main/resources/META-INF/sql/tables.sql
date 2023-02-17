@@ -150,6 +150,24 @@ create table JET_PROCESS_Receipt (
 	attachStatus VARCHAR(75) null
 );
 
+create table JET_PROCESS_ReceiptCloseDetail (
+	uuid_ VARCHAR(75) null,
+	ReceiptClosedId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	receiptId LONG,
+	closedBy LONG,
+	closingRemarks VARCHAR(500) null,
+	reopenDate DATE null,
+	reopenRemarks VARCHAR(500) null,
+	closingReceiptMovementId LONG,
+	reopenBy LONG
+);
+
 create table JET_PROCESS_ReceiptMovement (
 	uuid_ VARCHAR(75) null,
 	rmId LONG not null primary key,

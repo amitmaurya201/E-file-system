@@ -29,6 +29,9 @@ create index IX_46204F21 on JET_PROCESS_Receipt (groupId, receiptId);
 create index IX_6CF2599C on JET_PROCESS_Receipt (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_833C971E on JET_PROCESS_Receipt (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_9D6C4761 on JET_PROCESS_ReceiptCloseDetail (uuid_[$COLUMN_LENGTH:75$], companyId);
+create unique index IX_AE713223 on JET_PROCESS_ReceiptCloseDetail (uuid_[$COLUMN_LENGTH:75$], groupId);
+
 create index IX_B7A377F6 on JET_PROCESS_ReceiptMovement (fileInMovementId);
 create index IX_72143F4C on JET_PROCESS_ReceiptMovement (receiptId);
 create index IX_F45CBEEB on JET_PROCESS_ReceiptMovement (uuid_[$COLUMN_LENGTH:75$], companyId);
