@@ -306,7 +306,10 @@ function receiptDetailPopup(receiptId){
 		                 id:form
 		             },
 		               on: {
-		            	   
+		            	   success: function() { 
+		   	           		parent.location.reload();                   
+		   	       	 	}
+		            	  
 		               }
 		            });
 		    });
