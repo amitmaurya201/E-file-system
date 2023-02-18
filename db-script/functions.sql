@@ -1894,13 +1894,13 @@ total :=0;
                 IF( _viewmode ='ViewModeFromSentFile') THEN
    
                 SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id ; 
+                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id AND fc.detachremark IS NULL; 
                 return total;
                 END IF;
                
               IF(_viewmode ='' OR _viewmode IS NULL) THEN
                   SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id ; 
+                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id AND fc.detachremark IS NULL; 
 
                 return total;
               END IF;
@@ -1908,13 +1908,13 @@ total :=0;
                      IF( _viewmode ='ViewModeFromSentFile') THEN
    
                 SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id ; 
+                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id AND fc.detachremark IS NULL; 
                 return total;
                 END IF;
                
               IF(_viewmode ='' OR _viewmode IS NULL) THEN
                   SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id ; 
+                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id AND fc.detachremark IS NULL; 
 
                 return total;
               END IF;
