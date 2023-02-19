@@ -1130,8 +1130,9 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_start integer,
 	_end integer,
 	orderbycol text,
-	_orderbytype text)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint) 
+	_orderbytype text
+)
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isatachable boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1153,7 +1154,15 @@ AS $BODY$
       
    _query='
  SELECT r.receiptid as receiptId, r.receiptnumber, r.subject,  null as category, fc.createDate, fc.remarks  as remark , null as viewpdfurl,
- 	r.nature, fc.correspondenceType as correspondenceType, fc.receiptmovementid as receiptmovementid  FROM PUBLIC.jet_process_receipt r INNER JOIN 
+ 	r.nature, fc.correspondenceType as correspondenceType, fc.receiptmovementid as receiptmovementid, 
+ (
+        case
+            when fc.filemovementId=2401 then true
+            else false
+        end
+    ) as isdetachable
+
+    FROM PUBLIC.jet_process_receipt r INNER JOIN 
  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid AND fc.detachremark IS NULL';
                   
         _keyword := '''%'||keyword||'%''';
@@ -1231,7 +1240,7 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text, boolean)
     OWNER TO postgres;
     
     
