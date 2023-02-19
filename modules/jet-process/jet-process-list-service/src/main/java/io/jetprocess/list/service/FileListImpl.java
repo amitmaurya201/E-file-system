@@ -401,7 +401,8 @@ public class FileListImpl implements FileList {
 					filCorrespondenceDTO.setRemark(rs.getString("remark"));
 					filCorrespondenceDTO.setViewPdfUrl(rs.getString("viewPdfUrl"));
 					filCorrespondenceDTO.setNature(rs.getString("nature"));
-					filCorrespondenceDTO.setCorrespondenceType(rs.getString("correspondenceType"));
+					filCorrespondenceDTO.setDetachable(rs.getBoolean("isdetachable"));
+					logger.info("is-Detachable..docfileId :"+rs.getBoolean("isdetachable") );
 
 					fileCorrespondenceReceiptDTO.add(filCorrespondenceDTO);
 				}

@@ -20,6 +20,8 @@
 		<aui:input name="docFileId" value="${docFileId }" type="hidden"></aui:input>
 		<aui:input name="userPostId" value="${userPostsValue }" type="hidden"></aui:input>
 		<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>" />
+		<aui:input name="fileMovementId" type="hidden"
+						value="<%=fileMovementId%>" />
 		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="message-record-not-found" id="receiptList"
 			total="${receiptCount}"
@@ -46,8 +48,7 @@
 						value="<%=receiptListViewDto.getReceiptId()%>" />
 					<aui:input name="receiptMovementId" type="hidden"
 						value="${receiptListViewDto.getReceiptMovementId()}" />
-					<aui:input name="fileMovementId" type="hidden"
-						value="<%=fileMovementId%>" />
+					
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					name="label-put-in-receipt-type"><%=receiptListViewDto.getNature().charAt(0)%>
@@ -141,6 +142,7 @@ function receiptDetail(_isRead, _receiptId, _receiptMovementId,_nature){
 	receiptId=_receiptId;
 	receiptMovementId=_receiptMovementId;
 	nature=_nature;
+	console.log("isRead : ",isRead,", receiptId : ",receiptId,", receiptMovementId : ",receiptMovementId,", nature : ",nature,", docFileId : ",<%=docFileId%>,", file movement id : ",<%=fileMovementId %>);
 }
 function validateForm(attachReceipt) {
 	

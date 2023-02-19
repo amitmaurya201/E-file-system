@@ -1,6 +1,7 @@
 
 <%
 	long corrFileId = (long) renderRequest.getAttribute("putInFileId");
+String redirectURL = themeDisplay.getURLCurrent();
 %>
 <style>
 .lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
@@ -69,6 +70,8 @@
 
 </portlet:renderURL>
 
+
+
 <portlet:renderURL var="correspondencesinfoViewPopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcRenderCommandName"
@@ -80,6 +83,9 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
 </portlet:renderURL>
+
+<portlet:actionURL var="detachReceipt" name="<%=MVCCommandNames.DETACH_RECEIPT %>">
+	</portlet:actionURL>
 
 <div class="row">
 	<div class="col-md-12" style="font-size: 18px">
@@ -93,11 +99,11 @@
 			<div class="dropdown-content">
 				<a href="#">Link 1</a> <a href="#">Link 2</a> <a href="#">Link 3</a>
 			</div>
+			
 		</div>
 	</div>
 
 	<div class="col-md-12">
-
 		<liferay-ui:search-container total="${fileCorrespondenceCount }"
 			delta="${delta }" deltaConfigurable="true"
 			iteratorURL="${fileCorrespondenceManagementToolbarDisplayContext._getCurrentURL()}"
@@ -144,7 +150,7 @@
 				<liferay-ui:search-container-column-text
 					name="detach-action-heading">
 					<aui:button cssClass="btn btn-primary" id="dettah-id"
-						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })"
+						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"
 						type="button" value="detach-button"></aui:button>
 				</liferay-ui:search-container-column-text>
 
@@ -198,6 +204,7 @@
 				<aui:form action="#" method="post" name="detachReceiptForm">
 					<aui:input name="receiptId" type="text"></aui:input>
 					<aui:input name="rmId" type="text"></aui:input>
+					<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>"></aui:input>
 					<aui:input label="label-put-in-receipt-remark" name="remarks"
 						type="textarea">
 						<aui:validator name="required" />
@@ -290,10 +297,15 @@ function receiptDetailPopup(receiptId){
 		});	  
 	}
 	
-	function detachFun(receiptId, receiptMovementId){
-		$("#<portlet:namespace />receiptId").val(receiptId);
-		$("#<portlet:namespace />rmId").val(receiptMovementId);
-		$('#detach-conformation').trigger('click');
+	function detachFun(receiptId, receiptMovementId, isDetachable){
+		if(isDetachable){
+			$("#<portlet:namespace />receiptId").val(receiptId);
+			$("#<portlet:namespace />rmId").val(receiptMovementId);
+			$('#detach-conformation').trigger('click');
+		}else{
+			alert("This Receipt is not Detachable..")
+		}
+		
 	}
 	
 	

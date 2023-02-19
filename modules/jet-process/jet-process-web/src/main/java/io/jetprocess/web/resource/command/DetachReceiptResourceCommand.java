@@ -24,8 +24,10 @@ public class DetachReceiptResourceCommand implements MVCResourceCommand {
 		long receiptId = ParamUtil.getLong(resourceRequest, "receiptId");
 		long receiptMovementId = ParamUtil.getLong(resourceRequest, "rmId");
 		String detachRemark = ParamUtil.getString(resourceRequest, "remarks");
+		String redirectURL = ParamUtil.getString(resourceRequest, "redirectURL");
 		fileCorrReceiptLocalService.detachFileCorrReceipt(receiptId, receiptMovementId, detachRemark, 1);
 		System.out.println("Receipt id: "+receiptId+", Receipt movement id : "+receiptMovementId+", remarks : "+detachRemark);
+		System.out.println(redirectURL);
 		return false;
 	}
 	
