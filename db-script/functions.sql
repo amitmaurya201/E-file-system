@@ -1120,7 +1120,7 @@ ALTER FUNCTION public.get_receipt_sent_list(bigint, text, integer, integer, text
     OWNER TO postgres;
   
     
--- DROP FUNCTION IF EXISTS public.get_file_correspondence_list_new(bigint, bigint, text, integer, integer, text, text);
+
 
 CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_viewmode text,
@@ -1130,9 +1130,8 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_start integer,
 	_end integer,
 	orderbycol text,
-	_orderbytype text
-)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isatachable boolean) 
+	_orderbytype text)
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isdetachable boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1157,7 +1156,7 @@ AS $BODY$
  	r.nature, fc.correspondenceType as correspondenceType, fc.receiptmovementid as receiptmovementid, 
  (
         case
-            when fc.filemovementId=2401 then true
+            when fc.filemovementId='||_filemovementid|| 'then true
             else false
         end
     ) as isdetachable
@@ -1240,7 +1239,7 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text, boolean)
+ALTER FUNCTION public.get_file_correspondence_list(text, bigint, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
     
