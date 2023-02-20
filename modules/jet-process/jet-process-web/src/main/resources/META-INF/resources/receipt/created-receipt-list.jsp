@@ -63,6 +63,7 @@
 					<portlet:param name="mvcRenderCommandName"
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId" value="${receipt.receiptId }" />
+					<portlet:param name="rmId" value="<%=String.valueOf(receipt.getReceiptMovementId()) %>" />
 					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 				</portlet:renderURL>
 

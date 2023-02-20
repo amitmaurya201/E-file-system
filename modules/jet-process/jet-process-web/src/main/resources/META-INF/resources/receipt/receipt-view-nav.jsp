@@ -70,12 +70,13 @@
 		value="<%=String.valueOf(receiptMovementId)%>" />
 	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 </portlet:renderURL>
-<%-- <portlet:renderURL var="putFile">
-	<portlet:param name="mvcPath" value="/receipt/put_in_a_file.jsp" />
+ <portlet:renderURL var="putInFile" windowState="<%=LiferayWindowState.POP_UP.toString() %>">
+<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.PUTINFILE_RENDER_COMMAND%>" />
+	<portlet:param name="receiptId" value="<%=receiptId%>" />
+	<portlet:param name="receiptMovementId"
+		value="<%=String.valueOf(receiptMovementId)%>" />		
 </portlet:renderURL>
-<portlet:renderURL var="dispatch">
-	<portlet:param name="mvcPath" value="/receipt/dispatch.jsp" />
-</portlet:renderURL> --%>
 <portlet:renderURL var="actionDetails">
 	<portlet:param name="mvcPath" value="/receipt/action_details.jsp" />
 </portlet:renderURL>
@@ -101,10 +102,8 @@
 				href="<%=sendReceipt%>"> Send </a></li>
 			<li class="nav-item"><a id="sendback" class="nav-link "
 				href="#"> Send Back </a></li>
-			<%-- <li class="nav-item"><a id="putFile" class="nav-link "
-				href="<%=putFile%>"> Put in a file </a></li>
-			<li class="nav-item"><a id="dispatch" class="nav-link "
-				href="<%=dispatch%>">Dispatch</a></li> --%>
+			 <li class="nav-item"><a class="nav-link add_receipt"
+				href="#"> Put in a file </a></li>			 
 			<li class="nav-item"><a id="edit" class="nav-link "
 				href="<%=editReceipt%>"> Edit </a></li>
 			<li class="nav-item"><a id="actionDetails" class="nav-link "
@@ -143,3 +142,26 @@
 		$('#sendback').addClass('disabled');
 	}
 </script>
+
+<aui:script>
+
+$(".add_receipt").click(()=>{
+	var title="<liferay-ui:message key='title-attach-in-file'/>";
+	
+	 Liferay.Util.openWindow({ 
+		dialog: { 														 
+			height: 550,														 
+			destroyOnClose: true,														 
+			destroyOnHide: true, 														 
+			modal: true, 														 
+			width: 1200,
+											 
+		}, 														 
+		id: '<portlet:namespace />dialog',														 
+		title: title, 																 
+		uri: '<%=putInFile%>'			
+		}); 
+});
+	
+	
+</aui:script>
