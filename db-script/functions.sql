@@ -1188,7 +1188,7 @@ AS $BODY$
                 _order :='desc';
             ELSE
                 _order :=_orderByType;
-        END IF;
+        END IF; 
         IF (_viewmode ='ViewModeFromSentFile') THEN
                 viewmode :='<';
         END IF;
