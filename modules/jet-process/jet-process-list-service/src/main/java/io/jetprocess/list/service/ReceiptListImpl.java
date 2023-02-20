@@ -79,6 +79,7 @@ public class ReceiptListImpl implements ReceiptList {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					ReceiptListViewDto receipt = new ReceiptListViewDto();
+					receipt.setReceiptMovementId(rs.getLong("receiptmovementid"));
 					receipt.setReceiptId(rs.getLong("receiptId"));
 					receipt.setReceiptNumber(rs.getString("receiptnumber"));
 					receipt.setSubject(rs.getString("subject"));
