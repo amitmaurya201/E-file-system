@@ -36,9 +36,9 @@ public interface FileList {
 
 	public List<NoteDTO> getAttachedNoteList(String mode, long filemovementId, long docfileId);
 	
-	public List<FileListViewDto> getPutInFileReceipt(long userPostId, String keyword, int start, int end,
+	public List<FileListViewDto> getPutInFileReceipt(String type , long userPostId, String keyword, int start, int end,
 			String orderBy, String order);
 	
-	public int getPutInFileReceiptCount(long userPostId, String keyword);
+	public int getPutInFileReceiptCount(String type , long userPostId, String keyword);
 
 }

@@ -409,20 +409,21 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public List<ReceiptListViewDto> getPutInFileList(long userPostId, String keyword, int start, int end,
+	public List<ReceiptListViewDto> getPutInFileList(String type , long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
 		logger.info("Getting put in file list");
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
 		CallableStatement prepareCall = null;
 		try {
 
-			prepareCall = con.prepareCall("select * from public.get_put_in_file_list(?,?,?,?,?,?)");
-			prepareCall.setLong(1, userPostId);
-			prepareCall.setString(2, keyword);
-			prepareCall.setInt(3, start);
-			prepareCall.setInt(4, end);
-			prepareCall.setString(5, orderBy);
-			prepareCall.setString(6, order);
+			prepareCall = con.prepareCall("select * from public.get_put_in_file_list(?,?,?,?,?,?,?)");
+			prepareCall.setString(1, type);
+			prepareCall.setLong(2, userPostId);
+			prepareCall.setString(3, keyword);
+			prepareCall.setInt(4, start);
+			prepareCall.setInt(5, end);
+			prepareCall.setString(6, orderBy);
+			prepareCall.setString(7, order);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
@@ -453,15 +454,16 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public int getPutInFileListCount(long userPostId, String keyword) {
+	public int getPutInFileListCount(String type,long userPostId, String keyword) {
 		logger.info("Getting put in file count");
 		CallableStatement prepareCall = null;
 		int count = 0;
 		try {
 
-			prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?)");
-			prepareCall.setLong(1, userPostId);
-			prepareCall.setString(2, keyword);
+			prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?,?)");
+			prepareCall.setString(1, type);
+			prepareCall.setLong(2, userPostId);
+			prepareCall.setString(3, keyword);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();

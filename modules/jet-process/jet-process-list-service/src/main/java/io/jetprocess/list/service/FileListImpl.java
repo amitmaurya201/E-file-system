@@ -439,20 +439,21 @@ public class FileListImpl implements FileList {
 
 	
 	@Override
-	public List<FileListViewDto> getPutInFileReceipt(long userPostId, String keyword, int start, int end,
+	public List<FileListViewDto> getPutInFileReceipt(String type, long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
 		logger.info("Getting put in file Receipt list");
 		List<FileListViewDto> fileListViewDtoList = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_attach_in_file_list(?,?,?,?,?,?)");
-			prepareCall.setLong(1, userPostId);
-			prepareCall.setString(2, keyword);
-			prepareCall.setInt(3, start);
-			prepareCall.setInt(4, end);
-			prepareCall.setString(5, orderBy);
-			prepareCall.setString(6, order);
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_attach_in_file_list(?,?,?,?,?,?,?)");
+			prepareCall.setString(1, type);
+			prepareCall.setLong(2, userPostId);
+			prepareCall.setString(3, keyword);
+			prepareCall.setInt(4, start);
+			prepareCall.setInt(5, end);
+			prepareCall.setString(6, orderBy);
+			prepareCall.setString(7, order);
 			boolean execute = prepareCall.execute();
 			if (execute) {
 				ResultSet rs = prepareCall.getResultSet();
@@ -483,15 +484,15 @@ public class FileListImpl implements FileList {
 	}
 
 	@Override
-	public int getPutInFileReceiptCount(long userPostId, String keyword) {
+	public int getPutInFileReceiptCount(String type , long userPostId, String keyword) {
 		Connection con = null;
 		int count = 0;
 		try {
 			con = DataAccess.getConnection();
-			CallableStatement prepareCall = con
-					.prepareCall("select public.get_receipt_attach_in_file_list_count(?,?)");
-			prepareCall.setLong(1,userPostId);			
-			prepareCall.setString(2,keyword);
+			CallableStatement prepareCall = con.prepareCall("select public.get_receipt_attach_in_file_list_count(?,?,?)");
+			prepareCall.setString(1,type);		
+			prepareCall.setLong(2,userPostId);			
+			prepareCall.setString(3,keyword);
 			boolean execute = prepareCall.execute();
 
 			if (execute) {

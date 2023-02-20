@@ -1,6 +1,7 @@
 package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -25,6 +26,8 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ReceiptListViewDto;
+import io.jetprocess.model.DocFile;
+import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext;
@@ -58,12 +61,21 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		int count = _receiptList.getPutInFileListCount(userPost, keywords);
-		
+		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
+		String type = null;
+	try {
+		DocFile docfile = docFileLocalService.getDocFile(docFileId);
+		type = docfile.getNature();
+	} catch (PortalException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	int count = _receiptList.getPutInFileListCount(type,userPost, keywords);
+
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(userPost, keywords, start, end, "", "");
+		List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(type,userPost, keywords, start, end, "", "");
 		receiptList.forEach(c -> logger
 				.info(c.getReceiptId() + ", : " + c.isRead() + ", : file movement id :  " + c.getReceiptMovementId()));
 		renderRequest.setAttribute("receiptFileList", receiptList);
@@ -87,5 +99,8 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private ReceiptList _receiptList;
+	
+	@Reference
+	private DocFileLocalService docFileLocalService;
 
 }

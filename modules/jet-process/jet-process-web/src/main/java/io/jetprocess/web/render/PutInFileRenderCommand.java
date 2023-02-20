@@ -1,6 +1,7 @@
 package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -25,6 +26,8 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileListViewDto;
+import io.jetprocess.model.Receipt;
+import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.PutInFileManagementToolbarDisplayContext;
@@ -61,12 +64,24 @@ public class PutInFileRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		 int count =_fileList.getPutInFileReceiptCount(userPost, keywords);
+		 long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		 String type = null;
+		 try {
+			Receipt receipt = receiptLocalService.getReceipt(receiptId);
+			type = receipt.getNature();
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 
+		 
+		 int count =_fileList.getPutInFileReceiptCount(type,userPost, keywords);
 
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		List<FileListViewDto> fileList = _fileList.getPutInFileReceipt(userPostId, keywords, start, end, "", "");
+		List<FileListViewDto> fileList = _fileList.getPutInFileReceipt(type,userPostId, keywords, start, end, "", "");
 		renderRequest.setAttribute("fileList", fileList);
 		renderRequest.setAttribute("delta", delta); //
 		renderRequest.setAttribute("fileCount", +count);
@@ -88,5 +103,8 @@ public class PutInFileRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private FileList _fileList;
+	
+	@Reference
+	private ReceiptLocalService receiptLocalService;
 
 }
