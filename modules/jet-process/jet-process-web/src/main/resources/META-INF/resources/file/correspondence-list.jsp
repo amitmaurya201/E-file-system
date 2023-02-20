@@ -149,7 +149,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 
 				<liferay-ui:search-container-column-text
 					name="detach-action-heading">
-					<aui:button cssClass="btn btn-primary" id="dettah-id"
+					<aui:button cssClass="btn btn-primary detach-btn" name="dettah"
 						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"
 						type="button" value="detach-button"></aui:button>
 				</liferay-ui:search-container-column-text>
@@ -195,15 +195,12 @@ String redirectURL = themeDisplay.getURLCurrent();
 				</button>
 			</div>
 			<div class="modal-body">
-				<h6>
+				<!-- <h6>
 					<liferay-ui:message key="detach-confirmation-message" />
-					<!-- <span id="msg"></span>
-					<liferay-ui:message
-						key="message-put-in-receipt-Confirmation-accept2" /> -->
-				</h6>
+				</h6> -->
 				<aui:form action="#" method="post" name="detachReceiptForm">
-					<aui:input name="receiptId" type="text"></aui:input>
-					<aui:input name="rmId" type="text"></aui:input>
+					<aui:input name="receiptId" type="hidden"></aui:input>
+					<aui:input name="rmId" type="hidden"></aui:input>
 					<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>"></aui:input>
 					<aui:input label="label-put-in-receipt-remark" name="remarks"
 						type="textarea">
@@ -223,12 +220,25 @@ String redirectURL = themeDisplay.getURLCurrent();
 	</div>
 </div>
 
+<div class="portlet-msg-success" style="display:none;     
+	bottom: 20px;
+    left: 20px;
+    position: fixed;
+    z-index: 5000; 
+    border:2px solid green;
+    width:250px;
+    " 
+    id="successMsg">
+   Your Receipt have been successfully Detached
+</div>
+
 <aui:script use="liferay-util-window">	
 
 var viewMode = "${param.viewMode}";
 if (viewMode == 'ViewModeFromSentFile') {
 		$('#<portlet:namespace />add_receipt').addClass('disabled');
 		$('.dropdown-content').css("display", "none");
+		$('.<portlet:namespace />detach-btn').addClass("disabled");
 }
 
 $("#<portlet:namespace />add_receipt").click(()=>{
@@ -298,12 +308,18 @@ function receiptDetailPopup(receiptId){
 	}
 	
 	function detachFun(receiptId, receiptMovementId, isDetachable){
+		console.table(receiptId,receiptMovementId, isDetachable )
 		if(isDetachable){
 			$("#<portlet:namespace />receiptId").val(receiptId);
 			$("#<portlet:namespace />rmId").val(receiptMovementId);
 			$('#detach-conformation').trigger('click');
 		}else{
-			alert("This Receipt is not Detachable..")
+					swal( {
+                          title: "Not Detachable",
+                          text: 'Receipt cannot be detached as it was put in previous movement',
+                          icon: "warning",
+                          button: "Ok"
+                      })
 		}
 		
 	}
@@ -319,7 +335,10 @@ function receiptDetailPopup(receiptId){
 		             },
 		               on: {
 		            	   success: function() { 
-		   	           		parent.location.reload();                   
+		            		   document.getElementById("successMsg").style.display="block";
+		   	           		setTimeout(function (){
+		   	           			parent.location.reload(); 
+		   	           		}, 1000)  
 		   	       	 	}
 		            	  
 		               }

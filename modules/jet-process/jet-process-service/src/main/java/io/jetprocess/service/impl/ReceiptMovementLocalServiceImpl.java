@@ -209,6 +209,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			// Iterate list of receipt
 			for (ReceiptMovement receiptMovement : receiptMovementList) {
 				if (fileMovementId == receiptMovement.getFileInMovementId()) {
+					receiptMovement.setPullBackRemark("pull-backed with file");
 					receiptMovement.setActive(false);
 					updateReceiptMovement(receiptMovement);
 				}
