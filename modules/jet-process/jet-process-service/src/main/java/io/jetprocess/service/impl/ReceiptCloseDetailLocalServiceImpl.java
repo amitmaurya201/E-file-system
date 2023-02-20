@@ -15,10 +15,21 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.Date;
+
+import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.model.DocFile;
+import io.jetprocess.model.Receipt;
+import io.jetprocess.model.ReceiptCloseDetail;
+import io.jetprocess.model.ReceiptMovement;
+import io.jetprocess.service.ReceiptLocalService;
+import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.service.base.ReceiptCloseDetailLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -27,6 +38,35 @@ import org.osgi.service.component.annotations.Component;
 	property = "model.class.name=io.jetprocess.model.ReceiptCloseDetail",
 	service = AopService.class
 )
-public class ReceiptCloseDetailLocalServiceImpl
-	extends ReceiptCloseDetailLocalServiceBaseImpl {
+public class ReceiptCloseDetailLocalServiceImpl extends ReceiptCloseDetailLocalServiceBaseImpl {
+	
+	
+	public ReceiptCloseDetail addClosedReceiptDetails(long receiptId,long closedBy,String closingRemarks,long closingReceiptMovementId) throws PortalException {
+	
+		long receiptClosedId = counterLocalService.increment(ReceiptCloseDetail.class.getName());
+		ReceiptCloseDetail receiptCloseDetail = createReceiptCloseDetail(receiptClosedId);
+		receiptCloseDetail.setReceiptId(receiptId);
+		receiptCloseDetail.setClosedBy(closedBy);
+		receiptCloseDetail.setClosingRemarks(closingRemarks);
+		receiptCloseDetail.setClosingReceiptMovementId(closingReceiptMovementId);
+		Receipt receipt = receiptLocalService.getReceipt(receiptId);
+		receipt.setCurrentState(FileStatus.CLOSED);
+		receiptLocalService.updateReceipt(receipt);
+		System.out.println("updated receipt ---->"+receiptLocalService.updateReceipt(receipt));
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(closingReceiptMovementId);
+		receiptMovement.setActive(false);
+		receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+		System.out.println("updated receiptmovement-->"+receiptMovementLocalService.updateReceiptMovement(receiptMovement));
+		addReceiptCloseDetail(receiptCloseDetail);
+		return receiptCloseDetail;
+		
+	}
+
+	@Reference
+	private ReceiptLocalService receiptLocalService;
+	@Reference
+	private ReceiptMovementLocalService receiptMovementLocalService;
+	
+	
+	
 }

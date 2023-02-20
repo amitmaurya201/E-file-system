@@ -29,6 +29,8 @@
 	long receiptMovementId = (long)renderRequest.getAttribute("receiptMovementId");
 	
 	String viewMode = renderRequest.getParameter("viewMode");
+	
+ 
 %>
 <portlet:renderURL var="receiptDetails">
 	<portlet:param name="mvcRenderCommandName"
@@ -128,7 +130,7 @@
 					<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
 				</ul></li>
 				
-			 <li class="nav-item border"><a id="closeReceipt"  href="#" onClick="OpenCloseReceiptPopUp(<%=receiptId %>,<%=String.valueOf(receiptMovementId)%> )" class="nav-link">Close</a></li>
+			 <li class="nav-item border"><a id="closeReceipt"  href="#" onClick="OpenCloseReceiptPopUp(<%=receiptId %>,<%=String.valueOf(receiptMovementId)%>,<%=userPostsVal %> )" class="nav-link">Close</a></li>
             
 
 		</ul>
@@ -153,11 +155,12 @@
 		$('#sendback').addClass('disabled');
 	}
 	
-	function OpenCloseReceiptPopUp(receiptId,receiptMovementId){
+	function OpenCloseReceiptPopUp(receiptId,receiptMovementId,userPostsVal){
+		alert("userpost-->"+userPostsVal);
 		console.log("receiptId-->"+receiptId);
 		alert("receiptMovementId--->"+receiptMovementId);
 	
-	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId;
+	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId+'&<portlet:namespace/>userPostsVal='+userPostsVal;
 	 	alert(receiptURL);
 			Liferay.Util.openWindow({
 				dialog: {

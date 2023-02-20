@@ -6,6 +6,7 @@
 long receiptId = (long) renderRequest.getAttribute("receiptId");
 long rmId = (long) renderRequest.getAttribute("rmId");
 
+String userPostId = (String) renderRequest.getAttribute("userPostsVal");
 
 %>
 
@@ -18,8 +19,8 @@ long rmId = (long) renderRequest.getAttribute("rmId");
 			<div style="text-align: left; height: 100px;">
 			<aui:input name="receiptId" value="<%=receiptId %>" type="hidden"/>
 			<aui:input name="rmId" value="<%=rmId %>" type="hidden"/>
-			
-				<aui:input label="label-closereceipt-remark" name="closingRemarks" id="closingRemarks"
+			<aui:input name="userPostsVal" value="<%=userPostId%>" type="hidden"/>
+		 	<aui:input label="label-closereceipt-remark" name="closingRemarks" id="closingRemarks"
 					type="textarea" style="height:70px;">
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">
@@ -39,11 +40,5 @@ long rmId = (long) renderRequest.getAttribute("rmId");
 		</aui:form>
 
 		<script>
-		
-		
-		
-		
-		
-		
-		
+	
 		</script>

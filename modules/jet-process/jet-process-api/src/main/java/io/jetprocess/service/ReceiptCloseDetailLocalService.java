@@ -64,6 +64,10 @@ public interface ReceiptCloseDetailLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptCloseDetailLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the receipt close detail local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ReceiptCloseDetailLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public ReceiptCloseDetail addClosedReceiptDetails(
+			long receiptId, long closedBy, String closingRemarks,
+			long closingReceiptMovementId)
+		throws PortalException;
 
 	/**
 	 * Adds the receipt close detail to the database. Also notifies the appropriate model listeners.
