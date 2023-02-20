@@ -58,4 +58,7 @@ public class MVCCommandNames {
     public static final String RECEIPT_CLOSE_LIST_RENDER_COMMAND = "/receiptClosedList";
     
     public static final String DETACH_RECEIPT="/detachReceipt";
+    
+    public static final String PUTINFILE_RENDER_COMMAND  = "/putinfile";
+
 }
