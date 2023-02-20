@@ -8,6 +8,7 @@
 	String nature = receipt.getNature();
 	char currentNature = nature.charAt(0);
 %>
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
