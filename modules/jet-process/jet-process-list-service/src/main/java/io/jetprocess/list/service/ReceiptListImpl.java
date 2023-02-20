@@ -14,6 +14,7 @@ import java.util.List;
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.list.api.ReceiptList;
+import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 
@@ -30,15 +31,16 @@ public class ReceiptListImpl implements ReceiptList {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public int getReceiptListCount(long userpostId, String keyword) {
-		
+
 		int count = 0;
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
 			logger.info("Getting Receipt List Count...");
-			
-			 prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)");
+
+			prepareCall = con.prepareCall("select  public.get_receipt_created_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -49,7 +51,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
@@ -63,11 +65,10 @@ public class ReceiptListImpl implements ReceiptList {
 			String order) {
 		logger.info("Getting Receipt List");
 		List<ReceiptListViewDto> receiptList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
-			
-			 prepareCall = con
-					.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_receipt_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -93,7 +94,7 @@ public class ReceiptListImpl implements ReceiptList {
 
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			logger.info("Cleaning up statement");
@@ -104,13 +105,13 @@ public class ReceiptListImpl implements ReceiptList {
 
 	@Override
 	public int getReceiptInboxListCount(long userpostId, String keyword) {
-		
+
 		logger.info("Getting Receipt inbox");
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list_count(?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -121,8 +122,8 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			
-			logger.error("Couldn't able to find connection"+e);
+
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			logger.info("Cleaning up statement");
@@ -136,10 +137,10 @@ public class ReceiptListImpl implements ReceiptList {
 			String orderBy, String order) {
 		logger.info("Getting Receipt Inbox list");
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
-			
-			 prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list(?,?,?,?,?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_receipt_inbox_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -170,7 +171,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			logger.info("Cleaning up statement");
@@ -184,11 +185,11 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public int getReceiptSentListCount(long userpostId, String keyword) {
 		logger.info("Getting Receipt sent count");
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select public.get_receipt_sent_list_count(?,?)");
+
+			prepareCall = con.prepareCall("select public.get_receipt_sent_list_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -199,7 +200,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			logger.info("Cleaning up statement");
@@ -213,10 +214,10 @@ public class ReceiptListImpl implements ReceiptList {
 			String orderBy, String order) {
 		logger.info("Getting Receipt sent list ");
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
-			
-			 prepareCall = con.prepareCall("select * from public.get_receipt_sent_list(?,?,?,?,?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_receipt_sent_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -246,7 +247,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
@@ -259,12 +260,11 @@ public class ReceiptListImpl implements ReceiptList {
 	public List<ReceiptMovementDTO> getReceiptMovementList(long receiptMovementId, long receiptId, String keyword,
 			int start, int end, String orderBy, String order) {
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
 			logger.info("Getting Receipt Movement list");
-			
-			 prepareCall = con
-					.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_receipt_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptMovementId);
 			prepareCall.setLong(2, receiptId);
 			prepareCall.setString(3, keyword);
@@ -295,7 +295,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
@@ -310,11 +310,10 @@ public class ReceiptListImpl implements ReceiptList {
 			String orderBy, String order) {
 		logger.info("Getting Attach receipt movement list ");
 		List<ReceiptMovementDTO> receiptMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
-			
-			 prepareCall = con
-					.prepareCall("select * from public.get_attach_receipt_movement_list(?,?,?,?,?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_attach_receipt_movement_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, receiptId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -344,9 +343,9 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
-			
+
 		} finally {
 			DataAccess.cleanUp(prepareCall);
 			logger.info("Cleaning up statement");
@@ -357,11 +356,11 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public int getReceiptMovementListCount(long receiptmovementId, long userpostId, String keyword) {
 		logger.info("Getting Receipt Movement count ");
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("SELECT public.get_receipt_movement_list_count(?,?,?)");
+
+			prepareCall = con.prepareCall("SELECT public.get_receipt_movement_list_count(?,?,?)");
 			prepareCall.setLong(1, receiptmovementId);
 			prepareCall.setLong(2, userpostId);
 			prepareCall.setString(3, keyword);
@@ -373,7 +372,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
@@ -385,12 +384,11 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public int getAttachReceiptMovementListCount(long receiptId, String keyword) {
 		logger.info("Getting attach receipt movement count");
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con
-					.prepareCall("SELECT public.get_attach_receipt_movement_list_count(?,?)");
+
+			prepareCall = con.prepareCall("SELECT public.get_attach_receipt_movement_list_count(?,?)");
 			prepareCall.setLong(1, receiptId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -401,7 +399,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
@@ -415,10 +413,10 @@ public class ReceiptListImpl implements ReceiptList {
 			String orderBy, String order) {
 		logger.info("Getting put in file list");
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		try {
-			
-			 prepareCall = con.prepareCall("select * from public.get_put_in_file_list(?,?,?,?,?,?)");
+
+			prepareCall = con.prepareCall("select * from public.get_put_in_file_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -444,7 +442,7 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
@@ -457,11 +455,11 @@ public class ReceiptListImpl implements ReceiptList {
 	@Override
 	public int getPutInFileListCount(long userPostId, String keyword) {
 		logger.info("Getting put in file count");
-		CallableStatement prepareCall=null;
+		CallableStatement prepareCall = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?)");
+
+			prepareCall = con.prepareCall("select  public.get_put_in_file_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -472,13 +470,53 @@ public class ReceiptListImpl implements ReceiptList {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("Couldn't able to find connection"+e);
+			logger.error("Couldn't able to find connection" + e);
 			e.printStackTrace();
 		} finally {
 			DataAccess.cleanUp(prepareCall);
 			logger.info("Cleaning up statement");
 		}
 		return count;
+	}
+
+	@Override
+	public List<ClosedReceiptDTO> getClosedReceiptList(long closedBy, String keyword, int start, int end,
+			String orderBy, String order) {
+		logger.info("closed dto called ");
+		List<ClosedReceiptDTO> closeList = new ArrayList<>();
+		Connection connection = null;
+		try {
+			connection = DataAccess.getConnection();
+			CallableStatement prepareCall = connection
+					.prepareCall("SELECT * from public.get_closed_receipt_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, closedBy);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					ClosedReceiptDTO closedDTO = new ClosedReceiptDTO();
+					closedDTO.setClosedReceiptId(rs.getLong("receiptclosedid"));
+					closedDTO.setNature(rs.getString("nature"));
+					closedDTO.setReceiptNumber(rs.getString("receiptnumber"));
+					closedDTO.setSubject(rs.getString("subject"));
+					closedDTO.setClosedOn(rs.getDate("closedon"));
+					closedDTO.setClosingRemarks(rs.getString("closingRemarks"));
+					closedDTO.setReceiptid(rs.getLong("receiptid"));
+					closeList.add(closedDTO);
+				}
+			}
+		} catch (SQLException e) {
+			logger.info(e);
+		} finally {
+			DataAccess.cleanUp(connection);
+			logger.info("Cleaning up connection");
+		}
+		return closeList;
 	}
 
 }

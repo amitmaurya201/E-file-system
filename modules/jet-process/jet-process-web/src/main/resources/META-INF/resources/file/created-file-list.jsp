@@ -19,10 +19,10 @@
 		<h1 class="text-center">File Created List</h1>
 		<clay:management-toolbar disabled="${fileCount eq 0}"
 			displayContext="${fileManagementToolbarDisplayContext}"
-			itemsTotal="${fileCount}" searchContainerId="assignmentEntries" />
+			itemsTotal="${fileCount}" searchContainerId="createdFileEntries" />
 
 		<liferay-ui:search-container delta="${delta}"
-			emptyResultsMessage="message-record-not-found" id="assignmentEntries"
+			emptyResultsMessage="message-record-not-found" id="createdFileEntries"
 			total="${fileCount}"
 			iteratorURL="${fileManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileList}" />
