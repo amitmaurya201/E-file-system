@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.osgi.service.component.annotations.Component;
-
 import io.jetprocess.list.api.FileList;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
@@ -24,23 +22,13 @@ public class FileListImpl implements FileList {
 
 	private static Log logger = LogFactoryUtil.getLog(FileListImpl.class);
 
-	static Connection con = null;
-	static {
-		try {
-			con = DataAccess.getConnection();
-			logger.info("Getting connection");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public int getFileCreatedListCount(long userPostId, String keyword) {
 		logger.info("Getting created file list count");
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select PUBLIC.get_file_created_list_count(?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -54,7 +42,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 		}
 		logger.info("created file list count : " + count);
 		return count;
@@ -63,10 +51,10 @@ public class FileListImpl implements FileList {
 	public List<FileListViewDto> getFileList(long userPostId, String keyword, int start, int end, String orderBy,
 			String order) {
 		List<FileListViewDto> fileList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		try {
-			
-			 prepareCall = con.prepareCall("SELECT * from PUBLIC.get_file_created_list(?,?,?,?,?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("SELECT * from PUBLIC.get_file_created_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -93,7 +81,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 
 		}
 		return fileList;
@@ -101,11 +89,11 @@ public class FileListImpl implements FileList {
 
 	@Override
 	public int getFileInboxListCount(long userpostId, String keyword) {
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select get_file_inbox_lists_count(?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select get_file_inbox_lists_count(?,?)");
 			prepareCall.setLong(1, userpostId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -120,7 +108,7 @@ public class FileListImpl implements FileList {
 			logger.error(e);
 		} finally {
 			logger.info("Cleaning up connection");
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 		}
 		logger.info("File inbox list count : " + count);
 		return count;
@@ -131,10 +119,10 @@ public class FileListImpl implements FileList {
 			String order) {
 		logger.info("Getting file inbox list");
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		try {
-			
-			 prepareCall = con.prepareCall("SELECT * from public.get_file_inbox_list(?,?,?,?,?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_inbox_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -171,7 +159,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return fileMovementDTOList;
@@ -180,11 +168,11 @@ public class FileListImpl implements FileList {
 	@Override
 	public int getFileSentListCount(long postId, String keyword) {
 		logger.info("Getting file sent list count");
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select get_file_sent_lists_count(?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select get_file_sent_lists_count(?,?)");
 			prepareCall.setLong(1, postId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
@@ -198,7 +186,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return count;
@@ -209,10 +197,10 @@ public class FileListImpl implements FileList {
 			String order) {
 		logger.info("Getting file sent list count");
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		try {
-			
-			 prepareCall = con.prepareCall("SELECT * from public.get_file_sent_list(?,?,?,?,?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("SELECT * from public.get_file_sent_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, userPostId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -250,7 +238,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return fileMovementDTOList;
@@ -261,10 +249,10 @@ public class FileListImpl implements FileList {
 			int end, String orderBy, String order) {
 		logger.info("Getting file movement list");
 		List<FileMovementDTO> fileMovementDTOList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		try {
-			
-			 prepareCall = con
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_file_movement_list(?,?,?,?,?,?,?)");
 			prepareCall.setLong(1, fileMovementId);
 			prepareCall.setLong(2, docfileId);
@@ -303,7 +291,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return fileMovementDTOList;
@@ -312,11 +300,11 @@ public class FileListImpl implements FileList {
 	@Override
 	public int getFileMovementListCount(long filemovementId, long fileId, String keyword) {
 		logger.info("Getting file movement list count");
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con.prepareCall("select public.get_file_movement_list_count(?,?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select public.get_file_movement_list_count(?,?,?)");
 			prepareCall.setLong(1, filemovementId);
 			prepareCall.setLong(2, fileId);
 			prepareCall.setString(3, keyword);
@@ -332,7 +320,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return count;
@@ -341,11 +329,11 @@ public class FileListImpl implements FileList {
 	@Override
 	public int getFileCorrespondenceCount(String mode, long filemovementId, long fileId, String keyword) {
 		logger.info("Getting file correspondence count");
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		int count = 0;
 		try {
-			
-			 prepareCall = con
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con
 					.prepareCall("select public.get_file_correspondence_list_count(?,?,?,?)");
 			prepareCall.setString(1, mode);
 			prepareCall.setLong(2, filemovementId);
@@ -363,7 +351,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return count;
@@ -374,10 +362,10 @@ public class FileListImpl implements FileList {
 			String keyword, int start, int end, String orderBy, String order) {
 		logger.info("Getting file correspondencelist");
 		List<FileCorrespondenceReceiptDTO> fileCorrespondenceReceiptDTO = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		try {
-			
-			 prepareCall = con
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con
 					.prepareCall("select * from public.get_file_correspondence_list(?,?,?,?,?,?,?,?)");
 			prepareCall.setString(1, mode);
 			prepareCall.setLong(2, filemovementId);
@@ -401,8 +389,7 @@ public class FileListImpl implements FileList {
 					filCorrespondenceDTO.setRemark(rs.getString("remark"));
 					filCorrespondenceDTO.setViewPdfUrl(rs.getString("viewPdfUrl"));
 					filCorrespondenceDTO.setNature(rs.getString("nature"));
-					filCorrespondenceDTO.setDetachable(rs.getBoolean("isdetachable"));
-					logger.info("is-Detachable..docfileId :"+rs.getBoolean("isdetachable") );
+					filCorrespondenceDTO.setCorrespondenceType(rs.getString("correspondenceType"));
 
 					fileCorrespondenceReceiptDTO.add(filCorrespondenceDTO);
 				}
@@ -411,7 +398,7 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return fileCorrespondenceReceiptDTO;
@@ -421,10 +408,10 @@ public class FileListImpl implements FileList {
 	public List<NoteDTO> getAttachedNoteList(String mode, long filemovementId, long docfileId) {
 		logger.info("get Attached Note List");
 		List<NoteDTO> noteDtoList = new ArrayList<>();
-		CallableStatement prepareCall=null;
+		Connection con = null;
 		try {
-			
-			 prepareCall = con.prepareCall("select * from public.get_all_attached_note_list(?,?,?)");
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_all_attached_note_list(?,?,?)");
 			prepareCall.setString(1, mode);
 			prepareCall.setLong(2, filemovementId);
 			prepareCall.setLong(3, docfileId);
@@ -444,10 +431,82 @@ public class FileListImpl implements FileList {
 			e.printStackTrace();
 			logger.error(e);
 		} finally {
-			DataAccess.cleanUp(prepareCall);
+			DataAccess.cleanUp(con);
 			logger.info("Cleaning up connection");
 		}
 		return noteDtoList;
 	}
 
+	
+	@Override
+	public List<FileListViewDto> getPutInFileReceipt(long userPostId, String keyword, int start, int end,
+			String orderBy, String order) {
+		logger.info("Getting put in file Receipt list");
+		List<FileListViewDto> fileListViewDtoList = new ArrayList<>();
+		Connection con = null;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con.prepareCall("select * from public.get_receipt_attach_in_file_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, userPostId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					FileListViewDto fileListViewDto = new FileListViewDto();
+					fileListViewDto.setDocFileId(rs.getLong("docfileid"));
+					fileListViewDto.setFileNumber(rs.getString("filenumber"));
+					fileListViewDto.setSubject(rs.getString("subject"));
+					fileListViewDto.setCategory(rs.getString("category"));
+					fileListViewDto.setCreateDate(rs.getTimestamp("createdate"));
+					fileListViewDto.setRemark(rs.getString("remark"));
+					fileListViewDto.setNature(rs.getString("nature"));
+					fileListViewDto.setRead(rs.getBoolean("isread"));
+					fileListViewDto.setFilemovementId(rs.getLong("filemovementid"));				
+					fileListViewDtoList.add(fileListViewDto);
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
+
+		}
+		return fileListViewDtoList;
+		
+	}
+
+	@Override
+	public int getPutInFileReceiptCount(long userPostId, String keyword) {
+		Connection con = null;
+		int count = 0;
+		try {
+			con = DataAccess.getConnection();
+			CallableStatement prepareCall = con
+					.prepareCall("select public.get_receipt_attach_in_file_list_count(?,?)");
+			prepareCall.setLong(1,userPostId);			
+			prepareCall.setString(2,keyword);
+			boolean execute = prepareCall.execute();
+
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(con);
+			logger.info("Cleaning up connection");
+		}
+		return count;
+	}
 }
