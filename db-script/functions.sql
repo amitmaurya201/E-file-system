@@ -1505,46 +1505,108 @@ ALTER FUNCTION public.get_closed_receipt_list(bigint, text, integer, integer, te
 
 -- ------------------- Get-file-created-list-count ----------------------------
 
-CREATE OR REPLACE FUNCTION public.get_file_created_list_count(
-	post_id bigint,
-	keyword text)
-    RETURNS bigint
+
+CREATE OR REPLACE FUNCTION public.get_closed_receipt_list(
+	closedby bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	orderbytype text)
+    RETURNS TABLE(receiptclosedid bigint, nature character varying, receiptnumber character varying, subject character varying, closedon timestamp without time zone, closingremarks character varying, receiptid bigint) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
     SET search_path=admin, pg_temp
 AS $BODY$
-DECLARE total BIGINT;
-_query text;
-BEGIN
-total :=0;
-  
-        IF post_id !=0 AND post_id IS NOT NULL THEN 
+declare 
+    _closedby bigint;
+    _keyword text;
+    _offset int;
+    _limit int;
+    _orderby text;
+    _order text;
+    _query text;
+begin
+    _closedby := closedby;
+    _query := 'SELECT cr.receiptclosedid as receiptclosedid, r.nature as nature , 
+                r.receiptNumber as receiptNumber,r.subject as subject , cr.createdate as closedon ,
+                cr.closingremarks as closingremarks, cr.receiptid as receiptid
+                FROM PUBLIC.jet_process_receiptclosedetail as cr 
+                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId ';
+                
+     _keyword := '''%' || keyword || '%''';
+     IF (_start <0 OR _start IS NULL) THEN
+        _offset := 0;
+     ELSE 
+        _offset := _start;
+     END IF;
+     
+     IF(_end <= 0 OR _end IS NULL) THEN
+        _limit := 4;
+     ELSE
+        _limit := _end;
+     END IF;
+     
+     IF (orderbycol = '' OR orderbycol = 'closedOn' OR orderbycol = 'closedon' OR orderbycol = 'createDate' OR orderbycol = 'createdate') THEN
+        _orderBy := ' cr.createdate ';
+     END IF;
+     
+      IF (orderbycol = 'receiptnumber' OR orderbycol = 'createDate' OR orderbycol = 'receiptNumber') THEN
+        _orderBy := ' r.receiptnumber ';
+     END IF;
+     
+       IF (orderbycol = 'subject') THEN
+        _orderBy := ' r.subject ';
+     END IF;
+     
+     IF(orderByType ='' or orderByType IS NULL) THEN
+        _order := ' desc ';
+     ELSE 
+        _order := orderbytype;
+     END IF;
+    
+    IF(_closedby !=0) THEN
+        _query := _query ||'where closedby = ' || _closedby;
+        
+        IF (_keyword IS NOT NULL) THEN 
+            _query := _query || 'AND (receiptnumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
             
+            if(_orderBy != '') THEN
+                _query := _query || ' order by ' || _orderBy;
+                
+                if(_order != '') THEN
+                    _query := _query || '' || _order;
+                
+                    if(_offset >= 0 ) THEN
+                        _query := _query || ' offset ' || _offset;
+                        
+                        if(_limit > 0 ) THEN 
+                            _query := _query || ' limit ' || _limit;
+                            
+                        END IF;
+                    
+                    END IF;
+                    
+                END IF;
             
-            IF  keyword IS NOT NULL  THEN
-   
-            Select  count(*) into total FROM public.jet_process_docfile  
-            INNER JOIN public.md_category  
-            ON categorydataid = categoryid 
-            where userpostid = post_id  AND  currentstate = 1 
-            AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
-            
-            return total;
             END IF;
-             Select  count(*) into total FROM public.jet_process_docfile  
-            INNER JOIN public.md_category  
-            ON categorydataid = categoryid 
-            where userpostid = post_id  AND  currentstate = 1 ;
-            RETURN total;
+            
         END IF;
+   
+   END IF;
+  
+  return query execute _query;
 
-        RETURN total;
-END;
+end;
+
 $BODY$;
 
-ALTER FUNCTION public.get_file_created_list_count(bigint, text)
+ALTER FUNCTION public.get_closed_receipt_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+
 
     
 ---------------------Get-File-Inbox-List-count-----------------------------
