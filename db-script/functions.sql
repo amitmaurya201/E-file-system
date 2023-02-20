@@ -786,7 +786,7 @@ AS $BODY$
     r.remarks as remark , r.viewpdfurl AS viewpdfurl ,
 	nature AS nature FROM PUBLIC.jet_process_receipt r INNER JOIN 
 	PUBLIC.md_category  ON categorydataid = receiptcategoryid  
-    INNER JOIN public.jet_process_receiptmovement as rm ON rm.receiptid= r.receiptid where rm.movementtype=0 AND currentstate = 1   ';
+    INNER JOIN public.jet_process_receiptmovement as rm ON rm.receiptid= r.receiptid where rm.movementtype=0 AND currentstate = 1  AND attachstatus IS NULL ';
     
         _keyword := '''%'||keyword||'%''';
         IF (_start <0 OR _start IS NULL) THEN
