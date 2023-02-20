@@ -22,6 +22,8 @@ import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import io.jetprocess.model.ReceiptCloseDetail;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -47,6 +49,10 @@ public interface ReceiptCloseDetailService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptCloseDetailServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the receipt close detail remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ReceiptCloseDetailServiceUtil} if injection and service tracking are not available.
 	 */
+	public ReceiptCloseDetail addClosedReceiptDetails(
+			long receiptId, long closedBy, String closingRemarks,
+			long closingReceiptMovementId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

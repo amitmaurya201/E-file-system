@@ -3,6 +3,7 @@ package io.jetprocess.web.render;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.util.ParamUtil;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -17,18 +18,25 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		immediate = true,
 		property = {
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name="+MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND
+				"mvc.command.name="+MVCCommandNames.RECEIPT_CLOSE_POP_UP
 		},
 		service = MVCRenderCommand.class
 )
-public class CloseReceiptListRenderCommand implements MVCRenderCommand {
+public class CloseReceiptRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		logger.info("close receipt list renderer called");
-		return "/receipt/closed-receipt-list.jsp";
+		long rmId = ParamUtil.getLong(renderRequest, "rmId");
+	 long receiptId = ParamUtil.getLong(renderRequest,"receiptId");
+	renderRequest.setAttribute("rmId", rmId);
+	renderRequest.setAttribute("receiptId", receiptId);
+		logger.info("close receipt called");
+		// TODO Auto-generated method stub
+		return "/receipt/close-receipt.jsp";
 	}
-	
-	private Log logger = LogFactoryUtil.getLog(CloseReceiptListRenderCommand.class);
 
+	
+	private Log logger = LogFactoryUtil.getLog(CloseReceiptRenderCommand.class);
+
+	
 }

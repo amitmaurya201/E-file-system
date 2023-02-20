@@ -14,6 +14,10 @@
 
 package io.jetprocess.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import io.jetprocess.model.ReceiptCloseDetail;
+
 /**
  * Provides the remote service utility for ReceiptCloseDetail. This utility wraps
  * <code>io.jetprocess.service.impl.ReceiptCloseDetailServiceImpl</code> and is an
@@ -33,13 +37,21 @@ public class ReceiptCloseDetailServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptCloseDetailServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static ReceiptCloseDetail addClosedReceiptDetails(
+			long receiptId, long closedBy, String closingRemarks,
+			long closingReceiptMovementId)
+		throws PortalException {
+
+		return getService().addClosedReceiptDetails(
+			receiptId, closedBy, closingRemarks, closingReceiptMovementId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 

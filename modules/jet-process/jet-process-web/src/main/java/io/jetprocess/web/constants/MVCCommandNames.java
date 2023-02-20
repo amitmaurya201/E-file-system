@@ -61,4 +61,10 @@ public class MVCCommandNames {
     
     public static final String PUTINFILE_RENDER_COMMAND  = "/putinfile";
 
+
+    public static final String RECEIPT_CLOSE_POP_UP ="/receiptClosedPopUp";
+    
+    public static final String CLOSE_RECEIPT_ACTION_COMMAND ="/receiptClose/action/command";
+
+
 }

@@ -37,6 +37,16 @@ public class ReceiptCloseDetailLocalServiceWrapper
 		_receiptCloseDetailLocalService = receiptCloseDetailLocalService;
 	}
 
+	@Override
+	public io.jetprocess.model.ReceiptCloseDetail addClosedReceiptDetails(
+			long receiptId, long closedBy, String closingRemarks,
+			long closingReceiptMovementId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _receiptCloseDetailLocalService.addClosedReceiptDetails(
+			receiptId, closedBy, closingRemarks, closingReceiptMovementId);
+	}
+
 	/**
 	 * Adds the receipt close detail to the database. Also notifies the appropriate model listeners.
 	 *

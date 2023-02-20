@@ -45,6 +45,14 @@ public class ReceiptCloseDetailLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.ReceiptCloseDetailLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static ReceiptCloseDetail addClosedReceiptDetails(
+			long receiptId, long closedBy, String closingRemarks,
+			long closingReceiptMovementId)
+		throws PortalException {
+
+		return getService().addClosedReceiptDetails(
+			receiptId, closedBy, closingRemarks, closingReceiptMovementId);
+	}
 
 	/**
 	 * Adds the receipt close detail to the database. Also notifies the appropriate model listeners.

@@ -29,6 +29,8 @@
 	long receiptMovementId = (long)renderRequest.getAttribute("receiptMovementId");
 	
 	String viewMode = renderRequest.getParameter("viewMode");
+	
+ 
 %>
 <portlet:renderURL var="receiptDetails">
 	<portlet:param name="mvcRenderCommandName"
@@ -84,6 +86,14 @@
 	<portlet:param name="mvcPath" value="/receipt/attach.jsp" />
 </portlet:renderURL>
 
+<portlet:renderURL var="closeReceiptURL"
+			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+	 	<portlet:param name="mvcRenderCommandName"
+				value="<%=MVCCommandNames.RECEIPT_CLOSE_POP_UP%>" /> 
+		</portlet:renderURL>
+ 
+
+
 <nav class="navbar navbar-expand-lg navbar-light mt-1"
 	style="background-color: #ddd; border-top: 2px solid #a19c9c; border-top-left-radius: 5px; border-top-right-radius: 5px;">
 	<!-- <div class="container-fluid"> -->
@@ -119,6 +129,9 @@
 					<li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
 					<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
 				</ul></li>
+				
+			 <li class="nav-item border"><a id="closeReceipt"  href="#" onClick="OpenCloseReceiptPopUp(<%=receiptId %>,<%=String.valueOf(receiptMovementId)%>,<%=userPostsVal %> )" class="nav-link">Close</a></li>
+            
 
 		</ul>
 		<div class="nav-item d-flex ">
@@ -141,6 +154,32 @@
 		$('#send').addClass('disabled');
 		$('#sendback').addClass('disabled');
 	}
+	
+	function OpenCloseReceiptPopUp(receiptId,receiptMovementId,userPostsVal){
+		alert("userpost-->"+userPostsVal);
+		console.log("receiptId-->"+receiptId);
+		alert("receiptMovementId--->"+receiptMovementId);
+	
+	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId+'&<portlet:namespace/>userPostsVal='+userPostsVal;
+	 	alert(receiptURL);
+			Liferay.Util.openWindow({
+				dialog: {
+					centered: true,
+					height: 200,
+					destroyOnClose: true,														 
+					destroyOnHide: true, 
+					modal: true,
+					width: 360
+				},
+				id: '<portlet:namespace/>dialog',
+				title: 'ReceiptClose',
+				uri: receiptURL
+				
+			});
+		}
+
+
+	
 </script>
 
 <aui:script>
@@ -162,6 +201,9 @@ $(".add_receipt").click(()=>{
 		uri: '<%=putInFile%>'			
 		}); 
 });
+	
+	
+		
 	
 	
 </aui:script>
