@@ -2319,7 +2319,7 @@ BEGIN
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_attach_in_file_list_count(bigint, text)
+ALTER FUNCTION public.get_receipt_attach_in_file_list_count(text,bigint, text)
     OWNER TO postgres;
     
     
