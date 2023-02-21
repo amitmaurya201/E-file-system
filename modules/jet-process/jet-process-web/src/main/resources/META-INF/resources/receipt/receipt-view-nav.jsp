@@ -30,6 +30,8 @@
 	
 	String viewMode = renderRequest.getParameter("viewMode");
 	
+	
+	
  
 %>
 <portlet:renderURL var="receiptDetails">
@@ -89,7 +91,8 @@
 <portlet:renderURL var="closeReceiptURL"
 			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	 	<portlet:param name="mvcRenderCommandName"
-				value="<%=MVCCommandNames.RECEIPT_CLOSE_POP_UP%>" /> 
+				value="<%=MVCCommandNames.RECEIPT_CLOSE_POP_UP%>" />
+				<portlet:param name="backPageURL" value="<%=backPageURL%>" /> 
 		</portlet:renderURL>
  
 
@@ -156,10 +159,6 @@
 	}
 	
 	function OpenCloseReceiptPopUp(receiptId,receiptMovementId,userPostsVal){
-		alert("userpost-->"+userPostsVal);
-		console.log("receiptId-->"+receiptId);
-		alert("receiptMovementId--->"+receiptMovementId);
-	
 	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId+'&<portlet:namespace/>userPostsVal='+userPostsVal;
 	 	alert(receiptURL);
 			Liferay.Util.openWindow({
@@ -169,7 +168,7 @@
 					destroyOnClose: true,														 
 					destroyOnHide: true, 
 					modal: true,
-					width: 360
+					width: 400
 				},
 				id: '<portlet:namespace/>dialog',
 				title: 'ReceiptClose',

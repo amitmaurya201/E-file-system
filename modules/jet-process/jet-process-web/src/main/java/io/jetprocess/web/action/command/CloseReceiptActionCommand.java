@@ -27,7 +27,9 @@ public class CloseReceiptActionCommand extends BaseMVCActionCommand {
 	long closingReceiptMovementId =	ParamUtil.getLong(actionRequest, "rmId");
 	long receiptId = ParamUtil.getLong(actionRequest,"receiptId");
 	String closingRemarks = ParamUtil.getString(actionRequest,"closingRemarks");
-	long closedBy = ParamUtil.getLong(actionRequest, "userPostsVal");
+	String userPostId = ParamUtil.getString(actionRequest, "userPostId");
+	System.out.println(":userPost id----->"+userPostId);
+    long closedBy = Long.parseLong(userPostId);
 	System.out.println("closed By --->"+closedBy);
 	receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, closingReceiptMovementId);
 	
