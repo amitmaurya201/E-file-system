@@ -1,5 +1,6 @@
 package io.jetprocess.web.render;
 
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -9,6 +10,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.ReceiptList;
 import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -51,12 +54,22 @@ public class ClosedReceiptListRenderCommand implements MVCRenderCommand {
 	private void setClosedReceiptListAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		long closedBy = UserPostUtil.getUserIdUsingSession(renderRequest);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "closedOn");
-		logger.info(orderByCol);
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keyword = ParamUtil.getString(renderRequest, "keywords");
-		List<ClosedReceiptDTO> closedReceiptList = receiptList.getClosedReceiptList(closedBy, keyword, 0, 20, orderByCol, orderByType);
-		logger.info("list    ->   " + closedReceiptList);
+		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
+				SearchContainer.DEFAULT_CUR);
+		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
+		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
+		int end = delta;
+		int count = receiptList.getClosedReceiptListCount(closedBy, keyword);
+		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
+		start = paginationConfig.get("start");
+		currentPage = paginationConfig.get("currentPage");
+		List<ClosedReceiptDTO> closedReceiptList = receiptList.getClosedReceiptList(closedBy, keyword, start, end,
+				orderByCol, orderByType);
 		renderRequest.setAttribute("closedReceiptList", closedReceiptList);
+		renderRequest.setAttribute("delta", delta);
+		renderRequest.setAttribute("closedReceiptCount", count);
 	}
 
 	private Log logger = LogFactoryUtil.getLog(ClosedReceiptListRenderCommand.class);

@@ -5,7 +5,7 @@ import java.util.Date;
 public class ClosedReceiptDTO {
 
 	private long closedReceiptId;
-	private long receiptid;
+	private long receiptId;
 	private String nature;
 	private String receiptNumber;
 	private String subject;
@@ -19,16 +19,16 @@ public class ClosedReceiptDTO {
 
 	@Override
 	public String toString() {
-		return "ClosedReceiptDTO [closedReceiptId=" + closedReceiptId + ", receiptid=" + receiptid + ", nature="
+		return "ClosedReceiptDTO [closedReceiptId=" + closedReceiptId + ", receiptId=" + receiptId + ", nature="
 				+ nature + ", receiptNumber=" + receiptNumber + ", subject=" + subject + ", closedOn=" + closedOn
 				+ ", closingRemarks=" + closingRemarks + "]";
 	}
 
-	public ClosedReceiptDTO(long closedReceiptId, long receiptid, String nature, String receiptNumber, String subject,
+	public ClosedReceiptDTO(long closedReceiptId, long receiptId, String nature, String receiptNumber, String subject,
 			Date closedOn, String closingRemarks) {
 		super();
 		this.closedReceiptId = closedReceiptId;
-		this.receiptid = receiptid;
+		this.receiptId = receiptId;
 		this.nature = nature;
 		this.receiptNumber = receiptNumber;
 		this.subject = subject;
@@ -44,12 +44,12 @@ public class ClosedReceiptDTO {
 		this.closedReceiptId = closedReceiptId;
 	}
 
-	public long getReceiptid() {
-		return receiptid;
+	public long getReceiptId() {
+		return receiptId;
 	}
 
-	public void setReceiptid(long receiptid) {
-		this.receiptid = receiptid;
+	public void setReceiptId(long receiptId) {
+		this.receiptId = receiptId;
 	}
 
 	public String getNature() {

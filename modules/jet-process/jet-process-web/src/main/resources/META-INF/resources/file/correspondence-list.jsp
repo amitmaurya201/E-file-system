@@ -149,7 +149,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 
 				<liferay-ui:search-container-column-text
 					name="detach-action-heading">
-					<aui:button cssClass="btn btn-primary detach-btn" name="dettah"
+					<aui:button cssClass="btn btn-primary detach-btn-disabled" name="detach-btn"
 						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"
 						type="button" value="detach-button"></aui:button>
 				</liferay-ui:search-container-column-text>
@@ -209,7 +209,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 					<div class="float-right">
 						<aui:button type="button" cssClass="btn btn-primary"
 							value="label-detach-confirmation-button"
-							onclick="receiptReceive(true)"></aui:button>
+							onclick="receiptDetach(true)"></aui:button>
 						<aui:button type="button" cssClass="btn btn-primary"
 							value="label-detach-confirmation-cancel" data-dismiss="modal"></aui:button>
 					</div>
@@ -220,13 +220,15 @@ String redirectURL = themeDisplay.getURLCurrent();
 	</div>
 </div>
 
+<!-- ---------------------- succes message  ---------------------------  -->
 <div class="portlet-msg-success" style="display:none;     
 	bottom: 20px;
     left: 20px;
     position: fixed;
     z-index: 5000; 
-    border:2px solid green;
-    width:250px;
+    border:1px solid green;
+    width:400px;
+    height:80px
     " 
     id="successMsg">
    Your Receipt have been successfully Detached
@@ -238,7 +240,7 @@ var viewMode = "${param.viewMode}";
 if (viewMode == 'ViewModeFromSentFile') {
 		$('#<portlet:namespace />add_receipt').addClass('disabled');
 		$('.dropdown-content').css("display", "none");
-		$('.<portlet:namespace />detach-btn').addClass("disabled");
+		$('.detach-btn-disabled').addClass("disabled");
 }
 
 $("#<portlet:namespace />add_receipt").click(()=>{
@@ -325,25 +327,46 @@ function receiptDetailPopup(receiptId){
 	}
 	
 	
-	function receiptReceive(accepted){
-		   	AUI().use('aui-io-request','aui-base','io', function(A){
-			 var form = A.one("#<portlet:namespace/>detachReceiptForm");
-		        A.io.request('<%=detachReceiptResourceCommand.toString()%>', {
-		        	 method: 'post',
-		        	 form:{
-		                 id:form
-		             },
-		               on: {
-		            	   success: function() { 
-		            		   document.getElementById("successMsg").style.display="block";
-		   	           		setTimeout(function (){
-		   	           			parent.location.reload(); 
-		   	           		}, 1000)  
-		   	       	 	}
-		            	  
-		               }
-		            });
-		    });
+	function receiptDetach(accepted){
+			if(validateForm('<portlet:namespace/>detachReceiptForm')){
+				AUI().use('aui-io-request','aui-base','io', function(A){
+					 var form = A.one("#<portlet:namespace/>detachReceiptForm");
+				        A.io.request('<%=detachReceiptResourceCommand.toString()%>', {
+				        	 method: 'post',
+				        	 form:{
+				                 id:form
+				             },
+				               on: {
+				            	   success: function() { 
+				            		   document.getElementById("successMsg").style.display="block";
+				   	           		setTimeout(function (){
+				   	           			parent.location.reload(); 
+				   	           		}, 5000)  
+				   	       	 	}
+				            	  
+				               }
+				            });
+				    });
+			}else{
+				return false;
+			}
+		
+		   
 	}
+	
+	function validateForm(attachReceipt) {
+		
+		var liferayForm = Liferay.Form.get(attachReceipt);
+	    if (liferayForm) {
+	        var validator = liferayForm.formValidator;
+	        validator.validate();
+	        var hasErrors = validator.hasErrors();
+	        if (hasErrors) {
+	        	validator.focusInvalidField();
+	            return false;
+	        }
+	   	}
+	    return true;
+	};
 	
 </script>
