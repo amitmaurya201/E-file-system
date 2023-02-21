@@ -45,6 +45,12 @@ public class NoteLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Note AddBlankNote(
+			long fileId, long fileMovementId, long createdBy)
+		throws PortalException {
+
+		return getService().AddBlankNote(fileId, fileMovementId, createdBy);
+	}
 
 	/**
 	 * Adds the note to the database. Also notifies the appropriate model listeners.

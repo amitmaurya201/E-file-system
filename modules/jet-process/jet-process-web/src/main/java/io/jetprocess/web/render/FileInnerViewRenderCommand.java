@@ -2,6 +2,7 @@ package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -51,7 +52,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
 
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
-		renderRequest.setAttribute("noteList", noteList);
+		 renderRequest.setAttribute("noteList", noteList); 
 		try {
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
 			renderRequest.setAttribute("nature", docFile.getNature());
@@ -67,6 +68,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 				renderRequest.setAttribute("noteObj", fileNote);
 
 			}
+		
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}

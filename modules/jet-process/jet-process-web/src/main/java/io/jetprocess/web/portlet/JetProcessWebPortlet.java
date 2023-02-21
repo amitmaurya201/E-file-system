@@ -40,7 +40,9 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=power-user,user" }, service = Portlet.class)
+		"javax.portlet.security-role-ref=power-user,user",
+		"javax.portlet.version=3.0"
+		}, service = Portlet.class)
 public class JetProcessWebPortlet extends MVCPortlet {
 
 	@Override
