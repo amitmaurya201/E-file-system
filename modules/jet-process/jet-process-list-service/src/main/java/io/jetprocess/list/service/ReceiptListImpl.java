@@ -506,7 +506,7 @@ public class ReceiptListImpl implements ReceiptList {
 					closedDTO.setSubject(rs.getString("subject"));
 					closedDTO.setClosedOn(rs.getDate("closedon"));
 					closedDTO.setClosingRemarks(rs.getString("closingRemarks"));
-					closedDTO.setReceiptid(rs.getLong("receiptid"));
+					closedDTO.setReceiptId(rs.getLong("receiptid"));
 					closeList.add(closedDTO);
 				}
 			}
