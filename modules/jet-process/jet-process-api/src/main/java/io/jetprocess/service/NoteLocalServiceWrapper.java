@@ -34,6 +34,15 @@ public class NoteLocalServiceWrapper
 		_noteLocalService = noteLocalService;
 	}
 
+	@Override
+	public io.jetprocess.model.Note AddBlankNote(
+			long fileId, long fileMovementId, long createdBy)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _noteLocalService.AddBlankNote(
+			fileId, fileMovementId, createdBy);
+	}
+
 	/**
 	 * Adds the note to the database. Also notifies the appropriate model listeners.
 	 *

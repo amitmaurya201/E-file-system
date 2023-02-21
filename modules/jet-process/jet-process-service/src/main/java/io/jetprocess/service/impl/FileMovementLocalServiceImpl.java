@@ -17,6 +17,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
+
 import java.util.Date;
 import java.util.List;
 import org.osgi.service.component.annotations.Component;
@@ -27,10 +29,12 @@ import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.FileMovement;
+import io.jetprocess.model.FileNote;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrReceiptLocalService;
 import io.jetprocess.service.FileNoteLocalService;
+import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.service.base.FileMovementLocalServiceBaseImpl;
@@ -58,6 +62,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		FileMovement fm = null;
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
 			long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
+			System.out.println("maxFmId"+maxFmId);
 			fm = fileMovementLocalService.getFileMovement(maxFmId);
 			if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
 				if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
@@ -91,6 +96,12 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			receiptMovement.setMovementType(MovementStatus.IN_FILE);
 			receiptMovement.setFileInMovementId(saveFileMovement.getFmId());
 			receiptMovementLocalService.addReceiptMovement(receiptMovement);
+		}
+		
+		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
+		if(Validator.isNull(fileNote)) {
+			System.out.println("filenote obj null");
+			noteLocalService.AddBlankNote(fileId, maxFmId, senderId);
 		}
 	}
 
@@ -224,6 +235,8 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 	@Reference
 	private FileNoteLocalService fileNoteLocalService;
+	@Reference
+	private NoteLocalService noteLocalService;
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 

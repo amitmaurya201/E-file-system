@@ -1,9 +1,20 @@
-<script>
 
+<aui:script>
+var contentOnchange=" ";
+var noteContent = `${noteContent}`;
+console.log("noteContent"+noteContent);
+if(noteContent==''){
+	$("#editor-head").css("background-color","red");	
+}
+else{
+	$("#editor-head").css("background-color","green");
+}
+console.log(noteContent);
 function openNote() {
 	const notes = document.getElementById("notes");
 	notes.style.display = "block";
 }
+
 
 function openGreenNote() {
 	const notes = document.getElementById("notes");
@@ -12,15 +23,25 @@ function openGreenNote() {
 	notes.style.display = "none";
 	note.style.display = "none";
 	editor.style.display = "block";
-	CKEDITOR.replace('content');
+
+
 }
 
-var userPostId = $('#<portlet:namespace />userPostsVal').val();
-	$('#addNoteButton').on('click',function(e){
-	 event.preventDefault();
+ function <portlet:namespace/>ClickHandler() {
+	 contentOnchange = CKEDITOR.instances["<portlet:namespace/>content"].getData();
+	 if(noteContent!=contentOnchange){
+	$("#editor-head").css("background-color","red");
+	 }
+
+	}
+ 
+ var userPostId = $('#<portlet:namespace />userPostsVal').val();
+	/*function autoSaveContentOnchange(){
+		console.log("test1");
+	var autosaveOn = false;
 	 var fileId = $('#docFileId').val();
 	 var fileMovementId = $('#fileMovementId').val();
-	 var content = CKEDITOR.instances["content"].getData();
+	 var content = CKEDITOR.instances["<portlet:namespace/>content"].getData();
 	 var noteId = $('#noteId').val();
 	 var object = {};
 	 var jsonData = object;
@@ -29,6 +50,13 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 	 jsonData["content"] = content;
 	 jsonData["noteId"] =noteId;
 	 jsonData["fileMovementId"] =fileMovementId;
+	 if (!autosaveOn)
+	    {
+		 console.log("test1");
+	        autosaveOn = true;
+
+	  $('#<portlet:namespace/>content').everyTime("300000", function(){
+		  console.log("test1");
 	 var jsonObj = JSON.stringify(jsonData);
 	 $.ajax({
 		 type:"POST",
@@ -57,9 +85,11 @@ var userPostId = $('#<portlet:namespace />userPostsVal').val();
 		}).then(function(){
 			window.location.reload(true);
 		})	 
-	 }) 
+	 })
  })
-
+}
+ }
+*/
 function removeNote(){
 		var noteId = $('#noteId').val();
 		$.ajax({
@@ -92,4 +122,38 @@ var noteId = '${note.noteId }';
 if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 	openGreenNote();
 }
-</script>
+
+ function SaveNoteContent() {
+	 var content = CKEDITOR.instances["<portlet:namespace/>content"].getData();
+	 if(content==''){
+		 $("#editor-head").css("background-color","red");
+	 }
+	 var fileId = $('#docFileId').val();
+	 var fileMovementId = $('#fileMovementId').val();
+	 var noteId = $('#noteId').val();
+	 var object = {};
+	 var jsonData = object;
+	 jsonData["createdBy"]=userPostId;
+	 jsonData["fileId"] = fileId;
+	 jsonData["content"] = content;
+	 jsonData["noteId"] =noteId;
+	 jsonData["fileMovementId"] =fileMovementId;
+	 var jsonObj = JSON.stringify(jsonData);
+	 if(content.length!=0 && noteContent!=contentOnchange ){
+	 $.ajax({
+		 type:"POST",
+		 url:"${portalURL}/o/jet-process-rs/v1.0/createNote?p_auth=" + Liferay.authToken,
+		 data:jsonObj,
+		 dataType: 'json',
+		 cache : false,
+		 processData: false,
+	     contentType : 'application/json'
+	 }).done(function(response){
+		console.log("response"+response);
+		noteContent=contentOnchange;
+		 $("#editor-head").css("background-color","green");
+	 })
+	}
+}
+ setInterval(SaveNoteContent, 20000);
+</aui:script>

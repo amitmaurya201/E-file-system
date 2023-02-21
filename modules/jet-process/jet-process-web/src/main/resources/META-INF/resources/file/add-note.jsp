@@ -1,9 +1,10 @@
+<%@ taglib uri="http://liferay.com/tld/editor" prefix="liferay-editor" %>
+<liferay-editor:resources editorName="ckeditor" />
+<%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
+<%-- <liferay-ui:input-editor  initMethod="initEditor" width="100" height="400" resizable="true" toolbarSet="liferay-article" editorImpl="<%=EDITOR_WYSIWYG_IMPL_KEY%>" />
+<aui:input name="editorContent" type="text"> --%>
 
 <style>
-textarea {
-	background-color: #bef8c7;
-}
-
 .saveButton {
 	background-color: DodgerBlue;
 	border: none;
@@ -39,13 +40,10 @@ textarea {
 	</div>
 	<aui:form name="addNote">
 		<div id="editor" style="display: none;">
-			<div style="background-color: green;">
+			<div id = "editor-head">
 				<button id="removeNote" type="button" class="deleteButton"
 					data-toggle="modal" data-target="#exampleModal">
 					<i class="fa fa-trash"></i>
-				</button>
-				<button type="button" id="addNoteButton" class="saveButton">
-					<i class="fa fa-save"></i>
 				</button>
 				<c:if test="${not empty note.noteId }">
 					<span style="padding: 0 19%;"><liferay-ui:message key="label-add-note-last-saved" /> :<fmt:formatDate
@@ -56,12 +54,14 @@ textarea {
 			</div>
 			<c:if test="${ empty note.noteId }">
 				<input name="noteId" id="noteId" value="0" type="hidden" />
-				<textarea id="content" name="content"></textarea>
+				<!-- <textarea id="content" name="content"></textarea> -->
+				<liferay-editor:editor  contents="" editorName="ckeditor" name="content" onChangeMethod="ClickHandler" />
 			</c:if>
 			<c:if test="${not empty note }">
 				<input name="noteId" id="noteId" value="${note.noteId }"
 					type="hidden">
-				<textarea id="content" name="content">${noteContent}</textarea>
+				<%-- <textarea id="content" name="content">${noteContent}</textarea> --%>
+				<liferay-editor:editor contents="${noteContent}" editorName="ckeditor" name="content" onChangeMethod="ClickHandler" />
 			</c:if>
 		</div>
 	</aui:form>
