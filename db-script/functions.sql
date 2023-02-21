@@ -160,8 +160,13 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
       
 -----------------------Get-Put-in-file-List-----------------------
 
+    -- FUNCTION: public.get_put_in_file_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, text, integer, integer, text, text);
+
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
-	userpostid bigint,
+	_type text,
+    userpostid bigint,
 	keyword text,
 	_start integer,
 	_end integer,
@@ -177,7 +182,7 @@ CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 AS $BODY$
   
   declare 
-      
+       nature text;
       _keyword text;
       _offset int;
       _limit int;
@@ -188,7 +193,7 @@ AS $BODY$
       q2 text;
       q3 text;
   begin
-    
+     nature :='';
  q1='select r.receiptid as receiptid, r.receiptnumber as receiptnumber, r.subject as subject, c.categoryvalue as category, r.createDate as createdate, r.remarks as remark, r.viewpdfurl as null, r.nature as nature,
      
     (
@@ -232,14 +237,17 @@ AS $BODY$
                _order :=_orderbytype;
       END IF;
      
+      IF (_type ='Physical') THEN
+                nature :=' AND r.nature = ''Physical'' ';
+        END IF;
                       
                       IF (userpostid !=0 )THEN
                                              
-                           _query := q1|| ' AND r.currentlywith='||userpostid;
+                           _query := q1|| ' AND r.currentlywith='||userpostid || nature;
                           
                              if (keyword IS NOT NULL  ) THEN  
                                    _query := '';
-                                   _query := q1|| ' AND r.currentlywith= '||userpostid||'  AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')';
+                                   _query := q1|| ' AND r.currentlywith= '||userpostid|| nature ||'  AND (r.receiptnumber ilike '||_keyword ||' OR r.subject ilike '||_keyword ||')';
                         
                                    if (_orderby !='')  THEN 
                   
@@ -274,9 +282,11 @@ AS $BODY$
 
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list(bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_put_in_file_list(text,bigint, text, integer, integer, text, text)
     OWNER TO postgres;
 
+    
+    
 -----------------Get-file-inbox-list---------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
@@ -2102,8 +2112,12 @@ ALTER FUNCTION public.get_attach_receipt_movement_list_count(bigint, text)
     
 ---------------------------------get_receipt_attached_existing_file------------------
 
-    
-    CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list(
+ -- FUNCTION: public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list(
+	_type text,
 	userpostid bigint,
 	keyword text,
 	_start integer,
@@ -2120,7 +2134,7 @@ ALTER FUNCTION public.get_attach_receipt_movement_list_count(bigint, text)
 AS $BODY$
   
   declare 
-      
+      nature text;
       _keyword text;
       _offset int;
       _limit int;
@@ -2131,7 +2145,7 @@ AS $BODY$
       q2 text;
       q3 text;
   begin
-    
+    nature :='';
  q1='select f.docfileid as docfileid, f.filenumber as filenumber, f.subject as subject, c.categoryvalue as category, f.createDate as createdate, f.remarks as remark,  f.nature as nature,
      
     (
@@ -2174,15 +2188,20 @@ AS $BODY$
           ELSE
                _order :=_orderbytype;
       END IF;
+      
+       IF (_type ='Physical') THEN
+                nature :=' AND f.nature = ''Physical'' ';
+        END IF;
+       
      
                       
                       IF (userpostid !=0 )THEN
                                              
-                           _query := q1|| ' AND f.currentlywith='||userpostid;
+                           _query := q1|| ' AND f.currentlywith='||userpostid || nature;
                           
                              if (keyword IS NOT NULL  ) THEN  
-                                   _query := '';
-                                   _query := q1|| ' AND f.currentlywith= '||userpostid||'  AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+                                   _query := '' ;
+                                   _query := q1|| ' AND f.currentlywith= '||userpostid || nature || ' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
                         
                                    if (_orderby !='')  THEN 
                   
@@ -2210,6 +2229,7 @@ AS $BODY$
                       end if;
                       
               end if;
+              
         return query execute _query;
            
    end;
@@ -2217,9 +2237,8 @@ AS $BODY$
 
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_attach_in_file_list(bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-
 
 --------------------------attach receipt in existing file count-----------------------------
 
@@ -2228,8 +2247,12 @@ ALTER FUNCTION public.get_receipt_attach_in_file_list(bigint, text, integer, int
 -- FUNCTION: public.get_receipt_attach_in_file_list_count(bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list_count(bigint, text);
+-- FUNCTION: public.get_receipt_attach_in_file_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list_count(bigint, text);
 
 CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list_count(
+    _type text,
 	user_post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -2240,33 +2263,56 @@ CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list_count(
 AS $BODY$
 DECLARE total BIGINT;
 _query text;
+_nature text;
 BEGIN
-total :=0;
-
+        total :=0;
+        _nature :='';
+        IF (_type ='Physical') THEN
+                _nature :=' AND f.nature = ''Physical'' ';
+        END IF;
         
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
-   
+                   IF(_type ='Physical' ) THEN
                  
                     SELECT COUNT(*) INTO total
                     from public.jet_process_docfile as f 
                     inner join public.md_category as c on f.categoryid = c.categorydataid
                     inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
                     where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id  AND (f.filenumber ilike '%'||keyword||'%'  OR f.subject ilike '%'||keyword||'%');
-                return total;                                      
-                
-            END IF;
-                
-                SELECT COUNT(*) INTO total
+                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id  AND f.nature = 'Physical'  AND (f.filenumber ilike '%'||keyword||'%'  OR f.subject ilike '%'||keyword||'%');
+                return total; 
+                ELSE
+                     SELECT COUNT(*) INTO total
                     from public.jet_process_docfile as f 
                     inner join public.md_category as c on f.categoryid = c.categorydataid
                     inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
                     where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0)  AND f.currentlywith= user_post_id ;
-            RETURN total;
+                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id AND (f.filenumber ilike '%'||keyword||'%'  OR f.subject ilike '%'||keyword||'%');
+                    return total;
+                END IF;
+                
+            END IF;
+               IF(_type ='Physical' ) THEN
+                 
+                    SELECT COUNT(*) INTO total
+                    from public.jet_process_docfile as f 
+                    inner join public.md_category as c on f.categoryid = c.categorydataid
+                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
+                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
+                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id  AND f.nature = 'Physical' ;
+                return total; 
+                ELSE
+                     SELECT COUNT(*) INTO total
+                    from public.jet_process_docfile as f 
+                    inner join public.md_category as c on f.categoryid = c.categorydataid
+                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
+                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
+                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id ;
+                    return total;
+                END IF;
         END IF;
 
         RETURN total;
@@ -2275,6 +2321,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_attach_in_file_list_count(bigint, text)
     OWNER TO postgres;
-
+    
     
 
