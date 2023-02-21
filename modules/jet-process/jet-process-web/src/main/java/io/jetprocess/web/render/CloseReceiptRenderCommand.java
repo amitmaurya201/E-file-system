@@ -28,6 +28,8 @@ public class CloseReceiptRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long rmId = ParamUtil.getLong(renderRequest, "rmId");
 	 long receiptId = ParamUtil.getLong(renderRequest,"receiptId");
+	 String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+	 renderRequest.setAttribute("backPageURL", backPageURL);
 	renderRequest.setAttribute("rmId", rmId);
 	renderRequest.setAttribute("receiptId", receiptId);
 		logger.info("close receipt called");
