@@ -409,7 +409,7 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public List<ReceiptListViewDto> getPutInFileList(String type , long userPostId, String keyword, int start, int end,
+	public List<ReceiptListViewDto> getPutInFileList(String type, long userPostId, String keyword, int start, int end,
 			String orderBy, String order) {
 		logger.info("Getting put in file list");
 		List<ReceiptListViewDto> receiptMovementDTOList = new ArrayList<>();
@@ -454,7 +454,7 @@ public class ReceiptListImpl implements ReceiptList {
 	}
 
 	@Override
-	public int getPutInFileListCount(String type,long userPostId, String keyword) {
+	public int getPutInFileListCount(String type, long userPostId, String keyword) {
 		logger.info("Getting put in file count");
 		CallableStatement prepareCall = null;
 		int count = 0;
@@ -486,11 +486,9 @@ public class ReceiptListImpl implements ReceiptList {
 			String orderBy, String order) {
 		logger.info("closed dto called ");
 		List<ClosedReceiptDTO> closeList = new ArrayList<>();
-		Connection connection = null;
+		CallableStatement prepareCall = null;
 		try {
-			connection = DataAccess.getConnection();
-			CallableStatement prepareCall = connection
-					.prepareCall("SELECT * from public.get_closed_receipt_list(?,?,?,?,?,?)");
+			prepareCall = con.prepareCall("SELECT * from public.get_closed_receipt_list(?,?,?,?,?,?)");
 			prepareCall.setLong(1, closedBy);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -515,10 +513,36 @@ public class ReceiptListImpl implements ReceiptList {
 		} catch (SQLException e) {
 			logger.info(e);
 		} finally {
-			DataAccess.cleanUp(connection);
+			DataAccess.cleanUp(prepareCall);
 			logger.info("Cleaning up connection");
 		}
 		return closeList;
+	}
+
+	@Override
+	public int getClosedReceiptListCount(long closedBy, String keyword) {
+		logger.info("Getting Closed Receipt List Count...");
+		int count = 0;
+		CallableStatement prepareCall = null;
+		try {
+			prepareCall = con.prepareCall("select public.get_closed_receipt_list_count(?, ?)");
+			prepareCall.setLong(1, closedBy);
+			prepareCall.setString(2, keyword);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet resultSet = prepareCall.getResultSet();
+				if (resultSet.next()) {
+					count = resultSet.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection" + e);
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up statement");
+		}
+		return count;
 	}
 
 }

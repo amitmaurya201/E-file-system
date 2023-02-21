@@ -49,6 +49,7 @@ DROP FUNCTION IF EXISTS public.get_attach_receipt_movement_list_count(bigint, te
 
 DROP FUNCTION IF EXISTS public.get_closed_receipt_list(bigint, text, integer, integer, text, text);
 
+DROP FUNCTION IF EXISTS public.get_closed_receipt_list_count(bigint, text);
 
 ------------------------File-created-list-----------------------------
 
@@ -2323,4 +2324,101 @@ ALTER FUNCTION public.get_receipt_attach_in_file_list_count(bigint, text)
     OWNER TO postgres;
     
     
+
+
+
+
+
+
+
+
+   
+   ------------------------closed receipt list--------------------------
+   
+    
+CREATE OR REPLACE FUNCTION public.get_closed_receipt_list_count(
+	_closedby bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    total bigint;
+begin
+    total := 0;
+    
+    IF _closedby != 0 AND _closedby IS NOT NULL THEN
+    
+        IF  keyword !='' AND keyword IS NOT NULL  THEN
+    
+            SELECT COUNT (*) INTO total
+            FROM PUBLIC.jet_process_receiptclosedetail as cr 
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby
+            AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+            RETURN total;
+       
+       END IF;
+            
+            SELECT COUNT (*) INTO total
+            FROM PUBLIC.jet_process_receiptclosedetail as cr 
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby ;
+            RETURN total;
+       
+       END IF;
+  RETURN total;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
+    OWNER TO postgres;
+
+   
+------------------------closed receipt list--------------------------
+   
+    
+CREATE OR REPLACE FUNCTION public.get_closed_receipt_list_count(
+	_closedby bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    total bigint;
+begin
+    total := 0;
+    
+    IF _closedby != 0 AND _closedby IS NOT NULL THEN
+    
+        IF  keyword !='' AND keyword IS NOT NULL  THEN
+    
+            SELECT COUNT (*) INTO total
+            FROM PUBLIC.jet_process_receiptclosedetail as cr 
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby
+            AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+            RETURN total;
+       
+       END IF;
+            
+            SELECT COUNT (*) INTO total
+            FROM PUBLIC.jet_process_receiptclosedetail as cr 
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby ;
+            RETURN total;
+       
+       END IF;
+  RETURN total;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
+    OWNER TO postgres;
 

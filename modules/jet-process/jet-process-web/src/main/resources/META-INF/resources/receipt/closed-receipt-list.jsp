@@ -12,11 +12,11 @@
 		<h1 class=" text-center">
 			<liferay-ui:message key="label-receipt-closed-heading" />
 		</h1>
-		<clay:management-toolbar searchContainerId="closedReceiptEntries"
-			displayContext="${closedReceiptManagementToolbarDisplayContext}" />
+		<clay:management-toolbar searchContainerId="closedReceiptEntries" disabled="${closedReceiptCount eq 0 }" itemsTotal="${closedReceiptCount}"
+			displayContext="${closedReceiptManagementToolbarDisplayContext}" selectable="false" />
 
 		<liferay-ui:search-container id="closedReceiptEntries"
-			emptyResultsMessage="message-record-not-found" 
+			emptyResultsMessage="message-record-not-found"  total="${closedReceiptCount}" delta="${delta }"
 			iteratorURL="${closedReceiptManagementToolbarDisplayContext._getCurrentURL() }">
 			<liferay-ui:search-container-results results="${closedReceiptList}" />
 
