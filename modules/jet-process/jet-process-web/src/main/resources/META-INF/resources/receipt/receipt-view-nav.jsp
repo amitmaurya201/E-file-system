@@ -133,7 +133,7 @@
 					<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
 				</ul></li>
 				
-			 <li class="nav-item border"><a id="closeReceipt"  href="#" onClick="OpenCloseReceiptPopUp(<%=receiptId %>,<%=String.valueOf(receiptMovementId)%>,<%=userPostsVal %> )" class="nav-link">Close</a></li>
+			 <li class="nav-item border"><a id="closeReceipt"  href="#" onClick="OpenCloseReceiptPopUp(<%=receiptId %>,<%=String.valueOf(receiptMovementId)%>)" class="nav-link">Close</a></li>
             
 
 		</ul>
@@ -156,19 +156,21 @@
 		$('#edit').addClass('disabled');
 		$('#send').addClass('disabled');
 		$('#sendback').addClass('disabled');
+		$('#closeReceipt').addClass('disabled');
+		
 	}
-	
-	function OpenCloseReceiptPopUp(receiptId,receiptMovementId,userPostsVal){
-	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId+'&<portlet:namespace/>userPostsVal='+userPostsVal;
+	/*  For open CloseReceipt Pop up */
+	function OpenCloseReceiptPopUp(receiptId,receiptMovementId){
+	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId;
 	 	alert(receiptURL);
 			Liferay.Util.openWindow({
 				dialog: {
 					centered: true,
-					height: 200,
+					height: 265,
 					destroyOnClose: true,														 
 					destroyOnHide: true, 
 					modal: true,
-					width: 400
+					width: 500
 				},
 				id: '<portlet:namespace/>dialog',
 				title: 'ReceiptClose',

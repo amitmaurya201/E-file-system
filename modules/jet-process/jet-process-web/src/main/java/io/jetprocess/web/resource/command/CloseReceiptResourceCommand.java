@@ -32,26 +32,13 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand  {
 		long receiptId = ParamUtil.getLong(resourceRequest,"receiptId");
 		String closingRemarks = ParamUtil.getString(resourceRequest,"closingRemarks");
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");
-		System.out.println(":userPost id----->"+userPostId);
 	    long closedBy = Long.parseLong(userPostId);
-		System.out.println("closed By --->"+closedBy);
 		try {
 			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, closingReceiptMovementId);
-			resourceResponse.setContentType("text/html");
-	        PrintWriter out = resourceResponse.getWriter();
-	        out.println("Receipt close successfully");
-	        out.flush();
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
+		} 
 		return false;
 	}
 	

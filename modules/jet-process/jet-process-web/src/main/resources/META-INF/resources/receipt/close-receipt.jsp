@@ -1,28 +1,42 @@
 <%@ include file="../init.jsp"%>
 
+
+<style>
+.btn{
+
+    background-color: #007bff !important;
+    color: white;
+    border-color: #007bff !important;
+}
+
+html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.modal-header {
+
+background-color: #007bff !important; 
+}
+html:not(#__):not(#___) .cadmin .modal-title {
+color: white !important;
+}
+html:not(#__):not(#___) .cadmin .lexicon-icon {
+color: white !important;
+}
+
+</style>
 <%
    
 
 long receiptId = (long) renderRequest.getAttribute("receiptId");
 long rmId = (long) renderRequest.getAttribute("rmId");
 String backPageURL = (String)renderRequest.getAttribute("backPageURL");
-System.out.println("backPageURL----"+backPageURL);
 %>
-<%--  
-<portlet:actionURL var="closeReceiptURL" name="<%=MVCCommandNames.CLOSE_RECEIPT_ACTION_COMMAND%>">
- 
-</portlet:actionURL>
- --%>
  
  
 <portlet:resourceURL
 	id="<%=MVCCommandNames.CLOSE_RECEIPT_RESOURCE_COMMAND%>"
-	var="closeReceiptResourceURL">
-</portlet:resourceURL>
+	var="closeReceiptResourceURL"> </portlet:resourceURL>
  
  
-     <aui:form action="${closeReceiptURL}" method="post" name="closeReceipt" >
-			<div style="text-align: left; height: 100px;">
+     <aui:form action="#" method="post" name="closeReceipt" >
+			<div style="padding: 0px 20px;">
 			
 			<aui:input name="receiptId" value="<%=receiptId %>" type="hidden"/>
 			<aui:input name="rmId" value="<%=rmId %>" type="hidden"/>
@@ -35,19 +49,31 @@ System.out.println("backPageURL----"+backPageURL);
 					</aui:validator>
 				</aui:input>
 			</div>
-			<hr style="margin: 2rem -1rem 1rem -1rem;" />
-		<!-- 	<div style="text-align: right; padding-bottom: 10px;"></div>
-		 -->	
-		 <aui:button-row>
-				<aui:button type="button" class="btn btn-primary" value="label-closereceipt-button-submit" onClick="submitCloseReceiptPopUP()" style=" margin: auto 40%;  background-color: #007bff; border-color: #007bff !important;" >
-					<%-- <liferay-ui:message key="label-closereceipt-button-submit" /> --%>
-				</aui:button>
-				<aui:button type="button" class="btn btn-primary" value="label-closereceipt-button-cancel" id="close">
-					<%-- <liferay-ui:message key="label-closereceipt-button-cancel" />
-		 --%>		</aui:button>
-			</aui:button-row>
-		</aui:form>
+			<hr style="margin: 1rem 0rem 0rem 0rem;" />
+		 	<div style="text-align: right; padding: 10px 20px;">
+					<aui:button type="button" class="btn btn-primary" value="label-closereceipt-button-submit" onClick="submitCloseReceiptPopUP()" />
+				<aui:button type="cancel" class="btn btn-primary" value="label-closereceipt-button-cancel">
+					</aui:button>
+			</div>		
+    </aui:form>
 
+		
+		
+	<!-- success message for close Receipt  -->
+	<!-- ---------------------- succes message  ---------------------------  -->
+<div class="portlet-msg-success" style="display:none;     
+	bottom: 20px;
+    left: 20px;
+    position: fixed;
+    z-index: 5000; 
+    border:1px solid green;
+    width:240px;
+    height:50px
+    " 
+    id="successMsg">
+  Receipt closed successfully
+</div>
+		
 		
 
 		<script type="text/javascript">
@@ -66,7 +92,7 @@ System.out.println("backPageURL----"+backPageURL);
 						}
 
 			function pageReload() {
-				parent.location.reload();
+				parent.location.href = '<%=backPageURL%>';
 				}	
 					
 					/* send receipt pop up with validation  */
@@ -80,18 +106,15 @@ System.out.println("backPageURL----"+backPageURL);
 								id : form
 							},
 							on : {
-								success : function() {
-									swal({
-										text : this.get('responseData'),
-									})
-									setTimeout(pageReload, 1500);
-									
-								}
+								success :  function() { 
+				            		   document.getElementById("successMsg").style.display="block";
+					   	           		setTimeout(pageReload, 1500)  
+					   	       	 	} 
 							}
 						});
 					});
-
-				} else {
+				}
+				else {
 					return false;
 				}
 			}

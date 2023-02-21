@@ -64,8 +64,6 @@ public class MVCCommandNames {
 
     public static final String RECEIPT_CLOSE_POP_UP ="/receiptClosedPopUp";
     
-    public static final String CLOSE_RECEIPT_ACTION_COMMAND ="/receiptClose/action/command";
- 
     public static final String CLOSE_RECEIPT_RESOURCE_COMMAND="/receiptClose/resource/command";
 
 }
