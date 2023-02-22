@@ -1413,7 +1413,6 @@ ALTER FUNCTION public.get_attach_receipt_movement_list(bigint, text, integer, in
  
  ------------------------closed-receipt-list-----------------------------   
     
-
 CREATE OR REPLACE FUNCTION public.get_closed_receipt_list(
 	closedby bigint,
 	keyword text,
