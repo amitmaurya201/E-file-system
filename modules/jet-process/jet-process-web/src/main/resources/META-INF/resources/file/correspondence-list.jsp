@@ -11,7 +11,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 .modal .close:last-child {
     margin-right: -0.3125rem;
     font-size: 1.5rem;
-    color: white !important;
+    /* color: white !important; */
 }
 
 .crList th {
@@ -201,14 +201,14 @@ String redirectURL = themeDisplay.getURLCurrent();
 				</button>
 			</div>
 			<div class="modal-body">
-				<!-- <h6>
-					<liferay-ui:message key="detach-confirmation-message" />
-				</h6> -->
+				<h6>
+					<liferay-ui:message key="label-detach-remark" /><span class="text-danger">*</span>
+				</h6> 
 				<aui:form action="#" method="post" name="detachReceiptForm">
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
 					<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>"></aui:input>
-					<aui:input label="label-detach-remark" name="remarks"
+					<aui:input  name="remarks"
 						type="textarea">
 						<aui:validator name="required" />
 					</aui:input>
@@ -216,8 +216,8 @@ String redirectURL = themeDisplay.getURLCurrent();
 						<aui:button type="button" cssClass="btn btn-primary"
 							value="label-detach-confirmation-button"
 							onclick="receiptDetach(true)"></aui:button>
-						<aui:button type="button" cssClass="btn btn-primary ml-2"
-							value="label-detach-confirmation-cancel" data-dismiss="modal"></aui:button>
+						<aui:button type="button" id="close-btn" cssClass="btn btn-primary ml-2"
+							value="label-detach-confirmation-cancel" data-dismiss="modal" onclick="close"></aui:button>
 					</div>
 				</aui:form>
 			</div>
@@ -274,6 +274,9 @@ var title="<liferay-ui:message key='title-corr-put-in-receipt' />";
 </aui:script>
 
 <script>
+
+
+
 
 function infoPopup(receiptId, receiptMovementId){
 	var title="<liferay-ui:message key='title-corr-receiptDetailPopup'/>";
@@ -376,5 +379,10 @@ function receiptDetailPopup(receiptId){
 	   	}
 	    return true;
 	};
+	
+	
+	$('#modal').on('hidden.bs.modal', function () {
+	    $(this).find('form').trigger('reset');
+	})
 	
 </script>
