@@ -129,7 +129,6 @@ var fileMovementId;
 var nature;
 
 function receiptDetail(_isRead, _docFileId, _fileMovementId,_nature){
-	alert(_docFileId)
 	isRead=_isRead;
 	docFileId=_docFileId;
 	fileMovementId=_fileMovementId;
