@@ -9,7 +9,7 @@
 
 <style>
 .lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
-	color: #000000;
+    color: #000000;
 }
 </style>
 <div class="row">
@@ -36,18 +36,25 @@
 				className="io.jetprocess.list.model.ClosedReceiptDTO"
 				modelVar="closedReceiptDTO" keyProperty="closedReceiptId">
 
+				<c:set var="firstLetterOfNature" value="${closedReceiptDTO.nature}" />
+				<c:set var="nature"
+					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text
-					name="label-receipt-closed-type" property="nature" />
+					name="label-receipt-closed-type">
+					<span title="${closedReceiptDTO.nature }">${nature} </span>
+				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					name="label-receipt-closed-receiptNumber" orderable="true"
 					orderableProperty="receiptNumber" cssClass="hyperlink-css">
-					<a onclick="receiptDetailPopup(${closedReceiptDTO.receiptId})" style="cursor: pointer">${closedReceiptDTO.receiptNumber }</a>
+					<a onclick="receiptDetailPopup(${closedReceiptDTO.receiptId})"
+						style="cursor: pointer">${closedReceiptDTO.receiptNumber }</a>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					value="${closedReceiptDTO.subject }"
 					name="label-receipt-closed-subject" orderable="true"
 					orderableProperty="subject" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
+				
 					name="label-receipt-closed-closedOn" orderable="true"
 					orderableProperty="closedOn">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"

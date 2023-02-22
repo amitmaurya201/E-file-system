@@ -160,14 +160,13 @@ ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text
     OWNER TO postgres;
       
 -----------------------Get-Put-in-file-List-----------------------
+-- FUNCTION: public.get_put_in_file_list(text, bigint, text, integer, integer, text, text)
 
-    -- FUNCTION: public.get_put_in_file_list(bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_put_in_file_list(bigint, text, integer, integer, text, text);
+-- DROP FUNCTION IF EXISTS public.get_put_in_file_list(text, bigint, text, integer, integer, text, text);
 
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list(
 	_type text,
-    userpostid bigint,
+	userpostid bigint,
 	keyword text,
 	_start integer,
 	_end integer,
@@ -209,7 +208,7 @@ AS $BODY$
     inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
     inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
         where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null ';
+            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 ';
   
  
                 
@@ -283,8 +282,9 @@ AS $BODY$
 
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list(text,bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_put_in_file_list(text, bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+
 
     
     
@@ -1413,7 +1413,6 @@ ALTER FUNCTION public.get_attach_receipt_movement_list(bigint, text, integer, in
  
  ------------------------closed-receipt-list-----------------------------   
     
-
 CREATE OR REPLACE FUNCTION public.get_closed_receipt_list(
 	closedby bigint,
 	keyword text,
@@ -1623,7 +1622,12 @@ ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
 
 --------------- Get-put-in-file-list-count----------------------------------
 
-    CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
+-- FUNCTION: public.get_put_in_file_list_count(text, bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_put_in_file_list_count(text, bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
+	_type text,
 	user_post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -1632,17 +1636,23 @@ ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
     SET search_path=admin, pg_temp
 AS $BODY$
-DECLARE total BIGINT;
+DECLARE
+total BIGINT;
 _query text;
+_nature text;
 BEGIN
-total :=0;
-
+    total :=0;
+    _nature :='';
+        
+        IF (_type ='Physical') THEN
+                _nature :=' AND f.nature = ''Physical'' ';
+        END IF;
         
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
-   
+                IF(_type ='Physical' ) THEN
                  
                     SELECT COUNT(*) INTO total
                     FROM PUBLIC.jet_process_receipt r 
@@ -1653,11 +1663,11 @@ total :=0;
 
                     JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
     
-                    where  r.attachstatus is null  AND r.currentlywith= user_post_id  AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
-            return total;
-            END IF;
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id AND r.nature = 'Physical' and r.currentstate != 3  AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+                   return total;
+            ELSE
                 
-                SELECT COUNT(*) INTO total
+                    SELECT COUNT(*) INTO total
                     FROM PUBLIC.jet_process_receipt r 
                     JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
                                                                     where mov.active_ = true OR mov.movementtype=0
@@ -1666,18 +1676,47 @@ total :=0;
 
                     JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
     
-                    where  r.attachstatus is null  AND r.currentlywith= user_post_id ;
-            RETURN total;
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id and r.currentstate != 3   AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+                   return total;
+               END IF;   
+            END IF;
+                
+                IF(_type ='Physical' ) THEN
+                 
+                    SELECT COUNT(*) INTO total
+                    FROM PUBLIC.jet_process_receipt r 
+                    JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
+                                                                    where mov.active_ = true OR mov.movementtype=0
+                    group by mov.receiptId) as fmov on fmov.receiptId = r.receiptid
+                    INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on rmt.rmid=fmov.mreceiptId 
+
+                    JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
+    
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id AND r.nature = 'Physical' and r.currentstate != 3;
+                   return total;
+            ELSE
+                
+                    SELECT COUNT(*) INTO total
+                    FROM PUBLIC.jet_process_receipt r 
+                    JOIN ( select max(mov.rmid) as mreceiptId, receiptId FROM PUBLIC.jet_process_receiptmovement mov 
+                                                                    where mov.active_ = true OR mov.movementtype=0
+                    group by mov.receiptId) as fmov on fmov.receiptId = r.receiptid
+                    INNER JOIN  PUBLIC.jet_process_receiptmovement rmt on rmt.rmid=fmov.mreceiptId 
+
+                    JOIN PUBLIC.md_category c ON c.categorydataid = r.receiptcategoryid  
+    
+                    where  r.attachstatus is null  AND r.currentlywith= user_post_id and r.currentstate != 3;
+                   return total;
+                  END IF;
         END IF;
 
         RETURN total;
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_put_in_file_list_count(bigint, text)
+ALTER FUNCTION public.get_put_in_file_list_count(text, bigint, text)
     OWNER TO postgres;
-    
-   
+
     
 
 -----------------File-Sent-List-Count------------------
