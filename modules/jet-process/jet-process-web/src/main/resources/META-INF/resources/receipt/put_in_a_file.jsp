@@ -234,5 +234,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 		}
 	}
 	
+ 
+ 
 </script>
 
