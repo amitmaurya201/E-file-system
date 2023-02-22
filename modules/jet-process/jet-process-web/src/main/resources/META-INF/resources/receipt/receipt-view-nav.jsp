@@ -79,7 +79,8 @@
 		value="<%=MVCCommandNames.PUTINFILE_RENDER_COMMAND%>" />
 	<portlet:param name="receiptId" value="<%=receiptId%>" />
 	<portlet:param name="receiptMovementId"
-		value="<%=String.valueOf(receiptMovementId)%>" />		
+		value="<%=String.valueOf(receiptMovementId)%>" />	
+		<portlet:param name="backPageURL" value="<%=backPageURL%>" />	
 </portlet:renderURL>
 <portlet:renderURL var="actionDetails">
 	<portlet:param name="mvcPath" value="/receipt/action_details.jsp" />

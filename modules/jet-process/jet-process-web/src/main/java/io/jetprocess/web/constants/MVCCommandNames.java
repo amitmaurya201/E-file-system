@@ -66,4 +66,6 @@ public class MVCCommandNames {
     
     public static final String CLOSE_RECEIPT_RESOURCE_COMMAND="/receiptClose/resource/command";
 
+    public static final String ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND = "/attachreceiptinfile";
+
 }

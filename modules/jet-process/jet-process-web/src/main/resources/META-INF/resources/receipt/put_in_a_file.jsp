@@ -4,11 +4,13 @@ HttpSession userPostId = themeDisplay.getRequest().getSession();
 String userPostsValue = (String) userPostId.getAttribute("userPostId");
 	long receiptId = (long) request.getAttribute("receiptId");
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
-	String redirectURL = themeDisplay.getURLCurrent();
+	String redirectURL = (String) request.getAttribute("backPageURL");
 %>
+
 <div class="p-3">
-	<portlet:actionURL var="attachfile" name="AttachReceiptCorrespondence">
-	</portlet:actionURL>
+<portlet:resourceURL
+	id="<%=MVCCommandNames.ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND%>"
+	var="closeReceiptResourceURL"> </portlet:resourceURL>
 	<clay:management-toolbar disabled="${fileCount eq 0}"
 		displayContext="${putInFileManagementToolbarDisplayContext}"
 		itemsTotal="${fileCount}" searchContainerId="fileList"
@@ -30,7 +32,7 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 
 				<liferay-ui:search-container-column-text>
 					<aui:input type="radio" onchange="receiptDetail(${fileListViewDto.isRead()},${fileListViewDto.getDocFileId()}, ${fileListViewDto.getFilemovementId()},'${fileListViewDto.getNature()}')"
-						name="docFileId" label="label-put-in-receipt"
+						name="docFileId" label="label-put-in-file"
 						value="<%=fileListViewDto.getDocFileId()%>" />
 					<aui:input name="fileMovementId" type="hidden"
 						value="${fileListViewDto.getFilemovementId()}" />
@@ -57,7 +59,7 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 			<aui:input label="label-put-in-file-remark" name="remarks" type="textarea">
 				<aui:validator name="required" />
 			</aui:input>
-			<aui:button cssClass="btn btn-primary" id="attachForm"
+			<aui:button cssClass="btn btn-primary" name="attachForm"
 				style="float: right; margin-top: 10px;" type="button" value="label-put-in-receipt-attach"></aui:button>
 		</c:if>
 	</aui:form>
@@ -150,10 +152,12 @@ function validateForm(attachfile) {
     return true;
 };
 
+
+
 $('#<portlet:namespace />attachForm').click(function(){
-	
 	if(fileMovementId != null  && validateForm('<portlet:namespace/>attachfile')){
-		if(isRead == false){
+		alert(typeof isRead);
+		if(!isRead){
 			if(nature==='Electronic'){
 				let message="<liferay-ui:message key='message-put-in-file-confirmation-electronic'/>";
 				$("#msg").text(message);
@@ -162,14 +166,16 @@ $('#<portlet:namespace />attachForm').click(function(){
 				let message="<liferay-ui:message key='message-put-in-file-confirmation-physical'/>";
 				$("#msg").text(message);
 			}
-			console.log("docFileId : "+docFileId)
 			$("#<portlet:namespace />docfileId").val(docFileId);
 			$("#<portlet:namespace />filemovementId").val(fileMovementId);
 			$('#isReadAlert').trigger('click');
 		}else{
 			$("#<portlet:namespace />fileMovementId").val(fileMovementId);
-			$("#<portlet:namespace />attachfile").submit();
+			/ $("#<portlet:namespace />attachfile").submit(); /
+			console.log("------ calling without confirmation.......");
+			submitCloseReceiptPopUP();
 		}
+		
 	}else{
 		return false;
 	}
@@ -182,6 +188,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 }
   
  function submitAttach(){
+	 console.log("submitAttach....")
 	   	AUI().use('aui-io-request','aui-base','io', function(A){
 		 var form = A.one("#<portlet:namespace/>receiveForm");
 	        A.io.request('<%=fileReceiveServe.toString()%>', {
@@ -190,14 +197,44 @@ $('#<portlet:namespace />attachForm').click(function(){
 	                 id:form
 	             },
 	               on: {
-	                    success: function() {
+	                    success: function(data) {
 	                    	$("#<portlet:namespace />fileMovementId").val(fileMovementId);
-	                    	$("#<portlet:namespace />attachfile").submit();
+	                    	/ $("#<portlet:namespace />attachfile").submit(); /
+	                    	 submitCloseReceiptPopUP(); 
+	                    	
 	                    } 
 	             
 	            }
 	    });
 	     });
 }
+	
+ function submitCloseReceiptPopUP(){
+		if(validateForm('<portlet:namespace/>attachfile')){
+			AUI().use('aui-io-request','aui-base','io', function(A){
+				var form = A.one("#<portlet:namespace/>attachfile");
+				     A.io.request('<%=closeReceiptResourceURL.toString()%>', {
+					method : 'post',
+					form : {
+						id : form
+					},
+					on : {
+						success : function() {
+							swal({
+								text : this.get('responseData'),
+							});
+							setTimeout(parent.location.href = '<%=redirectURL%>', 1500);
+							
+							
+						}
+					}
+				});
+			});
+		}
+		else {
+			return false;
+		}
+	}
+	
 </script>
 

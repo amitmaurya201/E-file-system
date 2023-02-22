@@ -42,6 +42,8 @@ public class PutInFileRenderCommand implements MVCRenderCommand {
 
 		long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId");
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+		renderRequest.setAttribute("backPageURL", backPageURL);
 		renderRequest.setAttribute("receiptId", receiptId);
 		renderRequest.setAttribute("receiptMovementId", receiptMovementId);
 		addFileToolbarAttributes(renderRequest, renderResponse);
