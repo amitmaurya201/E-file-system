@@ -44,7 +44,8 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 						value="<%=receiptId%>" />
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
-					name="label-put-in-file-type"><%=fileListViewDto.getNature().charAt(0)%>
+					name="label-put-in-file-type">
+					<span title="${fileListViewDto.nature }"><%=fileListViewDto.getNature().charAt(0)%></span>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="fileNumber"
 					name="label-put-in-file-number" />
