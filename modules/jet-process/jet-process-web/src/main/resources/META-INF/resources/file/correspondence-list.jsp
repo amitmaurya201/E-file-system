@@ -208,7 +208,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
 					<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>"></aui:input>
-					<aui:input label="label-put-in-receipt-remark" name="remarks"
+					<aui:input label="label-detach-remark" name="remarks"
 						type="textarea">
 						<aui:validator name="required" />
 					</aui:input>
@@ -226,7 +226,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 	</div>
 </div>
 
-<!-- ---------------------- succes message  ---------------------------  -->
+<!-- ---------------------- succes message  ----------------------------->
 <div class="portlet-msg-success" style="display:none;     
 	bottom: 20px;
     left: 20px;
@@ -238,7 +238,8 @@ String redirectURL = themeDisplay.getURLCurrent();
     font-size:1rem;
     " 
     id="successMsg">
-   Successfully ! Your receipt have been successfully Detached
+    <liferay-ui:message key="label-detach-success-message"></liferay-ui:message>
+  
 </div>
 
 <aui:script use="liferay-util-window">	
