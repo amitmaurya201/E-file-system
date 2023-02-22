@@ -99,8 +99,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 		
 		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
-		if(Validator.isNull(fileNote)) {
-			System.out.println("filenote obj null");
+		if(Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
 			noteLocalService.AddBlankNote(fileId, maxFmId, senderId);
 		}
 	}

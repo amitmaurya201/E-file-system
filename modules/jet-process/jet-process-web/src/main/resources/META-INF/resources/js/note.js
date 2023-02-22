@@ -1,15 +1,15 @@
 
 <aui:script>
+
+$( ".control-label" ).remove();
 var contentOnchange=" ";
 var noteContent = `${noteContent}`;
-console.log("noteContent"+noteContent);
 if(noteContent==''){
 	$("#editor-head").css("background-color","red");	
 }
 else{
 	$("#editor-head").css("background-color","green");
 }
-console.log(noteContent);
 function openNote() {
 	const notes = document.getElementById("notes");
 	notes.style.display = "block";
@@ -32,64 +32,9 @@ function openGreenNote() {
 	 if(noteContent!=contentOnchange){
 	$("#editor-head").css("background-color","red");
 	 }
-
-	}
+}
  
  var userPostId = $('#<portlet:namespace />userPostsVal').val();
-	/*function autoSaveContentOnchange(){
-		console.log("test1");
-	var autosaveOn = false;
-	 var fileId = $('#docFileId').val();
-	 var fileMovementId = $('#fileMovementId').val();
-	 var content = CKEDITOR.instances["<portlet:namespace/>content"].getData();
-	 var noteId = $('#noteId').val();
-	 var object = {};
-	 var jsonData = object;
-	 jsonData["createdBy"]=userPostId;
-	 jsonData["fileId"] = fileId;
-	 jsonData["content"] = content;
-	 jsonData["noteId"] =noteId;
-	 jsonData["fileMovementId"] =fileMovementId;
-	 if (!autosaveOn)
-	    {
-		 console.log("test1");
-	        autosaveOn = true;
-
-	  $('#<portlet:namespace/>content').everyTime("300000", function(){
-		  console.log("test1");
-	 var jsonObj = JSON.stringify(jsonData);
-	 $.ajax({
-		 type:"POST",
-		 url:"${portalURL}/o/jet-process-rs/v1.0/createNote?p_auth=" + Liferay.authToken,
-		 data:jsonObj,
-		 dataType: 'json',
-		 cache : false,
-		 processData: false,
-	     contentType : 'application/json'
-	 }).done(function(response){
-		 if(response==null){
-			 swal({
-				 title: "Oops!",
-		         text: "Note can't be empty!",
-		         icon: "Fail",
-			}) 
-		}else{
-			swal({
-				text: `Note is created successfully!`,
-			})
-				window.location.reload(true);
-		 }
-	 }).fail(function(error){
-		 swal({  
-		  	text: "Note can't be empty!",  
-		}).then(function(){
-			window.location.reload(true);
-		})	 
-	 })
- })
-}
- }
-*/
 function removeNote(){
 		var noteId = $('#noteId').val();
 		$.ajax({
