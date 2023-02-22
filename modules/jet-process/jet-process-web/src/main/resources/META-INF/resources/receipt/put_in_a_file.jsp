@@ -4,7 +4,7 @@ HttpSession userPostId = themeDisplay.getRequest().getSession();
 String userPostsValue = (String) userPostId.getAttribute("userPostId");
 	long receiptId = (long) request.getAttribute("receiptId");
 	long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
-	String redirectURL = (String) request.getAttribute("backPageURL");
+	String backPageURL = (String) request.getAttribute("backPageURL");
 %>
 
 <div class="p-3">
@@ -16,8 +16,6 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 		itemsTotal="${fileCount}" searchContainerId="fileList"
 		selectable="false" />
 	<aui:form action="${attachfile}" method="post" name="attachfile">
-		<aui:input name="userPostId" value="${userPostsValue}" type="hidden"></aui:input>
-		<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>" />
 		<liferay-ui:search-container delta="${delta}"
 			emptyResultsMessage="message-record-not-found" id="fileList"
 			total="${fileCount}"
@@ -131,8 +129,7 @@ var fileMovementId;
 var nature;
 
 function receiptDetail(_isRead, _docFileId, _fileMovementId,_nature){
-	
-	console.log(_isRead, _docFileId, _fileMovementId, _nature)
+	alert(_docFileId)
 	isRead=_isRead;
 	docFileId=_docFileId;
 	fileMovementId=_fileMovementId;
@@ -156,8 +153,8 @@ function validateForm(attachfile) {
 
 
 $('#<portlet:namespace />attachForm').click(function(){
+	
 	if(fileMovementId != null  && validateForm('<portlet:namespace/>attachfile')){
-		alert(typeof isRead);
 		if(!isRead){
 			if(nature==='Electronic'){
 				let message="<liferay-ui:message key='message-put-in-file-confirmation-electronic'/>";
@@ -167,13 +164,13 @@ $('#<portlet:namespace />attachForm').click(function(){
 				let message="<liferay-ui:message key='message-put-in-file-confirmation-physical'/>";
 				$("#msg").text(message);
 			}
+			alert(docFileId)
 			$("#<portlet:namespace />docfileId").val(docFileId);
 			$("#<portlet:namespace />filemovementId").val(fileMovementId);
 			$('#isReadAlert').trigger('click');
 		}else{
 			$("#<portlet:namespace />fileMovementId").val(fileMovementId);
 			/ $("#<portlet:namespace />attachfile").submit(); /
-			console.log("------ calling without confirmation.......");
 			submitCloseReceiptPopUP();
 		}
 		
@@ -189,7 +186,6 @@ $('#<portlet:namespace />attachForm').click(function(){
 }
   
  function submitAttach(){
-	 console.log("submitAttach....")
 	   	AUI().use('aui-io-request','aui-base','io', function(A){
 		 var form = A.one("#<portlet:namespace/>receiveForm");
 	        A.io.request('<%=fileReceiveServe.toString()%>', {
@@ -211,6 +207,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 }
 	
  function submitCloseReceiptPopUP(){
+			$("#<portlet:namespace />docFileId").val(docFileId);
 		if(validateForm('<portlet:namespace/>attachfile')){
 			AUI().use('aui-io-request','aui-base','io', function(A){
 				var form = A.one("#<portlet:namespace/>attachfile");
@@ -224,7 +221,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 							swal({
 								text : this.get('responseData'),
 							});
-							setTimeout(parent.location.href = '<%=redirectURL%>', 1500);
+							setTimeout(parent.location.href = '<%=backPageURL%>', 1500);
 							
 							
 						}
