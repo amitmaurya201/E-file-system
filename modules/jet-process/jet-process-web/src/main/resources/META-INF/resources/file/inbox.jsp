@@ -177,8 +177,8 @@ cursor: pointer;
 						<c:if
 							test="${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null }">
 
-							<liferay-ui:search-container-column-text name="" cssClass="bold">
-								<%=fileinboxDtoList.getNature().charAt(0)%>
+							<liferay-ui:search-container-column-text name="label-file-inbox-nature" cssClass="bold">
+									<span title="${fileinboxDtoList.nature }"><%=fileinboxDtoList.getNature().charAt(0)%></span>
 							</liferay-ui:search-container-column-text>
 							<c:choose>
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
@@ -263,8 +263,8 @@ cursor: pointer;
 						<c:if
 							test="${fileinboxDtoList.getReadOn()!=null || fileinboxDtoList.getReceivedOn()!=null}">
 
-							<liferay-ui:search-container-column-text name="">
-								<%=fileinboxDtoList.getNature().charAt(0)%>
+							<liferay-ui:search-container-column-text name="label-file-inbox-nature">
+								<span title="${fileinboxDtoList.nature }"><%=fileinboxDtoList.getNature().charAt(0)%></span>
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
@@ -273,7 +273,7 @@ cursor: pointer;
 								value="<%=fileinboxDtoList.getFileNumber() != null
 										? fileinboxDtoList.getFileNumber()
 										: ""%>"
-								name="File number" />
+								name="label-file-inbox-fileno" />
 							<liferay-ui:search-container-column-text
 								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
 								orderableProperty="subject" orderable="true"

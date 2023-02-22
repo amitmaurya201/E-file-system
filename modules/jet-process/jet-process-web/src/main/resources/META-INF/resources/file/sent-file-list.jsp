@@ -1,9 +1,8 @@
 <%@ include file="../init.jsp"%>
 
 <style>
-
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+	color: #000000;
 }
 
 .popup, .pull_back-popup {
@@ -56,8 +55,8 @@
 		</liferay-portlet:renderURL>
 
 		<liferay-ui:search-container delta="4"
-			emptyResultsMessage="message-record-not-found" id="sendFileListEntries"
-			total="${sendFileCount}"
+			emptyResultsMessage="message-record-not-found"
+			id="sendFileListEntries" total="${sendFileCount}"
 			iteratorURL="${sendFileManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${sentFileList}" />
 
@@ -66,7 +65,8 @@
 				modelVar="sentFileListDTO" keyProperty="fileMovementId">
 
 				<liferay-portlet:renderURL varImpl="viewDetails">
-					<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND %>" />
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND%>" />
 					<portlet:param name="docFileId"
 						value="${sentFileListDTO.docFileId}" />
 					<portlet:param name="fileMovementId"
@@ -77,21 +77,24 @@
 				<portlet:actionURL var="fileSentActionUrl"
 					name="<%=MVCCommandNames.PULL_BACK_FILE_ACTION_COMMAND%>">
 				</portlet:actionURL>
-				<liferay-ui:search-container-column-text name=""><%=sentFileListDTO.getNature().charAt(0)%></liferay-ui:search-container-column-text>
+				<liferay-ui:search-container-column-text name="Type">
+					<span title="${sentFileListDTO.nature }"><%=sentFileListDTO.getNature().charAt(0)%></span>
+				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text href="${viewDetails}"
-					name="File Number"
-					value="<%=sentFileListDTO.getFileNumber() %>" cssClass="hyperlink-css"
-					orderableProperty="fileNumber" orderable="true" />
+					name="File No." value="<%=sentFileListDTO.getFileNumber() %>"
+					cssClass="hyperlink-css" orderableProperty="fileNumber"
+					orderable="true" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getSubject() %>"
+					value="<%=sentFileListDTO.getSubject()%>"
 					orderableProperty="subject" orderable="true" cssClass="hover-tips"
 					name="Subject" />
 				<liferay-ui:search-container-column-text
-					value="<%=sentFileListDTO.getSentTo()%>"
-					cssClass="hover-tips" name="Sent To" />
-					
-			
-				<liferay-ui:search-container-column-text orderableProperty="sentOn" orderable="true"
+					value="<%=sentFileListDTO.getSentTo()%>" cssClass="hover-tips"
+					name="Sent To" />
+
+
+				<liferay-ui:search-container-column-text orderableProperty="sentOn"
+					orderable="true"
 					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
 					name="Sent On" />
 				<liferay-ui:search-container-column-text
@@ -99,8 +102,8 @@
 							? sentFileListDTO.getCurrentlyWithUserName()
 							: ""%>"
 					cssClass="hover-tips" name="Currently With" />
-				<liferay-ui:search-container-column-text 
-					cssClass="hover-tips" name="Due Date" orderableProperty="dueDate" orderable="true"  >
+				<liferay-ui:search-container-column-text cssClass="hover-tips"
+					name="Due Date" orderableProperty="dueDate" orderable="true">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy"
 						timeZone="Asia/Calcutta" value="${sentFileListDTO.dueDate}" />
 				</liferay-ui:search-container-column-text>
@@ -154,9 +157,9 @@
 				</aui:input>
 			</div>
 			<input type="hidden" name="<portlet:namespace />docFileId"
-				id="docFileId"  />
+				id="docFileId" />
 			<input type="hidden" name="<portlet:namespace />fileMovementId"
-				id="fileMovementId" >
+				id="fileMovementId">
 			<hr style="margin: 1.4rem -14px;" />
 			<div style="text-align: right; padding-bottom: 10px;">
 				<button type="submit" class="btn btn-primary" id="submit_pull_back">
