@@ -320,18 +320,18 @@ AS $BODY$
     begin
       
       
-   _query=' SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject,
+   _query='SELECT fm.fmid as fileMovementId, f.filenumber as fileNumber ,f.subject as subject,
 		(SELECT concat(up1.username,''('',  up1.postmarking,'')'',  up1.sectionname,'','', up1.departmentname)) as sentBy,
 		(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) AS SentTo ,
 		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn,
 		f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId , 
-        f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername
+        f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername ,  fn.filemovementid is not null as hasNote
 		FROM PUBLIC.jet_process_filemovement as fm 
         Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
 		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
-		JOIN PUBLIC.masterdata_userpost as up2
-		ON fm.receiverid = up2.userpostid ';
+		JOIN PUBLIC.masterdata_userpost as up2 ON fm.receiverid = up2.userpostid 
+        left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid ';
                   
         _keyword := '''%'||keyword||'%''';
         _order :=_orderByType;

@@ -1,5 +1,5 @@
 <%@ include file="../init.jsp"%>
-<%@ include file="/js/note.js"%>
+
 <%
 	DocFile docFile = (DocFile) request.getAttribute("docFileObj");
 	String backPageURL = (String) request.getAttribute("backPageURL");

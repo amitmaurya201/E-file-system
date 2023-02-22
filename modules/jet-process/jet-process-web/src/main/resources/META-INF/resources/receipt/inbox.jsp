@@ -9,17 +9,20 @@
 </liferay-portlet:renderURL>
 
 <style>
-html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.modal-header {
-    background: #007bFF;
-    color: white;
+html:not (#__ ):not (#___ ) .cadmin .modal-header, html:not (#__ ):not (#___
+	) .cadmin.modal-header {
+	background: #007bFF;
+	color: white;
 }
 
 html:not (#__ ):not (#___ ) .cadmin .close {
 	color: white !important;
 }
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+	color: #000000;
 }
+
 .table thead th {
 	border-right: 1px solid white;
 }
@@ -196,7 +199,9 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								orderable="true" />
 
 							<liferay-ui:search-container-column-text cssClass="bold"
-								value="<%=simpleFormat.format(receiptMovementDTO.getDueDate())%>"
+								value="<%=receiptMovementDTO.getDueDate() != null
+										? simpleFormat.format(receiptMovementDTO.getDueDate())
+										: ""%>"
 								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
 								orderable="true" />
 
@@ -238,7 +243,8 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						<c:if
 							test="${receiptMovementDTO.getReadOn()!=null || receiptMovementDTO.getReceivedOn()!=null}">
 
-							<liferay-ui:search-container-column-text name="label-receipt-inbox-nature">
+							<liferay-ui:search-container-column-text
+								name="label-receipt-inbox-nature">
 								<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
 							</liferay-ui:search-container-column-text>
 
@@ -263,7 +269,9 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								name="label-receipt-inbox-senton" orderableProperty="sentOn"
 								orderable="true" />
 							<liferay-ui:search-container-column-text
-								value="<%=simpleFormat.format(receiptMovementDTO.getDueDate())%>"
+								value="<%=receiptMovementDTO.getRemark() != null
+										? simpleFormat.format(receiptMovementDTO.getDueDate())
+										: ""%>"
 								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
 								orderable="true" />
 
