@@ -41,7 +41,8 @@
 				<c:set var="firstLetterOfNature" value="${ filedto.nature}" />
 				<c:set var="nature"
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
-				<liferay-ui:search-container-column-text name=" " value="${nature }">
+				<liferay-ui:search-container-column-text name="label-file-list-nature">
+					<span title="${filedto.nature }">${nature} </span>
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
