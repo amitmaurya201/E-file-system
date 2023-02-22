@@ -331,6 +331,15 @@ cursor: pointer;
 					<c:otherwise>
 					</c:otherwise>
 				</c:choose>
+					
+				<liferay-ui:search-container-column-text
+					name="" cssClass="hover-tips" >
+				<c:if test="${fileinboxDtoList.hasNote}">
+					<img src='<%=request.getContextPath() + "/image/green-note.jpg"%>'
+						width="60%" height="25" class="shadow m-1 bg-white rounded-circle" />
+				</c:if>
+					</liferay-ui:search-container-column-text>
+				
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
