@@ -240,8 +240,8 @@ AS $BODY$
                _order :=_orderbytype;
       END IF;
      
-      IF (_type ='Physical') THEN
-                nature :=' AND r.nature = ''Physical'' ';
+      IF (_type ='Electronic') THEN
+                nature :=' AND r.nature = ''Electronic'' ';
         END IF;
                       
                       IF (userpostid !=0 )THEN
@@ -1647,15 +1647,15 @@ BEGIN
     total :=0;
     _nature :='';
         
-        IF (_type ='Physical') THEN
-                _nature :=' AND f.nature = ''Physical'' ';
+        IF (_type ='Electronic') THEN
+                _nature :=' AND f.nature = ''Electronic'' ';
         END IF;
         
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
-                IF(_type ='Physical' ) THEN
+                IF(_type ='Electronic' ) THEN
                  
                     SELECT COUNT(*) INTO total
                     FROM PUBLIC.jet_process_receipt r 
@@ -1684,7 +1684,7 @@ BEGIN
                END IF;   
             END IF;
                 
-                IF(_type ='Physical' ) THEN
+                IF(_type ='Electronic' ) THEN
                  
                     SELECT COUNT(*) INTO total
                     FROM PUBLIC.jet_process_receipt r 
