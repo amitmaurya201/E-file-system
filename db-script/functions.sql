@@ -300,7 +300,7 @@ CREATE OR REPLACE FUNCTION public.get_file_inbox_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid bigint, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text) 
+    RETURNS TABLE(filemovementid bigint, filenumber character varying, subject character varying, sentby text, sentto text, senton timestamp without time zone, readon character varying, duedate timestamp without time zone, remark character varying, receivedon character varying, currentlywith bigint, nature character varying, fileid bigint, senderid bigint, currentstate integer, docfileid bigint, pullbackremark character varying, currentlywithusername text, hasnote boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
