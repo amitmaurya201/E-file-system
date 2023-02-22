@@ -9,6 +9,9 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
@@ -53,7 +56,13 @@ public class ReceiptAttachInFile implements MVCResourceCommand  {
 			if (status == true) {
 				fileCorrReceiptLocalService.addReceiptInFile(receiptId, docFileId, userPostId, remarks, receiptMovementId,
 						fileMovementId);
+				resourceResponse.setContentType("text/html");
+		        PrintWriter out = resourceResponse.getWriter();
+		        out.println("Rceipt successfully Attached..");
+		        out.flush();
 				logger.info("Rceipt successfully Attached..");
+				
+				
 
 			} else {
 				SessionErrors.add(resourceRequest, "receipt-is-not-attachable");
@@ -63,6 +72,9 @@ public class ReceiptAttachInFile implements MVCResourceCommand  {
 			}
 
 		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
