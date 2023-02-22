@@ -60,7 +60,7 @@ CREATE OR REPLACE FUNCTION public.get_file_created_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(fmid bigint,docfileid bigint, filenumber character varying, subject character varying, category character varying, remark character varying, createdon timestamp without time zone, nature character varying) 
+    RETURNS TABLE(fmid bigint,docfileid bigint, filenumber character varying, subject character varying, category character varying, remark character varying, createdon timestamp without time zone, nature character varying, hasNote boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -80,10 +80,12 @@ AS $BODY$
       
       _keyword := '''%'||keyword||'%''';
       _query := 'Select fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
-                        f.remarks as remark,f.createdate as createdon ,  f.nature as nature
+                        f.remarks as remark,f.createdate as createdon ,  f.nature as nature, fn.filemovementid is not null as hasNote
                         FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
                         ON c.categorydataid = f.categoryid
-                        INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid where fm.movementtype=0 AND currentstate = 1   ';
+                        INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid
+						left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid
+						where fm.movementtype=0 AND currentstate = 1';
         IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
@@ -158,6 +160,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+      
       
 -----------------------Get-Put-in-file-List-----------------------
 -- FUNCTION: public.get_put_in_file_list(text, bigint, text, integer, integer, text, text)
@@ -1287,7 +1290,7 @@ AS $BODY$
                 viewmode :='<';
         END IF;
         IF (_viewmode ='' OR _viewmode IS NULL) THEN
-                viewmode :='<=';
+                viewmode :='<';
         END IF;      
                     
                     

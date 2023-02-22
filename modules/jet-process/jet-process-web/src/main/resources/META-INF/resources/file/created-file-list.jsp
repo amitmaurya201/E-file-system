@@ -65,6 +65,14 @@
 				<liferay-ui:search-container-column-text
 					value="<%=filedto.getRemark() != null ? filedto.getRemark() : ""%>"
 					name="label-file-list-remark" cssClass="hover-tips" />
+					
+				<liferay-ui:search-container-column-text
+					name="" cssClass="hover-tips" >
+				<c:if test="${filedto.hasNote}">
+					<img src='<%=request.getContextPath() + "/image/green-note.jpg"%>'
+						width="30%" height="20" class="shadow m-1 bg-white rounded-circle" />
+				</c:if>
+					</liferay-ui:search-container-column-text>
 
 			</liferay-ui:search-container-row>
 

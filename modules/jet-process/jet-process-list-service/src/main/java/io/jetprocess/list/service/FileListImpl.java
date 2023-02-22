@@ -74,7 +74,10 @@ public class FileListImpl implements FileList {
 					file.setNature(rs.getString("nature"));
 					file.setRemark(rs.getString("remark"));
 					file.setSubject(rs.getString("subject"));
+					file.setHasNote(rs.getBoolean("hasNote"));
 					fileList.add(file);
+					fileList.forEach(p ->System.out.println(p.isHasNote()));
+				
 				}
 			}
 		} catch (SQLException e) {

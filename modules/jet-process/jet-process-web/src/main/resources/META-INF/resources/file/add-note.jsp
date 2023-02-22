@@ -65,19 +65,13 @@
 			</c:if>
 		</div>
 	</aui:form>
-
-	<%
-		List<NoteDTO> noteList = (List<NoteDTO>) request.getAttribute("noteList");
-		if (!noteList.isEmpty()) {
+		<% List<NoteDTO> note =(List <NoteDTO>)request.getAttribute("noteList");
+		if(note!=null){
 			int i = 1;
-			for (NoteDTO noteDTO : noteList) {
+			for(NoteDTO noteDTO : note){
 				JSONObject object = JSONFactoryUtil.createJSONObject(noteDTO.getSignature());
-				FileNote fileNote = (FileNote) request.getAttribute("noteObj");
-				if (fileNote != null) {
-					long noteId = fileNote.getNoteId();
-					if (noteId != noteDTO.getNoteId()) {
-	%>
-	<div
+				%>
+		<div
 		style="height: auto; padding: 0px 10px; border-color: gray; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
 		<b><liferay-ui:message key="label-add-note-note" /> # <%=i%></b>
 		<div class="container">
@@ -94,33 +88,13 @@
 		</div>
 	</div>
 	<%
-		i++;
-					}
-				} else {
+	i++;
+	} 
+			
+}
 	%>
-	<div
-		style="height: auto; padding: 0px 10px; border-color: gray; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
-		<b><liferay-ui:message key="label-add-note-note" /> # <%=i%></b> <br>
-		<div class="container">
-			<%=noteDTO.getContent()%>
-		</div>
-		<div class="mt-1">
-			<c:set var="now" value="<%=noteDTO.getCreateDate()%>" />
-			<fmt:formatDate type="both" pattern="dd/MM/yyyy  hh:mm aa"
-				timeZone="Asia/Calcutta" value="${now}" />
-			<span style="float: right;"> <%=object.get("userName")%></span>
-			<p style="text-align: right;">
-				<span><%=object.get("departmentName")%></span> <span><%=object.get("postMarking")%></span>
-			</p>
-		</div>
-	</div>
-	<%
-		i++;
-				}
-			}
-		}
-	%>
-</div>
+</div>	
+	
 <br>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
