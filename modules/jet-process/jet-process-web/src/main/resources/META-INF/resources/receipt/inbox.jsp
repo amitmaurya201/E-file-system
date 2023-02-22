@@ -184,11 +184,6 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								orderableProperty="subject"
 								value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
 								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
-							<%
-								ReceiptMovement receiptMvmt = ReceiptMovementLocalServiceUtil
-															.getReceiptMovement(receiptMovementDTO.getReceiptMovementId());
-													long senderId = receiptMvmt.getSenderId();
-							%>
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
 								<a href="#" class="button open"
