@@ -8,7 +8,7 @@
 </portlet:renderURL>
 
 <style>
-.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
     color: #000000;
 }
 </style>
