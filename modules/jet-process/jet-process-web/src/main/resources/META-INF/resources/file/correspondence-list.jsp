@@ -8,6 +8,12 @@ String redirectURL = themeDisplay.getURLCurrent();
 	color: #000000;
 }
 
+.modal .close:last-child {
+    margin-right: -0.3125rem;
+    font-size: 1.5rem;
+    color: white !important;
+}
+
 .crList th {
 	display: inline-block;
 	width: max-content;
@@ -185,13 +191,13 @@ String redirectURL = themeDisplay.getURLCurrent();
 	aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header bg-primary text-light">
 				<h5 class="modal-title" id="modalLabel">
 					<liferay-ui:message key="detach-confirmation-heading" />
 				</h5>
-				<button type="button" class="close" data-dismiss="modal"
+				<button type="button" class="close"  data-dismiss="modal"
 					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+					<span aria-hidden="true" style="color:white !important">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
@@ -202,7 +208,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
 					<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>"></aui:input>
-					<aui:input label="label-put-in-receipt-remark" name="remarks"
+					<aui:input label="label-detach-remark" name="remarks"
 						type="textarea">
 						<aui:validator name="required" />
 					</aui:input>
@@ -210,7 +216,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 						<aui:button type="button" cssClass="btn btn-primary"
 							value="label-detach-confirmation-button"
 							onclick="receiptDetach(true)"></aui:button>
-						<aui:button type="button" cssClass="btn btn-primary"
+						<aui:button type="button" cssClass="btn btn-primary ml-2"
 							value="label-detach-confirmation-cancel" data-dismiss="modal"></aui:button>
 					</div>
 				</aui:form>
@@ -220,18 +226,20 @@ String redirectURL = themeDisplay.getURLCurrent();
 	</div>
 </div>
 
-<!-- ---------------------- succes message  ---------------------------  -->
+<!-- ---------------------- succes message  ----------------------------->
 <div class="portlet-msg-success" style="display:none;     
 	bottom: 20px;
     left: 20px;
     position: fixed;
     z-index: 5000; 
     border:1px solid green;
-    width:400px;
-    height:80px
+    width:350px;
+    height:80px;
+    font-size:1rem;
     " 
     id="successMsg">
-   Your Receipt have been successfully Detached
+    <liferay-ui:message key="label-detach-success-message"></liferay-ui:message>
+  
 </div>
 
 <aui:script use="liferay-util-window">	
