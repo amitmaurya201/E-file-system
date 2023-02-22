@@ -932,7 +932,7 @@ AS $BODY$
                 rm.pullbackremark as pullBackRemark
                 FROM PUBLIC.jet_process_receiptmovement as rm 
 
-                Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  
+                Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true AND movementtype !=2 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  
 
                 JOIN PUBLIC.jet_process_receipt AS r ON rm.receiptId = r.receiptId
                 JOIN PUBLIC.masterdata_userpost as up1 ON rm.senderid = up1.userpostid
