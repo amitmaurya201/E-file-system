@@ -13,6 +13,7 @@ public class FileListViewDto {
 	private Date createDate;
 	private String nature;
 	private boolean isRead;
+	private boolean hasNote;
 	public long getFilemovementId() {
 		return filemovementId;
 	}
@@ -67,8 +68,17 @@ public class FileListViewDto {
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
 	}
+	
+	
+	public boolean isHasNote() {
+		return hasNote;
+	}
+	public void setHasNote(boolean hasNote) {
+		this.hasNote = hasNote;
+	}
+
 	public FileListViewDto(long filemovementId, long docFileId, String fileNumber, String subject, String category,
-			String remark, Date createDate, String nature, boolean isRead) {
+			String remark, Date createDate, String nature, boolean isRead, boolean hasNote) {
 		super();
 		this.filemovementId = filemovementId;
 		this.docFileId = docFileId;
@@ -79,6 +89,7 @@ public class FileListViewDto {
 		this.createDate = createDate;
 		this.nature = nature;
 		this.isRead = isRead;
+		this.hasNote = hasNote;
 	}
 	public FileListViewDto() {
 		super();

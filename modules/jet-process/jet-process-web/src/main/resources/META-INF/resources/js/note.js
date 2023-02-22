@@ -152,6 +152,7 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 		console.log("response"+response);
 		noteContent=contentOnchange;
 		 $("#editor-head").css("background-color","green");
+		 $('#editor-head').load(' #editor-head')
 	 })
 	}
 }

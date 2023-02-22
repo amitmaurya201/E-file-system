@@ -77,7 +77,6 @@
 	href="<%=request.getContextPath()%>/css/datepicker/bootstrap-datepicker.min.css" />
 
 <!-- Script Element -->
-<script src="//cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
 <script
 	src="<%=request.getContextPath()%>/datepicker/bootstrap-datepicker.min.js"></script>
 <script
