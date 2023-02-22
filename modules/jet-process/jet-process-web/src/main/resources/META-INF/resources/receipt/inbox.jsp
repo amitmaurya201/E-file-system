@@ -9,30 +9,25 @@
 </liferay-portlet:renderURL>
 
 <style>
-
 html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.modal-header {
     background: #007bFF;
     color: white;
 }
-html:not(#__):not(#___) .cadmin .close {
- 
-    color: white !important;
 
+html:not (#__ ):not (#___ ) .cadmin .close {
+	color: white !important;
 }
-
-
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
   color: #000000;
 }
-
 .table thead th {
 	border-right: 1px solid white;
 }
 
-.filesend{
-cursor: pointer;
-
+.filesend {
+	cursor: pointer;
 }
+
 .popup, .read-popup, .receive-popup {
 	position: absolute;
 	background: #96b4d6;
@@ -163,14 +158,16 @@ cursor: pointer;
 						<c:if
 							test="${receiptMovementDTO.getReadOn()==null && receiptMovementDTO.getReceivedOn()==null}">
 
-							<liferay-ui:search-container-column-text name="" cssClass="bold">
-								<%=receiptMovementDTO.getNature().charAt(0)%>
+							<liferay-ui:search-container-column-text
+								name="label-receipt-inbox-nature" cssClass="bold">
+								<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
 							</liferay-ui:search-container-column-text>
 							<c:choose>
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										href="${receiptReadAction }"
-										name="label-receipt-inbox-receiptno" cssClass="bold hyperlink-css"
+										name="label-receipt-inbox-receiptno"
+										cssClass="bold hyperlink-css"
 										orderableProperty="receiptNumber" orderable="true"
 										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
 								</c:when>
@@ -246,19 +243,20 @@ cursor: pointer;
 						<c:if
 							test="${receiptMovementDTO.getReadOn()!=null || receiptMovementDTO.getReceivedOn()!=null}">
 
-							<liferay-ui:search-container-column-text name="">
-								<%=receiptMovementDTO.getNature().charAt(0)%>
+							<liferay-ui:search-container-column-text name="label-receipt-inbox-nature">
+								<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text property="receiptNumber" cssClass="hyperlink-css"
-								orderableProperty="receiptNumber" orderable="true"
-								href="<%=receiptDetails%>" name="label-receipt-inbox-receiptno" />
+							<liferay-ui:search-container-column-text property="receiptNumber"
+								cssClass="hyperlink-css" orderableProperty="receiptNumber"
+								orderable="true" href="<%=receiptDetails%>"
+								name="label-receipt-inbox-receiptno" />
 
 							<liferay-ui:search-container-column-text property="subject"
 								cssClass="hover-tips" orderableProperty="subject"
 								orderable="true" name="label-receipt-inbox-subject" />
 
-						
+
 							<liferay-ui:search-container-column-text
 								name="label-receipt-inbox-sentby" cssClass="hover-tips">
 								<a href="#" class="button open"
@@ -285,9 +283,9 @@ cursor: pointer;
 										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span> --%>
-												<a class="filesend" id="sendFile" name="sendFile"
+										<a class="filesend" id="sendFile" name="sendFile"
 											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
-								
+
 									</liferay-ui:search-container-column-text>
 								</c:when>
 								<c:otherwise>
@@ -296,9 +294,9 @@ cursor: pointer;
 										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
 													key="label-receipt-inbox-action-send" />
 										</a></span> --%>
-											<a class="filesend" id="sendFile" name="sendFile"
+										<a class="filesend" id="sendFile" name="sendFile"
 											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
-								
+
 									</liferay-ui:search-container-column-text>
 								</c:otherwise>
 							</c:choose>

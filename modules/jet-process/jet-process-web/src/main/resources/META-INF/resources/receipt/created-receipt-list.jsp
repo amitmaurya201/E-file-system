@@ -70,8 +70,9 @@
 				<c:set var="firstLetterOfNature" value="${ receipt.nature}" />
 				<c:set var="nature"
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
-				<liferay-ui:search-container-column-text name="" value="${nature }" />
-
+				<liferay-ui:search-container-column-text name="label-receipt-list-nature" >
+						<span title="${receipt.nature }">${nature} </span>
+				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text href="<%=receiptDetails%>" cssClass="hyperlink-css"
 					value="<%=receipt.getReceiptNumber() != null ? receipt.getReceiptNumber() : ""%>"
 					name="label-receipt-list-receiptno"

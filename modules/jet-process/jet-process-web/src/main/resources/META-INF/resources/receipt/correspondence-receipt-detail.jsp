@@ -12,7 +12,7 @@
 		</div>
 		<div class="receipt_view">
 			<div class="row border border-dark scroll"
-				style="height: 440px; overflow: overlay">
+				style="height: 440px; overflow: overlay; margin-left: 0.5px !important;">
 				<div class="col-5" class="border">
 					<c:choose>
 						<c:when test="${receipt.viewPdfUrl != ''}">

@@ -1,9 +1,8 @@
 <%@ include file="../init.jsp"%>
 
 <style>
-
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
+	color: #000000;
 }
 
 .popup, .pull_back-popup {
@@ -61,8 +60,8 @@
 			itemsTotal="${receiptCount}" searchContainerId="receiptSendEntries"
 			managementToolbarDisplayContext="${sendReceiptManagementToolbarDisplayContext}" />
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="message-record-not-found" id="receiptSendEntries"
-			total="${receiptCount}"
+			emptyResultsMessage="message-record-not-found"
+			id="receiptSendEntries" total="${receiptCount}"
 			iteratorURL="${sendReceiptManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptList}" />
 
@@ -85,10 +84,13 @@
 				<c:set var="nature"
 					value="${fn:substring(firstLetterOfNature, 0, 1)}" />
 				<liferay-ui:search-container-column-text
-					name="label-receipt-sent-nature" value="${nature }" />
-				<liferay-ui:search-container-column-text href="${viewDetails }" cssClass="hyperlink-css"
-					property="receiptNumber" name="label-receipt-list-receiptno"
-					orderable="true" orderableProperty="receiptNumber" />
+					name="label-receipt-sent-nature">
+					<span title="${receiptSentMovement.nature }">${nature} </span>
+				</liferay-ui:search-container-column-text>
+				<liferay-ui:search-container-column-text href="${viewDetails }"
+					cssClass="hyperlink-css" property="receiptNumber"
+					name="label-receipt-sent-receipt-number" orderable="true"
+					orderableProperty="receiptNumber" />
 				<liferay-ui:search-container-column-text property="subject"
 					name="label-receipt-list-subject" orderable="true"
 					orderableProperty="subject" cssClass="hover-tips" />
@@ -97,15 +99,17 @@
 				<liferay-ui:search-container-column-text property="sentTo"
 					cssClass="hover-tips" name="label-receipt-sent-sent-to" />
 				<liferay-ui:search-container-column-text
-					name="label-receipt-sent-sent-on" orderableProperty="sentOn" orderable="true" >
+					name="label-receipt-sent-sent-on" orderableProperty="sentOn"
+					orderable="true">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
 						timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text 
-					name="label-receipt-sent-due-date" orderableProperty="dueDate" orderable="true">
+				<liferay-ui:search-container-column-text
+					name="label-receipt-sent-due-date" orderableProperty="dueDate"
+					orderable="true">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy"
 						timeZone="Asia/Calcutta" value="${receiptSentMovement.dueDate}" />
-					</liferay-ui:search-container-column-text>
+				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					value="<%=receiptSentMovement.getRemark() != null ? receiptSentMovement.getRemark() : ""%>"
 					name="label-receipt-sent-remark" cssClass="hover-tips" />
