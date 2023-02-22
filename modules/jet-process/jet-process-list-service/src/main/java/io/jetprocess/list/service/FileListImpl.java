@@ -155,7 +155,9 @@ public class FileListImpl implements FileList {
 					fileMovementDTO.setDocFileId(rs.getLong("docfileid"));
 					fileMovementDTO.setPullBackRemark(rs.getString("pullbackremark"));
 					fileMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
+					fileMovementDTO.setHasNote(rs.getBoolean("hasNote"));
 					fileMovementDTOList.add(fileMovementDTO);
+					fileMovementDTOList.forEach(p ->System.out.println("inbox"+p.isHasNote()));
 				}
 			}
 		} catch (SQLException e) {
