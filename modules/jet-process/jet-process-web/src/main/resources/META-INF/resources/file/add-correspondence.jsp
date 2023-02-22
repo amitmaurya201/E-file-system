@@ -51,7 +51,8 @@
 					
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
-					name="label-put-in-receipt-type"><%=receiptListViewDto.getNature().charAt(0)%>
+					name="label-put-in-receipt-type">
+					<span title="${receiptListViewDto.nature }"><%=receiptListViewDto.getNature().charAt(0)%></span>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text property="receiptNumber"
 					name="label-put-in-receipt-number" />

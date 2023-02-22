@@ -123,7 +123,7 @@
 		</div>
 	</div>
 </div>
-
+<%@ include file="/js/note.js"%>
 <script>
 	var viewMode = "${param.viewMode}";
 	console.log("viewMode" + viewMode);
