@@ -208,7 +208,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 					<aui:input name="receiptId" type="hidden"></aui:input>
 					<aui:input name="rmId" type="hidden"></aui:input>
 					<aui:input name="redirectURL" type="hidden" value="<%=redirectURL %>"></aui:input>
-					<aui:input  name="remarks"
+					<aui:input label=""  name="remarks"
 						type="textarea">
 						<aui:validator name="required" />
 					</aui:input>
