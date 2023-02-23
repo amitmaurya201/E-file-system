@@ -22,8 +22,6 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 
-import org.osgi.service.component.annotations.Reference;
-
 import io.jetprocess.web.constants.MVCCommandNames;
 
 public class ClosedReceiptManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
