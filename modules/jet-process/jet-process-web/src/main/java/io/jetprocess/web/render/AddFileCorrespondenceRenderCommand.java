@@ -31,6 +31,7 @@ import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.AddCorrespondenceManagementToolbarDisplayContext;
+import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.CORRESPONCE_FILE_RENDER }, service = MVCRenderCommand.class)
@@ -49,38 +50,37 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 	}
 
 	private void addFileListAttributes(RenderRequest renderRequest) {
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-		HttpSession session = themeDisplay.getRequest().getSession();
-		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		long userPost = userPostId;
+		long userPost = UserPostUtil.getUserIdUsingSession(renderRequest);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		String type = null;
-	try {
-		DocFile docfile = docFileLocalService.getDocFile(docFileId);
-		type = docfile.getNature();
-	} catch (PortalException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	int count = _receiptList.getPutInFileListCount(type,userPost, keywords);
+		try {
+			DocFile docfile = docFileLocalService.getDocFile(docFileId);
+			type = docfile.getNature();
 
-		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
-		start = paginationConfig.get("start");
-		currentPage = paginationConfig.get("currentPage");
-		List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(type,userPost, keywords, start, end, "", "");
-		receiptList.forEach(c -> logger
-				.info(c.getReceiptId() + ", : " + c.isRead() + ", : file movement id :  " + c.getReceiptMovementId()));
-		renderRequest.setAttribute("receiptFileList", receiptList);
-		renderRequest.setAttribute("delta", delta);
-		renderRequest.setAttribute("receiptCount", +count);
+			int count = _receiptList.getPutInFileListCount(type, userPost, keywords);
+
+			Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
+			start = paginationConfig.get("start");
+			currentPage = paginationConfig.get("currentPage");
+			List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(type, userPost, keywords, start, end,
+					"", "");
+			receiptList.forEach(c -> logger.info(
+					c.getReceiptId() + ", : " + c.isRead() + ", : file movement id :  " + c.getReceiptMovementId()));
+			renderRequest.setAttribute("receiptFileList", receiptList);
+			renderRequest.setAttribute("delta", delta);
+			renderRequest.setAttribute("receiptCount", +count);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void addFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
@@ -99,7 +99,7 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private ReceiptList _receiptList;
-	
+
 	@Reference
 	private DocFileLocalService docFileLocalService;
 

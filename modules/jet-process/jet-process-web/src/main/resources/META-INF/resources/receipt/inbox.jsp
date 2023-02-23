@@ -1,4 +1,4 @@
-<%@page import="io.jetprocess.core.util.DateFormate"%>
+
 <%@ include file="../init.jsp"%>
 <%
 	String backURL = themeDisplay.getURLCurrent();

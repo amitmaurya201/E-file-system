@@ -23,7 +23,7 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
 @Component(property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=receiptReceive" }, service = MVCResourceCommand.class)
-public class AddFileCorrespondence implements MVCResourceCommand {
+public class AddFileCorrespondenceResourceCommand implements MVCResourceCommand {
 
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)

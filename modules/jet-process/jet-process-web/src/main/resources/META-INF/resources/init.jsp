@@ -6,6 +6,7 @@
 <%@taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet"%>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<%@page import="io.jetprocess.core.util.DateFormate"%>
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 <%@taglib prefix="clay" uri="http://liferay.com/tld/clay"%>
