@@ -7,7 +7,7 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 	String backPageURL = (String) request.getAttribute("backPageURL");
 %>
 
-<div class="p-3">
+<div class="p-3 mb-2" >
 <portlet:resourceURL
 	id="<%=MVCCommandNames.ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND%>"
 	var="closeReceiptResourceURL"> </portlet:resourceURL>
@@ -163,7 +163,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 				let message="<liferay-ui:message key='message-put-in-file-confirmation-physical'/>";
 				$("#msg").text(message);
 			}
-			alert(docFileId)
+			
 			$("#<portlet:namespace />docfileId").val(docFileId);
 			$("#<portlet:namespace />filemovementId").val(fileMovementId);
 			$('#isReadAlert').trigger('click');
