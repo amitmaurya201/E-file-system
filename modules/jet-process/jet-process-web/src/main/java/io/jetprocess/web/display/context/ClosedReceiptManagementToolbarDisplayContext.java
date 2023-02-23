@@ -8,8 +8,10 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -20,6 +22,8 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 
+import org.osgi.service.component.annotations.Reference;
+
 import io.jetprocess.web.constants.MVCCommandNames;
 
 public class ClosedReceiptManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
@@ -28,8 +32,8 @@ public class ClosedReceiptManagementToolbarDisplayContext extends BaseManagement
 			LiferayPortletResponse liferayPortletResponse, HttpServletRequest httpServletRequest) {
 		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
 		// TODO Auto-generated constructor stub
-		PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
-		httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
+		_themeDisplay = (ThemeDisplay) httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
 	@Override
@@ -115,4 +119,8 @@ public class ClosedReceiptManagementToolbarDisplayContext extends BaseManagement
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND);
 		return sortingURL;
 	}
+	
+	private final PortalPreferences _portalPreferences;
+
+	private final ThemeDisplay _themeDisplay;
 }
