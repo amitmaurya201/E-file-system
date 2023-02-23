@@ -88,9 +88,11 @@
 					cssClass="hover-tips" name="label-receipt-list-category" />
 
 				<liferay-ui:search-container-column-text
-					value="<%=receipt.getCreateDate() != null ? simpleformat.format(receipt.getCreateDate()) : ""%>"
 					orderable="true" name="label-receipt-list-create-date"
-					orderableProperty="createDate" />
+					orderableProperty="createDate" >
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+						timeZone="Asia/Calcutta" value="${receipt.getCreateDate()}" />
+					</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text
 					value="<%=receipt.getRemark() != null ? receipt.getRemark() : ""%>"

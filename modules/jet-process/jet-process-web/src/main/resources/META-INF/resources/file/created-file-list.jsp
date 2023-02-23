@@ -60,8 +60,10 @@
 					name="category" cssClass="hover-tips" />
 
 				<liferay-ui:search-container-column-text
-					value="<%=filedto.getCreateDate() != null ? simpleformat.format(filedto.getCreateDate()) : ""%>"
-					name="label-file-list-createon" orderable="true" orderableProperty="createdOn" />
+					name="label-file-list-createon" orderable="true" orderableProperty="createdOn" >
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+						timeZone="Asia/Calcutta" value="${filedto.getCreateDate()}" />
+					</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text
 					value="<%=filedto.getRemark() != null ? filedto.getRemark() : ""%>"
