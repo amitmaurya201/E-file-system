@@ -57,6 +57,9 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 		<c:if test="${fileCount!= 0}">
 			<aui:input label="label-put-in-file-remark" name="remarks" type="textarea">
 				<aui:validator name="required" />
+				<aui:validator name="maxLength">
+						<liferay-ui:message key="receipt-attach-remarks-maxlength" />
+					</aui:validator>
 			</aui:input>
 			<aui:button cssClass="btn btn-primary" name="attachForm"
 				style="float: right; margin-top: 10px;" type="button" value="label-put-in-receipt-attach"></aui:button>
