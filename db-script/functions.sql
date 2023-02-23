@@ -1659,20 +1659,20 @@ BEGIN
                  
                     SELECT COUNT(*) INTO total
                     from public.jet_process_receipt as r 
-    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id  AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
+                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
+                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
+                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id AND f.nature = 'Electronic'   AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
                    return total;
             ELSE
                 
                 
                     SELECT COUNT(*) INTO total
                     from public.jet_process_receipt as r 
-    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id   AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
+                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
+                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
+                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id   AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
                    return total;
                END IF;   
             END IF;
@@ -1681,19 +1681,19 @@ BEGIN
                  
                     SELECT COUNT(*) INTO total
                     from public.jet_process_receipt as r 
-    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id;
+                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
+                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
+                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
+                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id AND f.nature = 'Electronic' ;
                    return total;
             ELSE
                 
                     SELECT COUNT(*) INTO total
                     from public.jet_process_receipt as r 
-    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-        where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-            and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id;
+                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
+                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
+                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
+                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id;
                    return total;
                   END IF;
         END IF;
@@ -1704,6 +1704,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_put_in_file_list_count(text, bigint, text)
     OWNER TO postgres;
+
 
     
 
