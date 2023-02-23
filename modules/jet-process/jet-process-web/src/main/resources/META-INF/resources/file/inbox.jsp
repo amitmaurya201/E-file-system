@@ -287,9 +287,11 @@ cursor: pointer;
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
-								value="<%=DateFormate.getSimpleDate(fileinboxDtoList.getSentOn())%>"
 								name="label-file-inbox-senton" orderableProperty="sentOn"
-								orderable="true" />
+								orderable="true" >
+									<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+						timeZone="Asia/Calcutta" value="${fileinboxDtoList.getSentOn()}" />
+								</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
 								name="label-file-inbox-dueon" orderableProperty="dueDate"

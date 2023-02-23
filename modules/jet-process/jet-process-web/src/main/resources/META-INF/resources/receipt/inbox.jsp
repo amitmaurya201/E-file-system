@@ -195,14 +195,18 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text cssClass="bold"
-								value="<%=DateFormate.getSimpleDate(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" orderableProperty="sentOn"
-								orderable="true" />
+								orderable="true" >
+								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+						timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
+								</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text cssClass="bold"
-								value="<%=DateFormate.getSimpleDateAndTime(receiptMovementDTO.getDueDate())%>"
 								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
-								orderable="true" />
+								orderable="true" >
+									<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getDueDate()}" />
+								</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
 								cssClass="hover-tips bold" name="label-receipt-inbox-remarks"
@@ -264,13 +268,17 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
-								value="<%=DateFormate.getSimpleDate(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" orderableProperty="sentOn"
-								orderable="true" />
+								orderable="true" >
+								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getSentOn()}" />
+								</liferay-ui:search-container-column-text>
 							<liferay-ui:search-container-column-text
-								value="<%=DateFormate.getSimpleDateAndTime(receiptMovementDTO.getDueDate())%>"
 								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
-								orderable="true" />
+								orderable="true" >
+								<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getDueDate()}" />
+								</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text cssClass="hover-tips"
 								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
