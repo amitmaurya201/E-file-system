@@ -76,7 +76,6 @@ public class FileListImpl implements FileList {
 					file.setSubject(rs.getString("subject"));
 					file.setHasNote(rs.getBoolean("hasNote"));
 					fileList.add(file);
-					fileList.forEach(p ->System.out.println(p.isHasNote()));
 				
 				}
 			}

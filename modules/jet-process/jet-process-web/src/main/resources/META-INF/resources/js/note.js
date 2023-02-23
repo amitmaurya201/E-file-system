@@ -35,7 +35,7 @@ function openGreenNote() {
 }
  
  var userPostId = $('#<portlet:namespace />userPostsVal').val();
-function removeNote(){
+ $("#deleteNote").on('click', function(e){
 		var noteId = $('#noteId').val();
 		$.ajax({
 			type:"POST",
@@ -61,7 +61,7 @@ function removeNote(){
 			icon: "error",
 		})
 	 })
-}
+});
 	
 var noteId = '${note.noteId }';
 if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
