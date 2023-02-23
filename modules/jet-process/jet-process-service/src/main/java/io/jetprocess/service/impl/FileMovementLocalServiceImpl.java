@@ -223,19 +223,19 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	}
 
 	@Reference
-	DocFileLocalService docFileLocalService;
+	private DocFileLocalService docFileLocalService;
 
 	@Reference
-	MasterdataLocalService masterdataLocalService;
+	private MasterdataLocalService masterdataLocalService;
 
 	@Reference
-	FileCorrReceiptLocalService fileCorrReceiptLocalService;
+	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
 
 	@Reference
-	ReceiptMovementLocalService receiptMovementLocalService;
+	private ReceiptMovementLocalService receiptMovementLocalService;
 
 	@Reference
-	ReceiptLocalService receiptLocalService;
+	private ReceiptLocalService receiptLocalService;
 
 	@Reference
 	private FileNoteLocalService fileNoteLocalService;
