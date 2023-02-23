@@ -27,6 +27,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.constant.util.FileConstants;
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
@@ -40,7 +41,10 @@ import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
-			String remark, boolean active, int currentState, long movementType) throws PortalException {
+			String remark) throws PortalException {
+		boolean active = true;
+		int currentState =FileStatus.IN_MOVEMENT ;
+		long movementType = MovementStatus.NORMAL ;
 		long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
 		ReceiptMovement rm = receiptMovementLocalService.getReceiptMovement(rmId);
 		if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {

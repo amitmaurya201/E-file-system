@@ -13,15 +13,12 @@ import javax.portlet.PortletException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.RECEIPT_SEND_ACTION_COMMAND }, service = MVCActionCommand.class)
-
 public class ReceiptSendActionCommand implements MVCActionCommand {
 
 	@Override
@@ -34,11 +31,8 @@ public class ReceiptSendActionCommand implements MVCActionCommand {
 		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
 		Date dueDate = ParamUtil.getDate(actionRequest, "dueDate", simpleformat);
 		String priority = ParamUtil.getString(actionRequest, "priorty");
-		boolean active = true;
-		int currentState =FileStatus.IN_MOVEMENT ;
-		long movementType = MovementStatus.NORMAL ;
 		try {
-			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState, movementType);
+			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
 			actionResponse.sendRedirect(urlvalue);
 		} catch (Exception e) {
 			e.printStackTrace();

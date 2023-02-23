@@ -13,8 +13,6 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -42,12 +40,8 @@ public class FileSendActionCommand extends BaseMVCActionCommand {
 		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
 		Date dueDate = ParamUtil.getDate(actionRequest, "dueDate", simpleformat);
 		String priority = ParamUtil.getString(actionRequest, "priorty");
-		boolean active = true;
-		int currentState = FileStatus.IN_MOVEMENT;
-		long movementType = MovementStatus.NORMAL;
 		try {
-			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark, active,
-					currentState, movementType);
+			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
 			actionResponse.sendRedirect(urlvalue);
 		} catch (Exception e) {
 			e.printStackTrace();
