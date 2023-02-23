@@ -413,13 +413,11 @@ public class FileMovementLocalServiceUtil {
 	 */
 	public static void saveSendFile(
 			long receiverId, long senderId, long fileId, String priority,
-			java.util.Date dueDate, String remark, boolean active,
-			int currentState, long movementType)
+			java.util.Date dueDate, String remark)
 		throws PortalException {
 
 		getService().saveSendFile(
-			receiverId, senderId, fileId, priority, dueDate, remark, active,
-			currentState, movementType);
+			receiverId, senderId, fileId, priority, dueDate, remark);
 	}
 
 	/**

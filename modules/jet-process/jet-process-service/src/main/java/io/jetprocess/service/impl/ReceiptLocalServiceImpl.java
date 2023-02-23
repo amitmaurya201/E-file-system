@@ -48,7 +48,6 @@ public class ReceiptLocalServiceImpl extends ReceiptLocalServiceBaseImpl {
 		// Get Group(Site) and user Information
 		Group group = groupLocalService.getGroup(groupId);
 		String receiptNumber =null;
-		System.out.println("tempfileEntryId"+tempfileEntryId);
 		
 		long receiptId = counterLocalService.increment(Receipt.class.getName());
 		Receipt receipt = createReceipt(receiptId);

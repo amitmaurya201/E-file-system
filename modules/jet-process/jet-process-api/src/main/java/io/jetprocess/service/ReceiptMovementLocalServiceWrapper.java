@@ -486,13 +486,11 @@ public class ReceiptMovementLocalServiceWrapper
 	@Override
 	public void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			java.util.Date dueDate, String remark, boolean active,
-			int currentState, long movementType)
+			java.util.Date dueDate, String remark)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_receiptMovementLocalService.saveSendReceipt(
-			receiverId, senderId, receiptId, priority, dueDate, remark, active,
-			currentState, movementType);
+			receiverId, senderId, receiptId, priority, dueDate, remark);
 	}
 
 	/**
