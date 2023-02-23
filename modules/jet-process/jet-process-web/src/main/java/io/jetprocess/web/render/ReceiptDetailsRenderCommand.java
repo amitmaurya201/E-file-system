@@ -21,7 +21,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND }, service = MVCRenderCommand.class)
-public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderCommand{
+public class ReceiptDetailsRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
@@ -36,7 +36,7 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 		} catch (PortalException e) {
 			logger.info(e);
 		}	
-		return "/receipt/correspondence-receipt-detail.jsp";
+		return "/receipt/receipt-details.jsp";
 	}
 	
 	@Reference
@@ -45,6 +45,6 @@ public class CorrespondenceReceiptDetailRenderCommand implements MVCRenderComman
 	@Reference
 	private DocFileLocalService docFileLocalService;
 	
-	private static Log logger = LogFactoryUtil.getLog(CorrespondenceReceiptDetailRenderCommand.class);
+	private static Log logger = LogFactoryUtil.getLog(ReceiptDetailsRenderCommand.class);
 	
 }

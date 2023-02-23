@@ -15,10 +15,12 @@ public class FileCorrespondenceReceiptDTO {
 	private String nature;
 	private String correspondenceType;
 	private boolean isDetachable;
+
 	public FileCorrespondenceReceiptDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public FileCorrespondenceReceiptDTO(long receiptId, long receiptMovementId, String receiptNumber, String subject,
 			String category, Date createDate, String remark, String viewPdfUrl, String nature,
 			String correspondenceType, boolean isDetachable) {
@@ -35,72 +37,95 @@ public class FileCorrespondenceReceiptDTO {
 		this.correspondenceType = correspondenceType;
 		this.isDetachable = isDetachable;
 	}
+
 	public long getReceiptId() {
 		return receiptId;
 	}
+
 	public void setReceiptId(long receiptId) {
 		this.receiptId = receiptId;
 	}
+
 	public long getReceiptMovementId() {
 		return receiptMovementId;
 	}
+
 	public void setReceiptMovementId(long receiptMovementId) {
 		this.receiptMovementId = receiptMovementId;
 	}
+
 	public String getReceiptNumber() {
 		return receiptNumber;
 	}
+
 	public void setReceiptNumber(String receiptNumber) {
 		this.receiptNumber = receiptNumber;
 	}
+
 	public String getSubject() {
 		return subject;
 	}
+
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+
 	public String getCategory() {
 		return category;
 	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public Date getCreateDate() {
 		return createDate;
 	}
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
 	public String getRemark() {
 		return remark;
 	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
 	public String getViewPdfUrl() {
 		return viewPdfUrl;
 	}
+
 	public void setViewPdfUrl(String viewPdfUrl) {
 		this.viewPdfUrl = viewPdfUrl;
 	}
+
 	public String getNature() {
 		return nature;
 	}
+
 	public void setNature(String nature) {
 		this.nature = nature;
 	}
+
 	public String getCorrespondenceType() {
 		return correspondenceType;
 	}
+
 	public void setCorrespondenceType(String correspondenceType) {
 		this.correspondenceType = correspondenceType;
 	}
+
 	public boolean isDetachable() {
 		return isDetachable;
 	}
+
 	public void setDetachable(boolean isDetachable) {
 		this.isDetachable = isDetachable;
 	}
+
 	@Override
 	public String toString() {
 		return "FileCorrespondenceReceiptDTO [receiptId=" + receiptId + ", receiptMovementId=" + receiptMovementId
@@ -108,7 +133,5 @@ public class FileCorrespondenceReceiptDTO {
 				+ ", createDate=" + createDate + ", remark=" + remark + ", viewPdfUrl=" + viewPdfUrl + ", nature="
 				+ nature + ", correspondenceType=" + correspondenceType + ", isDetachable=" + isDetachable + "]";
 	}
-
-	
 
 }

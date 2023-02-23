@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -101,6 +100,6 @@ public class CorrespondencesInfoRenderCommand implements MVCRenderCommand {
 	@Reference
 	private ReceiptViewHelper receiptViewHelper;
 	
-	private static Log logger = LogFactoryUtil.getLog(CorrespondenceReceiptDetailRenderCommand.class);
+	private static Log logger = LogFactoryUtil.getLog(CorrespondencesInfoRenderCommand.class);
 
 }
