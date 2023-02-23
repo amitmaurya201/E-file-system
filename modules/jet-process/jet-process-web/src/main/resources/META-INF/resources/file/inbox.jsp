@@ -287,7 +287,7 @@ cursor: pointer;
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
-								value="<%=simpleformat.format(fileinboxDtoList.getSentOn())%>"
+								value="<%=DateFormate.getSimpleDate(fileinboxDtoList.getSentOn())%>"
 								name="label-file-inbox-senton" orderableProperty="sentOn"
 								orderable="true" />
 

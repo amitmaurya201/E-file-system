@@ -95,7 +95,7 @@
 
 				<liferay-ui:search-container-column-text orderableProperty="sentOn"
 					orderable="true"
-					value="<%=simpleformat.format(sentFileListDTO.getSentOn())%>"
+					value="<%=DateFormate.getSimpleDate(sentFileListDTO.getSentOn())%>"
 					name="Sent On" />
 				<liferay-ui:search-container-column-text
 					value="<%=sentFileListDTO.getCurrentlyWithUserName() != null

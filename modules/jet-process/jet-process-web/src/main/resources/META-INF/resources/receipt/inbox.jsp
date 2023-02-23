@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.core.util.DateFormate"%>
 <%@ include file="../init.jsp"%>
 <%
 	String backURL = themeDisplay.getURLCurrent();
@@ -194,14 +195,12 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text cssClass="bold"
-								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
+								value="<%=DateFormate.getSimpleDate(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" orderableProperty="sentOn"
 								orderable="true" />
 
 							<liferay-ui:search-container-column-text cssClass="bold"
-								value="<%=receiptMovementDTO.getDueDate() != null
-										? simpleFormat.format(receiptMovementDTO.getDueDate())
-										: ""%>"
+								value="<%=DateFormate.getSimpleDateAndTime(receiptMovementDTO.getDueDate())%>"
 								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
 								orderable="true" />
 
@@ -265,13 +264,11 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 							</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text
-								value="<%=simpleformat.format(receiptMovementDTO.getSentOn())%>"
+								value="<%=DateFormate.getSimpleDate(receiptMovementDTO.getSentOn())%>"
 								name="label-receipt-inbox-senton" orderableProperty="sentOn"
 								orderable="true" />
 							<liferay-ui:search-container-column-text
-								value="<%=receiptMovementDTO.getRemark() != null
-										? simpleFormat.format(receiptMovementDTO.getDueDate())
-										: ""%>"
+								value="<%=DateFormate.getSimpleDateAndTime(receiptMovementDTO.getDueDate())%>"
 								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
 								orderable="true" />
 
