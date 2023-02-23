@@ -1,5 +1,4 @@
 <%@ include file="../init.jsp"%>
-<%@page import="io.jetprocess.list.model.ClosedReceiptDTO"%>
 
 <portlet:renderURL var="receiptDetailsPopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">

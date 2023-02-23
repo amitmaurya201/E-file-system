@@ -67,7 +67,7 @@
 <%@page import="com.liferay.portal.kernel.json.JSONFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>
 <%@page import="io.jetprocess.list.model.NoteDTO"%>
-
+<%@page import="io.jetprocess.list.model.ClosedReceiptDTO"%>
 <!-- Includes -->
 <%@include file="/common/common.jsp"%>
 <!-- link element -->
