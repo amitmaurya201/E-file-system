@@ -37,8 +37,6 @@ public class FileSendRenderCommand implements MVCRenderCommand{
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
-	
 	renderRequest.setAttribute("fileId", fileId);
 	renderRequest.setAttribute("fileMovementId", fileMovementId);
 		return "/file/send-file.jsp";	

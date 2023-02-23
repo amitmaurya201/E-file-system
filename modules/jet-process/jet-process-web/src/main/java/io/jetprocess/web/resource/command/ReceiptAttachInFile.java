@@ -39,6 +39,7 @@ public class ReceiptAttachInFile implements MVCResourceCommand  {
 		long receiptMovementId = ParamUtil.getLong(resourceRequest, "receiptMovementId");
 		String remarks = ParamUtil.getString(resourceRequest, "remarks");
 		long fileMovementId = ParamUtil.getLong(resourceRequest, "fileMovementId");
+	
 		ReceiptMovement receiptMovement;
 		try {
 			receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);

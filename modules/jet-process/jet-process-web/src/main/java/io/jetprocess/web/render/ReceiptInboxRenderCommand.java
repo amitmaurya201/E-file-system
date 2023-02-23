@@ -17,7 +17,6 @@ import java.util.Map;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -28,6 +27,7 @@ import io.jetprocess.list.model.ReceiptMovementDTO;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.ReceiptInboxManagementToolbarDisplayContext;
+import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND }, service = MVCRenderCommand.class)
@@ -54,8 +54,7 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-		HttpSession session = themeDisplay.getRequest().getSession();
-		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");

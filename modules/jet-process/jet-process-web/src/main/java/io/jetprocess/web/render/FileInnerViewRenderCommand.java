@@ -2,7 +2,6 @@ package io.jetprocess.web.render;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -88,7 +87,6 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		int count = 0;
-		HttpSession session = themeDisplay.getRequest().getSession();
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
 		long fileId = docFileId;
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifiedDate");

@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -77,7 +76,6 @@ public class ReceiptMovementRenderCommand implements MVCRenderCommand {
 		long receiptMovementId = ParamUtil.getLong(renderRequest, "receiptMovementId", 0);
 
 		List<ReceiptMovementDTO> receiptMovementList = new ArrayList();
-		HttpSession session = themeDisplay.getRequest().getSession();
 
 		int count = receiptList.getReceiptMovementListCount(receiptMovementId, receiptId, "");
 		

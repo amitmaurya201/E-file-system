@@ -85,7 +85,7 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 
 	}	
 
-	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
+	private static Log logger = LogFactoryUtil.getLog(FileSentBoxRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;
 	@Reference

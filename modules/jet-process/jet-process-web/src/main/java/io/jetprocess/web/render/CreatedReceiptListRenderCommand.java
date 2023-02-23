@@ -29,6 +29,7 @@ import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.ReceiptManagementToolbarDisplayContext;
+import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND }, service = MVCRenderCommand.class)
@@ -49,10 +50,7 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-		HttpSession session = themeDisplay.getRequest().getSession();
-		long userPostId = Long.parseLong((String) session.getAttribute("userPostId"));
-		logger.info("user post id inside receipt render : --" + userPostId);
-		long userPost = userPostId;
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
@@ -88,5 +86,5 @@ public class CreatedReceiptListRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	ReceiptList _receiptList;
+	private ReceiptList _receiptList;
 }

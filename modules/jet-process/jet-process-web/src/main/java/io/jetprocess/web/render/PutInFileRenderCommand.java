@@ -75,9 +75,6 @@ public class PutInFileRenderCommand implements MVCRenderCommand {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
-		 
-		 
 		 int count =_fileList.getPutInFileReceiptCount(type,userPost, keywords);
 
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
