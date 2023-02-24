@@ -19,13 +19,12 @@ import java.util.Map;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.NoteDTO;
 import io.jetprocess.model.DocFile;
@@ -135,7 +134,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 	private Portal _portal;
 
 	@Reference
-	private FileList fileLists;
+	private FileListService fileLists;
 
 	@Reference
 	private NoteLocalService noteLocalService;

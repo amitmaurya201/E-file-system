@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.ReceiptList;
+import io.jetprocess.list.api.ReceiptListService;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.service.DocFileLocalService;
@@ -97,7 +97,7 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 	private Portal _portal;
 
 	@Reference
-	private ReceiptList _receiptList;
+	private ReceiptListService _receiptList;
 
 	@Reference
 	private DocFileLocalService docFileLocalService;

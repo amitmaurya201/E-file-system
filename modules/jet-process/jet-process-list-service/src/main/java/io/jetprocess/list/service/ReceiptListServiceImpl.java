@@ -13,15 +13,15 @@ import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
-import io.jetprocess.list.api.ReceiptList;
+import io.jetprocess.list.api.ReceiptListService;
 import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 
-@Component(immediate = true, service = ReceiptList.class)
-public class ReceiptListImpl implements ReceiptList {
+@Component(immediate = true, service = ReceiptListService.class)
+public class ReceiptListServiceImpl implements ReceiptListService {
 
-	private static Log logger = LogFactoryUtil.getLog(ReceiptListImpl.class);
+	private static Log logger = LogFactoryUtil.getLog(ReceiptListServiceImpl.class);
 	static Connection con = null;
 	static {
 		try {

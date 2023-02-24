@@ -11,16 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.osgi.service.component.annotations.Component;
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.list.model.NoteDTO;
 
-@Component(immediate = true, service = FileList.class)
-public class FileListImpl implements FileList {
+@Component(immediate = true, service = FileListService.class)
+public class FileListServiceImpl implements FileListService {
 
-	private static Log logger = LogFactoryUtil.getLog(FileListImpl.class);
+	private static Log logger = LogFactoryUtil.getLog(FileListServiceImpl.class);
 
 	
 	static Connection con = null;

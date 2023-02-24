@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
@@ -79,7 +79,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference
-	private FileList fileLists;
+	private FileListService fileLists;
 	private static Log logger = LogFactoryUtil.getLog(CreatedFileListRenderCommand.class);
 	@Reference
 	private MasterdataService masterData;

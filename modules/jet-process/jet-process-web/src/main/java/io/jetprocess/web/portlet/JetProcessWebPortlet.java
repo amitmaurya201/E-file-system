@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;

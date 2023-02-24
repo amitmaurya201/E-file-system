@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
@@ -93,6 +93,6 @@ public class FileSentBoxRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	private FileList _fileList;
+	private FileListService _fileList;
 
 }

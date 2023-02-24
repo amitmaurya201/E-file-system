@@ -24,7 +24,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.service.ReceiptLocalService;
@@ -101,7 +101,7 @@ public class PutInFileRenderCommand implements MVCRenderCommand {
 	private Portal _portal;
 
 	@Reference
-	private FileList _fileList;
+	private FileListService _fileList;
 	
 	@Reference
 	private ReceiptLocalService receiptLocalService;
