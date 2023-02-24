@@ -32,7 +32,7 @@ public class ReceiptAttachInFileResourceCommand implements MVCResourceCommand  {
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
-		logger.info("Attaching receipt...");
+		logger.info("Attaching receipt..In File.");
 		long receiptId = ParamUtil.getLong(resourceRequest, "receiptId");
 		long docFileId = ParamUtil.getLong(resourceRequest, "docFileId");
 		long userPostId = ParamUtil.getLong(resourceRequest, "userPostId");
@@ -72,14 +72,10 @@ public class ReceiptAttachInFileResourceCommand implements MVCResourceCommand  {
 				logger.error("Rceipt is not attachable..");
 			}
 
-		} catch (PortalException e) {
+		} catch (PortalException |IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
+		}	
 		
 		return false;
 	}

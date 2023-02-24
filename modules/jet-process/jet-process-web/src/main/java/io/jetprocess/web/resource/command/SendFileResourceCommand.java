@@ -54,13 +54,10 @@ public class SendFileResourceCommand implements MVCResourceCommand {
 				out.println("This file already pullbacked");
 				out.flush();
 			}
-		} catch (PortalException e1) {
+		} catch (PortalException |IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return false;
 	}
 

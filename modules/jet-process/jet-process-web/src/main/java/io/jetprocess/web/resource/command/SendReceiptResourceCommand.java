@@ -42,16 +42,13 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 				SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
 				Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
 				String priority = ParamUtil.getString(resourceRequest, "priorty");
-				try {
+			
 					receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate,
 							remark);
 					resourceResponse.setContentType("text/html");
 					PrintWriter out = resourceResponse.getWriter();
 					out.println("Receipt send successfully");
 					out.flush();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			} else if (state == false) {
 				resourceResponse.setContentType("text/html");
 				PrintWriter out = resourceResponse.getWriter();
@@ -59,13 +56,10 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 				out.flush();
 
 			}
-		} catch (PortalException e1) {
+		} catch (PortalException |IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 
 		return false;
 	}
