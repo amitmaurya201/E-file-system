@@ -41,6 +41,7 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("docFileId", docFileId);
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		renderRequest.setAttribute("fileMovementId", fileMovementId);
+		
 		addFileToolbarAttributes(renderRequest, renderResponse);
 		addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";
@@ -53,28 +54,29 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
-		long userPost = UserPostUtil.getUserIdUsingSession(renderRequest);
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		String type = null;
+		String natureType = null;
 		try {
 			DocFile docfile = docFileLocalService.getDocFile(docFileId);
-			type = docfile.getNature();
+			natureType = docfile.getNature();
 
-			int count = _receiptList.getPutInFileListCount(type, userPost, keywords);
+			int count = _receiptList.getPutInFileListCount(natureType, userPostId, keywords);
 
 			Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 			start = paginationConfig.get("start");
 			currentPage = paginationConfig.get("currentPage");
-			List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(type, userPost, keywords, start, end,
+			List<ReceiptListViewDto> receiptList = _receiptList.getPutInFileList(natureType, userPostId, keywords, start, end,
 					"", "");
 			receiptList.forEach(c -> logger.info(
 					c.getReceiptId() + ", : " + c.isRead() + ", : file movement id :  " + c.getReceiptMovementId()));
 			renderRequest.setAttribute("receiptFileList", receiptList);
 			renderRequest.setAttribute("delta", delta);
 			renderRequest.setAttribute("receiptCount", +count);
+			renderRequest.setAttribute("userPostId", userPostId);
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
