@@ -35,22 +35,16 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 		boolean state;
 		try {
 			state = fileMovementLocalService.saveReceiveMovement(fileId, fmId);
-
 			if (state == false) {
 				SessionErrors.add(actionRequest, "receive-not-available");
 				SessionMessages.add(actionRequest,
 						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-			}
-			try {
 				actionResponse.sendRedirect(url);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (PortalException e) {
+			}			
+		} catch (PortalException |IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return false;
 	}
 

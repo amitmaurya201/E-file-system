@@ -31,10 +31,8 @@ public class CreateFileListActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 
-		// For the second time when user post is changed get attribute value from ajax
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		HttpSession httpSession = themeDisplay.getRequest().getSession();
-		//HttpSession httpSession = PortalUtil.getHttpServletRequest(actionRequest).getSession();
 		String userPostId = ParamUtil.getString(actionRequest, "userPostId");
 		logger.info("Changed User Post is : "+userPostId);
 		if (userPostId == null || userPostId.isEmpty() || userPostId.equals("")) {
