@@ -27,7 +27,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 @Component(property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 "mvc.command.name="+MVCCommandNames.ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND }, service = MVCResourceCommand.class)
-public class ReceiptAttachInFile implements MVCResourceCommand  {
+public class ReceiptAttachInFileResourceCommand implements MVCResourceCommand  {
 
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
@@ -84,6 +84,7 @@ public class ReceiptAttachInFile implements MVCResourceCommand  {
 		return false;
 	}
 
+	
 	@Reference
 	private FileCorrReceiptLocalService fileCorrReceiptLocalService;
 	
