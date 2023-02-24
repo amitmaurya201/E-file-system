@@ -44,20 +44,14 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	public Note addNote(String content, long createdBy, long fileId, long noteId, long fileMovementId)
 			throws PortalException {
 		logger.info(" add note method called ");
-		System.out.println("content------------------>"+content+"fileId--"+fileId+"noteId---"+noteId+"fileMovementId---"+fileMovementId);
 		Note note = null;
 		if (content != null && !content.trim().isEmpty()) {
-			System.out.println("0");
 			if (noteId == 0) {
 				long generateNoteId = counterLocalService.increment(Note.class.getName());
 				note = createNote(generateNoteId);
-				System.out.println("1");
 				note.setNoteId(generateNoteId);
-				System.out.println("2");
 				note.setCreatedBy(createdBy);
-				System.out.println("3");
 				note.setContent(content);
-				System.out.println("4");
 				// set signatue in note
 				UserPost userPost = userPostLocalService.getUserPost(createdBy);
 				String userName = userPost.getUserName();
@@ -69,20 +63,15 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 				jsonObject.put("postMarking", postMarking);
 				jsonObject.put("section", section);
 				jsonObject.put("departmentName", departmentName);
-			
 				String signature = jsonObject.toString();
-				System.out.println("test============"+signature);
 				note.setSignature(signature);
 				noteLocalService.addNote(note);
-				
-				System.out.println("test============");
 				FileNote fileNote = fileNoteLocalService.createFileNote();
 				fileNote.setNoteId(generateNoteId);
 				fileNote.setFileMovementId(fileMovementId);
 				fileNote.setFileId(fileId);
 				fileNote.setMovementType(MovementStatus.CREATED);
 				fileNoteLocalService.addFileNote(fileNote);
-				System.out.println("test============");
 			} else {
 				note = getNote(noteId);
 				note.setContent(content);
@@ -104,13 +93,9 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 	public Note AddBlankNote(long fileId, long fileMovementId, long createdBy) throws PortalException {
 		long generateNoteId = counterLocalService.increment(Note.class.getName());
 		Note note = createNote(generateNoteId);
-		System.out.println("1");
 		note.setNoteId(generateNoteId);
-		System.out.println("2");
 		note.setCreatedBy(createdBy);
-		System.out.println("3");
 		note.setContent("");
-		System.out.println("4");
 		// set signatue in note
 		UserPost userPost = userPostLocalService.getUserPost(createdBy);
 		String userName = userPost.getUserName();
@@ -122,13 +107,9 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		jsonObject.put("postMarking", postMarking);
 		jsonObject.put("section", section);
 		jsonObject.put("departmentName", departmentName);
-	
 		String signature = jsonObject.toString();
-		System.out.println("test============"+signature);
 		note.setSignature(signature);
 		noteLocalService.addNote(note);
-		
-		System.out.println("test============");
 		FileNote fileNote = fileNoteLocalService.createFileNote();
 		fileNote.setNoteId(generateNoteId);
 		fileNote.setFileMovementId(fileMovementId);
