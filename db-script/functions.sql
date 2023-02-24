@@ -1523,7 +1523,6 @@ ALTER FUNCTION public.get_closed_receipt_list(bigint, text, integer, integer, te
 --    ************************************************** All Count ****************************** 
 
 -- ------------------- Get-file-created-list-count ----------------------------
-
 CREATE OR REPLACE FUNCTION public.get_file_created_list_count(
 	post_id bigint,
 	keyword text)
@@ -1534,27 +1533,23 @@ CREATE OR REPLACE FUNCTION public.get_file_created_list_count(
     SET search_path=admin, pg_temp
 AS $BODY$
 DECLARE total BIGINT;
-_query text;
+    _query text;
+    _keyword text;
 BEGIN
-total :=0;
-  
+    total :=0;
+    _keyword := '''%'||keyword||'%''';
+    _query :='Select  count(*)  FROM public.jet_process_docfile  
+            INNER JOIN public.md_category  
+            ON categorydataid = categoryid 
+            where currentstate = 1 AND userpostid ='|| post_id;
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
             IF  keyword IS NOT NULL  THEN
-   
-            Select  count(*) into total FROM public.jet_process_docfile  
-            INNER JOIN public.md_category  
-            ON categorydataid = categoryid 
-            where userpostid = post_id  AND  currentstate = 1 
-            AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
-            
+            EXECUTE _query ||' AND (filenumber ilike'|| _keyword  ||'OR subject ilike'|| _keyword ||' OR  categoryvalue ilike'|| _keyword || ')' INTO total ;       
             return total;
             END IF;
-             Select  count(*) into total FROM public.jet_process_docfile  
-            INNER JOIN public.md_category  
-            ON categorydataid = categoryid 
-            where userpostid = post_id  AND  currentstate = 1 ;
+             EXECUTE _query INTO total;
             RETURN total;
         END IF;
 
@@ -1581,38 +1576,23 @@ DECLARE total BIGINT;
 _query text;
 _keyword text;
 BEGIN
-total :=0;
-
-        IF _receiverid !=0 AND _receiverid IS NOT NULL THEN 
-            
-            
-            IF  keyword IS NOT NULL  THEN
-   
-           
-        SELECT count(*) into total
-		FROM PUBLIC.jet_process_filemovement as fm 
-        Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
-		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
-		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
-		JOIN PUBLIC.masterdata_userpost as up2
-		ON fm.receiverid = up2.userpostid  
-	    where fm.receiverid = _receiverid AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
-            
-            return total;
-            END IF;
-                
-        SELECT count(*) into total
+    total :=0;
+    _keyword :='''%'||keyword||'%''';
+    _query :='SELECT count(*) 
 		FROM PUBLIC.jet_process_filemovement as fm 
         Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
 		  JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 		 JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		 JOIN PUBLIC.masterdata_userpost as up2
 		ON fm.receiverid = up2.userpostid 
-	    where fm.receiverid = _receiverid;
-
-			
-
-	    
+	    where  fm.pullbackremark is null AND fm.receiverid ='|| _receiverid;
+        IF _receiverid !=0 AND _receiverid IS NOT NULL THEN 
+            
+            IF  keyword IS NOT NULL  THEN
+                 EXECUTE _query|| ' AND  (f.filenumber ilike '||_keyword||' OR f.subject ilike '||_keyword||')' INTO total ;       
+                 return total;
+            END IF;
+                 EXECUTE _query INTO total;
             RETURN total;
         END IF;
 
@@ -1624,10 +1604,6 @@ ALTER FUNCTION public.get_file_inbox_lists_count(bigint, text)
     OWNER TO postgres;
 
 --------------- Get-put-in-file-list-count----------------------------------
-
--- FUNCTION: public.get_put_in_file_list_count(text, bigint, text)
-
--- DROP FUNCTION IF EXISTS public.get_put_in_file_list_count(text, bigint, text);
 
 CREATE OR REPLACE FUNCTION public.get_put_in_file_list_count(
 	_type text,
@@ -1643,10 +1619,17 @@ DECLARE
 total BIGINT;
 _query text;
 _nature text;
+_keyword text;
 BEGIN
     total :=0;
     _nature :='';
-        
+    _keyword :='''%'||keyword||'%''';
+    _query :='SELECT COUNT(*) 
+              from public.jet_process_receipt as r 
+              inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
+              inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
+              where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
+              and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith='||user_post_id;
         IF (_type ='Electronic') THEN
                 _nature :=' AND f.nature = ''Electronic'' ';
         END IF;
@@ -1657,43 +1640,20 @@ BEGIN
             IF  keyword !='' AND keyword IS NOT NULL  THEN
                 IF(_type ='Electronic' ) THEN
                  
-                    SELECT COUNT(*) INTO total
-                    from public.jet_process_receipt as r 
-                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id AND f.nature = 'Electronic'   AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+                    EXECUTE _query||' AND r.nature = ''Electronic''  AND f.nature = ''Electronic''   AND (r.receiptnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
                    return total;
             ELSE
-                
-                
-                    SELECT COUNT(*) INTO total
-                    from public.jet_process_receipt as r 
-                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id   AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+                    EXECUTE _query|| ' AND (r.receiptnumber ilike '||_keyword||' OR r.subject ilike '||_keyword||')' INTO total;
                    return total;
                END IF;   
             END IF;
                 
                 IF(_type ='Electronic' ) THEN
-                 
-                    SELECT COUNT(*) INTO total
-                    from public.jet_process_receipt as r 
-                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id AND f.nature = 'Electronic' ;
+                    EXECUTE _query||' AND r.nature = ''Electronic''   AND (r.receiptnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
                    return total;
-            ELSE
+                ELSE
                 
-                    SELECT COUNT(*) INTO total
-                    from public.jet_process_receipt as r 
-                    inner join public.md_category as c on r.receiptcategoryid = c.categorydataid
-                    inner join public.jet_process_receiptmovement rmt on r.receiptid = rmt.receiptid 
-                    where rmt.rmid = (select max(rmid) from public.jet_process_receiptmovement where receiptid = r.receiptid AND pullbackremark IS NULL)
-                    and (rmt.movementtype = 1 OR rmt.movementtype=0) and r.attachstatus is null and r.currentstate != 3 AND r.currentlywith=user_post_id;
+                    EXECUTE _query INTO total;
                    return total;
                   END IF;
         END IF;
@@ -1723,31 +1683,25 @@ DECLARE total BIGINT;
 _query text;
 _keyword text;
 BEGIN
-total :=0;
-        
+        total :=0;
+        _keyword :='''%'||keyword||'%''';
+        _query :='SELECT count(*) 
+                    FROM PUBLIC.jet_process_filemovement as fm 
+                    JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+                    JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
+                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
+                    where currentstate = 2  AND fm.active_ = true  AND fm.pullbackremark is null  AND fm.senderid ='|| sender_id;
         IF sender_id !=0 AND sender_id IS NOT NULL THEN 
             
             
             IF  keyword IS NOT NULL  THEN
    
-					SELECT count(*) into total
-                    FROM PUBLIC.jet_process_filemovement as fm 
-                    JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
-                    JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
-                    JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
-                    where currentstate = 2  AND fm.active_ = true  AND fm.senderid = sender_id
-                    AND fm.pullbackremark is null AND  (f.filenumber ilike '%'||keyword||'%' OR f.subject ilike '%'||keyword||'%') ;       
+					
+                  EXECUTE _query|| ' AND  (f.filenumber ilike '||_keyword||' OR f.subject ilike '||_keyword||')' INTO total ;       
             
             return total;
             END IF;
-                SELECT count(*) into total
-                FROM PUBLIC.jet_process_filemovement as fm 
-                JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
-                JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid 
-                JOIN PUBLIC.masterdata_userpost as up2 ON f.currentlywith = up2.userpostid 
-                where currentstate = 2  AND fm.active_ = true  AND fm.senderid = sender_id;
-			
-
+                EXECUTE _query INTO total;
             RETURN total;
         END IF;
 
@@ -1757,7 +1711,6 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_sent_lists_count(bigint, text)
     OWNER TO postgres;
-
 
     
 
