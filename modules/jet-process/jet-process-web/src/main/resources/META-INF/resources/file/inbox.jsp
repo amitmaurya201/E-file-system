@@ -1,8 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%@page import="io.jetprocess.service.FileMovementLocalServiceUtil"%>
 <%
-	String backURL = themeDisplay.getURLCurrent();
-	String backURL1 = backURL + "&a=12";
+	String backURL1 = themeDisplay.getURLCurrent();
+	String backURL = backURL1 + "&a=12";
 %>
 
 
@@ -134,23 +134,14 @@ cursor: pointer;
 				className="io.jetprocess.list.model.FileMovementDTO"
 				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
 
-				<%-- <portlet:actionURL var="sendURL"
-					name="<%=MVCCommandNames.FILE_SEND_CHECKER_ACTION_COMMAND%>">
-					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
-					<portlet:param name="docFileId"
-						value="${fileinboxDtoList.getFileId()}" />
-					<portlet:param name="fileMovementId"
-						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-				</portlet:actionURL>
- --%>
+			
 				<portlet:actionURL var="fileReceiveAction"
 					name="<%=MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="fileId"
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="fileReadAction"
@@ -159,7 +150,7 @@ cursor: pointer;
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fmId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
@@ -168,7 +159,7 @@ cursor: pointer;
 						value="${fileinboxDtoList.getFileId()}" />
 					<portlet:param name="fileMovementId"
 						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 
 				</portlet:renderURL>
 				<c:choose>
@@ -237,9 +228,7 @@ cursor: pointer;
 								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-file-inbox-actions" align="center" cssClass="bold">
-										<%-- <span><a href="${sendURL}"> <liferay-ui:message
-													key="label-file-inbox-action-send" />
-										</a></span> --%>
+										
 										<a class="filesend" id="sendFile" name="sendFile"
 											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
 									</liferay-ui:search-container-column-text>
@@ -251,9 +240,7 @@ cursor: pointer;
 											onclick="receiveModal(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()} )">
 												<liferay-ui:message key="label-file-inbox-action-receive" />
 										</a></span>&nbsp;
-											<%-- <span><a href="${sendURL}"> <liferay-ui:message
-													key="label-file-inbox-action-send" />
-										</a></span> --%>
+										
 										<a class="filesend" id="sendFile" name="sendFile"
 											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
 									</liferay-ui:search-container-column-text>

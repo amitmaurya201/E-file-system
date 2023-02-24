@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.ReceiptList;
+import io.jetprocess.list.api.ReceiptListService;
 import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -75,7 +75,7 @@ public class ClosedReceiptListRenderCommand implements MVCRenderCommand {
 	private Log logger = LogFactoryUtil.getLog(ClosedReceiptListRenderCommand.class);
 
 	@Reference
-	private ReceiptList receiptList;
+	private ReceiptListService receiptList;
 
 	@Reference
 	private Portal portal;

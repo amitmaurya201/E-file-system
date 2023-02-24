@@ -7,7 +7,7 @@ import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.list.model.NoteDTO;
 
-public interface FileList {
+public interface FileListService {
 
 	public int getFileCreatedListCount(long userPostId, String keyword);
 

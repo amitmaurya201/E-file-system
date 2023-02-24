@@ -1,8 +1,8 @@
 
 <%@ include file="../init.jsp"%>
 <%
-	String backURL = themeDisplay.getURLCurrent();
-	String backURL1 = backURL + "&a=12";
+	String backURL1 = themeDisplay.getURLCurrent();
+	String backURL = backURL1 + "&a=12";
 %>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
@@ -104,8 +104,6 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 			searchContainerId="assignmentEntries"
 			managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}" />
 
-
-
 		<portlet:renderURL var="receiptSendURL"
 			windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 			<portlet:param name="mvcRenderCommandName"
@@ -121,13 +119,6 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				className="io.jetprocess.list.model.ReceiptMovementDTO"
 				keyProperty="receiptMovementId" modelVar="receiptMovementDTO">
 
-				<%-- <portlet:actionURL var="sendReceiptURL"
-					name="<%=MVCCommandNames.RECEIPT_SEND_CHECKER_ACTION_COMMAND%>">
-					<portlet:param name="userPostId" value="<%=selectedUserPostId%>" />
-					<portlet:param name="receiptId"
-						value="${receiptMovementDTO.getReceiptId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
-				</portlet:actionURL> --%>
 
 				<portlet:actionURL var="receiptReceiveAction"
 					name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND%>">
@@ -135,7 +126,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="receiptReadAction"
@@ -144,7 +135,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptDetails">
@@ -154,7 +145,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.getReceiptId()}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backURL1%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
 				</portlet:renderURL>
 				<c:choose>
 					<c:when
@@ -219,9 +210,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text cssClass="bold"
 										name="label-receipt-inbox-actions" align="center">
-										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
-													key="label-receipt-inbox-action-send" />
-										</a></span> --%>
+										
 										<a class="filesend" id="sendReceipt" name="sendReceipt"
 											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
 
@@ -288,9 +277,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
-													key="label-receipt-inbox-action-send" />
-										</a></span> --%>
+										
 										<a class="filesend" id="sendFile" name="sendFile"
 											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
 
@@ -299,9 +286,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								<c:otherwise>
 									<liferay-ui:search-container-column-text
 										name="label-receipt-inbox-actions" align="center">
-										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
-													key="label-receipt-inbox-action-send" />
-										</a></span> --%>
+										
 										<a class="filesend" id="sendFile" name="sendFile"
 											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
 
@@ -340,7 +325,6 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	<liferay-ui:error key="send-not-available"
 		message="receipt-send-inbox-error" />
 </div>
-
 
 <!-- Receive pop up -->
 <div id="receive" class="receive-popup">
@@ -509,15 +493,6 @@ function OpenSendPopUp(receiptId,receiptmovementId){
 		});
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </script>
 
 <!--end  -->

@@ -6,7 +6,7 @@ import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.list.model.ReceiptListViewDto;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 
-public interface ReceiptList {
+public interface ReceiptListService {
 
 	public int getReceiptListCount(long userpostId, String keyword);
 

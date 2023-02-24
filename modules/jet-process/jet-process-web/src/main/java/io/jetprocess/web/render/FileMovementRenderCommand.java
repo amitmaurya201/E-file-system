@@ -22,7 +22,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.FileList;
+import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileMovementDTO;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.model.DocFile;
@@ -101,7 +101,7 @@ public class FileMovementRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal portal;
 	@Reference
-	private FileList fileList;
+	private FileListService fileList;
 	@Reference
 	private DocFileLocalService docFileLocalService;
 

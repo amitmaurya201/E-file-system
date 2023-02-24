@@ -1,11 +1,8 @@
 <%@ include file="../init.jsp"%>
 <%
-	HttpSession userPostId = themeDisplay.getRequest().getSession();
-	String userPostsValue = (String) userPostId.getAttribute("userPostId");
+	long userPostsValue = (long) renderRequest.getAttribute("userPostId");
 	long docFileId = (Long) request.getAttribute("docFileId");
-	String redirectURL = themeDisplay.getURLCurrent();
-	String currentURL = (String) renderRequest.getAttribute("CurrentURL");
-	session.setAttribute("currentURL", currentURL);
+	String redirectURL = themeDisplay.getURLCurrent();	
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 %>
 

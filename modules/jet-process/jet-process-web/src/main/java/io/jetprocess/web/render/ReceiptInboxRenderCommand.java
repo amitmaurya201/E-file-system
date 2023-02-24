@@ -22,7 +22,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.core.util.Pagination;
-import io.jetprocess.list.api.ReceiptList;
+import io.jetprocess.list.api.ReceiptListService;
 import io.jetprocess.list.model.ReceiptMovementDTO;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -90,5 +90,5 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	@Reference
 	private Portal _portal;
 	@Reference
-	private ReceiptList _receiptList;
+	private ReceiptListService _receiptList;
 }
