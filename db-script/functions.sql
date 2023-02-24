@@ -78,15 +78,15 @@ AS $BODY$
        _order text :='desc';
     begin
       
-      _keyword := '''%'||keyword||'%''';
-      _query := 'Select fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
+_keyword := '''%'||keyword||'%''';
+_query := 'Select fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
                         f.remarks as remark,f.createdate as createdon ,  f.nature as nature, fn.filemovementid is not null as hasNote
-                        FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
+     					FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
                         ON c.categorydataid = f.categoryid
                         INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid
 						left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid
 						where fm.movementtype=0 AND currentstate = 1';
-        IF (_start <0 OR _start IS NULL) THEN
+  IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;
         ELSE
             _offset :=_start; 
@@ -1726,31 +1726,26 @@ CREATE OR REPLACE FUNCTION public.get_file_movement_list_count(
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
     SET search_path=admin, pg_temp
 AS $BODY$
-DECLARE total BIGINT;
-_query text;
+DECLARE 
+     total BIGINT;
+    _query text;
 BEGIN
-total :=0;
+    total :=0;
+    _query :='SELECT count(*) 
+            FROM PUBLIC.jet_process_filemovement as fm 
+            left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
+            left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
+            left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE  fm.movementtype != 0 AND fm.active_ = true AND fm.fileId ='|| file_id ||'AND fm.fmid <='|| filemovement_id;
   	 IF file_id !=0 AND file_id IS NOT NULL THEN 
-            
-            
             IF  keyword !='' AND keyword IS NOT NULL  THEN
-   
-           SELECT count(*) into total
-	FROM PUBLIC.jet_process_filemovement as fm 
-	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
-	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 AND fm.active_ = true
-            AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
-            
-            return total;
+             
+                EXECUTE _query ||' AND (filenumber ilike '||_keyword||' OR subject ilike '||_keyword||' OR  categoryvalue ilike '||_keyword||')' INTO total ;       
+
+                RETURN total;
             END IF;
-     SELECT count(*) into total
-	FROM PUBLIC.jet_process_filemovement as fm 
-	left outer JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
-	left outer JOIN PUBLIC.masterdata_userpost as up1 ON fm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON fm.senderid = up2.userpostid WHERE fm.fileId = file_id AND fm.fmid <= filemovement_id AND fm.movementtype != 0 AND fm.active_ = true ;
-       RETURN total;
-        END IF;
+                EXECUTE _query INTO total;
+            RETURN total;
+            END IF;
 
         RETURN total;
 END;
@@ -1773,36 +1768,30 @@ CREATE OR REPLACE FUNCTION public.get_receipt_movement_list_count(
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
     SET search_path=admin, pg_temp
 AS $BODY$
-DECLARE total BIGINT;
+DECLARE 
+total BIGINT;
 _query text;
+_keyword text;
 BEGIN
-total :=0;      
-      
-        
-        IF receipt_id !=0 AND receipt_id IS NOT NULL THEN 
-            
-            
-            IF  keyword !='' AND keyword IS NOT NULL  THEN
-   
-            
- SELECT 
-	count(*) into total
-	FROM PUBLIC.jet_process_receiptmovement as rm 
-	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-    left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0 AND active_ = true
-     AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
-            
-            return total;
-            END IF;
-             
-            SELECT 
-            count(*) into total
+    total :=0;   
+    _keyword := '''%'||keyword||'%''';
+    _query :='SELECT COUNT(*)
             FROM PUBLIC.jet_process_receiptmovement as rm 
             left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
             left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
             left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-            WHERE  rm.receiptid =receipt_id AND rm.rmid <= receiptmovement_id AND rm.movementtype != 0 AND active_ = true;
+            WHERE  rm.movementtype != 0 AND active_ = true AND rm.receiptid ='||receipt_id ||'AND rm.rmid <='|| receiptmovement_id; 
+        
+        IF receipt_id !=0 AND receipt_id IS NOT NULL THEN 
+            
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
+   
+             EXECUTE _query|| '  AND (filenumber ilike '||_keyword||' OR subject ilike '||_keyword||' OR  categoryvalue ilike '||keyword||')' INTO total ;       
+            
+            return total;
+            END IF;
+             EXECUTE _query INTO total;
+            
             RETURN total;
         END IF;
 
@@ -1812,6 +1801,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_receipt_movement_list_count(bigint, bigint, text)
     OWNER TO postgres;
+    
     
     
         
@@ -1836,22 +1826,21 @@ AS $BODY$
       begin
 
         total :=0;
-
+        _keyword :='''%'||keyword||'%''';
+        _query :='SELECT count(*)  FROM public.jet_process_receipt INNER JOIN 
+            public.md_category  ON categorydataid = receiptcategoryid where  currentstate = 1 AND attachstatus IS NULL AND userpostid ='|| post_id;
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
             IF  keyword IS NOT NULL  THEN
    
-            SELECT count(*) into total FROM public.jet_process_receipt INNER JOIN 
-        public.md_category  ON categorydataid = receiptcategoryid where userpostid = post_id 
-        AND currentstate = 1 AND attachstatus IS NULL AND  
-        (receiptnumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR categoryvalue ilike '%'||keyword||'%') ;       
+             
+          
+        	EXECUTE _query ||' AND (receiptnumber ilike '||_keyword||' OR subject ilike '||_keyword||' OR categoryvalue ilike '||_keyword||')' INTO total ;       
             
             return total;
             END IF;
-                SELECT count(*) into total FROM public.jet_process_receipt INNER JOIN 
-        public.md_category  ON categorydataid = receiptcategoryid where userpostid = post_id 
-        AND currentstate = 1 AND attachstatus IS NULL;
+                EXECUTE _query INTO total;
             RETURN total;
         END IF;
 
@@ -1868,7 +1857,7 @@ ALTER FUNCTION public.get_receipt_created_list_count(bigint, text)
 --    ------------------------------------- Get Receipt Inbox List Count -------------------------------------------
 
     
-   CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list_count(
+ CREATE OR REPLACE FUNCTION public.get_receipt_inbox_list_count(
 	post_id bigint,
 	keyword text
 	)
@@ -1887,33 +1876,23 @@ AS $BODY$
       begin
 
         total :=0;
-
+        _keyword :='''%'||keyword||'%''';
+        _query :='SELECT count(*) 
+                FROM PUBLIC.jet_process_receiptmovement as rm 
+                Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true AND movementtype !=2 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  
+                JOIN PUBLIC.jet_process_receipt AS r ON rm.receiptId = r.receiptId
+                JOIN PUBLIC.masterdata_userpost as up1 ON rm.senderid = up1.userpostid
+                JOIN PUBLIC.masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
+                where attachstatus is null AND rm.receiverid ='|| post_id;
         IF post_id !=0 AND post_id IS NOT NULL THEN 
-            
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
    
-            SELECT count(*) into total
-	FROM PUBLIC.jet_process_receiptmovement as rm 
-    
-    Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true AND movementtype !=2 group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  
-    
-	JOIN PUBLIC.jet_process_receipt AS r ON rm.receiptId = r.receiptId
-	JOIN PUBLIC.masterdata_userpost as up1 ON rm.senderid = up1.userpostid
-	JOIN PUBLIC.masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
-    where rm.receiverid = post_id and r.attachstatus is null AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
+             EXECUTE _query || ' AND r (r.receiptnumber ilike '||_keyword||' OR r.subject ilike '||_keyword||')' INTO total ;       
             
             return total;
             END IF;
-                SELECT count(*) into total
-	FROM PUBLIC.jet_process_receiptmovement as rm 
-    
-    Join (select max(mov.rmid) as mreceiptId from PUBLIC.jet_process_receiptmovement mov where mov.active_ = true group by mov.receiptId) rmov on rmov.mreceiptId = rm.rmid  
-    
-	JOIN PUBLIC.jet_process_receipt AS r ON rm.receiptId = r.receiptId
-	JOIN PUBLIC.masterdata_userpost as up1 ON rm.senderid = up1.userpostid
-	JOIN PUBLIC.masterdata_userpost as up2 ON rm.receiverid = up2.userpostid 
-    where rm.receiverid = post_id and r.attachstatus is null;
+               EXECUTE _query INTO total;
             RETURN total;
         END IF;
 
@@ -1937,7 +1916,7 @@ ALTER FUNCTION public.get_receipt_inbox_list_count(bigint,text)
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
     SET search_path=admin, pg_temp
-AS $BODY$
+	AS $BODY$
   
       declare
       _query text;
@@ -1955,17 +1934,16 @@ AS $BODY$
    
                  SELECT count(*) into total
                  FROM PUBLIC.jet_process_receiptmovement as rm 
-		JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-		JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
-                                    
+				JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+				JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
+		        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
             return total; 
             END IF;
                 SELECT count(*) into total
 		        FROM PUBLIC.jet_process_receiptmovement as rm 
-		JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-		JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id;
+				JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+				JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
+		        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id;
             RETURN total;
         END IF;
 

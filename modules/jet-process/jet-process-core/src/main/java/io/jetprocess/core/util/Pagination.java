@@ -11,8 +11,11 @@ public class Pagination {
 		Map<String, Integer> config = new HashMap<>();
 		if (delta * (currPage - 1) > count) {
 			currPage = getCurrentPage(currPage, delta, count);
+			start = delta * (currPage - 1);
 		} 
-		start = delta * (currPage - 1);
+		if(start == count){
+			start=0;
+		}
 		config.put("currentPage", currPage);
 		config.put("start", start);
 		return config;
