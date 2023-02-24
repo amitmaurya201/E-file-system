@@ -1,5 +1,9 @@
 package io.jetprocess.list.model;
 
+import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+
 import java.util.Date;
 
 public class NoteDTO {
@@ -23,6 +27,11 @@ public class NoteDTO {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
+
+	public String getSignature(String field) throws JSONException {
+		 JSONObject  object = JSONFactoryUtil.createJSONObject(getSignature()); 
+		 return object.getString(field); 
+	  }
 
 	public Date getCreateDate() {
 		return createDate;

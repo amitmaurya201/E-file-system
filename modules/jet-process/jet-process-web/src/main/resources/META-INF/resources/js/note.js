@@ -1,6 +1,10 @@
 
 <aui:script>
 
+$("#ShowAndHideDetachModalPopup").hide();
+$("#detach-conformation").on('click', function(){
+	$("#ShowAndHideDetachModalPopup").show();
+});
 $( ".control-label" ).remove();
 var contentOnchange=" ";
 var noteContent = `${noteContent}`;
@@ -14,8 +18,6 @@ function openNote() {
 	const notes = document.getElementById("notes");
 	notes.style.display = "block";
 }
-
-
 function openGreenNote() {
 	const notes = document.getElementById("notes");
 	const note = document.getElementById("note");
@@ -36,6 +38,7 @@ function openGreenNote() {
  
  var userPostId = $('#<portlet:namespace />userPostsVal').val();
  $("#deleteNote").on('click', function(e){
+
 		var noteId = $('#noteId').val();
 		$.ajax({
 			type:"POST",
@@ -59,6 +62,8 @@ function openGreenNote() {
 			title: " Oops!",  
 			text: "Something went wrong!",  
 			icon: "error",
+		}).then(function(){
+			window.location.reload(true);
 		})
 	 })
 });

@@ -1,8 +1,6 @@
 <%@ taglib uri="http://liferay.com/tld/editor" prefix="liferay-editor" %>
 <liferay-editor:resources editorName="ckeditor" />
 <%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
-<%-- <liferay-ui:input-editor  initMethod="initEditor" width="100" height="400" resizable="true" toolbarSet="liferay-article" editorImpl="<%=EDITOR_WYSIWYG_IMPL_KEY%>" />
-<aui:input name="editorContent" type="text"> --%>
 
 <style>
 .saveButton {
@@ -26,7 +24,7 @@
 }
 </style>
 <!-- Modal -->
-<div class="modal fade bd-example-modal-sm"  tabindex="-1" role="dialog"
+<div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -70,7 +68,7 @@
 		<div id="editor" style="display: none;">
 			<div id = "editor-head">
 				<button id="removeNote" type="button" class="deleteButton"
-					data-toggle="modal" data-target=".bd-example-modal-sm">
+					data-toggle="modal" data-target="#exampleModal">
 					<i class="fa fa-trash"></i>
 				</button>
 				<c:if test="${not empty fileNote.noteId }">
@@ -93,36 +91,22 @@
 			</c:if>
 		</div>
 	</aui:form>
-		<% List<NoteDTO> note =(List <NoteDTO>)request.getAttribute("noteList");
-		if(note!=null){
-			int i = 1;
-			for(NoteDTO noteDTO : note){
-				JSONObject object = JSONFactoryUtil.createJSONObject(noteDTO.getSignature());
-				%>
-		<div style="height: auto; padding: 0px 10px; border-color: gray; box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
-		<b><liferay-ui:message key="label-add-note-note" /> # <%=i%></b>
-		<div class="container">
-			<%=noteDTO.getContent()%>
-		</div>
-		<div class="mt-1">
-			<c:set var="now" value="<%=noteDTO.getCreateDate()%>" />
-			<fmt:formatDate type="both" pattern="dd/MM/yyyy  hh:mm aa"
-				timeZone="Asia/Calcutta" value="${now}" />
-			<span style="float: right;"> <%=object.get("userName")%></span>
+	<!-- -------------------------Note List------------------------ -->
+	<c:forEach items = "${noteList}" var ="note" varStatus="theCount" >
+		<div style="height:auto; border-color: gray;  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 0px 0 rgba(0, 0, 0, 0.10);">
+			<b><liferay-ui:message key="label-add-note-note" /> # </b><c:out value = "${theCount.count }"></c:out>
+			<div class="container">${note.content}</div>
+		 <div class="mt-1">
+			<c:set var="now" value="${note.getCreateDate()}" />
+			<fmt:formatDate type="both" pattern="dd/MM/yyyy  hh:mm aa" timeZone="Asia/Calcutta" value="${now}" />
+			<span style="float: right;"> ${note.getSignature("userName")}</span>
 			<p style="text-align: right;">
-				<span><%=object.get("departmentName")%></span> <span><%=object.get("postMarking")%></span>
+				<span>${note.getSignature("departmentName")}(${note.getSignature("postMarking")})${ note.getSignature("sectionName")}</span>
 			</p>
 		</div>
 	</div>
-	<%
-	i++;
-	} 
-			
-}
-	%>
+	</c:forEach>
 </div>	
-	
-<br>
 
 <%@ include file="/js/note.js"%>
 <script>

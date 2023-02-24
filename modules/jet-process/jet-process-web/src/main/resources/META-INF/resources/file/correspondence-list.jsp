@@ -186,7 +186,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 
 <button type="button" id="detach-conformation" class="btn btn-primary"
 	hidden data-toggle="modal" data-target="#modal"></button>
-
+<div id= "ShowAndHideDetachModalPopup">
 <div class="modal fade" id="modal" tabindex="-1"
 	aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -224,6 +224,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 
 		</div>
 	</div>
+</div>
 </div>
 
 <!-- ---------------------- succes message  ----------------------------->
