@@ -1,12 +1,10 @@
 package io.jetprocess.web.resource.command;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,9 +20,14 @@ import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-
-		"mvc.command.name=" + MVCCommandNames.RECEIPT_SEND_RESOURCE_COMMAND }, service = MVCResourceCommand.class)
+@Component(
+		immediate = true, 
+		property = { 
+				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+				"mvc.command.name=" + MVCCommandNames.RECEIPT_SEND_RESOURCE_COMMAND 
+				}, 
+		service = MVCResourceCommand.class
+)
 public class SendReceiptResourceCommand implements MVCResourceCommand {
 
 	@Override
@@ -38,33 +41,28 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 		String remark = ParamUtil.getString(resourceRequest, "remark");
 		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
 		Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
-		String priority = ParamUtil.getString(resourceRequest, "priorty");		
+		String priority = ParamUtil.getString(resourceRequest, "priorty");
+		boolean state =false;
 		try {
 			resourceResponse.setContentType("text/html");
 			PrintWriter out = resourceResponse.getWriter();
-			boolean state = receiptMovementLocalService.pullBackedAlready(receiptMovementId);
+			state = receiptMovementLocalService.pullBackedAlready(receiptMovementId);
 			if (state == true) {
-			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate,
-							remark);					
-        	out.println("Receipt send successfully");					
-					
-		   	}
-			else {
+				receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
+				out.println("Receipt send successfully");
+			} else {
 				out.println("This receipt already pullbacked");
-
 			}
-		
 			out.flush();
-		} catch (PortalException |IOException e) {
+		} catch (Exception e) {
 			logger.info(e);
-			
-		} 
-		return false;
+		}
+		return state;
 	}
 
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
-	
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }
