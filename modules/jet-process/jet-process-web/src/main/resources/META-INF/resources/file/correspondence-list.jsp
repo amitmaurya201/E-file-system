@@ -353,7 +353,7 @@ function receiptDetailPopup(receiptId){
 				            		   document.getElementById("successMsg").style.display="block";
 				   	           		setTimeout(function (){
 				   	           			parent.location.reload(); 
-				   	           		}, 5000)  
+				   	           		}, 1000)  
 				   	       	 	}
 				            	  
 				               }
