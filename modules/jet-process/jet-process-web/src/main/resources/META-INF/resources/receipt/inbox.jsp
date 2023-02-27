@@ -179,7 +179,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						name="label-receipt-inbox-senton" orderableProperty="sentOn"
 						orderable="true">
 						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-							timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
+							timeZone="Asia/Calcutta" value="${receiptMovementDTO.getSentOn()}" />
 					</liferay-ui:search-container-column-text>
 
 					<liferay-ui:search-container-column-text cssClass="bold"
@@ -198,12 +198,12 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					<c:choose>
 						<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 							<liferay-ui:search-container-column-text cssClass="bold"
-								name="label-receipt-inbox-senton" orderableProperty="sentOn"
-								orderable="true">
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-									timeZone="Asia/Calcutta"
-									value="${receiptMovementDTO.getSentOn()}" />
-							</liferay-ui:search-container-column-text>
+										name="label-receipt-inbox-actions" align="center">
+										
+										<a class="filesend" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+
+									</liferay-ui:search-container-column-text>
 
 						</c:when>
 						<c:otherwise>
