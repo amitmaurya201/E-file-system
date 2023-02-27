@@ -47,19 +47,15 @@ public class DocStoreImpl implements DocStore {
 		Folder currentMonthFolder = null;
 		if (!isMainFolderExits(groupId)) {
 			mainFolder = createMainFolder(groupId);
-			System.out.println("isMainFolderExits");
 		}
 		if (!isCurrentYearFolderExists(groupId)) {
-			System.out.println("test1");
 			List<Folder> mainFolders = DLAppServiceUtil.getFolders(groupId, parentFolderId);
 			for (Folder jetProcessFolder : mainFolders) {
 				currentYearFolder = createCurrentYearFolder(groupId, jetProcessFolder.getFolderId(), serviceContext);
 			}
 
-			System.out.println("isCurrentYearFolderExists");
 		}
 		if (!isCurrentMonthFolderExists(groupId)) {
-			System.out.println("test2");
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			String yearFolderName = String.valueOf(year);
@@ -75,20 +71,16 @@ public class DocStoreImpl implements DocStore {
 								currentMonthFolder.getFolderId(), title, mimeType, title, description, "", changeLog,
 								is, 0l, null, null, serviceContext);
 						documentAndMediaFileId = fileEntry.getFileEntryId();
-						System.out.println("isCurrentMonthFolderExists iffffffff");
 					}
 				}
 			}
 
 		} else {
-			System.out.println("test3");
 			long currentReqMonthFolder = getCurrentMonthFolder(groupId);
 			FileEntry fileEntry = DLAppServiceUtil.addFileEntry("", groupId, currentReqMonthFolder, title, mimeType,
 					title, description, "", changeLog, is, 0l, null, null, serviceContext);
 			documentAndMediaFileId = fileEntry.getFileEntryId();
-			System.out.println("isCurrentMonthFolderExists elseeeeeeee");
 		}
-		System.out.println(documentAndMediaFileId);
 
 		return documentAndMediaFileId;
 	}
@@ -157,7 +149,6 @@ public class DocStoreImpl implements DocStore {
 	private boolean isMainFolderExits(long groupId) throws PortalException {
 		boolean mainFolderExists = false;
 		List<Folder> mainFolder = DLAppServiceUtil.getFolders(groupId, parentFolderId);
-		System.out.println("mainFolder" + mainFolder);
 		if (!mainFolder.isEmpty()) {
 			mainFolderExists = true;
 		}
@@ -181,21 +172,16 @@ public class DocStoreImpl implements DocStore {
 		int year = cal.get(Calendar.YEAR);
 		String yearFolderName = String.valueOf(year);
 		List<Folder> mainFolders = DLAppServiceUtil.getFolders(groupId, parentFolderId);
-		System.out.println("mainFolders" + mainFolders);
 		for (Folder jetProcessFolder : mainFolders) {
 			long jetProcessFolderId = jetProcessFolder.getFolderId();
-			System.out.println(jetProcessFolder.getName());
 			List<Folder> yearFolderList = DLAppServiceUtil.getFolders(groupId, jetProcessFolderId);
-			System.out.println("yearFolderList" + yearFolderList);
 			for (Folder yearFolder : yearFolderList) {
 				if (yearFolder.getName().equals(yearFolderName)) {
-					System.out.println("true");
 					currentYearFolder = true;
 				}
 			}
 
 		}
-		System.out.println("currentYearFolder" + currentYearFolder);
 		return currentYearFolder;
 	}
 
@@ -221,11 +207,8 @@ public class DocStoreImpl implements DocStore {
 			for (Folder yearFolder : yearFolderList) {
 				long yearFolderId = yearFolder.getFolderId();
 				List<Folder> monthFolderList = DLAppServiceUtil.getFolders(groupId, yearFolderId);
-				System.out.println("monthFolderList" + monthFolderList);
 				for (Folder monthFolder : monthFolderList) {
-					System.out.println("month folderName" + monthFolder.getName());
 					if (monthFolder.getName().equals(monthFolderName)) {
-						System.out.println("true");
 						currentMonthFolder = true;
 					}
 				}
