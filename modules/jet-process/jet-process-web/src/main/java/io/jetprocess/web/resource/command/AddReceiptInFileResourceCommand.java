@@ -23,56 +23,53 @@ import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 
 @Component(property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=fileReceive" }, service = MVCResourceCommand.class)
-public class AddReceiptCorrespondence implements MVCResourceCommand {
+public class AddReceiptInFileResourceCommand implements MVCResourceCommand {
 
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 
-		logger.info("fileReceive.... Resource url ......");
+		logger.info("fileReceive.... ......");
 		long docFileId = ParamUtil.getLong(resourceRequest, "docfileId");
 		long fileMovementId = ParamUtil.getLong(resourceRequest, "filemovementId");
 		DocFile docfile = null;
+
 		try {
 			docfile = docfileLocalService.getDocFile(docFileId);
-		} catch (PortalException e) {
-			logger.info(e);
-		}
-		if (docfile.getNature().equalsIgnoreCase("Electronic")) {
-		
-			try {
-				boolean 	state = fileMovementLocalService.saveReadMovement(docFileId, fileMovementId);
-				if (state == false) {
-					SessionErrors.add(resourceRequest, "file-is-not-attachable");
-					SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest)
-							+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-				}
-			} catch (PortalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} else {
+
 			boolean state;
-			try {
+			if (docfile.getNature().equalsIgnoreCase("Electronic")) {
+
+				state = fileMovementLocalService.saveReadMovement(docFileId, fileMovementId);
+                      System.out.println("state-----"+state);
+				if (state == false) {
+					System.out.println("asasasasas----");
+					SessionErrors.add(resourceRequest, "file-is-not-attachable");
+					SessionMessages.add(resourceRequest,
+							PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+				System.out.println("chal raha h 1111111");
+				}
+			} else {
 				state = fileMovementLocalService.saveReceiveMovement(docFileId, fileMovementId);
 				if (state == false) {
-					SessionErrors.add(resourceRequest, "receive-not-available");
-					SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest)
-							+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					SessionErrors.add(resourceRequest, "file-is-not-attachable");
+					SessionMessages.add(resourceRequest,
+							PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					System.out.println("chal raha h 2222222");
+
 				}
-			} catch (PortalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			
+			} catch (PortalException e) {
+			logger.info(e);
 		}
+
 		return false;
 	}
 
+	
 	@Reference
 	private DocFileLocalService docfileLocalService;
-	
+
 	@Reference
 	private FileMovementLocalService fileMovementLocalService;
 
