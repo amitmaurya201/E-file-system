@@ -63,30 +63,27 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, Date dueDate, String remark)
 			throws PortalException {
 		logger.info("save send file ");
-		boolean active = true;
-		int currentState = FileStatus.IN_MOVEMENT;
-		long movementType = MovementStatus.NORMAL;
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
 		long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
-		FileMovement fm = fileMovementLocalService.getFileMovement(maxFmId);
-		if (fm.getReceivedOn().isEmpty() || fm.getReadOn().isEmpty()) {
+		FileMovement fileMovement = fileMovementLocalService.getFileMovement(maxFmId);
+		if (fileMovement.getReceivedOn().isEmpty() || fileMovement.getReadOn().isEmpty()) {
 			if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-				if (fm.getActive() == false) {
-					fm.setReadOn("");
+				if (fileMovement.getActive() == false) {
+					fileMovement.setReadOn("");
 				} else {
-					fm.setReadOn(FileConstants.READ);
+					fileMovement.setReadOn(FileConstants.READ);
 				}
 			} else if (docFile.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
-				if (fm.getActive() == false) {
-					fm.setReadOn("");
+				if (fileMovement.getActive() == false) {
+					fileMovement.setReadOn("");
 				} else {
-					fm.setReceivedOn(FileConstants.RECEIVE);
+					fileMovement.setReceivedOn(FileConstants.RECEIVE);
 				}
 			}
-			updateFileMovement(fm);
+			updateFileMovement(fileMovement);
 		}
 		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark,
-				active, currentState, movementType);
+				true, FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
 		receiptMovementAttachInFile(receiverId, senderId, fileId, docFile, saveFileMovement);
 
 		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
@@ -131,25 +128,25 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	}
 
 	// get Filemovement by fileMovementId
-	public FileMovement getFileMovementById(long fmId) throws PortalException {
-		FileMovement fileMovement = fileMovementLocalService.getFileMovement(fmId);
+	public FileMovement getFileMovementById(long fileMovementId) throws PortalException {
+		FileMovement fileMovement = fileMovementLocalService.getFileMovement(fileMovementId);
 		return fileMovement;
 	}
 
 	public FileMovement saveFileMovement(long receiverId, long senderId, long fileId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType) throws PortalException {
-		long fmId = counterLocalService.increment(FileMovement.class.getName());
-		FileMovement fm = fileMovementLocalService.createFileMovement(fmId);
-		fm.setFmId(fmId);
-		fm.setReceiverId(receiverId);
-		fm.setSenderId(senderId);
-		fm.setFileId(fileId);
-		fm.setRemark(remark);
-		fm.setPriority(priority);
-		fm.setDueDate(dueDate);
-		fm.setActive(active);
-		fm.setMovementType(movementType);
-		FileMovement fileMovement = fileMovementLocalService.addFileMovement(fm);
+		long fileMovementId = counterLocalService.increment(FileMovement.class.getName());
+		FileMovement fileMovement = fileMovementLocalService.createFileMovement(fileMovementId);
+		fileMovement.setFmId(fileMovementId);
+		fileMovement.setReceiverId(receiverId);
+		fileMovement.setSenderId(senderId);
+		fileMovement.setFileId(fileId);
+		fileMovement.setRemark(remark);
+		fileMovement.setPriority(priority);
+		fileMovement.setDueDate(dueDate);
+		fileMovement.setActive(active);
+		fileMovement.setMovementType(movementType);
+	    addFileMovement(fileMovement);
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
@@ -160,27 +157,27 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	}
 
 	// Create a method for check Is File able to Read or Received
-	public boolean pullBackedAlready(long fmId) throws PortalException {
-		FileMovement fileMovement = getFileMovement(fmId);
+	public boolean pullBackedAlready(long fileMovementId) throws PortalException {
+		FileMovement fileMovement = getFileMovement(fileMovementId);
 		boolean state = fileMovement.getActive();
 		return state;
 	}
 
 	// for pullBack is available
-	public Boolean isPullBackAvailable(long fmId) throws PortalException {
+	public Boolean isPullBackAvailable(long fileMovementId) throws PortalException {
 		boolean pullable = false;
-		FileMovement fileMovement = getFileMovementById(fmId);
+		FileMovement fileMovement = getFileMovementById(fileMovementId);
 		if ((fileMovement.getReceivedOn().isEmpty()) && (fileMovement.getReadOn().isEmpty())) {
 			pullable = true;
 		}
 		return pullable;
 	}
 
-	public boolean saveReadMovement(long fileId, long fmId) throws PortalException {
+	public boolean saveReadMovement(long fileId, long fileMovementId) throws PortalException {
 		boolean state = false;
-		state = fileMovementLocalService.pullBackedAlready(fmId);
+		state = fileMovementLocalService.pullBackedAlready(fileMovementId);
 		if (state == true) {
-			FileMovement fileMovement = getFileMovement(fmId);
+			FileMovement fileMovement = getFileMovement(fileMovementId);
 			if (fileMovement.getReadOn().isEmpty() || Validator.isNull(fileMovement.getReadOn())) {
 				fileMovement.setReadOn("read");
 				updateFileMovement(fileMovement);
@@ -191,11 +188,11 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 
 	}
 
-	public boolean saveReceiveMovement(long fileId, long fmId) throws PortalException {
+	public boolean saveReceiveMovement(long fileId, long fileMovementId) throws PortalException {
 		boolean state = false;
-		state = fileMovementLocalService.pullBackedAlready(fmId);
+		state = fileMovementLocalService.pullBackedAlready(fileMovementId);
 		if (state == true) {
-			FileMovement fileMovement = getFileMovement(fmId);
+			FileMovement fileMovement = getFileMovement(fileMovementId);
 			if (fileMovement.getReceivedOn().isEmpty() || Validator.isNull(fileMovement.getReceivedOn())) {
 				fileMovement.setReceivedOn("receive");
 				updateFileMovement(fileMovement);
