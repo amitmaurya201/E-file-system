@@ -189,7 +189,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 								name="label-receipt-inbox-senton" orderableProperty="sentOn"
 								orderable="true" >
 								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-						timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
+						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getSentOn()}" />
 								</liferay-ui:search-container-column-text>
 
 							<liferay-ui:search-container-column-text cssClass="bold"
