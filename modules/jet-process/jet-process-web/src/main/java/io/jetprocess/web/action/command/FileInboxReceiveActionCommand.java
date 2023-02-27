@@ -1,3 +1,4 @@
+
 package io.jetprocess.web.action.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -39,12 +40,14 @@ public class FileInboxReceiveActionCommand implements MVCActionCommand {
 				SessionErrors.add(actionRequest, "receive-not-available");
 				SessionMessages.add(actionRequest,
 						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-				actionResponse.sendRedirect(url);
+				
 			}			
+			actionResponse.sendRedirect(url);
 		} catch (PortalException |IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		
 		return false;
 	}
 
