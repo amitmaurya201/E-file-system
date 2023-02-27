@@ -35,11 +35,11 @@ public class NoteLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Note AddBlankNote(
+	public io.jetprocess.model.Note addBlankNote(
 			long fileId, long fileMovementId, long createdBy)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteLocalService.AddBlankNote(
+		return _noteLocalService.addBlankNote(
 			fileId, fileMovementId, createdBy);
 	}
 

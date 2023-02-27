@@ -45,11 +45,11 @@ public class NoteLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static Note AddBlankNote(
+	public static Note addBlankNote(
 			long fileId, long fileMovementId, long createdBy)
 		throws PortalException {
 
-		return getService().AddBlankNote(fileId, fileMovementId, createdBy);
+		return getService().addBlankNote(fileId, fileMovementId, createdBy);
 	}
 
 	/**
