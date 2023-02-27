@@ -181,29 +181,29 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		boolean state = false;
 		state = fileMovementLocalService.pullBackedAlready(fmId);
 		if (state == true) {
-			List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
-			for (FileMovement fileMovement2 : fileMovement) {
-				if (fileMovement2.getFileId() == fileId) {
-					fileMovement2.setReadOn("read");
-					fileMovementLocalService.updateFileMovement(fileMovement2);
-				}
+			FileMovement fileMovement = getFileMovement(fmId);
+			if (fileMovement.getReadOn().isEmpty() || Validator.isNull(fileMovement.getReadOn())) {
+				fileMovement.setReadOn("read");
+				updateFileMovement(fileMovement);
+
 			}
 		}
 		return state;
+
 	}
 
 	public boolean saveReceiveMovement(long fileId, long fmId) throws PortalException {
 		boolean state = false;
 		state = fileMovementLocalService.pullBackedAlready(fmId);
 		if (state == true) {
-			List<FileMovement> fileMovement = fileMovementLocalService.getFileMovementByFileId(fileId);
-			for (FileMovement fileMovement2 : fileMovement) {
-				if (fileMovement2.getFileId() == fileId) {
-					fileMovement2.setReceivedOn("receive");
-					fileMovementLocalService.updateFileMovement(fileMovement2);
-				}
+			FileMovement fileMovement = getFileMovement(fmId);
+			if (fileMovement.getReceivedOn().isEmpty() || Validator.isNull(fileMovement.getReceivedOn())) {
+				fileMovement.setReceivedOn("receive");
+				updateFileMovement(fileMovement);
+
 			}
 		}
+
 		return state;
 	}
 
@@ -221,6 +221,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 		return state;
 	}
+
 
 	@Reference
 	private DocFileLocalService docFileLocalService;
