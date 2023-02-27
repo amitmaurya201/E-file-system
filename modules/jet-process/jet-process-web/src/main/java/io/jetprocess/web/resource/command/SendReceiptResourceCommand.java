@@ -1,6 +1,8 @@
 package io.jetprocess.web.resource.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -30,41 +32,39 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 			throws PortletException {
 
 		long receiptMovementId = ParamUtil.getLong(resourceRequest, "receiptmovementId");
-
+		long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
+		long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
+		long receiptId = ParamUtil.get(resourceRequest, "receiptId", 0);
+		String remark = ParamUtil.getString(resourceRequest, "remark");
+		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
+		Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
+		String priority = ParamUtil.getString(resourceRequest, "priorty");		
 		try {
+			resourceResponse.setContentType("text/html");
+			PrintWriter out = resourceResponse.getWriter();
 			boolean state = receiptMovementLocalService.pullBackedAlready(receiptMovementId);
-
 			if (state == true) {
-				long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
-				long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
-				long receiptId = ParamUtil.get(resourceRequest, "receiptId", 0);
-				String remark = ParamUtil.getString(resourceRequest, "remark");
-				SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
-				Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
-				String priority = ParamUtil.getString(resourceRequest, "priorty");
-			
-					receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate,
-							remark);
-					resourceResponse.setContentType("text/html");
-					PrintWriter out = resourceResponse.getWriter();
-					out.println("Receipt send successfully");
-					out.flush();
-			} else if (state == false) {
-				resourceResponse.setContentType("text/html");
-				PrintWriter out = resourceResponse.getWriter();
+			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate,
+							remark);					
+        	out.println("Receipt send successfully");					
+					
+		   	}
+			else {
 				out.println("This receipt already pullbacked");
-				out.flush();
 
 			}
-		} catch (PortalException |IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		
+			out.flush();
+		} catch (PortalException |IOException e) {
+			logger.info(e);
+			
 		} 
-
 		return false;
 	}
 
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
+	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

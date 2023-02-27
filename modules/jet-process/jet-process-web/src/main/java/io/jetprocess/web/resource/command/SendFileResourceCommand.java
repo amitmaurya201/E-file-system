@@ -1,6 +1,8 @@
 package io.jetprocess.web.resource.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -29,38 +31,35 @@ public class SendFileResourceCommand implements MVCResourceCommand {
 			throws PortletException {
 
 		long fileMovementId = ParamUtil.getLong(resourceRequest, "fileMovementId");
+		long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
+		long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
+		long fileId = ParamUtil.get(resourceRequest, "fileId", 0);
+		String remark = ParamUtil.getString(resourceRequest, "remark");
+		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
+		Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
+		String priority = ParamUtil.getString(resourceRequest, "priorty");
 		try {
 			boolean state = fileMovementLocalService.pullBackedAlready(fileMovementId);
+			resourceResponse.setContentType("text/html");
+			PrintWriter out = resourceResponse.getWriter();
 			if (state == true) {
-				long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
-				long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
-				long fileId = ParamUtil.get(resourceRequest, "fileId", 0);
-				String remark = ParamUtil.getString(resourceRequest, "remark");
-				SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
-				Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
-				String priority = ParamUtil.getString(resourceRequest, "priorty");
-				try {
-					fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
-					resourceResponse.setContentType("text/html");
-					PrintWriter out = resourceResponse.getWriter();
-					out.println("File send successfully");
-					out.flush();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (state == false) {
-				resourceResponse.setContentType("text/html");
-				PrintWriter out = resourceResponse.getWriter();
-				out.println("This file already pullbacked");
-				out.flush();
+					fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);					
+					out.println("File send successfully");					
+				
+			} else  {
+				
+				out.println("This file is already pullbacked");			
 			}
-		} catch (PortalException |IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			out.flush();
+		} catch (PortalException |IOException e) {
+			logger.info(e);
+			
 		} 
 		return false;
 	}
 
 	@Reference
 	private FileMovementLocalService fileMovementLocalService;
+	
+	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }
