@@ -2201,53 +2201,41 @@ AS $BODY$
 DECLARE total BIGINT;
 _query text;
 _nature text;
+_keyword text; 
 BEGIN
         total :=0;
         _nature :='';
+        _keyword := '''%'||keyword||'%''';
+        _query :='SELECT COUNT(*) 
+                    from public.jet_process_docfile as f 
+                    inner join public.md_category as c on f.categoryid = c.categorydataid
+                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
+                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
+                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith='|| user_post_id ;
+        _keyword :='';
         IF (_type ='Physical') THEN
                 _nature :=' AND f.nature = ''Physical'' ';
         END IF;
         
         IF user_post_id !=0 AND user_post_id IS NOT NULL THEN 
             
-            
             IF  keyword !='' AND keyword IS NOT NULL  THEN
                    IF(_type ='Physical' ) THEN
                  
-                    SELECT COUNT(*) INTO total
-                    from public.jet_process_docfile as f 
-                    inner join public.md_category as c on f.categoryid = c.categorydataid
-                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
-                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id  AND f.nature = 'Physical'  AND (f.filenumber ilike '%'||keyword||'%'  OR f.subject ilike '%'||keyword||'%');
+                     EXECUTE _query ||' AND f.nature = ''Physical''  AND (f.filenumber ilike '||keyword||'  OR f.subject ilike '||keyword||')' INTO total;
                 return total; 
                 ELSE
-                     SELECT COUNT(*) INTO total
-                    from public.jet_process_docfile as f 
-                    inner join public.md_category as c on f.categoryid = c.categorydataid
-                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
-                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id AND (f.filenumber ilike '%'||keyword||'%'  OR f.subject ilike '%'||keyword||'%');
+                    EXECUTE _query||' AND (f.filenumber ilike '||_keyword||'  OR f.subject ilike '||_keyword||')' INTO total;
                     return total;
                 END IF;
                 
             END IF;
                IF(_type ='Physical' ) THEN
                  
-                    SELECT COUNT(*) INTO total
-                    from public.jet_process_docfile as f 
-                    inner join public.md_category as c on f.categoryid = c.categorydataid
-                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
-                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id  AND f.nature = 'Physical' ;
+                   EXECUTE _query ||' AND f.nature ='||'Physical' INTO total ;
                 return total; 
                 ELSE
-                     SELECT COUNT(*) INTO total
-                    from public.jet_process_docfile as f 
-                    inner join public.md_category as c on f.categoryid = c.categorydataid
-                    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
-                    where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith= user_post_id ;
+                    EXECUTE _query INTO total;
                     return total;
                 END IF;
         END IF;
@@ -2261,49 +2249,6 @@ ALTER FUNCTION public.get_receipt_attach_in_file_list_count(text,bigint, text)
     
  
    
-   ------------------------closed receipt list--------------------------
-   
-    
-CREATE OR REPLACE FUNCTION public.get_closed_receipt_list_count(
-	_closedby bigint,
-	keyword text)
-    RETURNS bigint
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-    SET search_path=admin, pg_temp
-AS $BODY$
-declare 
-    total bigint;
-begin
-    total := 0;
-    
-    IF _closedby != 0 AND _closedby IS NOT NULL THEN
-    
-        IF  keyword !='' AND keyword IS NOT NULL  THEN
-    
-            SELECT COUNT (*) INTO total
-            FROM PUBLIC.jet_process_receiptclosedetail as cr 
-            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby
-            AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
-            RETURN total;
-       
-       END IF;
-            
-            SELECT COUNT (*) INTO total
-            FROM PUBLIC.jet_process_receiptclosedetail as cr 
-            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby ;
-            RETURN total;
-       
-       END IF;
-  RETURN total;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
-    OWNER TO postgres;
 
    
 ------------------------closed receipt list--------------------------
@@ -2320,24 +2265,25 @@ CREATE OR REPLACE FUNCTION public.get_closed_receipt_list_count(
 AS $BODY$
 declare 
     total bigint;
+    _query text;
+    _keyword text;
 begin
     total := 0;
-    
+    _keyword :='''%'||keyword||'%''';
+    _query :='SELECT COUNT(*) 
+            FROM PUBLIC.jet_process_receiptclosedetail as cr 
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby ='|| _closedby;
     IF _closedby != 0 AND _closedby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
     
-            SELECT COUNT (*) INTO total
-            FROM PUBLIC.jet_process_receiptclosedetail as cr 
-            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby
-            AND (r.receiptnumber ilike '%'||keyword||'%'  OR r.subject ilike '%'||keyword||'%');
+            
+           EXECUTE _query||' AND (r.receiptnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
             RETURN total;
        
        END IF;
             
-            SELECT COUNT (*) INTO total
-            FROM PUBLIC.jet_process_receiptclosedetail as cr 
-            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby = _closedby ;
+            EXECUTE _query INTO total;
             RETURN total;
        
        END IF;
@@ -2349,8 +2295,5 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
     OWNER TO postgres;
-
     
-    
-    
-
+ 
