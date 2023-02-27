@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
 import java.util.List;
@@ -98,11 +99,11 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementPersistence.findByreceiptId(receiptId);
 	}
 
-	public boolean isPullBackAvailable(long rmId) {
+	public boolean isPullBackAvailable(long receiptMovementId) {
 		boolean pullable = false;
 		ReceiptMovement receiptMovement;
 		try {
-			receiptMovement = getReceiptMovement(rmId);
+			receiptMovement = getReceiptMovement(receiptMovementId);
 			if ((receiptMovement.getReceivedOn().isEmpty()) && (receiptMovement.getReadOn().isEmpty())) {
 				pullable = true;
 			}
@@ -152,10 +153,10 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return state;
 	}
 
-	public boolean pullBackedAlready(long rmId) throws PortalException {
+	public boolean pullBackedAlready(long receiptMovementId) throws PortalException {
 		logger.info("pull back already");
 		boolean state = false;
-		ReceiptMovement receiptMovement = getReceiptMovement(rmId);
+		ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
 		if (receiptMovement.getPullBackRemark().isEmpty()) {
 			state = true;
 		}
@@ -169,17 +170,15 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return receiptMovementList;
 	}
 
-	public boolean saveReadMovement(long receiptId, long rmId) {
+	public boolean saveReadMovement(long receiptId, long receiptMovementId) {
 		boolean state = false;
 		try {
-			state = pullBackedAlready(rmId);
+			state = pullBackedAlready(receiptMovementId);
 			if (state == true) {
-				List<ReceiptMovement> receiptMovement = getReceiptMovementByReceiptId(receiptId);
-				for (ReceiptMovement receiptMovement2 : receiptMovement) {
-					if (receiptMovement2.getReceiptId() == receiptId) {
-						receiptMovement2.setReadOn("read");
-						updateReceiptMovement(receiptMovement2);
-					}
+				ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
+				if(receiptMovement.getReadOn().isEmpty() || Validator.isNull(receiptMovement.getReadOn())) {
+					receiptMovement.setReadOn("read");
+					updateReceiptMovement(receiptMovement);
 				}
 			}
 		} catch (PortalException e) {
@@ -188,18 +187,17 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		return state;
 	}
 
-	public boolean saveReceiveMovement(long receiptId, long rmId) {
+	public boolean saveReceiveMovement(long receiptId, long receiptMovementId) {
 		boolean state = false;
 		try {
-			state = pullBackedAlready(rmId);
+			state = pullBackedAlready(receiptMovementId);
 			if (state == true) {
-				List<ReceiptMovement> receiptMovement = getReceiptMovementByReceiptId(receiptId);
-				for (ReceiptMovement receiptMovement2 : receiptMovement) {
-					if (receiptMovement2.getReceiptId() == receiptId) {
-						receiptMovement2.setReceivedOn("receive");
-						updateReceiptMovement(receiptMovement2);
-					}
+				ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
+				if(receiptMovement.getReceivedOn().isEmpty() || Validator.isNull(receiptMovement.getReceivedOn())) {
+					receiptMovement.setReceivedOn("receive");
+					updateReceiptMovement(receiptMovement);
 				}
+			
 			}
 		} catch (Exception e) {
 			logger.info(e.getMessage());

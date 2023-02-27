@@ -17,7 +17,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 }
 
 .lfr-search-container-wrapper a :not ( .component-action ) :not ( .btn ) {
-	color : #000000;
+    color : #000000;
 }
 .table thead th {
 	border-right: 1px solid white;
@@ -119,7 +119,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backPageURL%>"/>
+					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 
 				</portlet:actionURL>
 				<portlet:actionURL var="receiptReadAction"
@@ -128,7 +128,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backPageURL%>"/>
+					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptDetails">
@@ -198,9 +198,12 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					<c:choose>
 						<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 							<liferay-ui:search-container-column-text cssClass="bold"
-								name="label-receipt-inbox-actions" align="center">
-								<a class="filesend" id="sendReceipt" name="sendReceipt"
-									onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+								name="label-receipt-inbox-senton" orderableProperty="sentOn"
+								orderable="true">
+								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+									timeZone="Asia/Calcutta"
+									value="${receiptMovementDTO.getSentOn()}" />
+							</liferay-ui:search-container-column-text>
 
 							</liferay-ui:search-container-column-text>
 						</c:when>
