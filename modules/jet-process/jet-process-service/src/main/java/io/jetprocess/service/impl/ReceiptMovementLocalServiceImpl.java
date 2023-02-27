@@ -43,40 +43,37 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
 			String remark) throws PortalException {
-		boolean active = true;
-		int currentState =FileStatus.IN_MOVEMENT ;
-		long movementType = MovementStatus.NORMAL ;
-		long rmId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
-		ReceiptMovement rm = receiptMovementLocalService.getReceiptMovement(rmId);
-		if (rm.getReceivedOn().isEmpty() || rm.getReadOn().isEmpty()) {
+		long receiptMovementId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+		if (receiptMovement.getReceivedOn().isEmpty() || receiptMovement.getReadOn().isEmpty()) {
 			Receipt receipt = receiptLocalService.getReceipt(receiptId);
 			if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-				if (rm.getActive() == false) {
-					rm.setReadOn("");
+				if (receiptMovement.getActive() == false) {
+					receiptMovement.setReadOn("");
 				} else {
-					rm.setReadOn(FileConstants.READ);
+					receiptMovement.setReadOn(FileConstants.READ);
 				}
 			} else if (receipt.getNature().equals(FileConstants.PHYSICAL_NATURE)) {
-				if (rm.getActive() == false) {
-					rm.setReadOn("");
+				if (receiptMovement.getActive() == false) {
+					receiptMovement.setReadOn("");
 				} else {
-					rm.setReceivedOn(FileConstants.RECEIVE);
+					receiptMovement.setReceivedOn(FileConstants.RECEIVE);
 				}
 			}
-			updateReceiptMovement(rm);
+			updateReceiptMovement(receiptMovement);
 
 		}
-		saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark, active, currentState,
-				movementType);
+		saveReceiptMovement(receiverId, senderId, receiptId, priority, dueDate, remark, true, FileStatus.IN_MOVEMENT,
+				MovementStatus.NORMAL);
 	}
 
 	public ReceiptMovement saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType) {
-		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
+		long receiptMovementId = counterLocalService.increment(ReceiptMovement.class.getName());
 		ReceiptMovement receiptMovement = null;
 		try {
-			receiptMovement = createReceiptMovement(rmId);
-			receiptMovement.setRmId(rmId);
+			receiptMovement = createReceiptMovement(receiptMovementId);
+			receiptMovement.setRmId(receiptMovementId);
 			receiptMovement.setReceiverId(receiverId);
 			receiptMovement.setSenderId(senderId);
 			receiptMovement.setReceiptId(receiptId);
