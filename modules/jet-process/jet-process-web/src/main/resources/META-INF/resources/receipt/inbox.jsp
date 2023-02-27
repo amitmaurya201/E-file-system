@@ -1,17 +1,13 @@
-
 <%@ include file="../init.jsp"%>
 <%
-	String backURL1 = themeDisplay.getURLCurrent();
-	String backURL = backURL1 + "&a=12";
+	String currentURL = themeDisplay.getURLCurrent();
+	String backPageURL = currentURL + "&a=12";
 %>
 
-<liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="mvcPath" value="/receipt/inbox.jsp" />
-</liferay-portlet:renderURL>
-
 <style>
-html:not (#__ ):not (#___ ) .cadmin .modal-header, html:not (#__ ):not (#___
-	) .cadmin.modal-header {
+html:not (#__ ):not (#___ ) .cadmin .modal-header, html:not (#__ ):not 
+	 (#___
+	 ) .cadmin.modal-header {
 	background: #007bFF;
 	color: white;
 }
@@ -20,10 +16,9 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	color: white !important;
 }
 
-.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
-	color: #000000;
+.lfr-search-container-wrapper a :not ( .component-action ) :not ( .btn ) {
+	color : #000000;
 }
-
 .table thead th {
 	border-right: 1px solid white;
 }
@@ -32,7 +27,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	cursor: pointer;
 }
 
-.popup, .read-popup, .receive-popup {
+.popup, .receive-popup {
 	position: absolute;
 	background: #96b4d6;
 	border: 3px solid #666666;
@@ -43,17 +38,15 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 
 .popup {
 	width: 50%;
-	/* height: 60%; */
 }
 
-.read-popup, .receive-popup {
+.receive-popup {
 	width: 30%;
-	/* height: 30%; */
 	left: 40%;
 	background: #bcd0e7;
 }
 
-.popup.active, .read-popup.active, .receive-popup.active {
+.popup.active, .receive-popup.active {
 	text-align: center;
 	display: block;
 	border-radius: 5px;
@@ -126,7 +119,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backPageURL%>"/>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="receiptReadAction"
@@ -135,7 +128,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.receiptId}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backPageURL%>"/>
 				</portlet:actionURL>
 
 				<portlet:renderURL var="receiptDetails">
@@ -145,157 +138,147 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="${receiptMovementDTO.getReceiptId()}" />
 					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
-					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 				</portlet:renderURL>
-				<c:choose>
-					<c:when
-						test="${receiptMovementDTO.getNature()=='Electronic' || receiptMovementDTO.getNature()=='Physical'}">
-						<c:if
-							test="${receiptMovementDTO.getReadOn()==null && receiptMovementDTO.getReceivedOn()==null}">
+				<c:if
+					test="${receiptMovementDTO.getReadOn()==null && receiptMovementDTO.getReceivedOn()==null}">
 
+					<liferay-ui:search-container-column-text
+						name="label-receipt-inbox-nature" cssClass="bold">
+						<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
+					</liferay-ui:search-container-column-text>
+					<c:choose>
+						<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 							<liferay-ui:search-container-column-text
-								name="label-receipt-inbox-nature" cssClass="bold">
-								<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
-							</liferay-ui:search-container-column-text>
-							<c:choose>
-								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text
-										href="${receiptReadAction }"
-										name="label-receipt-inbox-receiptno"
-										cssClass="bold hyperlink-css"
-										orderableProperty="receiptNumber" orderable="true"
-										value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
-								</c:when>
-								<c:otherwise>
-									<liferay-ui:search-container-column-text
-										name="label-receipt-inbox-receiptno" cssClass="bold"
-										orderableProperty="receiptNumber" orderable="true"
-										value="<%=receiptMovementDTO.getReceiptNumber() != null
-												? receiptMovementDTO.getReceiptNumber()
-												: ""%>" />
-								</c:otherwise>
-							</c:choose>
-							<liferay-ui:search-container-column-text orderable="true"
-								orderableProperty="subject"
-								value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
-								cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
+								href="${receiptReadAction }"
+								name="label-receipt-inbox-receiptno"
+								cssClass="bold hyperlink-css" orderableProperty="receiptNumber"
+								orderable="true"
+								value="<%=receiptMovementDTO.getReceiptNumber() != null ? receiptMovementDTO.getReceiptNumber() : ""%>" />
+						</c:when>
+						<c:otherwise>
 							<liferay-ui:search-container-column-text
-								name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
-								<a href="#" class="button open"
-									onclick=" showModal(<%=receiptMovementDTO.getSenderId()%>)"><%=receiptMovementDTO.getSentBy()%></a>
-							</liferay-ui:search-container-column-text>
+								name="label-receipt-inbox-receiptno" cssClass="bold"
+								orderableProperty="receiptNumber" orderable="true"
+								value="<%=receiptMovementDTO.getReceiptNumber() != null
+										? receiptMovementDTO.getReceiptNumber()
+										: ""%>" />
+						</c:otherwise>
+					</c:choose>
+					<liferay-ui:search-container-column-text orderable="true"
+						orderableProperty="subject"
+						value="<%=receiptMovementDTO.getSubject() != null ? receiptMovementDTO.getSubject() : ""%>"
+						cssClass="hover-tips bold" name="label-receipt-inbox-subject" />
+					<liferay-ui:search-container-column-text
+						name="label-receipt-inbox-sentby" cssClass="hover-tips bold">
+						<a href="#" class="button open"
+							onclick=" showModal(<%=receiptMovementDTO.getSenderId()%>)"><%=receiptMovementDTO.getSentBy()%></a>
+					</liferay-ui:search-container-column-text>
 
+					<liferay-ui:search-container-column-text cssClass="bold"
+						name="label-receipt-inbox-senton" orderableProperty="sentOn"
+						orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+							timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text cssClass="bold"
+						name="label-receipt-inbox-dueon" orderableProperty="dueOn"
+						orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+							timeZone="Asia/Calcutta"
+							value="${receiptMovementDTO.getDueDate()}" />
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text cssClass="hover-tips bold"
+						name="label-receipt-inbox-remarks"
+						value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>">
+					</liferay-ui:search-container-column-text>
+
+					<c:choose>
+						<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 							<liferay-ui:search-container-column-text cssClass="bold"
-								name="label-receipt-inbox-senton" orderableProperty="sentOn"
-								orderable="true" >
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-						timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
-								</liferay-ui:search-container-column-text>
+								name="label-receipt-inbox-actions" align="center">
+								<a class="filesend" id="sendReceipt" name="sendReceipt"
+									onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
 
+							</liferay-ui:search-container-column-text>
+						</c:when>
+						<c:otherwise>
 							<liferay-ui:search-container-column-text cssClass="bold"
-								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
-								orderable="true" >
-									<fmt:formatDate type="both" pattern="dd/MM/yyyy"
-						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getDueDate()}" />
-								</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								cssClass="hover-tips bold" name="label-receipt-inbox-remarks"
-								value="<%=receiptMovementDTO.getRemark() != null
-											? receiptMovementDTO.getRemark()
-											: ""%>">
+								name="label-receipt-inbox-actions" align="center">
+								<span><a href="#" class="button open"
+									onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
+										<liferay-ui:message key="label-receipt-inbox-action-receive" />
+								</a></span>
+								<a class="filesend" id="sendReceipt" name="sendReceipt"
+									onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
 							</liferay-ui:search-container-column-text>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if
+					test="${receiptMovementDTO.getReadOn()!=null || receiptMovementDTO.getReceivedOn()!=null}">
 
-							<c:choose>
-								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text cssClass="bold"
-										name="label-receipt-inbox-actions" align="center">
-										
-										<a class="filesend" id="sendReceipt" name="sendReceipt"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+					<liferay-ui:search-container-column-text
+						name="label-receipt-inbox-nature">
+						<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
+					</liferay-ui:search-container-column-text>
 
-									</liferay-ui:search-container-column-text>
-								</c:when>
-								<c:otherwise>
-									<liferay-ui:search-container-column-text cssClass="bold"
-										name="label-receipt-inbox-actions" align="center">
-										<span><a href="#" class="button open"
-											onclick="receiptReceiveModal(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">
-												<liferay-ui:message key="label-receipt-inbox-action-receive" />
-										</a></span>
-										<a class="filesend" id="sendReceipt" name="sendReceipt"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
-										<%-- <span><a href="${sendReceiptURL}"> <liferay-ui:message
-													key="label-receipt-inbox-action-send" />
-										</a></span> --%>
-									</liferay-ui:search-container-column-text>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-						<c:if
-							test="${receiptMovementDTO.getReadOn()!=null || receiptMovementDTO.getReceivedOn()!=null}">
+					<liferay-ui:search-container-column-text property="receiptNumber"
+						cssClass="hyperlink-css" orderableProperty="receiptNumber"
+						orderable="true" href="<%=receiptDetails%>"
+						name="label-receipt-inbox-receiptno" />
 
+					<liferay-ui:search-container-column-text property="subject"
+						cssClass="hover-tips" orderableProperty="subject" orderable="true"
+						name="label-receipt-inbox-subject" />
+
+
+					<liferay-ui:search-container-column-text
+						name="label-receipt-inbox-sentby" cssClass="hover-tips">
+						<a href="#" class="button open"
+							onclick=" showModal(<%=receiptMovementDTO.getSenderId()%>)"><%=receiptMovementDTO.getSentBy()%></a>
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text
+						name="label-receipt-inbox-senton" orderableProperty="sentOn"
+						orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+							timeZone="Asia/Calcutta"
+							value="${receiptMovementDTO.getSentOn()}" />
+					</liferay-ui:search-container-column-text>
+					<liferay-ui:search-container-column-text
+						name="label-receipt-inbox-dueon" orderableProperty="dueOn"
+						orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+							timeZone="Asia/Calcutta"
+							value="${receiptMovementDTO.getDueDate()}" />
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text cssClass="hover-tips"
+						value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
+						name="label-receipt-inbox-remarks" />
+
+					<c:choose>
+						<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 							<liferay-ui:search-container-column-text
-								name="label-receipt-inbox-nature">
-								<span title="${receiptMovementDTO.nature }"><%=receiptMovementDTO.getNature().charAt(0)%></span>
+								name="label-receipt-inbox-actions" align="center">
+								<a class="filesend" id="sendFile" name="sendFile"
+									onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+
 							</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text property="receiptNumber"
-								cssClass="hyperlink-css" orderableProperty="receiptNumber"
-								orderable="true" href="<%=receiptDetails%>"
-								name="label-receipt-inbox-receiptno" />
-
-							<liferay-ui:search-container-column-text property="subject"
-								cssClass="hover-tips" orderableProperty="subject"
-								orderable="true" name="label-receipt-inbox-subject" />
-
-
+						</c:when>
+						<c:otherwise>
 							<liferay-ui:search-container-column-text
-								name="label-receipt-inbox-sentby" cssClass="hover-tips">
-								<a href="#" class="button open"
-									onclick=" showModal(<%=receiptMovementDTO.getSenderId()%>)"><%=receiptMovementDTO.getSentBy()%></a>
+								name="label-receipt-inbox-actions" align="center">
+								<a class="filesend" id="sendFile" name="sendFile"
+									onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+
 							</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								name="label-receipt-inbox-senton" orderableProperty="sentOn"
-								orderable="true" >
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getSentOn()}" />
-								</liferay-ui:search-container-column-text>
-							<liferay-ui:search-container-column-text
-								name="label-receipt-inbox-dueon" orderableProperty="dueOn"
-								orderable="true" >
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy"
-						timeZone="Asia/Calcutta" value="${receiptMovementDTO.getDueDate()}" />
-								</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text cssClass="hover-tips"
-								value="<%=receiptMovementDTO.getRemark() != null ? receiptMovementDTO.getRemark() : ""%>"
-								name="label-receipt-inbox-remarks" />
-
-							<c:choose>
-								<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text
-										name="label-receipt-inbox-actions" align="center">
-										
-										<a class="filesend" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
-
-									</liferay-ui:search-container-column-text>
-								</c:when>
-								<c:otherwise>
-									<liferay-ui:search-container-column-text
-										name="label-receipt-inbox-actions" align="center">
-										
-										<a class="filesend" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
-
-									</liferay-ui:search-container-column-text>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-					</c:when>
-				</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
@@ -336,7 +319,9 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-3 mb-3">
-			<h3 class="text-center">Are you sure to receive?</h3>
+			<h3 class="text-center">
+				<liferay-ui:message key="label-receipt-inbox-receive-popup-heading" />
+			</h3>
 			<aui:form action="${receiptReceiveAction}" method="POST" name="fm"
 				style=" margin-top: -5%;">
 				<!-- <text>Receipt Number </text> -->
@@ -345,8 +330,14 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<input type="text" name='<portlet:namespace/>rmId' id="rmId" hidden />
 				<br>
 				<button class="mt-3 btn btn-primary " style="width: 90px;"
-					type="submit">Receive</button>
-				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
+					type="submit">
+					<liferay-ui:message
+						key="label-receipt-inbox-receive-popup-receive-button" />
+				</button>
+				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">
+					<liferay-ui:message
+						key="label-receipt-inbox-receive-popup-cancel-button" />
+				</div>
 			</aui:form>
 		</div>
 	</div>
@@ -369,19 +360,23 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<div class="col-6">
 					<table class="tableSender">
 						<tr>
-							<th class="col-3">Name :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-name" /> :</th>
 							<td id="name" class="col-3"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Marking Abbr :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-marking-abbr" /> :</th>
 							<td id="marking" class="col-3"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Section :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-section" /> :</th>
 							<td id="section" class="col-3"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Email :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-email" /> :</th>
 							<td id="email" class="col-3"></td>
 						</tr>
 					</table>
@@ -389,15 +384,18 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<div class="col-6">
 					<table class="tableSender">
 						<tr>
-							<th class="col-3">Designation :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-designation" /> :</th>
 							<td class="col-3" id="design"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Post :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-post" /> :</th>
 							<td class="col-3" id="post"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Department :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-receipt-inbox-user-department" /> :</th>
 							<td class="col-3" id="dept"></td>
 						</tr>
 					</table>
@@ -476,22 +474,20 @@ function showModal(id){
 	
 function OpenSendPopUp(receiptId,receiptmovementId){
 	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptmovementId='+receiptmovementId;
-	
-		Liferay.Util.openWindow({
-			dialog: {
-				centered: true,
-				height: 500,
-				destroyOnClose: true,														 
-				destroyOnHide: true, 
-				modal: true,
-				width: 500
-			},
-			id: '<portlet:namespace/>dialog',
-			title: 'Send',
-			uri: receiptURL
-			
-		});
-	}
+	Liferay.Util.openWindow({
+		dialog: {
+			centered: true,
+			height: 500,
+			destroyOnClose: true,														 
+			destroyOnHide: true, 
+			modal: true,
+			width: 500
+		},
+		id: '<portlet:namespace/>dialog',
+		title: 'Send',
+		uri: receiptURL
+	});
+}
 
 </script>
 

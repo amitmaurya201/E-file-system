@@ -1,36 +1,30 @@
 <%@ include file="../init.jsp"%>
-<%@page import="io.jetprocess.service.FileMovementLocalServiceUtil"%>
 <%
-	String backURL1 = themeDisplay.getURLCurrent();
-	String backURL = backURL1 + "&a=12";
+	String currentURL = themeDisplay.getURLCurrent();
+	String backPageURL = currentURL + "&a=12";
 %>
 
-
-
 <style>
-
-
-html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.modal-header {
-    background: #007bFF;
-    color: white;
-}
-html:not(#__):not(#___) .cadmin .close {
- 
-    color: white;
-
+html:not (#__ ):not (#___ ) .cadmin .modal-header, html:not (#__ ):not 
+	 (#___
+	 ) .cadmin.modal-header {
+	background: #007bFF;
+	color: white;
 }
 
-
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-  color: #000000;
+html:not (#__ ):not (#___ ) .cadmin .close {
+	color: white;
 }
+
+.lfr-search-container-wrapper a:not (.component-action ):not (.btn ){
+	color: black;
+}
+
 .table thead th {
 	border-right: 1px solid white;
 }
 
-.popup, .read-popup, .receive-popup {
-	/*Hides pop-up when there is no "active" class*/
-	/* visibility: hidden; */
+.popup, .receive-popup {
 	position: absolute;
 	background: #96b4d6;
 	border: 3px solid #666666;
@@ -39,23 +33,23 @@ html:not(#__):not(#___) .cadmin .close {
 	display: none;
 }
 
-.filesend{
-cursor: pointer;
-
+.filesend {
+	cursor: pointer;
 }
+
 .popup {
 	width: 50%;
 	height: 50%;
 }
 
-.read-popup, .receive-popup {
+.receive-popup {
 	width: 30%;
 	height: 30%;
 	left: 40%;
 	background: #bcd0e7;
 }
 
-.popup.active, .read-popup.active, .receive-popup.active {
+.popup.active, .receive-popup.active {
 	text-align: center;
 	display: block;
 	border-radius: 5px;
@@ -95,7 +89,6 @@ cursor: pointer;
 	border-color: #f2f2f2;
 	color: #000;
 }
-
 </style>
 
 
@@ -129,206 +122,190 @@ cursor: pointer;
 			iteratorURL="${fileInboxManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${fileInboxList}" />
 
-
 			<liferay-ui:search-container-row
 				className="io.jetprocess.list.model.FileMovementDTO"
-				keyProperty="fileMovementId" modelVar="fileinboxDtoList">
+				keyProperty="fileMovementId" modelVar="fileInboxList">
 
-			
 				<portlet:actionURL var="fileReceiveAction"
 					name="<%=MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND%>">
-					<portlet:param name="fileId"
-						value="${fileinboxDtoList.getFileId()}" />
+					<portlet:param name="fileId" value="${fileInboxList.getFileId()}" />
 					<portlet:param name="fmId"
-						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+						value="${fileInboxList.getFileMovementId()}" />
+					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="fileReadAction"
 					name="<%=MVCCommandNames.FILE_INBOX_READ_ACTION_COMMAND%>">
-					<portlet:param name="fileId1"
-						value="${fileinboxDtoList.getFileId()}" />
+					<portlet:param name="fileId1" value="${fileInboxList.getFileId()}" />
 					<portlet:param name="fmId"
-						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+						value="${fileInboxList.getFileMovementId()}" />
+					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 				</portlet:actionURL>
 
 				<portlet:renderURL var="fileInnerView">
-					<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND %>" />
+					<portlet:param name="mvcRenderCommandName"
+						value="<%=MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND%>" />
 					<portlet:param name="docFileId"
-						value="${fileinboxDtoList.getFileId()}" />
+						value="${fileInboxList.getFileId()}" />
 					<portlet:param name="fileMovementId"
-						value="${fileinboxDtoList.getFileMovementId()}" />
-					<portlet:param name="backPageURL" value="<%=backURL%>"></portlet:param>
+						value="${fileInboxList.getFileMovementId()}" />
+					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 
 				</portlet:renderURL>
-				<c:choose>
-					<c:when
-						test="${fileinboxDtoList.getNature()=='Electronic' || fileinboxDtoList.getNature()=='Physical'}">
-						<c:if
-							test="${fileinboxDtoList.getReadOn()==null && fileinboxDtoList.getReceivedOn()==null }">
+				<c:if
+					test="${fileInboxList.getReadOn()==null && fileInboxList.getReceivedOn()==null }">
 
-							<liferay-ui:search-container-column-text name="label-file-inbox-nature" cssClass="bold">
-									<span title="${fileinboxDtoList.nature }"><%=fileinboxDtoList.getNature().charAt(0)%></span>
-							</liferay-ui:search-container-column-text>
-							<c:choose>
-								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text
-										href="${fileReadAction }" name="label-file-inbox-fileno"
-										cssClass="bold hyperlink-css" orderableProperty="fileNumber"
-										orderable="true"
-										value="<%=fileinboxDtoList.getFileNumber() != null ? fileinboxDtoList.getFileNumber() : ""%>" />
-								</c:when>
-								<c:otherwise>
-									<liferay-ui:search-container-column-text
-										name="label-file-inbox-fileno" cssClass="bold hyperlink-css phfile"
-										orderableProperty="fileNumber" orderable="true"
-										value="<%=fileinboxDtoList.getFileNumber() != null
-												? fileinboxDtoList.getFileNumber()
-												: ""%>" />
-								</c:otherwise>
-							</c:choose>
-							<liferay-ui:search-container-column-text orderable="true"
-								orderableProperty="subject"
-								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
-								name="label-file-inbox-subject" cssClass="hover-tips bold" />
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-sentby" cssClass="hover-tips bold">
-
-								<c:set value="${fileinboxDtoList.getFileMovementId()}"
-									var="senderId"></c:set>
-
-								<a href="#" class="button open"
-									onclick=" showModal(<%=fileinboxDtoList.getSenderId()%>)">${fileinboxDtoList.getSentBy()}</a>
-
-							</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								value="<%=fileinboxDtoList.getSentOn() != null
-										? simpleformat.format(fileinboxDtoList.getSentOn())
-										: ""%>"
-								name="label-file-inbox-senton" cssClass="bold"
-								orderableProperty="sentOn" orderable="true" />
-
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-dueon" cssClass="bold"
-								orderableProperty="dueDate" orderable="true">
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy"
-									timeZone="Asia/Calcutta" value="${fileinboxDtoList.dueDate}" />
-							</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-remarks" cssClass="hover-tips bold">
-								<c:if test="${not empty fileinboxDtoList.getRemark()}">
-									<%=fileinboxDtoList.getRemark()%>
-								</c:if>
-							</liferay-ui:search-container-column-text>
-
-							<c:choose>
-								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text
-										name="label-file-inbox-actions" align="center" cssClass="bold">
-										
-										<a class="filesend" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
-									</liferay-ui:search-container-column-text>
-								</c:when>
-								<c:otherwise>
-									<liferay-ui:search-container-column-text
-										name="label-file-inbox-actions" align="center" cssClass="bold">
-										<span><a href="#" class="button open"
-											onclick="receiveModal(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()} )">
-												<liferay-ui:message key="label-file-inbox-action-receive" />
-										</a></span>&nbsp;
-										
-										<a class="filesend" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
-									</liferay-ui:search-container-column-text>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-						<c:if
-							test="${fileinboxDtoList.getReadOn()!=null || fileinboxDtoList.getReceivedOn()!=null}">
-
-							<liferay-ui:search-container-column-text name="label-file-inbox-nature">
-								<span title="${fileinboxDtoList.nature }"><%=fileinboxDtoList.getNature().charAt(0)%></span>
-							</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								href="<%=fileInnerView%>" orderableProperty="fileNumber"
-								orderable="true" cssClass="hyperlink-css"
-								value="<%=fileinboxDtoList.getFileNumber() != null
-										? fileinboxDtoList.getFileNumber()
-										: ""%>"
-								name="label-file-inbox-fileno" />
-							<liferay-ui:search-container-column-text
-								value="<%=fileinboxDtoList.getSubject() != null ? fileinboxDtoList.getSubject() : ""%>"
-								orderableProperty="subject" orderable="true"
-								name="label-file-inbox-subject" cssClass="hover-tips" />
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-sentby" cssClass="hover-tips">
-
-
-								<a href="#" class="button open"
-									onclick=" showModal(<%=fileinboxDtoList.getSenderId()%>)">${fileinboxDtoList.getSentBy()}</a>
-							</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-senton" orderableProperty="sentOn"
-								orderable="true" >
-									<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-						timeZone="Asia/Calcutta" value="${fileinboxDtoList.getSentOn()}" />
-								</liferay-ui:search-container-column-text>
-
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-dueon" orderableProperty="dueDate"
-								orderable="true">
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy"
-									timeZone="Asia/Calcutta" value="${fileinboxDtoList.dueDate}" />
-							</liferay-ui:search-container-column-text>
-							<liferay-ui:search-container-column-text
-								name="label-file-inbox-remarks" cssClass="hover-tips">
-								<c:if test="${not empty fileinboxDtoList.getRemark()}">
-									<%=fileinboxDtoList.getRemark()%>
-								</c:if>
-							</liferay-ui:search-container-column-text>
-
-							<c:choose>
-								<c:when test="${fileinboxDtoList.getNature()=='Electronic'}">
-									<liferay-ui:search-container-column-text
-										name="label-file-inbox-actions" align="center">
-										<%-- <span><a href="${sendURL}"> <liferay-ui:message
-													key="label-file-inbox-action-send" />
-										</a></span> --%>
-										<a class="filesend" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
-									</liferay-ui:search-container-column-text>
-								</c:when>
-								<c:otherwise>
-									<liferay-ui:search-container-column-text
-										name="label-file-inbox-actions" align="center">
-										<%-- <span><a href="${sendURL}"> <liferay-ui:message
-													key="label-file-inbox-action-send" />
-										</a></span> --%>
-										<a class="filesend" id="sendFile" name="sendFile"
-											onClick="OpenSendPopUp(${fileinboxDtoList.getFileId()},${fileinboxDtoList.getFileMovementId()})">Send</a>
-									</liferay-ui:search-container-column-text>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-					</c:when>
-					<c:otherwise>
-					</c:otherwise>
-				</c:choose>
-					
-				<liferay-ui:search-container-column-text
-					name="" cssClass="hover-tips" >
-				<c:if test="${fileinboxDtoList.hasNote}">
-					<img src='<%=request.getContextPath() + "/image/green-note.jpg"%>'
-						width="60%" height="25" class="shadow m-1 bg-white rounded-circle" />
-				</c:if>
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-nature" cssClass="bold">
+						<span title="${fileInboxList.nature }"><%=fileInboxList.getNature().charAt(0)%></span>
 					</liferay-ui:search-container-column-text>
-				
+					<c:choose>
+						<c:when test="${fileInboxList.getNature()=='Electronic'}">
+							<liferay-ui:search-container-column-text
+								href="${fileReadAction }" name="label-file-inbox-fileno"
+								cssClass="bold hyperlink-css" orderableProperty="fileNumber"
+								orderable="true"
+								value="<%=fileInboxList.getFileNumber() != null ? fileInboxList.getFileNumber() : ""%>" />
+						</c:when>
+						<c:otherwise>
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-fileno"
+								cssClass="bold hyperlink-css phfile"
+								orderableProperty="fileNumber" orderable="true"
+								value="<%=fileInboxList.getFileNumber() != null ? fileInboxList.getFileNumber() : ""%>" />
+						</c:otherwise>
+					</c:choose>
+					<liferay-ui:search-container-column-text orderable="true"
+						orderableProperty="subject"
+						value="<%=fileInboxList.getSubject() != null ? fileInboxList.getSubject() : ""%>"
+						name="label-file-inbox-subject" cssClass="hover-tips bold" />
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-sentby" cssClass="hover-tips bold">
+
+						<c:set value="${fileInboxList.getFileMovementId()}" var="senderId"></c:set>
+
+						<a href="#" class="button open"
+							onclick=" showModal(<%=fileInboxList.getSenderId()%>)">${fileInboxList.getSentBy()}</a>
+
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text
+						value="<%=fileInboxList.getSentOn() != null
+								? simpleformat.format(fileInboxList.getSentOn())
+								: ""%>"
+						name="label-file-inbox-senton" cssClass="bold"
+						orderableProperty="sentOn" orderable="true" />
+
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-dueon" cssClass="bold"
+						orderableProperty="dueDate" orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+							timeZone="Asia/Calcutta" value="${fileInboxList.dueDate}" />
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-remarks" cssClass="hover-tips bold">
+						<c:if test="${not empty fileInboxList.getRemark()}">
+							<%=fileInboxList.getRemark()%>
+						</c:if>
+					</liferay-ui:search-container-column-text>
+
+					<c:choose>
+						<c:when test="${fileInboxList.getNature()=='Electronic'}">
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-actions" align="center" cssClass="bold">
+
+								<a class="filesend" id="sendFile" name="sendFile"
+									onClick="OpenSendPopUp(${fileInboxList.getFileId()},${fileInboxList.getFileMovementId()})">Send</a>
+							</liferay-ui:search-container-column-text>
+						</c:when>
+						<c:otherwise>
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-actions" align="center" cssClass="bold">
+								<span><a href="#" class="button open"
+									onclick="receiveModal(${fileInboxList.getFileId()},${fileInboxList.getFileMovementId()} )">
+										<liferay-ui:message key="label-file-inbox-action-receive" />
+								</a></span>&nbsp;
+										
+										<a class="filesend" id="sendFile" name="sendFile"
+									onClick="OpenSendPopUp(${fileInboxList.getFileId()},${fileInboxList.getFileMovementId()})">Send</a>
+							</liferay-ui:search-container-column-text>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if
+					test="${fileInboxList.getReadOn()!=null || fileInboxList.getReceivedOn()!=null}">
+
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-nature">
+						<span title="${fileInboxList.nature }"><%=fileInboxList.getNature().charAt(0)%></span>
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text href="<%=fileInnerView%>"
+						orderableProperty="fileNumber" orderable="true"
+						cssClass="hyperlink-css"
+						value="<%=fileInboxList.getFileNumber() != null ? fileInboxList.getFileNumber() : ""%>"
+						name="label-file-inbox-fileno" />
+					<liferay-ui:search-container-column-text
+						value="<%=fileInboxList.getSubject() != null ? fileInboxList.getSubject() : ""%>"
+						orderableProperty="subject" orderable="true"
+						name="label-file-inbox-subject" cssClass="hover-tips" />
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-sentby" cssClass="hover-tips">
+
+
+						<a href="#" class="button open"
+							onclick=" showModal(<%=fileInboxList.getSenderId()%>)">${fileInboxList.getSentBy()}</a>
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-senton" orderableProperty="sentOn"
+						orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
+							timeZone="Asia/Calcutta" value="${fileInboxList.getSentOn()}" />
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-dueon" orderableProperty="dueDate"
+						orderable="true">
+						<fmt:formatDate type="both" pattern="dd/MM/yyyy"
+							timeZone="Asia/Calcutta" value="${fileInboxList.dueDate}" />
+					</liferay-ui:search-container-column-text>
+					<liferay-ui:search-container-column-text
+						name="label-file-inbox-remarks" cssClass="hover-tips">
+						<c:if test="${not empty fileInboxList.getRemark()}">
+							<%=fileInboxList.getRemark()%>
+						</c:if>
+					</liferay-ui:search-container-column-text>
+
+					<c:choose>
+						<c:when test="${fileInboxList.getNature()=='Electronic'}">
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-actions" align="center">
+								<a class="filesend" id="sendFile" name="sendFile"
+									onClick="OpenSendPopUp(${fileInboxList.getFileId()},${fileInboxList.getFileMovementId()})">Send</a>
+							</liferay-ui:search-container-column-text>
+						</c:when>
+						<c:otherwise>
+							<liferay-ui:search-container-column-text
+								name="label-file-inbox-actions" align="center">
+								<a class="filesend" id="sendFile" name="sendFile"
+									onClick="OpenSendPopUp(${fileInboxList.getFileId()},${fileInboxList.getFileMovementId()})">Send</a>
+							</liferay-ui:search-container-column-text>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+
+
+				<liferay-ui:search-container-column-text name=""
+					cssClass="hover-tips">
+					<c:if test="${fileInboxList.hasNote}">
+						<img src='<%=request.getContextPath() + "/image/green-note.jpg"%>'
+							width="60%" height="25"
+							class="shadow m-1 bg-white rounded-circle" />
+					</c:if>
+				</liferay-ui:search-container-column-text>
+
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
@@ -340,20 +317,17 @@ cursor: pointer;
 <div class="ml-3" id="alert-receive-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="receive-not-available"
-		message="You can not Receive this File " />
+		message="file-receive-inbox-error" />
 </div>
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="read-not-available"
-		message="You can not Read this File" />
+		message="file-read-inbox-error" />
 </div>
-
-<liferay-ui:success key="send-available"
-	message="file-send-inbox-success" />
 <div class="ml-3" id="alert-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); margin-right: 74%; margin-top: -40px;">
 	<liferay-ui:error key="send-not-available"
-		message="This File Already Pullbacked" />
+		message="file-already-pullbacked-inbox-error" />
 </div>
 
 <!-- Receive pop up -->
@@ -366,15 +340,23 @@ cursor: pointer;
 			<span aria-hidden="true">&times;</span>
 		</button>
 		<div class="container mt-3">
-			<h3 class="text-center">Are you sure to receive?</h3>
+			<h3 class="text-center">
+				<liferay-ui:message key="label-file-inbox-receive-popup-heading" />
+			</h3>
 			<aui:form action="${fileReceiveAction}" method="POST" name="fm">
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" name='<portlet:namespace/>fileId'
 					id="file-receive-fileId" hidden />
 				<input type="text" name='<portlet:namespace/>fmId' id="fmId" hidden />
 				<button class="mt-3 btn btn-primary" type="submit"
-					style="width: 90px;">Receive</button>
-				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">Cancel</div>
+					style="width: 90px;">
+					<liferay-ui:message
+						key="label-file-inbox-receive-popup-receive-button" />
+				</button>
+				<div class="mt-3 btn btn-primary cancel" style="width: 90px;">
+					<liferay-ui:message
+						key="label-file-inbox-receive-popup-cancel-button" />
+				</div>
 			</aui:form>
 		</div>
 	</div>
@@ -395,19 +377,23 @@ cursor: pointer;
 				<div class="col-6">
 					<table class="tableSender">
 						<tr>
-							<th class="col-3">Name :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-name" /> :</th>
 							<td id="name" class="col-3"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Marking Abbr :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-marking-abbr" /> :</th>
 							<td id="marking" class="col-3"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Section :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-section" /> :</th>
 							<td id="section" class="col-3"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Email :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-email" /> :</th>
 							<td id="email" class="col-3"></td>
 						</tr>
 					</table>
@@ -415,15 +401,18 @@ cursor: pointer;
 				<div class="col-6">
 					<table class="tableSender">
 						<tr>
-							<th class="col-3">Designation :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-designation" /> :</th>
 							<td class="col-3" id="design"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Post :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-post" /> :</th>
 							<td class="col-3" id="post"></td>
 						</tr>
 						<tr>
-							<th class="col-3">Department :</th>
+							<th class="col-3"><liferay-ui:message
+									key="label-file-inbox-user-department" /> :</th>
 							<td class="col-3" id="dept"></td>
 						</tr>
 					</table>
@@ -464,7 +453,7 @@ $("#alert-receive-remove").fadeTo(2000, 700).slideUp(700, function(){
 
 /* Remove error message */
 $("#alert-remove").fadeTo(2000, 500).slideUp(500, function(){
-$("#alert-remove").slideUp(500);
+	$("#alert-remove").slideUp(500);
 });
 	
 function showModal(id){
@@ -472,7 +461,6 @@ function showModal(id){
 			'/masterdata.userpost/get-user-post-by-id',
 			{
 			userPostId: id
-			    
 			},
 			function(obj) {
 				var name=document.getElementById("name");
@@ -506,11 +494,8 @@ function showModal(id){
 		});
 	}
 	
-	
-
 function OpenSendPopUp(fileId,fileMovementId){
 	var fileURL = '<%=fileSendURL%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>fileMovementId='+fileMovementId;
-	
 		Liferay.Util.openWindow({
 			dialog: {
 				centered: true,
@@ -523,10 +508,8 @@ function OpenSendPopUp(fileId,fileMovementId){
 			id: '<portlet:namespace/>dialog',
 			title: 'Send',
 			uri: fileURL
-			
 		});
 	}
-	
 </script>
 
 <!--end  -->
