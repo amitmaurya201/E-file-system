@@ -384,12 +384,14 @@ public class ReceiptMovementLocalServiceUtil {
 			receiptId, receiptMovementId);
 	}
 
-	public static boolean isPullBackAvailable(long rmId) {
-		return getService().isPullBackAvailable(rmId);
+	public static boolean isPullBackAvailable(long receiptMovementId) {
+		return getService().isPullBackAvailable(receiptMovementId);
 	}
 
-	public static boolean pullBackedAlready(long rmId) throws PortalException {
-		return getService().pullBackedAlready(rmId);
+	public static boolean pullBackedAlready(long receiptMovementId)
+		throws PortalException {
+
+		return getService().pullBackedAlready(receiptMovementId);
 	}
 
 	public static void pullBackReceiptMovement(
@@ -408,22 +410,26 @@ public class ReceiptMovementLocalServiceUtil {
 			receiptMovementList, fileMovementId);
 	}
 
-	public static boolean saveReadMovement(long receiptId, long rmId) {
-		return getService().saveReadMovement(receiptId, rmId);
+	public static boolean saveReadMovement(
+		long receiptId, long receiptMovementId) {
+
+		return getService().saveReadMovement(receiptId, receiptMovementId);
 	}
 
-	public static void saveReceiptMovement(
+	public static ReceiptMovement saveReceiptMovement(
 		long receiverId, long senderId, long receiptId, String priority,
 		java.util.Date dueDate, String remark, boolean active, int currentState,
 		long movementType) {
 
-		getService().saveReceiptMovement(
+		return getService().saveReceiptMovement(
 			receiverId, senderId, receiptId, priority, dueDate, remark, active,
 			currentState, movementType);
 	}
 
-	public static boolean saveReceiveMovement(long receiptId, long rmId) {
-		return getService().saveReceiveMovement(receiptId, rmId);
+	public static boolean saveReceiveMovement(
+		long receiptId, long receiptMovementId) {
+
+		return getService().saveReceiveMovement(receiptId, receiptMovementId);
 	}
 
 	public static void saveSendReceipt(

@@ -87,27 +87,26 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark,
 				active, currentState, movementType);
+		receiptMovementAttachInFile(receiverId, senderId, fileId, docFile, saveFileMovement);
+
+		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
+		if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+			noteLocalService.addBlankNote(fileId, maxFmId, senderId);
+		}
+	}
+
+	private void receiptMovementAttachInFile(long receiverId, long senderId, long fileId, DocFile docFile,
+			FileMovement saveFileMovement) {
 		List<FileCorrReceipt> fileCorrReceiptByFileId = fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
 		for (FileCorrReceipt fileCorrReceipt : fileCorrReceiptByFileId) {
 			if (fileCorrReceipt.getDetachRemark() == "") {
 				String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
-				long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
-				ReceiptMovement receiptMovement = receiptMovementLocalService.createReceiptMovement(rmId);
-				receiptMovement.setRmId(rmId);
-				receiptMovement.setReceiverId(receiverId);
-				receiptMovement.setSenderId(senderId);
-				receiptMovement.setReceiptId(fileCorrReceipt.getReceiptId());
-				receiptMovement.setRemark(remarkOfInFile);
-				receiptMovement.setActive(true);
-				receiptMovement.setMovementType(MovementStatus.IN_FILE);
+				ReceiptMovement receiptMovement = receiptMovementLocalService.saveReceiptMovement(receiverId, senderId,
+						fileCorrReceipt.getReceiptId(), "", null, remarkOfInFile, true, FileStatus.IN_MOVEMENT,
+						MovementStatus.IN_FILE);
 				receiptMovement.setFileInMovementId(saveFileMovement.getFmId());
-				receiptMovementLocalService.addReceiptMovement(receiptMovement);
+				receiptMovementLocalService.updateReceiptMovement(receiptMovement);
 			}
-		}
-
-		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
-		if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-			noteLocalService.AddBlankNote(fileId, maxFmId, senderId);
 		}
 	}
 
@@ -221,7 +220,6 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		}
 		return state;
 	}
-
 
 	@Reference
 	private DocFileLocalService docFileLocalService;

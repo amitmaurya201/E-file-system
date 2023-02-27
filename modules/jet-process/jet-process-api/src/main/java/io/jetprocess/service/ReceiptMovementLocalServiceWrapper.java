@@ -431,15 +431,17 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public boolean isPullBackAvailable(long rmId) {
-		return _receiptMovementLocalService.isPullBackAvailable(rmId);
+	public boolean isPullBackAvailable(long receiptMovementId) {
+		return _receiptMovementLocalService.isPullBackAvailable(
+			receiptMovementId);
 	}
 
 	@Override
-	public boolean pullBackedAlready(long rmId)
+	public boolean pullBackedAlready(long receiptMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _receiptMovementLocalService.pullBackedAlready(rmId);
+		return _receiptMovementLocalService.pullBackedAlready(
+			receiptMovementId);
 	}
 
 	@Override
@@ -462,25 +464,26 @@ public class ReceiptMovementLocalServiceWrapper
 	}
 
 	@Override
-	public boolean saveReadMovement(long receiptId, long rmId) {
-		return _receiptMovementLocalService.saveReadMovement(receiptId, rmId);
+	public boolean saveReadMovement(long receiptId, long receiptMovementId) {
+		return _receiptMovementLocalService.saveReadMovement(
+			receiptId, receiptMovementId);
 	}
 
 	@Override
-	public void saveReceiptMovement(
+	public io.jetprocess.model.ReceiptMovement saveReceiptMovement(
 		long receiverId, long senderId, long receiptId, String priority,
 		java.util.Date dueDate, String remark, boolean active, int currentState,
 		long movementType) {
 
-		_receiptMovementLocalService.saveReceiptMovement(
+		return _receiptMovementLocalService.saveReceiptMovement(
 			receiverId, senderId, receiptId, priority, dueDate, remark, active,
 			currentState, movementType);
 	}
 
 	@Override
-	public boolean saveReceiveMovement(long receiptId, long rmId) {
+	public boolean saveReceiveMovement(long receiptId, long receiptMovementId) {
 		return _receiptMovementLocalService.saveReceiveMovement(
-			receiptId, rmId);
+			receiptId, receiptMovementId);
 	}
 
 	@Override

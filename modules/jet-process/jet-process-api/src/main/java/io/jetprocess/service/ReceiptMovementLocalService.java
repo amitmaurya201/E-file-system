@@ -333,9 +333,10 @@ public interface ReceiptMovementLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isPullBackAvailable(long rmId);
+	public boolean isPullBackAvailable(long receiptMovementId);
 
-	public boolean pullBackedAlready(long rmId) throws PortalException;
+	public boolean pullBackedAlready(long receiptMovementId)
+		throws PortalException;
 
 	public void pullBackReceiptMovement(
 			long receiptId, long receiptMovementId, String remarks,
@@ -345,14 +346,14 @@ public interface ReceiptMovementLocalService
 	public void pullBackReceiptsAttatchWithFile(
 		List<ReceiptMovement> receiptMovementList, long fileMovementId);
 
-	public boolean saveReadMovement(long receiptId, long rmId);
+	public boolean saveReadMovement(long receiptId, long receiptMovementId);
 
-	public void saveReceiptMovement(
+	public ReceiptMovement saveReceiptMovement(
 		long receiverId, long senderId, long receiptId, String priority,
 		Date dueDate, String remark, boolean active, int currentState,
 		long movementType);
 
-	public boolean saveReceiveMovement(long receiptId, long rmId);
+	public boolean saveReceiveMovement(long receiptId, long receiptMovementId);
 
 	public void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,

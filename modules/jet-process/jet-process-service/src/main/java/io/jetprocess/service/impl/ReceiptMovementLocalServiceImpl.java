@@ -70,10 +70,10 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 				movementType);
 	}
 
-	public void saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
+	public ReceiptMovement saveReceiptMovement(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
 			String remark, boolean active, int currentState, long movementType) {
 		long rmId = counterLocalService.increment(ReceiptMovement.class.getName());
-		ReceiptMovement receiptMovement;
+		ReceiptMovement receiptMovement = null;
 		try {
 			receiptMovement = createReceiptMovement(rmId);
 			receiptMovement.setRmId(rmId);
@@ -93,6 +93,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 		} catch (PortalException e) {
 			logger.info(e.getMessage());
 		}
+		return receiptMovement;
 	}
 
 	public List<ReceiptMovement> getReceiptMovementByReceiptId(long receiptId) {
