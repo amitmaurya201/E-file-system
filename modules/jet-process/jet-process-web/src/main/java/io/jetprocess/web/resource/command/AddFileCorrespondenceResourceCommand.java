@@ -35,30 +35,23 @@ public class AddFileCorrespondenceResourceCommand implements MVCResourceCommand 
 		Receipt receipt = null;
 		try {
 			receipt = receiptLocalService.getReceipt(receiptId);
+
+			if (receipt.getNature().equalsIgnoreCase("Electronic")) {
+				receiptMovementLocalService.saveReadMovement(receiptId, rmId);
+
+			} else {
+				receiptMovementLocalService.saveReceiveMovement(receiptId, rmId);
+
+			}
 		} catch (PortalException e) {
 			logger.info(e);
-		}
-		if (receipt.getNature().equalsIgnoreCase("Electronic")) {
-			boolean state = receiptMovementLocalService.saveReadMovement(receiptId, rmId);
-			if (state == false) {
-				SessionErrors.add(resourceRequest, "receipt-is-not-attachable");
-				SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest)
-						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-			}
-		} else {
-			boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId, rmId);
-			if (state == false) {
-				SessionErrors.add(resourceRequest, "receive-not-available");
-				SessionMessages.add(resourceRequest, PortalUtil.getPortletId(resourceRequest)
-						+ SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-			}
 		}
 		return false;
 	}
 
 	@Reference
 	private ReceiptLocalService receiptLocalService;
-	
+
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
 

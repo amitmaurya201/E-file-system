@@ -1516,6 +1516,134 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_receipt_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
+    ---------------------------------get_receipt_attached_existing_file------------------
+
+CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list(
+	_type text,
+	userpostid bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(docfileid bigint, filenumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, nature character varying, isread boolean, filemovementid bigint) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+  
+  declare 
+      nature text;
+      _keyword text;
+      _offset int;
+      _limit int;
+      _orderBy text;
+      _order text;
+      _query text;
+      q1 text;
+      q2 text;
+      q3 text;
+  begin
+    nature :='';
+ q1='select f.docfileid as docfileid, f.filenumber as filenumber, f.subject as subject, c.categoryvalue as category, f.createDate as createdate, f.remarks as remark,  f.nature as nature,
+     
+    (
+        case
+            when fmt.movementtype=0 then true
+            when fmt.pullbackremark IS NOT NULL then true
+            when fmt.readon=''read'' or fmt.receivedon=''receive'' then true
+            else false
+        end
+    ) as isread,  fmt.fmid as filemovementid
+    from public.jet_process_docfile as f 
+    inner join public.md_category as c on f.categoryid = c.categorydataid
+    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
+        where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
+            and (fmt.movementtype = 1 OR fmt.movementtype=0)';
+  
+ 
+                
+        _keyword := '''%'||keyword||'%''';
+      _order :=_orderByType;
+      IF (_start <0 OR _start IS NULL) THEN
+          _offset:=0;
+      ELSE
+          _offset :=_start; 
+      END IF;
+      
+      IF (_end <=0 OR _end IS NULL) THEN
+              _limit :=4;
+          ELSE
+              _limit :=_end;
+      END IF;   
+      
+      IF (orderByCol ='' OR orderByCol IS NULL) THEN
+              _orderBy :='f.createDate';
+          ELSE
+              _orderBy :=orderByCol;
+      END IF;
+      IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
+              _order :='desc';
+          ELSE
+               _order :=_orderbytype;
+      END IF;
+      
+       IF (_type ='Physical') THEN
+                nature :=' AND f.nature = ''Physical'' ';
+        END IF;
+       
+     
+                      
+                      IF (userpostid !=0 )THEN
+                                             
+                           _query := q1|| ' AND f.currentlywith='||userpostid || nature;
+                          
+                             if (keyword IS NOT NULL  ) THEN  
+                                   _query := '' ;
+                                   _query := q1|| ' AND f.currentlywith= '||userpostid || nature || ' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
+                        
+                                   if (_orderby !='')  THEN 
+                  
+                                      _query := _query||' order by '||_orderby;
+                                      if (_order !='')  THEN 
+
+                                          _query := _query||' '||_order;
+                                          if (_offset >=0)  THEN 
+
+                                               _query := _query||' offset '||_offset;
+                                              if (_limit >0)  THEN 
+                                                  _query := _query||' limit '||_limit;
+
+                                                 
+                                               end if;
+                                     
+                                  
+                                   end if;
+                           
+                               end if;
+                          
+                           end if;
+                      
+                           
+                      end if;
+                      
+              end if;
+              
+        return query execute _query;
+           
+   end;
+   
+
+$BODY$;
+
+ALTER FUNCTION public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+
+
 
  
     
@@ -1908,7 +2036,7 @@ ALTER FUNCTION public.get_receipt_inbox_list_count(bigint,text)
     
 --    ------------------------------------- Get Receipt Sent List Count -------------------------------------------
 
-    CREATE OR REPLACE FUNCTION public.get_receipt_sent_list_count(
+   CREATE OR REPLACE FUNCTION public.get_receipt_sent_list_count(
 	post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -1926,24 +2054,21 @@ ALTER FUNCTION public.get_receipt_inbox_list_count(bigint,text)
       begin
 
         total :=0;
-
+        _keyword :='''%'||keyword||'%''';
+        _query :='SELECT count(*) 
+                 FROM PUBLIC.jet_process_receiptmovement as rm 
+				 JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
+				 JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
+		         where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  ='||post_id;
         IF post_id !=0 AND post_id IS NOT NULL THEN 
             
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
    
-                 SELECT count(*) into total
-                 FROM PUBLIC.jet_process_receiptmovement as rm 
-				JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-				JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-		        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id AND (r.receiptnumber ilike '%'||keyword||'%' OR r.subject ilike '%'||keyword||'%') ;       
+                EXECUTE _query||' AND (r.receiptnumber ilike '||_keyword||' OR r.subject ilike '||_keyword||')' INTO total ;       
             return total; 
             END IF;
-                SELECT count(*) into total
-		        FROM PUBLIC.jet_process_receiptmovement as rm 
-				JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-				JOIN PUBLIC.masterdata_userpost as up ON rm.receiverid = up.userpostid
-		        where rm.active_ = true and rm.pullbackremark is null and rm.movementtype = 1  AND rm.senderid  =post_id;
+                EXECUTE _query INTO total;
             RETURN total;
         END IF;
 
@@ -1973,37 +2098,35 @@ AS $BODY$
 DECLARE total BIGINT;
 _query text;
 viewmode text;
+_keyword text;
 BEGIN
-total :=0;
-
+     total :=0;
+    _keyword :='''%'||keyword||'%''';
+    _query :='SELECT count(*)  FROM PUBLIC.jet_process_receipt r INNER JOIN 
+              PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid
+              where fc.detachremark IS NULL AND fc.docfileid ='|| file_id;
   	 IF file_id !=0 AND file_id IS NOT NULL THEN 
             
             IF  keyword !='' AND keyword IS NOT NULL  THEN
             
                 IF( _viewmode ='ViewModeFromSentFile') THEN
    
-                SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id AND fc.detachremark IS NULL; 
-                return total;
+                 EXECUTE _query ||' AND fc.filemovementId <'||filemovement_id INTO total ; 
+                 return total;
                 END IF;
                
               IF(_viewmode ='' OR _viewmode IS NULL) THEN
-                  SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id AND fc.detachremark IS NULL; 
-
-                return total;
+                  EXECUTE _query||' AND fc.filemovementId <='filemovement_id INTO total; 
+                  return total;
               END IF;
             END IF;
-                     IF( _viewmode ='ViewModeFromSentFile') THEN
-   
-                SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <filemovement_id AND fc.detachremark IS NULL; 
+                  IF( _viewmode ='ViewModeFromSentFile') THEN
+                 EXECUTE _query ||' AND fc.filemovementId <'||filemovement_id INTO total; 
                 return total;
                 END IF;
                
               IF(_viewmode ='' OR _viewmode IS NULL) THEN
-                  SELECT count(*) INTO total FROM PUBLIC.jet_process_receipt r INNER JOIN 
-                  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid where fc.docfileid = file_id  AND fc.filemovementId <=filemovement_id AND fc.detachremark IS NULL; 
+                   EXECUTE _query ||' AND fc.filemovementId <='||filemovement_id ; 
 
                 return total;
               END IF;
@@ -2016,7 +2139,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_correspondence_list_count(text,bigint, bigint, text)
     OWNER TO postgres;
-    
+   
+--    ---------------------------- Attach Receipt Movement list count -----------------------------
  
 
 CREATE OR REPLACE FUNCTION public.get_attach_receipt_movement_list_count(
@@ -2030,34 +2154,27 @@ CREATE OR REPLACE FUNCTION public.get_attach_receipt_movement_list_count(
 AS $BODY$
 DECLARE total BIGINT;
 _query text;
+_keyword text;
 BEGIN
-total :=0;      
-      
-        
-        IF receipt_id !=0 AND receipt_id IS NOT NULL THEN 
-            
-            
-            IF  keyword !='' AND keyword IS NOT NULL  THEN
-   
-            
- SELECT 
-	count(*) into total
-	FROM PUBLIC.jet_process_receiptmovement as rm 
-	left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
-    left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid WHERE  rm.receiptid =receipt_id  AND rm.movementtype != 0 AND active_ = true
-     AND (filenumber ilike '%'||keyword||'%' OR subject ilike '%'||keyword||'%' OR  categoryvalue ilike '%'||keyword||'%') ;       
-            
-            return total;
-            END IF;
-             
-            SELECT 
-            count(*) into total
+        total :=0;      
+        _keyword :='''%'||keyword||'%''';
+        _query :='SELECT count(*) 
             FROM PUBLIC.jet_process_receiptmovement as rm 
             left outer JOIN PUBLIC.jet_process_receipt as r ON rm.receiptId = r.receiptId
             left outer JOIN PUBLIC.masterdata_userpost as up1 ON rm.receiverid = up1.userpostid 
-            left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid
-            WHERE  rm.receiptid =receipt_id  AND rm.movementtype != 0 AND active_ = true;
+            left outer JOIN PUBLIC.masterdata_userpost as up2 ON rm.senderid = up2.userpostid 
+            WHERE  rm.movementtype != 0 AND active_ = true AND rm.receiptid ='||receipt_id ;
+        
+        IF receipt_id !=0 AND receipt_id IS NOT NULL THEN 
+            IF  keyword !='' AND keyword IS NOT NULL  THEN
+            
+            
+            EXECUTE _query||' AND (filenumber ilike '||_keyword||' OR subject ilike '||_keyword||' OR  categoryvalue ilike '||_keyword||')' INTO total ;       
+            
+            return total;
+            END IF;
+             EXECUTE _query INTO total;
+            
             RETURN total;
         END IF;
 
@@ -2068,149 +2185,9 @@ $BODY$;
 ALTER FUNCTION public.get_attach_receipt_movement_list_count(bigint, text)
     OWNER TO postgres;
     
-    
-    
----------------------------------get_receipt_attached_existing_file------------------
-
- -- FUNCTION: public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text);
-
-CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list(
-	_type text,
-	userpostid bigint,
-	keyword text,
-	_start integer,
-	_end integer,
-	orderbycol text,
-	_orderbytype text)
-    RETURNS TABLE(docfileid bigint, filenumber character varying, subject character varying, category character varying, createdate timestamp without time zone, remark character varying, nature character varying, isread boolean, filemovementid bigint) 
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
-    ROWS 1000
-
-    SET search_path=admin, pg_temp
-AS $BODY$
-  
-  declare 
-      nature text;
-      _keyword text;
-      _offset int;
-      _limit int;
-      _orderBy text;
-      _order text;
-      _query text;
-      q1 text;
-      q2 text;
-      q3 text;
-  begin
-    nature :='';
- q1='select f.docfileid as docfileid, f.filenumber as filenumber, f.subject as subject, c.categoryvalue as category, f.createDate as createdate, f.remarks as remark,  f.nature as nature,
-     
-    (
-        case
-            when fmt.movementtype=0 then true
-            when fmt.pullbackremark IS NOT NULL then true
-            when fmt.readon=''read'' or fmt.receivedon=''receive'' then true
-            else false
-        end
-    ) as isread,  fmt.fmid as filemovementid
-    from public.jet_process_docfile as f 
-    inner join public.md_category as c on f.categoryid = c.categorydataid
-    inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
-        where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-            and (fmt.movementtype = 1 OR fmt.movementtype=0)';
-  
- 
-                
-        _keyword := '''%'||keyword||'%''';
-      _order :=_orderByType;
-      IF (_start <0 OR _start IS NULL) THEN
-          _offset:=0;
-      ELSE
-          _offset :=_start; 
-      END IF;
-      
-      IF (_end <=0 OR _end IS NULL) THEN
-              _limit :=4;
-          ELSE
-              _limit :=_end;
-      END IF;   
-      
-      IF (orderByCol ='' OR orderByCol IS NULL) THEN
-              _orderBy :='f.createDate';
-          ELSE
-              _orderBy :=orderByCol;
-      END IF;
-      IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
-              _order :='desc';
-          ELSE
-               _order :=_orderbytype;
-      END IF;
-      
-       IF (_type ='Physical') THEN
-                nature :=' AND f.nature = ''Physical'' ';
-        END IF;
-       
-     
-                      
-                      IF (userpostid !=0 )THEN
-                                             
-                           _query := q1|| ' AND f.currentlywith='||userpostid || nature;
-                          
-                             if (keyword IS NOT NULL  ) THEN  
-                                   _query := '' ;
-                                   _query := q1|| ' AND f.currentlywith= '||userpostid || nature || ' AND (f.filenumber ilike '||_keyword ||' OR f.subject ilike '||_keyword ||')';
-                        
-                                   if (_orderby !='')  THEN 
-                  
-                                      _query := _query||' order by '||_orderby;
-                                      if (_order !='')  THEN 
-
-                                          _query := _query||' '||_order;
-                                          if (_offset >=0)  THEN 
-
-                                               _query := _query||' offset '||_offset;
-                                              if (_limit >0)  THEN 
-                                                  _query := _query||' limit '||_limit;
-
-                                                 
-                                               end if;
-                                     
-                                  
-                                   end if;
-                           
-                               end if;
-                          
-                           end if;
-                      
-                           
-                      end if;
-                      
-              end if;
-              
-        return query execute _query;
-           
-   end;
-   
-
-$BODY$;
-
-ALTER FUNCTION public.get_receipt_attach_in_file_list(text, bigint, text, integer, integer, text, text)
-    OWNER TO postgres;
-
 --------------------------attach receipt in existing file count-----------------------------
 
-
-
--- FUNCTION: public.get_receipt_attach_in_file_list_count(bigint, text)
-
--- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list_count(bigint, text);
--- FUNCTION: public.get_receipt_attach_in_file_list_count(bigint, text)
-
--- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list_count(bigint, text);
-
+    
 CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list_count(
     _type text,
 	user_post_id bigint,
@@ -2282,15 +2259,7 @@ $BODY$;
 ALTER FUNCTION public.get_receipt_attach_in_file_list_count(text,bigint, text)
     OWNER TO postgres;
     
-    
-
-
-
-
-
-
-
-
+ 
    
    ------------------------closed receipt list--------------------------
    
@@ -2380,4 +2349,8 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
     OWNER TO postgres;
+
+    
+    
+    
 
