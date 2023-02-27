@@ -77,18 +77,17 @@
 							timeZone="Asia/Calcutta" value="${modifiedDate}" />
 					</span>
 				</c:if>
-			</div>
-			<c:if test="${ empty fileNote.noteId }">
-				<input name="noteId" id="noteId" value="0" type="hidden" />
-				<!-- <textarea id="content" name="content"></textarea> -->
+			</div>	
+				
+					<c:if test="${ empty fileNote}">
+					<input name="noteId" id="noteId" value="0" type= "hidden"/>
 				<liferay-editor:editor  contents="" editorName="ckeditor" name="content" onChangeMethod="ClickHandler" />
-			</c:if>
-			<c:if test="${not empty fileNote }">
-				<input name="noteId" id="noteId" value="${fileNote.noteId }"
-					type="hidden">
-				<%-- <textarea id="content" name="content">${noteContent}</textarea> --%>
+				</c:if>
+				<c:if test="${not empty fileNote }">
+				<input name="noteId" id="noteId" value="${fileNote.noteId }" type = "hidden"/>
 				<liferay-editor:editor contents="${noteContent}" editorName="ckeditor" name="content" onChangeMethod="ClickHandler" />
 			</c:if>
+				
 		</div>
 	</aui:form>
 	<!-- -------------------------Note List------------------------ -->

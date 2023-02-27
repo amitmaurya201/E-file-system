@@ -1,6 +1,5 @@
 
 <aui:script>
-
 $("#ShowAndHideDetachModalPopup").hide();
 $("#detach-conformation").on('click', function(){
 	$("#ShowAndHideDetachModalPopup").show();
@@ -9,7 +8,7 @@ $( ".control-label" ).remove();
 var contentOnchange=" ";
 var noteContent = `${noteContent}`;
 if(noteContent==''){
-	$("#editor-head").css("background-color","red");	
+	$("#editor-head").css("background-color","#960018");	
 }
 else{
 	$("#editor-head").css("background-color","green");
@@ -32,7 +31,7 @@ function openGreenNote() {
  function <portlet:namespace/>ClickHandler() {
 	 contentOnchange = CKEDITOR.instances["<portlet:namespace/>content"].getData();
 	 if(noteContent!=contentOnchange){
-	$("#editor-head").css("background-color","red");
+	$("#editor-head").css("background-color","#960018");
 	 }
 }
  
@@ -68,19 +67,21 @@ function openGreenNote() {
 	 })
 });
 	
-var noteId = '${note.noteId }';
+var noteId = '${fileNote.noteId }';
 if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 	openGreenNote();
 }
 
  function SaveNoteContent() {
+	 console.log("save note");
 	 var content = CKEDITOR.instances["<portlet:namespace/>content"].getData();
 	 if(content==''){
-		 $("#editor-head").css("background-color","red");
+		 $("#editor-head").css("background-color","#960018");
 	 }
 	 var fileId = $('#docFileId').val();
 	 var fileMovementId = $('#fileMovementId').val();
 	 var noteId = $('#noteId').val();
+	 console.log("noteId"+noteId);
 	 var object = {};
 	 var jsonData = object;
 	 jsonData["createdBy"]=userPostId;
@@ -99,10 +100,16 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 		 processData: false,
 	     contentType : 'application/json'
 	 }).done(function(response){
-		console.log("response"+response);
 		noteContent=contentOnchange;
+		var noteId = response.noteId;
 		 $("#editor-head").css("background-color","green");
-		 $('#editor-head').load(' #editor-head')
+		 $('#editor-head').load(' #editor-head');
+		 $( "#noteId" ).val(noteId);
+		
+		/*if(noteId==0){
+			window.location.reload(true);
+		}*/
+		
 	 })
 	}
 }
