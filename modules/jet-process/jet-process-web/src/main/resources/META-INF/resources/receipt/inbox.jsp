@@ -205,7 +205,6 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 									value="${receiptMovementDTO.getSentOn()}" />
 							</liferay-ui:search-container-column-text>
 
-							</liferay-ui:search-container-column-text>
 						</c:when>
 						<c:otherwise>
 							<liferay-ui:search-container-column-text cssClass="bold"
