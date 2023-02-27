@@ -43,7 +43,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 	 * @return sort column
 	 */
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "fileNumber");
 	}
 
@@ -53,7 +52,6 @@ public class FileInboxManagementToolbarDisplayContext extends BaseManagementTool
 	 * @return sort type
 	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
 

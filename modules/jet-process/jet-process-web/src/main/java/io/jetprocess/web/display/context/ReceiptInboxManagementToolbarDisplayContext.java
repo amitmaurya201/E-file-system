@@ -5,8 +5,6 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
@@ -23,9 +21,6 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
 
-import org.osgi.service.component.annotations.Reference;
-
-import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.MVCCommandNames;
 
 public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementToolbarDisplayContext {
@@ -127,12 +122,11 @@ public class ReceiptInboxManagementToolbarDisplayContext extends BaseManagementT
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
 		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_INBOX_RENDER_COMMAND);
-
 		return sortingURL;
 	}
 
 	private final PortalPreferences _portalPreferences;
-	
+
 	private final ThemeDisplay _themeDisplay;
 
 }

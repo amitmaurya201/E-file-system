@@ -6,10 +6,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +15,7 @@ import java.util.Map;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,7 +47,6 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	 * @param renderRequest
 	 */
 	private void setReceiptInboxListAttributes(RenderRequest renderRequest) {
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
 				SearchContainer.DEFAULT_CUR);
 		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, 4);
@@ -64,7 +62,6 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 		currentPage = paginationConfig.get("currentPage");
 		List<ReceiptMovementDTO> receiptInboxList = _receiptList.getReceiptInboxList(userPostId, keywords, start, end,
 				orderByCol, orderByType);
-		logger.info("list fetched");
 		renderRequest.setAttribute("receiptInboxList", receiptInboxList);
 		renderRequest.setAttribute("inboxReceiptCount", count);
 		renderRequest.setAttribute("delta", delta);
@@ -79,8 +76,9 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 	private void setReceiptInboxToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
+		 HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(renderRequest);
 		ReceiptInboxManagementToolbarDisplayContext receiptInboxManagementToolbarDisplayContext = new ReceiptInboxManagementToolbarDisplayContext(
-				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
+				liferayPortletRequest, liferayPortletResponse,httpServletRequest);
 		renderRequest.setAttribute("receiptInboxManagementToolbarDisplayContext",
 				receiptInboxManagementToolbarDisplayContext);
 	}
@@ -89,6 +87,7 @@ public class ReceiptInboxRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private Portal _portal;
+
 	@Reference
 	private ReceiptListService _receiptList;
 }
