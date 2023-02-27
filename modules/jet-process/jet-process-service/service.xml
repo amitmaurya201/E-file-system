@@ -402,6 +402,8 @@
 
 	</entity>
 
-
+    <exceptions>
+		<exception>DuplicateFileNumber</exception>
+	</exceptions>
 
 </service-builder>

@@ -140,77 +140,96 @@ AUI().use('aui-base', function(A){
             });          
      });
 });
- /*   Add docFile   */
+ /* Add docFile */
 
 $("#<portlet:namespace />add-docfile").on('click', function(e){
-        	 e.preventDefault();
-        	 var formObj= $('#<portlet:namespace/>formId')[0];
-             var jsonData = bindFormDataJson(formObj);
-             var userPostId=  getUserPostId();
-             jsonData["userPostId"] = userPostId;  
-             var jsonObj = JSON.stringify(jsonData);  
-          	var basicHeadId= $('#<portlet:namespace/>basicHeadId').val().length;
-        	var primaryHeadId=$('#<portlet:namespace/>primaryHeadId').val().length;
-        	var secondaryHeadId=$('#<portlet:namespace/>secondaryHeadId').val().length;
-        	var tertiaryHeadId=$('#<portlet:namespace/>tertiaryHeadId').val().length;
-        	var fileCodeId=$('#<portlet:namespace/>fileCodeId').val().length;
-        	var fileNumber=$('#<portlet:namespace/>fileNumber').val().length;
-        	var subject=$('#<portlet:namespace/>subject').val().length;
-        	var categoryId=$('#<portlet:namespace/>categoryId').val().length;	
-        	 if(basicHeadId!=0 && primaryHeadId!=0 && secondaryHeadId!=0 && tertiaryHeadId!=0 && fileCodeId!=0 && subject!=0 && categoryId !=0 || fileNumber!=0 && categoryId!=0){
-        	  
-        	 $.ajax({
-        		    type: "POST",
-        		    url: "${portalURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
-        		    data: jsonObj,
-        		    dataType: 'json',
-        		    cache : false,
-        		    processData: false,
-        	        contentType : 'application/json'
-        		  }).done(function(response, status, xhr) {
-        			  console.log("response-->"+response);
-        			  console.log(xhr.getResponseHeader("status"));
-        			  console.log(xhr.getResponseHeader("result"));
-        			  if(xhr.getResponseHeader("status") === "success"){
-        			  swal( {
-                          title: "Successful!",
-                          text: xhr.getResponseHeader("result")+" "+response.fileNumber,
-                          icon: "success",
-                          button: "Ok"
-                      }).then(function() {
-                    	    window.location.href = "<%=createdFileList.toString()%>";
-                      });
-        			  }if(xhr.getResponseHeader("status") === "error"){
-        				  swal({  
-    	    				  title: " Oops!",  
-    	    				  text: xhr.getResponseHeader("result"),  
-    	    				  icon: "error",  
-    	    				});  	  
-        			  }		  
-    		 })
-    		 .fail(function(error){
-    			 swal({  
-    				  title: " Oops!",  
-    				  text: " Something went wrong, you should choose again!",  
-    				  icon: "error",  
-    				});  
-    		 })
-        
-        	}else{
-        		swal({  
-        			title: " Oops!",  
-        			  	text: "Required fields should not be empty!",  
-        			  	icon: "error",
-        		}); 
-        		
-        	}
-        });
-             
-
-
+	 e.preventDefault();
+	 var formObj= $('#<portlet:namespace/>formId')[0];
+	 console.log("formObject--->"+formObj.toString());
+    var jsonData = bindFormDataJson(formObj);
+    var userPostId =  getUserPostId();
+    if(jsonData["type"]==='SFS'){
+   	 jsonData["basicHeadId"] = 0;
+   	 jsonData["primaryHeadId"] =0;
+   	 jsonData["secondaryHeadId"] = 0;
+   	 jsonData["tertiaryHeadId"] = 0;
+   	 jsonData["fileCodeId"] = 0;
+   	 jsonData["year"] = 0;
+    }
+    jsonData["userPostId"] = userPostId;  
+    var jsonObj = JSON.stringify(jsonData);  
+ 	var basicHeadId= $('#<portlet:namespace/>basicHeadId').val().length;
+	var primaryHeadId=$('#<portlet:namespace/>primaryHeadId').val().length;
+	var secondaryHeadId=$('#<portlet:namespace/>secondaryHeadId').val().length;
+	var tertiaryHeadId=$('#<portlet:namespace/>tertiaryHeadId').val().length;
+	var fileCodeId=$('#<portlet:namespace/>fileCodeId').val().length;
+	var fileNumber=$('#<portlet:namespace/>fileNumber').val().length;
+	var sfsFileNumber=$('#<portlet:namespace/>fileNumber').val();
+	var subject=$('#<portlet:namespace/>subject').val().length;
+	var categoryId=$('#<portlet:namespace/>categoryId').val().length;	
 	
+	var subjectValue=$('#<portlet:namespace/>subject').val();
+	
+	if(basicHeadId!=0 && primaryHeadId!=0 && secondaryHeadId!=0 && tertiaryHeadId!=0 && fileCodeId!=0 && subjectValue.trim() != "" && categoryId !=0 
+			 ||  categoryId!=0  && sfsFileNumber.trim() != "" && subjectValue.trim() != "" ){ 
+	 $.ajax({
+		    type: "POST",
+		    url: "${portalURL}/o/jet-process-rs/v1.0/createFile?p_auth=" + Liferay.authToken,
+		    data: jsonObj,
+		    dataType: 'json',
+		    cache : false,
+		    processData: false,
+	        contentType : 'application/json'
+		  }).done(function(response, status, xhr) {
+			  console.log("status ---->"+status);
+			  console.log("response-->"+response);
+			  console.log(xhr.getResponseHeader("status"));
+			  console.log(xhr.getResponseHeader("result"));
+			  console.log("response-->"+response);
+			  if(xhr.getResponseHeader("status") === "success"){
+			  swal( {
+                 title: "Successful!",
+                 text: xhr.getResponseHeader("result")+" "+response.fileNumber,
+                 icon: "success",
+                 button: "Ok"
+             }).then(function() {
+           	    window.location.href = "<%=createdFileList.toString()%>";
+             });
+			  }if(xhr.getResponseHeader("status") === "error"){
+				  swal({  
+   				  title: " Oops!",  
+   				  text: xhr.getResponseHeader("result"),  
+   				  icon: "error",  
+   				});  	  
+			  }		  
+	 })
+	 .fail(function(error){
+		 swal({  
+			  title: " Oops!",  
+			  text: " Something went wrong, you should choose again!",  
+			  icon: "error",  
+			});  
+	 })
+
+	}else{
+		swal({  
+			title: " Oops!",  
+			  	text: "Required fields should not be empty!",  
+			  	icon: "error",
+		}); 
+		
+	}
+});
+
+
+
+
+
+
+
+
 	/* update docFile */
-/*Liferay.provide(window,'editFile',function(event) {*/
+/* Liferay.provide(window,'editFile',function(event) { */
 $("#<portlet:namespace />update-docfile").on('click', function(e){
 
 		event.preventDefault();

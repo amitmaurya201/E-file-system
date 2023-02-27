@@ -78,6 +78,21 @@ public class DocFileLocalServiceWrapper
 		return _docFileLocalService.createDocFile(docFileId);
 	}
 
+	@Override
+	public io.jetprocess.model.DocFile createDocFile(
+			String nature, String type, long basicHeadId, long primaryHeadId,
+			long secondaryHeadId, long tertiaryHeadId, long fileCodeId,
+			String subject, String fileNumber, long categoryId,
+			long subCategoryId, String remarks, String reference, long year,
+			long userPostId)
+		throws io.jetprocess.exception.DuplicateFileNumberException {
+
+		return _docFileLocalService.createDocFile(
+			nature, type, basicHeadId, primaryHeadId, secondaryHeadId,
+			tertiaryHeadId, fileCodeId, subject, fileNumber, categoryId,
+			subCategoryId, remarks, reference, year, userPostId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

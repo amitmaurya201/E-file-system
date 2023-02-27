@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.exception.DuplicateFileNumberException;
 import io.jetprocess.model.DocFile;
 
 import java.io.Serializable;
@@ -96,6 +97,14 @@ public interface DocFileLocalService
 	 */
 	@Transactional(enabled = false)
 	public DocFile createDocFile(long docFileId);
+
+	public DocFile createDocFile(
+			String nature, String type, long basicHeadId, long primaryHeadId,
+			long secondaryHeadId, long tertiaryHeadId, long fileCodeId,
+			String subject, String fileNumber, long categoryId,
+			long subCategoryId, String remarks, String reference, long year,
+			long userPostId)
+		throws DuplicateFileNumberException;
 
 	/**
 	 * @throws PortalException

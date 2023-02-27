@@ -85,6 +85,20 @@ public class DocFileLocalServiceUtil {
 		return getService().createDocFile(docFileId);
 	}
 
+	public static DocFile createDocFile(
+			String nature, String type, long basicHeadId, long primaryHeadId,
+			long secondaryHeadId, long tertiaryHeadId, long fileCodeId,
+			String subject, String fileNumber, long categoryId,
+			long subCategoryId, String remarks, String reference, long year,
+			long userPostId)
+		throws io.jetprocess.exception.DuplicateFileNumberException {
+
+		return getService().createDocFile(
+			nature, type, basicHeadId, primaryHeadId, secondaryHeadId,
+			tertiaryHeadId, fileCodeId, subject, fileNumber, categoryId,
+			subCategoryId, remarks, reference, year, userPostId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

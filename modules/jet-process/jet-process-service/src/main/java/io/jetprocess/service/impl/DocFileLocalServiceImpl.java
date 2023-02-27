@@ -22,16 +22,16 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import java.util.Date;
 import java.util.List;
 
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.core.util.MovementStatus;
+import io.jetprocess.exception.DuplicateFileNumberException;
 import io.jetprocess.model.DocFile;
-import io.jetprocess.model.Receipt;
-import io.jetprocess.service.FileMovementLocalService;
+
+import io.jetprocess.service.FileMovementLocalServiceUtil;
 import io.jetprocess.service.base.DocFileLocalServiceBaseImpl;
 import io.jetprocess.validator.FileValidator;
 
@@ -43,8 +43,6 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(property = "model.class.name=io.jetprocess.model.DocFile", service = AopService.class)
 public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
-
-
 
 	// delete
 	public DocFile deleteDocFile(DocFile docFile) {
@@ -63,7 +61,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		return docFile;
 	}
- 
+
 	public JSONObject addDocFile(long groupId, String nature, String type, long basicHeadId, long primaryHeadId,
 			long secondaryHeadId, long tertiaryHeadId, long year, long fileCodeId, String subject, String fileNumber,
 			long categoryId, long subCategoryId, String remarks, String reference, long userPostId,
@@ -134,9 +132,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		docFile = super.addDocFile(docFile);
 
 //		fileMovementLocalService.saveFileMovement(userPostId, userPostId, docFileId, "", "", "", false, FileStatus.CREADTED, MovementStatus.CREATED);
-		
-		
-		
+
 		jsonObject.put("nature", docFile.getNature());
 		jsonObject.put("type", docFile.getType());
 		jsonObject.put("subject", docFile.getSubject());
@@ -162,7 +158,6 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		jsonObject.put("userName", docFile.getUserName());
 		jsonObject.put("userPostId", docFile.getUserPostId());
 
-		
 		return jsonObject;
 
 	}
@@ -190,7 +185,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		String filenumber = 'F' + number;
 		return filenumber;
 	}
-	
+
 	public DocFile getDocFile() {
 		long docFileId = counterLocalService.increment(DocFile.class.getName());
 		DocFile docFile = createDocFile(docFileId);
@@ -199,11 +194,9 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		 * docFile.setFileNumber(fileId);
 		 */
 		return docFile;
-		
+
 	}
-	
-	
-	
+
 	// for check is file able to send
 	public boolean isFileAbleToSend(long userPostId, long docFileId) throws PortalException {
 		boolean state = false;
@@ -215,11 +208,12 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		}
 		return state;
 	}
-	
-	// create method for update file call this method in rs model 
-	
-	public DocFile editDocFile(String subject,long docFileId,long categoryId, long subCategoryId,String remarks,String reference) throws PortalException {
-		
+
+	// create method for update file call this method in rs model
+
+	public DocFile editDocFile(String subject, long docFileId, long categoryId, long subCategoryId, String remarks,
+			String reference) throws PortalException {
+
 		DocFile docFile = getDocFileByDocFileId(docFileId);
 		docFile.setSubject(subject);
 		docFile.setCategoryId(categoryId);
@@ -230,18 +224,57 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 		return docFile;
 
-		
-		
-		
-		
 	}
-	
-	
-	
+
+	// create method for save file
+	public DocFile createDocFile(String nature, String type, long basicHeadId, long primaryHeadId, long secondaryHeadId,
+			long tertiaryHeadId, long fileCodeId, String subject, String fileNumber, long categoryId,
+			long subCategoryId, String remarks, String reference, long year, long userPostId)
+			throws DuplicateFileNumberException {
+
+		DocFile docFile = getDocFile();
+		if (type.equals("SFS")) {
+			List<DocFile> docFileList = getDocFileList();
+			for (DocFile docFileObj : docFileList) {
+				if (fileNumber.equals(docFileObj.getFileNumber())) {
+					throw new DuplicateFileNumberException("DuplicateFileNumber");
+				} else {
+					docFile.setFileNumber(fileNumber);
+				}
+			}
+		} else {
+			docFile.setBasicHeadId(basicHeadId);
+			docFile.setPrimaryHeadId(primaryHeadId);
+			docFile.setSecondaryHeadId(secondaryHeadId);
+			docFile.setTertiaryHeadId(tertiaryHeadId);
+			docFile.setYear(year);
+			docFile.setFileCodeId(fileCodeId);
+			fileNumber = getGenerateFileNumber(docFile);
+			docFile.setFileNumber(fileNumber);
+		}
+		docFile.setType(type);
+		docFile.setSubject(subject);
+		docFile.setCategoryId(categoryId);
+		docFile.setSubCategoryId(subCategoryId);
+		docFile.setRemarks(remarks);
+		docFile.setReference(reference);
+		docFile.setNature(nature);
+		docFile.setUserPostId(userPostId);
+		docFile.setCurrentState(FileStatus.CREADTED);
+		docFile.setCurrentlyWith(userPostId);
+		docFile = super.addDocFile(docFile);
+		try {
+			FileMovementLocalServiceUtil.saveFileMovement(userPostId, userPostId, docFile.getDocFileId(), "", null, "",
+					false, FileStatus.CREADTED, MovementStatus.CREATED);
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return docFile;
+
+	}
+
 	@Reference
 	private FileValidator fileValidator;
-	/*
-	 * @Reference private FileMovementLocalService fileMovementLocalService;
-	 */
 
 }
