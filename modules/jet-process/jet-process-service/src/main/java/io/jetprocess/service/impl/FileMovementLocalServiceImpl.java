@@ -34,7 +34,6 @@ import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.FileNote;
-import io.jetprocess.model.Note;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrReceiptLocalService;
@@ -189,13 +188,11 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		if (state == true) {
 			FileMovement fileMovement = getFileMovement(fileMovementId);
 			if (fileMovement.getReadOn().isEmpty() || Validator.isNull(fileMovement.getReadOn())) {
-				fileMovement.setReadOn("read");
+				fileMovement.setReadOn(FileConstants.READ);
 				updateFileMovement(fileMovement);
-
 			}
 		}
 		return state;
-
 	}
 
 	public boolean saveReceiveMovement(long fileId, long fileMovementId) throws PortalException {
@@ -204,12 +201,10 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		if (state == true) {
 			FileMovement fileMovement = getFileMovement(fileMovementId);
 			if (fileMovement.getReceivedOn().isEmpty() || Validator.isNull(fileMovement.getReceivedOn())) {
-				fileMovement.setReceivedOn("receive");
+				fileMovement.setReceivedOn(FileConstants.RECEIVE);
 				updateFileMovement(fileMovement);
-
 			}
 		}
-
 		return state;
 	}
 
