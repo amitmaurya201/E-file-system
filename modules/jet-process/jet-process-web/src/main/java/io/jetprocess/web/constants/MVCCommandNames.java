@@ -68,4 +68,5 @@ public class MVCCommandNames {
 
     public static final String ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND = "/attachreceiptinfile";
 
+    public static final String FILE_CLOSE_LIST_RENDER_COMMAND = "/fileClosedList";
 }
