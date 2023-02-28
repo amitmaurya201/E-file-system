@@ -38,6 +38,7 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userPostId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentlyWith" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentState" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="handlingSectionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="io.jetprocess.model.impl.FileCorrReceiptImpl" table="JET_PROCESS_FileCorrReceipt">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fileCorrReceiptId" type="long">

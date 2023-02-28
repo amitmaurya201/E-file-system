@@ -68,6 +68,7 @@ public class DocFileWrapper
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
+		attributes.put("handlingSectionId", getHandlingSectionId());
 
 		return attributes;
 	}
@@ -223,6 +224,12 @@ public class DocFileWrapper
 		if (currentState != null) {
 			setCurrentState(currentState);
 		}
+
+		Long handlingSectionId = (Long)attributes.get("handlingSectionId");
+
+		if (handlingSectionId != null) {
+			setHandlingSectionId(handlingSectionId);
+		}
 	}
 
 	@Override
@@ -328,6 +335,16 @@ public class DocFileWrapper
 	@Override
 	public long getGroupId() {
 		return model.getGroupId();
+	}
+
+	/**
+	 * Returns the handling section ID of this doc file.
+	 *
+	 * @return the handling section ID of this doc file
+	 */
+	@Override
+	public long getHandlingSectionId() {
+		return model.getHandlingSectionId();
 	}
 
 	/**
@@ -603,6 +620,16 @@ public class DocFileWrapper
 	@Override
 	public void setGroupId(long groupId) {
 		model.setGroupId(groupId);
+	}
+
+	/**
+	 * Sets the handling section ID of this doc file.
+	 *
+	 * @param handlingSectionId the handling section ID of this doc file
+	 */
+	@Override
+	public void setHandlingSectionId(long handlingSectionId) {
+		model.setHandlingSectionId(handlingSectionId);
 	}
 
 	/**

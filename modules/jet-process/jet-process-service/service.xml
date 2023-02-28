@@ -43,6 +43,7 @@
 		<column name="userPostId" type="long" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
+        <column name="handlingSectionId" type="long" />
 
 		<!-- Order -->
 

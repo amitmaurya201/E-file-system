@@ -23,7 +23,8 @@ create table JET_PROCESS_DocFile (
 	year LONG,
 	userPostId LONG,
 	currentlyWith LONG,
-	currentState INTEGER
+	currentState INTEGER,
+	handlingSectionId LONG
 );
 
 create table JET_PROCESS_FileCorr (

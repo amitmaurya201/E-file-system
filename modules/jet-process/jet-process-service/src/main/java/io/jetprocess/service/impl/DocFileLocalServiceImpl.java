@@ -29,6 +29,8 @@ import java.util.List;
 import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.exception.DuplicateFileNumberException;
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.DocFile;
 
 import io.jetprocess.service.FileMovementLocalServiceUtil;
@@ -231,9 +233,16 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 			long tertiaryHeadId, long fileCodeId, String subject, String fileNumber, long categoryId,
 			long subCategoryId, String remarks, String reference, long year, long userPostId)
 			throws DuplicateFileNumberException {
-
+		UserPost userPost = null;
+		try {
+			 userPost =  userPostLocalService.getUserPost(userPostId);
+		} catch (PortalException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		DocFile docFile = getDocFile();
 		if (type.equals("SFS")) {
+			docFile.setHandlingSectionId(userPost.getSectionId()); 
 			List<DocFile> docFileList = getDocFileList();
 			for (DocFile docFileObj : docFileList) {
 				if (fileNumber.equals(docFileObj.getFileNumber())) {
@@ -243,6 +252,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 				}
 			}
 		} else {
+			docFile.setHandlingSectionId(userPost.getSectionId()); 
 			docFile.setBasicHeadId(basicHeadId);
 			docFile.setPrimaryHeadId(primaryHeadId);
 			docFile.setSecondaryHeadId(secondaryHeadId);
@@ -276,5 +286,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 
 	@Reference
 	private FileValidator fileValidator;
+	@Reference 
+	private UserPostLocalService userPostLocalService;
 
 }
