@@ -15,7 +15,9 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	color: white;
 }
 
-
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+    color : #000000;
+}
 
 .table thead th {
 	border-right: 1px solid white;
@@ -126,15 +128,15 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<portlet:actionURL var="fileReceiveAction"
 					name="<%=MVCCommandNames.FILE_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="fileId" value="${fileInboxList.getFileId()}" />
-					<portlet:param name="fmId"
+					<portlet:param name="fileMovementId"
 						value="${fileInboxList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 
 				</portlet:actionURL>
 				<portlet:actionURL var="fileReadAction"
 					name="<%=MVCCommandNames.FILE_INBOX_READ_ACTION_COMMAND%>">
-					<portlet:param name="fileId1" value="${fileInboxList.getFileId()}" />
-					<portlet:param name="fmId"
+					<portlet:param name="fileId" value="${fileInboxList.getFileId()}" />
+					<portlet:param name="fileMovementId"
 						value="${fileInboxList.getFileMovementId()}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 				</portlet:actionURL>
@@ -344,7 +346,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" name='<portlet:namespace/>fileId'
 					id="file-receive-fileId" hidden />
-				<input type="text" name='<portlet:namespace/>fmId' id="fmId" hidden />
+				<input type="text" name='<portlet:namespace/>fileMovementId' id="fileMovementId" hidden />
 				<button class="mt-3 btn btn-primary" type="submit"
 					style="width: 90px;">
 					<liferay-ui:message
@@ -422,9 +424,9 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 
 <script type="text/javascript">
 
- function receiveModal(fileId,fmId){
+ function receiveModal(fileId,fileMovementId){
 	document.getElementById("file-receive-fileId").value=fileId;
-	document.getElementById("fmId").value=fmId;
+	document.getElementById("fileMovementId").value=fileMovementId;
 	$("#file-receive").addClass("active");
 	$("#file_inbox").addClass("active");
 	$(".close, .cancel").on("click", function() {

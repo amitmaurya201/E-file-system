@@ -16,7 +16,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	color: white !important;
 }
 
-.lfr-search-container-wrapper a :not ( .component-action ) :not ( .btn ) {
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
     color : #000000;
 }
 .table thead th {
@@ -94,7 +94,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 		<clay:management-toolbar disabled="${inboxReceiptCount eq 0}"
 			displayContext="${receiptInboxManagementToolbarDisplayContext}"
 			itemsTotal="${inboxReceiptCount}"
-			searchContainerId="assignmentEntries"
+			searchContainerId="receiptInboxEntries"
 			managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}" />
 
 		<portlet:renderURL var="receiptSendURL"
@@ -104,7 +104,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 		</portlet:renderURL>
 
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="message-record-not-found" id="assignmentEntries"
+			emptyResultsMessage="message-record-not-found" id="receiptInboxEntries"
 			total="${inboxReceiptCount}"
 			iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptInboxList}" />
