@@ -5,9 +5,8 @@
 %>
 
 <style>
-html:not (#__ ):not (#___ ) .cadmin .modal-header, html:not (#__ ):not 
-	 (#___
-	 ) .cadmin.modal-header {
+
+html:not (#__ ):not (#___ ) .cadmin .modal-header, html:not (#__ ):not(#___) .cadmin.modal-header {
 	background: #007bFF;
 	color: white;
 }
@@ -16,9 +15,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	color: white;
 }
 
-.lfr-search-container-wrapper a:not (.component-action ):not (.btn ){
-	color: black;
-}
+
 
 .table thead th {
 	border-right: 1px solid white;

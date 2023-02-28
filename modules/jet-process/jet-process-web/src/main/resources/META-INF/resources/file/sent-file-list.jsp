@@ -1,8 +1,9 @@
 <%@ include file="../init.jsp"%>
 
 <style>
-.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
-	color: #000000;
+
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+    color: #000000 !important;
 }
 
 .popup, .pull_back-popup {
