@@ -46,7 +46,6 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 		logger.info(" add note method called ");
 		Note note = null;
 		System.out.println("note--------"+noteId);
-		if (content != null && !content.trim().isEmpty()) {
 			if (noteId == 0) {
 				System.out.println("create note");
 				long generateNoteId = counterLocalService.increment(Note.class.getName());
@@ -80,7 +79,7 @@ public class NoteLocalServiceImpl extends NoteLocalServiceBaseImpl {
 				note.setContent(content);
 				note = super.updateNote(note);
 			}
-	}
+
 		return note;
 	}
 

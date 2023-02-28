@@ -34,6 +34,7 @@ import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.FileNote;
+import io.jetprocess.model.Note;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrReceiptLocalService;
@@ -82,13 +83,22 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 			updateFileMovement(fileMovement);
 		}
-		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark,
-				true, FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
+		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, true,
+				FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
 		receiptMovementAttachInFile(receiverId, senderId, fileId, docFile, saveFileMovement);
+		addBlankNote(senderId, fileId, docFile, maxFmId, fileMovement);
+	}
 
-		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
-		if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-			noteLocalService.addBlankNote(fileId, maxFmId, senderId);
+	private void addBlankNote(long senderId, long fileId, DocFile docFile, long maxFmId, FileMovement fileMovement)
+			throws PortalException {
+		if (fileMovement.getPullBackRemark() == null || fileMovement.getPullBackRemark().equals("null")
+				|| fileMovement.getPullBackRemark().isEmpty()) {
+			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
+			if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+				noteLocalService.addBlankNote(fileId, maxFmId, senderId);
+
+			}
+
 		}
 	}
 
@@ -146,7 +156,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		fileMovement.setDueDate(dueDate);
 		fileMovement.setActive(active);
 		fileMovement.setMovementType(movementType);
-	    addFileMovement(fileMovement);
+		addFileMovement(fileMovement);
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
