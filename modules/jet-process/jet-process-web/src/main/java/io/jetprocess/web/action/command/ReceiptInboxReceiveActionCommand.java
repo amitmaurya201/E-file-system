@@ -13,14 +13,15 @@ import java.io.IOException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(immediate = true, property = { 
-		 "javax.portlet.init-param.add-process-action-success-action=false",
+@Component(immediate = true, property = { "javax.portlet.init-param.add-process-action-success-action=false",
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND }, service = MVCActionCommand.class)
 public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
@@ -32,20 +33,22 @@ public class ReceiptInboxReceiveActionCommand implements MVCActionCommand {
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
-		long rmId = ParamUtil.getLong(actionRequest, "rmId");
+		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
-		boolean state = receiptMovementLocalService.saveReceiveMovement(receiptId , rmId);
-		if (state == false) {
-			SessionErrors.add(actionRequest, "receive-not-available");
-			SessionMessages.add(actionRequest,PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
+		logger.info(receiptId + "    " + receiptMovementId);
+		boolean state = false;
 		try {
+			state = receiptMovementLocalService.saveReceiveMovement(receiptId, receiptMovementId);
+			if (state == false) {
+				SessionErrors.add(actionRequest, "receive-not-available");
+				SessionMessages.add(actionRequest,
+						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+			}
 			actionResponse.sendRedirect(url);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e);
 		}
-		return false;
+		return state;
 	}
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());

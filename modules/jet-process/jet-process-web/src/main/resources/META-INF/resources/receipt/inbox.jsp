@@ -117,7 +117,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
-					<portlet:param name="rmId"
+					<portlet:param name="receiptMovementId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 
@@ -126,7 +126,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					name="<%=MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND%>">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
-					<portlet:param name="rmId"
+					<portlet:param name="receiptMovementId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 				</portlet:actionURL>
@@ -136,7 +136,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
-					<portlet:param name="rmId"
+					<portlet:param name="receiptMovementId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 				</portlet:renderURL>
@@ -329,7 +329,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
-				<input type="text" name='<portlet:namespace/>rmId' id="rmId" hidden />
+				<input type="text" name='<portlet:namespace/>receiptMovementId' id="receiptMovementId" hidden />
 				<br>
 				<button class="mt-3 btn btn-primary " style="width: 90px;"
 					type="submit">
@@ -421,9 +421,9 @@ $("#alert-remove-send").fadeTo(2000, 500).slideUp(500, function(){
     $("#alert-remove-send").slideUp(500);
 });
 
- function receiptReceiveModal(receiptId,rmId){
+ function receiptReceiveModal(receiptId,receiptMovementId){
 	document.getElementById("receive-receiptId").value=receiptId;
-	document.getElementById("rmId").value=rmId;
+	document.getElementById("receiptMovementId").value=receiptMovementId;
 	$("#receive").addClass("active");
 	$("#rec_inbox").addClass("active");
 	$(".close, .cancel").on("click", function() {
@@ -474,8 +474,8 @@ function showModal(id){
 	
 	
 	
-function OpenSendPopUp(receiptId,receiptmovementId){
-	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptmovementId='+receiptmovementId;
+function OpenSendPopUp(receiptId,receiptMovementId){
+	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptMovementId='+receiptMovementId;
 	Liferay.Util.openWindow({
 		dialog: {
 			centered: true,
