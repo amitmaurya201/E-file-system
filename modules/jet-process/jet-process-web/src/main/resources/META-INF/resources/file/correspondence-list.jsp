@@ -11,7 +11,6 @@ String redirectURL = themeDisplay.getURLCurrent();
 .modal .close:last-child {
     margin-right: -0.3125rem;
     font-size: 1.5rem;
-    /* color: white !important; */
 }
 
 .crList th {
@@ -87,7 +86,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 <portlet:renderURL var="receiptDetailsPopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
+		value="<%=MVCCommandNames.RECEIPT_DETAIL_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
 <portlet:actionURL var="detachReceipt" name="<%=MVCCommandNames.DETACH_RECEIPT %>">

@@ -1468,10 +1468,6 @@ begin
         _orderBy := ' r.receiptnumber ';
      END IF;
      
-       IF (orderbycol = 'subject') THEN
-        _orderBy := ' r.subject ';
-     END IF;
-     
      IF(orderByType ='' or orderByType IS NULL) THEN
         _order := ' desc ';
      ELSE 

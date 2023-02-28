@@ -3,7 +3,7 @@
 <portlet:renderURL var="receiptDetailsPopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
+		value="<%=MVCCommandNames.RECEIPT_DETAIL_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
 <style>
@@ -50,10 +50,8 @@
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					value="${closedReceiptDTO.subject }"
-					name="label-receipt-closed-subject" orderable="true"
-					orderableProperty="subject" cssClass="hover-tips" />
+					name="label-receipt-closed-subject" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
-				
 					name="label-receipt-closed-closedOn" orderable="true"
 					orderableProperty="closedOn">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
