@@ -254,10 +254,10 @@ public class FileMovementLocalServiceUtil {
 		return getService().getFileMovementByFileId(fileId);
 	}
 
-	public static FileMovement getFileMovementById(long fmId)
+	public static FileMovement getFileMovementById(long fileMovementId)
 		throws PortalException {
 
-		return getService().getFileMovementById(fmId);
+		return getService().getFileMovementById(fileMovementId);
 	}
 
 	/**
@@ -359,14 +359,16 @@ public class FileMovementLocalServiceUtil {
 		return getService().isActive(docFileId);
 	}
 
-	public static Boolean isPullBackAvailable(long fmId)
+	public static Boolean isPullBackAvailable(long fileMovementId)
 		throws PortalException {
 
-		return getService().isPullBackAvailable(fmId);
+		return getService().isPullBackAvailable(fileMovementId);
 	}
 
-	public static boolean pullBackedAlready(long fmId) throws PortalException {
-		return getService().pullBackedAlready(fmId);
+	public static boolean pullBackedAlready(long fileMovementId)
+		throws PortalException {
+
+		return getService().pullBackedAlready(fileMovementId);
 	}
 
 	public static FileMovement pullBackFileMovement(
@@ -388,16 +390,16 @@ public class FileMovementLocalServiceUtil {
 			currentState, movementType);
 	}
 
-	public static boolean saveReadMovement(long fileId, long fmId)
+	public static boolean saveReadMovement(long fileId, long fileMovementId)
 		throws PortalException {
 
-		return getService().saveReadMovement(fileId, fmId);
+		return getService().saveReadMovement(fileId, fileMovementId);
 	}
 
-	public static boolean saveReceiveMovement(long fileId, long fmId)
+	public static boolean saveReceiveMovement(long fileId, long fileMovementId)
 		throws PortalException {
 
-		return getService().saveReceiveMovement(fileId, fmId);
+		return getService().saveReceiveMovement(fileId, fileMovementId);
 	}
 
 	/**

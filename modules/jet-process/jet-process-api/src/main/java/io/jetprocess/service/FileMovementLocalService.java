@@ -235,7 +235,8 @@ public interface FileMovementLocalService
 	public List<FileMovement> getFileMovementByFileId(long fileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public FileMovement getFileMovementById(long fmId) throws PortalException;
+	public FileMovement getFileMovementById(long fileMovementId)
+		throws PortalException;
 
 	/**
 	 * Returns the file movement matching the UUID and group.
@@ -320,9 +321,11 @@ public interface FileMovementLocalService
 	public Boolean isActive(long docFileId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Boolean isPullBackAvailable(long fmId) throws PortalException;
+	public Boolean isPullBackAvailable(long fileMovementId)
+		throws PortalException;
 
-	public boolean pullBackedAlready(long fmId) throws PortalException;
+	public boolean pullBackedAlready(long fileMovementId)
+		throws PortalException;
 
 	public FileMovement pullBackFileMovement(
 			long fileId, long fileMovementId, String remarks)
@@ -334,10 +337,10 @@ public interface FileMovementLocalService
 			long movementType)
 		throws PortalException;
 
-	public boolean saveReadMovement(long fileId, long fmId)
+	public boolean saveReadMovement(long fileId, long fileMovementId)
 		throws PortalException;
 
-	public boolean saveReceiveMovement(long fileId, long fmId)
+	public boolean saveReceiveMovement(long fileId, long fileMovementId)
 		throws PortalException;
 
 	/**

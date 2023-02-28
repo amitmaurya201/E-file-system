@@ -31,6 +31,23 @@
 		<field name="currentState" type="int" />
 		<field name="handlingSectionId" type="long" />
 	</model>
+	<model name="io.jetprocess.model.FileCloseDetail">
+		<field name="uuid" type="String" />
+		<field name="fileClosedId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="fileId" type="long" />
+		<field name="closedBy" type="long" />
+		<field name="closingRemarks" type="String" />
+		<field name="reopenDate" type="Date" />
+		<field name="reopenRemarks" type="String" />
+		<field name="closingMovementId" type="long" />
+		<field name="reopenBy" type="long" />
+	</model>
 	<model name="io.jetprocess.model.FileCorrReceipt">
 		<field name="uuid" type="String" />
 		<field name="fileCorrReceiptId" type="long" />

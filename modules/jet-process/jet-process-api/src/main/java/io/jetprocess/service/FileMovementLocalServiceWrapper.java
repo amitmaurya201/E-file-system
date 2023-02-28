@@ -283,10 +283,11 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.FileMovement getFileMovementById(long fmId)
+	public io.jetprocess.model.FileMovement getFileMovementById(
+			long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _fileMovementLocalService.getFileMovementById(fmId);
+		return _fileMovementLocalService.getFileMovementById(fileMovementId);
 	}
 
 	/**
@@ -404,17 +405,17 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
-	public Boolean isPullBackAvailable(long fmId)
+	public Boolean isPullBackAvailable(long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _fileMovementLocalService.isPullBackAvailable(fmId);
+		return _fileMovementLocalService.isPullBackAvailable(fileMovementId);
 	}
 
 	@Override
-	public boolean pullBackedAlready(long fmId)
+	public boolean pullBackedAlready(long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _fileMovementLocalService.pullBackedAlready(fmId);
+		return _fileMovementLocalService.pullBackedAlready(fileMovementId);
 	}
 
 	@Override
@@ -439,17 +440,19 @@ public class FileMovementLocalServiceWrapper
 	}
 
 	@Override
-	public boolean saveReadMovement(long fileId, long fmId)
+	public boolean saveReadMovement(long fileId, long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _fileMovementLocalService.saveReadMovement(fileId, fmId);
+		return _fileMovementLocalService.saveReadMovement(
+			fileId, fileMovementId);
 	}
 
 	@Override
-	public boolean saveReceiveMovement(long fileId, long fmId)
+	public boolean saveReceiveMovement(long fileId, long fileMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _fileMovementLocalService.saveReceiveMovement(fileId, fmId);
+		return _fileMovementLocalService.saveReceiveMovement(
+			fileId, fileMovementId);
 	}
 
 	/**

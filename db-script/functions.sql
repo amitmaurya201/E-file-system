@@ -326,14 +326,14 @@ AS $BODY$
 		(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) AS SentTo ,
 		fm.createdate as sentOn, fm.readon as readOn, fm.duedate as dueDate, fm.remark as remark, fm.receivedon as receivedOn,
 		f.currentlywith as currentlyWith, f.nature as nature, f.docfileid as fileId, fm.senderid as senderId , 
-        f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername ,  fn.filemovementid is not null as hasNote
+        f.currentstate as currentState , f.docfileid as docFileId , fm.pullbackremark as pullBackRemark , null as currentlywithusername , (case when n.content ='''' then false when n.content is null then false else true end )as hasNote
 		FROM PUBLIC.jet_process_filemovement as fm 
         Join (select max(mov.fmid) as mfmId from PUBLIC.jet_process_filemovement mov where mov.active_ = true group by mov.fileId) fmov on fmov.mfmId = fm.fmid  
 		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		JOIN PUBLIC.masterdata_userpost as up2 ON fm.receiverid = up2.userpostid 
-        left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid ';
-                  
+        left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid
+         left join public.jet_process_note as n on n.noteid = fn.noteid';        
         _keyword := '''%'||keyword||'%''';
         _order :=_orderByType;
         IF (_start <0 OR _start IS NULL) THEN
@@ -1284,7 +1284,7 @@ AS $BODY$
        viewmode text;
    
     begin
-    _query :='SELECT n.noteid, n.signature, n.createdate,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
+    _query :='SELECT n.noteid, n.signature, n.modifieddate ,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
 					fn on n.noteid = fn.noteid';
                     
          IF (_viewmode ='ViewModeFromSentFile') THEN

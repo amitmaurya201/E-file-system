@@ -49,6 +49,7 @@ import io.jetprocess.model.FileMovement;
 import io.jetprocess.service.FileMovementLocalService;
 import io.jetprocess.service.FileMovementLocalServiceUtil;
 import io.jetprocess.service.persistence.DocFilePersistence;
+import io.jetprocess.service.persistence.FileCloseDetailPersistence;
 import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
 import io.jetprocess.service.persistence.FileMovementPersistence;
 import io.jetprocess.service.persistence.FileNotePersistence;
@@ -597,6 +598,9 @@ public abstract class FileMovementLocalServiceBaseImpl
 
 	@Reference
 	protected DocFilePersistence docFilePersistence;
+
+	@Reference
+	protected FileCloseDetailPersistence fileCloseDetailPersistence;
 
 	@Reference
 	protected FileCorrReceiptPersistence fileCorrReceiptPersistence;
