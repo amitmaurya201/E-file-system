@@ -37,6 +37,16 @@ public class FileCloseDetailLocalServiceWrapper
 		_fileCloseDetailLocalService = fileCloseDetailLocalService;
 	}
 
+	@Override
+	public io.jetprocess.model.FileCloseDetail addCloseFileDetail(
+			long fileId, long closedBy, String closingRemarks,
+			long closingMovementId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _fileCloseDetailLocalService.addCloseFileDetail(
+			fileId, closedBy, closingRemarks, closingMovementId);
+	}
+
 	/**
 	 * Adds the file close detail to the database. Also notifies the appropriate model listeners.
 	 *

@@ -88,6 +88,13 @@
 <portlet:renderURL var="sendback">
 	<portlet:param name="mvcPath" value="/file/sendback.jsp" />
 </portlet:renderURL>
+
+<portlet:renderURL var = "closeFileURL" 
+windowState = "<%=LiferayWindowState.POP_UP.toString() %>">
+	<portlet:param name = "mvcRenderCommandName" 
+	value = "<%=MVCCommandNames.FILE_CLOSE_RENDER_COMMAND %>" />
+	<portlet:param name="backPageURL" value="<%=backPageURL%>" /> 
+</portlet:renderURL>
  
 <%-- <portlet:renderURL var="dispatch">
     <portlet:param name="mvcPath" value="/file/dispatch.jsp"/>
@@ -194,7 +201,9 @@
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
 				
-	      
+	       <li class="nav-item border"><a id="closeFile"  href="#" 
+	       onClick="OpenCloseFilePopUp(<%=docFileId %>,<%=String.valueOf(fileMovementId)%>)" 
+	       class="nav-link">Close</a></li>
 
 		</ul>
 		<div class="nav-item d-flex ">
@@ -219,5 +228,23 @@
 		$('#edit').addClass('disabled');
 		$('#send').addClass('disabled');
 		$('#sendback').addClass('disabled');
+	}
+	
+	function OpenCloseFilePopUp(docFileId, fileMovementId){
+		var fileCloseURL = '<%= closeFileURL%>&<portlet:namespace/>docFileId='+docFileId+'&<portlet:namespace/>fileMovementId='+fileMovementId;
+		Liferay.Util.openWindow({
+			dialog: {
+				centered: true,
+				height: 265,
+				destroyOnClose: true,														 
+				destroyOnHide: true, 
+				modal: true,
+				width: 500
+			},
+			id: '<portlet:namespace/>dialog',
+			title: 'Closing Remarks',
+			uri: fileCloseURL
+			
+		});
 	}
 </script>

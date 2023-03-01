@@ -58,11 +58,14 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("docFileObj", docFile);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
 			renderRequest.setAttribute("backPageURL", backPageURL);
+			System.out.println("fileMovementId fileinner view"+fileMovementId);
 			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
+			System.out.println("fileNoteObj"+fileNote);
 			if (fileNote != null) {
 				Note note = noteLocalService.getNote(fileNote.getNoteId());
 				renderRequest.setAttribute("noteContent", note.getContent());
 				renderRequest.setAttribute("modifiedDate", note.getModifiedDate());
+				System.out.println("note.getModifiedDate()"+note.getModifiedDate());
 				renderRequest.setAttribute("fileNoteObj", fileNote);
 
 			}

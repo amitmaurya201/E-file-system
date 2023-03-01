@@ -42,7 +42,9 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="fileId" type="long" />
 		<field name="closedBy" type="long" />
-		<field name="closingRemarks" type="String" />
+		<field name="closingRemarks" type="String" >
+		<hint name="max-length">500</hint>
+		</field>
 		<field name="reopenDate" type="Date" />
 		<field name="reopenRemarks" type="String" />
 		<field name="closedMovementId" type="long" />

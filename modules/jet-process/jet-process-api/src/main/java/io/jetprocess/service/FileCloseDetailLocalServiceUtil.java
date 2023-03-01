@@ -45,6 +45,14 @@ public class FileCloseDetailLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.FileCloseDetailLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static FileCloseDetail addCloseFileDetail(
+			long fileId, long closedBy, String closingRemarks,
+			long closingMovementId)
+		throws PortalException {
+
+		return getService().addCloseFileDetail(
+			fileId, closedBy, closingRemarks, closingMovementId);
+	}
 
 	/**
 	 * Adds the file close detail to the database. Also notifies the appropriate model listeners.

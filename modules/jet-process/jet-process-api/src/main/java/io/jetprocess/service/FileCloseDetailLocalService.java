@@ -64,6 +64,10 @@ public interface FileCloseDetailLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.FileCloseDetailLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the file close detail local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link FileCloseDetailLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public FileCloseDetail addCloseFileDetail(
+			long fileId, long closedBy, String closingRemarks,
+			long closingMovementId)
+		throws PortalException;
 
 	/**
 	 * Adds the file close detail to the database. Also notifies the appropriate model listeners.
