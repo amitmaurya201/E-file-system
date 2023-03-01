@@ -58,8 +58,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page
-	import="io.jetprocess.masterdata.model.FileCorrespondenceReceiptDTO"%>
+
 <%@page
 	import="io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext"%>
 <%@page
