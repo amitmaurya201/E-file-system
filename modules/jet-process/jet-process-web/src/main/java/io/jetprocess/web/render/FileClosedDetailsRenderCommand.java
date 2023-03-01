@@ -28,12 +28,12 @@ public class FileClosedDetailsRenderCommand implements MVCRenderCommand{
 		logger.info("file close details render command called----");
 		
 		long fileId = ParamUtil.getLong(renderRequest, "fileId");
-		System.out.println("fileid----------"+fileId);
 	try {
 		DocFile docFile = 	docFileLocalService.getDocFile(fileId);
 		renderRequest.setAttribute("docFile", docFile);
+		fileViewDetailsHelper.setFileDetails(fileId, renderRequest);
 	} catch (PortalException e) {
-		// TODO Auto-generated catch block
+	
 		e.printStackTrace();
 	}
 
@@ -45,4 +45,7 @@ public class FileClosedDetailsRenderCommand implements MVCRenderCommand{
 
 	@Reference
 	private DocFileLocalService docFileLocalService;
+	
+	@Reference
+	private FileViewDetailsHelper  fileViewDetailsHelper;
 }
