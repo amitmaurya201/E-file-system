@@ -33,7 +33,7 @@
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					name="label-file-closed-receiptNumber" orderable="true"
-					orderableProperty="receiptNumber" cssClass="hyperlink-css">
+					orderableProperty="fileNumber" cssClass="hyperlink-css">
 					<a onclick="receiptDetailPopup(${closedFileDTO.fileId})"
 						style="cursor: pointer">${closedFileDTO.fileNumber }</a>
 				</liferay-ui:search-container-column-text>
