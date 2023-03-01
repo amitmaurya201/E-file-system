@@ -2328,7 +2328,7 @@ begin
     _closedby := closedby;
     _query := 'SELECT f.fileclosedid as closedFileId , f.fileid as fileId , f.closedby as closedBy, f.closingremarks as closingRemarks , 
                 f.reopendate as reopenDate , f.reopenremarks as reopenRemaks , f.closedmovementid as closingMovementId ,
-                f.reopenby as reopenBy, f.createdate as closedOn , d.nature as nature , d.filenumber as fileNumber , d.subject as subject , d.handlingsectionid as dealingHeadSectionId 
+                f.reopenby as reopenBy, f.createdate as closedOn , d.nature as nature , d.filenumber as fileNumber , d.subject as subject , d.dealingheadsectionid  as dealingHeadSectionId 
                 FROM PUBLIC.jet_process_fileclosedetail as f 
                 JOIN PUBLIC.jet_process_docfile AS d ON d.docfileId = f.fileid ';
                 
