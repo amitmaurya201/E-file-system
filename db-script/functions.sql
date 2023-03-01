@@ -2184,9 +2184,12 @@ ALTER FUNCTION public.get_attach_receipt_movement_list_count(bigint, text)
     
 --------------------------attach receipt in existing file count-----------------------------
 
-    
+ -- FUNCTION: public.get_receipt_attach_in_file_list_count(text, bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_receipt_attach_in_file_list_count(text, bigint, text);
+
 CREATE OR REPLACE FUNCTION public.get_receipt_attach_in_file_list_count(
-    _type text,
+	_type text,
 	user_post_id bigint,
 	keyword text)
     RETURNS bigint
@@ -2219,17 +2222,17 @@ BEGIN
             IF  keyword !='' AND keyword IS NOT NULL  THEN
                    IF(_type ='Physical' ) THEN
                  
-                     EXECUTE _query ||' AND f.nature = ''Physical''  AND (f.filenumber ilike '||keyword||'  OR f.subject ilike '||keyword||')' INTO total;
+                     EXECUTE _query ||' AND f.nature = ''Physical''  AND (f.filenumber ilike '||'''%'||keyword||'%'''||'  OR f.subject ilike '||'''%'||keyword||'%'''||')' INTO total;
                 return total; 
                 ELSE
-                    EXECUTE _query||' AND (f.filenumber ilike '||_keyword||'  OR f.subject ilike '||_keyword||')' INTO total;
+                    EXECUTE _query||' AND (f.filenumber ilike '||'''%'||keyword||'%'''||'  OR f.subject ilike '||'''%'||keyword||'%'''||')' INTO total;
                     return total;
                 END IF;
                 
             END IF;
                IF(_type ='Physical' ) THEN
                  
-                   EXECUTE _query ||' AND f.nature ='||'Physical' INTO total ;
+                   EXECUTE _query ||' AND f.nature =''Physical''' INTO total ;
                 return total; 
                 ELSE
                     EXECUTE _query INTO total;
@@ -2241,10 +2244,9 @@ BEGIN
 END;
 $BODY$;
 
-ALTER FUNCTION public.get_receipt_attach_in_file_list_count(text,bigint, text)
+ALTER FUNCTION public.get_receipt_attach_in_file_list_count(text, bigint, text)
     OWNER TO postgres;
-    
- 
+
    
 
    
