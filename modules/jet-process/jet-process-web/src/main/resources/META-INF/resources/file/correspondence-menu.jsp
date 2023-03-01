@@ -43,6 +43,15 @@
 				value="<%=MVCCommandNames.Corr_RECEIPT_CLOSE_RENDER_COMMAND %>" />
 		</portlet:renderURL>
 
+<portlet:renderURL var="corrReopenURL"
+			windowState="<%=LiferayWindowState.POP_UP.toString()%>" >
+			<portlet:param name="receiptId"
+                value="<%= String.valueOf(filecorr.getReceiptId()) %>" />
+			<portlet:param name="reopenMovementId"
+                value="<%= String.valueOf(filecorr.getReceiptMovementId()) %>" />
+			<portlet:param name="mvcRenderCommandName"
+				value="<%=MVCCommandNames.RECEIPT_REOPEN_POP_UP %>" />
+		</portlet:renderURL>
 
 
 <%-- <liferay-ui:icon-menu useIconCaret="true" icon="<%=request.getContextPath() + "/image/pullback.png"%>" cssClass="custom-icon"  > --%>
@@ -52,7 +61,7 @@
 
 		
 	<liferay-ui:icon image="folder_open" useDialog="true" message="Reopen"
-		url="<%=corrDetachURL.toString()%>" />
+		url="<%=corrReopenURL.toString()%>" />
 		
 		<liferay-ui:icon image="close" useDialog="true" message="Close"
 		url="<%=corrCloseURL.toString()%>" />
