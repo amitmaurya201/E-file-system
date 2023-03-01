@@ -1446,7 +1446,7 @@ begin
                 r.receiptNumber as receiptNumber,r.subject as subject , cr.createdate as closedon ,
                 cr.closingremarks as closingremarks, cr.receiptid as receiptid
                 FROM PUBLIC.jet_process_receiptclosedetail as cr 
-                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId ';
+                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL  ';
                 
      _keyword := '''%' || keyword || '%''';
      IF (_start <0 OR _start IS NULL) THEN
@@ -1476,7 +1476,7 @@ begin
      END IF;
     
     IF(_closedby !=0) THEN
-        _query := _query ||'where closedby = ' || _closedby;
+        _query := _query ||' AND closedby = ' || _closedby;
         
         IF (_keyword IS NOT NULL) THEN 
             _query := _query || 'AND (receiptnumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
@@ -2271,7 +2271,7 @@ begin
     _keyword :='''%'||keyword||'%''';
     _query :='SELECT COUNT(*) 
             FROM PUBLIC.jet_process_receiptclosedetail as cr 
-            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where cr.closedby ='|| _closedby;
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL AND cr.closedby ='|| _closedby;
     IF _closedby != 0 AND _closedby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
