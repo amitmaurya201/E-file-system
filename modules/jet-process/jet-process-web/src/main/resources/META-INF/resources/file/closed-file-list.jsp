@@ -11,13 +11,13 @@
 		<clay:management-toolbar searchContainerId="closedFileEntries"
 			disabled="${closedFileCount eq 0 }"
 			itemsTotal="${closedFileCount}"
-			displayContext="${closedReceiptManagementToolbarDisplayContext}"
+			displayContext="${closedFileManagementToolbarDisplayContext}"
 			selectable="false" />
 
 		<liferay-ui:search-container id="closedFileEntries"
 			emptyResultsMessage="message-record-not-found"
 			total="${closedFileCount}" delta="${delta }"
-			iteratorURL="${closedReceiptManagementToolbarDisplayContext._getCurrentURL() }">
+			iteratorURL="${closedFileManagementToolbarDisplayContext._getCurrentURL() }">
 			<liferay-ui:search-container-results results="${closedFileList}" />
 
 			<liferay-ui:search-container-row
@@ -32,7 +32,7 @@
 					<span title="${closedFileDTO.nature }">${nature} </span>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
-					name="label-file-closed-receiptNumber" orderable="true"
+					name="label-file-closed-fileNumber" orderable="true"
 					orderableProperty="fileNumber" cssClass="hyperlink-css">
 					<a onclick="receiptDetailPopup(${closedFileDTO.fileId})"
 						style="cursor: pointer">${closedFileDTO.fileNumber }</a>

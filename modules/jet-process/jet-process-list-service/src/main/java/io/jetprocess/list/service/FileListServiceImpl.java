@@ -533,12 +533,13 @@ public class FileListServiceImpl implements FileListService {
 	@Override
 	public List<ClosedFileDTO> getFileClosedList(long closedBy, String keyword, int start, int end, String orderBy,
 			String order) {
+		
 		logger.info("getting closed list data ");
 		List<ClosedFileDTO> closedFileListDTO = new ArrayList<>();
 		CallableStatement prepareCall=null;
 		try {
 			
-			prepareCall = con.prepareCall("-------query--------");			
+			prepareCall = con.prepareCall("select * from public.get_closed_file_list(?,?,?,?,?,?)");			
 			prepareCall.setLong(1, closedBy);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -550,12 +551,23 @@ public class FileListServiceImpl implements FileListService {
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					ClosedFileDTO closedFileDTO = new ClosedFileDTO();
+					closedFileDTO.setClosedFileId(rs.getLong("closefileid"));
+					closedFileDTO.setFileId(rs.getLong("fileid"));
+					closedFileDTO.setClosedBy(rs.getLong("closedby"));
+					closedFileDTO.setClosingRemarks(rs.getString("closingremarks"));
+					closedFileDTO.setReopenDate(rs.getTimestamp("reopendate"));
+					closedFileDTO.setReopenRemaks(rs.getString("reopenremarks"));
+					closedFileDTO.setClosingMovementId(rs.getLong("closingmovementid"));
+					closedFileDTO.setReopenBy(rs.getLong("reopenby"));
+					closedFileDTO.setClosedOn(rs.getTimestamp("createdate"));
+					closedFileDTO.setNature(rs.getString("nature"));
 					closedFileDTO.setFileNumber(rs.getString("filenumber"));
-					closedFileDTO.setSubject(rs.getString("subject"));					
-					closedFileDTO.setNature(rs.getString("nature"));									
+					closedFileDTO.setSubject(rs.getString("subject"));		
+					closedFileDTO.setDealingHeadSectionId(rs.getLong("dealingheadsectionid"));														
 					closedFileListDTO.add(closedFileDTO);
 				}
 			}
+		
 		} catch (SQLException e) {
 			logger.error("Couldn't able to find connection"+e);
 			e.printStackTrace();
@@ -569,12 +581,12 @@ public class FileListServiceImpl implements FileListService {
 
 	@Override
 	public int getClosedFileListCount(long closedBy, String keyword) {
-		logger.info("getting closed list data count");
+		logger.info("getting closed file list data count");
 		CallableStatement prepareCall=null;
 		int count = 0;
 		try {
 			
-			 prepareCall = con.prepareCall("-------query-------");	
+			 prepareCall = con.prepareCall("select public.get_closed_file_list_count(?, ?)");	
 			prepareCall.setLong(1,closedBy);			
 			prepareCall.setString(2,keyword);
 			boolean execute = prepareCall.execute();

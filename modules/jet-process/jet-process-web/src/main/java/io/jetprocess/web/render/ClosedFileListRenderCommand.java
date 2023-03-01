@@ -23,11 +23,9 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.ClosedFileDTO;
-import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.ClosedFileManagementToolbarDisplayContext;
-import io.jetprocess.web.display.context.ClosedReceiptManagementToolbarDisplayContext;
 import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
@@ -36,9 +34,9 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		logger.info("close file list renderer called");
+		logger.info("close file list renderer called");		
 		addClosedFileToolbarAttributes(renderRequest, renderResponse);
-	//	setClosedFileListAttributes(renderRequest, renderResponse);
+		setClosedFileListAttributes(renderRequest, renderResponse);		
 		return "/file/closed-file-list.jsp";
 	}
 	
@@ -56,7 +54,7 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand{
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		List<ClosedFileDTO> closedFileList = fileListService.getFileClosedList(closedBy, keyword, start, end,
+		List<ClosedFileDTO> closedFileList = fileListService.getFileClosedList(1, keyword, start, end,
 				orderByCol, orderByType);
 		renderRequest.setAttribute("closedFileList", closedFileList);
 		renderRequest.setAttribute("delta", delta);
@@ -74,9 +72,10 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand{
 				closedFileManagementToolbarDisplayContext);
 	}
 	
+	@Reference
 	private FileListService fileListService;
 
-	private Log logger = LogFactoryUtil.getLog(ClosedReceiptListRenderCommand.class);
+	private Log logger = LogFactoryUtil.getLog(ClosedFileListRenderCommand.class);
 
 	@Reference
 	private Portal portal;
