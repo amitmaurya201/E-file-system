@@ -1,58 +1,37 @@
 <%@ include file="../init.jsp"%>
 
 
-<style>
-.btn{
-
-    background-color: #007bff !important;
-    color: white;
-    border-color: #007bff !important;
-}
-
-html:not(#__):not(#___) .cadmin .modal-header, html:not(#__):not(#___) .cadmin.modal-header {
-
-background-color: #007bff !important; 
-}
-html:not(#__):not(#___) .cadmin .modal-title {
-color: white !important;
-}
-html:not(#__):not(#___) .cadmin .lexicon-icon {
-color: white !important;
-}
-
-</style>
 <%
    
 
 long receiptId = (long) renderRequest.getAttribute("receiptId");
-long rmId = (long) renderRequest.getAttribute("rmId");
-String backPageURL = (String)renderRequest.getAttribute("backPageURL");
+long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
+
 %>
- 
- 
+
 <portlet:resourceURL
-	id="<%=MVCCommandNames.CLOSE_RECEIPT_RESOURCE_COMMAND%>"
-	var="closeReceiptResourceURL"> </portlet:resourceURL>
+	id="<%=MVCCommandNames.REOPEN_RECEIPT_RESOURCE_COMMAND%>"
+	var="reopenReceiptResourceURL"> </portlet:resourceURL>
  
  
-     <aui:form action="#" method="post" name="closeReceipt" >
+     <aui:form action="#" method="post" name="ReopenReceipt" >
 			<div style="padding: 0px 20px;">
 			
 			<aui:input name="receiptId" value="<%=receiptId %>" type="hidden"/>
-			<aui:input name="rmId" value="<%=rmId %>" type="hidden"/>
+			<aui:input name="reopenMovementId" value="<%=reopenMovementId %>" type="hidden"/>
 			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"/>
-		 	<aui:input label="label-closereceipt-remark" name="closingRemarks" id="closingRemarks"
+		 	<aui:input label="label-reopenreceipt-remark" name="reopenRemarks" id="reopenRemarks"
 					type="textarea" style="height:70px;">
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">
-						<liferay-ui:message key="close-receipt-remarks-maxlength" />
+						<liferay-ui:message key="receipt-reopen-remarks-maxlength" />
 					</aui:validator>
 				</aui:input>
 			</div>
 			<hr style="margin: 1rem 0rem 0rem 0rem;" />
 		 	<div style="text-align: right; padding: 10px 20px;">
-					<aui:button type="button" class="btn btn-primary" value="label-closereceipt-button-submit" onClick="submitCloseReceiptPopUP()" />
-				<aui:button type="cancel" class="btn btn-primary" value="label-closereceipt-button-cancel">
+					<aui:button type="button" class="btn btn-primary" value="label-reopen-receipt-button-submit" onClick="submitReopenReceiptPopUP()" />
+				<aui:button type="cancel" class="btn btn-primary" value="label-reopen-receipt-button-cancel">
 					</aui:button>
 			</div>		
     </aui:form>
@@ -77,8 +56,8 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 		
 
 		<script type="text/javascript">
-				function validateForm(closeReceipt){
-					var liferayForm = Liferay.Form.get(closeReceipt);
+				function validateForm(ReopenReceipt){
+					var liferayForm = Liferay.Form.get(ReopenReceipt);
 						if(liferayForm){
 							var validator = liferayForm.formValidator;
 							 validator.validate();
@@ -91,16 +70,16 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 							return true;
 						}
 
-			function pageReload() {
+			<%-- function pageReload() {
 				parent.location.href = '<%=backPageURL%>';
-				}	
+				} --%>	
 					
 					/* send receipt pop up with validation  */
-			function submitCloseReceiptPopUP(){
-				if(validateForm('<portlet:namespace/>closeReceipt')){
+			function submitReopenReceiptPopUP(){
+				if(validateForm('<portlet:namespace/>ReopenReceipt')){
 					AUI().use('aui-io-request','aui-base','io', function(A){
-						var form = A.one("#<portlet:namespace/>closeReceipt");
-						     A.io.request('<%=closeReceiptResourceURL.toString()%>', {
+						var form = A.one("#<portlet:namespace/>ReopenReceipt");
+						     A.io.request('<%=reopenReceiptResourceURL.toString()%>', {
 							method : 'post',
 							form : {
 								id : form
@@ -108,7 +87,7 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 							on : {
 								success :  function() { 
 				            		   document.getElementById("successMsg").style.display="block";
-					   	           		setTimeout(pageReload, 1500)  
+					   	           		//setTimeout(pageReload, 1500)  
 					   	       	 	} 
 							}
 						});

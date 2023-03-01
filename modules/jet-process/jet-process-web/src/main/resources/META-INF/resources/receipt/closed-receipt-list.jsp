@@ -8,8 +8,8 @@
 
 <portlet:renderURL var="reopenReceiptURL"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
-	<%-- <portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.RECEIPT_DETAIL_RENDER_COMMAND%>" /> --%>
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.RECEIPT_REOPEN_POP_UP%>" /> 
 </portlet:renderURL>
 
 
@@ -70,7 +70,7 @@
 					
 				
          <liferay-ui:search-container-column-text
-					name="label-receipt-close-actions" cssClass="hover-tips" >
+					name="label-receipt-reopen-actions" cssClass="hover-tips" >
 					<a href="#" onClick="getReceiptreopenPopup(${closedReceiptDTO.receiptId} , ${closedReceiptDTO.closedReceiptId} )" >
 					<img src = '<%=request.getContextPath() + "/image/reopen-image.png"%>' 
 					width="35%" height="25" />
@@ -112,10 +112,11 @@ function receiptDetailPopup(receiptId){
 	
 	
 	/*  For open reopenCloseReceipt Pop up */
-	function getReceiptreopenPopup(receiptId,closedReceiptId){
+	function getReceiptreopenPopup(receiptId,reopenMovementId){
 	alert("receiptId"+receiptId);
-	alert("closedReceiptId"+closedReceiptId);
-	 	var receiptReopenURL = '<%=reopenReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>closedReceiptId='+closedReceiptId;
+	alert("reopenMovementId"+reopenMovementId);
+	 	var receiptReopenURL = '<%=reopenReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>reopenMovementId='+reopenMovementId;
+	 	alert(receiptReopenURL);
 			Liferay.Util.openWindow({
 				dialog: {
 					centered: true,

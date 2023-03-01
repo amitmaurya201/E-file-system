@@ -69,4 +69,10 @@ public class MVCCommandNames {
     public static final String ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND = "/attachreceiptinfile";
 
     public static final String FILE_CLOSE_LIST_RENDER_COMMAND = "/fileClosedList";
+    
+    public static final String RECEIPT_REOPEN_POP_UP = "/receiptReopenPopUp";
+    
+    public static final String REOPEN_RECEIPT_RESOURCE_COMMAND = "/receiptReopen/resource/command";
+    
+    
 }
