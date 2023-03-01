@@ -49,7 +49,7 @@ public class FileCloseDetailLocalServiceImpl
 		fileCloseDetail.setClosedBy(closedBy);
 		fileCloseDetail.setClosingRemarks(closingRemarks);
 		fileCloseDetail.setClosedMovementId(closingMovementId);
-		fileCloseDetail.setFileClosedId(fileId);
+		fileCloseDetail.setFileId(fileId);
 		DocFile docFile =docFileLocalService.getDocFile(fileId);
 		docFile.setCurrentState(FileStatus.CLOSED);
 		docFileLocalService.updateDocFile(docFile);
