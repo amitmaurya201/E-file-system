@@ -2293,4 +2293,165 @@ $BODY$;
 ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
     OWNER TO postgres;
     
+    
+    
+    
+    
+    -- FUNCTION: public.get_closed_file_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_closed_file_list(
+	_closedby bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	orderbytype text)
+    RETURNS TABLE(closefileid bigint, fileid bigint, closedby bigint, closingremarks character varying, reopendate timestamp without time zone, reopenremarks character varying, closingmovementid bigint, reopenby bigint, createdate timestamp without time zone, nature character varying, filenumber character varying, subject character varying, dealingheadsectionid bigint) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    _closedby bigint;
+    _keyword text;
+    _offset int;
+    _limit int;
+    _orderby text;
+    _order text;
+    _query text;
+begin
+    _closedby := closedby;
+    _query := 'SELECT f.fileclosedid as closedFileId , f.fileid as fileId , f.closedby as closedBy, f.closingremarks as closingRemarks , 
+                f.reopendate as reopenDate , f.reopenremarks as reopenRemaks , f.closedmovementid as closingMovementId ,
+                f.reopenby as reopenBy, f.createdate as closedOn , d.nature as nature , d.filenumber as fileNumber , d.subject as subject , d.handlingsectionid as dealingHeadSectionId 
+                FROM PUBLIC.jet_process_fileclosedetail as f 
+                JOIN PUBLIC.jet_process_docfile AS d ON d.docfileId = f.fileid ';
+                
+     _keyword := '''%' || keyword || '%''';
+     IF (_start <0 OR _start IS NULL) THEN
+        _offset := 0;
+     ELSE 
+        _offset := _start;
+     END IF;
+     
+     IF(_end <= 0 OR _end IS NULL) THEN
+        _limit := 4;
+     ELSE
+        _limit := _end;
+     END IF;
+     
+     IF (orderbycol = '' OR orderbycol = 'closedOn' OR orderbycol = 'closedon' OR orderbycol = 'createDate' OR orderbycol = 'createdate') THEN
+        _orderBy := ' f.createdate ';
+     END IF;
+     
+      IF (orderbycol = 'filenumber' OR orderbycol = 'createDate' OR orderbycol = 'fileNumber') THEN
+        _orderBy := ' d.filenumber ';
+     END IF;
+     
+       IF (orderbycol = 'subject') THEN
+        _orderBy := ' d.subject ';
+     END IF;
+     
+     IF(orderByType ='' or orderByType IS NULL) THEN
+        _order := ' desc ';
+     ELSE 
+        _order := orderbytype;
+     END IF;
+    
+    IF(_closedby !=0) THEN
+        _query := _query ||' where closedby = ' || _closedby;
+        
+        IF (_keyword IS NOT NULL) THEN 
+            _query := _query || 'AND (filenumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
+            
+            if(_orderBy != '') THEN
+                _query := _query || ' order by ' || _orderBy;
+                
+                if(_order != '') THEN
+                    _query := _query || '' || _order;
+                
+                    if(_offset >= 0 ) THEN
+                        _query := _query || ' offset ' || _offset;
+                        
+                        if(_limit > 0 ) THEN 
+                            _query := _query || ' limit ' || _limit;
+                            
+                        END IF;
+                    
+                    END IF;
+                    
+                END IF;
+            
+            END IF;
+            
+        END IF;
+   
+   END IF;
+  
+  return query execute _query;
+
+end;
+
+$BODY$;
+
+ALTER FUNCTION public.get_closed_file_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+
+
+
+
+
+
+-- FUNCTION: public.get_closed_file_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_closed_file_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_closed_file_list_count(
+	_closedby bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    total bigint;
+    _query text;
+    _keyword text;
+begin
+    total := 0;
+    _keyword :='''%'||keyword||'%''';
+    _query :='SELECT COUNT(*) 
+            FROM PUBLIC.jet_process_fileclosedetail as cr 
+            JOIN PUBLIC.jet_process_docfile AS r ON cr.fileId = r.docfileId where cr.closedby ='|| _closedby;
+    IF _closedby != 0 AND _closedby IS NOT NULL THEN
+    
+        IF  keyword !='' AND keyword IS NOT NULL  THEN
+    
+            
+           EXECUTE _query||' AND (r.filenumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
+            RETURN total;
+       
+       END IF;
+            
+            EXECUTE _query INTO total;
+            RETURN total;
+       
+       END IF;
+  RETURN total;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
+    OWNER TO postgres;
+    
+
  
