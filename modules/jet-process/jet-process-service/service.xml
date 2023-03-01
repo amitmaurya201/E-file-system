@@ -43,7 +43,7 @@
 		<column name="userPostId" type="long" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-        <column name="handlingSectionId" type="long" />
+        <column name="dealingHeadSectionId" type="long" />
 
 		<!-- Order -->
 
@@ -427,8 +427,9 @@
 		<column name="closingRemarks" type="String"></column>
 		<column name="reopenDate" type="Date"></column>
 		<column name="reopenRemarks" type="String"></column>
-		<column name="closingMovementId" type="long"></column>
+		<column name="closedMovementId" type="long"></column>
 		<column name="reopenBy" type="long"></column>
+		<column name="reopenMovementId" type="long"></column>
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />

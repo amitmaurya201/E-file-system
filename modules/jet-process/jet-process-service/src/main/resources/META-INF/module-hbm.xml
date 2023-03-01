@@ -39,7 +39,7 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userPostId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentlyWith" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="currentState" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="handlingSectionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="dealingHeadSectionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="io.jetprocess.model.impl.FileCloseDetailImpl" table="JET_PROCESS_FileCloseDetail">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fileClosedId" type="long">
@@ -57,8 +57,9 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="closingRemarks" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="reopenDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="reopenRemarks" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="closingMovementId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="closedMovementId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="reopenBy" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="reopenMovementId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="io.jetprocess.model.impl.FileCorrReceiptImpl" table="JET_PROCESS_FileCorrReceipt">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fileCorrReceiptId" type="long">

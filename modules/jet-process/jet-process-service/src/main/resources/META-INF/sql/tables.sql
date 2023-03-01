@@ -24,7 +24,7 @@ create table JET_PROCESS_DocFile (
 	userPostId LONG,
 	currentlyWith LONG,
 	currentState INTEGER,
-	handlingSectionId LONG
+	dealingHeadSectionId LONG
 );
 
 create table JET_PROCESS_FileCloseDetail (
@@ -41,8 +41,9 @@ create table JET_PROCESS_FileCloseDetail (
 	closingRemarks VARCHAR(75) null,
 	reopenDate DATE null,
 	reopenRemarks VARCHAR(75) null,
-	closingMovementId LONG,
-	reopenBy LONG
+	closedMovementId LONG,
+	reopenBy LONG,
+	reopenMovementId LONG
 );
 
 create table JET_PROCESS_FileCorr (

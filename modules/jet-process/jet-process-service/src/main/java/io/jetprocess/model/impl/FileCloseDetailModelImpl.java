@@ -80,8 +80,8 @@ public class FileCloseDetailModelImpl
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"fileId", Types.BIGINT}, {"closedBy", Types.BIGINT},
 		{"closingRemarks", Types.VARCHAR}, {"reopenDate", Types.TIMESTAMP},
-		{"reopenRemarks", Types.VARCHAR}, {"closingMovementId", Types.BIGINT},
-		{"reopenBy", Types.BIGINT}
+		{"reopenRemarks", Types.VARCHAR}, {"closedMovementId", Types.BIGINT},
+		{"reopenBy", Types.BIGINT}, {"reopenMovementId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -101,12 +101,13 @@ public class FileCloseDetailModelImpl
 		TABLE_COLUMNS_MAP.put("closingRemarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("reopenDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("reopenRemarks", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("closingMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("closedMovementId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("reopenBy", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("reopenMovementId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileCloseDetail (uuid_ VARCHAR(75) null,fileClosedId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,fileId LONG,closedBy LONG,closingRemarks VARCHAR(75) null,reopenDate DATE null,reopenRemarks VARCHAR(75) null,closingMovementId LONG,reopenBy LONG)";
+		"create table JET_PROCESS_FileCloseDetail (uuid_ VARCHAR(75) null,fileClosedId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,fileId LONG,closedBy LONG,closingRemarks VARCHAR(75) null,reopenDate DATE null,reopenRemarks VARCHAR(75) null,closedMovementId LONG,reopenBy LONG,reopenMovementId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileCloseDetail";
@@ -323,15 +324,21 @@ public class FileCloseDetailModelImpl
 			(BiConsumer<FileCloseDetail, String>)
 				FileCloseDetail::setReopenRemarks);
 		attributeGetterFunctions.put(
-			"closingMovementId", FileCloseDetail::getClosingMovementId);
+			"closedMovementId", FileCloseDetail::getClosedMovementId);
 		attributeSetterBiConsumers.put(
-			"closingMovementId",
+			"closedMovementId",
 			(BiConsumer<FileCloseDetail, Long>)
-				FileCloseDetail::setClosingMovementId);
+				FileCloseDetail::setClosedMovementId);
 		attributeGetterFunctions.put("reopenBy", FileCloseDetail::getReopenBy);
 		attributeSetterBiConsumers.put(
 			"reopenBy",
 			(BiConsumer<FileCloseDetail, Long>)FileCloseDetail::setReopenBy);
+		attributeGetterFunctions.put(
+			"reopenMovementId", FileCloseDetail::getReopenMovementId);
+		attributeSetterBiConsumers.put(
+			"reopenMovementId",
+			(BiConsumer<FileCloseDetail, Long>)
+				FileCloseDetail::setReopenMovementId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -606,17 +613,17 @@ public class FileCloseDetailModelImpl
 
 	@JSON
 	@Override
-	public long getClosingMovementId() {
-		return _closingMovementId;
+	public long getClosedMovementId() {
+		return _closedMovementId;
 	}
 
 	@Override
-	public void setClosingMovementId(long closingMovementId) {
+	public void setClosedMovementId(long closedMovementId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_closingMovementId = closingMovementId;
+		_closedMovementId = closedMovementId;
 	}
 
 	@JSON
@@ -632,6 +639,21 @@ public class FileCloseDetailModelImpl
 		}
 
 		_reopenBy = reopenBy;
+	}
+
+	@JSON
+	@Override
+	public long getReopenMovementId() {
+		return _reopenMovementId;
+	}
+
+	@Override
+	public void setReopenMovementId(long reopenMovementId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_reopenMovementId = reopenMovementId;
 	}
 
 	@Override
@@ -709,8 +731,9 @@ public class FileCloseDetailModelImpl
 		fileCloseDetailImpl.setClosingRemarks(getClosingRemarks());
 		fileCloseDetailImpl.setReopenDate(getReopenDate());
 		fileCloseDetailImpl.setReopenRemarks(getReopenRemarks());
-		fileCloseDetailImpl.setClosingMovementId(getClosingMovementId());
+		fileCloseDetailImpl.setClosedMovementId(getClosedMovementId());
 		fileCloseDetailImpl.setReopenBy(getReopenBy());
+		fileCloseDetailImpl.setReopenMovementId(getReopenMovementId());
 
 		fileCloseDetailImpl.resetOriginalValues();
 
@@ -747,10 +770,12 @@ public class FileCloseDetailModelImpl
 			this.<Date>getColumnOriginalValue("reopenDate"));
 		fileCloseDetailImpl.setReopenRemarks(
 			this.<String>getColumnOriginalValue("reopenRemarks"));
-		fileCloseDetailImpl.setClosingMovementId(
-			this.<Long>getColumnOriginalValue("closingMovementId"));
+		fileCloseDetailImpl.setClosedMovementId(
+			this.<Long>getColumnOriginalValue("closedMovementId"));
 		fileCloseDetailImpl.setReopenBy(
 			this.<Long>getColumnOriginalValue("reopenBy"));
+		fileCloseDetailImpl.setReopenMovementId(
+			this.<Long>getColumnOriginalValue("reopenMovementId"));
 
 		return fileCloseDetailImpl;
 	}
@@ -900,9 +925,11 @@ public class FileCloseDetailModelImpl
 			fileCloseDetailCacheModel.reopenRemarks = null;
 		}
 
-		fileCloseDetailCacheModel.closingMovementId = getClosingMovementId();
+		fileCloseDetailCacheModel.closedMovementId = getClosedMovementId();
 
 		fileCloseDetailCacheModel.reopenBy = getReopenBy();
+
+		fileCloseDetailCacheModel.reopenMovementId = getReopenMovementId();
 
 		return fileCloseDetailCacheModel;
 	}
@@ -1010,8 +1037,9 @@ public class FileCloseDetailModelImpl
 	private String _closingRemarks;
 	private Date _reopenDate;
 	private String _reopenRemarks;
-	private long _closingMovementId;
+	private long _closedMovementId;
 	private long _reopenBy;
+	private long _reopenMovementId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1055,8 +1083,9 @@ public class FileCloseDetailModelImpl
 		_columnOriginalValues.put("closingRemarks", _closingRemarks);
 		_columnOriginalValues.put("reopenDate", _reopenDate);
 		_columnOriginalValues.put("reopenRemarks", _reopenRemarks);
-		_columnOriginalValues.put("closingMovementId", _closingMovementId);
+		_columnOriginalValues.put("closedMovementId", _closedMovementId);
 		_columnOriginalValues.put("reopenBy", _reopenBy);
+		_columnOriginalValues.put("reopenMovementId", _reopenMovementId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1106,9 +1135,11 @@ public class FileCloseDetailModelImpl
 
 		columnBitmasks.put("reopenRemarks", 4096L);
 
-		columnBitmasks.put("closingMovementId", 8192L);
+		columnBitmasks.put("closedMovementId", 8192L);
 
 		columnBitmasks.put("reopenBy", 16384L);
+
+		columnBitmasks.put("reopenMovementId", 32768L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

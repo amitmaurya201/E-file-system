@@ -86,7 +86,7 @@ public class DocFileModelImpl
 		{"subCategoryId", Types.BIGINT}, {"remarks", Types.VARCHAR},
 		{"reference", Types.VARCHAR}, {"year", Types.BIGINT},
 		{"userPostId", Types.BIGINT}, {"currentlyWith", Types.BIGINT},
-		{"currentState", Types.INTEGER}, {"handlingSectionId", Types.BIGINT}
+		{"currentState", Types.INTEGER}, {"dealingHeadSectionId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -118,11 +118,11 @@ public class DocFileModelImpl
 		TABLE_COLUMNS_MAP.put("userPostId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("currentState", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("handlingSectionId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("dealingHeadSectionId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(500) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER,handlingSectionId LONG)";
+		"create table JET_PROCESS_DocFile (uuid_ VARCHAR(75) null,docFileId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,nature VARCHAR(75) null,type_ VARCHAR(75) null,basicHeadId LONG,primaryHeadId LONG,secondaryHeadId LONG,tertiaryHeadId LONG,fileCodeId LONG,subject VARCHAR(75) null,fileNumber VARCHAR(75) null,categoryId LONG,subCategoryId LONG,remarks VARCHAR(500) null,reference VARCHAR(75) null,year LONG,userPostId LONG,currentlyWith LONG,currentState INTEGER,dealingHeadSectionId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocFile";
@@ -366,10 +366,10 @@ public class DocFileModelImpl
 			"currentState",
 			(BiConsumer<DocFile, Integer>)DocFile::setCurrentState);
 		attributeGetterFunctions.put(
-			"handlingSectionId", DocFile::getHandlingSectionId);
+			"dealingHeadSectionId", DocFile::getDealingHeadSectionId);
 		attributeSetterBiConsumers.put(
-			"handlingSectionId",
-			(BiConsumer<DocFile, Long>)DocFile::setHandlingSectionId);
+			"dealingHeadSectionId",
+			(BiConsumer<DocFile, Long>)DocFile::setDealingHeadSectionId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -863,17 +863,17 @@ public class DocFileModelImpl
 
 	@JSON
 	@Override
-	public long getHandlingSectionId() {
-		return _handlingSectionId;
+	public long getDealingHeadSectionId() {
+		return _dealingHeadSectionId;
 	}
 
 	@Override
-	public void setHandlingSectionId(long handlingSectionId) {
+	public void setDealingHeadSectionId(long dealingHeadSectionId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_handlingSectionId = handlingSectionId;
+		_dealingHeadSectionId = dealingHeadSectionId;
 	}
 
 	@Override
@@ -963,7 +963,7 @@ public class DocFileModelImpl
 		docFileImpl.setUserPostId(getUserPostId());
 		docFileImpl.setCurrentlyWith(getCurrentlyWith());
 		docFileImpl.setCurrentState(getCurrentState());
-		docFileImpl.setHandlingSectionId(getHandlingSectionId());
+		docFileImpl.setDealingHeadSectionId(getDealingHeadSectionId());
 
 		docFileImpl.resetOriginalValues();
 
@@ -1016,8 +1016,8 @@ public class DocFileModelImpl
 			this.<Long>getColumnOriginalValue("currentlyWith"));
 		docFileImpl.setCurrentState(
 			this.<Integer>getColumnOriginalValue("currentState"));
-		docFileImpl.setHandlingSectionId(
-			this.<Long>getColumnOriginalValue("handlingSectionId"));
+		docFileImpl.setDealingHeadSectionId(
+			this.<Long>getColumnOriginalValue("dealingHeadSectionId"));
 
 		return docFileImpl;
 	}
@@ -1213,7 +1213,7 @@ public class DocFileModelImpl
 
 		docFileCacheModel.currentState = getCurrentState();
 
-		docFileCacheModel.handlingSectionId = getHandlingSectionId();
+		docFileCacheModel.dealingHeadSectionId = getDealingHeadSectionId();
 
 		return docFileCacheModel;
 	}
@@ -1333,7 +1333,7 @@ public class DocFileModelImpl
 	private long _userPostId;
 	private long _currentlyWith;
 	private int _currentState;
-	private long _handlingSectionId;
+	private long _dealingHeadSectionId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1389,7 +1389,8 @@ public class DocFileModelImpl
 		_columnOriginalValues.put("userPostId", _userPostId);
 		_columnOriginalValues.put("currentlyWith", _currentlyWith);
 		_columnOriginalValues.put("currentState", _currentState);
-		_columnOriginalValues.put("handlingSectionId", _handlingSectionId);
+		_columnOriginalValues.put(
+			"dealingHeadSectionId", _dealingHeadSectionId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1464,7 +1465,7 @@ public class DocFileModelImpl
 
 		columnBitmasks.put("currentState", 16777216L);
 
-		columnBitmasks.put("handlingSectionId", 33554432L);
+		columnBitmasks.put("dealingHeadSectionId", 33554432L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

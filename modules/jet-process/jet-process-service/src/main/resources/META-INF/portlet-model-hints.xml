@@ -29,7 +29,7 @@
 		<field name="userPostId" type="long" />
 		<field name="currentlyWith" type="long" />
 		<field name="currentState" type="int" />
-		<field name="handlingSectionId" type="long" />
+		<field name="dealingHeadSectionId" type="long" />
 	</model>
 	<model name="io.jetprocess.model.FileCloseDetail">
 		<field name="uuid" type="String" />
@@ -45,8 +45,9 @@
 		<field name="closingRemarks" type="String" />
 		<field name="reopenDate" type="Date" />
 		<field name="reopenRemarks" type="String" />
-		<field name="closingMovementId" type="long" />
+		<field name="closedMovementId" type="long" />
 		<field name="reopenBy" type="long" />
+		<field name="reopenMovementId" type="long" />
 	</model>
 	<model name="io.jetprocess.model.FileCorrReceipt">
 		<field name="uuid" type="String" />

@@ -63,7 +63,7 @@ public class FileCloseDetailCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -91,10 +91,12 @@ public class FileCloseDetailCacheModel
 		sb.append(reopenDate);
 		sb.append(", reopenRemarks=");
 		sb.append(reopenRemarks);
-		sb.append(", closingMovementId=");
-		sb.append(closingMovementId);
+		sb.append(", closedMovementId=");
+		sb.append(closedMovementId);
 		sb.append(", reopenBy=");
 		sb.append(reopenBy);
+		sb.append(", reopenMovementId=");
+		sb.append(reopenMovementId);
 		sb.append("}");
 
 		return sb.toString();
@@ -161,8 +163,9 @@ public class FileCloseDetailCacheModel
 			fileCloseDetailImpl.setReopenRemarks(reopenRemarks);
 		}
 
-		fileCloseDetailImpl.setClosingMovementId(closingMovementId);
+		fileCloseDetailImpl.setClosedMovementId(closedMovementId);
 		fileCloseDetailImpl.setReopenBy(reopenBy);
+		fileCloseDetailImpl.setReopenMovementId(reopenMovementId);
 
 		fileCloseDetailImpl.resetOriginalValues();
 
@@ -191,9 +194,11 @@ public class FileCloseDetailCacheModel
 		reopenDate = objectInput.readLong();
 		reopenRemarks = objectInput.readUTF();
 
-		closingMovementId = objectInput.readLong();
+		closedMovementId = objectInput.readLong();
 
 		reopenBy = objectInput.readLong();
+
+		reopenMovementId = objectInput.readLong();
 	}
 
 	@Override
@@ -243,9 +248,11 @@ public class FileCloseDetailCacheModel
 			objectOutput.writeUTF(reopenRemarks);
 		}
 
-		objectOutput.writeLong(closingMovementId);
+		objectOutput.writeLong(closedMovementId);
 
 		objectOutput.writeLong(reopenBy);
+
+		objectOutput.writeLong(reopenMovementId);
 	}
 
 	public String uuid;
@@ -261,7 +268,8 @@ public class FileCloseDetailCacheModel
 	public String closingRemarks;
 	public long reopenDate;
 	public String reopenRemarks;
-	public long closingMovementId;
+	public long closedMovementId;
 	public long reopenBy;
+	public long reopenMovementId;
 
 }

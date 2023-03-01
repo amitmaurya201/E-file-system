@@ -277,18 +277,18 @@ public interface FileCloseDetailModel
 	public void setReopenRemarks(String reopenRemarks);
 
 	/**
-	 * Returns the closing movement ID of this file close detail.
+	 * Returns the closed movement ID of this file close detail.
 	 *
-	 * @return the closing movement ID of this file close detail
+	 * @return the closed movement ID of this file close detail
 	 */
-	public long getClosingMovementId();
+	public long getClosedMovementId();
 
 	/**
-	 * Sets the closing movement ID of this file close detail.
+	 * Sets the closed movement ID of this file close detail.
 	 *
-	 * @param closingMovementId the closing movement ID of this file close detail
+	 * @param closedMovementId the closed movement ID of this file close detail
 	 */
-	public void setClosingMovementId(long closingMovementId);
+	public void setClosedMovementId(long closedMovementId);
 
 	/**
 	 * Returns the reopen by of this file close detail.
@@ -303,6 +303,20 @@ public interface FileCloseDetailModel
 	 * @param reopenBy the reopen by of this file close detail
 	 */
 	public void setReopenBy(long reopenBy);
+
+	/**
+	 * Returns the reopen movement ID of this file close detail.
+	 *
+	 * @return the reopen movement ID of this file close detail
+	 */
+	public long getReopenMovementId();
+
+	/**
+	 * Sets the reopen movement ID of this file close detail.
+	 *
+	 * @param reopenMovementId the reopen movement ID of this file close detail
+	 */
+	public void setReopenMovementId(long reopenMovementId);
 
 	@Override
 	public FileCloseDetail cloneWithOriginalValues();

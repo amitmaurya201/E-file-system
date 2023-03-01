@@ -82,8 +82,8 @@ public class DocFileTable extends BaseTable<DocFileTable> {
 		"currentlyWith", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<DocFileTable, Integer> currentState = createColumn(
 		"currentState", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
-	public final Column<DocFileTable, Long> handlingSectionId = createColumn(
-		"handlingSectionId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocFileTable, Long> dealingHeadSectionId = createColumn(
+		"dealingHeadSectionId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private DocFileTable() {
 		super("JET_PROCESS_DocFile", DocFileTable::new);

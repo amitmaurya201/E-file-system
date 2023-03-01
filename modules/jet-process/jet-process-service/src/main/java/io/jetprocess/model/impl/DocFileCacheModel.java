@@ -113,8 +113,8 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		sb.append(currentlyWith);
 		sb.append(", currentState=");
 		sb.append(currentState);
-		sb.append(", handlingSectionId=");
-		sb.append(handlingSectionId);
+		sb.append(", dealingHeadSectionId=");
+		sb.append(dealingHeadSectionId);
 		sb.append("}");
 
 		return sb.toString();
@@ -212,7 +212,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 		docFileImpl.setUserPostId(userPostId);
 		docFileImpl.setCurrentlyWith(currentlyWith);
 		docFileImpl.setCurrentState(currentState);
-		docFileImpl.setHandlingSectionId(handlingSectionId);
+		docFileImpl.setDealingHeadSectionId(dealingHeadSectionId);
 
 		docFileImpl.resetOriginalValues();
 
@@ -262,7 +262,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 		currentState = objectInput.readInt();
 
-		handlingSectionId = objectInput.readLong();
+		dealingHeadSectionId = objectInput.readLong();
 	}
 
 	@Override
@@ -356,7 +356,7 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 
 		objectOutput.writeInt(currentState);
 
-		objectOutput.writeLong(handlingSectionId);
+		objectOutput.writeLong(dealingHeadSectionId);
 	}
 
 	public String uuid;
@@ -384,6 +384,6 @@ public class DocFileCacheModel implements CacheModel<DocFile>, Externalizable {
 	public long userPostId;
 	public long currentlyWith;
 	public int currentState;
-	public long handlingSectionId;
+	public long dealingHeadSectionId;
 
 }

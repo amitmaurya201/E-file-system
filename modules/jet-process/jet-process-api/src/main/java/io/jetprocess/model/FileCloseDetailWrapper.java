@@ -56,8 +56,9 @@ public class FileCloseDetailWrapper
 		attributes.put("closingRemarks", getClosingRemarks());
 		attributes.put("reopenDate", getReopenDate());
 		attributes.put("reopenRemarks", getReopenRemarks());
-		attributes.put("closingMovementId", getClosingMovementId());
+		attributes.put("closedMovementId", getClosedMovementId());
 		attributes.put("reopenBy", getReopenBy());
+		attributes.put("reopenMovementId", getReopenMovementId());
 
 		return attributes;
 	}
@@ -142,16 +143,22 @@ public class FileCloseDetailWrapper
 			setReopenRemarks(reopenRemarks);
 		}
 
-		Long closingMovementId = (Long)attributes.get("closingMovementId");
+		Long closedMovementId = (Long)attributes.get("closedMovementId");
 
-		if (closingMovementId != null) {
-			setClosingMovementId(closingMovementId);
+		if (closedMovementId != null) {
+			setClosedMovementId(closedMovementId);
 		}
 
 		Long reopenBy = (Long)attributes.get("reopenBy");
 
 		if (reopenBy != null) {
 			setReopenBy(reopenBy);
+		}
+
+		Long reopenMovementId = (Long)attributes.get("reopenMovementId");
+
+		if (reopenMovementId != null) {
+			setReopenMovementId(reopenMovementId);
 		}
 	}
 
@@ -171,13 +178,13 @@ public class FileCloseDetailWrapper
 	}
 
 	/**
-	 * Returns the closing movement ID of this file close detail.
+	 * Returns the closed movement ID of this file close detail.
 	 *
-	 * @return the closing movement ID of this file close detail
+	 * @return the closed movement ID of this file close detail
 	 */
 	@Override
-	public long getClosingMovementId() {
-		return model.getClosingMovementId();
+	public long getClosedMovementId() {
+		return model.getClosedMovementId();
 	}
 
 	/**
@@ -281,6 +288,16 @@ public class FileCloseDetailWrapper
 	}
 
 	/**
+	 * Returns the reopen movement ID of this file close detail.
+	 *
+	 * @return the reopen movement ID of this file close detail
+	 */
+	@Override
+	public long getReopenMovementId() {
+		return model.getReopenMovementId();
+	}
+
+	/**
 	 * Returns the reopen remarks of this file close detail.
 	 *
 	 * @return the reopen remarks of this file close detail
@@ -346,13 +363,13 @@ public class FileCloseDetailWrapper
 	}
 
 	/**
-	 * Sets the closing movement ID of this file close detail.
+	 * Sets the closed movement ID of this file close detail.
 	 *
-	 * @param closingMovementId the closing movement ID of this file close detail
+	 * @param closedMovementId the closed movement ID of this file close detail
 	 */
 	@Override
-	public void setClosingMovementId(long closingMovementId) {
-		model.setClosingMovementId(closingMovementId);
+	public void setClosedMovementId(long closedMovementId) {
+		model.setClosedMovementId(closedMovementId);
 	}
 
 	/**
@@ -453,6 +470,16 @@ public class FileCloseDetailWrapper
 	@Override
 	public void setReopenDate(Date reopenDate) {
 		model.setReopenDate(reopenDate);
+	}
+
+	/**
+	 * Sets the reopen movement ID of this file close detail.
+	 *
+	 * @param reopenMovementId the reopen movement ID of this file close detail
+	 */
+	@Override
+	public void setReopenMovementId(long reopenMovementId) {
+		model.setReopenMovementId(reopenMovementId);
 	}
 
 	/**

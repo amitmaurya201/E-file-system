@@ -242,7 +242,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		}
 		DocFile docFile = getDocFile();
 		if (type.equals("SFS")) {
-			docFile.setHandlingSectionId(userPost.getSectionId()); 
+			docFile.setDealingHeadSectionId(userPostId); 
 			List<DocFile> docFileList = getDocFileList();
 			for (DocFile docFileObj : docFileList) {
 				if (fileNumber.equals(docFileObj.getFileNumber())) {
@@ -252,7 +252,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 				}
 			}
 		} else {
-			docFile.setHandlingSectionId(userPost.getSectionId()); 
+			docFile.setDealingHeadSectionId(userPostId); 
 			docFile.setBasicHeadId(basicHeadId);
 			docFile.setPrimaryHeadId(primaryHeadId);
 			docFile.setSecondaryHeadId(secondaryHeadId);

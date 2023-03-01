@@ -68,7 +68,7 @@ public class DocFileWrapper
 		attributes.put("userPostId", getUserPostId());
 		attributes.put("currentlyWith", getCurrentlyWith());
 		attributes.put("currentState", getCurrentState());
-		attributes.put("handlingSectionId", getHandlingSectionId());
+		attributes.put("dealingHeadSectionId", getDealingHeadSectionId());
 
 		return attributes;
 	}
@@ -225,10 +225,11 @@ public class DocFileWrapper
 			setCurrentState(currentState);
 		}
 
-		Long handlingSectionId = (Long)attributes.get("handlingSectionId");
+		Long dealingHeadSectionId = (Long)attributes.get(
+			"dealingHeadSectionId");
 
-		if (handlingSectionId != null) {
-			setHandlingSectionId(handlingSectionId);
+		if (dealingHeadSectionId != null) {
+			setDealingHeadSectionId(dealingHeadSectionId);
 		}
 	}
 
@@ -298,6 +299,16 @@ public class DocFileWrapper
 	}
 
 	/**
+	 * Returns the dealing head section ID of this doc file.
+	 *
+	 * @return the dealing head section ID of this doc file
+	 */
+	@Override
+	public long getDealingHeadSectionId() {
+		return model.getDealingHeadSectionId();
+	}
+
+	/**
 	 * Returns the doc file ID of this doc file.
 	 *
 	 * @return the doc file ID of this doc file
@@ -335,16 +346,6 @@ public class DocFileWrapper
 	@Override
 	public long getGroupId() {
 		return model.getGroupId();
-	}
-
-	/**
-	 * Returns the handling section ID of this doc file.
-	 *
-	 * @return the handling section ID of this doc file
-	 */
-	@Override
-	public long getHandlingSectionId() {
-		return model.getHandlingSectionId();
 	}
 
 	/**
@@ -583,6 +584,16 @@ public class DocFileWrapper
 	}
 
 	/**
+	 * Sets the dealing head section ID of this doc file.
+	 *
+	 * @param dealingHeadSectionId the dealing head section ID of this doc file
+	 */
+	@Override
+	public void setDealingHeadSectionId(long dealingHeadSectionId) {
+		model.setDealingHeadSectionId(dealingHeadSectionId);
+	}
+
+	/**
 	 * Sets the doc file ID of this doc file.
 	 *
 	 * @param docFileId the doc file ID of this doc file
@@ -620,16 +631,6 @@ public class DocFileWrapper
 	@Override
 	public void setGroupId(long groupId) {
 		model.setGroupId(groupId);
-	}
-
-	/**
-	 * Sets the handling section ID of this doc file.
-	 *
-	 * @param handlingSectionId the handling section ID of this doc file
-	 */
-	@Override
-	public void setHandlingSectionId(long handlingSectionId) {
-		model.setHandlingSectionId(handlingSectionId);
 	}
 
 	/**

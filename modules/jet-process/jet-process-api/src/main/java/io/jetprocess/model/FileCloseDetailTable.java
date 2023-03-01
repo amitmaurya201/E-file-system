@@ -61,11 +61,14 @@ public class FileCloseDetailTable extends BaseTable<FileCloseDetailTable> {
 	public final Column<FileCloseDetailTable, String> reopenRemarks =
 		createColumn(
 			"reopenRemarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<FileCloseDetailTable, Long> closingMovementId =
+	public final Column<FileCloseDetailTable, Long> closedMovementId =
 		createColumn(
-			"closingMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+			"closedMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileCloseDetailTable, Long> reopenBy = createColumn(
 		"reopenBy", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileCloseDetailTable, Long> reopenMovementId =
+		createColumn(
+			"reopenMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private FileCloseDetailTable() {
 		super("JET_PROCESS_FileCloseDetail", FileCloseDetailTable::new);
