@@ -1560,7 +1560,7 @@ AS $BODY$
     inner join public.md_category as c on f.categoryid = c.categorydataid
     inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
         where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-            and (fmt.movementtype = 1 OR fmt.movementtype=0)';
+            and (fmt.movementtype = 1 OR fmt.movementtype=0) and f.currentstate != 3';
   
  
                 
@@ -2211,7 +2211,7 @@ BEGIN
                     inner join public.md_category as c on f.categoryid = c.categorydataid
                     inner join public.jet_process_filemovement fmt on f.docfileid = fmt.fileid 
                     where fmt.fmid = (select max(fmid) from public.jet_process_filemovement where fileid = f.docfileid AND pullbackremark is null)
-                    and (fmt.movementtype = 1 OR fmt.movementtype=0) AND f.currentlywith='|| user_post_id ;
+                    and (fmt.movementtype = 1 OR fmt.movementtype=0) and f.currentstate != 3 AND f.currentlywith='|| user_post_id ;
         _keyword :='';
         IF (_type ='Physical') THEN
                 _nature :=' AND f.nature = ''Physical'' ';
