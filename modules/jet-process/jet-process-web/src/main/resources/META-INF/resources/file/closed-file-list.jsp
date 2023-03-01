@@ -6,7 +6,10 @@
 		value="<%=MVCCommandNames.FILE_CLOSE_DETAILS_RENDER_COMMAND%>" /> 
 </portlet:renderURL>
 
-
+<portlet:renderURL var="reopenFilePopup"
+	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.REOPEN_FILE_POPUP_RENDER_COMMAND %>"/>
+</portlet:renderURL>
 
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -57,36 +60,57 @@
 				<liferay-ui:search-container-column-text
 					name="label-file-closed-closingRemarks" cssClass="hover-tips"
 					property="closingRemarks" />
-
+				<liferay-ui:search-container-column-text 
+					name="label-file-closed-action">
+					<c:if test="${ currentUserSectionId == closedFileDTO.dealingHeadSectionId}">
+						<img   alt="reopen-file" title="reopen"  onClick="reopenFilePopUp(<%=closedFileDTO.getFileId() %> , <%=closedFileDTO.getClosedFileId() %>)"
+							id='<portlet:namespace/>reopen-file' 
+							src='<%=request.getContextPath() + "/image/reopen-image.png"%>' width="35%" height="25" />
+					</c:if>
+				</liferay-ui:search-container-column-text> 
 			</liferay-ui:search-container-row>
-
 			<%-- Iterator / Paging --%>
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
-
-
 		</liferay-ui:search-container>
 	</div>
-	</div>
+</div>
 	
 <aui:script>
-function fileDetailPopup(fileId){
-    alert(fileId);
-	var title="<liferay-ui:message key='title-closed-fileDetailPopup' />";
-	Liferay.Util.openWindow({ 
-		dialog: { 														 
-			height: 550,														 
-			destroyOnClose: true,														 
-			destroyOnHide: true, 														 
-			modal: true, 														 
-			width: 1200,
-															 
-		}, 														 
-		id: '<portlet:namespace />dialog',														 
-		title: title, 														 
-		uri: '<%=fileClosedDetailsURL%>&<portlet:namespace />fileId='+fileId,			
+	function fileDetailPopup(fileId){
+		var title="<liferay-ui:message key='title-closed-fileDetailPopup' />";
+		Liferay.Util.openWindow({ 
+			dialog: { 														 
+				height: 550,														 
+				destroyOnClose: true,														 
+				destroyOnHide: true, 														 
+				modal: true, 														 
+				width: 1200,
+																 
+			}, 														 
+			id: '<portlet:namespace />dialog',														 
+			title: title, 														 
+			uri: '<%=fileClosedDetailsURL%>&<portlet:namespace />fileId='+fileId,			
 		});	  
+	}
+	
+	function reopenFilePopUp(fileId,closedFileId){
+		var title="<liferay-ui:message key='title-reopen-file-popup'/>";
+		Liferay.Util.openWindow({
+			dialog: {
+				centered: true,
+				height: 345,
+				destroyOnClose: true,														 
+				destroyOnHide: true, 
+				modal: true,
+				width: 500
+			},
+			id: '<portlet:namespace/>dialog',
+			title: title,
+			uri: '<%=reopenFilePopup%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>closedFileId='+closedFileId
+			
+		});
 	}
 </aui:script>	
 	

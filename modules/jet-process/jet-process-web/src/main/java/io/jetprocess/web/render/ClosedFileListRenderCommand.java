@@ -23,6 +23,8 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.ClosedFileDTO;
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.ClosedFileManagementToolbarDisplayContext;
@@ -30,16 +32,21 @@ import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.FILE_CLOSE_LIST_RENDER_COMMAND }, service = MVCRenderCommand.class)
-public class ClosedFileListRenderCommand implements MVCRenderCommand{
+public class ClosedFileListRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		logger.info("close file list renderer called");		
+		logger.info("close file list renderer called");
+		// get the section id from current userPost
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
+		UserPost userPost = userPostService.getUserPostById(userPostId);
+		long currentUserSectionId = userPost.getSectionId();
+		renderRequest.setAttribute("currentUserSectionId", currentUserSectionId);
 		addClosedFileToolbarAttributes(renderRequest, renderResponse);
-		setClosedFileListAttributes(renderRequest, renderResponse);		
+		setClosedFileListAttributes(renderRequest, renderResponse);
 		return "/file/closed-file-list.jsp";
 	}
-	
+
 	private void setClosedFileListAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		long closedBy = UserPostUtil.getUserIdUsingSession(renderRequest);
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "closedOn");
@@ -54,13 +61,13 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand{
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		List<ClosedFileDTO> closedFileList = fileListService.getFileClosedList(1, keyword, start, end,
-				orderByCol, orderByType);
+		List<ClosedFileDTO> closedFileList = fileListService.getFileClosedList(1, keyword, start, end, orderByCol,
+				orderByType);
 		renderRequest.setAttribute("closedFileList", closedFileList);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("closedFileCount", count);
 	}
-	
+
 	private void addClosedFileToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = portal.getLiferayPortletResponse(renderResponse);
@@ -71,7 +78,7 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand{
 		renderRequest.setAttribute("closedFileManagementToolbarDisplayContext",
 				closedFileManagementToolbarDisplayContext);
 	}
-	
+
 	@Reference
 	private FileListService fileListService;
 
@@ -79,5 +86,8 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand{
 
 	@Reference
 	private Portal portal;
+
+	@Reference
+	private UserPostService userPostService;
 
 }
