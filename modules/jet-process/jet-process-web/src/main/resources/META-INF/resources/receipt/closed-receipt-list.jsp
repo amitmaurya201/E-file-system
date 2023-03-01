@@ -69,9 +69,7 @@
 			<liferay-ui:search-iterator paginate="false" />
 			<liferay-ui:search-paginator
 				searchContainer="<%=new SearchContainer()%>" markupView="lexicon" />
-
-
-		</liferay-ui:search-container>
+		</liferay-ui:search-container>    
 	</div>
 </div>
 <aui:script>
