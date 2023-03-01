@@ -66,7 +66,7 @@ public class ClosedFileManagementToolbarDisplayContext extends BaseManagementToo
 	@Override
 	public String getSearchActionURL() {
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
-		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND);
+		searchURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_CLOSE_LIST_RENDER_COMMAND);
 		String navigation = ParamUtil.getString(request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
 		searchURL.setParameter("orderByCol", getOrderByCol());
@@ -81,7 +81,7 @@ public class ClosedFileManagementToolbarDisplayContext extends BaseManagementToo
 				add(dropdownItem ->{
 					dropdownItem.setActive("fileNumber".equals(getOrderByCol()));
 					dropdownItem.setHref(_getCurrentSortingURL(),"orderByCol", "fileNumber" );
-					dropdownItem.setLabel(LanguageUtil.get(request, "receiptNumber" , "File Number"));
+					dropdownItem.setLabel(LanguageUtil.get(request, "fileNumber" , "File Number"));
 				});
 				add(dropdownItem ->{
 					dropdownItem.setActive("closedOn".equals(getOrderByCol()));
@@ -94,7 +94,7 @@ public class ClosedFileManagementToolbarDisplayContext extends BaseManagementToo
 
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_CLOSE_LIST_RENDER_COMMAND);
 
 		// Reset Cuurent Page
 		sortingURL.setParameter(SearchContainer.DEFAULT_CUR_PARAM, "0");
@@ -108,7 +108,7 @@ public class ClosedFileManagementToolbarDisplayContext extends BaseManagementToo
 	@SuppressWarnings("deprecation")
 	public PortletURL _getCurrentURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(currentURLObj, liferayPortletResponse);
-		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND);
+		sortingURL.setParameter("mvcRenderCommandName", MVCCommandNames.FILE_CLOSE_LIST_RENDER_COMMAND);
 		return sortingURL;
 	}
 	
