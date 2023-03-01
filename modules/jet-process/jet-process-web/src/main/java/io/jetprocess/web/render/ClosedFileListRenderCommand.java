@@ -32,12 +32,12 @@ import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.FILE_CLOSE_LIST_RENDER_COMMAND }, service = MVCRenderCommand.class)
-public class ClosedFileRenderCommand implements MVCRenderCommand{
+public class ClosedFileListRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("close file list renderer called");
-		//addClosedFileToolbarAttributes(renderRequest, renderResponse);
+		addClosedFileToolbarAttributes(renderRequest, renderResponse);
 	//	setClosedFileListAttributes(renderRequest, renderResponse);
 		return "/file/closed-file-list.jsp";
 	}
