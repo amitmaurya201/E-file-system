@@ -158,6 +158,11 @@ String redirectURL = themeDisplay.getURLCurrent();
 						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"
 						type="button" value="detach-button"></aui:button>
 				</liferay-ui:search-container-column-text>
+				
+				<liferay-ui:search-container-column-jsp name="Actions"
+            align="right"  path="/file/correspondence-menu.jsp" />
+
+	            
 
 			</liferay-ui:search-container-row>
 
@@ -172,6 +177,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 			</aui:button>
 		</div>
 	</div>
+	
 </div>
 
 
@@ -320,6 +326,8 @@ function receiptDetailPopup(receiptId){
 		});	  
 	}
 	
+	
+	
 	function detachFun(receiptId, receiptMovementId, isDetachable){
 		console.table(receiptId,receiptMovementId, isDetachable )
 		if(isDetachable){
@@ -380,6 +388,11 @@ function receiptDetailPopup(receiptId){
 	    return true;
 	};
 	
+	
+	function click(){
+		
+		alert("-----");
+	}
 	
 	$('#modal').on('hidden.bs.modal', function () {
 	    $(this).find('form').trigger('reset');

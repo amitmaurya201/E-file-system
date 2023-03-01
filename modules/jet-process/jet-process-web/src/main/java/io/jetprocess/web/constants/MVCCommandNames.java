@@ -81,5 +81,10 @@ public class MVCCommandNames {
 
 	public static final String REOPEN_FILE_POPUP_RENDER_COMMAND = "reopenFilePopup";
 	public static final String REOPEN_FILE_RESOUCE_COMMAND = "/reopenFileResourceURL";
+	
+	public static final String Corr_RECEIPT_DETACH_RENDER_COMMAND = "/corrReceiptDETACH";
+	public static final String Corr_RECEIPT_REOPEN_RENDER_COMMAND = "/corrReceiptReopen";
+	public static final String Corr_RECEIPT_CLOSE_RENDER_COMMAND = "/corrReceiptClose";
 
+	
 }

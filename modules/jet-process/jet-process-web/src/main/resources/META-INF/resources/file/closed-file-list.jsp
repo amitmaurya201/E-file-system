@@ -68,6 +68,7 @@
 							src='<%=request.getContextPath() + "/image/reopen-image.png"%>' width="35%" height="25" />
 					</c:if>
 				</liferay-ui:search-container-column-text> 
+				
 			</liferay-ui:search-container-row>
 			<%-- Iterator / Paging --%>
 			<liferay-ui:search-iterator paginate="false" />
