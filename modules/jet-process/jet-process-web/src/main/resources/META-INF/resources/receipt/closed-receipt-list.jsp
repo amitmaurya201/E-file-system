@@ -3,8 +3,15 @@
 <portlet:renderURL var="receiptDetailsPopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND%>" />
+		value="<%=MVCCommandNames.RECEIPT_DETAIL_RENDER_COMMAND%>" />
 </portlet:renderURL>
+
+<portlet:renderURL var="reopenReceiptURL"
+	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+	<%-- <portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.RECEIPT_DETAIL_RENDER_COMMAND%>" /> --%>
+</portlet:renderURL>
+
 
 <style>
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
@@ -50,10 +57,8 @@
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
 					value="${closedReceiptDTO.subject }"
-					name="label-receipt-closed-subject" orderable="true"
-					orderableProperty="subject" cssClass="hover-tips" />
+					name="label-receipt-closed-subject" cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
-				
 					name="label-receipt-closed-closedOn" orderable="true"
 					orderableProperty="closedOn">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
@@ -62,6 +67,17 @@
 				<liferay-ui:search-container-column-text
 					name="label-receipt-closed-closingRemarks" cssClass="hover-tips"
 					property="closingRemarks" />
+					
+				
+         <liferay-ui:search-container-column-text
+					name="label-receipt-close-actions" cssClass="hover-tips" >
+					<a href="#" onClick="getReceiptreopenPopup(${closedReceiptDTO.receiptId} , ${closedReceiptDTO.closedReceiptId} )" >
+					<img src = '<%=request.getContextPath() + "/image/reopen-image.png"%>' 
+					width="35%" height="25" />
+					 </a>
+					</liferay-ui:search-container-column-text>
+        
+				
 
 			</liferay-ui:search-container-row>
 
@@ -93,4 +109,28 @@ function receiptDetailPopup(receiptId){
 		uri: '<%=receiptDetailsPopup%>&<portlet:namespace />receiptId='+receiptId,			
 		});	  
 	}
+	
+	
+	/*  For open reopenCloseReceipt Pop up */
+	function getReceiptreopenPopup(receiptId,closedReceiptId){
+	alert("receiptId"+receiptId);
+	alert("closedReceiptId"+closedReceiptId);
+	 	var receiptReopenURL = '<%=reopenReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>closedReceiptId='+closedReceiptId;
+			Liferay.Util.openWindow({
+				dialog: {
+					centered: true,
+					height: 265,
+					destroyOnClose: true,														 
+					destroyOnHide: true, 
+					modal: true,
+					width: 500
+				},
+				id: '<portlet:namespace/>dialog',
+				title: 'Receipt ReopenRemarks',
+				uri: receiptReopenURL
+				
+			});
+		}
+
+	
 </aui:script>
