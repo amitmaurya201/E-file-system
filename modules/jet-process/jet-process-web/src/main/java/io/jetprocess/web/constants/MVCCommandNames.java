@@ -75,6 +75,11 @@ public class MVCCommandNames {
     public static final String REOPEN_RECEIPT_RESOURCE_COMMAND = "/receiptReopen/resource/command";
     
     public static final String FILE_CLOSE_DETAILS_RENDER_COMMAND = "/fileClosedDeatils";
+    
+    public static final String FILE_CLOSE_RENDER_COMMAND = "/fileClose";
+    
+    public static final String CLOSE_FILE_RESOURCE_COMMAND = "/fileClose/resource/action";
+
 
     
     
