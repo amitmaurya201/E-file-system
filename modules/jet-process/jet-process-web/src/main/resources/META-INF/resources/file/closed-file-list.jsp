@@ -1,5 +1,13 @@
 <%@ include file="../init.jsp"%>
 
+<portlet:renderURL var="fileClosedDetailsURL"
+	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+	 <portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.FILE_CLOSE_DETAILS_RENDER_COMMAND%>" /> 
+</portlet:renderURL>
+
+
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -34,7 +42,7 @@
 				<liferay-ui:search-container-column-text
 					name="label-file-closed-fileNumber" orderable="true"
 					orderableProperty="fileNumber" cssClass="hyperlink-css">
-					<a onclick="receiptDetailPopup(${closedFileDTO.fileId})"
+					<a onclick="fileDetailPopup(${closedFileDTO.fileId})"
 						style="cursor: pointer">${closedFileDTO.fileNumber }</a>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
@@ -61,3 +69,25 @@
 		</liferay-ui:search-container>
 	</div>
 	</div>
+	
+<aui:script>
+function fileDetailPopup(fileId){
+    alert(fileId);
+	var title="<liferay-ui:message key='title-closed-fileDetailPopup' />";
+	Liferay.Util.openWindow({ 
+		dialog: { 														 
+			height: 550,														 
+			destroyOnClose: true,														 
+			destroyOnHide: true, 														 
+			modal: true, 														 
+			width: 1200,
+															 
+		}, 														 
+		id: '<portlet:namespace />dialog',														 
+		title: title, 														 
+		uri: '<%=fileClosedDetailsURL%>&<portlet:namespace />fileId='+fileId,			
+		});	  
+	}
+</aui:script>	
+	
+	
