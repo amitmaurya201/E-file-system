@@ -23,7 +23,26 @@ create table JET_PROCESS_DocFile (
 	year LONG,
 	userPostId LONG,
 	currentlyWith LONG,
-	currentState INTEGER
+	currentState INTEGER,
+	handlingSectionId LONG
+);
+
+create table JET_PROCESS_FileCloseDetail (
+	uuid_ VARCHAR(75) null,
+	fileClosedId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	fileId LONG,
+	closedBy LONG,
+	closingRemarks VARCHAR(75) null,
+	reopenDate DATE null,
+	reopenRemarks VARCHAR(75) null,
+	closingMovementId LONG,
+	reopenBy LONG
 );
 
 create table JET_PROCESS_FileCorr (

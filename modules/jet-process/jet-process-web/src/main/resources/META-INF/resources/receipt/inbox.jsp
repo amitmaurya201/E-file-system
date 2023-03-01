@@ -16,7 +16,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	color: white !important;
 }
 
-.lfr-search-container-wrapper a :not ( .component-action ) :not ( .btn ) {
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
     color : #000000;
 }
 .table thead th {
@@ -94,7 +94,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 		<clay:management-toolbar disabled="${inboxReceiptCount eq 0}"
 			displayContext="${receiptInboxManagementToolbarDisplayContext}"
 			itemsTotal="${inboxReceiptCount}"
-			searchContainerId="assignmentEntries"
+			searchContainerId="receiptInboxEntries"
 			managementToolbarDisplayContext="${receiptInboxManagementToolbarDisplayContext}" />
 
 		<portlet:renderURL var="receiptSendURL"
@@ -104,7 +104,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 		</portlet:renderURL>
 
 		<liferay-ui:search-container delta="${delta }"
-			emptyResultsMessage="message-record-not-found" id="assignmentEntries"
+			emptyResultsMessage="message-record-not-found" id="receiptInboxEntries"
 			total="${inboxReceiptCount}"
 			iteratorURL="${receiptInboxManagementToolbarDisplayContext._getCurrentURL()}">
 			<liferay-ui:search-container-results results="${receiptInboxList}" />
@@ -117,7 +117,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					name="<%=MVCCommandNames.RECEIPT_INBOX_RECEIVE_ACTION_COMMAND%>">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
-					<portlet:param name="rmId"
+					<portlet:param name="receiptMovementId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 
@@ -126,7 +126,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					name="<%=MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND%>">
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.receiptId}" />
-					<portlet:param name="rmId"
+					<portlet:param name="receiptMovementId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 				</portlet:actionURL>
@@ -136,7 +136,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
-					<portlet:param name="rmId"
+					<portlet:param name="receiptMovementId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 				</portlet:renderURL>
@@ -179,7 +179,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						name="label-receipt-inbox-senton" orderableProperty="sentOn"
 						orderable="true">
 						<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-							timeZone="Asia/Calcutta" value="${receiptSentMovement.sentOn}" />
+							timeZone="Asia/Calcutta" value="${receiptMovementDTO.getSentOn()}" />
 					</liferay-ui:search-container-column-text>
 
 					<liferay-ui:search-container-column-text cssClass="bold"
@@ -198,12 +198,12 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 					<c:choose>
 						<c:when test="${receiptMovementDTO.getNature()=='Electronic'}">
 							<liferay-ui:search-container-column-text cssClass="bold"
-								name="label-receipt-inbox-senton" orderableProperty="sentOn"
-								orderable="true">
-								<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
-									timeZone="Asia/Calcutta"
-									value="${receiptMovementDTO.getSentOn()}" />
-							</liferay-ui:search-container-column-text>
+										name="label-receipt-inbox-actions" align="center">
+										
+										<a class="filesend" id="sendReceipt" name="sendReceipt"
+											onClick="OpenSendPopUp(${receiptMovementDTO.getReceiptId()},${receiptMovementDTO.getReceiptMovementId()})">Send</a>
+
+									</liferay-ui:search-container-column-text>
 
 						</c:when>
 						<c:otherwise>
@@ -329,7 +329,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 				<!-- <text>Receipt Number </text> -->
 				<input type="text" hidden name='<portlet:namespace/>receiptId'
 					id="receive-receiptId" />
-				<input type="text" name='<portlet:namespace/>rmId' id="rmId" hidden />
+				<input type="text" name='<portlet:namespace/>receiptMovementId' id="receiptMovementId" hidden />
 				<br>
 				<button class="mt-3 btn btn-primary " style="width: 90px;"
 					type="submit">
@@ -421,9 +421,9 @@ $("#alert-remove-send").fadeTo(2000, 500).slideUp(500, function(){
     $("#alert-remove-send").slideUp(500);
 });
 
- function receiptReceiveModal(receiptId,rmId){
+ function receiptReceiveModal(receiptId,receiptMovementId){
 	document.getElementById("receive-receiptId").value=receiptId;
-	document.getElementById("rmId").value=rmId;
+	document.getElementById("receiptMovementId").value=receiptMovementId;
 	$("#receive").addClass("active");
 	$("#rec_inbox").addClass("active");
 	$(".close, .cancel").on("click", function() {
@@ -474,8 +474,8 @@ function showModal(id){
 	
 	
 	
-function OpenSendPopUp(receiptId,receiptmovementId){
-	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptmovementId='+receiptmovementId;
+function OpenSendPopUp(receiptId,receiptMovementId){
+	var receiptURL = '<%=receiptSendURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>receiptMovementId='+receiptMovementId;
 	Liferay.Util.openWindow({
 		dialog: {
 			centered: true,

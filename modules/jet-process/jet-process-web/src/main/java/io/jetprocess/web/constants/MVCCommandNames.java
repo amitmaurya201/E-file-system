@@ -45,7 +45,7 @@ public class MVCCommandNames {
 	public static final String RECEIPT_SEND_CHECKER_ACTION_COMMAND = "/sendReceiptURL";
 	
 	public static final String CORRESPONDENCES_INFO_RENDER_COMMAND="/correspondencesInfo";
-	public static final String CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND="/CorrespondenceReceiptDetail";
+	public static final String RECEIPT_DETAIL_RENDER_COMMAND="/receiptDetail";
 	
     public static final String FILE_SEND_RENDER_COMMAND_POP_UP = "/fileSendRenderCommandPopUp";
     
@@ -68,4 +68,5 @@ public class MVCCommandNames {
 
     public static final String ATTACH_RECEIPT_IN_FILE_RESOURCE_COMMAND = "/attachreceiptinfile";
 
+    public static final String FILE_CLOSE_LIST_RENDER_COMMAND = "/fileClosedList";
 }

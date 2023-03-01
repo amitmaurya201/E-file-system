@@ -43,6 +43,7 @@
 		<column name="userPostId" type="long" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
+        <column name="handlingSectionId" type="long" />
 
 		<!-- Order -->
 
@@ -401,6 +402,39 @@
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 	</entity>
+	
+<!-- FileCloseDetail -->
+
+	<entity local-service="true" name="FileCloseDetail"
+		uuid="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="fileClosedId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+
+		<!-- Other fields -->
+		<column name="fileId" type="long"></column>
+		<column name="closedBy" type="long"></column>
+		<column name="closingRemarks" type="String"></column>
+		<column name="reopenDate" type="Date"></column>
+		<column name="reopenRemarks" type="String"></column>
+		<column name="closingMovementId" type="long"></column>
+		<column name="reopenBy" type="long"></column>
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+	</entity>
+	
 
     <exceptions>
 		<exception>DuplicateFileNumber</exception>

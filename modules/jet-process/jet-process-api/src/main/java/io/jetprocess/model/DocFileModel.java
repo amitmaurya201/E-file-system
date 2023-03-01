@@ -447,6 +447,20 @@ public interface DocFileModel
 	 */
 	public void setCurrentState(int currentState);
 
+	/**
+	 * Returns the handling section ID of this doc file.
+	 *
+	 * @return the handling section ID of this doc file
+	 */
+	public long getHandlingSectionId();
+
+	/**
+	 * Sets the handling section ID of this doc file.
+	 *
+	 * @param handlingSectionId the handling section ID of this doc file
+	 */
+	public void setHandlingSectionId(long handlingSectionId);
+
 	@Override
 	public DocFile cloneWithOriginalValues();
 

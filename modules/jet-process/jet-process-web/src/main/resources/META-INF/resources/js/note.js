@@ -72,7 +72,7 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 	openGreenNote();
 }
 
- function SaveNoteContent() {
+ function saveNoteContent() {
 	 console.log("save note");
 	 var content = CKEDITOR.instances["<portlet:namespace/>content"].getData();
 	 if(content==''){
@@ -90,7 +90,7 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 	 jsonData["noteId"] =noteId;
 	 jsonData["fileMovementId"] =fileMovementId;
 	 var jsonObj = JSON.stringify(jsonData);
-	 if(content.length!=0 && noteContent!=contentOnchange ){
+	 if(noteContent!=contentOnchange ){
 	 $.ajax({
 		 type:"POST",
 		 url:"${portalURL}/o/jet-process-rs/v1.0/createNote?p_auth=" + Liferay.authToken,
@@ -100,18 +100,15 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 		 processData: false,
 	     contentType : 'application/json'
 	 }).done(function(response){
+		 console.log("result"+response);
 		noteContent=contentOnchange;
 		var noteId = response.noteId;
 		 $("#editor-head").css("background-color","green");
 		 $('#editor-head').load(' #editor-head');
-		 $( "#noteId" ).val(noteId);
-		
-		/*if(noteId==0){
-			window.location.reload(true);
-		}*/
+		 $( "#noteId" ).val(noteId);	
 		
 	 })
 	}
 }
- setInterval(SaveNoteContent, 20000);
+ setInterval(saveNoteContent, 10000);
 </aui:script>

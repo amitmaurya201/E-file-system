@@ -101,7 +101,11 @@
 			value="<%=MVCCommandNames.VIEW_RECEIPT_LIST_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptList" />
 	</portlet:renderURL>
-
+<portlet:renderURL var="fileClosedList">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.FILE_CLOSE_LIST_RENDER_COMMAND%>" />
+		<portlet:param name="selectedNav" value="fileClosedList" />
+	</portlet:renderURL>
 	<portlet:renderURL var="fileInbox">
 		<portlet:param name="mvcRenderCommandName"
 			value="<%=MVCCommandNames.FILE_INBOX_RENDER_COMMAND%>" />
@@ -146,6 +150,8 @@
 				id="fileList" href="<%=createdFileList%>">Created List</a> <a
 				id="fileInbox" href="<%=fileInbox%>">Inbox</a> <a id="fileSent"
 				href="<%=fileSent%>">Sent</a>
+				<a id="fileClosedList"
+				href="<%=fileClosedList%>">Closed List</a>
 
 		</div>
 		<a class="dropdown-btn"><i class='fas fa-receipt'

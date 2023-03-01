@@ -1,9 +1,10 @@
 <%@ include file="../init.jsp"%>
 
 <style>
-.lfr-search-container-wrapper a:not (.component-action ):not (.btn ) {
-	color: #000000;
-}
+
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+    color : #000000;
+} 
 
 .popup, .pull_back-popup {
 	position: absolute;
@@ -34,6 +35,7 @@
 .button {
 	border: none;
 }
+
 </style>
 
 <div class="row" id="bg_blur">
@@ -80,9 +82,9 @@
 				<liferay-ui:search-container-column-text name="Type">
 					<span title="${sentFileListDTO.nature }"><%=sentFileListDTO.getNature().charAt(0)%></span>
 				</liferay-ui:search-container-column-text>
-				<liferay-ui:search-container-column-text href="${viewDetails}"
+				<liferay-ui:search-container-column-text href="${viewDetails}" cssClass="hyperlink-css"
 					name="File No." value="<%=sentFileListDTO.getFileNumber() %>"
-					cssClass="hyperlink-css" orderableProperty="fileNumber"
+					orderableProperty="fileNumber"
 					orderable="true" />
 				<liferay-ui:search-container-column-text
 					value="<%=sentFileListDTO.getSubject()%>"

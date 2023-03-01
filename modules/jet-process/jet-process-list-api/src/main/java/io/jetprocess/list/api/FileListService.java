@@ -2,6 +2,8 @@ package io.jetprocess.list.api;
 
 import java.util.List;
 
+import io.jetprocess.list.model.ClosedFileDTO;
+import io.jetprocess.list.model.ClosedReceiptDTO;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
@@ -40,5 +42,10 @@ public interface FileListService {
 			String orderBy, String order);
 	
 	public int getPutInFileReceiptCount(String type , long userPostId, String keyword);
+
+	public List<ClosedFileDTO> getFileClosedList(long closedBy, String keyword, int start, int end,
+			String orderBy, String order);
+
+	public int getClosedFileListCount(long closedBy, String keyword);
 
 }

@@ -82,13 +82,22 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 			updateFileMovement(fileMovement);
 		}
-		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark,
-				true, FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
+		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, true,
+				FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
 		receiptMovementAttachInFile(receiverId, senderId, fileId, docFile, saveFileMovement);
+		addBlankNote(senderId, fileId, docFile, maxFmId, fileMovement);
+	}
 
-		FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
-		if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-			noteLocalService.addBlankNote(fileId, maxFmId, senderId);
+	private void addBlankNote(long senderId, long fileId, DocFile docFile, long maxFmId, FileMovement fileMovement)
+			throws PortalException {
+		if (fileMovement.getPullBackRemark() == null || fileMovement.getPullBackRemark().equals("null")
+				|| fileMovement.getPullBackRemark().isEmpty()) {
+			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
+			if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+				noteLocalService.addBlankNote(fileId, maxFmId, senderId);
+
+			}
+
 		}
 	}
 
@@ -146,7 +155,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		fileMovement.setDueDate(dueDate);
 		fileMovement.setActive(active);
 		fileMovement.setMovementType(movementType);
-	    addFileMovement(fileMovement);
+		addFileMovement(fileMovement);
 		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
 		docFile.setCurrentlyWith(receiverId);
 		docFile.setCurrentState(currentState);
@@ -179,13 +188,11 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		if (state == true) {
 			FileMovement fileMovement = getFileMovement(fileMovementId);
 			if (fileMovement.getReadOn().isEmpty() || Validator.isNull(fileMovement.getReadOn())) {
-				fileMovement.setReadOn("read");
+				fileMovement.setReadOn(FileConstants.READ);
 				updateFileMovement(fileMovement);
-
 			}
 		}
 		return state;
-
 	}
 
 	public boolean saveReceiveMovement(long fileId, long fileMovementId) throws PortalException {
@@ -194,12 +201,10 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		if (state == true) {
 			FileMovement fileMovement = getFileMovement(fileMovementId);
 			if (fileMovement.getReceivedOn().isEmpty() || Validator.isNull(fileMovement.getReceivedOn())) {
-				fileMovement.setReceivedOn("receive");
+				fileMovement.setReceivedOn(FileConstants.RECEIVE);
 				updateFileMovement(fileMovement);
-
 			}
 		}
-
 		return state;
 	}
 

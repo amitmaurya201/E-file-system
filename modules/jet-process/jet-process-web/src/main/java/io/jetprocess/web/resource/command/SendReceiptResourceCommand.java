@@ -1,12 +1,8 @@
 package io.jetprocess.web.resource.command;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,40 +27,37 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 
-		long receiptMovementId = ParamUtil.getLong(resourceRequest, "receiptmovementId");
-		long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
-		long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
-		long receiptId = ParamUtil.get(resourceRequest, "receiptId", 0);
-		String remark = ParamUtil.getString(resourceRequest, "remark");
-		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
-		Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
-		String priority = ParamUtil.getString(resourceRequest, "priorty");		
+		long receiptMovementId = ParamUtil.getLong(resourceRequest, "receiptMovementId");
+		boolean state = false;
 		try {
-			resourceResponse.setContentType("text/html");
-			PrintWriter out = resourceResponse.getWriter();
-			boolean state = receiptMovementLocalService.pullBackedAlready(receiptMovementId);
+			state = receiptMovementLocalService.pullBackedAlready(receiptMovementId);
 			if (state == true) {
-			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate,
-							remark);					
-        	out.println("Receipt send successfully");					
-					
-		   	}
-			else {
-				out.println("This receipt already pullbacked");
+				long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
+				long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
+				long receiptId = ParamUtil.get(resourceRequest, "receiptId", 0);
+				String remark = ParamUtil.getString(resourceRequest, "remark");
+				SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
+				Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
+				String priority = ParamUtil.getString(resourceRequest, "priorty");
 
+				receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
+				resourceResponse.setContentType("text/html");
+				PrintWriter out = resourceResponse.getWriter();
+				out.println("Receipt send successfully");
+				out.flush();
+			} else if (state == false) {
+				resourceResponse.setContentType("text/html");
+				PrintWriter out = resourceResponse.getWriter();
+				out.println("This receipt already pullbacked");
+				out.flush();
 			}
-		
-			out.flush();
-		} catch (PortalException |IOException e) {
-			logger.info(e);
-			
-		} 
-		return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return state;
 	}
 
 	@Reference
 	private ReceiptMovementLocalService receiptMovementLocalService;
-	
-	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

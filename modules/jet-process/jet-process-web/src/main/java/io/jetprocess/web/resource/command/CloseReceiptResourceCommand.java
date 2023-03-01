@@ -33,7 +33,6 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand  {
 		try {
 			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, closingReceiptMovementId);
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return false;

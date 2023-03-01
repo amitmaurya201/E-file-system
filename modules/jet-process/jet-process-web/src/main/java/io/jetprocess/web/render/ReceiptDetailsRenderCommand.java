@@ -20,7 +20,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.CORRESPONDENCES_RECEIPT_DETAIL_RENDER_COMMAND }, service = MVCRenderCommand.class)
+		"mvc.command.name=" + MVCCommandNames.RECEIPT_DETAIL_RENDER_COMMAND }, service = MVCRenderCommand.class)
 public class ReceiptDetailsRenderCommand implements MVCRenderCommand{
 
 	@Override

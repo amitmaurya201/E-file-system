@@ -1,12 +1,10 @@
 package io.jetprocess.web.resource.command;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +27,6 @@ public class SendFileResourceCommand implements MVCResourceCommand {
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
-
 		long fileMovementId = ParamUtil.getLong(resourceRequest, "fileMovementId");
 		long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
 		long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
@@ -38,28 +35,26 @@ public class SendFileResourceCommand implements MVCResourceCommand {
 		SimpleDateFormat simpleformat = new SimpleDateFormat("dd/MM/yyyy");
 		Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
 		String priority = ParamUtil.getString(resourceRequest, "priorty");
+		boolean state = false;
 		try {
-			boolean state = fileMovementLocalService.pullBackedAlready(fileMovementId);
+			state = fileMovementLocalService.pullBackedAlready(fileMovementId);
 			resourceResponse.setContentType("text/html");
 			PrintWriter out = resourceResponse.getWriter();
 			if (state == true) {
-					fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);					
-					out.println("File send successfully");					
-				
-			} else  {
-				
-				out.println("This file is already pullbacked");			
+				fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
+				out.println("File send successfully");
+			} else {
+				out.println("This file is already pullbacked");
 			}
 			out.flush();
-		} catch (PortalException |IOException e) {
+		} catch (Exception e) {
 			logger.info(e);
-			
-		} 
-		return false;
+		}
+		return state;
 	}
 
 	@Reference
 	private FileMovementLocalService fileMovementLocalService;
-	
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 }

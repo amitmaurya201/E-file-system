@@ -21,10 +21,9 @@ import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(immediate = true, property = { 
-		 "javax.portlet.init-param.add-process-action-success-action=false",
+@Component(immediate = true, property = { "javax.portlet.init-param.add-process-action-success-action=false",
 		"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND}, service = MVCActionCommand.class)
+		"mvc.command.name=" + MVCCommandNames.RECEIPT_INBOX_READ_ACTION_COMMAND }, service = MVCActionCommand.class)
 public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 
 	@Reference
@@ -32,23 +31,26 @@ public class ReceiptInboxReadActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
-		logger.info("ReceiptActionReadActionCommand------>");
+		logger.info("ReceiptActionReadActionCommand------>" );
 		long receiptId = ParamUtil.getLong(actionRequest, "receiptId");
-		long rmId = ParamUtil.getLong(actionRequest, "rmId");
+		long receiptMovementId = ParamUtil.getLong(actionRequest, "receiptMovementId");
 		String url = ParamUtil.getString(actionRequest, "backPageURL");
-		boolean state = receiptMovementLocalService.saveReadMovement(receiptId , rmId);
-		if (state == false) {	
-			SessionErrors.add(actionRequest, "read-not-available");
-			SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-		}
-			try {
-				actionResponse.sendRedirect(url);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		boolean state = false;
+		try {
+			state = receiptMovementLocalService.saveReadMovement(receiptId, receiptMovementId);
+			if (state == false) {
+				SessionErrors.add(actionRequest, "read-not-available");
+				SessionMessages.add(actionRequest,
+						PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 			}
-		return false;
+			actionResponse.sendRedirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return state;
 	}
+
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

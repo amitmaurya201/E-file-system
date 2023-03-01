@@ -175,7 +175,7 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			if (state == true) {
 				ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
 				if(receiptMovement.getReadOn().isEmpty() || Validator.isNull(receiptMovement.getReadOn())) {
-					receiptMovement.setReadOn("read");
+					receiptMovement.setReadOn(FileConstants.READ);
 					updateReceiptMovement(receiptMovement);
 				}
 			}
@@ -192,10 +192,9 @@ public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalService
 			if (state == true) {
 				ReceiptMovement receiptMovement = getReceiptMovement(receiptMovementId);
 				if(receiptMovement.getReceivedOn().isEmpty() || Validator.isNull(receiptMovement.getReceivedOn())) {
-					receiptMovement.setReceivedOn("receive");
+					receiptMovement.setReceivedOn(FileConstants.RECEIVE);
 					updateReceiptMovement(receiptMovement);
 				}
-			
 			}
 		} catch (Exception e) {
 			logger.info(e.getMessage());

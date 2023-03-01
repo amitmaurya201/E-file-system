@@ -52,11 +52,9 @@ public class ReceiptCloseDetailLocalServiceImpl extends ReceiptCloseDetailLocalS
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		receipt.setCurrentState(FileStatus.CLOSED);
 		receiptLocalService.updateReceipt(receipt);
-		System.out.println("updated receipt ---->"+receiptLocalService.updateReceipt(receipt));
 		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(closingReceiptMovementId);
 		receiptMovement.setActive(false);
 		receiptMovementLocalService.updateReceiptMovement(receiptMovement);
-		System.out.println("updated receiptmovement-->"+receiptMovementLocalService.updateReceiptMovement(receiptMovement));
 		addReceiptCloseDetail(receiptCloseDetail);
 		return receiptCloseDetail;
 		

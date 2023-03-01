@@ -11,7 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.osgi.service.component.annotations.Component;
+
+
 import io.jetprocess.list.api.FileListService;
+import io.jetprocess.list.model.ClosedFileDTO;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.FileMovementDTO;
@@ -509,6 +512,71 @@ public class FileListServiceImpl implements FileListService {
 			prepareCall.setString(1,type);		
 			prepareCall.setLong(2,userPostId);			
 			prepareCall.setString(3,keyword);
+			boolean execute = prepareCall.execute();
+
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up connection");
+		}
+		return count;
+	}
+
+	@Override
+	public List<ClosedFileDTO> getFileClosedList(long closedBy, String keyword, int start, int end, String orderBy,
+			String order) {
+		logger.info("getting closed list data ");
+		List<ClosedFileDTO> closedFileListDTO = new ArrayList<>();
+		CallableStatement prepareCall=null;
+		try {
+			
+			prepareCall = con.prepareCall("-------query--------");			
+			prepareCall.setLong(1, closedBy);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					ClosedFileDTO closedFileDTO = new ClosedFileDTO();
+					closedFileDTO.setFileNumber(rs.getString("filenumber"));
+					closedFileDTO.setSubject(rs.getString("subject"));					
+					closedFileDTO.setNature(rs.getString("nature"));									
+					closedFileListDTO.add(closedFileDTO);
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection"+e);
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up connection");
+
+		}
+		return closedFileListDTO;
+	}
+
+	@Override
+	public int getClosedFileListCount(long closedBy, String keyword) {
+		logger.info("getting closed list data count");
+		CallableStatement prepareCall=null;
+		int count = 0;
+		try {
+			
+			 prepareCall = con.prepareCall("-------query-------");	
+			prepareCall.setLong(1,closedBy);			
+			prepareCall.setString(2,keyword);
 			boolean execute = prepareCall.execute();
 
 			if (execute) {
