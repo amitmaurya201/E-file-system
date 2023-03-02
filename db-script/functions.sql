@@ -2302,6 +2302,9 @@ ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
     -- FUNCTION: public.get_closed_file_list(bigint, text, integer, integer, text, text)
 
 -- DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integer, text, text);
+-- FUNCTION: public.get_closed_file_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integer, text, text);
 
 CREATE OR REPLACE FUNCTION public.get_closed_file_list(
 	_closedby bigint,
@@ -2319,7 +2322,7 @@ CREATE OR REPLACE FUNCTION public.get_closed_file_list(
     SET search_path=admin, pg_temp
 AS $BODY$
 declare 
-    _closedby bigint;
+    
     _keyword text;
     _offset int;
     _limit int;
@@ -2327,7 +2330,7 @@ declare
     _order text;
     _query text;
 begin
-    _closedby := closedby;
+    
     _query := 'SELECT f.fileclosedid as closedFileId , f.fileid as fileId , f.closedby as closedBy, f.closingremarks as closingRemarks , 
                 f.reopendate as reopenDate , f.reopenremarks as reopenRemaks , f.closedmovementid as closingMovementId ,
                 f.reopenby as reopenBy, f.createdate as closedOn , d.nature as nature , d.filenumber as fileNumber , d.subject as subject , d.dealingheadsectionid  as dealingHeadSectionId 
@@ -2355,10 +2358,6 @@ begin
         _orderBy := ' d.filenumber ';
      END IF;
      
-       IF (orderbycol = 'subject') THEN
-        _orderBy := ' d.subject ';
-     END IF;
-     
      IF(orderByType ='' or orderByType IS NULL) THEN
         _order := ' desc ';
      ELSE 
@@ -2366,7 +2365,7 @@ begin
      END IF;
     
     IF(_closedby !=0) THEN
-        _query := _query ||' where closedby = ' || _closedby;
+        _query := _query ||'where closedby = ' || _closedby;
         
         IF (_keyword IS NOT NULL) THEN 
             _query := _query || 'AND (filenumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
@@ -2403,7 +2402,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_file_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
-
+    
 
 
 
