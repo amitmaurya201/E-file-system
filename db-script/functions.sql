@@ -338,7 +338,7 @@ AS $BODY$
 		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		JOIN PUBLIC.masterdata_userpost as up2 ON fm.receiverid = up2.userpostid 
         left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid
-         left join public.jet_process_note as n on n.noteid = fn.noteid';        
+         left join public.jet_process_note as n on n.noteid = fn.noteid  where f.currentstate != 3';        
         _keyword := '''%'||keyword||'%''';
         _order :=_orderByType;
         IF (_start <0 OR _start IS NULL) THEN
@@ -382,7 +382,7 @@ AS $BODY$
         END IF;
                         IF (receiverid !=0 )THEN
                         
-                             _query := _query|| ' where fm.receiverid ='||receiverid;
+                             _query := _query|| ' and fm.receiverid ='||receiverid;
                             
                                if (keyword IS NOT NULL) THEN
                 
@@ -421,6 +421,7 @@ $BODY$;
 
 ALTER FUNCTION public.get_file_inbox_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+
    
     
 -----------------------Get-File-Sent-List------------------------------
@@ -1715,7 +1716,7 @@ BEGIN
 		 JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		 JOIN PUBLIC.masterdata_userpost as up2
 		ON fm.receiverid = up2.userpostid 
-	    where  fm.pullbackremark is null AND fm.receiverid ='|| _receiverid;
+	    where  fm.pullbackremark is null AND f.currentstate != 3 AND fm.receiverid ='|| _receiverid;
         IF _receiverid !=0 AND _receiverid IS NOT NULL THEN 
             
             IF  keyword IS NOT NULL  THEN
@@ -2300,8 +2301,7 @@ $BODY$;
 ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
     OWNER TO postgres;
     
-    
-
+  
 CREATE OR REPLACE FUNCTION public.get_closed_file_list(
 	_closedby bigint,
 	keyword text,
@@ -2331,7 +2331,7 @@ begin
                 f.reopendate as reopenDate , f.reopenremarks as reopenRemaks , f.closedmovementid as closingMovementId ,
                 f.reopenby as reopenBy, f.createdate as closedOn , d.nature as nature , d.filenumber as fileNumber , d.subject as subject , d.dealingheadsectionid  as dealingHeadSectionId 
                 FROM PUBLIC.jet_process_fileclosedetail as f 
-                JOIN PUBLIC.jet_process_docfile AS d ON d.docfileId = f.fileid where d.currentstate =3';
+                JOIN PUBLIC.jet_process_docfile AS d ON d.docfileId = f.fileid where d.currentstate =3 and f.reopenremarks IS NULL ';
                 
      _keyword := '''%' || keyword || '%''';
      IF (_start <0 OR _start IS NULL) THEN
@@ -2361,7 +2361,7 @@ begin
      END IF;
     
     IF(_closedby !=0) THEN
-        _query := _query ||'and closedby = ' || _closedby;
+        _query := _query ||' and closedby = ' || _closedby;
         
         IF (_keyword IS NOT NULL) THEN 
             _query := _query || 'AND (filenumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
@@ -2400,7 +2400,6 @@ ALTER FUNCTION public.get_closed_file_list(bigint, text, integer, integer, text,
     OWNER TO postgres;
     
     
-     
 
 CREATE OR REPLACE FUNCTION public.get_closed_file_list_count(
 	_closedby bigint,
@@ -2419,14 +2418,14 @@ begin
     total := 0;
     _keyword :='''%'||keyword||'%''';
     _query :='SELECT COUNT(*) 
-            FROM PUBLIC.jet_process_fileclosedetail as cr 
-            JOIN PUBLIC.jet_process_docfile AS r ON cr.fileId = r.docfileId where r.currentstate = 3 and cr.closedby ='|| _closedby;
+            FROM PUBLIC.jet_process_fileclosedetail as fc
+            JOIN PUBLIC.jet_process_docfile AS f ON fc.fileId = f.docfileId where f.currentstate = 3 and fc.reopenremarks IS NULL and fc.closedby ='|| _closedby;
     IF _closedby != 0 AND _closedby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
     
             
-           EXECUTE _query||' AND (r.filenumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
+           EXECUTE _query||' AND (f.filenumber ilike '||'''%'||keyword||'%'''||'  OR f.subject ilike '||'''%'||keyword||'%'''||')' INTO total;
             RETURN total;
        
        END IF;
@@ -2443,11 +2442,3 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     OWNER TO postgres;
-
-
-
-
-
-    
-
- 
