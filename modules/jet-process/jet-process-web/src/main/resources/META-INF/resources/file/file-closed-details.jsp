@@ -134,30 +134,4 @@ subCategoryValue = (String) request.getAttribute("SubCategoryValue");
 				</table>
 			</div> 
 		</div>
-		<div class="row mt-2 p-2 border border-dark  "
-	style="width: 100%; padding: 20px !important; marging: 20px; !important">
-		<div class="col-md-12 details-color">
-					<nav class="navbar navbar-expand-lg navbar-light  mt-1 "
-						style="background-color: #ddd; border-top: 2px solid #a19c9c; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-
-						<button class="navbar-toggler" type="button"
-							data-toggle="collapse" data-target="#navbarSupportedContent"
-							aria-controls="navbarSupportedContent" aria-expanded="false"
-							aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav">
-								<li class="nav-item border"><a id="movement"
-									class="nav-link" href="#" style="color: black;">Movement</a></li>
-								<li class="nav-item border "><a id="attached-detached"
-									class="nav-link" href="#">Attached/Detached</a></li>
-								<li class="nav-item border "><a id="dispatch"
-									class="nav-link" href="#">Dispatch</a></li>
-								<li class="nav-item border "><a id="close" class="nav-link"
-									href="#">Close</a></li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-		</div>
+		
