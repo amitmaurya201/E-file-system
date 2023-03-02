@@ -53,20 +53,13 @@ public class FileCloseDetailLocalServiceImpl
 		DocFile docFile =docFileLocalService.getDocFile(fileId);
 		docFile.setCurrentState(FileStatus.CLOSED);
 		docFileLocalService.updateDocFile(docFile);
-		System.out.println("updatedocfile");
-		FileMovement fileMovement = fileMovementLocalService.getFileMovement(closingMovementId);
-		fileMovement.setActive(false);
-		fileMovementLocalService.updateFileMovement(fileMovement);
-		System.out.println("updatefileMovementId");
-		//if(fileCorrReceiptLocalService.get) {
 		List <FileCorrReceipt> fileCorrReceiptList=fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
-		System.out.println("filecorrReceipt");
 		for(FileCorrReceipt fileCorrReceipt:fileCorrReceiptList) {
 			long receiptId= fileCorrReceipt.getReceiptId();
-			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, closingMovementId);
-			System.out.println("in close receipt loop");
+			long receiptMovement = fileCorrReceipt.getReceiptMovementId();
+			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, receiptMovement);
 		}
-		System.out.println("after for loop");
+	
 		addFileCloseDetail(fileCloseDetail);
 		return fileCloseDetail;
 	}

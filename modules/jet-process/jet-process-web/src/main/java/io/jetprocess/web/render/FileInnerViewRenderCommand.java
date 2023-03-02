@@ -27,6 +27,8 @@ import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileCorrespondenceReceiptDTO;
 import io.jetprocess.list.model.NoteDTO;
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.model.Note;
@@ -36,6 +38,7 @@ import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileCorrespondenceManagementToolbarDisplayContext;
+import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.FILEINNERVIEW_RENDER_COMMAND }, service = MVCRenderCommand.class)
@@ -48,17 +51,18 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		renderRequest.setAttribute("putInFileId", docFileId);
 		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
-
+		
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 		 renderRequest.setAttribute("noteList", noteList); 
+		// renderRequest.setAttribute("sectionId", sectionId);
 		try {
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
+			allowToCloseFile(renderRequest, docFile);
 			renderRequest.setAttribute("nature", docFile.getNature());
 			renderRequest.setAttribute("docFileId", docFileId);
 			renderRequest.setAttribute("docFileObj", docFile);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
 			renderRequest.setAttribute("backPageURL", backPageURL);
-			System.out.println("fileMovementId fileinner view"+fileMovementId);
 			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
 			System.out.println("fileNoteObj"+fileNote);
 			if (fileNote != null) {
@@ -77,6 +81,14 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		setCorrespondenceToolbarAttributes(renderRequest, renderResponse);
 
 		return "/file/file-inner-view.jsp";
+	}
+
+	private void allowToCloseFile(RenderRequest renderRequest, DocFile docFile) {
+		long postId= UserPostUtil.getUserIdUsingSession(renderRequest);
+		UserPost userPost = userPostLocalService.getUserPostById(postId);
+		if(docFile.getDealingHeadSectionId()==userPost.getSectionId()) {
+			renderRequest.setAttribute("closeAccess", true);
+		}
 	}
 
 	private void setCorrespondenceListAttributes(RenderRequest renderRequest) {
@@ -147,5 +159,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private DocFileLocalService docFileLocalService;
+	@Reference
+	private UserPostLocalService userPostLocalService;
 
 }

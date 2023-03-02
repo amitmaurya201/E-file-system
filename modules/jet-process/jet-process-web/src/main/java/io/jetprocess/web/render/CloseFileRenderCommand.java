@@ -29,7 +29,6 @@ public class CloseFileRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		 long fileId = ParamUtil.getLong(renderRequest,"docFileId");
-		 System.out.println("cosefilerenderer"+fileId);
 		 String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		 renderRequest.setAttribute("backPageURL", backPageURL);
 		renderRequest.setAttribute("fileMovementId", fileMovementId);

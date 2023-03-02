@@ -25,8 +25,6 @@
 <%
 	String docFileId = renderRequest.getParameter("docFileId");
 	
-	 
-
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 	String viewMode = renderRequest.getParameter("viewMode");
 	
@@ -88,6 +86,7 @@
 <portlet:renderURL var="sendback">
 	<portlet:param name="mvcPath" value="/file/sendback.jsp" />
 </portlet:renderURL>
+
 
 <portlet:renderURL var = "closeFileURL" 
 windowState = "<%=LiferayWindowState.POP_UP.toString() %>">
@@ -201,10 +200,11 @@ windowState = "<%=LiferayWindowState.POP_UP.toString() %>">
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
 				
-	       <li class="nav-item border"><a id="closeFile"  href="#" 
+			<c:if test="${closeAccess}">
+				 <li class="nav-item border"><a id="closeFile"  href="#" 
 	       onClick="OpenCloseFilePopUp(<%=docFileId %>,<%=String.valueOf(fileMovementId)%>)" 
 	       class="nav-link">Close</a></li>
-
+				</c:if>
 		</ul>
 		<div class="nav-item d-flex ">
 			<a class="nav-link  align-end bg-primary" Style="border-radius: 5px;"

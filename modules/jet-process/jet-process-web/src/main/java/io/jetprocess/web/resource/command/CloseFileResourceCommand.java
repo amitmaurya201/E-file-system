@@ -32,10 +32,8 @@ public class CloseFileResourceCommand implements MVCResourceCommand{
 		String closingRemarks = ParamUtil.getString(resourceRequest,"closingRemarks");
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");
 	    long closedBy = Long.parseLong(userPostId);
-		System.out.println("closedMovementId"+closedMovementId+"fileId"+fileId);
 		try {
 			fileCloseDetailLocalService.addCloseFileDetail(fileId, closedBy, closingRemarks, closedMovementId);
-			System.out.println("in closefileresource command");
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
