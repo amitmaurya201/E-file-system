@@ -51,6 +51,11 @@ DROP FUNCTION IF EXISTS public.get_closed_receipt_list(bigint, text, integer, in
 
 DROP FUNCTION IF EXISTS public.get_closed_receipt_list_count(bigint, text);
 
+DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integer, text, text);
+
+DROP FUNCTION IF EXISTS public.get_closed_file_list_count(bigint, text);
+
+
 ------------------------File-created-list-----------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
@@ -2296,15 +2301,6 @@ ALTER FUNCTION public.get_closed_receipt_list_count(bigint, text)
     OWNER TO postgres;
     
     
-    
-    
-    
-    -- FUNCTION: public.get_closed_file_list(bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integer, text, text);
--- FUNCTION: public.get_closed_file_list(bigint, text, integer, integer, text, text)
-
--- DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integer, text, text);
 
 CREATE OR REPLACE FUNCTION public.get_closed_file_list(
 	_closedby bigint,
@@ -2335,7 +2331,7 @@ begin
                 f.reopendate as reopenDate , f.reopenremarks as reopenRemaks , f.closedmovementid as closingMovementId ,
                 f.reopenby as reopenBy, f.createdate as closedOn , d.nature as nature , d.filenumber as fileNumber , d.subject as subject , d.dealingheadsectionid  as dealingHeadSectionId 
                 FROM PUBLIC.jet_process_fileclosedetail as f 
-                JOIN PUBLIC.jet_process_docfile AS d ON d.docfileId = f.fileid ';
+                JOIN PUBLIC.jet_process_docfile AS d ON d.docfileId = f.fileid where d.currentstate =3';
                 
      _keyword := '''%' || keyword || '%''';
      IF (_start <0 OR _start IS NULL) THEN
@@ -2365,7 +2361,7 @@ begin
      END IF;
     
     IF(_closedby !=0) THEN
-        _query := _query ||'where closedby = ' || _closedby;
+        _query := _query ||'and closedby = ' || _closedby;
         
         IF (_keyword IS NOT NULL) THEN 
             _query := _query || 'AND (filenumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
@@ -2403,14 +2399,8 @@ $BODY$;
 ALTER FUNCTION public.get_closed_file_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
-
-
-
-
-
--- FUNCTION: public.get_closed_file_list_count(bigint, text)
-
--- DROP FUNCTION IF EXISTS public.get_closed_file_list_count(bigint, text);
+    
+     
 
 CREATE OR REPLACE FUNCTION public.get_closed_file_list_count(
 	_closedby bigint,
@@ -2430,7 +2420,7 @@ begin
     _keyword :='''%'||keyword||'%''';
     _query :='SELECT COUNT(*) 
             FROM PUBLIC.jet_process_fileclosedetail as cr 
-            JOIN PUBLIC.jet_process_docfile AS r ON cr.fileId = r.docfileId where cr.closedby ='|| _closedby;
+            JOIN PUBLIC.jet_process_docfile AS r ON cr.fileId = r.docfileId where r.currentstate = 3 and cr.closedby ='|| _closedby;
     IF _closedby != 0 AND _closedby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
@@ -2453,6 +2443,11 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     OWNER TO postgres;
+
+
+
+
+
     
 
  
