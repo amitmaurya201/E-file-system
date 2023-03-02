@@ -63,7 +63,7 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 <!-- ---------------------- succes message  ---------------------------  -->
 <div class="portlet-msg-success"
 	style="display: none; bottom: 20px; left: 20px; position: fixed; z-index: 5000; border: 1px solid green; width: 240px; height: 50px"
-	id="successMsg">Receipt closed successfully</div>
+	id="successMsg">File closed successfully</div>
 
 <script type="text/javascript">
 	function validateForm(closeFile){
@@ -91,13 +91,13 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 				  A.io.request('<%=closeFileResourceURL.toString()%>', {
 					method : 'post',
 					form : {
-						id : form
+					id : form
 							},
-						on : {
-						success :  function() { 
-				            		 document.getElementById("successMsg").style.display="block";
-					   	           		setTimeout(pageReload, 1500)  
-					   	       	 	} 
+					on : {
+					success : function() { 
+				            document.getElementById("successMsg").style.display="block";
+					   	     setTimeout(pageReload, 1500)  
+					   	       	 } 
 							}
 						});
 					});
