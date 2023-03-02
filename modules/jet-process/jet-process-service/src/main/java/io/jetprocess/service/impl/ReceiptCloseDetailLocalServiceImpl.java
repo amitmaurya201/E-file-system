@@ -50,33 +50,26 @@ public class ReceiptCloseDetailLocalServiceImpl  extends ReceiptCloseDetailLocal
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		receipt.setCurrentState(FileStatus.CLOSED);
 		receiptLocalService.updateReceipt(receipt);
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(closedMovementId);
-		receiptMovement.setActive(false);
-		receiptMovementLocalService.updateReceiptMovement(receiptMovement);
 		addReceiptCloseDetail(receiptCloseDetail);
 		return receiptCloseDetail;
 		
 	}
 	
-	/*
-	 * public ReceiptCloseDetail addReopenReceiptDetails(long receiptId,long
-	 * reopenBy , String reopenRemarks , long reopenMovementId , Date reopenDate)
-	 * throws PortalException {
-	 * 
-	 * ReceiptCloseDetail receiptCloseDetail =
-	 * getReceiptCloseDetail(reopenMovementId);
-	 * receiptCloseDetail.setReopenMovementId(reopenMovementId);
-	 * receiptCloseDetail.setReopenRemarks(reopenRemarks);
-	 * receiptCloseDetail.setReopenDate(reopenDate);
-	 * receiptCloseDetail.setReopenBy(reopenBy);
-	 * receiptCloseDetailLocalService.updateReceiptCloseDetail(receiptCloseDetail);
-	 * Receipt receipt = receiptLocalService.getReceipt(receiptId);
-	 * 
-	 * 
-	 * return null;
-	 * 
-	 * }
-	 */
+	public ReceiptCloseDetail addReopenReceiptDetails(long receiptId, long reopenBy, String reopenRemarks,
+			long reopenMovementId, Date reopenDate) throws PortalException {
+
+		ReceiptCloseDetail receiptCloseDetail = getReceiptCloseDetail(reopenMovementId);
+		System.out.println("reopen ---> receiptId-->"+receiptId+"reopenBy--->"+reopenBy+"reopenRemarks--->"+reopenMovementId+"reopenDate--->"+reopenDate);
+		
+		receiptCloseDetail.setReopenMovementId(reopenMovementId);
+		receiptCloseDetail.setReopenRemarks(reopenRemarks);
+		receiptCloseDetail.setReopenDate(reopenDate);
+		receiptCloseDetail.setReopenBy(reopenBy);
+		System.out.println("receiptreopenDetail--->"+receiptCloseDetail);
+		System.out.println("reopen ---> receiptId-->"+receiptId+"reopenBy--->"+reopenBy+"reopenRemarks--->"+reopenMovementId+"reopenDate--->"+reopenDate);
+		receiptCloseDetailLocalService.updateReceiptCloseDetail(receiptCloseDetail);
+		return receiptCloseDetail;
+	} 
 	
 	@Reference 
 	private ReceiptLocalService receiptLocalService;

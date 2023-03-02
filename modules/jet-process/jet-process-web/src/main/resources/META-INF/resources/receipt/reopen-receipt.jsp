@@ -7,6 +7,7 @@
 long receiptId = (long) renderRequest.getAttribute("receiptId");
 long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 
+
 %>
 
 <portlet:resourceURL
@@ -20,6 +21,7 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 			<aui:input name="receiptId" value="<%=receiptId %>" type="hidden"/>
 			<aui:input name="reopenMovementId" value="<%=reopenMovementId %>" type="hidden"/>
 			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"/>
+			
 		 	<aui:input label="label-reopenreceipt-remark" name="reopenRemarks" id="reopenRemarks"
 					type="textarea" style="height:70px;">
 					<aui:validator name="required"></aui:validator>
@@ -30,7 +32,7 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 			</div>
 			<hr style="margin: 1rem 0rem 0rem 0rem;" />
 		 	<div style="text-align: right; padding: 10px 20px;">
-					<aui:button type="button" class="btn btn-primary" value="label-reopen-receipt-button-submit" onClick="submitReopenReceiptPopUP()" />
+					<aui:button type="button" class="btn btn-primary" value="label-reopen-receipt-button-submit" onClick="submitReopenReceiptPopUp()" />
 				<aui:button type="cancel" class="btn btn-primary" value="label-reopen-receipt-button-cancel">
 					</aui:button>
 			</div>		
@@ -40,7 +42,7 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 		
 	<!-- success message for close Receipt  -->
 	<!-- ---------------------- succes message  ---------------------------  -->
-<div class="portlet-msg-success" style="display:none;     
+<<!-- div class="portlet-msg-success" style="display:none;     
 	bottom: 20px;
     left: 20px;
     position: fixed;
@@ -51,7 +53,7 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
     " 
     id="successMsg">
   Receipt closed successfully
-</div>
+</div> -->
 		
 		
 
@@ -70,12 +72,12 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 							return true;
 						}
 
-			<%-- function pageReload() {
-				parent.location.href = '<%=backPageURL%>';
-				} --%>	
-					
+			/* function pageReload() {
+				parent.location.reload();
+				}	
+			 */		
 					/* send receipt pop up with validation  */
-			function submitReopenReceiptPopUP(){
+			function submitReopenReceiptPopUp(){
 				if(validateForm('<portlet:namespace/>ReopenReceipt')){
 					AUI().use('aui-io-request','aui-base','io', function(A){
 						var form = A.one("#<portlet:namespace/>ReopenReceipt");
@@ -85,9 +87,12 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 								id : form
 							},
 							on : {
-								success :  function() { 
-				            		   document.getElementById("successMsg").style.display="block";
-					   	           		//setTimeout(pageReload, 1500)  
+								success :  function() {
+									
+								//	parent.location.reload();
+				            		  // document.getElementById("successMsg").style.display="block";
+					   	           		//setTimeout(pageReload, 1500);
+				            		   
 					   	       	 	} 
 							}
 						});

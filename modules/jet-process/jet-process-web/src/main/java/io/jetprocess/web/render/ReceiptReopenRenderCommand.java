@@ -3,6 +3,8 @@ package io.jetprocess.web.render;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.Date;
+
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -27,9 +29,10 @@ public class ReceiptReopenRenderCommand   implements MVCRenderCommand {
 	    long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
 	    long reopenMovementId = ParamUtil.getLong(renderRequest, "reopenMovementId");
 	    System.out.println("receiptId --->"+receiptId+"reopenMovementId--->"+reopenMovementId);
-		
+	      
 		renderRequest.setAttribute("receiptId", receiptId);
 		renderRequest.setAttribute("reopenMovementId", reopenMovementId);
+		
 	    
 		return "/receipt/reopen-receipt.jsp";
 	}

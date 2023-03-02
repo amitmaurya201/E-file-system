@@ -37,6 +37,7 @@ import io.jetprocess.model.ReceiptCloseDetail;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -82,6 +83,11 @@ public interface ReceiptCloseDetailLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public ReceiptCloseDetail addReceiptCloseDetail(
 		ReceiptCloseDetail receiptCloseDetail);
+
+	public ReceiptCloseDetail addReopenReceiptDetails(
+			long receiptId, long reopenBy, String reopenRemarks,
+			long reopenMovementId, Date reopenDate)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException
