@@ -405,6 +405,16 @@ public class FileCloseDetailLocalServiceWrapper
 		return _fileCloseDetailLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public io.jetprocess.model.FileCloseDetail reopenClosedFile(
+			long closedFileId, long fileId, long reopenMovementId,
+			long reopenBy, String reopenRemarks)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _fileCloseDetailLocalService.reopenClosedFile(
+			closedFileId, fileId, reopenMovementId, reopenBy, reopenRemarks);
+	}
+
 	/**
 	 * Updates the file close detail in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

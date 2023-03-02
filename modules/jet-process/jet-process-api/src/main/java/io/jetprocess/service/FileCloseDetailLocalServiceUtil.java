@@ -360,6 +360,15 @@ public class FileCloseDetailLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static FileCloseDetail reopenClosedFile(
+			long closedFileId, long fileId, long reopenMovementId,
+			long reopenBy, String reopenRemarks)
+		throws PortalException {
+
+		return getService().reopenClosedFile(
+			closedFileId, fileId, reopenMovementId, reopenBy, reopenRemarks);
+	}
+
 	/**
 	 * Updates the file close detail in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

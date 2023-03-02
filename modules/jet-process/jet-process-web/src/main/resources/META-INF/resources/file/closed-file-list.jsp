@@ -2,13 +2,14 @@
 
 <portlet:renderURL var="fileClosedDetailsURL"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
-	 <portlet:param name="mvcRenderCommandName"
-		value="<%=MVCCommandNames.FILE_CLOSE_DETAILS_RENDER_COMMAND%>" /> 
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.FILE_CLOSE_DETAILS_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="reopenFilePopup"
 	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.REOPEN_FILE_POPUP_RENDER_COMMAND %>"/>
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.REOPEN_FILE_POPUP_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
 <div class="row">
@@ -20,8 +21,7 @@
 			<liferay-ui:message key="label-file-closed-heading" />
 		</h1>
 		<clay:management-toolbar searchContainerId="closedFileEntries"
-			disabled="${closedFileCount eq 0 }"
-			itemsTotal="${closedFileCount}"
+			disabled="${closedFileCount eq 0 }" itemsTotal="${closedFileCount}"
 			displayContext="${closedFileManagementToolbarDisplayContext}"
 			selectable="false" />
 
@@ -49,8 +49,8 @@
 						style="cursor: pointer">${closedFileDTO.fileNumber }</a>
 				</liferay-ui:search-container-column-text>
 				<liferay-ui:search-container-column-text
-					value="${closedFileDTO.subject }"
-					name="label-file-closed-subject" cssClass="hover-tips" />
+					value="${closedFileDTO.subject }" name="label-file-closed-subject"
+					cssClass="hover-tips" />
 				<liferay-ui:search-container-column-text
 					name="label-file-closed-closedOn" orderable="true"
 					orderableProperty="closedOn">
@@ -60,15 +60,18 @@
 				<liferay-ui:search-container-column-text
 					name="label-file-closed-closingRemarks" cssClass="hover-tips"
 					property="closingRemarks" />
-				<liferay-ui:search-container-column-text 
+				<liferay-ui:search-container-column-text
 					name="label-file-closed-action">
-					<c:if test="${ currentUserSectionId == closedFileDTO.dealingHeadSectionId}">
-						<img   alt="reopen-file" title="reopen"  onClick="reopenFilePopUp(<%=closedFileDTO.getFileId() %> , <%=closedFileDTO.getClosedFileId() %>)"
-							id='<portlet:namespace/>reopen-file' 
-							src='<%=request.getContextPath() + "/image/reopen-image.png"%>' width="35%" height="25" />
+					<c:if
+						test="${ currentUserSectionId == closedFileDTO.dealingHeadSectionId}">
+						<img alt="reopen-file" title="Reopen"
+							id='<portlet:namespace/>reopen-file'
+							onclick="reopenFilePopUp(<%=closedFileDTO.getFileId()%> , <%=closedFileDTO.getClosedFileId()%>, <%=closedFileDTO.getClosingMovementId() %>)"
+							src='<%=request.getContextPath() + "/image/reopen-image.png"%>'
+							width="35%" height="25" />
 					</c:if>
-				</liferay-ui:search-container-column-text> 
-				
+				</liferay-ui:search-container-column-text>
+
 			</liferay-ui:search-container-row>
 			<%-- Iterator / Paging --%>
 			<liferay-ui:search-iterator paginate="false" />
@@ -77,7 +80,7 @@
 		</liferay-ui:search-container>
 	</div>
 </div>
-	
+
 <aui:script>
 	function fileDetailPopup(fileId){
 		var title="<liferay-ui:message key='title-closed-fileDetailPopup' />";
@@ -96,8 +99,8 @@
 		});	  
 	}
 	
-	function reopenFilePopUp(fileId,closedFileId){
-		var title="<liferay-ui:message key='title-reopen-file-popup'/>";
+	function reopenFilePopUp(fileId,closedFileId,reopenMovementId){
+		var title="<liferay-ui:message key='title-reopen-file-popup' />";
 		Liferay.Util.openWindow({
 			dialog: {
 				centered: true,
@@ -107,12 +110,10 @@
 				modal: true,
 				width: 500
 			},
-			id: '<portlet:namespace/>dialog',
+			id: '<portlet:namespace />dialog',
 			title: title,
-			uri: '<%=reopenFilePopup%>&<portlet:namespace/>fileId='+fileId+'&<portlet:namespace/>closedFileId='+closedFileId
-			
+			uri: '<%=reopenFilePopup%>&<portlet:namespace />fileId='+fileId+'&<portlet:namespace />closedFileId='+closedFileId+'&<portlet:namespace />reopenMovementId='+reopenMovementId
 		});
 	}
-</aui:script>	
-	
-	
+</aui:script>
+

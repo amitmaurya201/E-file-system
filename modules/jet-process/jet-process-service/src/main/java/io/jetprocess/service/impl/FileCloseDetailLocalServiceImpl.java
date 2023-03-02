@@ -17,9 +17,11 @@ package io.jetprocess.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.Date;
 import java.util.List;
 
 import io.jetprocess.core.util.FileStatus;
+import io.jetprocess.core.util.MovementStatus;
 import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCloseDetail;
 import io.jetprocess.model.FileCorrReceipt;
@@ -36,34 +38,54 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.model.FileCloseDetail",
-	service = AopService.class
-)
-public class FileCloseDetailLocalServiceImpl
-	extends FileCloseDetailLocalServiceBaseImpl {
-	
-	public FileCloseDetail addCloseFileDetail(long fileId,long closedBy,String closingRemarks,long closingMovementId) throws PortalException {
+@Component(property = "model.class.name=io.jetprocess.model.FileCloseDetail", service = AopService.class)
+public class FileCloseDetailLocalServiceImpl extends FileCloseDetailLocalServiceBaseImpl {
+
+	public FileCloseDetail addCloseFileDetail(long fileId, long closedBy, String closingRemarks, long closingMovementId)
+			throws PortalException {
 		long closedFileId = counterLocalService.increment(FileCloseDetail.class.getName());
 		FileCloseDetail fileCloseDetail = createFileCloseDetail(closedFileId);
 		fileCloseDetail.setClosedBy(closedBy);
 		fileCloseDetail.setClosingRemarks(closingRemarks);
 		fileCloseDetail.setClosedMovementId(closingMovementId);
 		fileCloseDetail.setFileId(fileId);
-		DocFile docFile =docFileLocalService.getDocFile(fileId);
+		DocFile docFile = docFileLocalService.getDocFile(fileId);
 		docFile.setCurrentState(FileStatus.CLOSED);
 		docFileLocalService.updateDocFile(docFile);
-		List <FileCorrReceipt> fileCorrReceiptList=fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
-		for(FileCorrReceipt fileCorrReceipt:fileCorrReceiptList) {
-			long receiptId= fileCorrReceipt.getReceiptId();
+		List<FileCorrReceipt> fileCorrReceiptList = fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
+		for (FileCorrReceipt fileCorrReceipt : fileCorrReceiptList) {
+			long receiptId = fileCorrReceipt.getReceiptId();
 			long receiptMovement = fileCorrReceipt.getReceiptMovementId();
-			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, receiptMovement);
+			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks,
+					receiptMovement);
 		}
-	
+
 		addFileCloseDetail(fileCloseDetail);
 		return fileCloseDetail;
 	}
-	 
+
+	public FileCloseDetail reopenClosedFile(long closedFileId, long fileId, long reopenMovementId, long reopenBy,
+			String reopenRemarks) throws PortalException {
+		System.out.println("reopen service" );
+		FileCloseDetail fileCloseDetail = getFileCloseDetail(closedFileId);
+		fileCloseDetail.setReopenRemarks(reopenRemarks);
+		fileCloseDetail.setReopenBy(reopenBy);
+		fileCloseDetail.setReopenDate(new Date());
+		fileCloseDetail.setReopenMovementId(reopenMovementId);
+		FileMovement fileMovement = fileMovementLocalService.getFileMovementById(fileCloseDetail.getClosedMovementId());
+		DocFile docFile = docFileLocalService.getDocFileByDocFileId(fileId);
+		// if file closed from created file list.
+		if (MovementStatus.CREATED == fileMovement.getMovementType()) {
+			docFile.setCurrentState(FileStatus.CREADTED);
+		} else {
+			docFile.setCurrentState(FileStatus.IN_MOVEMENT);
+		}
+		docFileLocalService.updateDocFile(docFile);
+		updateFileCloseDetail(fileCloseDetail);
+		System.out.println("reopen service");
+		return fileCloseDetail;
+	}
+
 	@Reference
 	private DocFileLocalService docFileLocalService;
 	@Reference

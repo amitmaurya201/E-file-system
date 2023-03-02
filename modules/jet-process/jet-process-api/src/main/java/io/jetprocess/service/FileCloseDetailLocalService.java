@@ -316,6 +316,11 @@ public interface FileCloseDetailLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public FileCloseDetail reopenClosedFile(
+			long closedFileId, long fileId, long reopenMovementId,
+			long reopenBy, String reopenRemarks)
+		throws PortalException;
+
 	/**
 	 * Updates the file close detail in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

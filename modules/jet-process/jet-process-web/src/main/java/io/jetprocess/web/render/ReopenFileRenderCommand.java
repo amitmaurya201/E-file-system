@@ -24,10 +24,13 @@ public class ReopenFileRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		System.out.println("render");
 		long fileId = ParamUtil.getLong(renderRequest, "fileId");
 		long closedFileId = ParamUtil.getLong(renderRequest, "closedFileId");
+		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		renderRequest.setAttribute("fileId", fileId);
 		renderRequest.setAttribute("closedFileId", closedFileId);
+		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		return "/file/reopen-file.jsp";
 	}
 
