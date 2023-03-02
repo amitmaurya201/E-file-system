@@ -40,11 +40,11 @@ public class ReceiptCloseDetailLocalServiceWrapper
 	@Override
 	public io.jetprocess.model.ReceiptCloseDetail addClosedReceiptDetails(
 			long receiptId, long closedBy, String closingRemarks,
-			long closingReceiptMovementId)
+			long closedMovementId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _receiptCloseDetailLocalService.addClosedReceiptDetails(
-			receiptId, closedBy, closingRemarks, closingReceiptMovementId);
+			receiptId, closedBy, closingRemarks, closedMovementId);
 	}
 
 	/**

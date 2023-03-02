@@ -81,8 +81,8 @@ public class ReceiptCloseDetailModelImpl
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"receiptId", Types.BIGINT}, {"closedBy", Types.BIGINT},
 		{"closingRemarks", Types.VARCHAR}, {"reopenDate", Types.TIMESTAMP},
-		{"reopenRemarks", Types.VARCHAR},
-		{"closingReceiptMovementId", Types.BIGINT}, {"reopenBy", Types.BIGINT}
+		{"reopenRemarks", Types.VARCHAR}, {"closedMovementId", Types.BIGINT},
+		{"reopenMovementId", Types.BIGINT}, {"reopenBy", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -102,12 +102,13 @@ public class ReceiptCloseDetailModelImpl
 		TABLE_COLUMNS_MAP.put("closingRemarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("reopenDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("reopenRemarks", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("closingReceiptMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("closedMovementId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("reopenMovementId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("reopenBy", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_ReceiptCloseDetail (uuid_ VARCHAR(75) null,ReceiptClosedId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,receiptId LONG,closedBy LONG,closingRemarks VARCHAR(500) null,reopenDate DATE null,reopenRemarks VARCHAR(500) null,closingReceiptMovementId LONG,reopenBy LONG)";
+		"create table JET_PROCESS_ReceiptCloseDetail (uuid_ VARCHAR(75) null,ReceiptClosedId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,receiptId LONG,closedBy LONG,closingRemarks VARCHAR(500) null,reopenDate DATE null,reopenRemarks VARCHAR(500) null,closedMovementId LONG,reopenMovementId LONG,reopenBy LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_ReceiptCloseDetail";
@@ -338,12 +339,17 @@ public class ReceiptCloseDetailModelImpl
 			(BiConsumer<ReceiptCloseDetail, String>)
 				ReceiptCloseDetail::setReopenRemarks);
 		attributeGetterFunctions.put(
-			"closingReceiptMovementId",
-			ReceiptCloseDetail::getClosingReceiptMovementId);
+			"closedMovementId", ReceiptCloseDetail::getClosedMovementId);
 		attributeSetterBiConsumers.put(
-			"closingReceiptMovementId",
+			"closedMovementId",
 			(BiConsumer<ReceiptCloseDetail, Long>)
-				ReceiptCloseDetail::setClosingReceiptMovementId);
+				ReceiptCloseDetail::setClosedMovementId);
+		attributeGetterFunctions.put(
+			"reopenMovementId", ReceiptCloseDetail::getReopenMovementId);
+		attributeSetterBiConsumers.put(
+			"reopenMovementId",
+			(BiConsumer<ReceiptCloseDetail, Long>)
+				ReceiptCloseDetail::setReopenMovementId);
 		attributeGetterFunctions.put(
 			"reopenBy", ReceiptCloseDetail::getReopenBy);
 		attributeSetterBiConsumers.put(
@@ -624,17 +630,32 @@ public class ReceiptCloseDetailModelImpl
 
 	@JSON
 	@Override
-	public long getClosingReceiptMovementId() {
-		return _closingReceiptMovementId;
+	public long getClosedMovementId() {
+		return _closedMovementId;
 	}
 
 	@Override
-	public void setClosingReceiptMovementId(long closingReceiptMovementId) {
+	public void setClosedMovementId(long closedMovementId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_closingReceiptMovementId = closingReceiptMovementId;
+		_closedMovementId = closedMovementId;
+	}
+
+	@JSON
+	@Override
+	public long getReopenMovementId() {
+		return _reopenMovementId;
+	}
+
+	@Override
+	public void setReopenMovementId(long reopenMovementId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_reopenMovementId = reopenMovementId;
 	}
 
 	@JSON
@@ -729,8 +750,8 @@ public class ReceiptCloseDetailModelImpl
 		receiptCloseDetailImpl.setClosingRemarks(getClosingRemarks());
 		receiptCloseDetailImpl.setReopenDate(getReopenDate());
 		receiptCloseDetailImpl.setReopenRemarks(getReopenRemarks());
-		receiptCloseDetailImpl.setClosingReceiptMovementId(
-			getClosingReceiptMovementId());
+		receiptCloseDetailImpl.setClosedMovementId(getClosedMovementId());
+		receiptCloseDetailImpl.setReopenMovementId(getReopenMovementId());
 		receiptCloseDetailImpl.setReopenBy(getReopenBy());
 
 		receiptCloseDetailImpl.resetOriginalValues();
@@ -769,8 +790,10 @@ public class ReceiptCloseDetailModelImpl
 			this.<Date>getColumnOriginalValue("reopenDate"));
 		receiptCloseDetailImpl.setReopenRemarks(
 			this.<String>getColumnOriginalValue("reopenRemarks"));
-		receiptCloseDetailImpl.setClosingReceiptMovementId(
-			this.<Long>getColumnOriginalValue("closingReceiptMovementId"));
+		receiptCloseDetailImpl.setClosedMovementId(
+			this.<Long>getColumnOriginalValue("closedMovementId"));
+		receiptCloseDetailImpl.setReopenMovementId(
+			this.<Long>getColumnOriginalValue("reopenMovementId"));
 		receiptCloseDetailImpl.setReopenBy(
 			this.<Long>getColumnOriginalValue("reopenBy"));
 
@@ -922,8 +945,9 @@ public class ReceiptCloseDetailModelImpl
 			receiptCloseDetailCacheModel.reopenRemarks = null;
 		}
 
-		receiptCloseDetailCacheModel.closingReceiptMovementId =
-			getClosingReceiptMovementId();
+		receiptCloseDetailCacheModel.closedMovementId = getClosedMovementId();
+
+		receiptCloseDetailCacheModel.reopenMovementId = getReopenMovementId();
 
 		receiptCloseDetailCacheModel.reopenBy = getReopenBy();
 
@@ -1034,7 +1058,8 @@ public class ReceiptCloseDetailModelImpl
 	private String _closingRemarks;
 	private Date _reopenDate;
 	private String _reopenRemarks;
-	private long _closingReceiptMovementId;
+	private long _closedMovementId;
+	private long _reopenMovementId;
 	private long _reopenBy;
 
 	public <T> T getColumnValue(String columnName) {
@@ -1079,8 +1104,8 @@ public class ReceiptCloseDetailModelImpl
 		_columnOriginalValues.put("closingRemarks", _closingRemarks);
 		_columnOriginalValues.put("reopenDate", _reopenDate);
 		_columnOriginalValues.put("reopenRemarks", _reopenRemarks);
-		_columnOriginalValues.put(
-			"closingReceiptMovementId", _closingReceiptMovementId);
+		_columnOriginalValues.put("closedMovementId", _closedMovementId);
+		_columnOriginalValues.put("reopenMovementId", _reopenMovementId);
 		_columnOriginalValues.put("reopenBy", _reopenBy);
 	}
 
@@ -1131,9 +1156,11 @@ public class ReceiptCloseDetailModelImpl
 
 		columnBitmasks.put("reopenRemarks", 4096L);
 
-		columnBitmasks.put("closingReceiptMovementId", 8192L);
+		columnBitmasks.put("closedMovementId", 8192L);
 
-		columnBitmasks.put("reopenBy", 16384L);
+		columnBitmasks.put("reopenMovementId", 16384L);
+
+		columnBitmasks.put("reopenBy", 32768L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

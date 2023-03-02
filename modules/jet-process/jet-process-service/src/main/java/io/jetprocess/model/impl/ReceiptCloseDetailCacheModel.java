@@ -63,7 +63,7 @@ public class ReceiptCloseDetailCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -91,8 +91,10 @@ public class ReceiptCloseDetailCacheModel
 		sb.append(reopenDate);
 		sb.append(", reopenRemarks=");
 		sb.append(reopenRemarks);
-		sb.append(", closingReceiptMovementId=");
-		sb.append(closingReceiptMovementId);
+		sb.append(", closedMovementId=");
+		sb.append(closedMovementId);
+		sb.append(", reopenMovementId=");
+		sb.append(reopenMovementId);
 		sb.append(", reopenBy=");
 		sb.append(reopenBy);
 		sb.append("}");
@@ -162,8 +164,8 @@ public class ReceiptCloseDetailCacheModel
 			receiptCloseDetailImpl.setReopenRemarks(reopenRemarks);
 		}
 
-		receiptCloseDetailImpl.setClosingReceiptMovementId(
-			closingReceiptMovementId);
+		receiptCloseDetailImpl.setClosedMovementId(closedMovementId);
+		receiptCloseDetailImpl.setReopenMovementId(reopenMovementId);
 		receiptCloseDetailImpl.setReopenBy(reopenBy);
 
 		receiptCloseDetailImpl.resetOriginalValues();
@@ -193,7 +195,9 @@ public class ReceiptCloseDetailCacheModel
 		reopenDate = objectInput.readLong();
 		reopenRemarks = objectInput.readUTF();
 
-		closingReceiptMovementId = objectInput.readLong();
+		closedMovementId = objectInput.readLong();
+
+		reopenMovementId = objectInput.readLong();
 
 		reopenBy = objectInput.readLong();
 	}
@@ -245,7 +249,9 @@ public class ReceiptCloseDetailCacheModel
 			objectOutput.writeUTF(reopenRemarks);
 		}
 
-		objectOutput.writeLong(closingReceiptMovementId);
+		objectOutput.writeLong(closedMovementId);
+
+		objectOutput.writeLong(reopenMovementId);
 
 		objectOutput.writeLong(reopenBy);
 	}
@@ -263,7 +269,8 @@ public class ReceiptCloseDetailCacheModel
 	public String closingRemarks;
 	public long reopenDate;
 	public String reopenRemarks;
-	public long closingReceiptMovementId;
+	public long closedMovementId;
+	public long reopenMovementId;
 	public long reopenBy;
 
 }

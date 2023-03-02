@@ -37,16 +37,6 @@ public class ReceiptCloseDetailServiceWrapper
 		_receiptCloseDetailService = receiptCloseDetailService;
 	}
 
-	@Override
-	public io.jetprocess.model.ReceiptCloseDetail addClosedReceiptDetails(
-			long receiptId, long closedBy, String closingRemarks,
-			long closingReceiptMovementId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _receiptCloseDetailService.addClosedReceiptDetails(
-			receiptId, closedBy, closingRemarks, closingReceiptMovementId);
-	}
-
 	/**
 	 * Returns the OSGi service identifier.
 	 *

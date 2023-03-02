@@ -107,7 +107,7 @@ public class FileCloseDetailModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_FileCloseDetail (uuid_ VARCHAR(75) null,fileClosedId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,fileId LONG,closedBy LONG,closingRemarks VARCHAR(75) null,reopenDate DATE null,reopenRemarks VARCHAR(75) null,closedMovementId LONG,reopenBy LONG,reopenMovementId LONG)";
+		"create table JET_PROCESS_FileCloseDetail (uuid_ VARCHAR(75) null,fileClosedId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,fileId LONG,closedBy LONG,closingRemarks VARCHAR(500) null,reopenDate DATE null,reopenRemarks VARCHAR(75) null,closedMovementId LONG,reopenBy LONG,reopenMovementId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_FileCloseDetail";

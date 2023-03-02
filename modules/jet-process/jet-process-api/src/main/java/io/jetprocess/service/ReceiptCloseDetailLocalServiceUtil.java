@@ -47,11 +47,11 @@ public class ReceiptCloseDetailLocalServiceUtil {
 	 */
 	public static ReceiptCloseDetail addClosedReceiptDetails(
 			long receiptId, long closedBy, String closingRemarks,
-			long closingReceiptMovementId)
+			long closedMovementId)
 		throws PortalException {
 
 		return getService().addClosedReceiptDetails(
-			receiptId, closedBy, closingRemarks, closingReceiptMovementId);
+			receiptId, closedBy, closingRemarks, closedMovementId);
 	}
 
 	/**

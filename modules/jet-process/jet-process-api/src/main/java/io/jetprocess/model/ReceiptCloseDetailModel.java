@@ -277,18 +277,32 @@ public interface ReceiptCloseDetailModel
 	public void setReopenRemarks(String reopenRemarks);
 
 	/**
-	 * Returns the closing receipt movement ID of this receipt close detail.
+	 * Returns the closed movement ID of this receipt close detail.
 	 *
-	 * @return the closing receipt movement ID of this receipt close detail
+	 * @return the closed movement ID of this receipt close detail
 	 */
-	public long getClosingReceiptMovementId();
+	public long getClosedMovementId();
 
 	/**
-	 * Sets the closing receipt movement ID of this receipt close detail.
+	 * Sets the closed movement ID of this receipt close detail.
 	 *
-	 * @param closingReceiptMovementId the closing receipt movement ID of this receipt close detail
+	 * @param closedMovementId the closed movement ID of this receipt close detail
 	 */
-	public void setClosingReceiptMovementId(long closingReceiptMovementId);
+	public void setClosedMovementId(long closedMovementId);
+
+	/**
+	 * Returns the reopen movement ID of this receipt close detail.
+	 *
+	 * @return the reopen movement ID of this receipt close detail
+	 */
+	public long getReopenMovementId();
+
+	/**
+	 * Sets the reopen movement ID of this receipt close detail.
+	 *
+	 * @param reopenMovementId the reopen movement ID of this receipt close detail
+	 */
+	public void setReopenMovementId(long reopenMovementId);
 
 	/**
 	 * Returns the reopen by of this receipt close detail.

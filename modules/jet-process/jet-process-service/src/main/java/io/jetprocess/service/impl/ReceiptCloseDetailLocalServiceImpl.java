@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import java.util.Date;
 
 import io.jetprocess.core.util.FileStatus;
-import io.jetprocess.model.DocFile;
 import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptCloseDetail;
 import io.jetprocess.model.ReceiptMovement;
@@ -38,33 +37,52 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=io.jetprocess.model.ReceiptCloseDetail",
 	service = AopService.class
 )
-public class ReceiptCloseDetailLocalServiceImpl extends ReceiptCloseDetailLocalServiceBaseImpl {
+public class ReceiptCloseDetailLocalServiceImpl  extends ReceiptCloseDetailLocalServiceBaseImpl {
 	
-	
-	public ReceiptCloseDetail addClosedReceiptDetails(long receiptId,long closedBy,String closingRemarks,long closingReceiptMovementId) throws PortalException {
-	
+	public ReceiptCloseDetail addClosedReceiptDetails(long receiptId,long closedBy,String closingRemarks,long closedMovementId) throws PortalException {
+		
 		long receiptClosedId = counterLocalService.increment(ReceiptCloseDetail.class.getName());
 		ReceiptCloseDetail receiptCloseDetail = createReceiptCloseDetail(receiptClosedId);
 		receiptCloseDetail.setReceiptId(receiptId);
 		receiptCloseDetail.setClosedBy(closedBy);
 		receiptCloseDetail.setClosingRemarks(closingRemarks);
-		receiptCloseDetail.setClosingReceiptMovementId(closingReceiptMovementId);
+		receiptCloseDetail.setClosedMovementId(closedMovementId);
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
 		receipt.setCurrentState(FileStatus.CLOSED);
 		receiptLocalService.updateReceipt(receipt);
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(closingReceiptMovementId);
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(closedMovementId);
 		receiptMovement.setActive(false);
 		receiptMovementLocalService.updateReceiptMovement(receiptMovement);
 		addReceiptCloseDetail(receiptCloseDetail);
 		return receiptCloseDetail;
 		
 	}
-
-	@Reference
-	private ReceiptLocalService receiptLocalService;
-	@Reference
-	private ReceiptMovementLocalService receiptMovementLocalService;
 	
+	/*
+	 * public ReceiptCloseDetail addReopenReceiptDetails(long receiptId,long
+	 * reopenBy , String reopenRemarks , long reopenMovementId , Date reopenDate)
+	 * throws PortalException {
+	 * 
+	 * ReceiptCloseDetail receiptCloseDetail =
+	 * getReceiptCloseDetail(reopenMovementId);
+	 * receiptCloseDetail.setReopenMovementId(reopenMovementId);
+	 * receiptCloseDetail.setReopenRemarks(reopenRemarks);
+	 * receiptCloseDetail.setReopenDate(reopenDate);
+	 * receiptCloseDetail.setReopenBy(reopenBy);
+	 * receiptCloseDetailLocalService.updateReceiptCloseDetail(receiptCloseDetail);
+	 * Receipt receipt = receiptLocalService.getReceipt(receiptId);
+	 * 
+	 * 
+	 * return null;
+	 * 
+	 * }
+	 */
+	
+	@Reference 
+	private ReceiptLocalService receiptLocalService;
+	
+	@Reference 
+	private ReceiptMovementLocalService receiptMovementLocalService; 
 	
 	
 }

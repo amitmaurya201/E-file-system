@@ -395,7 +395,8 @@
 		<column name="closingRemarks" type="String"></column>
 		<column name="reopenDate" type="Date"></column>
 		<column name="reopenRemarks" type="String"></column>
-		<column name="closingReceiptMovementId" type="long"></column>
+		<column name="closedMovementId" type="long"></column>
+		<column name="reopenMovementId" type="long"></column>
 		<column name="reopenBy" type="long"></column>
 
 		<!-- Group Reference -->

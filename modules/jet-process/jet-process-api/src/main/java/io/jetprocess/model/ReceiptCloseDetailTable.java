@@ -67,10 +67,12 @@ public class ReceiptCloseDetailTable
 	public final Column<ReceiptCloseDetailTable, String> reopenRemarks =
 		createColumn(
 			"reopenRemarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReceiptCloseDetailTable, Long>
-		closingReceiptMovementId = createColumn(
-			"closingReceiptMovementId", Long.class, Types.BIGINT,
-			Column.FLAG_DEFAULT);
+	public final Column<ReceiptCloseDetailTable, Long> closedMovementId =
+		createColumn(
+			"closedMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReceiptCloseDetailTable, Long> reopenMovementId =
+		createColumn(
+			"reopenMovementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReceiptCloseDetailTable, Long> reopenBy = createColumn(
 		"reopenBy", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 

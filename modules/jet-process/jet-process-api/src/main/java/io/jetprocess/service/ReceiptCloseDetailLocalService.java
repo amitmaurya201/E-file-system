@@ -66,7 +66,7 @@ public interface ReceiptCloseDetailLocalService
 	 */
 	public ReceiptCloseDetail addClosedReceiptDetails(
 			long receiptId, long closedBy, String closingRemarks,
-			long closingReceiptMovementId)
+			long closedMovementId)
 		throws PortalException;
 
 	/**

@@ -14,22 +14,13 @@
 
 package io.jetprocess.service.http;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.security.auth.HttpPrincipal;
-import com.liferay.portal.kernel.service.http.TunnelUtil;
-import com.liferay.portal.kernel.util.MethodHandler;
-import com.liferay.portal.kernel.util.MethodKey;
-
-import io.jetprocess.service.ReceiptCloseDetailServiceUtil;
-
 /**
  * Provides the HTTP utility for the
- * <code>ReceiptCloseDetailServiceUtil</code> service
+ * <code>io.jetprocess.service.ReceiptCloseDetailServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>HttpPrincipal</code> parameter.
+ * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -50,54 +41,4 @@ import io.jetprocess.service.ReceiptCloseDetailServiceUtil;
  * @generated
  */
 public class ReceiptCloseDetailServiceHttp {
-
-	public static io.jetprocess.model.ReceiptCloseDetail
-			addClosedReceiptDetails(
-				HttpPrincipal httpPrincipal, long receiptId, long closedBy,
-				String closingRemarks, long closingReceiptMovementId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				ReceiptCloseDetailServiceUtil.class, "addClosedReceiptDetails",
-				_addClosedReceiptDetailsParameterTypes0);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, receiptId, closedBy, closingRemarks,
-				closingReceiptMovementId);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (io.jetprocess.model.ReceiptCloseDetail)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	private static Log _log = LogFactoryUtil.getLog(
-		ReceiptCloseDetailServiceHttp.class);
-
-	private static final Class<?>[] _addClosedReceiptDetailsParameterTypes0 =
-		new Class[] {long.class, long.class, String.class, long.class};
-
 }

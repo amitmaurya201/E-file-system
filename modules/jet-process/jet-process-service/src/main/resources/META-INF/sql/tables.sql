@@ -38,7 +38,7 @@ create table JET_PROCESS_FileCloseDetail (
 	modifiedDate DATE null,
 	fileId LONG,
 	closedBy LONG,
-	closingRemarks VARCHAR(75) null,
+	closingRemarks VARCHAR(500) null,
 	reopenDate DATE null,
 	reopenRemarks VARCHAR(75) null,
 	closedMovementId LONG,
@@ -187,7 +187,8 @@ create table JET_PROCESS_ReceiptCloseDetail (
 	closingRemarks VARCHAR(500) null,
 	reopenDate DATE null,
 	reopenRemarks VARCHAR(500) null,
-	closingReceiptMovementId LONG,
+	closedMovementId LONG,
+	reopenMovementId LONG,
 	reopenBy LONG
 );
 

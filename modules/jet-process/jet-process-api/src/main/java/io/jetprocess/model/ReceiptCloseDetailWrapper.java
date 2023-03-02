@@ -56,8 +56,8 @@ public class ReceiptCloseDetailWrapper
 		attributes.put("closingRemarks", getClosingRemarks());
 		attributes.put("reopenDate", getReopenDate());
 		attributes.put("reopenRemarks", getReopenRemarks());
-		attributes.put(
-			"closingReceiptMovementId", getClosingReceiptMovementId());
+		attributes.put("closedMovementId", getClosedMovementId());
+		attributes.put("reopenMovementId", getReopenMovementId());
 		attributes.put("reopenBy", getReopenBy());
 
 		return attributes;
@@ -143,11 +143,16 @@ public class ReceiptCloseDetailWrapper
 			setReopenRemarks(reopenRemarks);
 		}
 
-		Long closingReceiptMovementId = (Long)attributes.get(
-			"closingReceiptMovementId");
+		Long closedMovementId = (Long)attributes.get("closedMovementId");
 
-		if (closingReceiptMovementId != null) {
-			setClosingReceiptMovementId(closingReceiptMovementId);
+		if (closedMovementId != null) {
+			setClosedMovementId(closedMovementId);
+		}
+
+		Long reopenMovementId = (Long)attributes.get("reopenMovementId");
+
+		if (reopenMovementId != null) {
+			setReopenMovementId(reopenMovementId);
 		}
 
 		Long reopenBy = (Long)attributes.get("reopenBy");
@@ -173,13 +178,13 @@ public class ReceiptCloseDetailWrapper
 	}
 
 	/**
-	 * Returns the closing receipt movement ID of this receipt close detail.
+	 * Returns the closed movement ID of this receipt close detail.
 	 *
-	 * @return the closing receipt movement ID of this receipt close detail
+	 * @return the closed movement ID of this receipt close detail
 	 */
 	@Override
-	public long getClosingReceiptMovementId() {
-		return model.getClosingReceiptMovementId();
+	public long getClosedMovementId() {
+		return model.getClosedMovementId();
 	}
 
 	/**
@@ -283,6 +288,16 @@ public class ReceiptCloseDetailWrapper
 	}
 
 	/**
+	 * Returns the reopen movement ID of this receipt close detail.
+	 *
+	 * @return the reopen movement ID of this receipt close detail
+	 */
+	@Override
+	public long getReopenMovementId() {
+		return model.getReopenMovementId();
+	}
+
+	/**
 	 * Returns the reopen remarks of this receipt close detail.
 	 *
 	 * @return the reopen remarks of this receipt close detail
@@ -348,13 +363,13 @@ public class ReceiptCloseDetailWrapper
 	}
 
 	/**
-	 * Sets the closing receipt movement ID of this receipt close detail.
+	 * Sets the closed movement ID of this receipt close detail.
 	 *
-	 * @param closingReceiptMovementId the closing receipt movement ID of this receipt close detail
+	 * @param closedMovementId the closed movement ID of this receipt close detail
 	 */
 	@Override
-	public void setClosingReceiptMovementId(long closingReceiptMovementId) {
-		model.setClosingReceiptMovementId(closingReceiptMovementId);
+	public void setClosedMovementId(long closedMovementId) {
+		model.setClosedMovementId(closedMovementId);
 	}
 
 	/**
@@ -455,6 +470,16 @@ public class ReceiptCloseDetailWrapper
 	@Override
 	public void setReopenDate(Date reopenDate) {
 		model.setReopenDate(reopenDate);
+	}
+
+	/**
+	 * Sets the reopen movement ID of this receipt close detail.
+	 *
+	 * @param reopenMovementId the reopen movement ID of this receipt close detail
+	 */
+	@Override
+	public void setReopenMovementId(long reopenMovementId) {
+		model.setReopenMovementId(reopenMovementId);
 	}
 
 	/**

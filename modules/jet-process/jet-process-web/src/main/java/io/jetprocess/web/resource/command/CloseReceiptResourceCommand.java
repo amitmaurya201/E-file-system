@@ -11,7 +11,7 @@ import javax.portlet.ResourceResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.jetprocess.service.ReceiptCloseDetailLocalService;
+//import io.jetprocess.service.ReceiptCloseDetailLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
@@ -26,21 +26,23 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand  {
 		
 		
 		long closedMovementId =	ParamUtil.getLong(resourceRequest, "rmId");
+		
 		long receiptId = ParamUtil.getLong(resourceRequest,"receiptId");
 		String closingRemarks = ParamUtil.getString(resourceRequest,"closingRemarks");
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");
 	    long closedBy = Long.parseLong(userPostId);
-		try {
-			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, closedMovementId);
-		} catch (PortalException e) {
-			e.printStackTrace();
-		} 
+		/*
+		 * try { //receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId,
+		 * closedBy, closingRemarks, closedMovementId); } catch (PortalException e) {
+		 * e.printStackTrace(); }
+		 */
 		return false;
 	}
 	
 	
-	@Reference
-	private ReceiptCloseDetailLocalService receiptCloseDetailLocalService;
-	
+	/*
+	 * @Reference private ReceiptCloseDetailLocalService
+	 * receiptCloseDetailLocalService;
+	 */
 
 }

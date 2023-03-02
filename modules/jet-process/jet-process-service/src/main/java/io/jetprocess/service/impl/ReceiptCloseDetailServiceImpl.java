@@ -15,9 +15,7 @@
 package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PortalException;
 
-import io.jetprocess.model.ReceiptCloseDetail;
 import io.jetprocess.service.base.ReceiptCloseDetailServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -34,13 +32,4 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ReceiptCloseDetailServiceImpl
 	extends ReceiptCloseDetailServiceBaseImpl {
-	
-	
-	//create method for save closedetails 
-	public ReceiptCloseDetail addClosedReceiptDetails(long receiptId,long closedBy,String closingRemarks,long closingReceiptMovementId) throws PortalException {
-		System.out.println("Closed Receipt Details ---->");
-		return receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks, closingReceiptMovementId);
-				
-	}
-	
 }
