@@ -162,10 +162,7 @@
 	}
 	/*  For open CloseReceipt Pop up */
 	function OpenCloseReceiptPopUp(receiptId,receiptMovementId){
-		alert("receiptId0---->"+receiptId+"receiptMovementId--->"+receiptMovementId);
-		
 	 	var receiptURL = '<%=closeReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>rmId='+receiptMovementId;
-	 	alert("receiptURL--->"+receiptURL);
 			Liferay.Util.openWindow({
 				dialog: {
 					centered: true,
