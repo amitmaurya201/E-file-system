@@ -148,7 +148,7 @@
 	</portlet:renderURL>
 	<portlet:renderURL var="sendDocumentList">
 		<portlet:param name="mvcRenderCommandName"
-			value="<%=MVCCommandNames.SEND_LIST_NOTE_DOCUMENT_RENDER_COMMAND%>" />
+			value="<%=MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptClosedList" />
 	</portlet:renderURL>
 
