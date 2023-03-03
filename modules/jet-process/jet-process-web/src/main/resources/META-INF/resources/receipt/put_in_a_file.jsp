@@ -69,7 +69,7 @@ String userPostsValue = (String) userPostId.getAttribute("userPostId");
 
 <div class="ml-3" id="alert-read-remove"
 	style="box-shadow: 0 6px 11px 0 rgb(0 0 0/ 20%); width: 300px; margin-right: 74%; margin-top: -200px;">
-	<liferay-ui:error key="receipt-is-not-attachable"
+	<liferay-ui:error key="file-is-not-attachable"
 		message="receipt-attach-error" />
 </div>
 
@@ -223,7 +223,7 @@ $('#<portlet:namespace />attachForm').click(function(){
 							swal({
 								text : this.get('responseData'),
 							});
-							setTimeout(parent.location.href = '<%=backPageURL%>', 1500);
+							setTimeout(parent.location.href = '<%=backPageURL%>', 3000);
 							
 							
 						}
