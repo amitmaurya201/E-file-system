@@ -71,7 +71,7 @@
 				
          <liferay-ui:search-container-column-text
 					name="label-receipt-reopen-actions" cssClass="hover-tips" >
-					<a href="#" onClick="getReceiptreopenPopup(${closedReceiptDTO.receiptId} , ${closedReceiptDTO.closedReceiptId} )" >
+					<a href="#" onClick="getReceiptreopenPopup(${closedReceiptDTO.receiptId} , ${closedReceiptDTO.closedMovementId} )" >
 					<img src = '<%=request.getContextPath() + "/image/reopen-image.png"%>' 
 					width="35%" height="25" />
 					 </a>
