@@ -51,7 +51,8 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		renderRequest.setAttribute("putInFileId", docFileId);
 		String viewMode = ParamUtil.getString(renderRequest, "viewMode");
-		
+		long postId= UserPostUtil.getUserIdUsingSession(renderRequest);
+		UserPost userPost = userPostLocalService.getUserPostById(postId);
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 		 renderRequest.setAttribute("noteList", noteList); 
 		// renderRequest.setAttribute("sectionId", sectionId);
@@ -63,13 +64,14 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("docFileObj", docFile);
 			renderRequest.setAttribute("fileMovementId", fileMovementId);
 			renderRequest.setAttribute("backPageURL", backPageURL);
+			renderRequest.setAttribute("userPostSectionId", userPost.getSectionId());
+			renderRequest.setAttribute("autoSaveActive", "autoSaveActive");
+			renderRequest.setAttribute("fileSectionId", docFile.getDealingHeadSectionId());
 			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
-			System.out.println("fileNoteObj"+fileNote);
 			if (fileNote != null) {
 				Note note = noteLocalService.getNote(fileNote.getNoteId());
 				renderRequest.setAttribute("noteContent", note.getContent());
 				renderRequest.setAttribute("modifiedDate", note.getModifiedDate());
-				System.out.println("note.getModifiedDate()"+note.getModifiedDate());
 				renderRequest.setAttribute("fileNoteObj", fileNote);
 
 			}

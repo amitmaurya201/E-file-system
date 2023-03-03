@@ -15,33 +15,29 @@ import io.jetprocess.service.FileCloseDetailLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 
-@Component(
-		immediate =true,
-		property= {
-				"javax.portlet.name="+JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name="+MVCCommandNames.CLOSE_FILE_RESOURCE_COMMAND
-			},service = MVCResourceCommand.class)
-public class CloseFileResourceCommand implements MVCResourceCommand{
+@Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
+		"mvc.command.name=" + MVCCommandNames.CLOSE_FILE_RESOURCE_COMMAND }, service = MVCResourceCommand.class)
+public class CloseFileResourceCommand implements MVCResourceCommand {
 
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
-		
-		long closedMovementId =	ParamUtil.getLong(resourceRequest, "fileMovementId");
-		long fileId = ParamUtil.getLong(resourceRequest,"fileId");
-		String closingRemarks = ParamUtil.getString(resourceRequest,"closingRemarks");
+
+		long closedMovementId = ParamUtil.getLong(resourceRequest, "fileMovementId");
+		long fileId = ParamUtil.getLong(resourceRequest, "fileId");
+		String closingRemarks = ParamUtil.getString(resourceRequest, "closingRemarks");
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");
-	    long closedBy = Long.parseLong(userPostId);
+		long closedBy = Long.parseLong(userPostId);
 		try {
 			fileCloseDetailLocalService.addCloseFileDetail(fileId, closedBy, closingRemarks, closedMovementId);
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
 		return false;
-	
+
 	}
-@Reference
-private FileCloseDetailLocalService fileCloseDetailLocalService;
-	
+
+	@Reference
+	private FileCloseDetailLocalService fileCloseDetailLocalService;
 
 }

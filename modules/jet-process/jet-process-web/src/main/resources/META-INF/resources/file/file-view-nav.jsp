@@ -24,15 +24,11 @@
 
 <%
 	String docFileId = renderRequest.getParameter("docFileId");
-	
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 	String viewMode = renderRequest.getParameter("viewMode");
-	
 	HttpSession userPostId = themeDisplay.getRequest().getSession();
 	String userPostsValue = (String) userPostId.getAttribute("userPostId");
 	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
-	
-
 %>
 <portlet:renderURL var="fileMovement">
 	<portlet:param name="mvcRenderCommandName"
@@ -200,11 +196,12 @@ windowState = "<%=LiferayWindowState.POP_UP.toString() %>">
 						class="dropdown-item" href="#">Option3</a>
 				</div></li>
 				
-			<c:if test="${closeAccess}">
+			<c:if test="${userPostSectionId==fileSectionId}">
 				 <li class="nav-item border"><a id="closeFile"  href="#" 
 	       onClick="OpenCloseFilePopUp(<%=docFileId %>,<%=String.valueOf(fileMovementId)%>)" 
 	       class="nav-link">Close</a></li>
-				</c:if>
+	       </c:if>
+				
 		</ul>
 		<div class="nav-item d-flex ">
 			<a class="nav-link  align-end bg-primary" Style="border-radius: 5px;"

@@ -22,7 +22,7 @@ html:not (#__ ):not (#___ ) .cadmin .lexicon-icon {
 </style>
 <%
 
-long fileId = (long) renderRequest.getAttribute("fileId");
+long docFileId = (long) renderRequest.getAttribute("docFileId");
 long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
 String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 %>
@@ -35,14 +35,14 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 
 <aui:form action="#" method="post" name="closeFile">
 	<div style="padding: 0px 20px;">
-		<aui:input name="fileId" value="<%=fileId %>" type="hidden" />
+		<aui:input name="fileId" value="<%=docFileId %>" type="hidden" />
 		<aui:input name="fileMovementId" value="<%=fileMovementId %>" type="hidden" />
 		<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden" />
-		<aui:input label="label-closereceipt-remark" name="closingRemarks"
+		<aui:input label="label-closefile-remark" name="closingRemarks"
 			id="closingRemarks" type="textarea" style="height:70px;">
 			<aui:validator name="required"></aui:validator>
 			<aui:validator name="maxLength">
-				<liferay-ui:message key="receipt-sent-remarks-maxlength" />
+				<liferay-ui:message key="file-sent-remarks-maxlength" />
 			</aui:validator>
 		</aui:input>
 	</div>
@@ -59,7 +59,7 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 
 
 
-<!-- success message for close Receipt  -->
+<!-- success message for close File  -->
 <!-- ---------------------- succes message  ---------------------------  -->
 <div class="portlet-msg-success"
 	style="display: none; bottom: 20px; left: 20px; position: fixed; z-index: 5000; border: 1px solid green; width: 240px; height: 50px"
@@ -83,7 +83,7 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
 	function pageReload() {
 		parent.location.href = '<%=backPageURL%>';
 	}	
-	/* send receipt pop up with validation  */
+	/*Close File pop up with validation  */
 	function submitCloseFilePopUP(){
 		if(validateForm('<portlet:namespace/>closeFile')){
 			AUI().use('aui-io-request','aui-base','io', function(A){
