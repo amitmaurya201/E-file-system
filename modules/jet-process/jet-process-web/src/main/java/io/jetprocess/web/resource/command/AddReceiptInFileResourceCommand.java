@@ -41,13 +41,17 @@ public class AddReceiptInFileResourceCommand implements MVCResourceCommand {
 			if (docfile.getNature().equalsIgnoreCase("Electronic")) {
 
 				state = fileMovementLocalService.saveReadMovement(docFileId, fileMovementId);
-                      System.out.println("state-----"+state);
+                    System.out.println("read file sucessfully-----");
 				if (state == false) {
-					System.out.println("asasasasas----");
 					SessionErrors.add(resourceRequest, "file-is-not-attachable");
 					SessionMessages.add(resourceRequest,
 							PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-				System.out.println("chal raha h 1111111");
+				System.out.println("this file is pull backed----------");
+				
+				}
+				else {
+					  System.out.println("read file sucessfully--22222222---");
+					
 				}
 			} else {
 				state = fileMovementLocalService.saveReceiveMovement(docFileId, fileMovementId);
@@ -57,6 +61,9 @@ public class AddReceiptInFileResourceCommand implements MVCResourceCommand {
 							PortalUtil.getPortletId(resourceRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 					System.out.println("chal raha h 2222222");
 
+				}
+				else {
+					System.out.println("Sucessfully--2222222----");	
 				}
 			}
 			} catch (PortalException e) {
