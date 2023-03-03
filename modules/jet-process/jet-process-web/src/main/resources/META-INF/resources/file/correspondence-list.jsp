@@ -412,9 +412,9 @@ color
 			<aui:input type="hidden" name="reopenReceiptId"  />
 			<aui:input type="hidden" name="reopenReceiptMovementId"  />
 			<aui:input  type="hidden" name="userPostId" value="<%=userPostsVal%>"/>
-			
+			<span >Remarks<span style="color:red;">*</span></span>
 		 	<aui:input label="label-reopenreceipt-remark" name="reopenRemarks" id="reopenRemarks"
-					type="textarea" style="height:70px;">
+					type="textarea" >
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">
 						<liferay-ui:message key="receipt-reopen-remarks-maxlength" />
