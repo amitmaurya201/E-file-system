@@ -131,6 +131,26 @@
 			value="<%=MVCCommandNames.RECEIPT_CLOSE_LIST_RENDER_COMMAND%>" />
 		<portlet:param name="selectedNav" value="receiptClosedList" />
 	</portlet:renderURL>
+	<portlet:renderURL var="createNoteDocument">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.CREATE_NOTE_DOCUMENT_RENDER_COMMAND%>" />
+		<portlet:param name="selectedNav" value="receiptClosedList" />
+	</portlet:renderURL>
+	<portlet:renderURL var="createdDocumentList">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.CREATED_LIST_NOTE_DOCUMENT_RENDER_COMMAND%>" />
+		<portlet:param name="selectedNav" value="receiptClosedList" />
+	</portlet:renderURL>
+	<portlet:renderURL var="inboxDocumentList">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.INBOX_LIST_NOTE_DOCUMENT_RENDER_COMMAND%>" />
+		<portlet:param name="selectedNav" value="receiptClosedList" />
+	</portlet:renderURL>
+	<portlet:renderURL var="sendDocumentList">
+		<portlet:param name="mvcRenderCommandName"
+			value="<%=MVCCommandNames.SEND_LIST_NOTE_DOCUMENT_RENDER_COMMAND%>" />
+		<portlet:param name="selectedNav" value="receiptClosedList" />
+	</portlet:renderURL>
 
 
 	<!-- <nav class="navbar navbar-expand-lg"> -->
@@ -163,6 +183,16 @@
 				id="receiptInbox" href="<%=receiptInbox%>">Inbox</a> <a
 				id="receiptSent" href="<%=receiptSent%>">Sent</a>
 			<a id="receiptCloseList" href="<%=receiptClosedList %>">Closed List</a>
+		</div>
+		<a class="dropdown-btn"><i class='fa fa-file-word-o'
+			style='font-size: 24px'></i> Note Document <i class="fa fa-caret-down"></i>
+		</a>
+		<div class="dropdown-container ">
+			<a id="createReceipt" href="<%=createNoteDocument%>">Create Note Document</a> <a
+				id="receiptList" href="<%=createdDocumentList%>">Created List</a> <a
+				id="receiptInbox" href="<%=inboxDocumentList%>">Inbox</a> <a
+				id="receiptSent" href="<%=sendDocumentList%>">Sent</a>
+			
 		</div>
 
 	</div>

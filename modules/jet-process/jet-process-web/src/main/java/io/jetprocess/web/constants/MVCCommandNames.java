@@ -86,5 +86,9 @@ public class MVCCommandNames {
 	public static final String Corr_RECEIPT_REOPEN_RENDER_COMMAND = "/corrReceiptReopen";
 	public static final String Corr_RECEIPT_CLOSE_RENDER_COMMAND = "/corrReceiptClose";
 
-	
+	public static final String CREATE_NOTE_DOCUMENT_RENDER_COMMAND = "/createNoteDocument";
+	public static final String CREATED_LIST_NOTE_DOCUMENT_RENDER_COMMAND = "/createdNoteDocumentList";
+	public static final String INBOX_LIST_NOTE_DOCUMENT_RENDER_COMMAND = "/inboxNoteDocumentList";
+	public static final String SEND_LIST_NOTE_DOCUMENT_RENDER_COMMAND = "/sendNoteDocumentList";
+
 }
