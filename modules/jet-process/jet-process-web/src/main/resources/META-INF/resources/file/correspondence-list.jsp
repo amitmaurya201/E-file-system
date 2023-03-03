@@ -4,6 +4,10 @@
 	String redirectURL = themeDisplay.getURLCurrent();
 %>
 <style>
+
+.dropdown-item{
+	border-bottom:1px solid #e1e1e1 !important;
+}
 .three-dots {
 marging:0px;
 padding:0px;
@@ -294,7 +298,7 @@ color
 	  	</c:otherwise>
 	</c:choose>
     
-      <button class="dropdown-item js-open-modal ${isClosed }"  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
+      <button class="dropdown-item js-open-modal ${isClosed }  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
    
   
