@@ -18,8 +18,8 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
      <aui:form action="#" method="post" name="ReopenReceipt" >
 			<div style="padding: 0px 20px;">
 			
-			<aui:input name="receiptId" value="<%=receiptId %>" type="hidden"/>
-			<aui:input name="reopenMovementId" value="<%=reopenMovementId %>" type="hidden"/>
+			<aui:input name="reopenReceiptId" value="<%=receiptId %>" type="hidden"/>
+			<aui:input name="reopenReceiptMovementId" value="<%=reopenMovementId %>" type="hidden"/>
 			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"/>
 			
 		 	<aui:input label="label-reopenreceipt-remark" name="reopenRemarks" id="reopenRemarks"

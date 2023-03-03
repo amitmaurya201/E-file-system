@@ -1,6 +1,8 @@
 package io.jetprocess.web.resource.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -28,17 +30,17 @@ public class ReopenClosedReceiptResourceCommand implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 		
-	long receiptId =  ParamUtil.getLong(resourceRequest, "receiptId");
-	long reopenMovementId = ParamUtil.getLong(resourceRequest, "reopenMovementId");		
+	long receiptId =  ParamUtil.getLong(resourceRequest, "reopenReceiptId");
+	long reopenMovementId = ParamUtil.getLong(resourceRequest, "reopenReceiptMovementId");		
 	long reopenedBy =ParamUtil.getLong(resourceRequest, "userPostId");
     String reopenRemarks =	ParamUtil.getString(resourceRequest, "reopenRemarks");
     Date reopenDate = new Date();
    
     
-    System.out.println("date --->"+reopenDate);
+    LOGGER.info("date --->"+reopenDate);
     
-    System.out.println("receiptId--->"+receiptId+"reopenMovementId--->"+reopenMovementId+"reopenedBy---->"+reopenedBy+"reopenRemarks--->"+reopenRemarks);
-    System.out.println("demo work--->");
+    LOGGER.info("receiptId--->"+receiptId+"reopenMovementId--->"+reopenMovementId+"reopenedBy---->"+reopenedBy+"reopenRemarks--->"+reopenRemarks);
+    LOGGER.info("demo work--->");
  try {
 		receiptCloseDetailLocalService.addReopenReceiptDetails(receiptId,reopenedBy,reopenRemarks,reopenMovementId,reopenDate);
 		
@@ -54,5 +56,7 @@ public class ReopenClosedReceiptResourceCommand implements MVCResourceCommand {
 
 	@Reference
 	private ReceiptCloseDetailLocalService receiptCloseDetailLocalService;
+	
+	private Log LOGGER=LogFactoryUtil.getLog(ReopenClosedReceiptResourceCommand.class);
 
 }

@@ -1,6 +1,8 @@
 package io.jetprocess.web.resource.command;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -25,11 +27,12 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 
-		long closedMovementId = ParamUtil.getLong(resourceRequest, "rmId");
-		long receiptId = ParamUtil.getLong(resourceRequest, "receiptId");
+		long closedMovementId = ParamUtil.getLong(resourceRequest, "closeRmid");
+		long receiptId = ParamUtil.getLong(resourceRequest, "closeReceiptId");
 		String closingRemarks = ParamUtil.getString(resourceRequest, "closingRemarks");
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");
 		long closedBy = Long.parseLong(userPostId);
+		LOGGER.info("receiptId--->"+receiptId+"reopenMovementId--->"+closedMovementId+"reopenedBy---->"+userPostId+"reopenRemarks--->"+closingRemarks);
 
 		try {
 			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks,
@@ -43,5 +46,5 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand {
 
 	@Reference
 	private ReceiptCloseDetailLocalService receiptCloseDetailLocalService;
-
+	private Log LOGGER=LogFactoryUtil.getLog(CloseReceiptResourceCommand.class);
 }
