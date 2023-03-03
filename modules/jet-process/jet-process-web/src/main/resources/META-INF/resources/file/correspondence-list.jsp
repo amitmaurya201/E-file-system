@@ -6,7 +6,7 @@
 <style>
 
 .dropdown-item{
-	border-bottom:1px solid #e1e1e1 !important;
+	border:1px solid #e1e1e1 !important;
 }
 .three-dots {
 marging:0px;
@@ -270,13 +270,6 @@ color
 					name="label-receipt-list-remark" property="remark"
 					cssClass="hover-tips" />
 
-				<liferay-ui:search-container-column-text
-					name="detach-action-heading">
-					<aui:button cssClass="btn btn-primary detach-btn-disabled"
-						name="detach-btn"
-						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"
-						type="button" value="detach-button"></aui:button>
-				</liferay-ui:search-container-column-text>
 
 
 				<liferay-ui:search-container-column-text name="Actions">
