@@ -136,7 +136,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 						value="<%=MVCCommandNames.RECEIPT_DETAILS_RENDER_COMMAND%>" />
 					<portlet:param name="receiptId"
 						value="${receiptMovementDTO.getReceiptId()}" />
-					<portlet:param name="receiptMovementId"
+					<portlet:param name="rmId"
 						value="${receiptMovementDTO.receiptMovementId}" />
 					<portlet:param name="backPageURL" value="<%=backPageURL%>"></portlet:param>
 				</portlet:renderURL>

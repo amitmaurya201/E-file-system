@@ -27,7 +27,7 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 
-		long closedMovementId = ParamUtil.getLong(resourceRequest, "closeRmid");
+		long closedMovementId = ParamUtil.getLong(resourceRequest, "rmId");
 		long receiptId = ParamUtil.getLong(resourceRequest, "closeReceiptId");
 		String closingRemarks = ParamUtil.getString(resourceRequest, "closingRemarks");
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");

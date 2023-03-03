@@ -507,6 +507,7 @@ public class ReceiptListServiceImpl implements ReceiptListService {
 					closedDTO.setClosedOn(rs.getTimestamp("closedon"));
 					closedDTO.setClosingRemarks(rs.getString("closingRemarks"));
 					closedDTO.setReceiptId(rs.getLong("receiptid"));
+					closedDTO.setClosedMovementId(rs.getLong("closedMovementId"));
 					closeList.add(closedDTO);
 				}
 			}

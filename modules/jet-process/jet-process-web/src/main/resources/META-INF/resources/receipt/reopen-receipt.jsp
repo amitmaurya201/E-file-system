@@ -42,7 +42,7 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 		
 	<!-- success message for close Receipt  -->
 	<!-- ---------------------- succes message  ---------------------------  -->
-<<!-- div class="portlet-msg-success" style="display:none;     
+<div class="portlet-msg-success" style="display:none;     
 	bottom: 20px;
     left: 20px;
     position: fixed;
@@ -52,8 +52,8 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
     height:50px
     " 
     id="successMsg">
-  Receipt closed successfully
-</div> -->
+  Receipt reopen successfully
+</div> 
 		
 		
 
@@ -72,10 +72,10 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 							return true;
 						}
 
-			/* function pageReload() {
+		 function pageReload() {
 				parent.location.reload();
 				}	
-			 */		
+				
 					/* send receipt pop up with validation  */
 			function submitReopenReceiptPopUp(){
 				if(validateForm('<portlet:namespace/>ReopenReceipt')){
@@ -90,8 +90,8 @@ long reopenMovementId = (long) renderRequest.getAttribute("reopenMovementId");
 								success :  function() {
 									
 								//	parent.location.reload();
-				            		  // document.getElementById("successMsg").style.display="block";
-					   	           		//setTimeout(pageReload, 1500);
+				            		  document.getElementById("successMsg").style.display="block";
+					   	           	     setTimeout(pageReload, 1500);
 				            		   
 					   	       	 	} 
 							}
