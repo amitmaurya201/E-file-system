@@ -245,6 +245,7 @@ color
 						onclick="receiptDetailPopup(${fileCorrespondenceReceiptDTO.receiptId })"
 						style="cursor: pointer">
 						${fileCorrespondenceReceiptDTO.receiptNumber } </a>
+						
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text property="subject"
@@ -281,8 +282,22 @@ color
   </a>
   <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
     <button class="dropdown-item js-open-modal" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
-    <button class="dropdown-item js-open-modal" type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
-    <button class="dropdown-item js-open-modal" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
+    
+    <c:choose>
+	 	 <c:when test="${fileCorrespondenceReceiptDTO.isClosed()}">
+	 	 	 <c:set var="isOpen"  value=""></c:set>
+	 	 	 <c:set var="isClosed"  value="disabled"></c:set>
+	 	 </c:when>
+	 	 <c:otherwise>
+	   		 <c:set var="isOpen"  value="disabled"></c:set>
+	 	 	 <c:set var="isClosed"  value=""></c:set>
+	  	</c:otherwise>
+	</c:choose>
+    
+      <button class="dropdown-item js-open-modal ${isClosed }"  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
+     <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
+   
+  
   </div>
 </div>
 					
@@ -413,7 +428,7 @@ color
 			<aui:input type="hidden" name="reopenReceiptMovementId"  />
 			<aui:input  type="hidden" name="userPostId" value="<%=userPostsVal%>"/>
 			<span >Remarks<span style="color:red;">*</span></span>
-		 	<aui:input label="label-reopenreceipt-remark" name="reopenRemarks" id="reopenRemarks"
+		 	<aui:input label="" name="reopenRemarks" id="reopenRemarks"
 					type="textarea" >
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">

@@ -1160,7 +1160,7 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isdetachable boolean) 
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isdetachable boolean, isclosed boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1188,7 +1188,13 @@ AS $BODY$
             when fc.filemovementId='||_filemovementid|| 'then true
             else false
         end
-    ) as isdetachable
+    ) as isdetachable,
+    (
+        case
+            when r.currentstate !=3 then true
+            else false
+        end
+    ) as isclosed
 
     FROM PUBLIC.jet_process_receipt r INNER JOIN 
  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid AND fc.detachremark IS NULL';
@@ -1228,7 +1234,7 @@ AS $BODY$
                         
                         IF (_fileId !=0 )THEN
                         
-                             _query := _query|| ' where fc.docfileid ='||_fileId;
+                             _query := _query|| ' where  fc.docfileid ='||_fileId;
                              _query := _query|| ' AND fc.filemovementId '||viewmode||_filemovementid;
                             
                                if (keyword IS NOT NULL) THEN  
