@@ -24,7 +24,8 @@ padding:0px;
 	left: 50% !important;
 	transform: translate(-50%, -50%) !important;
 	margin:10px;
-	padding:10px;
+	padding-top:10px;
+	padding-bottom:10px;
 	z-index: 1000;
 	width:500px !important ;
 	background: white;
@@ -37,7 +38,7 @@ padding:0px;
 
 .modal-box header, .modal-box .modal-header {
 	
-	padding: .25em .5em;
+ 	padding: 1.25em 1.5em; 
 	
 }
 
@@ -48,11 +49,12 @@ padding:0px;
 }
 
 .modal-box .modal-body {
-	padding: 2em 1.5em;
+	/* padding: 2em 1.5em; */
 }
 
 .modal-box footer, .modal-box .modal-footer {
-	padding: 1em;
+	padding: 1.25em 1.5em;
+	padding-bottom:  1.5em; 
 	border-top: 1px solid #ddd;
 	 /* background: rgba(0, 0, 0, 0.06); */
 	text-align: right;
