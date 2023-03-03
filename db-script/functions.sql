@@ -1160,7 +1160,7 @@ CREATE OR REPLACE FUNCTION public.get_file_correspondence_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isdetachable boolean) 
+    RETURNS TABLE(receiptid bigint, receiptnumber character varying, subject character varying, category text, createdate timestamp without time zone, remark character varying, viewpdfurl text, nature character varying, correspondencetype character varying, receiptmovementid bigint, isdetachable boolean, isclosed boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1188,7 +1188,13 @@ AS $BODY$
             when fc.filemovementId='||_filemovementid|| 'then true
             else false
         end
-    ) as isdetachable
+    ) as isdetachable,
+    (
+        case
+            when r.currentstate !=3 then true
+            else false
+        end
+    ) as isclosed
 
     FROM PUBLIC.jet_process_receipt r INNER JOIN 
  PUBLIC.jet_process_filecorrreceipt as fc  ON r.receiptid = fc.receiptid AND fc.detachremark IS NULL';
@@ -1228,7 +1234,7 @@ AS $BODY$
                         
                         IF (_fileId !=0 )THEN
                         
-                             _query := _query|| ' where fc.docfileid ='||_fileId;
+                             _query := _query|| ' where  fc.docfileid ='||_fileId;
                              _query := _query|| ' AND fc.filemovementId '||viewmode||_filemovementid;
                             
                                if (keyword IS NOT NULL) THEN  
@@ -1430,7 +1436,7 @@ CREATE OR REPLACE FUNCTION public.get_closed_receipt_list(
 	_end integer,
 	orderbycol text,
 	orderbytype text)
-    RETURNS TABLE(receiptclosedid bigint, nature character varying, receiptnumber character varying, subject character varying, closedon timestamp without time zone, closingremarks character varying, receiptid bigint) 
+    RETURNS TABLE(receiptclosedid bigint, nature character varying, receiptnumber character varying, subject character varying, closedon timestamp without time zone, closingremarks character varying, receiptid bigint,closedmovementId bigint) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1450,7 +1456,7 @@ begin
     _closedby := closedby;
     _query := 'SELECT cr.receiptclosedid as receiptclosedid, r.nature as nature , 
                 r.receiptNumber as receiptNumber,r.subject as subject , cr.createdate as closedon ,
-                cr.closingremarks as closingremarks, cr.receiptid as receiptid
+                cr.closingremarks as closingremarks, cr.receiptid as receiptid , cr.closedmovementid as closedmovementid
                 FROM PUBLIC.jet_process_receiptclosedetail as cr 
                 JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL  ';
                 

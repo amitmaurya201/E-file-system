@@ -410,6 +410,7 @@ public class FileListServiceImpl implements FileListService {
 					filCorrespondenceDTO.setNature(rs.getString("nature"));
 					filCorrespondenceDTO.setCorrespondenceType(rs.getString("correspondenceType"));
 					filCorrespondenceDTO.setDetachable(rs.getBoolean("isdetachable"));
+					filCorrespondenceDTO.setClosed(rs.getBoolean("isclosed"));
 					fileCorrespondenceReceiptDTO.add(filCorrespondenceDTO);
 				}
 			}

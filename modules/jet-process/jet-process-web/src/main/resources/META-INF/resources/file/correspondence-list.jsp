@@ -4,6 +4,10 @@
 	String redirectURL = themeDisplay.getURLCurrent();
 %>
 <style>
+
+.dropdown-item{
+	border:1px solid #e1e1e1 !important;
+}
 .three-dots {
 marging:0px;
 padding:0px;
@@ -20,7 +24,8 @@ padding:0px;
 	left: 50% !important;
 	transform: translate(-50%, -50%) !important;
 	margin:10px;
-	padding:10px;
+	padding-top:10px;
+	padding-bottom:10px;
 	z-index: 1000;
 	width:500px !important ;
 	background: white;
@@ -33,7 +38,7 @@ padding:0px;
 
 .modal-box header, .modal-box .modal-header {
 	
-	padding: .25em .5em;
+ 	padding: 1.25em 1.5em; 
 	
 }
 
@@ -44,11 +49,12 @@ padding:0px;
 }
 
 .modal-box .modal-body {
-	padding: 2em 1.5em;
+	/* padding: 2em 1.5em; */
 }
 
 .modal-box footer, .modal-box .modal-footer {
-	padding: 1em;
+	padding: 1.25em 1.5em;
+	padding-bottom:  1.5em; 
 	border-top: 1px solid #ddd;
 	 /* background: rgba(0, 0, 0, 0.06); */
 	text-align: right;
@@ -245,6 +251,7 @@ color
 						onclick="receiptDetailPopup(${fileCorrespondenceReceiptDTO.receiptId })"
 						style="cursor: pointer">
 						${fileCorrespondenceReceiptDTO.receiptNumber } </a>
+						
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text property="subject"
@@ -263,13 +270,6 @@ color
 					name="label-receipt-list-remark" property="remark"
 					cssClass="hover-tips" />
 
-				<liferay-ui:search-container-column-text
-					name="detach-action-heading">
-					<aui:button cssClass="btn btn-primary detach-btn-disabled"
-						name="detach-btn"
-						onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"
-						type="button" value="detach-button"></aui:button>
-				</liferay-ui:search-container-column-text>
 
 
 				<liferay-ui:search-container-column-text name="Actions">
@@ -281,8 +281,22 @@ color
   </a>
   <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
     <button class="dropdown-item js-open-modal" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
-    <button class="dropdown-item js-open-modal" type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
-    <button class="dropdown-item js-open-modal" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
+    
+    <c:choose>
+	 	 <c:when test="${fileCorrespondenceReceiptDTO.isClosed()}">
+	 	 	 <c:set var="isOpen"  value=""></c:set>
+	 	 	 <c:set var="isClosed"  value="disabled"></c:set>
+	 	 </c:when>
+	 	 <c:otherwise>
+	   		 <c:set var="isOpen"  value="disabled"></c:set>
+	 	 	 <c:set var="isClosed"  value=""></c:set>
+	  	</c:otherwise>
+	</c:choose>
+    
+      <button class="dropdown-item js-open-modal ${isClosed }  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
+     <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
+   
+  
   </div>
 </div>
 					
@@ -413,7 +427,7 @@ color
 			<aui:input type="hidden" name="reopenReceiptMovementId"  />
 			<aui:input  type="hidden" name="userPostId" value="<%=userPostsVal%>"/>
 			<span >Remarks<span style="color:red;">*</span></span>
-		 	<aui:input label="label-reopenreceipt-remark" name="reopenRemarks" id="reopenRemarks"
+		 	<aui:input label="" name="reopenRemarks" id="reopenRemarks"
 					type="textarea" >
 					<aui:validator name="required"></aui:validator>
 					<aui:validator name="maxLength">

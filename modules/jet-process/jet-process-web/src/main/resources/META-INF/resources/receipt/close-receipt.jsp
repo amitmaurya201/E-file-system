@@ -38,8 +38,8 @@ String backPageURL = (String)renderRequest.getAttribute("backPageURL");
      <aui:form action="#" method="post" name="closeReceipt" >
 			<div style="padding: 0px 20px;">
 			
-			<aui:input name="receiptId" value="<%=receiptId %>" type="hidden"/>
-			<aui:input name="rmId" value="<%=rmId %>" type="hidden"/>
+			<aui:input name="closeReceiptId" value="<%=receiptId %>" type="hidden"/>
+			<aui:input name="closeReceiptMovementId" value="<%=rmId %>"  type="hidden"/>
 			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"/>
 		 	<aui:input label="label-closereceipt-remark" name="closingRemarks" id="closingRemarks"
 					type="textarea" style="height:70px;">
