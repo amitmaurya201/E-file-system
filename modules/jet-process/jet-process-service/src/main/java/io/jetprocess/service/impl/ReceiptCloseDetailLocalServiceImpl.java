@@ -28,6 +28,7 @@ import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.ReceiptLocalService;
 import io.jetprocess.service.ReceiptMovementLocalService;
 import io.jetprocess.service.base.ReceiptCloseDetailLocalServiceBaseImpl;
+import io.jetprocess.service.persistence.ReceiptCloseDetailPersistence;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -56,38 +57,24 @@ public class ReceiptCloseDetailLocalServiceImpl extends ReceiptCloseDetailLocalS
 	}
 
     	public ReceiptCloseDetail addReopenReceiptDetails(long receiptId, long reopenBy, String reopenRemarks,
-			long reopenMovementId, Date reopenDate) throws PortalException {
-
-		ReceiptCloseDetail receiptCloseDetail = getReceiptCloseDetail(reopenMovementId);
-		System.out.println("reopen ---> receiptId-->" + receiptId + "reopenBy--->" + reopenBy + "reopenRemarks--->"
-				+ reopenMovementId + "reopenDate--->" + reopenDate);
-
-		receiptCloseDetail.setReopenMovementId(reopenMovementId);
+			long closedReceiptId, Date reopenDate) throws PortalException {
+      	ReceiptCloseDetail receiptCloseDetail = getReceiptCloseDetail(closedReceiptId);
+		receiptCloseDetail.setReopenMovementId(receiptCloseDetail.getClosedMovementId());
 		receiptCloseDetail.setReopenRemarks(reopenRemarks);
 		receiptCloseDetail.setReopenDate(reopenDate);
 		receiptCloseDetail.setReopenBy(reopenBy);
-		System.out.println("receiptreopenDetail--->" + receiptCloseDetail);
-		System.out.println("reopen ---> receiptId-->" + receiptId + "reopenBy--->" + reopenBy + "reopenRemarks--->"
-				+ reopenMovementId + "reopenDate--->" + reopenDate);
-		receiptCloseDetailLocalService.updateReceiptCloseDetail(receiptCloseDetail);
 		Receipt receipt = receiptLocalService.getReceipt(receiptId);
-        System.out.println("receipt id -->"+receiptId);
-        System.out.println("receiptt MovementId -->"+reopenMovementId);
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(reopenMovementId);
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptCloseDetail.getClosedMovementId());
 		long movementType = receiptMovement.getMovementType();
 		if (movementType == MovementStatus.CREATED) {
-			System.out.println("movementype-->"+movementType);
 			receipt.setCurrentState(FileStatus.CREADTED);
-			receiptLocalService.updateReceipt(receipt);
 		} else if (movementType == MovementStatus.NORMAL) {
-			System.out.println("MovementType ---> for inbox"+movementType);
 			receipt.setCurrentState(FileStatus.IN_MOVEMENT);
-			receiptLocalService.updateReceipt(receipt);
-		}
-
+		} 
+		receiptLocalService.updateReceipt(receipt);
+		updateReceiptCloseDetail(receiptCloseDetail);
 		return receiptCloseDetail;
 	}
-
 	@Reference
 	private ReceiptLocalService receiptLocalService;
 

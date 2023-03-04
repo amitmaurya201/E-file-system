@@ -72,11 +72,11 @@ public class ReceiptCloseDetailLocalServiceUtil {
 
 	public static ReceiptCloseDetail addReopenReceiptDetails(
 			long receiptId, long reopenBy, String reopenRemarks,
-			long reopenMovementId, java.util.Date reopenDate)
+			long closedReceiptId, java.util.Date reopenDate)
 		throws PortalException {
 
 		return getService().addReopenReceiptDetails(
-			receiptId, reopenBy, reopenRemarks, reopenMovementId, reopenDate);
+			receiptId, reopenBy, reopenRemarks, closedReceiptId, reopenDate);
 	}
 
 	/**

@@ -1458,7 +1458,7 @@ begin
                 r.receiptNumber as receiptNumber,r.subject as subject , cr.createdate as closedon ,
                 cr.closingremarks as closingremarks, cr.receiptid as receiptid , cr.closedmovementid as closedmovementid
                 FROM PUBLIC.jet_process_receiptclosedetail as cr 
-                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL  ';
+                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL AND r.currentState=3 ';
                 
      _keyword := '''%' || keyword || '%''';
      IF (_start <0 OR _start IS NULL) THEN

@@ -27,11 +27,11 @@ public class ReceiptReopenRenderCommand   implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 	
 	    long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
-	    long reopenMovementId = ParamUtil.getLong(renderRequest, "reopenMovementId");
-	    System.out.println("receiptId --->"+receiptId+"reopenMovementId--->"+reopenMovementId);
+	    long closedReceiptId = ParamUtil.getLong(renderRequest, "closedReceiptId");
+	    System.out.println("receiptId --->"+receiptId+"closedReceiptId--->"+closedReceiptId);
 	      
 		renderRequest.setAttribute("receiptId", receiptId);
-		renderRequest.setAttribute("reopenMovementId", reopenMovementId);
+		renderRequest.setAttribute("closedReceiptId", closedReceiptId);
 		
 	    
 		return "/receipt/reopen-receipt.jsp";

@@ -6,9 +6,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
@@ -31,26 +29,16 @@ public class ReopenClosedReceiptResourceCommand implements MVCResourceCommand {
 			throws PortletException {
 		
 	long receiptId =  ParamUtil.getLong(resourceRequest, "reopenReceiptId");
-	long reopenMovementId = ParamUtil.getLong(resourceRequest, "reopenReceiptMovementId");		
+	long closeReceiptId = ParamUtil.getLong(resourceRequest, "closedReceiptId");		
 	long reopenedBy =ParamUtil.getLong(resourceRequest, "userPostId");
     String reopenRemarks =	ParamUtil.getString(resourceRequest, "reopenRemarks");
-    Date reopenDate = new Date();
-   
-    
-    LOGGER.info("date --->"+reopenDate);
-    
-    LOGGER.info("receiptId--->"+receiptId+"reopenMovementId--->"+reopenMovementId+"reopenedBy---->"+reopenedBy+"reopenRemarks--->"+reopenRemarks);
-    LOGGER.info("demo work--->");
- try {
-		receiptCloseDetailLocalService.addReopenReceiptDetails(receiptId,reopenedBy,reopenRemarks,reopenMovementId,reopenDate);
-		
-	} catch (PortalException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-    
-    
- 
+    Date reopenDate = new Date();  
+		try { 
+			receiptCloseDetailLocalService.addReopenReceiptDetails(receiptId, reopenedBy, reopenRemarks, closeReceiptId,
+					reopenDate);
+		} catch (PortalException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return false;
 	}
 
