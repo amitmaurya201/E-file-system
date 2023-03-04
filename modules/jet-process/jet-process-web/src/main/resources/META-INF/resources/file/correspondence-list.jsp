@@ -5,10 +5,37 @@
 %>
 <style>
 
+.conformation-icon{
+	width:5vw;
+	height:5vh;
+	color:#007bff;
+}
+
+
+.btn {
+	border:none !important;
+	color:#FFFFFF !important;
+	
+}
+
+.btn-secondary{
+
+	border:1px solid #007bff !important;
+	border-radius:0px;
+	background-color: white !important;
+	color:#007bff !important;
+}
+.btn-secondary:hover{
+	border:1px solid #007bff !important;
+	background-color: #007bff !important;
+	color:#FFFFFF !important;
+
+}
+
 .dropdown-item:hover{
 	background-color: #e6f3fa;
  	color:black;
-	border:1px solid #39aeed;
+	border:1px solid #39aeed;	
 }
 
 .three-dots {
@@ -16,21 +43,22 @@
 	padding-left:40px;
 	width: 20px;
 	height: 21px;
-	background-image: radial-gradient(circle, #343a40 2px, transparent 3px);
+	background-image: radial-gradient(circle, #343a40 2px, transparent 2px);
 	background-size: 110% 34.33%;
 }
 
 .modal-box {
 	display: none;
 	position: fixed;
-	top: 50% !important;
+	top: 40% !important;
 	left: 50% !important;
 	transform: translate(-50%, -50%) !important;
 	margin:10px;
-	padding-top:10px;
+	padding-top:0px;
 	padding-bottom:10px;
 	z-index: 1000;
 	width:500px !important ;
+	 height:510px !important ; 
 	background: white;
 	border-bottom: 1px solid #aaa;
 	border-radius: 4px;
@@ -41,12 +69,14 @@
 
 .modal-box header, .modal-box .modal-header {
 	
+	background-color:#007bff;
  	padding: 1.25em 1.5em; 
 	
 }
 
 .modal-box header h3, .modal-box header h4, .modal-box .modal-header h3,
 	.modal-box .modal-header h4 {
+	color:#FFFFFF;
 	margin: 0;
 	
 }
@@ -77,15 +107,16 @@
 
 a.close {
 	line-height: 1;
-	font-size: 1.5em;
+	 font-size: 1.5em;
 	position: absolute;
 	top: 5%;
 	right: 2%;
 	text-decoration: none;
-	color: black;
+	color: #FFFFFF;
 }
 
 a.close:hover {
+	color:#FFFFFF;
 	-webkit-transition: color 1s ease;
 	-moz-transition: color 1s ease;
 	transition: color 1s ease;
@@ -96,6 +127,7 @@ a.close:hover {
 		width: 70%;
 	}
 }
+
 
 .nav-item .dropdown-menu a {
 	marging: 10px;
@@ -273,9 +305,9 @@ a.close:hover {
 	 	 	 <c:set var="isClosed"  value=""></c:set>
 	  	</c:otherwise>
 	</c:choose>
-    <button class="dropdown-item js-open-modal ${isClosed }" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
-      <button class="dropdown-item js-open-modal ${isClosed }  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
-     <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
+      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
+      <button class="dropdown-item js-open-modal ${isClosed }"  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })">Reopen</button>
+      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })">Close</button>
    
   
   </div>
@@ -314,11 +346,16 @@ a.close:hover {
 <div id="popup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h3>Detach Receipt</h3>
+		<h4>Conformation</h4>
 	</header>
 	<aui:form action="#" method="post" name="detachReceiptForm">
 	<div class="modal-body">
-		
+			<!-- <span> <i class="fa fa-check-square-o " style="color:red;" aria-hidden="true"></i></span> -->
+			<div class="text-center">
+				<h5>Detach Receipt</h5>
+				<P>Are you sure. You want to Detach this receipt </P>
+			</div>
+			<hr>
 			<aui:input name="receiptId" type="hidden"></aui:input>
 			<aui:input name="rmId" type="hidden"></aui:input>
 			<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>"></aui:input>
@@ -333,11 +370,11 @@ a.close:hover {
 		
 		<div class="float-right">
 				<div class="float-right">
-				<aui:button type="button" cssClass="btn btn-primary"
+				<aui:button type="button" cssClass=""
 					value="label-detach-confirmation-button"
 					onclick="receiptDetach(true)"></aui:button>
 				<aui:button type="button" id="close-btn"
-					cssClass="btn btn-primary ml-2 js-modal-close"
+					cssClass=" ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
 			</div>
@@ -361,11 +398,16 @@ a.close:hover {
 <div id="closePopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close"  >&times;	</a>
-		<h3>Close</h3>
+		<h3>Conformation</h3>
 	</header>
 	<aui:form action="#" method="post" name="closeReceiptForm">
 	<div class="modal-body">
-		
+		<div class="text-center">
+				<span><i class="fa fa-folder-open-o" aria-hidden="true"></i></span>
+				<h5>Close Receipt</h5>
+				<P>Are you sure. You want to close this receipt </P>
+			</div>
+			<hr>
 			<aui:input name="closeReceiptId"  type="hidden" ></aui:input>
 			<aui:input name="closeRmid"  type="hidden" ></aui:input>
 			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"></aui:input>
@@ -378,10 +420,10 @@ a.close:hover {
 	</div>
 		<footer>
 		<div class="float-right">
-				<aui:button type="button" cssClass="btn btn-primary"
+				<aui:button type="button" cssClass="btn"
 					value="label-detach-confirmation-button" onclick="receiptClose()"></aui:button>
 				<aui:button type="button" 
-					cssClass="btn btn-primary ml-2"
+					cssClass="btn  ml-2"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
 			</div>
@@ -399,10 +441,15 @@ a.close:hover {
 <div id="reopenPopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h3>Reopen</h3>
+		<h3>Conformation</h3>
 	</header>
-		<aui:form action="#" method="post" name="reopenReceipt">
+	<aui:form action="#" method="post" name="reopenReceipt">
 	<div class="modal-body">
+			<div class="text-center">
+				<h5>Open Receipt</h5>
+				<P>Are you sure. You want to open this receipt </P>
+			</div>
+			<hr>
 			
 			<aui:input type="hidden" name="reopenReceiptId"  />
 			<aui:input type="hidden" name="reopenReceiptMovementId"  />
@@ -419,16 +466,16 @@ a.close:hover {
 	</div>
 	<footer>
 		<div class="float-right">
-				<aui:button type="button" cssClass="btn btn-primary"
+				<aui:button type="button" cssClass="btn "
 					value="label-detach-confirmation-button"
 					onclick="receiptReopen(true)"></aui:button>
 				<aui:button type="button" id="close-btn"
-					cssClass="btn btn-primary ml-2 js-modal-close"
+					cssClass="btn  ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
 			</div>
 	</footer>
-		</aui:form>
+</aui:form>
 </div>
  
 
@@ -577,20 +624,11 @@ function receiptDetailPopup(receiptId){
 	/* ******************* Close Rceipt  **********************  */
 	
 	function closeFun(receiptId, receiptMovementId, isDetachable){
-		console.table(receiptId,receiptMovementId, isDetachable )
-		if(isDetachable){
+		
 			$("#<portlet:namespace />closeReceiptId").val(receiptId);
 			$("#<portlet:namespace />closeRmid").val(receiptMovementId);
 			$('#closeReceiptPopup').trigger('click');
-		}else{
-					swal( {
-                          title: "Not Detachable",
-                          text: 'Receipt cannot be detached as it was put in previous movement',
-                          icon: "warning",
-                          button: "Ok"
-                      })
-		}
-		
+				
 	}
 	
 	function receiptClose(){
@@ -623,20 +661,12 @@ function receiptDetailPopup(receiptId){
 	
 	/* *******************************  Receipt Reopen   ******************************  */
 	
-	function reopenReceiptFun(receiptId, receiptMovementId, isDetachable){
-		console.table(receiptId,receiptMovementId, isDetachable )
-		if(isDetachable){
+	function reopenReceiptFun(receiptId, receiptMovementId){
+		console.table(receiptId,receiptMovementId)
+		
 		 	$("#<portlet:namespace />reopenReceiptId").val(receiptId);
 			$("#<portlet:namespace />reopenReceiptMovementId").val(receiptMovementId); 
 			$('#reopenReceiptPopup').trigger('click');
-		}else{
-					swal( {
-                          title: "Not Detachable",
-                          text: 'Receipt cannot be detached as it was put in previous movement',
-                          icon: "warning",
-                          button: "Ok"
-                      })
-		}
 		
 	}
 	
@@ -707,8 +737,10 @@ function receiptDetailPopup(receiptId){
 	});
 
 	$(".js-modal-close, .modal-overlay").click(function() {
+		
 		$(".modal-box, .modal-overlay").fadeOut(500, function() {
 			$(".modal-overlay").remove();
+			$(this).find('form').trigger('reset');
 		});
 	});
 
