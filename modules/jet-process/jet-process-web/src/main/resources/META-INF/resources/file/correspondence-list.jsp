@@ -5,16 +5,19 @@
 %>
 <style>
 
-.dropdown-item{
-	border:1px solid #e1e1e1 !important;
+.dropdown-item:hover{
+	background-color: #e6f3fa;
+ 	color:black;
+	border:1px solid #39aeed;
 }
+
 .three-dots {
-marging:0px;
-padding:0px;
+	marging:0px;
+	padding-left:40px;
 	width: 20px;
-	height: 25px;
-	background-image: radial-gradient(circle, #616161 3px, transparent 3px);
-	background-size: 110% 33.33%;
+	height: 21px;
+	background-image: radial-gradient(circle, #343a40 2px, transparent 3px);
+	background-size: 110% 34.33%;
 }
 
 .modal-box {
@@ -99,30 +102,8 @@ a.close:hover {
 	display: block !important;
 	cursor: pointer;
 }
-
-.lfr-search-container-wrapper
- 
-a
-:not
- 
-(
-.component-action
- 
-)
-:not
- 
-(
-.btn
- 
-)
-{
-color
-:
- 
-#000000
-;
-
-
+.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
+	color: #000000 ;
 }
 .modal .close:last-child {
 	margin-right: -0.3125rem;
@@ -280,7 +261,7 @@ color
     
   </a>
   <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
-    <button class="dropdown-item js-open-modal" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
+    
     
     <c:choose>
 	 	 <c:when test="${fileCorrespondenceReceiptDTO.isClosed()}">
@@ -292,7 +273,7 @@ color
 	 	 	 <c:set var="isClosed"  value=""></c:set>
 	  	</c:otherwise>
 	</c:choose>
-    
+    <button class="dropdown-item js-open-modal ${isClosed }" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
       <button class="dropdown-item js-open-modal ${isClosed }  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Reopen</button>
      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Close</button>
    
