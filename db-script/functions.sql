@@ -1777,7 +1777,7 @@ BEGIN
             IF  keyword !='' AND keyword IS NOT NULL  THEN
                 IF(_type ='Electronic' ) THEN
                  
-                    EXECUTE _query||' AND r.nature = ''Electronic''  AND f.nature = ''Electronic''   AND (r.receiptnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
+                    EXECUTE _query||' AND r.nature = ''Electronic''    AND (r.receiptnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
                    return total;
             ELSE
                     EXECUTE _query|| ' AND (r.receiptnumber ilike '||_keyword||' OR r.subject ilike '||_keyword||')' INTO total;
@@ -1786,7 +1786,7 @@ BEGIN
             END IF;
                 
                 IF(_type ='Electronic' ) THEN
-                    EXECUTE _query||' AND r.nature = ''Electronic''   AND (r.receiptnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
+                    EXECUTE _query||' AND r.nature = ''Electronic'' ' INTO total;
                    return total;
                 ELSE
                 
@@ -2135,7 +2135,7 @@ BEGIN
                 END IF;
                
               IF(_viewmode ='' OR _viewmode IS NULL) THEN
-                   EXECUTE _query ||' AND fc.filemovementId <='||filemovement_id ; 
+                   EXECUTE _query ||' AND fc.filemovementId <='||filemovement_id INTO total ; 
 
                 return total;
               END IF;
