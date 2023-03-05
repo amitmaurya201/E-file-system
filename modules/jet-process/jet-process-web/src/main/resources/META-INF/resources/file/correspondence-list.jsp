@@ -644,7 +644,6 @@ function receiptDetailPopup(receiptId){
 		             },
 		               on: {
 		            	   success: function() { 
-		            		   alert("success");
 		            		   document.getElementById("successMsg").style.display="block";
 		   	           		setTimeout(function (){
 		   	           			parent.location.reload(); 
@@ -683,7 +682,6 @@ function receiptDetailPopup(receiptId){
 		             },
 		               on: {
 		            	   success: function() { 
-		            		   alert("success");
 		            		   document.getElementById("successMsg").style.display="block";
 		   	           		setTimeout(function (){
 		   	           			parent.location.reload(); 
