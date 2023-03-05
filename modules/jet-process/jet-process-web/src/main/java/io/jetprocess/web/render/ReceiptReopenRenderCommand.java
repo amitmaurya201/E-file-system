@@ -18,7 +18,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 		immediate = true,
 		property = {
 				"javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-				"mvc.command.name="+MVCCommandNames.RECEIPT_REOPEN_POP_UP
+				"mvc.command.name="+MVCCommandNames.CORR_RECEIPT_REOPEN_RESOURCE_COMMAND
 		},
 		service = MVCRenderCommand.class)
 public class ReceiptReopenRenderCommand   implements MVCRenderCommand {
