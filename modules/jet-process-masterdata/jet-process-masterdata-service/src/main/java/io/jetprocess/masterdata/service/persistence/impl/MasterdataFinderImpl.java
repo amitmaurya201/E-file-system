@@ -1018,6 +1018,39 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		}
 		return (Long) null;
 	}
+	
+	
+	public long getMaxCloseReceiptId(long receiptId) {
+
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "maxReceiptClosedId");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+			queryPos.add(receiptId);
+			logger.info("sql "+sql+receiptId);
+			List count = sqlQuery.list();
+			BigInteger b1 = null;
+			for (Object object : count) {
+				b1 = (BigInteger) object;
+				logger.info("sql "+b1);
+			}
+			long i1 = b1.longValue();
+			return i1;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return (Long) null;
+	}
 
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 

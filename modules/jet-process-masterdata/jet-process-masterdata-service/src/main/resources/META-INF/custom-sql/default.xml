@@ -324,5 +324,14 @@ WHERE receiptid = ? AND pullbackremark is NULL
 ]]>
 
 	</sql>
+	
+	
+	
+		<sql id="maxReceiptClosedId">
+<![CDATA[
+select max(receiptclosedid) from PUBLIC.jet_process_receiptclosedetail where receiptid=?
+]]>
+
+	</sql>
 
 </custom-sql>

@@ -357,7 +357,7 @@ a.close:hover {
 			</div>
 			<hr>
 			<aui:input name="receiptId" type="hidden"></aui:input>
-			<aui:input name="rmId" type="hidden"></aui:input>
+			<aui:input name="receiptMovId" type="hidden"></aui:input>
 			<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>"></aui:input>
 			<span >Remarks<span style="color:red;">*</span></span>
 			<aui:input label="" name="remarks" type="textarea">
@@ -409,7 +409,7 @@ a.close:hover {
 			</div>
 			<hr>
 			<aui:input name="closeReceiptId"  type="hidden" ></aui:input>
-			<aui:input name="closeRmid"  type="hidden" ></aui:input>
+			<aui:input name="rmId"  type="text" ></aui:input>
 			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"></aui:input>
 			<span >Remarks<span style="color:red;">*</span></span>
 			<aui:input label="" name="closingRemarks" type="textarea">
@@ -435,7 +435,7 @@ a.close:hover {
 <!--  --------------- Receipt Open ----------------   -->
 
 <portlet:resourceURL
-	id="<%=MVCCommandNames.REOPEN_RECEIPT_RESOURCE_COMMAND%>"
+	id="<%=MVCCommandNames.CORR_RECEIPT_REOPEN_RESOURCE_COMMAND%>"
 	var="reopenReceiptResourceURL"> </portlet:resourceURL>
 
 <div id="reopenPopup" class="modal-box">
@@ -452,7 +452,7 @@ a.close:hover {
 			<hr>
 			
 			<aui:input type="hidden" name="reopenReceiptId"  />
-			<aui:input type="hidden" name="reopenReceiptMovementId"  />
+			<aui:input type="hidden" name="closedReceiptId"  />
 			<aui:input  type="hidden" name="userPostId" value="<%=userPostsVal%>"/>
 			<span >Remarks<span style="color:red;">*</span></span>
 		 	<aui:input label="" name="reopenRemarks" id="reopenRemarks"
@@ -469,8 +469,8 @@ a.close:hover {
 				<aui:button type="button" cssClass="btn "
 					value="label-detach-confirmation-button"
 					onclick="receiptReopen(true)"></aui:button>
-				<aui:button type="button" id="close-btn"
-					cssClass="btn  ml-2 js-modal-close"
+				<aui:button type="button" 
+					cssClass=" ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
 			</div>
@@ -579,7 +579,7 @@ function receiptDetailPopup(receiptId){
 		console.table(receiptId,receiptMovementId, isDetachable )
 		if(isDetachable){
 			$("#<portlet:namespace />receiptId").val(receiptId);
-			$("#<portlet:namespace />rmId").val(receiptMovementId);
+			$("#<portlet:namespace />receiptMovId").val(receiptMovementId);
 			$('#detachId').trigger('click');
 		}else{
 					swal( {
@@ -626,7 +626,7 @@ function receiptDetailPopup(receiptId){
 	function closeFun(receiptId, receiptMovementId, isDetachable){
 		
 			$("#<portlet:namespace />closeReceiptId").val(receiptId);
-			$("#<portlet:namespace />closeRmid").val(receiptMovementId);
+			$("#<portlet:namespace />rmId").val(receiptMovementId);
 			$('#closeReceiptPopup').trigger('click');
 				
 	}
@@ -665,7 +665,7 @@ function receiptDetailPopup(receiptId){
 		console.table(receiptId,receiptMovementId)
 		
 		 	$("#<portlet:namespace />reopenReceiptId").val(receiptId);
-			$("#<portlet:namespace />reopenReceiptMovementId").val(receiptMovementId); 
+			$("#<portlet:namespace />closedReceiptId").val(receiptMovementId); 
 			$('#reopenReceiptPopup').trigger('click');
 		
 	}

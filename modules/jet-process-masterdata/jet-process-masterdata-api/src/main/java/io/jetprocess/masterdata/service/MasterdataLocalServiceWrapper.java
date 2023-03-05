@@ -376,6 +376,11 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public long getMaxReceiptClosedId(long receiptId) {
+		return _masterdataLocalService.getMaxReceiptClosedId(receiptId);
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata getOrganizationById(
 		long organizationId) {
 

@@ -34,6 +34,7 @@ import io.jetprocess.model.DocFile;
 import io.jetprocess.model.FileCorrReceipt;
 import io.jetprocess.model.FileMovement;
 import io.jetprocess.model.FileNote;
+import io.jetprocess.model.Receipt;
 import io.jetprocess.model.ReceiptMovement;
 import io.jetprocess.service.DocFileLocalService;
 import io.jetprocess.service.FileCorrReceiptLocalService;
@@ -106,12 +107,28 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		List<FileCorrReceipt> fileCorrReceiptByFileId = fileCorrReceiptLocalService.getFileCorrReceiptByFileId(fileId);
 		for (FileCorrReceipt fileCorrReceipt : fileCorrReceiptByFileId) {
 			if (fileCorrReceipt.getDetachRemark() == "") {
-				String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
-				ReceiptMovement receiptMovement = receiptMovementLocalService.saveReceiptMovement(receiverId, senderId,
-						fileCorrReceipt.getReceiptId(), "", null, remarkOfInFile, true, FileStatus.IN_MOVEMENT,
-						MovementStatus.IN_FILE);
-				receiptMovement.setFileInMovementId(saveFileMovement.getFmId());
-				receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+				ReceiptMovement receiptMovement=null;
+				try {
+					Receipt receipt = receiptLocalService.getReceipt(fileCorrReceipt.getReceiptId());
+					if(receipt.getCurrentState()==FileStatus.CLOSED) {
+						String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
+						 receiptMovement = receiptMovementLocalService.saveReceiptMovement(receiverId, senderId,
+								fileCorrReceipt.getReceiptId(), "", null, remarkOfInFile, true, FileStatus.CLOSED,
+								MovementStatus.IN_FILE);
+					}else {
+						String remarkOfInFile = "In File" + " - " + docFile.getFileNumber();
+						 receiptMovement = receiptMovementLocalService.saveReceiptMovement(receiverId, senderId,
+								fileCorrReceipt.getReceiptId(), "", null, remarkOfInFile, true, FileStatus.IN_MOVEMENT,
+								MovementStatus.IN_FILE);
+					}
+					
+					receiptMovement.setFileInMovementId(saveFileMovement.getFmId());
+					receiptMovementLocalService.updateReceiptMovement(receiptMovement);
+				} catch (PortalException e) {
+					e.printStackTrace();
+				}
+				
+				
 			}
 		}
 	}

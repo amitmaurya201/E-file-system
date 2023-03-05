@@ -22,7 +22,7 @@ public class DetachReceiptResourceCommand implements MVCResourceCommand {
 			throws PortletException {
 		System.out.println("Detaching Receipt....");
 		long receiptId = ParamUtil.getLong(resourceRequest, "receiptId");
-		long receiptMovementId = ParamUtil.getLong(resourceRequest, "rmId");
+		long receiptMovementId = ParamUtil.getLong(resourceRequest, "receiptMovId");
 		String detachRemark = ParamUtil.getString(resourceRequest, "remarks");
 		String redirectURL = ParamUtil.getString(resourceRequest, "redirectURL");
 		fileCorrReceiptLocalService.detachFileCorrReceipt(receiptId, receiptMovementId, detachRemark, 1);

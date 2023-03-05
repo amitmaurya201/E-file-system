@@ -202,6 +202,7 @@ public class MasterdataServiceImpl extends MasterdataServiceBaseImpl {
 
 	}
 
+	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 	

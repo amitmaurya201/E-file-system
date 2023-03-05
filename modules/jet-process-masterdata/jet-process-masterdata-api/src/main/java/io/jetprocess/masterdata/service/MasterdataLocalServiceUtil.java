@@ -312,6 +312,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getMaximumRmIdByReceiptId(receiptId);
 	}
 
+	public static long getMaxReceiptClosedId(long receiptId) {
+		return getService().getMaxReceiptClosedId(receiptId);
+	}
+
 	public static Masterdata getOrganizationById(long organizationId) {
 		return getService().getOrganizationById(organizationId);
 	}
