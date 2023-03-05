@@ -86,7 +86,7 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark , true,
 				FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
 		receiptMovementAttachInFile(receiverId, senderId, fileId, docFile, saveFileMovement);
-		//addBlankNote(senderId, fileId, docFile, maxFmId, fileMovement);
+		addBlankNote(senderId, fileId, docFile, fileMovementId, fileMovement);
 	}
 
 	private void addBlankNote(long senderId, long fileId, DocFile docFile, long maxFmId, FileMovement fileMovement)
