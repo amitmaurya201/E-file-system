@@ -305,9 +305,9 @@ a.close:hover {
 	 	 	 <c:set var="isClosed"  value=""></c:set>
 	  	</c:otherwise>
 	</c:choose>
-      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })">Detach</button>
-      <button class="dropdown-item js-open-modal ${isClosed }"  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })">Reopen</button>
-      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })">Close</button>
+      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"><liferay-ui:message key="label-corr-detach" /></button>
+      <button class="dropdown-item js-open-modal ${isClosed }"  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })"><liferay-ui:message key="label-corr-reopen" /></button>
+      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })"><liferay-ui:message key="label-corr-close" /></button>
    
   
   </div>
@@ -346,21 +346,21 @@ a.close:hover {
 <div id="popup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h4>Conformation</h4>
+		<h4><liferay-ui:message key="heading-corr-in-file-Confirmation" /></h4>
 	</header>
 	<aui:form action="#" method="post" name="detachReceiptForm">
 	<div class="modal-body">
 			<!-- <span> <i class="fa fa-check-square-o " style="color:red;" aria-hidden="true"></i></span> -->
 			<div class="text-center">
-				<h5>Detach Receipt</h5>
-				<P>Are you sure. You want to Detach this receipt </P>
+				<h5><liferay-ui:message key="title-corr-detach" /></h5>
+				<P><liferay-ui:message key="message-corr-detach" /></P>
 			</div>
 			<hr>
-			<aui:input name="receiptId" type="hidden"></aui:input>
-			<aui:input name="receiptMovId" type="hidden"></aui:input>
-			<aui:input name="redirectURL" type="hidden" value="<%=redirectURL%>"></aui:input>
-			<span >Remarks<span style="color:red;">*</span></span>
-			<aui:input label="" name="remarks" type="textarea">
+			<aui:input type="hidden" name="receiptId" ></aui:input>
+			<aui:input type="hidden" name="receiptMovId" ></aui:input>
+			<aui:input type="hidden" name="redirectURL"  value="<%=redirectURL%>"></aui:input>
+			<span ><liferay-ui:message key="label-corr-remarks" /><span style="color:red;">*</span></span>
+			<aui:input type="textarea"  name="remarks" label="" >
 				<aui:validator name="required" />
 			</aui:input>
 			
@@ -398,21 +398,21 @@ a.close:hover {
 <div id="closePopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close"  >&times;	</a>
-		<h3>Conformation</h3>
+		<h4><liferay-ui:message key="heading-corr-in-file-Confirmation" /></h4>
 	</header>
 	<aui:form action="#" method="post" name="closeReceiptForm">
 	<div class="modal-body">
 		<div class="text-center">
 				<span><i class="fa fa-folder-open-o" aria-hidden="true"></i></span>
-				<h5>Close Receipt</h5>
-				<P>Are you sure. You want to close this receipt </P>
+				<h5><liferay-ui:message key="title-corr-close" /></h5>
+				<P><liferay-ui:message key="message-corr-close" /> </P>
 			</div>
 			<hr>
-			<aui:input name="closeReceiptId"  type="hidden" ></aui:input>
-			<aui:input name="rmId"  type="text" ></aui:input>
-			<aui:input name="userPostId" value="<%=userPostsVal%>" type="hidden"></aui:input>
-			<span >Remarks<span style="color:red;">*</span></span>
-			<aui:input label="" name="closingRemarks" type="textarea">
+			<aui:input  type="hidden" name="closeReceiptId"  ></aui:input>
+			<aui:input type="hidden" name="rmId"   ></aui:input>
+			<aui:input type="hidden" name="userPostId" value="<%=userPostsVal%>" ></aui:input>
+			<span ><liferay-ui:message key="label-corr-remarks" /><span style="color:red;">*</span></span>
+			<aui:input type="textarea"  name="closingRemarks" label="" >
 				<aui:validator name="required" />
 			</aui:input>
 			
@@ -423,9 +423,10 @@ a.close:hover {
 				<aui:button type="button" cssClass="btn"
 					value="label-detach-confirmation-button" onclick="receiptClose()"></aui:button>
 				<aui:button type="button" 
-					cssClass="btn  ml-2"
+					cssClass="ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
+					
 			</div>
 	</footer>
 	</aui:form>
@@ -441,20 +442,20 @@ a.close:hover {
 <div id="reopenPopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h3>Conformation</h3>
+		<h4><liferay-ui:message key="heading-corr-in-file-Confirmation" /></h4>
 	</header>
 	<aui:form action="#" method="post" name="reopenReceipt">
 	<div class="modal-body">
 			<div class="text-center">
-				<h5>Open Receipt</h5>
-				<P>Are you sure. You want to open this receipt </P>
+				<h5><liferay-ui:message key="title-corr-reopen" /></h5>
+				<P><liferay-ui:message key="message-corr-reopen" /></P>
 			</div>
 			<hr>
 			
 			<aui:input type="hidden" name="reopenReceiptId"  />
 			<aui:input type="hidden" name="closedReceiptId"  />
 			<aui:input  type="hidden" name="userPostId" value="<%=userPostsVal%>"/>
-			<span >Remarks<span style="color:red;">*</span></span>
+			<span ><liferay-ui:message key="label-corr-remarks" /> <span style="color:red;">*</span></span>
 		 	<aui:input label="" name="reopenRemarks" id="reopenRemarks"
 					type="textarea" >
 					<aui:validator name="required"></aui:validator>
@@ -468,22 +469,23 @@ a.close:hover {
 		<div class="float-right">
 				<aui:button type="button" cssClass="btn "
 					value="label-detach-confirmation-button"
-					onclick="receiptReopen(true)"></aui:button>
+					onclick="receiptReopen()"></aui:button>
 				<aui:button type="button" 
-					cssClass=" ml-2 js-modal-close"
+					cssClass="ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
+					
+					
 			</div>
 	</footer>
 </aui:form>
 </div>
  
 
-
-<a class="js-open-modal" id="detachId" hidden data-modal-id="popup">
-	Detach</a>
-<a class="js-open-modal" id="reopenReceiptPopup" hidden data-modal-id="reopenPopup"> Reopen</a>
-<a class="js-open-modal"  id="closeReceiptPopup" hidden data-modal-id="closePopup"> Close</a>
+<!-- ************************* Jquery Popup button. these button are trigged by js  ****************************  -->
+<a class="js-open-modal" id="detachId" hidden data-modal-id="popup"></a>
+<a class="js-open-modal" id="reopenReceiptPopup" hidden data-modal-id="reopenPopup"> </a>
+<a class="js-open-modal"  id="closeReceiptPopup" hidden data-modal-id="closePopup"> </a>
 
 
 
