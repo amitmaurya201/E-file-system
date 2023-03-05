@@ -1,4 +1,13 @@
 <%@ include file="../init.jsp"%>
+<style>
+
+.btn {
+    background-color: #007bff !important;
+    color: white;
+    border-color: #007bff !important;
+}
+
+</style>
 <%
 long receiptId = (long) renderRequest.getAttribute("receiptId");
 long closeReceiptId = (long) renderRequest.getAttribute("closedReceiptId");
