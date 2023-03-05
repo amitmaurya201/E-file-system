@@ -32,7 +32,9 @@ public class FileSendActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+		
 		String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
+		long fileMovementId = ParamUtil.get(actionRequest, "fileMovementId", 0);
 		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long fileId = ParamUtil.get(actionRequest, "fileId", 0);
@@ -41,7 +43,7 @@ public class FileSendActionCommand extends BaseMVCActionCommand {
 		Date dueDate = ParamUtil.getDate(actionRequest, "dueDate", simpleformat);
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		try {
-			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
+			fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark , fileMovementId);
 			actionResponse.sendRedirect(urlvalue);
 		} catch (Exception e) {
 			e.printStackTrace();

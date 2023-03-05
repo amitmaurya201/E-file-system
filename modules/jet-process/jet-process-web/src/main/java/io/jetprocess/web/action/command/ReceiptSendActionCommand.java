@@ -24,6 +24,8 @@ public class ReceiptSendActionCommand implements MVCActionCommand {
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 		String urlvalue = ParamUtil.getString(actionRequest, "pageURL");
+		long receiptMovementId = ParamUtil.get(actionRequest, "receiptMovementId", 0);
+		
 		long receiverId = ParamUtil.get(actionRequest, "receiverId", 0);
 		long senderId = ParamUtil.get(actionRequest, "senderId", 0);
 		long receiptId = ParamUtil.get(actionRequest, "receiptId", 0);
@@ -32,7 +34,7 @@ public class ReceiptSendActionCommand implements MVCActionCommand {
 		Date dueDate = ParamUtil.getDate(actionRequest, "dueDate", simpleformat);
 		String priority = ParamUtil.getString(actionRequest, "priorty");
 		try {
-			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
+			receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark,receiptMovementId);
 			actionResponse.sendRedirect(urlvalue);
 		} catch (Exception e) {
 			e.printStackTrace();

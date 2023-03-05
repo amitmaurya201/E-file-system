@@ -63,6 +63,8 @@
 					value="<%=docFile.getDocFileId()%>">
 				<input type="hidden" name="<portlet:namespace/>pageURL"
 					value="<%=backPageURL%>">
+					<input type="hidden" name="<portlet:namespace/>fileMovementId"
+					value="<%=fileMovementId%>">
 				<aui:col cssClass="mt-3">
 					<div>
 						<h2 style="text-align: center; text-decoration: underline;">
@@ -109,7 +111,7 @@
 				<aui:col cssClass="mt-3">
 					<div class="textOnInput">
 						<label><liferay-ui:message key="label-send-priorty" /></label>
-						<aui:select label="" name="priorty" id="priorty">
+						<aui:select label="" name="priority" id="priorty">
 							<aui:option value=''>
 								<liferay-ui:message key="label-send-default-option" />
 							</aui:option>

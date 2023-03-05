@@ -42,9 +42,9 @@ import io.jetprocess.service.base.ReceiptMovementLocalServiceBaseImpl;
 public class ReceiptMovementLocalServiceImpl extends ReceiptMovementLocalServiceBaseImpl {
 
 	public void saveSendReceipt(long receiverId, long senderId, long receiptId, String priority, Date dueDate,
-			String remark) throws PortalException {
-		long receiptMovementId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
-		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptMovementId);
+			String remark ,long receiptmovementId) throws PortalException {
+	//	long receiptMovementId = masterdataLocalService.getMaximumRmIdByReceiptId(receiptId);
+		ReceiptMovement receiptMovement = receiptMovementLocalService.getReceiptMovement(receiptmovementId);
 		if (receiptMovement.getReceivedOn().isEmpty() || receiptMovement.getReadOn().isEmpty()) {
 			Receipt receipt = receiptLocalService.getReceipt(receiptId);
 			if (receipt.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {

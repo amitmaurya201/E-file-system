@@ -357,7 +357,7 @@ public interface ReceiptMovementLocalService
 
 	public void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			Date dueDate, String remark)
+			Date dueDate, String remark, long receiptmovementId)
 		throws PortalException;
 
 	/**

@@ -61,12 +61,12 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 	 * @param remark
 	 * @throws PortalException
 	 */
-	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, Date dueDate, String remark)
+	public void saveSendFile(long receiverId, long senderId, long fileId, String priority, Date dueDate, String remark ,long fileMovementId)
 			throws PortalException {
 		logger.info("save send file ");
 		DocFile docFile = docFileLocalService.getDocFile(fileId);
-		long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
-		FileMovement fileMovement = fileMovementLocalService.getFileMovement(maxFmId);
+		//long maxFmId = masterdataLocalService.getMaximumFmIdByFileIdData(fileId);
+		FileMovement fileMovement = fileMovementLocalService.getFileMovement(fileMovementId);
 		if (fileMovement.getReceivedOn().isEmpty() || fileMovement.getReadOn().isEmpty()) {
 			if (docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
 				if (fileMovement.getActive() == false) {
@@ -83,10 +83,10 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 			}
 			updateFileMovement(fileMovement);
 		}
-		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark, true,
+		FileMovement saveFileMovement = saveFileMovement(receiverId, senderId, fileId, priority, dueDate, remark , true,
 				FileStatus.IN_MOVEMENT, MovementStatus.NORMAL);
 		receiptMovementAttachInFile(receiverId, senderId, fileId, docFile, saveFileMovement);
-		addBlankNote(senderId, fileId, docFile, maxFmId, fileMovement);
+		//addBlankNote(senderId, fileId, docFile, maxFmId, fileMovement);
 	}
 
 	private void addBlankNote(long senderId, long fileId, DocFile docFile, long maxFmId, FileMovement fileMovement)

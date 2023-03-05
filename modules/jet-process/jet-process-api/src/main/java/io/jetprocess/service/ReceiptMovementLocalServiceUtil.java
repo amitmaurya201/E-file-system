@@ -434,11 +434,12 @@ public class ReceiptMovementLocalServiceUtil {
 
 	public static void saveSendReceipt(
 			long receiverId, long senderId, long receiptId, String priority,
-			java.util.Date dueDate, String remark)
+			java.util.Date dueDate, String remark, long receiptmovementId)
 		throws PortalException {
 
 		getService().saveSendReceipt(
-			receiverId, senderId, receiptId, priority, dueDate, remark);
+			receiverId, senderId, receiptId, priority, dueDate, remark,
+			receiptmovementId);
 	}
 
 	/**

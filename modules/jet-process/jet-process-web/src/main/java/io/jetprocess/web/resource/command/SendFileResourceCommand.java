@@ -41,7 +41,7 @@ public class SendFileResourceCommand implements MVCResourceCommand {
 			resourceResponse.setContentType("text/html");
 			PrintWriter out = resourceResponse.getWriter();
 			if (state == true) {
-				fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark);
+				fileMovementLocalService.saveSendFile(receiverId, senderId, fileId, priority, dueDate, remark , fileMovementId);
 				out.println("File send successfully");
 			} else {
 				out.println("This file is already pullbacked");

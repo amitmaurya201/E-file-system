@@ -32,6 +32,7 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 		try {
 			state = receiptMovementLocalService.pullBackedAlready(receiptMovementId);
 			if (state == true) {
+
 				long receiverId = ParamUtil.get(resourceRequest, "receiverId", 0);
 				long senderId = ParamUtil.get(resourceRequest, "senderId", 0);
 				long receiptId = ParamUtil.get(resourceRequest, "receiptId", 0);
@@ -40,7 +41,7 @@ public class SendReceiptResourceCommand implements MVCResourceCommand {
 				Date dueDate = ParamUtil.getDate(resourceRequest, "dueDate", simpleformat);
 				String priority = ParamUtil.getString(resourceRequest, "priorty");
 
-				receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark);
+				receiptMovementLocalService.saveSendReceipt(receiverId, senderId, receiptId, priority, dueDate, remark,receiptMovementId);
 				resourceResponse.setContentType("text/html");
 				PrintWriter out = resourceResponse.getWriter();
 				out.println("Receipt send successfully");

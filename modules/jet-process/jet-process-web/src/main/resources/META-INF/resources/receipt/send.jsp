@@ -9,6 +9,7 @@
 
 <%
 	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
+    long receiptMovementId = (long) renderRequest.getAttribute("receiptMovementId");
 	Receipt receipt = (Receipt) renderRequest.getAttribute("receipt");
 	String type = (String) receipt.getNature();
 	char firstChar = type.charAt(0);
@@ -59,6 +60,8 @@
 					value="<%=selectedUserPostId%>">
 				<input type="hidden" name="<portlet:namespace/>receiptId"
 					value="<%=receipt.getReceiptId()%>">
+					<input type="hidden" name="<portlet:namespace/>receiptMovementId"
+					value="<%=receiptMovementId%>">
 				<aui:col cssClass="mt-3">
 					<input type="hidden" name="<portlet:namespace/>pageURL"
 						value="<%=backPageURL%>">

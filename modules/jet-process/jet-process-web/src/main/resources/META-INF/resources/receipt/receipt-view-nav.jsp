@@ -116,7 +116,7 @@
 				href="<%=sendReceipt%>"> Send </a></li>
 			<li class="nav-item"><a id="sendback" class="nav-link "
 				href="#"> Send Back </a></li>
-			 <li class="nav-item"><a class="nav-link add_receipt"
+			 <li class="nav-item"><a class="nav-link add_receipt" id="putInFile"
 				href="#"> Put in a file </a></li>			 
 			<li class="nav-item"><a id="edit" class="nav-link "
 				href="<%=editReceipt%>"> Edit </a></li>
@@ -158,6 +158,7 @@
 		$('#send').addClass('disabled');
 		$('#sendback').addClass('disabled');
 		$('#closeReceipt').addClass('disabled');
+		$('#putInFile').addClass('disabled');
 		
 	}
 	/*  For open CloseReceipt Pop up */
