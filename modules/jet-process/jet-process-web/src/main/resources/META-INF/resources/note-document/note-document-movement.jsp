@@ -7,9 +7,9 @@
 	<div class="col-10">
 	<liferay-util:include page="/note-document/note-document-navigation.jsp"
 			servletContext="<%=application%>">
-			<liferay-util:param name="selectedNav" value="navhome" />
+			<liferay-util:param name="selectedNav" value="movement" />
 		</liferay-util:include>
-		Note Inner View
+		movement page
 	 </div>
 	 
 </div>

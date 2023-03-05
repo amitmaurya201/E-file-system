@@ -23,14 +23,14 @@
 </style>
 
 <portlet:renderURL var="home">
-    <portlet:param name="mvcPath" value="/file/dispatch.jsp"/>
+    <portlet:param name="mvcPath" value="/note-document/note-inner-view.jsp"/>
 </portlet:renderURL>
 
 <portlet:renderURL var="send">
-    <portlet:param name="mvcPath" value="/file/dispatch.jsp"/>
+    <portlet:param name="mvcPath" value="/note-document/note-document-send.jsp"/>
 </portlet:renderURL>
 <portlet:renderURL var="movement">
-    <portlet:param name="mvcPath" value="/file/dispatch.jsp"/>
+    <portlet:param name="mvcPath" value="/note-document/note-document-movement.jsp"/>
 </portlet:renderURL>
 
 <nav class="navbar navbar-expand-lg navbar-light  mt-1 "
@@ -45,8 +45,8 @@
 
 	<div class="navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav">
-			<li class="nav-item border"><a id="home" class="nav-link"
-				href="<%=home%>">Home<i class="fa fa-home"></i></a></li>
+			<li class="nav-item border"><a id="navhome" class="nav-link"
+				href="<%=home%>"><i class="fa fa-home"></i>Home</a></li>
 			<li class="nav-item border "><a id="send" class="nav-link"
 				href="<%=send%>">Send</a></li>
 			<li class="nav-item border "><a id="movement" class="nav-link"
@@ -57,8 +57,8 @@
 	</div>
 </nav>
 <script>
-var navId = "${param.selectedNav}";
-var nav = document.getElementById(navId);
-nav.style.color = 'blue';
+	var navId = "${param.selectedNav}";
+	var nav = document.getElementById(navId);
+	nav.style.color = 'blue';
 
-</script>
+	</script>
