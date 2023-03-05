@@ -17,6 +17,10 @@
 .lfr-search-container-wrapper a:not(.component-action):not(.btn) {
     color: #000000;
 }
+
+
+
+
 </style>
 <div class="row">
 	<div class="body-side-nav col-2">
@@ -113,10 +117,7 @@ function receiptDetailPopup(receiptId){
 	
 	/*  For open reopenCloseReceipt Pop up */
 	function getReceiptreopenPopup(receiptId,closedReceiptId){
-	alert("receiptId"+receiptId);
-	alert("closedReceiptId"+closedReceiptId);
 	 	var receiptReopenURL = '<%=reopenReceiptURL%>&<portlet:namespace/>receiptId='+receiptId+'&<portlet:namespace/>closedReceiptId='+closedReceiptId;
-	 	alert(receiptReopenURL);
 			Liferay.Util.openWindow({
 				dialog: {
 					centered: true,
@@ -124,6 +125,7 @@ function receiptDetailPopup(receiptId){
 					destroyOnClose: true,														 
 					destroyOnHide: true, 
 					modal: true,
+                   cssClass:'reopenCloseReceipt-pop-up'
 					width: 500
 				},
 				id: '<portlet:namespace/>dialog',

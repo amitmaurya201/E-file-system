@@ -33,7 +33,6 @@ public class CloseReceiptResourceCommand implements MVCResourceCommand {
 		String userPostId = ParamUtil.getString(resourceRequest, "userPostId");
 		long closedBy = Long.parseLong(userPostId);
 		LOGGER.info("receiptId--->"+receiptId+"reopenMovementId--->"+closedMovementId+"reopenedBy---->"+userPostId+"reopenRemarks--->"+closingRemarks);
-
 		try {
 			receiptCloseDetailLocalService.addClosedReceiptDetails(receiptId, closedBy, closingRemarks,
 					closedMovementId);

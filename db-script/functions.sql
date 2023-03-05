@@ -1458,7 +1458,7 @@ begin
                 r.receiptNumber as receiptNumber,r.subject as subject , cr.createdate as closedon ,
                 cr.closingremarks as closingremarks, cr.receiptid as receiptid , cr.closedmovementid as closedmovementid
                 FROM PUBLIC.jet_process_receiptclosedetail as cr 
-                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL AND r.currentState=3 ';
+                JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL AND r.currentState=3  AND cr.reopenremarks IS NULL ';
                 
      _keyword := '''%' || keyword || '%''';
      IF (_start <0 OR _start IS NULL) THEN
@@ -2283,7 +2283,7 @@ begin
     _keyword :='''%'||keyword||'%''';
     _query :='SELECT COUNT(*) 
             FROM PUBLIC.jet_process_receiptclosedetail as cr 
-            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL AND cr.closedby ='|| _closedby;
+            JOIN PUBLIC.jet_process_receipt AS r ON cr.receiptId = r.receiptId where r.attachstatus IS NULL AND  r.currentState = 3 AND cr.reopenremarks IS NULL  AND cr.closedby ='|| _closedby;
     IF _closedby != 0 AND _closedby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
