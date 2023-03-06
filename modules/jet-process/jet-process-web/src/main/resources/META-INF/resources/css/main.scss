@@ -13,7 +13,6 @@
   background-color: #f6f6f6;
   top: -15px;
   left: 10px;
-  
   z-index: 1;
 }
 
@@ -36,7 +35,6 @@
 
 .receipt .heading {
   background-color: gainsboro;
-  
   padding-top: 7px;
 }
 
@@ -96,8 +94,9 @@
 }
 
 .receipt_view .line_height{ 
- line-height: 2;
+ 	line-height: 2;
  }
+ 
 .receipt_view .view_icon{
  padding-top: 5px;
     padding-left: 15px;
@@ -267,4 +266,17 @@ margin-left: -20px;
 .hyperlink-css a {
   color: blue !important;
   text-decoration: underline !important;
+}
+
+.noteDocument .textOnInput {
+  position: relative;
+  background-color: #fff;
+}
+
+.noteDocument .textOnInput label {
+  position: absolute;
+  background-color: #f6f6f6;
+  top: -15px;
+  left: 10px;
+  z-index: 1;
 }
