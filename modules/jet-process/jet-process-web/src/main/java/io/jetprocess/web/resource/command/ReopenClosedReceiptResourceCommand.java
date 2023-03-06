@@ -22,7 +22,7 @@ import io.jetprocess.web.constants.MVCCommandNames;
 @Component(property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name="+MVCCommandNames.REOPEN_RECEIPT_RESOURCE_COMMAND}, service = MVCResourceCommand.class)
 
-public class ReopenClosedReceiptResourceCommand implements MVCResourceCommand {
+public class ReopenClosedReceiptResourceCommand implements MVCResourceCommand   {
 
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
