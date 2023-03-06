@@ -437,6 +437,60 @@
 
 	</entity>
 	
+	<!-- Note Document -->
+	<entity local-service="true" name="NoteDocument"
+		uuid="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="noteDocumentId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long"/>
+		<column name="userId" type="long"/>
+		<column name="userName" type="String"/>
+		<column name="createDate" type="Date"/>
+		<column name="modifiedDate" type="Date"/>
+
+		<!-- Other fields -->
+		<column name="noteDocumentNumber" type="String"/>
+		<column name="subject" type="String"/>
+		<column name="createdBy" type="long"/>
+		<column name="subjectCategoryId" type="long"/>
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+	</entity>
+	
+	<!-- Document Note Mapping -->
+	<entity local-service="true" name="DocumentNoteMap"
+		uuid="true" remote-service="true">
+
+		<!-- PK fields -->
+		<column name="documentNoteMapId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long"/>
+		<column name="userId" type="long"/>
+		<column name="userName" type="String"/>
+		<column name="createDate" type="Date"/>
+		<column name="modifiedDate" type="Date"/>
+
+		<!-- Other fields -->
+		<column name="noteDocumentId" type="long"/>
+		<column name="noteId" type="long"/>
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+	</entity>
+	
 
     <exceptions>
 		<exception>DuplicateFileNumber</exception>

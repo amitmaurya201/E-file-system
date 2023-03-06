@@ -31,6 +31,18 @@
 		<field name="currentState" type="int" />
 		<field name="dealingHeadSectionId" type="long" />
 	</model>
+	<model name="io.jetprocess.model.DocumentNoteMap">
+		<field name="uuid" type="String" />
+		<field name="documentNoteMapId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="noteDocumentId" type="long" />
+		<field name="noteId" type="long" />
+	</model>
 	<model name="io.jetprocess.model.FileCloseDetail">
 		<field name="uuid" type="String" />
 		<field name="fileClosedId" type="long" />
@@ -122,6 +134,22 @@
 		<field name="signature" type="String">
 			<hint name="max-length">500</hint>
 		</field>
+	</model>
+	<model name="io.jetprocess.model.NoteDocument">
+		<field name="uuid" type="String" />
+		<field name="noteDocumentId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="noteDocumentNumber" type="String" />
+		<field name="subject" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="createdBy" type="long" />
+		<field name="subjectCategoryId" type="long" />
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />

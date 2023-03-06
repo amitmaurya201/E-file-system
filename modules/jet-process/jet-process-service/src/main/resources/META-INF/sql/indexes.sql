@@ -3,6 +3,9 @@ create index IX_55E4699F on JET_PROCESS_DocFile (nature[$COLUMN_LENGTH:75$]);
 create index IX_1C31438 on JET_PROCESS_DocFile (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_2AF348BA on JET_PROCESS_DocFile (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_B1835E53 on JET_PROCESS_DocumentNoteMap (uuid_[$COLUMN_LENGTH:75$], companyId);
+create unique index IX_EE55D95 on JET_PROCESS_DocumentNoteMap (uuid_[$COLUMN_LENGTH:75$], groupId);
+
 create index IX_72C2F631 on JET_PROCESS_FileCloseDetail (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_A84554F3 on JET_PROCESS_FileCloseDetail (uuid_[$COLUMN_LENGTH:75$], groupId);
 
@@ -28,6 +31,9 @@ create unique index IX_366240E0 on JET_PROCESS_FileNote (uuid_[$COLUMN_LENGTH:75
 create index IX_B57C66C1 on JET_PROCESS_Note (createdBy);
 create index IX_7258B042 on JET_PROCESS_Note (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_B7745F44 on JET_PROCESS_Note (uuid_[$COLUMN_LENGTH:75$], groupId);
+
+create index IX_FDF771FD on JET_PROCESS_NoteDocument (uuid_[$COLUMN_LENGTH:75$], companyId);
+create unique index IX_ADBE53BF on JET_PROCESS_NoteDocument (uuid_[$COLUMN_LENGTH:75$], groupId);
 
 create index IX_46204F21 on JET_PROCESS_Receipt (groupId, receiptId);
 create index IX_6CF2599C on JET_PROCESS_Receipt (uuid_[$COLUMN_LENGTH:75$], companyId);

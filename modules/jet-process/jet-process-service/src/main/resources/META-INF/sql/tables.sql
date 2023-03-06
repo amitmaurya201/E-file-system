@@ -27,6 +27,19 @@ create table JET_PROCESS_DocFile (
 	dealingHeadSectionId LONG
 );
 
+create table JET_PROCESS_DocumentNoteMap (
+	uuid_ VARCHAR(75) null,
+	documentNoteMapId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	noteDocumentId LONG,
+	noteId LONG
+);
+
 create table JET_PROCESS_FileCloseDetail (
 	uuid_ VARCHAR(75) null,
 	fileClosedId LONG not null primary key,
@@ -131,6 +144,21 @@ create table JET_PROCESS_Note (
 	content TEXT null,
 	createdBy LONG,
 	signature VARCHAR(500) null
+);
+
+create table JET_PROCESS_NoteDocument (
+	uuid_ VARCHAR(75) null,
+	noteDocumentId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	noteDocumentNumber VARCHAR(75) null,
+	subject VARCHAR(500) null,
+	createdBy LONG,
+	subjectCategoryId LONG
 );
 
 create table JET_PROCESS_Receipt (

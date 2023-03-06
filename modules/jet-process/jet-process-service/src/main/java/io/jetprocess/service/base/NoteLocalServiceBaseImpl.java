@@ -49,10 +49,12 @@ import io.jetprocess.model.Note;
 import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.service.NoteLocalServiceUtil;
 import io.jetprocess.service.persistence.DocFilePersistence;
+import io.jetprocess.service.persistence.DocumentNoteMapPersistence;
 import io.jetprocess.service.persistence.FileCloseDetailPersistence;
 import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
 import io.jetprocess.service.persistence.FileMovementPersistence;
 import io.jetprocess.service.persistence.FileNotePersistence;
+import io.jetprocess.service.persistence.NoteDocumentPersistence;
 import io.jetprocess.service.persistence.NotePersistence;
 import io.jetprocess.service.persistence.ReceiptCloseDetailPersistence;
 import io.jetprocess.service.persistence.ReceiptMovementPersistence;
@@ -588,6 +590,9 @@ public abstract class NoteLocalServiceBaseImpl
 	protected DocFilePersistence docFilePersistence;
 
 	@Reference
+	protected DocumentNoteMapPersistence documentNoteMapPersistence;
+
+	@Reference
 	protected FileCloseDetailPersistence fileCloseDetailPersistence;
 
 	@Reference
@@ -603,6 +608,9 @@ public abstract class NoteLocalServiceBaseImpl
 
 	@Reference
 	protected NotePersistence notePersistence;
+
+	@Reference
+	protected NoteDocumentPersistence noteDocumentPersistence;
 
 	@Reference
 	protected ReceiptPersistence receiptPersistence;
