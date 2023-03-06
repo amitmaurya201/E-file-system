@@ -95,3 +95,7 @@
 	SimpleDateFormat simpleFormat = new SimpleDateFormat("dd/MM/yyyy");
 	simpleFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
 %>
+
+<!-- editor -->
+<%@ taglib uri="http://liferay.com/tld/editor" prefix="liferay-editor" %>
+<liferay-editor:resources editorName="ckeditor" />

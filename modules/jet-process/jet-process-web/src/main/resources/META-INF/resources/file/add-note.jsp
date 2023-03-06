@@ -1,7 +1,3 @@
-<%@ taglib uri="http://liferay.com/tld/editor" prefix="liferay-editor" %>
-<liferay-editor:resources editorName="ckeditor" />
-<%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
-
 <style>
 .saveButton {
 	background-color: DodgerBlue;
