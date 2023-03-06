@@ -351,12 +351,12 @@ a.close:hover {
 	<aui:form action="#" method="post" name="detachReceiptForm">
 	<div class="modal-body">
 			<div class="text-center">
-			<img alt="reopen-file" title="Reopen"
+			<%-- <img alt="reopen-file" title="Reopen"
 							id='<portlet:namespace/>reopen-file'
 							src='<%=request.getContextPath() + "/image/detach.png"%>'
-							width="50px" height="50px"  />
+							width="50px" height="50px"  /> --%>
 				<h5><liferay-ui:message key="title-corr-detach" /></h5>
-				<P><liferay-ui:message key="message-corr-detach" /><span class="receiptNumber font-weight-bold"></span> <liferay-ui:message key="label-corr-receipt" /></P>
+				<P><liferay-ui:message key="message-corr-detach" /><span class="receiptNumber font-weight-bold"></span></P>
 			</div>
 			<hr>
 			<aui:input type="hidden" name="receiptId" ></aui:input>
@@ -406,12 +406,12 @@ a.close:hover {
 	<aui:form action="#" method="post" name="closeReceiptForm">
 	<div class="modal-body">
 		<div class="text-center">
-				<img alt="reopen-file" title="Reopen"
+				<%-- <img alt="reopen-file" title="Reopen"
 							id='<portlet:namespace/>reopen-file'
 							src='<%=request.getContextPath() + "/image/close.png"%>'
-							width="50px" height="50px"  />
+							width="50px" height="50px"  /> --%>
 				<h5><liferay-ui:message key="title-corr-close" /></h5>
-				<P><liferay-ui:message key="message-corr-close" /><span class="receiptNumber font-weight-bold"></span> <liferay-ui:message key="label-corr-receipt" /> </P>
+				<P><liferay-ui:message key="message-corr-close" /><span class="receiptNumber font-weight-bold"></span> </P>
 			</div>
 			<hr>
 			<aui:input  type="hidden" name="closeReceiptId"  ></aui:input>
@@ -454,12 +454,12 @@ a.close:hover {
 	<div class="modal-body">
 			<div class="text-center">
 			<!-- style="border:2px solid #007bff; padding:5px; border-radius:50%;" -->
-			<img alt="reopen-file" title="Reopen"
+			<%-- <img alt="reopen-file" title="Reopen"
 							id='<portlet:namespace/>reopen-file'
 							src='<%=request.getContextPath() + "/image/reopen-image.png"%>'
-							width="50px" height="50px"  />
+							width="50px" height="50px"  /> --%>
 				<h5><liferay-ui:message key="title-corr-reopen" /></h5>
-				<P><liferay-ui:message key="message-corr-reopen" /><span class="receiptNumber font-weight-bold"></span> <liferay-ui:message key="label-corr-receipt" /></P>
+				<P><liferay-ui:message key="message-corr-reopen" /><span class="receiptNumber font-weight-bold"></span> </P>
 			</div>
 			<hr>
 			
@@ -593,7 +593,7 @@ function receiptDetailPopup(receiptId){
 		if(isDetachable){
 			$("#<portlet:namespace />receiptId").val(receiptId);
 			$("#<portlet:namespace />receiptMovId").val(receiptMovementId);
-			$(".receiptNumber").text(receiptId);
+			$(".receiptNumber").text(" - "+receiptId);
 			$('#detachId').trigger('click');
 		}else{
 					swal( {
@@ -641,7 +641,7 @@ function receiptDetailPopup(receiptId){
 		
 			$("#<portlet:namespace />closeReceiptId").val(receiptId);
 			$("#<portlet:namespace />rmId").val(receiptMovementId);
-			$(".receiptNumber").text(receiptId);
+			$(".receiptNumber").text(" - "+receiptId);
 			$('#closeReceiptPopup').trigger('click');
 				
 	}
@@ -680,7 +680,7 @@ function receiptDetailPopup(receiptId){
 		
 		 	$("#<portlet:namespace />reopenReceiptId").val(receiptId);
 			$("#<portlet:namespace />closedReceiptId").val(receiptMovementId); 
-			$(".receiptNumber").text(receiptId);
+			$(".receiptNumber").text(" - "+receiptId);
 			$('#reopenReceiptPopup').trigger('click');
 		
 	}
