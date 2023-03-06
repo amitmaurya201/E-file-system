@@ -12,6 +12,7 @@
 long receiptId = (long) renderRequest.getAttribute("receiptId");
 long closeReceiptId = (long) renderRequest.getAttribute("closedReceiptId");
 %>
+
 <portlet:resourceURL
 	id="<%=MVCCommandNames.REOPEN_RECEIPT_RESOURCE_COMMAND%>"
 	var="reopenReceiptResourceURL">

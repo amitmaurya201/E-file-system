@@ -76,7 +76,7 @@
          <liferay-ui:search-container-column-text
 					name="label-receipt-reopen-actions" cssClass="hover-tips" >
 					<a href="#" onClick="getReceiptreopenPopup(${closedReceiptDTO.receiptId} , ${closedReceiptDTO.closedReceiptId} )" >
-					<img src = '<%=request.getContextPath() + "/image/reopen-image.png"%>' 
+					<img   alt="reopen-receipt" title="Reopen" src = '<%=request.getContextPath() + "/image/reopen-image.png"%>' 
 					width="35%" height="25" />
 					 </a>
 					</liferay-ui:search-container-column-text>
@@ -125,7 +125,6 @@ function receiptDetailPopup(receiptId){
 					destroyOnClose: true,														 
 					destroyOnHide: true, 
 					modal: true,
-                   cssClass:'reopenCloseReceipt-pop-up'
 					width: 500
 				},
 				id: '<portlet:namespace/>dialog',
