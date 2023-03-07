@@ -14,11 +14,14 @@
 
 package io.jetprocess.service.impl;
 
+import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.aop.AopService;
 
+import io.jetprocess.model.NoteDocument;
 import io.jetprocess.service.base.NoteDocumentLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -29,4 +32,16 @@ import org.osgi.service.component.annotations.Component;
 )
 public class NoteDocumentLocalServiceImpl
 	extends NoteDocumentLocalServiceBaseImpl {
+	
+	public NoteDocument  addNoteDocument(String noteDocumentNumber , String subject , long createdBy , long subjectCategoryId ) {
+		
+		
+		
+		return null;
+	}
+	
+	@Reference
+	private CounterLocalService counterLocalService;
+	
+	
 }

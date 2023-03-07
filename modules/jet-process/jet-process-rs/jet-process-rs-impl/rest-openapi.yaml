@@ -175,7 +175,30 @@ components:
           format: int64
           type: integer  
           
-      type: object      
+      type: object    
+    NoteDocumentRsModel:
+      description: Contains all the data for note Document creation.
+      properties:
+        noteDocumentId:
+          format: int64
+          type: integer
+        noteDocumentNumber:
+          type: string
+        subject:
+          type: string
+        createdBy:
+          format: int64
+          type: integer
+        subjectCategoryId:
+           format: int64
+           type: integer
+        createDate:
+            type: string
+        modifiedDate:
+            type: string
+          
+      type: object 
+      
 paths:
   /createFile:
     post:
@@ -351,5 +374,52 @@ paths:
             text/plain:
               schema:
                 type: string
-      tags: ["NoteRsModel"]     
+      tags: ["NoteRsModel"]   
+      
+  /updateNoteDocument:
+    put:
+      operationId: updateNoteDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteDocumentRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/NoteDocumentRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/NoteDocumentRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/NoteDocumentRsModel'
+          description: ''
+      tags: ["NoteDocumentRsModel"]
+      
+  /createNoteDocument:
+    post:
+      operationId: createNoteDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteDocumentRsModel"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/NoteDocumentRsModel"
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/NoteDocumentRsModel'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/NoteDocumentRsModel'
+          description: ''
+      tags: ["NoteDocumentRsModel"]
+ 
       
