@@ -1,4 +1,5 @@
 <%@ include file="../init.jsp"%>
+
 <%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
 
  
@@ -16,37 +17,57 @@
 	
 		<portlet:actionURL var="postContent"></portlet:actionURL>
 		
-		Note Inner View
-	<br>
-	<form>
-  <div class="form-row">
-    <div class="col-md-2">
-      <input type="text" class="form-control" placeholder="">
-    </div>
-    <div class="col-md-2">
-      <input type="text" class="form-control" placeholder="State">
-    </div>
-    <div class="col-md-2">
-      <input type="text" class="form-control" placeholder="Zip">
-    </div>
-     <div class="col-md-2">
-      <input type="text" class="form-control" placeholder="Zip">
-    </div>
-  </div>
-</form>
-	<br><br>
-<aui:form action="<%=postContent %>">
- <liferay-ui:input-editor name="content" initMethod="initEditor" width="70" height="300" 
-  resizable="true" ></liferay-ui:input-editor>
-</aui:form>
+		<h2 style="text-align: center; text-decoration: underline;">
+			<liferay-ui:message key="label-inner-note-document-heading" />
+		</h2>
+
+<aui:row>
+		<aui:col md="2" cssClass="col-md-2	">
+								<div class="textOnInput">
+									<label><liferay-ui:message
+											key="label-inner-note-document-subject" /></label>
+									<aui:input label="" name="" id="">
+										
+									</aui:input>
+								</div>
+							</aui:col>
+							<aui:col md="2" cssClass="col-md-2">
+								<div class="textOnInput">
+									<label><liferay-ui:message
+											key="label-create-note-document-subject-category" /></label>
+									<aui:input label="" name="" id="">
+										
+									</aui:input>
+								</div>
+							</aui:col>
+							<aui:col md="2" cssClass="col-md-2">
+								<div class="textOnInput">
+									<label><liferay-ui:message
+											key="label-create-note-document-createdOn" /></label>
+									<aui:input label="" name="" id="">
+										
+									</aui:input>
+								</div>
+							</aui:col>
+							<aui:col md="2" cssClass="col-md-2">
+								<div class="textOnInput">
+									<label><liferay-ui:message
+											key="label-create-note-document-note-document-no" /></label>
+									<aui:input label="" name="" id="">
+										
+									</aui:input>
+								</div>
+							</aui:col>
+							
+							</aui:row>
+
+	<div class="m-3">
+				<liferay-editor:editor contents="" editorName="ckeditor"
+					name="content" />
+			</div>
 	 </div>
 	 
 </div>
 
 
 
-<aui:script>
- function <portlet:namespace/>initEditor(){
- return  "Sample CKEDITOR";
- }
-</aui:script>
