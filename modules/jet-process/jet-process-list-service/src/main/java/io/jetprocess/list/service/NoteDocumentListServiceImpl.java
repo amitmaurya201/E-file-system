@@ -11,13 +11,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osgi.service.component.annotations.Component;
+
 import io.jetprocess.list.api.NoteDocumentListService;
-import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.list.model.NoteDocumentDTO;
 
+@Component(immediate = true, service = NoteDocumentListService.class)
 public class NoteDocumentListServiceImpl implements NoteDocumentListService {
 	
-private static Log logger = LogFactoryUtil.getLog(FileListServiceImpl.class);
+private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.class);
 
 	
 	static Connection con = null;
@@ -35,6 +37,7 @@ private static Log logger = LogFactoryUtil.getLog(FileListServiceImpl.class);
 	public List<NoteDocumentDTO> getNoteDocumentCreatedList(long createdBy, String keyword, int start, int end,
 			String orderBy, String order) {
 		
+		logger.info("getting data------------------------------");
 		List<NoteDocumentDTO> noteDocumentList = new ArrayList<>();
 		CallableStatement prepareCall=null;
 		try {
@@ -51,6 +54,8 @@ private static Log logger = LogFactoryUtil.getLog(FileListServiceImpl.class);
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 				NoteDocumentDTO noteDocument = new NoteDocumentDTO();
+				noteDocument.setCategoryValue(rs.getString("categoryvalue"));	
+				noteDocument.setContent(rs.getString("content"));	
 				noteDocument.setNoteDocumentId(rs.getLong("notedocumentid"));
 				noteDocument.setCreatedOn(rs.getTimestamp("createdon"));
 				noteDocument.setNoteDocumentNumber(rs.getString("notedocumentnumber"));
@@ -69,7 +74,7 @@ private static Log logger = LogFactoryUtil.getLog(FileListServiceImpl.class);
 		}
 
 		// TODO Auto-generated method stub
-		return null;
+		return noteDocumentList;
 	}
 
 

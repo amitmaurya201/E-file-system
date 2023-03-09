@@ -54,15 +54,6 @@ public class NoteDocumentLocalServiceWrapper
 		return _noteDocumentLocalService.addNoteDocument(noteDocument);
 	}
 
-	@Override
-	public io.jetprocess.model.NoteDocument addNoteDocument(
-		String noteDocumentNumber, String subject, long createdBy,
-		long subjectCategoryId) {
-
-		return _noteDocumentLocalService.addNoteDocument(
-			noteDocumentNumber, subject, createdBy, subjectCategoryId);
-	}
-
 	/**
 	 * Creates a new note document with the primary key. Does not add the note document to the database.
 	 *
