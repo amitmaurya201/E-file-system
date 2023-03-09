@@ -18,14 +18,14 @@
 		<portlet:actionURL var="postContent"></portlet:actionURL>
 		
 		<h2 style="text-align: center; text-decoration: underline;">
-			<liferay-ui:message key="label-inner-note-document-heading" />
+			<liferay-ui:message key="label-note-document-heading" />
 		</h2>
 
 <aui:row>
 		<aui:col md="2" cssClass="col-md-2	">
 								<div class="textOnInput">
 									<label><liferay-ui:message
-											key="label-inner-note-document-subject" /></label>
+											key="label-note-subject" /></label>
 									<aui:input label="" name="" id="">
 										
 									</aui:input>
@@ -34,7 +34,7 @@
 							<aui:col md="2" cssClass="col-md-2">
 								<div class="textOnInput">
 									<label><liferay-ui:message
-											key="label-create-note-document-subject-category" /></label>
+											key="label-note-subject-category" /></label>
 									<aui:input label="" name="" id="">
 										
 									</aui:input>
@@ -43,7 +43,7 @@
 							<aui:col md="2" cssClass="col-md-2">
 								<div class="textOnInput">
 									<label><liferay-ui:message
-											key="label-create-note-document-createdOn" /></label>
+											key="label-note-created-on" /></label>
 									<aui:input label="" name="" id="">
 										
 									</aui:input>
@@ -52,7 +52,7 @@
 							<aui:col md="2" cssClass="col-md-2">
 								<div class="textOnInput">
 									<label><liferay-ui:message
-											key="label-create-note-document-note-document-no" /></label>
+											key="label-note-document-no" /></label>
 									<aui:input label="" name="" id="">
 										
 									</aui:input>
