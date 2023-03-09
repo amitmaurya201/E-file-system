@@ -78,6 +78,10 @@ public interface NoteDocumentLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public NoteDocument addNoteDocument(NoteDocument noteDocument);
 
+	public NoteDocument addNoteDocument(
+		String noteDocumentNumber, String subject, long createdBy,
+		long subjectCategoryId);
+
 	/**
 	 * Creates a new note document with the primary key. Does not add the note document to the database.
 	 *

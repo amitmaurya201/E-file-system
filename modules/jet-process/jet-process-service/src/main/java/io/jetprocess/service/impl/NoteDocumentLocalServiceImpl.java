@@ -40,8 +40,7 @@ public class NoteDocumentLocalServiceImpl
 		return null;
 	}
 	
-	@Reference
-	private CounterLocalService counterLocalService;
+	
 	
 	
 }

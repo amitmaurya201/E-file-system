@@ -56,6 +56,10 @@ DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integ
 DROP FUNCTION IF EXISTS public.get_closed_file_list_count(bigint, text);
 
 
+DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
+
+DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
+
 ------------------------File-created-list-----------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
@@ -2448,3 +2452,152 @@ $BODY$;
 
 ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     OWNER TO postgres;
+    
+    
+    
+    
+CREATE OR REPLACE FUNCTION public.get_notedocument_created_list(
+	_createdby bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	orderbytype text)
+    RETURNS TABLE(categoryvalue character varying, content text, notedocumentid bigint, createdon timestamp without time zone, notedocumentnumber character varying, subject character varying, createdby bigint, subjectcategoryid bigint) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+ declare
+      
+      _keyword text;
+      _offset int;
+      _limit int;
+      _orderby text;
+      _order text;
+      _query text;
+ begin 
+      
+       _query := 'SELECT c.categoryvalue , no.content, nd.notedocumentid as notedocumentid, nd.createdate as createdon, nd.notedocumentnumber as notedocumentnumber, nd.subject as subject, nd.createdby as createdby , nd.subjectcategoryid as subjectcategoryid  
+       FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON n.noteid =  n.notedocumentid
+       INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
+       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid';
+
+     _keyword := '''%' || keyword || '%''';
+     IF (_start <0 OR _start IS NULL) THEN
+        _offset := 0;
+     ELSE 
+        _offset := _start;
+     END IF;
+     
+     IF(_end <= 0 OR _end IS NULL) THEN
+        _limit := 4;
+     ELSE
+        _limit := _end;
+     END IF;
+     
+     IF (orderbycol = '' OR orderbycol = 'createdOn' OR orderbycol = 'createdon' OR orderbycol = 'createDate' OR orderbycol = 'createdate') THEN
+        _orderBy := ' nd.createdate ';
+     END IF;
+     
+      IF (orderbycol = 'notedocumentnumber' OR orderbycol = 'createDate' OR orderbycol = 'noteDocumentNumber') THEN
+        _orderBy := ' nd.notedocumentnumber ';
+     END IF;
+     
+     IF(orderByType ='' or orderByType IS NULL) THEN
+        _order := ' desc ';
+     ELSE 
+        _order := orderbytype;
+     END IF;
+    
+    IF(_createdby !=0) THEN
+        _query := _query ||' WHERE nd.createdby = ' || _createdby;
+        
+        IF (_keyword IS NOT NULL) THEN 
+            _query := _query || 'AND (notedocumentnumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
+            
+            if(_orderBy != '') THEN
+                _query := _query || ' order by ' || _orderBy;
+                
+                if(_order != '') THEN
+                    _query := _query || '' || _order;
+                
+                    if(_offset >= 0 ) THEN
+                        _query := _query || ' offset ' || _offset;
+                        
+                        if(_limit > 0 ) THEN 
+                            _query := _query || ' limit ' || _limit;
+                            
+                        END IF;
+                    
+                    END IF;
+                    
+                END IF;
+            
+            END IF;
+            
+        END IF;
+   
+   END IF;
+  
+  return query execute _query;
+
+end;
+
+$BODY$;
+
+ALTER FUNCTION public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+    
+    
+    
+    
+   
+CREATE OR REPLACE FUNCTION public.get_notedocument_list_count(
+	_createdby bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    total bigint;
+    _query text;
+    _keyword text;
+begin
+    total := 0;
+    _keyword :='''%'||keyword||'%''';
+    _query :='SELECT COUNT(*) 
+            FROM PUBLIC.jet_process_notedocument as nd 
+            INNER JOIN public.jet_process_documentnotemap as n ON n.noteid =  n.notedocumentid
+       INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
+       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid   where nd.createdby='||_createdby;
+    IF _createdby != 0 AND _createdby IS NOT NULL THEN
+    
+        IF  keyword !='' AND keyword IS NOT NULL  THEN
+    
+            
+           EXECUTE _query||' AND (nd.notedocumentnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
+            RETURN total;
+       
+       END IF;
+            
+            EXECUTE _query INTO total;
+            RETURN total;
+       
+       END IF;
+  RETURN total;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.get_notedocument_list_count(bigint, text)
+    OWNER TO postgres;
+
+

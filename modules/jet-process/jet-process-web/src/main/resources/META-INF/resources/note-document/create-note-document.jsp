@@ -7,6 +7,9 @@
 -->
 </style>
 
+<<portlet:actionURL var="saveNoteDocument" name="<%=MVCCommandNames.NOTE_DOCUMENT_ACTION_COMMAND %>"></portlet:actionURL>
+
+
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -16,6 +19,7 @@
 			<liferay-ui:message key="label-create-note-document-heading" />
 		</h2>
 		<div class="border" style="border: 2px solid #a19c9c;">
+		<aui:form action="<%=saveNoteDocument %>">
 			<aui:row>
 				<aui:col md="4" cssClass="mt-4">
 					<div class="textOnInput">
@@ -50,6 +54,6 @@
 				<aui:button cssClass="btn btn-primary" name="save" value="label-create-note-document-save-button"></aui:button>
 			</div>
 		</div>
-
+</aui:form>
 	</div>
 </div>

@@ -1,6 +1,18 @@
+<%@page import="io.jetprocess.model.NoteDocument"%>
 <%@ include file="../init.jsp"%>
 
 <%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
+
+<% 
+
+String content = (String)renderRequest.getAttribute("content");
+String categoryValue = (String)renderRequest.getAttribute("categoryValue");
+String noteDocumentNumber = (String)renderRequest.getAttribute("noteDocumentNumber");
+String subject = (String)renderRequest.getAttribute("subject");
+String date = (String)renderRequest.getAttribute("date");
+
+
+%>
 
  
 <div class="row">
@@ -26,7 +38,7 @@
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-subject" /></label>
-									<aui:input label="" name="" id="">
+									<aui:input label="" name="" id="" value="<%=subject%>" disabled="true">
 										
 									</aui:input>
 								</div>
@@ -35,7 +47,7 @@
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-subject-category" /></label>
-									<aui:input label="" name="" id="">
+									<aui:input label="" name="" id="" value="<%=categoryValue %>" disabled="true">
 										
 									</aui:input>
 								</div>
@@ -44,7 +56,7 @@
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-created-on" /></label>
-									<aui:input label="" name="" id="">
+									<aui:input label="" name="" id="" value="<%=date%>" disabled="true">
 										
 									</aui:input>
 								</div>
@@ -53,7 +65,7 @@
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-document-no" /></label>
-									<aui:input label="" name="" id="">
+									<aui:input label="" name="" id="" value="<%=noteDocumentNumber%>" disabled="true">
 										
 									</aui:input>
 								</div>
@@ -62,8 +74,8 @@
 							</aui:row>
 
 	<div class="m-3">
-				<liferay-editor:editor contents="" editorName="ckeditor"
-					name="content" />
+				<liferay-editor:editor contents="<%=content %>" editorName="ckeditor"
+					name="content"   />
 			</div>
 	 </div>
 	 

@@ -31,4 +31,5 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class NoteDocumentServiceImpl extends NoteDocumentServiceBaseImpl {
+	
 }

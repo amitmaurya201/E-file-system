@@ -24,24 +24,26 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.NoteDocumentListService;
 import io.jetprocess.list.model.NoteDocumentDTO;
-import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.NoteDocumentManagementToolbarDisplayContext;
 import io.jetprocess.web.util.UserPostUtil;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
-		"mvc.command.name=" + MVCCommandNames.CREATED_LIST_NOTE_DOCUMENT_RENDER_COMMAND }, service = MVCRenderCommand.class)
+		"mvc.command.name="
+				+ MVCCommandNames.CREATED_LIST_NOTE_DOCUMENT_RENDER_COMMAND }, service = MVCRenderCommand.class)
 
-public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand{
-	
+public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
+
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("CreatedNoteDocumentListRenderCommand called----->");
-		
+
 		logger.info("created-recipt-list.jsp -- called");
-		setCreatedNoteDocumentListAttributes(renderRequest);
-		setCreatedNoteDocumentManagementToolbarAttributes(renderRequest, renderResponse);
+
+		 setCreatedNoteDocumentListAttributes(renderRequest);
+		 setCreatedNoteDocumentManagementToolbarAttributes(renderRequest,
+		 renderResponse);
 		return "/note-document/created-note-document-list.jsp";
 	}
 
@@ -71,30 +73,30 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand{
 		renderRequest.setAttribute("noteDocumentCount", +noteDocumentCount);
 		renderRequest.setAttribute("delta", delta);
 	}
-	
-	
+
 	/**
 	 * Adds Clay management toolbar context object to the request.
+	 * 
 	 * @param renderRequest
 	 * @param renderResponse
 	 */
-	private void setCreatedNoteDocumentManagementToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
+
+	private void setCreatedNoteDocumentManagementToolbarAttributes(RenderRequest renderRequest,
+			RenderResponse renderResponse) {
 		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		NoteDocumentManagementToolbarDisplayContext noteDocumentManagementToolbarDisplayContext = new NoteDocumentManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-		renderRequest.setAttribute("NoteDocumentManagementToolbarDisplayContext", noteDocumentManagementToolbarDisplayContext);
+		renderRequest.setAttribute("NoteDocumentManagementToolbarDisplayContext",
+				noteDocumentManagementToolbarDisplayContext);
 	}
-	
 
 	@Reference
 	private NoteDocumentListService _noteDocumentList;
-	@Reference
-	private MasterdataLocalService masterdataLocalService;
+
 	@Reference
 	private Portal _portal;
 
 	private Log logger = LogFactoryUtil.getLog(CreatedNoteDocumentListRenderCommand.class);
-	
-	
+
 }

@@ -4,13 +4,26 @@ import java.util.Date;
 
 public class NoteDocumentDTO {
 	
+	private String categoryValue;
+	private String content;
 	private long noteDocumentId;
 	private Date createdOn;
 	private String noteDocumentNumber;
 	private String subject;
 	private long createdBy;
 	private long subjectCategoryId;
-
+	public String getCategoryValue() {
+		return categoryValue;
+	}
+	public void setCategoryValue(String categoryValue) {
+		this.categoryValue = categoryValue;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public long getNoteDocumentId() {
 		return noteDocumentId;
 	}
@@ -47,9 +60,11 @@ public class NoteDocumentDTO {
 	public void setSubjectCategoryId(long subjectCategoryId) {
 		this.subjectCategoryId = subjectCategoryId;
 	}
-	public NoteDocumentDTO(long noteDocumentId, Date createdOn, String noteDocumentNumber, String subject,
-			long createdBy, long subjectCategoryId) {
+	public NoteDocumentDTO(String categoryValue, String content, long noteDocumentId, Date createdOn,
+			String noteDocumentNumber, String subject, long createdBy, long subjectCategoryId) {
 		super();
+		this.categoryValue = categoryValue;
+		this.content = content;
 		this.noteDocumentId = noteDocumentId;
 		this.createdOn = createdOn;
 		this.noteDocumentNumber = noteDocumentNumber;
@@ -63,12 +78,13 @@ public class NoteDocumentDTO {
 	}
 	@Override
 	public String toString() {
-		return "NoteDocumentDTO [noteDocumentId=" + noteDocumentId + ", createdOn=" + createdOn
-				+ ", noteDocumentNumber=" + noteDocumentNumber + ", subject=" + subject + ", createdBy=" + createdBy
-				+ ", subjectCategoryId=" + subjectCategoryId + "]";
+		return "NoteDocumentDTO [categoryValue=" + categoryValue + ", content=" + content + ", noteDocumentId="
+				+ noteDocumentId + ", createdOn=" + createdOn + ", noteDocumentNumber=" + noteDocumentNumber
+				+ ", subject=" + subject + ", createdBy=" + createdBy + ", subjectCategoryId=" + subjectCategoryId
+				+ "]";
 	}
-	
 
+	
 
 
 }

@@ -60,6 +60,14 @@ public class NoteDocumentLocalServiceUtil {
 		return getService().addNoteDocument(noteDocument);
 	}
 
+	public static NoteDocument addNoteDocument(
+		String noteDocumentNumber, String subject, long createdBy,
+		long subjectCategoryId) {
+
+		return getService().addNoteDocument(
+			noteDocumentNumber, subject, createdBy, subjectCategoryId);
+	}
+
 	/**
 	 * Creates a new note document with the primary key. Does not add the note document to the database.
 	 *
