@@ -34,14 +34,20 @@ import io.jetprocess.web.util.UserPostUtil;
 		"mvc.command.name=" + MVCCommandNames.CORRESPONCE_FILE_RENDER }, service = MVCRenderCommand.class)
 public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 
+	 long docFileId=0;
+	 long fileMovementId=0;
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("render page of add file correspondence method called ");
-		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
-		renderRequest.setAttribute("docFileId", docFileId);
-		long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
-		renderRequest.setAttribute("fileMovementId", fileMovementId);
 		
+		if(ParamUtil.getLong(renderRequest, "docFileId1") !=0) {
+		 long docFileId = ParamUtil.getLong(renderRequest, "docFileId1");
+		 long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+		}
+		renderRequest.setAttribute("docFileId", docFileId);
+		renderRequest.setAttribute("fileMovementId", fileMovementId);
+		renderRequest.setAttribute("docFileId", docFileId);
+		logger.info("docfile id --------------id :"+docFileId+", doc mov : "+fileMovementId);
 		addFileToolbarAttributes(renderRequest, renderResponse);
 		addFileListAttributes(renderRequest);
 		return "/file/add-correspondence.jsp";
@@ -58,7 +64,9 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		long docFileId = ParamUtil.getLong(renderRequest, "docFileId");
+		 long docFileId = ParamUtil.getLong(renderRequest, "docFileId1");
+		System.out.println("docfile id --------------"+docFileId);
+
 		String natureType = null;
 		try {
 			DocFile docfile = docFileLocalService.getDocFile(docFileId);
