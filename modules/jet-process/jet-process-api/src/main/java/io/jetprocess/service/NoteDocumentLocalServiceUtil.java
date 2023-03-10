@@ -60,6 +60,14 @@ public class NoteDocumentLocalServiceUtil {
 		return getService().addNoteDocument(noteDocument);
 	}
 
+	public static NoteDocument addNoteDocument(
+		String noteSubject, long noteCategoryId, java.util.Date createdOn,
+		String content, long createdBy) {
+
+		return getService().addNoteDocument(
+			noteSubject, noteCategoryId, createdOn, content, createdBy);
+	}
+
 	/**
 	 * Creates a new note document with the primary key. Does not add the note document to the database.
 	 *
@@ -221,6 +229,10 @@ public class NoteDocumentLocalServiceUtil {
 		String uuid, long groupId) {
 
 		return getService().fetchNoteDocumentByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static String generateNoteDocumentNumber(long noteDocumentId) {
+		return getService().generateNoteDocumentNumber(noteDocumentId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

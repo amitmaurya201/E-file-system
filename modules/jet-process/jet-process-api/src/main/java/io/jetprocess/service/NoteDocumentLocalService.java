@@ -37,6 +37,7 @@ import io.jetprocess.model.NoteDocument;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -77,6 +78,10 @@ public interface NoteDocumentLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public NoteDocument addNoteDocument(NoteDocument noteDocument);
+
+	public NoteDocument addNoteDocument(
+		String noteSubject, long noteCategoryId, Date createdOn, String content,
+		long createdBy);
 
 	/**
 	 * Creates a new note document with the primary key. Does not add the note document to the database.
@@ -213,6 +218,8 @@ public interface NoteDocumentLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public NoteDocument fetchNoteDocumentByUuidAndGroupId(
 		String uuid, long groupId);
+
+	public String generateNoteDocumentNumber(long noteDocumentId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

@@ -54,6 +54,15 @@ public class NoteDocumentLocalServiceWrapper
 		return _noteDocumentLocalService.addNoteDocument(noteDocument);
 	}
 
+	@Override
+	public io.jetprocess.model.NoteDocument addNoteDocument(
+		String noteSubject, long noteCategoryId, java.util.Date createdOn,
+		String content, long createdBy) {
+
+		return _noteDocumentLocalService.addNoteDocument(
+			noteSubject, noteCategoryId, createdOn, content, createdBy);
+	}
+
 	/**
 	 * Creates a new note document with the primary key. Does not add the note document to the database.
 	 *
@@ -247,6 +256,12 @@ public class NoteDocumentLocalServiceWrapper
 
 		return _noteDocumentLocalService.fetchNoteDocumentByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	@Override
+	public String generateNoteDocumentNumber(long noteDocumentId) {
+		return _noteDocumentLocalService.generateNoteDocumentNumber(
+			noteDocumentId);
 	}
 
 	@Override

@@ -17,11 +17,17 @@ package io.jetprocess.service.impl;
 import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.aop.AopService;
 
-import io.jetprocess.model.NoteDocument;
-import io.jetprocess.service.base.NoteDocumentLocalServiceBaseImpl;
+import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import io.jetprocess.model.DocumentNoteMap;
+import io.jetprocess.model.Note;
+import io.jetprocess.model.NoteDocument;
+import io.jetprocess.service.DocumentNoteMapLocalService;
+import io.jetprocess.service.NoteLocalService;
+import io.jetprocess.service.base.NoteDocumentLocalServiceBaseImpl;
 
 /**
  * @author Brian Wing Shun Chan
@@ -33,14 +39,40 @@ import org.osgi.service.component.annotations.Reference;
 public class NoteDocumentLocalServiceImpl
 	extends NoteDocumentLocalServiceBaseImpl {
 	
-	public NoteDocument  addNoteDocument(String noteDocumentNumber , String subject , long createdBy , long subjectCategoryId ) {
+		public NoteDocument addNoteDocument(String noteSubject , long noteCategoryId , Date createdOn , String content , long createdBy) {
+	
+			
+			long noteDocumentId = counterLocalService.increment(NoteDocument.class.getName());
+			NoteDocument noteDocument=	createNoteDocument(noteDocumentId);
+			noteDocument.setCreatedBy(createdBy);
+			noteDocument.setSubject(noteSubject);
+			noteDocument.setSubjectCategoryId(noteCategoryId);
+			noteDocument.setCreateDate(createdOn);
+			noteDocument.setNoteDocumentNumber(generateNoteDocumentNumber(noteDocumentId));
+			addNoteDocument(noteDocument);
+			long noteId = counterLocalService.increment(Note.class.getName());
+		    Note note =	noteLocalService.createNote(noteId);
+		    note.setContent(content);
+		    note.setCreatedBy(createdBy);
+		    noteLocalService.addNote(note);
+			long documentNoteMapId = counterLocalService.increment(DocumentNoteMap.class.getName());
+			DocumentNoteMap documentNoteMap = documentNoteMapLocalService.createDocumentNoteMap(documentNoteMapId);
+			documentNoteMap.setNoteId(noteId);
+			documentNoteMap.setNoteDocumentId(noteDocumentId);
+			documentNoteMapLocalService.addDocumentNoteMap(documentNoteMap);
+		    return noteDocument;
+		}
+		
+		public String generateNoteDocumentNumber(long noteDocumentId) {
+			String noteDocumentNumber = "N"+noteDocumentId;
+			return noteDocumentNumber;
+		}
 		
 		
+		@Reference
+		private NoteLocalService noteLocalService;
 		
-		return null;
-	}
-	
-	
-	
+		@Reference
+		private DocumentNoteMapLocalService documentNoteMapLocalService;
 	
 }
