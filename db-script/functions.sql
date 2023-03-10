@@ -2454,8 +2454,7 @@ ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     OWNER TO postgres;
     
     
-    
- -- FUNCTION: public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
+-- FUNCTION: public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
 
 -- DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
 
@@ -2506,8 +2505,12 @@ AS $BODY$
         _orderBy := ' nd.createdate ';
      END IF;
      
-      IF (orderbycol = 'notedocumentnumber' OR orderbycol = 'createDate' OR orderbycol = 'noteDocumentNumber') THEN
+      IF (orderbycol = 'notedocumentnumber' OR orderbycol = 'noteDocumentNumber' ) THEN
         _orderBy := ' nd.notedocumentnumber ';
+     END IF;
+     
+      IF (orderbycol = 'subject' ) THEN
+        _orderBy := ' nd.subject ';
      END IF;
      
      IF(orderByType ='' or orderByType IS NULL) THEN
@@ -2555,7 +2558,7 @@ $BODY$;
 ALTER FUNCTION public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
-   -- FUNCTION: public.get_notedocument_list_count(bigint, text)
+  -- FUNCTION: public.get_notedocument_list_count(bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
 
@@ -2584,7 +2587,7 @@ begin
         IF  keyword !='' AND keyword IS NOT NULL  THEN
     
             
-           EXECUTE _query||' AND (nd.notedocumentnumber ilike '||_keyword||'  OR r.subject ilike '||_keyword||')' INTO total;
+           EXECUTE _query||' AND (nd.notedocumentnumber ilike '||_keyword||'  OR nd.subject ilike '||_keyword||')' INTO total;
             RETURN total;
        
        END IF;
