@@ -286,14 +286,6 @@ public class FileNoteLocalServiceWrapper
 		return _fileNoteLocalService.getFileNote(fileNoteId);
 	}
 
-	@Override
-	public io.jetprocess.model.FileNote getFileNoteByFilemovementId(
-		long filemovementId) {
-
-		return _fileNoteLocalService.getFileNoteByFilemovementId(
-			filemovementId);
-	}
-
 	/**
 	 * Returns the file note matching the UUID and group.
 	 *
@@ -308,6 +300,14 @@ public class FileNoteLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _fileNoteLocalService.getFileNoteByUuidAndGroupId(uuid, groupId);
+	}
+
+	@Override
+	public java.util.List<io.jetprocess.model.FileNote>
+		getFileNoteListByFilemovementId(long fileMovementId) {
+
+		return _fileNoteLocalService.getFileNoteListByFilemovementId(
+			fileMovementId);
 	}
 
 	/**

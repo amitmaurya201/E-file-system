@@ -158,6 +158,34 @@ public class NoteRsModel implements Serializable {
 	protected Long fileMovementId;
 
 	@Schema
+	public Boolean getHasYellowNote() {
+		return hasYellowNote;
+	}
+
+	public void setHasYellowNote(Boolean hasYellowNote) {
+		this.hasYellowNote = hasYellowNote;
+	}
+
+	@JsonIgnore
+	public void setHasYellowNote(
+		UnsafeSupplier<Boolean, Exception> hasYellowNoteUnsafeSupplier) {
+
+		try {
+			hasYellowNote = hasYellowNoteUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean hasYellowNote;
+
+	@Schema
 	public Long getNoteId() {
 		return noteId;
 	}
@@ -282,6 +310,16 @@ public class NoteRsModel implements Serializable {
 			sb.append("\"fileMovementId\": ");
 
 			sb.append(fileMovementId);
+		}
+
+		if (hasYellowNote != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"hasYellowNote\": ");
+
+			sb.append(hasYellowNote);
 		}
 
 		if (noteId != null) {

@@ -247,6 +247,27 @@ public interface NoteModel
 	 */
 	public void setSignature(String signature);
 
+	/**
+	 * Returns the has yellow note of this note.
+	 *
+	 * @return the has yellow note of this note
+	 */
+	public boolean getHasYellowNote();
+
+	/**
+	 * Returns <code>true</code> if this note is has yellow note.
+	 *
+	 * @return <code>true</code> if this note is has yellow note; <code>false</code> otherwise
+	 */
+	public boolean isHasYellowNote();
+
+	/**
+	 * Sets whether this note is has yellow note.
+	 *
+	 * @param hasYellowNote the has yellow note of this note
+	 */
+	public void setHasYellowNote(boolean hasYellowNote);
+
 	@Override
 	public Note cloneWithOriginalValues();
 

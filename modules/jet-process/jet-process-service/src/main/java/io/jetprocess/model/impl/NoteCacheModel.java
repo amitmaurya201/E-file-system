@@ -61,7 +61,7 @@ public class NoteCacheModel implements CacheModel<Note>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -85,6 +85,8 @@ public class NoteCacheModel implements CacheModel<Note>, Externalizable {
 		sb.append(createdBy);
 		sb.append(", signature=");
 		sb.append(signature);
+		sb.append(", hasYellowNote=");
+		sb.append(hasYellowNote);
 		sb.append("}");
 
 		return sb.toString();
@@ -143,6 +145,8 @@ public class NoteCacheModel implements CacheModel<Note>, Externalizable {
 			noteImpl.setSignature(signature);
 		}
 
+		noteImpl.setHasYellowNote(hasYellowNote);
+
 		noteImpl.resetOriginalValues();
 
 		return noteImpl;
@@ -168,6 +172,8 @@ public class NoteCacheModel implements CacheModel<Note>, Externalizable {
 
 		createdBy = objectInput.readLong();
 		signature = objectInput.readUTF();
+
+		hasYellowNote = objectInput.readBoolean();
 	}
 
 	@Override
@@ -212,6 +218,8 @@ public class NoteCacheModel implements CacheModel<Note>, Externalizable {
 		else {
 			objectOutput.writeUTF(signature);
 		}
+
+		objectOutput.writeBoolean(hasYellowNote);
 	}
 
 	public String uuid;
@@ -225,5 +233,6 @@ public class NoteCacheModel implements CacheModel<Note>, Externalizable {
 	public String content;
 	public long createdBy;
 	public String signature;
+	public boolean hasYellowNote;
 
 }

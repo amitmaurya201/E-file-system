@@ -258,10 +258,6 @@ public class FileNoteLocalServiceUtil {
 		return getService().getFileNote(fileNoteId);
 	}
 
-	public static FileNote getFileNoteByFilemovementId(long filemovementId) {
-		return getService().getFileNoteByFilemovementId(filemovementId);
-	}
-
 	/**
 	 * Returns the file note matching the UUID and group.
 	 *
@@ -275,6 +271,12 @@ public class FileNoteLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getFileNoteByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static List<FileNote> getFileNoteListByFilemovementId(
+		long fileMovementId) {
+
+		return getService().getFileNoteListByFilemovementId(fileMovementId);
 	}
 
 	/**

@@ -134,6 +134,7 @@
 		<field name="signature" type="String">
 			<hint name="max-length">500</hint>
 		</field>
+		<field name="hasYellowNote" type="boolean" />
 	</model>
 	<model name="io.jetprocess.model.NoteDocument">
 		<field name="uuid" type="String" />

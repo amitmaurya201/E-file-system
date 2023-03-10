@@ -56,10 +56,8 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		UserPost userPost = userPostLocalService.getUserPostById(postId);
 		List<NoteDTO> noteList = fileLists.getAttachedNoteList(viewMode, fileMovementId, docFileId);
 		 renderRequest.setAttribute("noteList", noteList); 
-		// renderRequest.setAttribute("sectionId", sectionId);
 		try {
 			DocFile docFile = docFileLocalService.getDocFileByDocFileId(docFileId);
-			allowToCloseFile(renderRequest, docFile);
 			renderRequest.setAttribute("nature", docFile.getNature());
 			renderRequest.setAttribute("docFileId", docFileId);
 			renderRequest.setAttribute("docFileObj", docFile);
@@ -68,15 +66,7 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("userPostSectionId", userPost.getSectionId());
 			renderRequest.setAttribute("autoSaveActive", "autoSaveActive");
 			renderRequest.setAttribute("fileSectionId", docFile.getDealingHeadSectionId());
-			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(fileMovementId);
-			if (fileNote != null) {
-				Note note = noteLocalService.getNote(fileNote.getNoteId());
-				renderRequest.setAttribute("noteContent", note.getContent());
-				renderRequest.setAttribute("modifiedDate", note.getModifiedDate());
-				renderRequest.setAttribute("fileNoteObj", fileNote);
-
-			}
-		
+			getFileNoteListByCurrentMovementId( renderRequest, fileMovementId);
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
@@ -86,13 +76,33 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
 		return "/file/file-inner-view.jsp";
 	}
 
-	private void allowToCloseFile(RenderRequest renderRequest, DocFile docFile) {
-		long postId= UserPostUtil.getUserIdUsingSession(renderRequest);
-		UserPost userPost = userPostLocalService.getUserPostById(postId);
-		if(docFile.getDealingHeadSectionId()==userPost.getSectionId()) {
-			renderRequest.setAttribute("closeAccess", true);
-		}
-	}
+    private void getFileNoteListByCurrentMovementId(RenderRequest renderRequest, long fileMovementId)
+            throws PortalException {
+        List<FileNote> fileNoteList = fileNoteLocalService.getFileNoteListByFilemovementId(fileMovementId);
+            for(FileNote fileNote: fileNoteList) {
+                long noteId=fileNote.getNoteId();
+                Note note=noteLocalService.getNote(noteId);
+                if(note.getHasYellowNote()) {
+                    System.out.println("yellow----"+note.getContent());
+                    renderRequest.setAttribute("yellowNoteContent",note.getContent());
+                    System.out.println("yellow-----"+note.getNoteId());
+                    renderRequest.setAttribute("yellowNoteId", note.getNoteId());
+                    System.out.println("yellow-----"+ note.getModifiedDate());
+                    renderRequest.setAttribute("yellowNoteModifiedDate", note.getModifiedDate());
+                    renderRequest.setAttribute("yellowFileNoteObj", fileNote);
+                    System.out.println("yellowFileNoteObj");
+                }
+                else {
+                    System.out.println("green------"+note.getContent());
+                    renderRequest.setAttribute("greenNoteContent", note.getContent());
+                    System.out.println("green------"+note.getModifiedDate());
+                    renderRequest.setAttribute("modifiedDate", note.getModifiedDate());
+                    renderRequest.setAttribute("greenFileNoteObj", fileNote);
+                    System.out.println("greenFileNoteObj");
+                }
+            }
+    }
+
 
 	private void setCorrespondenceListAttributes(RenderRequest renderRequest) {
 		logger.info("setting Correspondence list Attribute...");

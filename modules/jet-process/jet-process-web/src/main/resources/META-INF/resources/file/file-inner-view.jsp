@@ -22,13 +22,14 @@
 				type="hidden" /> <input id="fileMovementId"
 				value="<%=fileMovementId%>" type="hidden" />
 		</div>
+		
 		<div class="container row">
 			<c:set var="type" scope="session" value="${nature}" />
 			<c:if test="${type=='Electronic'}">
-				<div class="col-6" style="padding-right: 7px !important;">
+				<div class="col-md-6 col-sm-12" style="padding-right: 7px !important;">
 					<%@include file="/file/add-note.jsp"%>
 				</div>
-				<div class="col-6">
+				<div class="col-md-6 col-sm-12">
 					<%@include file="/file/correspondence-list.jsp"%>
 				</div>
 			</c:if>

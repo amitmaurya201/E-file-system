@@ -18,19 +18,20 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+import java.util.List;
+
 import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.exception.NoSuchFileNoteException;
 import io.jetprocess.model.FileNote;
 import io.jetprocess.service.base.FileNoteLocalServiceBaseImpl;
 
-
 /**
  * @author Brian Wing Shun Chan
  */
 @Component(property = "model.class.name=io.jetprocess.model.FileNote", service = AopService.class)
 public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
-	
+
 	public FileNote createFileNote() {
 		logger.info("Create FileNote method called");
 		long fileNoteId = counterLocalService.increment(FileNote.class.getName());
@@ -43,17 +44,11 @@ public class FileNoteLocalServiceImpl extends FileNoteLocalServiceBaseImpl {
 		fileNoteLocalService.deleteFileNote(fileNote);
 	}
 
-	public FileNote getFileNoteByFilemovementId(long filemovementId) {
-		logger.info("getFileNoteByFilemovementId method called");
-		FileNote fileNote = null;
-		try {
-			fileNote = fileNotePersistence.findByfilemovementId(filemovementId);
-		} catch (NoSuchFileNoteException e) {
-			logger.info(e.getMessage());
-		}
-		return fileNote;
+	public List <FileNote> getFileNoteListByFilemovementId(long fileMovementId){
+	  List<FileNote> fileNoteList =  fileNotePersistence.findByfilemovementId(fileMovementId);
+	 return fileNoteList;
 	}
-	
+
 	private static Log logger = LogFactoryUtil.getLog(FileNoteLocalServiceImpl.class);
 
 }

@@ -89,13 +89,13 @@ public class FileMovementLocalServiceImpl extends FileMovementLocalServiceBaseIm
 		addBlankNote(senderId, fileId, docFile, fileMovementId, fileMovement);
 	}
 
-	private void addBlankNote(long senderId, long fileId, DocFile docFile, long maxFmId, FileMovement fileMovement)
+	private void addBlankNote(long senderId, long fileId, DocFile docFile, long fileMovementId, FileMovement fileMovement)
 			throws PortalException {
 		if (fileMovement.getPullBackRemark() == null || fileMovement.getPullBackRemark().equals("null")
 				|| fileMovement.getPullBackRemark().isEmpty()) {
-			FileNote fileNote = fileNoteLocalService.getFileNoteByFilemovementId(maxFmId);
-			if (Validator.isNull(fileNote) && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
-				noteLocalService.addBlankNote(fileId, maxFmId, senderId);
+			List <FileNote> fileNote = fileNoteLocalService.getFileNoteListByFilemovementId(fileMovementId);
+			if (fileNote.isEmpty() && docFile.getNature().equals(FileConstants.ELECTRONIC_NATURE)) {
+				noteLocalService.addNote("", senderId, fileId, 0, fileMovementId, false);
 
 			}
 

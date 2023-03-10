@@ -51,7 +51,7 @@ public interface NoteService extends BaseService {
 	 */
 	public Note addNote(
 			String content, long createdBy, long fileId, long noteId,
-			long fileMovementId)
+			long fileMovementId, boolean hasYellowNote)
 		throws PortalException;
 
 	public Note deleteNote(long noteId) throws PortalException;

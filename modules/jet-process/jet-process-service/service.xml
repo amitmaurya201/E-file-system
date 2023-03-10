@@ -331,6 +331,7 @@
 		<column name="content" type="String"></column>
 		<column name="createdBy" type="long"></column>
 		<column name="signature" type="String"></column>
+		<column name="hasYellowNote" type="boolean"></column>
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
@@ -362,7 +363,8 @@
 		<finder return-type="FileNote" name="NoteId">
 			<finder-column name="noteId"></finder-column>
 		</finder>
-		<finder return-type="FileNote" name="filemovementId">
+		
+		<finder return-type="Collection" name="filemovementId">
 			<finder-column name="fileMovementId"></finder-column>
 		</finder>
 

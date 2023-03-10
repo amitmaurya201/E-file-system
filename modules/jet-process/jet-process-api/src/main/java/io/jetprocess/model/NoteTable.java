@@ -55,6 +55,8 @@ public class NoteTable extends BaseTable<NoteTable> {
 		"createdBy", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<NoteTable, String> signature = createColumn(
 		"signature", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<NoteTable, Boolean> hasYellowNote = createColumn(
+		"hasYellowNote", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 
 	private NoteTable() {
 		super("JET_PROCESS_Note", NoteTable::new);

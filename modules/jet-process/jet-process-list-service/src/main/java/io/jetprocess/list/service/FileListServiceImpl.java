@@ -444,6 +444,7 @@ public class FileListServiceImpl implements FileListService {
 					noteDTO.setSignature(rs.getString("signature"));
 					noteDTO.setCreateDate(rs.getTimestamp("createdate"));
 					noteDTO.setContent(rs.getString("content"));
+					noteDTO.setHasYellowNote(rs.getBoolean("hasyellownote"));
 					noteDtoList.add(noteDTO);
 				}
 			}

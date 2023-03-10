@@ -1286,7 +1286,7 @@ CREATE OR REPLACE FUNCTION public.get_all_attached_note_list(
     _viewmode text,
 	_filemovementid bigint,
 	_fileid bigint)
-    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text) 
+    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text, hasyellownote boolean) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -1300,7 +1300,7 @@ AS $BODY$
        viewmode text;
    
     begin
-    _query :='SELECT n.noteid, n.signature, n.modifieddate ,n."content" from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
+    _query :='SELECT n.noteid, n.signature, n.modifieddate ,n."content", n.hasyellownote from PUBLIC.jet_process_note n LEFT join PUBLIC.jet_process_filenote
 					fn on n.noteid = fn.noteid';
                     
          IF (_viewmode ='ViewModeFromSentFile') THEN

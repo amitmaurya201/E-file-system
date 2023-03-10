@@ -37,9 +37,9 @@ import io.jetprocess.service.base.NoteServiceBaseImpl;
 public class NoteServiceImpl extends NoteServiceBaseImpl {
 	
 	// addnote method 
-	public Note addNote(String content, long createdBy,long fileId, long noteId,long fileMovementId) throws PortalException {
+	public Note addNote(String content, long createdBy,long fileId, long noteId,long fileMovementId, boolean hasYellowNote) throws PortalException {
 		logger.info("add note method called");
-		return noteLocalService.addNote(content, createdBy,fileId, noteId, fileMovementId);
+		return noteLocalService.addNote(content, createdBy, fileId, noteId, fileMovementId, hasYellowNote);
 	}
 	// delete note method 
 	public Note deleteNote(long noteId) throws PortalException {

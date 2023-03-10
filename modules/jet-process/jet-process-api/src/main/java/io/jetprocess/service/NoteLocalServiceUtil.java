@@ -45,12 +45,6 @@ public class NoteLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static Note addBlankNote(
-			long fileId, long fileMovementId, long createdBy)
-		throws PortalException {
-
-		return getService().addBlankNote(fileId, fileMovementId, createdBy);
-	}
 
 	/**
 	 * Adds the note to the database. Also notifies the appropriate model listeners.
@@ -68,11 +62,11 @@ public class NoteLocalServiceUtil {
 
 	public static Note addNote(
 			String content, long createdBy, long fileId, long noteId,
-			long fileMovementId)
+			long fileMovementId, boolean hasYellowNote)
 		throws PortalException {
 
 		return getService().addNote(
-			content, createdBy, fileId, noteId, fileMovementId);
+			content, createdBy, fileId, noteId, fileMovementId, hasYellowNote);
 	}
 
 	/**

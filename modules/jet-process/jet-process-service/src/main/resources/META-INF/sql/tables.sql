@@ -143,7 +143,8 @@ create table JET_PROCESS_Note (
 	modifiedDate DATE null,
 	content TEXT null,
 	createdBy LONG,
-	signature VARCHAR(500) null
+	signature VARCHAR(500) null,
+	hasYellowNote BOOLEAN
 );
 
 create table JET_PROCESS_NoteDocument (

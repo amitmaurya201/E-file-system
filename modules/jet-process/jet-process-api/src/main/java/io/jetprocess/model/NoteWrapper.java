@@ -53,6 +53,7 @@ public class NoteWrapper
 		attributes.put("content", getContent());
 		attributes.put("createdBy", getCreatedBy());
 		attributes.put("signature", getSignature());
+		attributes.put("hasYellowNote", isHasYellowNote());
 
 		return attributes;
 	}
@@ -124,6 +125,12 @@ public class NoteWrapper
 		if (signature != null) {
 			setSignature(signature);
 		}
+
+		Boolean hasYellowNote = (Boolean)attributes.get("hasYellowNote");
+
+		if (hasYellowNote != null) {
+			setHasYellowNote(hasYellowNote);
+		}
 	}
 
 	@Override
@@ -179,6 +186,16 @@ public class NoteWrapper
 	@Override
 	public long getGroupId() {
 		return model.getGroupId();
+	}
+
+	/**
+	 * Returns the has yellow note of this note.
+	 *
+	 * @return the has yellow note of this note
+	 */
+	@Override
+	public boolean getHasYellowNote() {
+		return model.getHasYellowNote();
 	}
 
 	/**
@@ -261,6 +278,16 @@ public class NoteWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * Returns <code>true</code> if this note is has yellow note.
+	 *
+	 * @return <code>true</code> if this note is has yellow note; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isHasYellowNote() {
+		return model.isHasYellowNote();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -314,6 +341,16 @@ public class NoteWrapper
 	@Override
 	public void setGroupId(long groupId) {
 		model.setGroupId(groupId);
+	}
+
+	/**
+	 * Sets whether this note is has yellow note.
+	 *
+	 * @param hasYellowNote the has yellow note of this note
+	 */
+	@Override
+	public void setHasYellowNote(boolean hasYellowNote) {
+		model.setHasYellowNote(hasYellowNote);
 	}
 
 	/**

@@ -39,11 +39,11 @@ public class NoteServiceUtil {
 	 */
 	public static Note addNote(
 			String content, long createdBy, long fileId, long noteId,
-			long fileMovementId)
+			long fileMovementId, boolean hasYellowNote)
 		throws PortalException {
 
 		return getService().addNote(
-			content, createdBy, fileId, noteId, fileMovementId);
+			content, createdBy, fileId, noteId, fileMovementId, hasYellowNote);
 	}
 
 	public static Note deleteNote(long noteId) throws PortalException {

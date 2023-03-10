@@ -78,7 +78,7 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"content", Types.CLOB}, {"createdBy", Types.BIGINT},
-		{"signature", Types.VARCHAR}
+		{"signature", Types.VARCHAR}, {"hasYellowNote", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,10 +96,11 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		TABLE_COLUMNS_MAP.put("content", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("createdBy", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("signature", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("hasYellowNote", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_Note (uuid_ VARCHAR(75) null,noteId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,content TEXT null,createdBy LONG,signature VARCHAR(500) null)";
+		"create table JET_PROCESS_Note (uuid_ VARCHAR(75) null,noteId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,content TEXT null,createdBy LONG,signature VARCHAR(500) null,hasYellowNote BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table JET_PROCESS_Note";
 
@@ -277,6 +278,9 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		attributeGetterFunctions.put("signature", Note::getSignature);
 		attributeSetterBiConsumers.put(
 			"signature", (BiConsumer<Note, String>)Note::setSignature);
+		attributeGetterFunctions.put("hasYellowNote", Note::getHasYellowNote);
+		attributeSetterBiConsumers.put(
+			"hasYellowNote", (BiConsumer<Note, Boolean>)Note::setHasYellowNote);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -519,6 +523,27 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		_signature = signature;
 	}
 
+	@JSON
+	@Override
+	public boolean getHasYellowNote() {
+		return _hasYellowNote;
+	}
+
+	@JSON
+	@Override
+	public boolean isHasYellowNote() {
+		return _hasYellowNote;
+	}
+
+	@Override
+	public void setHasYellowNote(boolean hasYellowNote) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_hasYellowNote = hasYellowNote;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -592,6 +617,7 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		noteImpl.setContent(getContent());
 		noteImpl.setCreatedBy(getCreatedBy());
 		noteImpl.setSignature(getSignature());
+		noteImpl.setHasYellowNote(isHasYellowNote());
 
 		noteImpl.resetOriginalValues();
 
@@ -614,6 +640,8 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		noteImpl.setContent(this.<String>getColumnOriginalValue("content"));
 		noteImpl.setCreatedBy(this.<Long>getColumnOriginalValue("createdBy"));
 		noteImpl.setSignature(this.<String>getColumnOriginalValue("signature"));
+		noteImpl.setHasYellowNote(
+			this.<Boolean>getColumnOriginalValue("hasYellowNote"));
 
 		return noteImpl;
 	}
@@ -751,6 +779,8 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 			noteCacheModel.signature = null;
 		}
 
+		noteCacheModel.hasYellowNote = isHasYellowNote();
+
 		return noteCacheModel;
 	}
 
@@ -853,6 +883,7 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 	private String _content;
 	private long _createdBy;
 	private String _signature;
+	private boolean _hasYellowNote;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -894,6 +925,7 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		_columnOriginalValues.put("content", _content);
 		_columnOriginalValues.put("createdBy", _createdBy);
 		_columnOriginalValues.put("signature", _signature);
+		_columnOriginalValues.put("hasYellowNote", _hasYellowNote);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -938,6 +970,8 @@ public class NoteModelImpl extends BaseModelImpl<Note> implements NoteModel {
 		columnBitmasks.put("createdBy", 512L);
 
 		columnBitmasks.put("signature", 1024L);
+
+		columnBitmasks.put("hasYellowNote", 2048L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

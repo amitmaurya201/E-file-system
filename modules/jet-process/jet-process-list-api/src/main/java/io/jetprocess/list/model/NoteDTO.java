@@ -11,6 +11,7 @@ public class NoteDTO {
 	private String signature;
 	private Date createDate;
 	private String content;
+	private boolean hasYellowNote;
 
 	public long getNoteId() {
 		return noteId;
@@ -48,13 +49,23 @@ public class NoteDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public boolean isHasYellowNote() {
+		return hasYellowNote;
+	}
 
-	public NoteDTO(long noteId, String signature, Date createDate, String content) {
+	public void setHasYellowNote(boolean hasYellowNote) {
+		this.hasYellowNote = hasYellowNote;
+	}
+
+
+	public NoteDTO(long noteId, String signature, Date createDate, String content, boolean hasYellowNote) {
 		super();
 		this.noteId = noteId;
 		this.signature = signature;
 		this.createDate = createDate;
 		this.content = content;
+		this.hasYellowNote = hasYellowNote;
 	}
 
 	public NoteDTO() {

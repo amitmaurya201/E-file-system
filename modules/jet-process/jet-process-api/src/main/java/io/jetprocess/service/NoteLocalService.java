@@ -64,8 +64,6 @@ public interface NoteLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>io.jetprocess.service.impl.NoteLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the note local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link NoteLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public Note addBlankNote(long fileId, long fileMovementId, long createdBy)
-		throws PortalException;
 
 	/**
 	 * Adds the note to the database. Also notifies the appropriate model listeners.
@@ -82,7 +80,7 @@ public interface NoteLocalService
 
 	public Note addNote(
 			String content, long createdBy, long fileId, long noteId,
-			long fileMovementId)
+			long fileMovementId, boolean hasYellowNote)
 		throws PortalException;
 
 	/**

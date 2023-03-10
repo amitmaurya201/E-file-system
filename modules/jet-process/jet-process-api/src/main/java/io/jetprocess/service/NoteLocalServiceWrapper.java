@@ -34,15 +34,6 @@ public class NoteLocalServiceWrapper
 		_noteLocalService = noteLocalService;
 	}
 
-	@Override
-	public io.jetprocess.model.Note addBlankNote(
-			long fileId, long fileMovementId, long createdBy)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _noteLocalService.addBlankNote(
-			fileId, fileMovementId, createdBy);
-	}
-
 	/**
 	 * Adds the note to the database. Also notifies the appropriate model listeners.
 	 *
@@ -61,11 +52,11 @@ public class NoteLocalServiceWrapper
 	@Override
 	public io.jetprocess.model.Note addNote(
 			String content, long createdBy, long fileId, long noteId,
-			long fileMovementId)
+			long fileMovementId, boolean hasYellowNote)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _noteLocalService.addNote(
-			content, createdBy, fileId, noteId, fileMovementId);
+			content, createdBy, fileId, noteId, fileMovementId, hasYellowNote);
 	}
 
 	/**
