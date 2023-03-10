@@ -2455,7 +2455,10 @@ ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     
     
     
-    
+ -- FUNCTION: public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
+
 CREATE OR REPLACE FUNCTION public.get_notedocument_created_list(
 	_createdby bigint,
 	keyword text,
@@ -2482,7 +2485,7 @@ AS $BODY$
  begin 
       
        _query := 'SELECT c.categoryvalue , no.content, nd.notedocumentid as notedocumentid, nd.createdate as createdon, nd.notedocumentnumber as notedocumentnumber, nd.subject as subject, nd.createdby as createdby , nd.subjectcategoryid as subjectcategoryid  
-       FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON n.noteid =  n.notedocumentid
+       FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
        INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
        INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid';
 
@@ -2552,10 +2555,10 @@ $BODY$;
 ALTER FUNCTION public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
     
-    
-    
-    
-   
+   -- FUNCTION: public.get_notedocument_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
+
 CREATE OR REPLACE FUNCTION public.get_notedocument_list_count(
 	_createdby bigint,
 	keyword text)
@@ -2572,11 +2575,10 @@ declare
 begin
     total := 0;
     _keyword :='''%'||keyword||'%''';
-    _query :='SELECT COUNT(*) 
-            FROM PUBLIC.jet_process_notedocument as nd 
-            INNER JOIN public.jet_process_documentnotemap as n ON n.noteid =  n.notedocumentid
+    _query :='select COUNT(*)  
+       FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
        INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
-       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid   where nd.createdby='||_createdby;
+       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid where nd.createdby='||_createdby;
     IF _createdby != 0 AND _createdby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
@@ -2599,5 +2601,3 @@ $BODY$;
 
 ALTER FUNCTION public.get_notedocument_list_count(bigint, text)
     OWNER TO postgres;
-
-
