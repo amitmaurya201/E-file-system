@@ -95,5 +95,9 @@ public class MVCCommandNames {
 	public static final String NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND = "/innerViewNoteDocument";
 	
 	public static final String NOTE_DOCUMENT_ACTION_COMMAND = "/noteDocumentActionCommand";
+	
+	public static final String NOTE_DOCUMENT_UPDATE_ACTION_COMMAND = "/noteDocumentUpdateActionCommand";
+	
+	public static final String NOTE_DOCUMENT_UPDATE_RESOURCE_COMMAND = "/noteDocumentUpdateActionCommand";
 
 }
