@@ -68,6 +68,10 @@
 <%@page import="com.liferay.portal.kernel.json.JSONObject"%>
 <%@page import="io.jetprocess.list.model.NoteDTO"%>
 <%@page import="io.jetprocess.list.model.ClosedReceiptDTO"%>
+<%@page import="io.jetprocess.model.Note"%>
+<%@page import="io.jetprocess.model.NoteDocument"%>
+<%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
+
 <!-- Includes -->
 <%@include file="/common/common.jsp"%>
 <!-- link element -->

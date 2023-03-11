@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class NoteDocumentDTO {
 	
+	private Date modifiedDate;
+	private long noteId;
 	private String categoryValue;
 	private String content;
 	private long noteDocumentId;
@@ -12,6 +14,18 @@ public class NoteDocumentDTO {
 	private String subject;
 	private long createdBy;
 	private long subjectCategoryId;
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	public long getNoteId() {
+		return noteId;
+	}
+	public void setNoteId(long noteId) {
+		this.noteId = noteId;
+	}
 	public String getCategoryValue() {
 		return categoryValue;
 	}
@@ -60,9 +74,11 @@ public class NoteDocumentDTO {
 	public void setSubjectCategoryId(long subjectCategoryId) {
 		this.subjectCategoryId = subjectCategoryId;
 	}
-	public NoteDocumentDTO(String categoryValue, String content, long noteDocumentId, Date createdOn,
-			String noteDocumentNumber, String subject, long createdBy, long subjectCategoryId) {
+	public NoteDocumentDTO(Date modifiedDate, long noteId, String categoryValue, String content, long noteDocumentId,
+			Date createdOn, String noteDocumentNumber, String subject, long createdBy, long subjectCategoryId) {
 		super();
+		this.modifiedDate = modifiedDate;
+		this.noteId = noteId;
 		this.categoryValue = categoryValue;
 		this.content = content;
 		this.noteDocumentId = noteDocumentId;
@@ -78,12 +94,12 @@ public class NoteDocumentDTO {
 	}
 	@Override
 	public String toString() {
-		return "NoteDocumentDTO [categoryValue=" + categoryValue + ", content=" + content + ", noteDocumentId="
-				+ noteDocumentId + ", createdOn=" + createdOn + ", noteDocumentNumber=" + noteDocumentNumber
-				+ ", subject=" + subject + ", createdBy=" + createdBy + ", subjectCategoryId=" + subjectCategoryId
-				+ "]";
+		return "NoteDocumentDTO [modifiedDate=" + modifiedDate + ", noteId=" + noteId + ", categoryValue="
+				+ categoryValue + ", content=" + content + ", noteDocumentId=" + noteDocumentId + ", createdOn="
+				+ createdOn + ", noteDocumentNumber=" + noteDocumentNumber + ", subject=" + subject + ", createdBy="
+				+ createdBy + ", subjectCategoryId=" + subjectCategoryId + "]";
 	}
-
+	
 	
 
 

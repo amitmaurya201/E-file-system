@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.model.Note;
 import io.jetprocess.model.NoteDocument;
 
 import java.io.Serializable;
@@ -316,6 +317,9 @@ public interface NoteDocumentLocalService
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
+
+	public Note updateNoteDocument(long noteId, String content)
 		throws PortalException;
 
 	/**

@@ -16,6 +16,7 @@ package io.jetprocess.service.impl;
 
 import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.Date;
 
@@ -39,7 +40,7 @@ import io.jetprocess.service.base.NoteDocumentLocalServiceBaseImpl;
 public class NoteDocumentLocalServiceImpl
 	extends NoteDocumentLocalServiceBaseImpl {
 	
-		public NoteDocument addNoteDocument(String noteSubject , long noteCategoryId , Date createdOn , String content , long createdBy) {
+		public NoteDocument addNoteDocument(String noteSubject , long noteCategoryId , Date createdOn , String content , long createdBy ) {
 	
 			
 			long noteDocumentId = counterLocalService.increment(NoteDocument.class.getName());
@@ -62,6 +63,21 @@ public class NoteDocumentLocalServiceImpl
 			documentNoteMapLocalService.addDocumentNoteMap(documentNoteMap);
 		    return noteDocument;
 		}
+		
+		
+		public Note updateNoteDocument(long noteId , String content) throws PortalException {
+			System.out.println(noteId);
+			System.out.println("content"+content);
+			Note note = noteLocalService.getNote(noteId);
+			note.setContent(content);
+			noteLocalService.updateNote(note);
+			return note;
+			
+		}
+		
+		
+		
+		
 		
 		public String generateNoteDocumentNumber(long noteDocumentId) {
 			String noteDocumentNumber = "N"+noteDocumentId;

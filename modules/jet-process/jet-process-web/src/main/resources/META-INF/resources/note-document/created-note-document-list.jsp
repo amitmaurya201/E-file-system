@@ -24,21 +24,20 @@ DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 				className="io.jetprocess.list.model.NoteDocumentDTO"
 				keyProperty="noteDocumentNumber" modelVar="noteDocument" cssClass="colour">
 
-               <portlet:renderURL var="innerViewDetail">
+             
+
+                <portlet:renderURL var="innerViewDetail">
 					<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND%>" />
-					<portlet:param name="CategoryValue" value="<%=noteDocument.getCategoryValue()%>" />
-					<portlet:param name="Content" value="<%=noteDocument.getContent()%>" />
-					<portlet:param name="CreatedOn" value="<%=dateFormat.format(noteDocument.getCreatedOn())%>" />
-					<portlet:param name="NoteDocumentNumber" value="<%=noteDocument.getNoteDocumentNumber()%>" />
-					<portlet:param name="Subject" value="<%=noteDocument.getSubject()%>" />
-				
+					<portlet:param name="noteId" value="<%=String.valueOf(noteDocument.getNoteId())%>" />
+					<portlet:param name="noteDocumentId" value="<%=String.valueOf(noteDocument.getNoteDocumentId())%>" />
+					<portlet:param name="subjectCategoryValue" value="<%=noteDocument.getCategoryValue()%>" />	
 				</portlet:renderURL>
 			
 
 				<liferay-ui:search-container-column-text  href="<%=innerViewDetail%>"
 					value="<%=noteDocument.getNoteDocumentNumber() != null ? noteDocument.getNoteDocumentNumber() : ""%>"
 					name="label-notedocument-list-notedocumentnumber" cssClass="hyperlink-css" 
-					orderableProperty="noteDocumentNumber" orderable="true" />
+					orderableProperty="noteDocumentNumber"  orderable="true" />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
 					value="<%=noteDocument.getSubject() != null ? noteDocument.getSubject()  : ""%>"

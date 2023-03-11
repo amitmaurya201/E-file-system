@@ -13,11 +13,12 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.model.Note;
 import io.jetprocess.model.NoteDocument;
 import io.jetprocess.service.NoteDocumentLocalService;
+import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
-import io.jetprocess.web.render.file.ClosedFileListRenderCommand;
 
 @Component(immediate = true, property = { "javax.portlet.name=" + JetProcessWebPortletKeys.JETPROCESSWEB,
 		"mvc.command.name=" + MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND }, service = MVCRenderCommand.class)
@@ -26,21 +27,19 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-		logger.info("NoteDocumentInnerViewRenderCommand------>");	
-		String categoryValue = ParamUtil.getString(renderRequest, "CategoryValue");
-		String date = ParamUtil.getString(renderRequest, "CreatedOn");
-		String noteDocumentNumber = ParamUtil.getString(renderRequest, "NoteDocumentNumber");
-		String subject = ParamUtil.getString(renderRequest, "Subject");
-		String content = ParamUtil.getString(renderRequest, "Content");
-		renderRequest.setAttribute("categoryValue", categoryValue);
-		renderRequest.setAttribute("date", date);
-		renderRequest.setAttribute("noteDocumentNumber", noteDocumentNumber);
-		renderRequest.setAttribute("subject", subject);
-		renderRequest.setAttribute("content", content);
-		
-		
-
-		
+		logger.info("NoteDocumentInnerViewRenderCommand------>");
+		long noteDocumentNumber = ParamUtil.getLong(renderRequest, "noteDocumentId");
+		long noteId = ParamUtil.getLong(renderRequest, "noteId");
+		String subjectCategoryValue = ParamUtil.getString(renderRequest, "subjectCategoryValue");
+		renderRequest.setAttribute("subjectCategoryValue", subjectCategoryValue);
+		try {
+			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentNumber);
+			renderRequest.setAttribute("noteDocumentObj", noteDocument);
+			Note note = noteLocalService.getNote(noteId);
+			renderRequest.setAttribute("noteObj", note);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 		
 		return "/note-document/note-inner-view.jsp";
 	}
@@ -48,6 +47,9 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 	@Reference
 	private NoteDocumentLocalService noteDocumentLocalService;
 	
-	private Log logger = LogFactoryUtil.getLog(ClosedFileListRenderCommand.class);
+	@Reference
+	private NoteLocalService noteLocalService;
+	
+	private Log logger = LogFactoryUtil.getLog(NoteDocumentInnerViewRenderCommand.class);
 
 }

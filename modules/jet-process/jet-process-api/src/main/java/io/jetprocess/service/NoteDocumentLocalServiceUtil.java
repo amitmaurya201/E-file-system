@@ -357,6 +357,13 @@ public class NoteDocumentLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static io.jetprocess.model.Note updateNoteDocument(
+			long noteId, String content)
+		throws PortalException {
+
+		return getService().updateNoteDocument(noteId, content);
+	}
+
 	/**
 	 * Updates the note document in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

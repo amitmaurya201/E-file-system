@@ -404,6 +404,14 @@ public class NoteDocumentLocalServiceWrapper
 		return _noteDocumentLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public io.jetprocess.model.Note updateNoteDocument(
+			long noteId, String content)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _noteDocumentLocalService.updateNoteDocument(noteId, content);
+	}
+
 	/**
 	 * Updates the note document in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
