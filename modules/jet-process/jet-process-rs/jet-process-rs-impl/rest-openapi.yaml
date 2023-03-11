@@ -173,8 +173,10 @@ components:
           type: integer
         fileMovementId:
           format: int64
-          type: integer  
-          
+          type: integer
+        hasYellowNote:
+          type: boolean
+  
       type: object    
     NoteDocumentRsModel:
       description: Contains all the data for note Document creation.

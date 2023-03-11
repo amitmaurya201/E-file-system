@@ -88,13 +88,13 @@ AS $BODY$
     begin
       
 _keyword := '''%'||keyword||'%''';
-_query := 'Select fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
-                        f.remarks as remark,f.createdate as createdon ,  f.nature as nature, (case when n.content ='''' then false when n.content is null then false else true end )as hasNote
+_query := 'Select  fm.fmid as fileMovementId, f.docfileid as docfileid, f.filenumber as filenumber , f.subject as subject , categoryvalue as category ,
+                        f.remarks as remark,f.createdate as createdon ,  f.nature as nature, (case when n.content ='''' then false when n.content is null then false  else true end )as hasNote
      					FROM public.jet_process_docfile f  INNER JOIN public.md_category c 
                         ON c.categorydataid = f.categoryid
                         INNER JOIN public.jet_process_filemovement as fm ON fm.fileid = f.docfileid
-						left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid
-						left join public.jet_process_note as n on n.noteid = fn.noteid
+						left join (	select nt.noteid as noteid,nt.content as content, fin.filemovementid as filemovementid from public.jet_process_note nt inner join public.jet_process_filenote fin on 
+								   nt.noteid = fin.noteid where hasyellownote=false) as n on n.filemovementid = fm.fmid
 						where fm.movementtype=0 AND currentstate = 1';
   IF (_start <0 OR _start IS NULL) THEN
             _offset:=0;

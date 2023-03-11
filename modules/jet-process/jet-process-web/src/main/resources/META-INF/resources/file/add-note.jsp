@@ -60,12 +60,12 @@ word-wrap :break-word;
 	
 	<!-- -------------------------Note List------------------------ -->
 	<c:forEach items="${noteList}" var="note" varStatus="theCount">
-<c:if test= "${note.hasYellowNote }">
+		<c:if test= "${note.hasYellowNote }">
 		<div style="height: auto; border-color: gray; box-shadow: 1px 2px yellow;">
 		</c:if>
-		<c:if test = "${!note.hasYellowNote }">
+			<c:if test = "${!note.hasYellowNote }">
 			<div style="height: auto; border-color: gray; box-shadow: 1px 2px green;">
-		</c:if>
+			</c:if>
 			<b><liferay-ui:message key="label-add-note-note" /> # </b>
 			<c:out value="${theCount.count }"></c:out>
 			<div class="container note-list">${note.content}</div>
