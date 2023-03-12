@@ -1052,6 +1052,32 @@ public class MasterdataFinderImpl extends MasterdataFinderBaseImpl implements Ma
 		return (Long) null;
 	}
 
+	public List<Masterdata> getSubjectCategory() {
+
+		List<Masterdata> subjectCategoryList = Collections.EMPTY_LIST;
+		Session session = null;
+		try {
+			session = openSession();
+			String sql = customSQL.get(getClass(), "getSubjectCategory");
+			SQLQuery sqlQuery = session.createSQLQuery(sql);
+			sqlQuery.setCacheable(false);
+			sqlQuery.addEntity("Masterdata", MasterdataImpl.class);
+
+			subjectCategoryList = (List<Masterdata>) sqlQuery.list();
+			return subjectCategoryList;
+
+		} catch (Exception e) {
+			try {
+				throw new SystemException(e);
+			} catch (SystemException se) {
+				se.printStackTrace();
+			}
+		} finally {
+			closeSession(session);
+		}
+		return subjectCategoryList;
+	}
+	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }

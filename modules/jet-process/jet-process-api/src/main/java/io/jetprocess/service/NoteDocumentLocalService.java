@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import io.jetprocess.model.DocumentNoteMap;
 import io.jetprocess.model.Note;
 import io.jetprocess.model.NoteDocument;
 
@@ -80,7 +81,7 @@ public interface NoteDocumentLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public NoteDocument addNoteDocument(NoteDocument noteDocument);
 
-	public NoteDocument addNoteDocument(
+	public DocumentNoteMap addNoteDocument(
 		String noteSubject, long noteCategoryId, Date createdOn, String content,
 		long createdBy);
 

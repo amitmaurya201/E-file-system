@@ -1,7 +1,13 @@
 
+<%@page import="io.jetprocess.model.DocFile"%>
 <%
 	long corrFileId = (long) renderRequest.getAttribute("putInFileId");
-	String redirectURL = themeDisplay.getURLCurrent();
+System.out.println("corrFileId------"+corrFileId);
+
+long docFileId = (long) renderRequest.getAttribute("docFileId");
+System.out.println("docFileId------"+docFileId);
+
+String redirectURL = themeDisplay.getURLCurrent();
 %>
 <style>
 
@@ -199,8 +205,8 @@ a.close:hover {
 		value="<%=MVCCommandNames.CORRESPONCE_FILE_RENDER%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
-	<portlet:param name="docFileId"
-		value="<%=String.valueOf(docFile.getDocFileId())%>" />
+	<portlet:param name="docFileId1"
+		value="<%=String.valueOf(docFileId)%>" />
 
 </portlet:renderURL>
 
@@ -492,6 +498,9 @@ a.close:hover {
 </aui:form>
 </div>
  
+<div class="float-right">
+ <%=docFileId %></div>
+
 
 <!-- ************************* Jquery Popup button. these button are trigged by js  ****************************  -->
 <a class="js-open-modal" id="detachId" hidden data-modal-id="popup"></a>

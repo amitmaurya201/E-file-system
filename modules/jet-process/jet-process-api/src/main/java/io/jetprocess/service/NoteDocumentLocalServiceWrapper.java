@@ -55,7 +55,7 @@ public class NoteDocumentLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.NoteDocument addNoteDocument(
+	public io.jetprocess.model.DocumentNoteMap addNoteDocument(
 		String noteSubject, long noteCategoryId, java.util.Date createdOn,
 		String content, long createdBy) {
 

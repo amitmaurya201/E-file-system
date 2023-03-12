@@ -60,7 +60,7 @@ public class NoteDocumentLocalServiceUtil {
 		return getService().addNoteDocument(noteDocument);
 	}
 
-	public static NoteDocument addNoteDocument(
+	public static io.jetprocess.model.DocumentNoteMap addNoteDocument(
 		String noteSubject, long noteCategoryId, java.util.Date createdOn,
 		String content, long createdBy) {
 

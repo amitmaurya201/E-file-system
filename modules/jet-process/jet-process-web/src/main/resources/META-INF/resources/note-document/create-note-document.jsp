@@ -1,3 +1,4 @@
+<%@page import="io.jetprocess.masterdata.model.Masterdata"%>
 <%@ include file="../init.jsp"%>
 <style>
 <!--
@@ -9,7 +10,9 @@
 
 <portlet:actionURL var="saveNoteDocument" name="<%=MVCCommandNames.NOTE_DOCUMENT_ACTION_COMMAND %>"></portlet:actionURL>
 
-
+<%
+List<Masterdata> subCategory=(List<Masterdata>)request.getAttribute("subjectCategoryList");
+%>
 <div class="row">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -20,9 +23,9 @@
 		</h2>
 		<div class="border" style="border: 2px solid #a19c9c;">
 		<aui:form action="<%=saveNoteDocument %>" method="post">
-		<aui:input name="CreatedBy" value="<%=selectedUserPostId %>" type="hidden"></aui:input>
-			<aui:row>
-				<aui:col md="4" cssClass="mt-4">
+			<aui:row cssClass="mt-4">
+				<aui:input name="CreatedBy" value="<%=selectedUserPostId %>" type="hidden"></aui:input>
+				<aui:col md="4" cssClass="col-md-4">
 					<div class="textOnInput">
 						<label><liferay-ui:message
 								key="label-create-note-document-subject" /></label>
@@ -30,20 +33,20 @@
 						</aui:input>
 					</div>
 				</aui:col>
-				<aui:col md="4" cssClass="mt-4">
-					<%-- <div cssClass="input-group">
-												<aui:select cssClass="form-select form-control"
-													id="categoryId" name="categoryId"
-													label="label-file-categoryid">
-
-													<option value=''><liferay-ui:message
-															key="file-default-option" /></option>
-													<aui:validator name="required" />
-												</aui:select>
-											</div>
-					</div> --%>
+				<aui:col md="4" cssClass="">
+					<div cssClass="input-group">
+									<aui:select cssClass="form-select form-control"
+													 name="categoryId" >
+													<%
+														for(Masterdata subCategoryvalue:subCategory){
+													%>
+												<option value="<%= subCategoryvalue.getMasterdataId() %>"><%=subCategoryvalue.getValue() %></option>
+												<aui:validator name="required" />
+												<%} %>
+									</aui:select>
+						</div>
 				</aui:col>
-				<aui:col md="4" cssClass="mt-4">
+				<aui:col md="4" cssClass="col-md-4">
 					<div class="textOnInput">
 						<label><liferay-ui:message
 								key="label-create-note-document-createdOn" /></label>

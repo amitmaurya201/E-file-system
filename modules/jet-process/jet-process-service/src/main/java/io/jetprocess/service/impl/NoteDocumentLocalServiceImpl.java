@@ -40,7 +40,7 @@ import io.jetprocess.service.base.NoteDocumentLocalServiceBaseImpl;
 public class NoteDocumentLocalServiceImpl
 	extends NoteDocumentLocalServiceBaseImpl {
 	
-		public NoteDocument addNoteDocument(String noteSubject , long noteCategoryId , Date createdOn , String content , long createdBy ) {
+		public DocumentNoteMap addNoteDocument(String noteSubject , long noteCategoryId , Date createdOn , String content , long createdBy ) {
 	
 			
 			long noteDocumentId = counterLocalService.increment(NoteDocument.class.getName());
@@ -61,7 +61,7 @@ public class NoteDocumentLocalServiceImpl
 			documentNoteMap.setNoteId(noteId);
 			documentNoteMap.setNoteDocumentId(noteDocumentId);
 			documentNoteMapLocalService.addDocumentNoteMap(documentNoteMap);
-		    return noteDocument;
+		    return documentNoteMap;
 		}
 		
 		

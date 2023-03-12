@@ -348,6 +348,9 @@ public interface MasterdataLocalService
 	public Masterdata getSubCategoryById(long subCategoryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Masterdata> getSubjectCategory();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Masterdata getSubOrganizationById(long subOrganizationId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

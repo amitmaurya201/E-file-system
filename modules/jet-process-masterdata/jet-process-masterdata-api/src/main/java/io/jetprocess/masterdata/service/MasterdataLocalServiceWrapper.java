@@ -517,6 +517,13 @@ public class MasterdataLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getSubjectCategory() {
+
+		return _masterdataLocalService.getSubjectCategory();
+	}
+
+	@Override
 	public io.jetprocess.masterdata.model.Masterdata getSubOrganizationById(
 		long subOrganizationId) {
 

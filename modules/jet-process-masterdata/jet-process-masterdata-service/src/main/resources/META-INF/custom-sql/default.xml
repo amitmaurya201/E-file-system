@@ -327,11 +327,20 @@ WHERE receiptid = ? AND pullbackremark is NULL
 	
 	
 	
-		<sql id="maxReceiptClosedId">
+<sql id="maxReceiptClosedId">
 <![CDATA[
 select max(receiptclosedid) from PUBLIC.jet_process_receiptclosedetail where receiptid=?
 ]]>
 
 	</sql>
+
+<sql id="getSubjectCategory">
+<![CDATA[
+SELECT subjectcategoryid as masterdataid , 'C-'||subjectcategoryid as referenceid , subjectcategoryvalue as value , subjectcategoryvalue as code_
+	FROM md_subjectcategory ;
+]]>
+
+	</sql>
+
 
 </custom-sql>

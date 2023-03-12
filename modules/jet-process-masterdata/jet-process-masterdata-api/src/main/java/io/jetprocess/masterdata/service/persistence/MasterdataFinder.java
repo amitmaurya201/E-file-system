@@ -133,4 +133,7 @@ public interface MasterdataFinder {
 
 	public long getMaxCloseReceiptId(long receiptId);
 
+	public java.util.List<io.jetprocess.masterdata.model.Masterdata>
+		getSubjectCategory();
+
 }

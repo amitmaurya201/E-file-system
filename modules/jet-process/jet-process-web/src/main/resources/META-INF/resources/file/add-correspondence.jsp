@@ -1,14 +1,20 @@
 <%@ include file="../init.jsp"%>
 <%
-	long userPostsValue = (long) renderRequest.getAttribute("userPostId");
-	long docFileId = (Long) request.getAttribute("docFileId");
+	/* long userPostsValue = (long) renderRequest.getAttribute("userPostId");
+	 */
+	 long docFileId = (long) renderRequest.getAttribute("docFileId");
 	String redirectURL = themeDisplay.getURLCurrent();	
 	long fileMovementId = (long) renderRequest.getAttribute("fileMovementId");
+	renderRequest.setAttribute("docFileId1", docFileId);
+	renderRequest.setAttribute("fileMovementId", fileMovementId);
 %>
 
 <div class="p-3">
+<%=docFileId %>
+<%=fileMovementId %>
 	<portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
 	</portlet:actionURL>
+	
 	<clay:management-toolbar disabled="${receiptCount eq 0}"
 		displayContext="${addCorrespondenceManagementToolbarDisplayContext}"
 		itemsTotal="${receiptCount}" searchContainerId="receiptList"

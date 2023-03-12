@@ -406,6 +406,10 @@ public class MasterdataLocalServiceUtil {
 		return getService().getSubCategoryById(subCategoryId);
 	}
 
+	public static List<Masterdata> getSubjectCategory() {
+		return getService().getSubjectCategory();
+	}
+
 	public static Masterdata getSubOrganizationById(long subOrganizationId) {
 		return getService().getSubOrganizationById(subOrganizationId);
 	}

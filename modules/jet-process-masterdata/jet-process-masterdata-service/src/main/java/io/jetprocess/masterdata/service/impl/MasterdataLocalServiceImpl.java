@@ -230,6 +230,13 @@ public class MasterdataLocalServiceImpl extends MasterdataLocalServiceBaseImpl {
 
 	}
 	
+
+	public List<Masterdata> getSubjectCategory() {
+		return masterdataFinder.getSubjectCategory();
+
+	}
+	
+	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());
 
 }
