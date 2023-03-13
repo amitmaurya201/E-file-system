@@ -2456,8 +2456,6 @@ ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     
 -- FUNCTION: public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
 
--- DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
--- FUNCTION: public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
 
 -- DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
 
@@ -2468,7 +2466,7 @@ CREATE OR REPLACE FUNCTION public.get_notedocument_created_list(
 	_end integer,
 	orderbycol text,
 	orderbytype text)
-    RETURNS TABLE(modifieddate timestamp without time zone ,noteid bigint , categoryvalue character varying, content text, notedocumentid bigint, createdon timestamp without time zone, notedocumentnumber character varying, subject character varying, createdby bigint, subjectcategoryid bigint) 
+    RETURNS TABLE(modifieddate timestamp without time zone, noteid bigint, categoryvalue character varying, content text, notedocumentid bigint, createdon timestamp without time zone, notedocumentnumber character varying, subject character varying, createdby bigint, subjectcategoryid bigint) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -2486,7 +2484,7 @@ AS $BODY$
       _query text;
  begin 
       
-       _query := 'SELECT nd.modifieddate , n.noteid , c.categoryvalue , no.content, nd.notedocumentid as notedocumentid, nd.createdate as createdon, nd.notedocumentnumber as notedocumentnumber, nd.subject as subject, nd.createdby as createdby , nd.subjectcategoryid as subjectcategoryid  
+       _query := 'SELECT no.modifieddate , n.noteid , c.categoryvalue , no.content, nd.notedocumentid as notedocumentid, nd.createdate as createdon, nd.notedocumentnumber as notedocumentnumber, nd.subject as subject, nd.createdby as createdby , nd.subjectcategoryid as subjectcategoryid  
        FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
        INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
        INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid';

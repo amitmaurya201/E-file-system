@@ -9,18 +9,27 @@ String subjectcategoryValue = (String)renderRequest.getAttribute("subjectCategor
 
  <portlet:resourceURL id="<%=MVCCommandNames.NOTE_DOCUMENT_UPDATE_RESOURCE_COMMAND %>" var="updateNoteContent">
 </portlet:resourceURL>
-<div class="row">
+<style>
+p.ex1 {
+  margin-top: 40px;
+}
+</style>
+
+<div class="row ">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
-	<div class="col-10">
+	
+	<div class="col-10 ">
+	
 	<liferay-util:include page="/note-document/note-document-navigation.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="navhome" />
 		</liferay-util:include>
 		
-<aui:row>
-		<aui:col md="2" cssClass="col-md-2	">
+		<div class=" noteDocument ext1">
+<aui:row cssClass="mt-4 ">
+		<aui:col md="3" cssClass="col-md-3	">
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-subject" /></label>
@@ -29,25 +38,25 @@ String subjectcategoryValue = (String)renderRequest.getAttribute("subjectCategor
 									</aui:input>
 								</div>
 							</aui:col>
-							<aui:col md="2" cssClass="col-md-2">
+							<aui:col md="3" cssClass="col-md-3">
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-subject-category" /></label>
-									<aui:input label="" name="" id="" value="<%=subjectcategoryValue%>"  disabled="true" cssClass="hover-tips">
+									<aui:input label="" name="" id="" value="<%=subjectcategoryValue%>"  disabled="true" cssClass="hover-tips" >
 										
 									</aui:input>
 								</div>
 							</aui:col>
-							<aui:col md="2" cssClass="col-md-2">
+							<aui:col md="3" cssClass="col-md-3">
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-created-on" /></label>
-									<aui:input label="" name="" id="" value="<%=noteDocument.getCreateDate()%>" disabled="true" cssClass="hover-tips">
+									<aui:input label="" name="" id="" value="<%=simpleFormat.format(noteDocument.getCreateDate())%>" disabled="true" cssClass="hover-tips">
 										
 									</aui:input>
 								</div>
 							</aui:col>
-							<aui:col md="2" cssClass="col-md-2">
+							<aui:col md="3" cssClass="col-md-3">
 								<div class="textOnInput">
 									<label><liferay-ui:message
 											key="label-note-document-no" /></label>
@@ -58,7 +67,7 @@ String subjectcategoryValue = (String)renderRequest.getAttribute("subjectCategor
 							</aui:col>
 							
 							</aui:row>
-						
+						</div>
 
 	<div class="m-3">
 	<aui:form name = "addNoteDocument">	
@@ -66,6 +75,9 @@ String subjectcategoryValue = (String)renderRequest.getAttribute("subjectCategor
 			<div id = "editor-head">
 			
 					<span style="padding: 0 19%;"><liferay-ui:message key="label-add-note-last-saved" /> 
+					<fmt:formatDate
+							type="both" pattern="dd/MM/yyyy  hh:mm aa"
+							timeZone="Asia/Calcutta" value="<%=note.getModifiedDate()%>" />
 					</span>
 				
 			</div>	
@@ -78,13 +90,13 @@ String subjectcategoryValue = (String)renderRequest.getAttribute("subjectCategor
 	 </div>
 	 
 </div>
-
+</div>
 
 <aui:script>
 $( ".control-label" ).remove();
 var contentOnchange=" ";
 var noteContent = `${content}`;
-console.log("noteContent"+noteContent);
+
 if(noteContent==''){
 	$("#editor-head").css("background-color","#960018");	
 }
@@ -96,28 +108,23 @@ else{
  function <portlet:namespace/>clickHandler() {
 
 	 contentOnchange = CKEDITOR.instances["<portlet:namespace/>content"].getData();
-	  console.log("onchange"+contentOnchange);
 	 if(noteContent!=contentOnchange){
 	$("#editor-head").css("background-color","#960018");
-	 }
+	 } 
 }
 
 
 
  function saveNoteDocument() {
-	 console.log("save note");
 	 var content = CKEDITOR.instances["<portlet:namespace/>content"].getData();
-	 if(content==''){
-		 $("#editor-head").css("background-color","#960018");
-	 }
+	  if(content==''){
+		 $("#editor-head").css("background-color","green");
+	 } 
 	
 	 if(noteContent!=contentOnchange ){
-	 console.log("--=-=-=--=-==-");
 		AUI().use('aui-io-request','aui-base','io', function(A){
 			var form = A.one("#<portlet:namespace/>addNoteDocument");
-			console.log(form);
 			let data = CKEDITOR.instances["<portlet:namespace/>content"].getData();
-			console.log('data:: '+data);
 			
 			$(form._node[2]).val(data);
 				  A.io.request('<%=updateNoteContent.toString()%>', {
@@ -127,7 +134,6 @@ else{
 					},
 					on : {
 					success : function() { 
-				            console.log("--=-=-=--=-==- 1");
 					   	       	 } 
 							}
 						});
@@ -138,7 +144,7 @@ else{
 	
 	
 }
- setInterval(saveNoteDocument, 10000);
+ setInterval(saveNoteDocument, 1000);
 </aui:script>
 
  
