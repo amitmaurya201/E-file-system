@@ -65,7 +65,7 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = delta;
 		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "modifieddate");
+		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createdOn");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
