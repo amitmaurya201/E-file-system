@@ -35,8 +35,8 @@
 		value="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_RENDER_COMMAND%>" />
 </portlet:renderURL>
 <portlet:renderURL var="movement">
-	<portlet:param name="mvcPath"
-		value="/note-document/note-document-movement.jsp" />
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.NOTE_DOCUMENT_MOVEMENT_LIST_RENDER_COMMAND%>" />
 </portlet:renderURL>
 
 <nav class="navbar navbar-expand-lg navbar-light  mt-1 "

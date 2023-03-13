@@ -15,6 +15,7 @@ import org.osgi.service.component.annotations.Component;
 
 import io.jetprocess.list.api.NoteDocumentListService;
 import io.jetprocess.list.model.NoteDocumentDTO;
+import io.jetprocess.list.model.NoteDocumentMovementDTO;
 
 @Component(immediate = true, service = NoteDocumentListService.class)
 public class NoteDocumentListServiceImpl implements NoteDocumentListService {
@@ -89,6 +90,79 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 		try {
 			prepareCall = con.prepareCall("select public.get_notedocument_list_count(?, ?)");
 			prepareCall.setLong(1, createdBy);
+			prepareCall.setString(2, keyword);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet resultSet = prepareCall.getResultSet();
+				if (resultSet.next()) {
+					count = resultSet.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection" + e);
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up statement");
+		}
+		return count;
+	}
+
+
+	@Override
+	public List<NoteDocumentMovementDTO> getNoteDocumentMovementList(long notedocumentId, String keyword, int start,
+			int end, String orderBy, String order) {
+		logger.info("getting data----------NoteDocument Movement List--------------------");
+		List<NoteDocumentMovementDTO> noteDocumentMovementList = new ArrayList<>();
+		CallableStatement prepareCall=null;
+		try {
+			
+			 prepareCall = con.prepareCall("--------------------");
+			prepareCall.setLong(1, notedocumentId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+				NoteDocumentMovementDTO noteDocument = new NoteDocumentMovementDTO();
+				noteDocument.setNoteDocumentNumber(rs.getString("notedocumentnumber"));
+				noteDocument.setSubject(rs.getString("subject"));
+				noteDocument.setSentBy(rs.getString("sentby"));	
+				noteDocument.setSentOn(rs.getTimestamp("sendon"));
+				noteDocument.setSentTo(rs.getString("sentto"));
+				noteDocument.setRemarks(rs.getString("remarks"));
+				noteDocument.setCurrentlyWith(rs.getLong("currentlywith"));
+				noteDocument.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
+				noteDocumentMovementList.add(noteDocument);	
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+
+		}
+
+		// TODO Auto-generated method stub
+		return noteDocumentMovementList;
+
+	}
+
+
+	@Override
+	public int getNoteDocumentMovementListCount(long notedocumentId, String keyword) {
+		
+		logger.info("Getting NoteDocument Movement List Count...");
+		int count = 0;
+		CallableStatement prepareCall = null;
+		try {
+			prepareCall = con.prepareCall("-----------------------");
+			prepareCall.setLong(1, notedocumentId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();
 			if (execute) {

@@ -100,4 +100,6 @@ public class MVCCommandNames {
 	
 	public static final String NOTE_DOCUMENT_UPDATE_RESOURCE_COMMAND = "/noteDocumentUpdateActionCommand";
 
+	public static final String NOTE_DOCUMENT_MOVEMENT_LIST_RENDER_COMMAND = "/noteDocumentMovementRenderCommand";
+
 }
