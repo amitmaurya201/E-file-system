@@ -175,7 +175,9 @@ create table JET_PROCESS_NoteDocument (
 	noteDocumentNumber VARCHAR(75) null,
 	subject VARCHAR(500) null,
 	createdBy LONG,
-	subjectCategoryId LONG
+	subjectCategoryId LONG,
+	currentlyWith LONG,
+	currentState INTEGER
 );
 
 create table JET_PROCESS_Receipt (

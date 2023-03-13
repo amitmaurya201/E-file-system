@@ -55,6 +55,8 @@ public class NoteDocumentWrapper
 		attributes.put("subject", getSubject());
 		attributes.put("createdBy", getCreatedBy());
 		attributes.put("subjectCategoryId", getSubjectCategoryId());
+		attributes.put("currentlyWith", getCurrentlyWith());
+		attributes.put("currentState", getCurrentState());
 
 		return attributes;
 	}
@@ -133,6 +135,18 @@ public class NoteDocumentWrapper
 		if (subjectCategoryId != null) {
 			setSubjectCategoryId(subjectCategoryId);
 		}
+
+		Long currentlyWith = (Long)attributes.get("currentlyWith");
+
+		if (currentlyWith != null) {
+			setCurrentlyWith(currentlyWith);
+		}
+
+		Integer currentState = (Integer)attributes.get("currentState");
+
+		if (currentState != null) {
+			setCurrentState(currentState);
+		}
 	}
 
 	@Override
@@ -168,6 +182,26 @@ public class NoteDocumentWrapper
 	@Override
 	public long getCreatedBy() {
 		return model.getCreatedBy();
+	}
+
+	/**
+	 * Returns the currently with of this note document.
+	 *
+	 * @return the currently with of this note document
+	 */
+	@Override
+	public long getCurrentlyWith() {
+		return model.getCurrentlyWith();
+	}
+
+	/**
+	 * Returns the current state of this note document.
+	 *
+	 * @return the current state of this note document
+	 */
+	@Override
+	public int getCurrentState() {
+		return model.getCurrentState();
 	}
 
 	/**
@@ -313,6 +347,26 @@ public class NoteDocumentWrapper
 	@Override
 	public void setCreatedBy(long createdBy) {
 		model.setCreatedBy(createdBy);
+	}
+
+	/**
+	 * Sets the currently with of this note document.
+	 *
+	 * @param currentlyWith the currently with of this note document
+	 */
+	@Override
+	public void setCurrentlyWith(long currentlyWith) {
+		model.setCurrentlyWith(currentlyWith);
+	}
+
+	/**
+	 * Sets the current state of this note document.
+	 *
+	 * @param currentState the current state of this note document
+	 */
+	@Override
+	public void setCurrentState(int currentState) {
+		model.setCurrentState(currentState);
 	}
 
 	/**

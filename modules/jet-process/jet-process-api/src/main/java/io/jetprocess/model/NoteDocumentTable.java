@@ -59,6 +59,10 @@ public class NoteDocumentTable extends BaseTable<NoteDocumentTable> {
 	public final Column<NoteDocumentTable, Long> subjectCategoryId =
 		createColumn(
 			"subjectCategoryId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<NoteDocumentTable, Long> currentlyWith = createColumn(
+		"currentlyWith", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<NoteDocumentTable, Integer> currentState = createColumn(
+		"currentState", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
 
 	private NoteDocumentTable() {
 		super("JET_PROCESS_NoteDocument", NoteDocumentTable::new);

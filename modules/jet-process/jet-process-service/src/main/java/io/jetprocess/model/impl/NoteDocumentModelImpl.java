@@ -79,7 +79,8 @@ public class NoteDocumentModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"noteDocumentNumber", Types.VARCHAR}, {"subject", Types.VARCHAR},
-		{"createdBy", Types.BIGINT}, {"subjectCategoryId", Types.BIGINT}
+		{"createdBy", Types.BIGINT}, {"subjectCategoryId", Types.BIGINT},
+		{"currentlyWith", Types.BIGINT}, {"currentState", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,10 +99,12 @@ public class NoteDocumentModelImpl
 		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createdBy", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("subjectCategoryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("currentlyWith", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("currentState", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_NoteDocument (uuid_ VARCHAR(75) null,noteDocumentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,noteDocumentNumber VARCHAR(75) null,subject VARCHAR(500) null,createdBy LONG,subjectCategoryId LONG)";
+		"create table JET_PROCESS_NoteDocument (uuid_ VARCHAR(75) null,noteDocumentId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,noteDocumentNumber VARCHAR(75) null,subject VARCHAR(500) null,createdBy LONG,subjectCategoryId LONG,currentlyWith LONG,currentState INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_NoteDocument";
@@ -304,6 +307,16 @@ public class NoteDocumentModelImpl
 		attributeSetterBiConsumers.put(
 			"subjectCategoryId",
 			(BiConsumer<NoteDocument, Long>)NoteDocument::setSubjectCategoryId);
+		attributeGetterFunctions.put(
+			"currentlyWith", NoteDocument::getCurrentlyWith);
+		attributeSetterBiConsumers.put(
+			"currentlyWith",
+			(BiConsumer<NoteDocument, Long>)NoteDocument::setCurrentlyWith);
+		attributeGetterFunctions.put(
+			"currentState", NoteDocument::getCurrentState);
+		attributeSetterBiConsumers.put(
+			"currentState",
+			(BiConsumer<NoteDocument, Integer>)NoteDocument::setCurrentState);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -561,6 +574,36 @@ public class NoteDocumentModelImpl
 		_subjectCategoryId = subjectCategoryId;
 	}
 
+	@JSON
+	@Override
+	public long getCurrentlyWith() {
+		return _currentlyWith;
+	}
+
+	@Override
+	public void setCurrentlyWith(long currentlyWith) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_currentlyWith = currentlyWith;
+	}
+
+	@JSON
+	@Override
+	public int getCurrentState() {
+		return _currentState;
+	}
+
+	@Override
+	public void setCurrentState(int currentState) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_currentState = currentState;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -635,6 +678,8 @@ public class NoteDocumentModelImpl
 		noteDocumentImpl.setSubject(getSubject());
 		noteDocumentImpl.setCreatedBy(getCreatedBy());
 		noteDocumentImpl.setSubjectCategoryId(getSubjectCategoryId());
+		noteDocumentImpl.setCurrentlyWith(getCurrentlyWith());
+		noteDocumentImpl.setCurrentState(getCurrentState());
 
 		noteDocumentImpl.resetOriginalValues();
 
@@ -667,6 +712,10 @@ public class NoteDocumentModelImpl
 			this.<Long>getColumnOriginalValue("createdBy"));
 		noteDocumentImpl.setSubjectCategoryId(
 			this.<Long>getColumnOriginalValue("subjectCategoryId"));
+		noteDocumentImpl.setCurrentlyWith(
+			this.<Long>getColumnOriginalValue("currentlyWith"));
+		noteDocumentImpl.setCurrentState(
+			this.<Integer>getColumnOriginalValue("currentState"));
 
 		return noteDocumentImpl;
 	}
@@ -809,6 +858,10 @@ public class NoteDocumentModelImpl
 
 		noteDocumentCacheModel.subjectCategoryId = getSubjectCategoryId();
 
+		noteDocumentCacheModel.currentlyWith = getCurrentlyWith();
+
+		noteDocumentCacheModel.currentState = getCurrentState();
+
 		return noteDocumentCacheModel;
 	}
 
@@ -914,6 +967,8 @@ public class NoteDocumentModelImpl
 	private String _subject;
 	private long _createdBy;
 	private long _subjectCategoryId;
+	private long _currentlyWith;
+	private int _currentState;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -956,6 +1011,8 @@ public class NoteDocumentModelImpl
 		_columnOriginalValues.put("subject", _subject);
 		_columnOriginalValues.put("createdBy", _createdBy);
 		_columnOriginalValues.put("subjectCategoryId", _subjectCategoryId);
+		_columnOriginalValues.put("currentlyWith", _currentlyWith);
+		_columnOriginalValues.put("currentState", _currentState);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1002,6 +1059,10 @@ public class NoteDocumentModelImpl
 		columnBitmasks.put("createdBy", 1024L);
 
 		columnBitmasks.put("subjectCategoryId", 2048L);
+
+		columnBitmasks.put("currentlyWith", 4096L);
+
+		columnBitmasks.put("currentState", 8192L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

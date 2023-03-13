@@ -262,6 +262,34 @@ public interface NoteDocumentModel
 	 */
 	public void setSubjectCategoryId(long subjectCategoryId);
 
+	/**
+	 * Returns the currently with of this note document.
+	 *
+	 * @return the currently with of this note document
+	 */
+	public long getCurrentlyWith();
+
+	/**
+	 * Sets the currently with of this note document.
+	 *
+	 * @param currentlyWith the currently with of this note document
+	 */
+	public void setCurrentlyWith(long currentlyWith);
+
+	/**
+	 * Returns the current state of this note document.
+	 *
+	 * @return the current state of this note document
+	 */
+	public int getCurrentState();
+
+	/**
+	 * Sets the current state of this note document.
+	 *
+	 * @param currentState the current state of this note document
+	 */
+	public void setCurrentState(int currentState);
+
 	@Override
 	public NoteDocument cloneWithOriginalValues();
 

@@ -63,7 +63,7 @@ public class NoteDocumentCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -89,6 +89,10 @@ public class NoteDocumentCacheModel
 		sb.append(createdBy);
 		sb.append(", subjectCategoryId=");
 		sb.append(subjectCategoryId);
+		sb.append(", currentlyWith=");
+		sb.append(currentlyWith);
+		sb.append(", currentState=");
+		sb.append(currentState);
 		sb.append("}");
 
 		return sb.toString();
@@ -147,6 +151,8 @@ public class NoteDocumentCacheModel
 
 		noteDocumentImpl.setCreatedBy(createdBy);
 		noteDocumentImpl.setSubjectCategoryId(subjectCategoryId);
+		noteDocumentImpl.setCurrentlyWith(currentlyWith);
+		noteDocumentImpl.setCurrentState(currentState);
 
 		noteDocumentImpl.resetOriginalValues();
 
@@ -173,6 +179,10 @@ public class NoteDocumentCacheModel
 		createdBy = objectInput.readLong();
 
 		subjectCategoryId = objectInput.readLong();
+
+		currentlyWith = objectInput.readLong();
+
+		currentState = objectInput.readInt();
 	}
 
 	@Override
@@ -219,6 +229,10 @@ public class NoteDocumentCacheModel
 		objectOutput.writeLong(createdBy);
 
 		objectOutput.writeLong(subjectCategoryId);
+
+		objectOutput.writeLong(currentlyWith);
+
+		objectOutput.writeInt(currentState);
 	}
 
 	public String uuid;
@@ -233,5 +247,7 @@ public class NoteDocumentCacheModel
 	public String subject;
 	public long createdBy;
 	public long subjectCategoryId;
+	public long currentlyWith;
+	public int currentState;
 
 }

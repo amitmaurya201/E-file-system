@@ -168,6 +168,8 @@
 		</field>
 		<field name="createdBy" type="long" />
 		<field name="subjectCategoryId" type="long" />
+		<field name="currentlyWith" type="long" />
+		<field name="currentState" type="int" />
 	</model>
 	<model name="io.jetprocess.model.Receipt">
 		<field name="uuid" type="String" />

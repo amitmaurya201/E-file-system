@@ -440,6 +440,8 @@
 		<column name="subject" type="String" />
 		<column name="createdBy" type="long" />
 		<column name="subjectCategoryId" type="long" />
+		<column name="currentlyWith" type="long" />
+		<column name="currentState" type="int" />
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
