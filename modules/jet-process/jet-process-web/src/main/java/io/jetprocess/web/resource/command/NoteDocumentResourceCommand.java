@@ -26,10 +26,8 @@ public class NoteDocumentResourceCommand implements MVCResourceCommand{
 	
 		long noteId = ParamUtil.getLong(resourceRequest, "noteId");
 		String content =  ParamUtil.getString(resourceRequest, "content");
-		System.out.println("content-------"+content+" : noteId : "+noteId);
 		try {
 			noteDocumentLocalService.updateNoteDocument(noteId, content);
-			System.out.println("aaaa----");
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
