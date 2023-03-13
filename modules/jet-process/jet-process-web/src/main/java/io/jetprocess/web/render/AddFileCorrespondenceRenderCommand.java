@@ -41,8 +41,8 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		logger.info("render page of add file correspondence method called ");
 		
 		if(ParamUtil.getLong(renderRequest, "docFileId1") !=0) {
-		 long docFileId = ParamUtil.getLong(renderRequest, "docFileId1");
-		 long fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
+		  docFileId = ParamUtil.getLong(renderRequest, "docFileId1");
+		  fileMovementId = ParamUtil.getLong(renderRequest, "fileMovementId");
 		}
 		renderRequest.setAttribute("docFileId", docFileId);
 		renderRequest.setAttribute("fileMovementId", fileMovementId);
@@ -64,7 +64,7 @@ public class AddFileCorrespondenceRenderCommand implements MVCRenderCommand {
 		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "createDate");
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		 long docFileId = ParamUtil.getLong(renderRequest, "docFileId1");
+//		 long docFileId = ParamUtil.getLong(renderRequest, "docFileId1");
 		System.out.println("docfile id --------------"+docFileId);
 
 		String natureType = null;
