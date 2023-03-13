@@ -32,6 +32,9 @@ create index IX_B57C66C1 on JET_PROCESS_Note (createdBy);
 create index IX_7258B042 on JET_PROCESS_Note (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_B7745F44 on JET_PROCESS_Note (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_52EB1B99 on JET_PROCESS_NoteDocMovement (uuid_[$COLUMN_LENGTH:75$], companyId);
+create unique index IX_4F87B45B on JET_PROCESS_NoteDocMovement (uuid_[$COLUMN_LENGTH:75$], groupId);
+
 create index IX_FDF771FD on JET_PROCESS_NoteDocument (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_ADBE53BF on JET_PROCESS_NoteDocument (uuid_[$COLUMN_LENGTH:75$], groupId);
 

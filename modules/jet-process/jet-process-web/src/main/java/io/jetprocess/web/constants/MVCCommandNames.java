@@ -93,7 +93,7 @@ public class MVCCommandNames {
 	public static final String INBOX_LIST_NOTE_DOCUMENT_RENDER_COMMAND = "/inboxNoteDocumentList";
 	public static final String SEND_LIST_NOTE_DOCUMENT_RENDER_COMMAND = "/sendNoteDocumentList";
 	public static final String NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND = "/innerViewNoteDocument";
-	
+	public static final String NOTE_DOCUMENT_SEND_RENDER_COMMAND = "/noteDocumentSend";
 	public static final String NOTE_DOCUMENT_ACTION_COMMAND = "/noteDocumentActionCommand";
 	
 	public static final String NOTE_DOCUMENT_UPDATE_ACTION_COMMAND = "/noteDocumentUpdateActionCommand";

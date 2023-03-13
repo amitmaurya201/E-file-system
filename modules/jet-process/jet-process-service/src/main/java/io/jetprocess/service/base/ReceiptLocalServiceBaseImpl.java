@@ -54,6 +54,7 @@ import io.jetprocess.service.persistence.FileCloseDetailPersistence;
 import io.jetprocess.service.persistence.FileCorrReceiptPersistence;
 import io.jetprocess.service.persistence.FileMovementPersistence;
 import io.jetprocess.service.persistence.FileNotePersistence;
+import io.jetprocess.service.persistence.NoteDocMovementPersistence;
 import io.jetprocess.service.persistence.NoteDocumentPersistence;
 import io.jetprocess.service.persistence.NotePersistence;
 import io.jetprocess.service.persistence.ReceiptCloseDetailPersistence;
@@ -613,6 +614,9 @@ public abstract class ReceiptLocalServiceBaseImpl
 
 	@Reference
 	protected NotePersistence notePersistence;
+
+	@Reference
+	protected NoteDocMovementPersistence noteDocMovementPersistence;
 
 	@Reference
 	protected NoteDocumentPersistence noteDocumentPersistence;

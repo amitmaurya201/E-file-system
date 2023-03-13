@@ -147,6 +147,22 @@ create table JET_PROCESS_Note (
 	hasYellowNote BOOLEAN
 );
 
+create table JET_PROCESS_NoteDocMovement (
+	uuid_ VARCHAR(75) null,
+	movementId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	receiverId LONG,
+	senderId LONG,
+	noteDocumentId LONG,
+	remarks VARCHAR(500) null,
+	active_ BOOLEAN
+);
+
 create table JET_PROCESS_NoteDocument (
 	uuid_ VARCHAR(75) null,
 	noteDocumentId LONG not null primary key,

@@ -1,6 +1,7 @@
 package io.jetprocess.web.render.notedocument;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -24,6 +25,8 @@ import org.osgi.service.component.annotations.Reference;
 import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.NoteDocumentListService;
 import io.jetprocess.list.model.NoteDocumentDTO;
+import io.jetprocess.masterdata.model.UserPost;
+import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.NoteDocumentManagementToolbarDisplayContext;
@@ -39,11 +42,16 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("CreatedNoteDocumentListRenderCommand called----->");
 
-		logger.info("created-recipt-list.jsp -- called");
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 
-		 setCreatedNoteDocumentListAttributes(renderRequest);
-		 setCreatedNoteDocumentManagementToolbarAttributes(renderRequest,
-		 renderResponse);
+		try {
+			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
+			renderRequest.setAttribute("userPostList", userPostList);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		setCreatedNoteDocumentListAttributes(renderRequest);
+		setCreatedNoteDocumentManagementToolbarAttributes(renderRequest, renderResponse);
 		return "/note-document/created-note-document-list.jsp";
 	}
 
@@ -62,7 +70,7 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		int noteDocumentCount = _noteDocumentList.getNoteDocumentListCount(userPostId, keywords);
-		System.out.println("noteDocumentCount--->"+noteDocumentCount);
+		System.out.println("noteDocumentCount--->" + noteDocumentCount);
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, noteDocumentCount);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
@@ -70,7 +78,7 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
 		List<NoteDocumentDTO> noteDocumentList = _noteDocumentList.getNoteDocumentCreatedList(userPostId, keywords,
 				start, end, orderByCol, orderByType);
 
-		System.out.println("noteDocumentList--->"+noteDocumentList);
+		System.out.println("noteDocumentList--->" + noteDocumentList);
 		renderRequest.setAttribute("noteDocumentList", noteDocumentList);
 		renderRequest.setAttribute("noteDocumentCount", +noteDocumentCount);
 		renderRequest.setAttribute("delta", delta);
@@ -89,7 +97,8 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
 		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
 		NoteDocumentManagementToolbarDisplayContext noteDocumentManagementToolbarDisplayContext = new NoteDocumentManagementToolbarDisplayContext(
 				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-		renderRequest.setAttribute("NoteDocumentManagementToolbarDisplayContext",noteDocumentManagementToolbarDisplayContext);
+		renderRequest.setAttribute("NoteDocumentManagementToolbarDisplayContext",
+				noteDocumentManagementToolbarDisplayContext);
 	}
 
 	@Reference
@@ -100,4 +109,6 @@ public class CreatedNoteDocumentListRenderCommand implements MVCRenderCommand {
 
 	private Log logger = LogFactoryUtil.getLog(CreatedNoteDocumentListRenderCommand.class);
 
+	@Reference
+	private UserPostLocalService userPostLocalService;
 }

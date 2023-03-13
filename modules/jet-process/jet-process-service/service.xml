@@ -8,16 +8,13 @@
 		remote-service="true" uuid="true">
 
 		<!-- PK fields -->
-
 		<column name="docFileId" primary="true" type="long" />
 
 		<!-- Group instance -->
-
 		<column name="groupId" type="long" />
 
 
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
@@ -25,7 +22,6 @@
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
-
 		<column name="nature" type="String" />
 		<column name="type" type="String" />
 		<column name="basicHeadId" type="long" />
@@ -43,26 +39,20 @@
 		<column name="userPostId" type="long" />
 		<column name="currentlyWith" type="long" />
 		<column name="currentState" type="int" />
-        <column name="dealingHeadSectionId" type="long" />
+		<column name="dealingHeadSectionId" type="long" />
 
 		<!-- Order -->
-
 		<order by="asc">
 			<order-column name="docFileId" />
 		</order>
 
 		<!-- Finder methods -->
-
-
 		<finder name="groupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-
 		<finder name="DocFileId" return-type="DocFile">
 			<finder-column name="docFileId" />
 		</finder>
-
-
 		<finder name="Nature" return-type="DocFile">
 			<finder-column name="nature" />
 		</finder>
@@ -90,7 +80,6 @@
 		<column name="groupId" type="long" />
 
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
@@ -130,31 +119,26 @@
 
 
 		<!-- Order -->
-
 		<order by="asc">
 			<order-column name="receiptCategoryId" />
 		</order>
 
 		<!-- Finder methods -->
-
 		<finder name="groupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-
-
 		<finder name="G_R" return-type="Collection">
 			<finder-column name="groupId" />
 			<finder-column name="receiptId" />
 		</finder>
-
 		<finder name="ReceiptId" return-type="Receipt">
 			<finder-column name="receiptId"></finder-column>
 		</finder>
+
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->
-
 		<reference entity="AssetEntry"
 			package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag"
@@ -172,7 +156,6 @@
 		<column name="groupId" type="long" />
 
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
@@ -199,7 +182,6 @@
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->
-
 		<reference entity="AssetEntry"
 			package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag"
@@ -217,7 +199,6 @@
 		<column name="groupId" type="long" />
 
 		<!-- Audit fields -->
-
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
@@ -250,7 +231,6 @@
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 		<!-- References -->
-
 		<reference entity="AssetEntry"
 			package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag"
@@ -291,8 +271,7 @@
 			<finder-column name="docFileId"></finder-column>
 		</finder>
 
-		<finder name="FileCorrReceipt"
-			return-type="FileCorrReceipt">
+		<finder name="FileCorrReceipt" return-type="FileCorrReceipt">
 			<finder-column name="receiptId"></finder-column>
 			<finder-column name="receiptMovementId"></finder-column>
 		</finder>
@@ -363,7 +342,7 @@
 		<finder return-type="FileNote" name="NoteId">
 			<finder-column name="noteId"></finder-column>
 		</finder>
-		
+
 		<finder return-type="Collection" name="filemovementId">
 			<finder-column name="fileMovementId"></finder-column>
 		</finder>
@@ -405,11 +384,11 @@
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 	</entity>
-	
-<!-- FileCloseDetail -->
 
-	<entity local-service="true" name="FileCloseDetail"
-		uuid="true" remote-service="true">
+	<!-- FileCloseDetail -->
+
+	<entity local-service="true" name="FileCloseDetail" uuid="true"
+		remote-service="true">
 
 		<!-- PK fields -->
 		<column name="fileClosedId" primary="true" type="long"></column>
@@ -438,10 +417,10 @@
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 	</entity>
-	
+
 	<!-- Note Document -->
-	<entity local-service="true" name="NoteDocument"
-		uuid="true" remote-service="true">
+	<entity local-service="true" name="NoteDocument" uuid="true"
+		remote-service="true">
 
 		<!-- PK fields -->
 		<column name="noteDocumentId" primary="true" type="long"></column>
@@ -450,26 +429,26 @@
 		<column name="groupId" type="long"></column>
 
 		<!-- Audit fields -->
-		<column name="companyId" type="long"/>
-		<column name="userId" type="long"/>
-		<column name="userName" type="String"/>
-		<column name="createDate" type="Date"/>
-		<column name="modifiedDate" type="Date"/>
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
-		<column name="noteDocumentNumber" type="String"/>
-		<column name="subject" type="String"/>
-		<column name="createdBy" type="long"/>
-		<column name="subjectCategoryId" type="long"/>
+		<column name="noteDocumentNumber" type="String" />
+		<column name="subject" type="String" />
+		<column name="createdBy" type="long" />
+		<column name="subjectCategoryId" type="long" />
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 	</entity>
-	
+
 	<!-- Document Note Mapping -->
-	<entity local-service="true" name="DocumentNoteMap"
-		uuid="true" remote-service="true">
+	<entity local-service="true" name="DocumentNoteMap" uuid="true"
+		remote-service="true">
 
 		<!-- PK fields -->
 		<column name="documentNoteMapId" primary="true" type="long"></column>
@@ -478,23 +457,51 @@
 		<column name="groupId" type="long"></column>
 
 		<!-- Audit fields -->
-		<column name="companyId" type="long"/>
-		<column name="userId" type="long"/>
-		<column name="userName" type="String"/>
-		<column name="createDate" type="Date"/>
-		<column name="modifiedDate" type="Date"/>
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
-		<column name="noteDocumentId" type="long"/>
-		<column name="noteId" type="long"/>
+		<column name="noteDocumentId" type="long" />
+		<column name="noteId" type="long" />
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
 
 	</entity>
-	
 
-    <exceptions>
+	<!-- Document Note Movement -->
+	<entity local-service="true" name="NoteDocMovement" uuid="true"
+		remote-service="true">
+
+		<!-- PK fields -->
+		<column name="movementId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="receiverId" type="long" />
+		<column name="senderId" type="long" />
+		<column name="noteDocumentId" type="long" />
+		<column name="remarks" type="String" />
+		<column name="active" type="boolean" />
+
+		<!-- Group Reference -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+	</entity>
+
+	<exceptions>
 		<exception>DuplicateFileNumber</exception>
 	</exceptions>
 

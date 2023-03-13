@@ -136,6 +136,23 @@
 		</field>
 		<field name="hasYellowNote" type="boolean" />
 	</model>
+	<model name="io.jetprocess.model.NoteDocMovement">
+		<field name="uuid" type="String" />
+		<field name="movementId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="receiverId" type="long" />
+		<field name="senderId" type="long" />
+		<field name="noteDocumentId" type="long" />
+		<field name="remarks" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="active" type="boolean" />
+	</model>
 	<model name="io.jetprocess.model.NoteDocument">
 		<field name="uuid" type="String" />
 		<field name="noteDocumentId" type="long" />
