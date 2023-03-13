@@ -25,7 +25,6 @@ public class NoteDocumentSendRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
-
 		try {
 			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
 			renderRequest.setAttribute("userPostList", userPostList);

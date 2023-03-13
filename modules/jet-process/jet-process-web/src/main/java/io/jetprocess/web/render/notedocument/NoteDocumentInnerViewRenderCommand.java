@@ -28,12 +28,12 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("NoteDocumentInnerViewRenderCommand------>");
-		long noteDocumentNumber = ParamUtil.getLong(renderRequest, "noteDocumentId");
+		long noteDocumentId = ParamUtil.getLong(renderRequest, "noteDocumentId");
 		long noteId = ParamUtil.getLong(renderRequest, "noteId");
 		String subjectCategoryValue = ParamUtil.getString(renderRequest, "subjectCategoryValue");
 		renderRequest.setAttribute("subjectCategoryValue", subjectCategoryValue);
 		try {
-			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentNumber);
+			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
 			renderRequest.setAttribute("noteDocumentObj", noteDocument);
 			Note note = noteLocalService.getNote(noteId);
 			renderRequest.setAttribute("noteObj", note);

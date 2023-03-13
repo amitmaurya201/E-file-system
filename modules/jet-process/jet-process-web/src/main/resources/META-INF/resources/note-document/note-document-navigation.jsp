@@ -1,5 +1,8 @@
 <%@ include file="../init.jsp"%>
 
+<%
+	NoteDocument noteDocument = (NoteDocument) request.getAttribute("noteDocumentObj");
+%>
 <style>
 .border a {
 	border-right: 1px solid #a19c9c;
@@ -23,14 +26,17 @@
 </style>
 
 <portlet:renderURL var="home">
-    <portlet:param name="mvcPath" value="/note-document/note-inner-view.jsp"/>
+	<portlet:param name="mvcPath"
+		value="/note-document/note-inner-view.jsp" />
 </portlet:renderURL>
 
 <portlet:renderURL var="send">
-    <portlet:param name="mvcPath" value="/note-document/note-document-send.jsp"/>
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_RENDER_COMMAND%>" />
 </portlet:renderURL>
 <portlet:renderURL var="movement">
-    <portlet:param name="mvcPath" value="/note-document/note-document-movement.jsp"/>
+	<portlet:param name="mvcPath"
+		value="/note-document/note-document-movement.jsp" />
 </portlet:renderURL>
 
 <nav class="navbar navbar-expand-lg navbar-light  mt-1 "
@@ -51,14 +57,11 @@
 				href="<%=send%>">Send</a></li>
 			<li class="nav-item border "><a id="movement" class="nav-link"
 				href="<%=movement%>">Movement</a></li>
-	
 		</ul>
-		
 	</div>
 </nav>
 <script>
 	var navId = "${param.selectedNav}";
 	var nav = document.getElementById(navId);
 	nav.style.color = 'blue';
-
-	</script>
+</script>

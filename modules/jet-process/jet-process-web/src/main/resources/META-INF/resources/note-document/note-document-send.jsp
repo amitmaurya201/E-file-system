@@ -1,15 +1,61 @@
 <%@ include file="../init.jsp"%>
- 
-<div class="row">
+<div class="row send">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
 	</div>
 	<div class="col-10">
-	<liferay-util:include page="/note-document/note-document-navigation.jsp"
+		<liferay-util:include
+			page="/note-document/note-document-navigation.jsp"
 			servletContext="<%=application%>">
 			<liferay-util:param name="selectedNav" value="send" />
 		</liferay-util:include>
-		send page
-	 </div>
-	 
+		<aui:container cssClass="row">
+			<aui:form cssClass="border border-dark col-6"
+				style="padding: 1% !important">
+				<aui:input type="hidden" name="senderId"
+					value="<%=selectedUserPostId%>"/>
+				 	<aui:input type="hidden" name="noteDocumentId"
+					value="${noteDocument.noteDocumentId}"/>
+				<aui:col cssClass="mt-3">
+					<div>
+						<h2 style="text-align: center; text-decoration: underline;">
+							<liferay-ui:message key="label-send-notedocument-heading" />
+						</h2>
+					</div>
+				</aui:col>
+				<aui:col cssClass="mt-3">
+					<div class="textOnInput">
+						<label><liferay-ui:message key="label-send-notedocument-to" /><span
+							class="text-danger">*</span></label>
+						<aui:select label="" name="receiverId" id="receiverId">
+							<aui:option value=''>
+								<liferay-ui:message key="label-send-notedocument-default-option" />
+							</aui:option>
+							<c:forEach var="userPost" items="${userPostList}">
+								<aui:option value="${userPost.getUserPostId()}">${userPost.getUserName() }(${userPost.getPostMarking()})${userPost.getSectionName()}</aui:option>
+							</c:forEach>
+							<aui:validator name="required" />
+						</aui:select>
+					</div>
+				</aui:col>
+				<aui:col cssClass="mt-3">
+					<div class="textOnInput">
+						<label><liferay-ui:message key="label-sent-notedocument-remark" /><span
+							class="text-danger">*</span></label>
+						<aui:input type="textarea" label="" name="remark" id="remark"
+							style="height:70px;">
+							<aui:validator name="required" />
+							<aui:validator name="maxLength">
+								<liferay-ui:message key="sent-notedocument-remark-maxlength" />
+							</aui:validator>
+						</aui:input>
+					</div>
+				</aui:col>
+				<aui:button-row>
+					<aui:button type="submit" class="btn btn-primary"
+						style=" margin: auto 40%;" value="label-send-notedocument-submit-button" />
+				</aui:button-row>
+			</aui:form>
+		</aui:container>
+	</div>
 </div>
