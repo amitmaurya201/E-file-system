@@ -23,6 +23,7 @@ import java.util.Date;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.NoteDocumentStatus;
 import io.jetprocess.model.DocumentNoteMap;
 import io.jetprocess.model.Note;
 import io.jetprocess.model.NoteDocument;
@@ -50,6 +51,8 @@ public class NoteDocumentLocalServiceImpl
 			noteDocument.setSubjectCategoryId(noteCategoryId);
 			noteDocument.setCreateDate(createdOn);
 			noteDocument.setNoteDocumentNumber(generateNoteDocumentNumber(noteDocumentId));
+			noteDocument.setCurrentlyWith(createdBy);
+			noteDocument.setCurrentState(NoteDocumentStatus.CREADTED);
 			addNoteDocument(noteDocument);
 			long noteId = counterLocalService.increment(Note.class.getName());
 		    Note note =	noteLocalService.createNote(noteId);
@@ -61,6 +64,7 @@ public class NoteDocumentLocalServiceImpl
 			documentNoteMap.setNoteId(noteId);
 			documentNoteMap.setNoteDocumentId(noteDocumentId);
 			documentNoteMapLocalService.addDocumentNoteMap(documentNoteMap);
+			
 		    return documentNoteMap;
 		}
 		
