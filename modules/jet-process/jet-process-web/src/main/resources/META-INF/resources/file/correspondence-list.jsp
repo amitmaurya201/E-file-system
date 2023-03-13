@@ -499,7 +499,7 @@ a.close:hover {
 </div>
  
 <div class="float-right">
- <%=docFileId %></div>
+ </div>
 
 
 <!-- ************************* Jquery Popup button. these button are trigged by js  ****************************  -->

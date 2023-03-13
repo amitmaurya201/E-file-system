@@ -10,8 +10,7 @@
 %>
 
 <div class="p-3">
-<%=docFileId %>
-<%=fileMovementId %>
+
 	<portlet:actionURL var="attachReceipt" name="AttachFileCorrespondence">
 	</portlet:actionURL>
 	
