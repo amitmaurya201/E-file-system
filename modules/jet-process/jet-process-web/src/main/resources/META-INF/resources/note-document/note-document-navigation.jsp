@@ -39,6 +39,7 @@
 <portlet:renderURL var="movement">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.NOTE_DOCUMENT_MOVEMENT_LIST_RENDER_COMMAND%>" />
+		<portlet:param name="noteDocumentId" value="<%=noteDocumentId + ""%>" />
 </portlet:renderURL>
 
 <nav class="navbar navbar-expand-lg navbar-light  mt-1 "

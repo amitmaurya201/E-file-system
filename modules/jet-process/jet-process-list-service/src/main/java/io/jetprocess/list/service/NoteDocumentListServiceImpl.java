@@ -117,7 +117,7 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 		CallableStatement prepareCall=null;
 		try {
 			
-			 prepareCall = con.prepareCall("--------------------");
+			 prepareCall = con.prepareCall("select * from public.get_notedocument_movement_list(?, ?, ?, ?, ?, ?)");
 			prepareCall.setLong(1, notedocumentId);
 			prepareCall.setString(2, keyword);
 			prepareCall.setInt(3, start);
@@ -132,7 +132,7 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 				noteDocument.setNoteDocumentNumber(rs.getString("notedocumentnumber"));
 				noteDocument.setSubject(rs.getString("subject"));
 				noteDocument.setSentBy(rs.getString("sentby"));	
-				noteDocument.setSentOn(rs.getTimestamp("sendon"));
+				noteDocument.setSentOn(rs.getTimestamp("senton"));
 				noteDocument.setSentTo(rs.getString("sentto"));
 				noteDocument.setRemarks(rs.getString("remarks"));
 				noteDocument.setCurrentlyWith(rs.getLong("currentlywith"));
@@ -161,7 +161,7 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 		int count = 0;
 		CallableStatement prepareCall = null;
 		try {
-			prepareCall = con.prepareCall("-----------------------");
+			prepareCall = con.prepareCall("select public.get_notedocumentmovement_list_count(?,?)");
 			prepareCall.setLong(1, notedocumentId);
 			prepareCall.setString(2, keyword);
 			boolean execute = prepareCall.execute();

@@ -61,7 +61,7 @@ public class ClosedFileListRenderCommand implements MVCRenderCommand {
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, count);
 		start = paginationConfig.get("start");
 		currentPage = paginationConfig.get("currentPage");
-		List<ClosedFileDTO> closedFileList = fileListService.getFileClosedList(closedBy, keyword, start, 4, orderByCol,
+		List<ClosedFileDTO> closedFileList = fileListService.getFileClosedList(closedBy, keyword, start, end, orderByCol,
 				orderByType);
 		renderRequest.setAttribute("closedFileList", closedFileList);
 		renderRequest.setAttribute("delta", delta);
