@@ -2,6 +2,7 @@ package io.jetprocess.web.render.notedocument;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import org.osgi.service.component.annotations.Reference;
 
 import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalService;
+import io.jetprocess.model.NoteDocument;
+import io.jetprocess.service.NoteDocumentLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.util.UserPostUtil;
@@ -24,10 +27,13 @@ public class NoteDocumentSendRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
+		long noteDocumentId = ParamUtil.getLong(renderRequest,"noteDocumentId");
 		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 		try {
+			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
 			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
 			renderRequest.setAttribute("userPostList", userPostList);
+			renderRequest.setAttribute("noteDocumentId", noteDocument.getNoteDocumentId());
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
@@ -36,4 +42,6 @@ public class NoteDocumentSendRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private UserPostLocalService userPostLocalService;
+	@Reference
+	private NoteDocumentLocalService noteDocumentLocalService;
 }

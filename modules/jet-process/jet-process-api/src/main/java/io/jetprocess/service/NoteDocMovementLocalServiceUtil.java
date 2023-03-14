@@ -352,6 +352,21 @@ public class NoteDocMovementLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static NoteDocMovement saveNoteDocumentMovement(
+		long receiverId, long senderId, long noteDocumentId, String remarks,
+		boolean active) {
+
+		return getService().saveNoteDocumentMovement(
+			receiverId, senderId, noteDocumentId, remarks, active);
+	}
+
+	public static NoteDocMovement sendNoteDocumentMovement(
+		long receiverId, long senderId, long noteDocumentId, String remarks) {
+
+		return getService().sendNoteDocumentMovement(
+			receiverId, senderId, noteDocumentId, remarks);
+	}
+
 	/**
 	 * Updates the note doc movement in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

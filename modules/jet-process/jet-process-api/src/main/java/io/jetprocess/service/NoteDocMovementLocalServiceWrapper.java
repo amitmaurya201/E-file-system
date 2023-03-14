@@ -395,6 +395,23 @@ public class NoteDocMovementLocalServiceWrapper
 		return _noteDocMovementLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public io.jetprocess.model.NoteDocMovement saveNoteDocumentMovement(
+		long receiverId, long senderId, long noteDocumentId, String remarks,
+		boolean active) {
+
+		return _noteDocMovementLocalService.saveNoteDocumentMovement(
+			receiverId, senderId, noteDocumentId, remarks, active);
+	}
+
+	@Override
+	public io.jetprocess.model.NoteDocMovement sendNoteDocumentMovement(
+		long receiverId, long senderId, long noteDocumentId, String remarks) {
+
+		return _noteDocMovementLocalService.sendNoteDocumentMovement(
+			receiverId, senderId, noteDocumentId, remarks);
+	}
+
 	/**
 	 * Updates the note doc movement in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

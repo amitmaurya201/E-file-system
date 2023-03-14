@@ -1,7 +1,7 @@
 <%@ include file="../init.jsp"%>
 
 <%
-	NoteDocument noteDocument = (NoteDocument) request.getAttribute("noteDocumentObj");
+	long noteDocumentId = (long) renderRequest.getAttribute("noteDocumentId");
 %>
 <style>
 .border a {
@@ -26,13 +26,15 @@
 </style>
 
 <portlet:renderURL var="home">
-	<portlet:param name="mvcPath"
-		value="/note-document/note-inner-view.jsp" />
+	<portlet:param name="mvcRenderCommandName"
+		value="<%=MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND%>" />
+	<portlet:param name="noteDocumentId" value="<%=noteDocumentId + ""%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="send">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_RENDER_COMMAND%>" />
+	<portlet:param name="noteDocumentId" value="<%=noteDocumentId + ""%>" />
 </portlet:renderURL>
 <portlet:renderURL var="movement">
 	<portlet:param name="mvcRenderCommandName"

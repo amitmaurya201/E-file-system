@@ -312,6 +312,13 @@ public interface NoteDocMovementLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public NoteDocMovement saveNoteDocumentMovement(
+		long receiverId, long senderId, long noteDocumentId, String remarks,
+		boolean active);
+
+	public NoteDocMovement sendNoteDocumentMovement(
+		long receiverId, long senderId, long noteDocumentId, String remarks);
+
 	/**
 	 * Updates the note doc movement in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
