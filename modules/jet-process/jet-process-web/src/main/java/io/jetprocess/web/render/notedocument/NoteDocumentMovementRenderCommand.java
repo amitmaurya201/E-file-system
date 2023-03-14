@@ -54,6 +54,7 @@ public class NoteDocumentMovementRenderCommand implements MVCRenderCommand{
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		long noteDocumentId = ParamUtil.getLong(renderRequest,"noteDocumentId");
+		long noteId = ParamUtil.getLong(renderRequest,"noteId");
 
 		int noteDocumentMovementListCount = noteDocumentListService.getNoteDocumentMovementListCount(noteDocumentId, keywords);
 		System.out.println("noteDocumentCount--->" + noteDocumentMovementListCount);
@@ -67,6 +68,7 @@ public class NoteDocumentMovementRenderCommand implements MVCRenderCommand{
 		renderRequest.setAttribute("noteDocumentMovementListCount", +noteDocumentMovementListCount);
 		renderRequest.setAttribute("delta", delta);
 		renderRequest.setAttribute("noteDocumentId", noteDocumentId);
+		renderRequest.setAttribute("noteId", noteId);
 	}
 	
 	

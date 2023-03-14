@@ -28,11 +28,14 @@ public class NoteDocumentSendRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long noteDocumentId = ParamUtil.getLong(renderRequest,"noteDocumentId");
+		long noteId = ParamUtil.getLong(renderRequest,"noteId");
+
 		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 		try {
 			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
 			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
 			renderRequest.setAttribute("userPostList", userPostList);
+			renderRequest.setAttribute("noteId", noteId);
 			renderRequest.setAttribute("noteDocumentId", noteDocument.getNoteDocumentId());
 		} catch (PortalException e) {
 			e.printStackTrace();

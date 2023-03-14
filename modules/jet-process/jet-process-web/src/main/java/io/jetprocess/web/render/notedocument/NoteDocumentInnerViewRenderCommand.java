@@ -33,6 +33,8 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 		String subjectCategoryValue = ParamUtil.getString(renderRequest, "subjectCategoryValue");
 		renderRequest.setAttribute("subjectCategoryValue", subjectCategoryValue);
 		renderRequest.setAttribute("noteDocumentId", noteDocumentId);
+		renderRequest.setAttribute("noteId", noteId);
+		System.out.println("noteId------"+noteId);
 		try {
 			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
 			renderRequest.setAttribute("noteDocumentObj", noteDocument);
