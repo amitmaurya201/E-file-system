@@ -44,25 +44,27 @@ public class NoteDocMovementLocalServiceImpl extends NoteDocMovementLocalService
 		noteDocMovement.setActive(active);
 		noteDocMovement.setMovementType(movementType);
 		noteDocMovement = addNoteDocMovement(noteDocMovement);
-		try {
-			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
-			noteDocument.setCurrentState(FileStatus.IN_MOVEMENT);
-			noteDocument.setCurrentlyWith(receiverId);
-			noteDocumentLocalService.updateNoteDocument(noteDocument);
-		} catch (PortalException e) {
-			e.printStackTrace();
-		}
 		return noteDocMovement;
 	}
 
 	public NoteDocMovement sendNoteDocumentMovement(long receiverId, long senderId, long noteDocumentId,
 			String remarks) {
 		boolean active = true;
-		long movementType=MovementStatus.NORMAL;
-		NoteDocMovement noteDocumentMovement = saveNoteDocumentMovement(receiverId, senderId, noteDocumentId, remarks, active,movementType);
+		long movementType = MovementStatus.NORMAL;
+		NoteDocMovement noteDocumentMovement = null;
+		try {
+			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
+			noteDocument.setCurrentState(FileStatus.IN_MOVEMENT);
+			noteDocument.setCurrentlyWith(receiverId);
+			noteDocumentLocalService.updateNoteDocument(noteDocument);
+			noteDocumentMovement = saveNoteDocumentMovement(receiverId, senderId, noteDocumentId, remarks, active,
+					movementType);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 		return noteDocumentMovement;
 	}
-	
+
 	@Reference
 	private NoteDocumentLocalService noteDocumentLocalService;
 }
