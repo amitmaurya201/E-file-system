@@ -354,10 +354,11 @@ public class NoteDocMovementLocalServiceUtil {
 
 	public static NoteDocMovement saveNoteDocumentMovement(
 		long receiverId, long senderId, long noteDocumentId, String remarks,
-		boolean active) {
+		boolean active, long movementType) {
 
 		return getService().saveNoteDocumentMovement(
-			receiverId, senderId, noteDocumentId, remarks, active);
+			receiverId, senderId, noteDocumentId, remarks, active,
+			movementType);
 	}
 
 	public static NoteDocMovement sendNoteDocumentMovement(

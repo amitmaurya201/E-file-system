@@ -314,7 +314,7 @@ public interface NoteDocMovementLocalService
 
 	public NoteDocMovement saveNoteDocumentMovement(
 		long receiverId, long senderId, long noteDocumentId, String remarks,
-		boolean active);
+		boolean active, long movementType);
 
 	public NoteDocMovement sendNoteDocumentMovement(
 		long receiverId, long senderId, long noteDocumentId, String remarks);
