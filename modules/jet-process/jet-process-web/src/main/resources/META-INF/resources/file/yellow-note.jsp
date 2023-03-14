@@ -10,7 +10,7 @@
 			<span style="padding: 0 19%;"><liferay-ui:message
 				key="label-add-note-last-saved" /> :<fmt:formatDate type="both"
 				pattern="dd/MM/yyyy  hh:mm aa" timeZone="Asia/Calcutta"
-				value="${yellowFileNote.modifiedDate}" /> </span>
+				value="${yellowNoteModifiedDate}" /> </span>
 		</c:if>
 		</div>
 		<c:if test="${empty yellowFileNote}">

@@ -1,9 +1,4 @@
 
-<!-- <style>
-	.editor-background{
-		background-color: red !important;
-	}
-</style> -->
 	
 	<div id="green-editor" style="display: none;" >
 		<div id="green-note-header">
@@ -16,7 +11,7 @@
 			<span style="padding: 0 19%;"><liferay-ui:message
 				key="label-add-note-last-saved" /> :<fmt:formatDate type="both"
 				pattern="dd/MM/yyyy  hh:mm aa" timeZone="Asia/Calcutta"
-				value="${greenFileNote.modifiedDate}" /> </span>
+				value="${modifiedDate}" /> </span>
 		</c:if>
 		</div>
 		<c:if test="${ empty greenFileNote}">

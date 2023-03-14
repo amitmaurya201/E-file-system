@@ -341,8 +341,8 @@ AS $BODY$
 		JOIN PUBLIC.jet_process_docfile as f ON fm.fileId = f.docfileid        
 		JOIN PUBLIC.masterdata_userpost as up1 ON fm.senderid = up1.userpostid
 		JOIN PUBLIC.masterdata_userpost as up2 ON fm.receiverid = up2.userpostid 
-        left join public.jet_process_filenote as fn on fn.filemovementid=fm.fmid
-         left join public.jet_process_note as n on n.noteid = fn.noteid  where f.currentstate != 3';        
+       left join (	select nt.noteid as noteid,nt.content as content, fin.filemovementid as filemovementid from public.jet_process_note nt inner join public.jet_process_filenote fin on 
+								   nt.noteid = fin.noteid where hasyellownote=false) as n on n.filemovementid = fm.fmid  where f.currentstate != 3';        
         _keyword := '''%'||keyword||'%''';
         _order :=_orderByType;
         IF (_start <0 OR _start IS NULL) THEN
