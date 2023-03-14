@@ -22,7 +22,7 @@
 				cssClass="border border-dark col-6" style="padding: 1% !important">
 				<aui:input type="hidden" name="senderId"
 					value="<%=selectedUserPostId%>" />
-				<aui:input type="hidden" name="noteDocumentId"
+				<aui:input type="hidden" name="noteDocId"
 					value="${noteDocumentId}" />
 				<aui:col cssClass="mt-3">
 					<h2 style="text-align: center; text-decoration: underline;">

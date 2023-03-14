@@ -141,7 +141,7 @@ a.close:hover {
 				<liferay-ui:search-container-column-text
 					name="label-notedocument-createdlist-actions" align="center">
 					<a id="sendnoteDocument" data-toggle="send_noteDocument"
-						data-target="#send_noteDocument"
+						data-target="#send_noteDocument" style="cursor: pointer"
 						onclick="openModal(${noteDocument.noteDocumentId})">Send</a>
 				</liferay-ui:search-container-column-text>
 
@@ -158,19 +158,23 @@ a.close:hover {
 </div>
 
 
+<portlet:actionURL
+		name="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_ACTION_COMMAND%>"
+		var="sendNoteDocument" />
+
 <!-- send popup -->
 <div id="sendPopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h4>Send</h4>
+		<h4><liferay-ui:message key="label-send-notedocument-heading" /></h4>
 	</header>
-	<aui:form action="#" method="post" name="sendNoteDocument">
+	<aui:form action="${sendNoteDocument}" method="post" name="sendNoteDocument">
 		<div class="modal-body">
 			<aui:input type="hidden" name="noteDocId" />
 			<aui:input type="hidden" name="senderId" value="<%=userPostsVal%>" />
-			<aui:select label="To" name="receiverId" id="receiverId">
+			<aui:select label="label-send-notedocument-to" name="receiverId" id="receiverId">
 				<aui:option value=''>
-					<liferay-ui:message key="label-send-default-option" />
+					<liferay-ui:message key="label-send-notedocument-default-option" />
 				</aui:option>
 				<c:forEach var="userPost" items="${userPostList}">
 					<aui:option value="${userPost.getUserPostId()}">${userPost.getUserName() }(${userPost.getPostMarking()})${userPost.getSectionName()}</aui:option>
@@ -178,21 +182,21 @@ a.close:hover {
 
 				<aui:validator name="required" />
 			</aui:select>
-			<aui:input label="Remarks" name="sendRemarks" id="sendRemarks"
+			<aui:input label="label-sent-notedocument-remark" name="remarks" id="remarks"
 				type="textarea" style="height:70px;">
 				<aui:validator name="required"></aui:validator>
 				<aui:validator name="maxLength">
-					<liferay-ui:message key="receipt-reopen-remarks-maxlength" />
+					<liferay-ui:message key="sent-notedocument-remark-maxlength" />
 				</aui:validator>
 			</aui:input>
 
 		</div>
 		<footer>
 			<div class="float-right">
-				<aui:button type="button" cssClass="btn "
-					value="label-detach-confirmation-button" onclick="receiptReopen()"></aui:button>
-				<aui:button type="button" cssClass="ml-2 js-modal-close"
-					value="label-detach-confirmation-cancel" data-dismiss="modal"
+				<aui:button type="submit" cssClass="btn btn-primary"
+					value="label-send-notedocument-submit-button"></aui:button>
+				<aui:button type="button" cssClass="ml-2 js-modal-close btn-primary"
+					value="label-send-notedocument-cancel-button" data-dismiss="modal"
 					onclick="close"></aui:button>
 			</div>
 		</footer>
