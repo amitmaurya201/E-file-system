@@ -55,7 +55,6 @@ DROP FUNCTION IF EXISTS public.get_closed_file_list(bigint, text, integer, integ
 
 DROP FUNCTION IF EXISTS public.get_closed_file_list_count(bigint, text);
 
-
 DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
 
 DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
@@ -2456,9 +2455,6 @@ ALTER FUNCTION public.get_closed_file_list_count(bigint, text)
     
 -- FUNCTION: public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
 
-
--- DROP FUNCTION IF EXISTS public.get_notedocument_created_list(bigint, text, integer, integer, text, text);
-
 CREATE OR REPLACE FUNCTION public.get_notedocument_created_list(
 	_createdby bigint,
 	keyword text,
@@ -2487,7 +2483,7 @@ AS $BODY$
        _query := 'SELECT no.modifieddate , n.noteid , c.categoryvalue , no.content, nd.notedocumentid as notedocumentid, nd.createdate as createdon, nd.notedocumentnumber as notedocumentnumber, nd.subject as subject, nd.createdby as createdby , nd.subjectcategoryid as subjectcategoryid  
        FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
        INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
-       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid';
+       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid where currentstate = 1 ';
 
      _keyword := '''%' || keyword || '%''';
      IF (_start <0 OR _start IS NULL) THEN
@@ -2517,7 +2513,7 @@ AS $BODY$
      END IF;
     
     IF(_createdby !=0) THEN
-        _query := _query ||' WHERE nd.createdby = ' || _createdby;
+        _query := _query ||'AND nd.createdby = ' || _createdby;
         
         IF (_keyword IS NOT NULL) THEN 
             _query := _query || 'AND (notedocumentnumber ilike ' || _keyword || 'OR subject ilike ' || _keyword || ')';
@@ -2555,8 +2551,7 @@ $BODY$;
 ALTER FUNCTION public.get_notedocument_created_list(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
 
-
--- DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
+-- FUNCTION: public.get_notedocument_list_count(bigint, text)
 
 CREATE OR REPLACE FUNCTION public.get_notedocument_list_count(
 	_createdby bigint,
@@ -2577,7 +2572,7 @@ begin
     _query :='select COUNT(*)  
        FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
        INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
-       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid where nd.createdby='||_createdby;
+       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid where currentstate = 1 and nd.createdby='||_createdby;
     IF _createdby != 0 AND _createdby IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
