@@ -497,6 +497,7 @@
 		<column name="noteDocumentId" type="long" />
 		<column name="remarks" type="String" />
 		<column name="active" type="boolean" />
+	    <column name="movementType" type="long" />  
 
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />

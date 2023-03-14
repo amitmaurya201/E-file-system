@@ -56,6 +56,7 @@ public class NoteDocMovementWrapper
 		attributes.put("noteDocumentId", getNoteDocumentId());
 		attributes.put("remarks", getRemarks());
 		attributes.put("active", isActive());
+		attributes.put("movementType", getMovementType());
 
 		return attributes;
 	}
@@ -139,6 +140,12 @@ public class NoteDocMovementWrapper
 		if (active != null) {
 			setActive(active);
 		}
+
+		Long movementType = (Long)attributes.get("movementType");
+
+		if (movementType != null) {
+			setMovementType(movementType);
+		}
 	}
 
 	@Override
@@ -204,6 +211,16 @@ public class NoteDocMovementWrapper
 	@Override
 	public long getMovementId() {
 		return model.getMovementId();
+	}
+
+	/**
+	 * Returns the movement type of this note doc movement.
+	 *
+	 * @return the movement type of this note doc movement
+	 */
+	@Override
+	public long getMovementType() {
+		return model.getMovementType();
 	}
 
 	/**
@@ -369,6 +386,16 @@ public class NoteDocMovementWrapper
 	@Override
 	public void setMovementId(long movementId) {
 		model.setMovementId(movementId);
+	}
+
+	/**
+	 * Sets the movement type of this note doc movement.
+	 *
+	 * @param movementType the movement type of this note doc movement
+	 */
+	@Override
+	public void setMovementType(long movementType) {
+		model.setMovementType(movementType);
 	}
 
 	/**

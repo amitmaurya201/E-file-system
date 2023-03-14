@@ -60,6 +60,8 @@ public class NoteDocMovementTable extends BaseTable<NoteDocMovementTable> {
 		"remarks", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<NoteDocMovementTable, Boolean> active = createColumn(
 		"active_", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
+	public final Column<NoteDocMovementTable, Long> movementType = createColumn(
+		"movementType", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private NoteDocMovementTable() {
 		super("JET_PROCESS_NoteDocMovement", NoteDocMovementTable::new);

@@ -282,6 +282,20 @@ public interface NoteDocMovementModel
 	 */
 	public void setActive(boolean active);
 
+	/**
+	 * Returns the movement type of this note doc movement.
+	 *
+	 * @return the movement type of this note doc movement
+	 */
+	public long getMovementType();
+
+	/**
+	 * Sets the movement type of this note doc movement.
+	 *
+	 * @param movementType the movement type of this note doc movement
+	 */
+	public void setMovementType(long movementType);
+
 	@Override
 	public NoteDocMovement cloneWithOriginalValues();
 

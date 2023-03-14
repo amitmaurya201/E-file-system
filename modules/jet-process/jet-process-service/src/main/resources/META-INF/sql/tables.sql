@@ -160,7 +160,8 @@ create table JET_PROCESS_NoteDocMovement (
 	senderId LONG,
 	noteDocumentId LONG,
 	remarks VARCHAR(500) null,
-	active_ BOOLEAN
+	active_ BOOLEAN,
+	movementType LONG
 );
 
 create table JET_PROCESS_NoteDocument (

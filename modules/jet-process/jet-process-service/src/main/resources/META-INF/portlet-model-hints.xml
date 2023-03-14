@@ -152,6 +152,7 @@
 			<hint name="max-length">500</hint>
 		</field>
 		<field name="active" type="boolean" />
+		<field name="movementType" type="long" />
 	</model>
 	<model name="io.jetprocess.model.NoteDocument">
 		<field name="uuid" type="String" />

@@ -63,7 +63,7 @@ public class NoteDocMovementCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -91,6 +91,8 @@ public class NoteDocMovementCacheModel
 		sb.append(remarks);
 		sb.append(", active=");
 		sb.append(active);
+		sb.append(", movementType=");
+		sb.append(movementType);
 		sb.append("}");
 
 		return sb.toString();
@@ -145,6 +147,7 @@ public class NoteDocMovementCacheModel
 		}
 
 		noteDocMovementImpl.setActive(active);
+		noteDocMovementImpl.setMovementType(movementType);
 
 		noteDocMovementImpl.resetOriginalValues();
 
@@ -174,6 +177,8 @@ public class NoteDocMovementCacheModel
 		remarks = objectInput.readUTF();
 
 		active = objectInput.readBoolean();
+
+		movementType = objectInput.readLong();
 	}
 
 	@Override
@@ -217,6 +222,8 @@ public class NoteDocMovementCacheModel
 		}
 
 		objectOutput.writeBoolean(active);
+
+		objectOutput.writeLong(movementType);
 	}
 
 	public String uuid;
@@ -232,5 +239,6 @@ public class NoteDocMovementCacheModel
 	public long noteDocumentId;
 	public String remarks;
 	public boolean active;
+	public long movementType;
 
 }

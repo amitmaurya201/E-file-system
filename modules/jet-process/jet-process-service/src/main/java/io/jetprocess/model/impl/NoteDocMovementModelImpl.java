@@ -80,7 +80,7 @@ public class NoteDocMovementModelImpl
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"receiverId", Types.BIGINT}, {"senderId", Types.BIGINT},
 		{"noteDocumentId", Types.BIGINT}, {"remarks", Types.VARCHAR},
-		{"active_", Types.BOOLEAN}
+		{"active_", Types.BOOLEAN}, {"movementType", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -100,10 +100,11 @@ public class NoteDocMovementModelImpl
 		TABLE_COLUMNS_MAP.put("noteDocumentId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("remarks", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("movementType", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_NoteDocMovement (uuid_ VARCHAR(75) null,movementId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,noteDocumentId LONG,remarks VARCHAR(500) null,active_ BOOLEAN)";
+		"create table JET_PROCESS_NoteDocMovement (uuid_ VARCHAR(75) null,movementId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,receiverId LONG,senderId LONG,noteDocumentId LONG,remarks VARCHAR(500) null,active_ BOOLEAN,movementType LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_NoteDocMovement";
@@ -316,6 +317,12 @@ public class NoteDocMovementModelImpl
 		attributeSetterBiConsumers.put(
 			"active",
 			(BiConsumer<NoteDocMovement, Boolean>)NoteDocMovement::setActive);
+		attributeGetterFunctions.put(
+			"movementType", NoteDocMovement::getMovementType);
+		attributeSetterBiConsumers.put(
+			"movementType",
+			(BiConsumer<NoteDocMovement, Long>)
+				NoteDocMovement::setMovementType);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -589,6 +596,21 @@ public class NoteDocMovementModelImpl
 		_active = active;
 	}
 
+	@JSON
+	@Override
+	public long getMovementType() {
+		return _movementType;
+	}
+
+	@Override
+	public void setMovementType(long movementType) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_movementType = movementType;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -664,6 +686,7 @@ public class NoteDocMovementModelImpl
 		noteDocMovementImpl.setNoteDocumentId(getNoteDocumentId());
 		noteDocMovementImpl.setRemarks(getRemarks());
 		noteDocMovementImpl.setActive(isActive());
+		noteDocMovementImpl.setMovementType(getMovementType());
 
 		noteDocMovementImpl.resetOriginalValues();
 
@@ -700,6 +723,8 @@ public class NoteDocMovementModelImpl
 			this.<String>getColumnOriginalValue("remarks"));
 		noteDocMovementImpl.setActive(
 			this.<Boolean>getColumnOriginalValue("active_"));
+		noteDocMovementImpl.setMovementType(
+			this.<Long>getColumnOriginalValue("movementType"));
 
 		return noteDocMovementImpl;
 	}
@@ -836,6 +861,8 @@ public class NoteDocMovementModelImpl
 
 		noteDocMovementCacheModel.active = isActive();
 
+		noteDocMovementCacheModel.movementType = getMovementType();
+
 		return noteDocMovementCacheModel;
 	}
 
@@ -942,6 +969,7 @@ public class NoteDocMovementModelImpl
 	private long _noteDocumentId;
 	private String _remarks;
 	private boolean _active;
+	private long _movementType;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -985,6 +1013,7 @@ public class NoteDocMovementModelImpl
 		_columnOriginalValues.put("noteDocumentId", _noteDocumentId);
 		_columnOriginalValues.put("remarks", _remarks);
 		_columnOriginalValues.put("active_", _active);
+		_columnOriginalValues.put("movementType", _movementType);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1034,6 +1063,8 @@ public class NoteDocMovementModelImpl
 		columnBitmasks.put("remarks", 2048L);
 
 		columnBitmasks.put("active_", 4096L);
+
+		columnBitmasks.put("movementType", 8192L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
