@@ -21,13 +21,13 @@ public class SendNoteDocumentActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		System.out.println("got it");
+		String pageURL = ParamUtil.getString(actionRequest, "pageURL");
 		long noteDocumentId = ParamUtil.getLong(actionRequest, "noteDocId");
 		long receiverId = ParamUtil.getLong(actionRequest, "receiverId");
 		String remarks = ParamUtil.getString(actionRequest, "remarks");
 		long userPostId = ParamUtil.getLong(actionRequest, "senderId");
 		noteDocMovementLocalService.sendNoteDocumentMovement(receiverId, userPostId, noteDocumentId, remarks);
-		actionResponse.getRenderParameters().setValue("mvcRenderCommandName",
-				MVCCommandNames.CREATED_LIST_NOTE_DOCUMENT_RENDER_COMMAND);
+		actionResponse.sendRedirect(pageURL);
 		System.out.println("it");
 	}
 

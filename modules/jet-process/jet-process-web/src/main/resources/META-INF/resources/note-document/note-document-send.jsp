@@ -1,8 +1,5 @@
 <%@ include file="../init.jsp"%>
-<%
-	long noteDocumentId = (long) renderRequest.getAttribute("noteDocumentId");
-	renderRequest.setAttribute("noteDocumentId", noteDocumentId);
-%>
+
 <div class="row send">
 	<div class="body-side-nav col-2">
 		<%@ include file="../navigation.jsp"%>
@@ -22,8 +19,9 @@
 				cssClass="border border-dark col-6" style="padding: 1% !important">
 				<aui:input type="hidden" name="senderId"
 					value="<%=selectedUserPostId%>" />
-				<aui:input type="hidden" name="noteDocId"
-					value="${noteDocumentId}" />
+				<aui:input type="hidden" name="noteDocId" value="${noteDocumentId}" />
+				<aui:input type="hidden" name="pageURL"
+					value="${backPageURL}"/>
 				<aui:col cssClass="mt-3">
 					<h2 style="text-align: center; text-decoration: underline;">
 						<liferay-ui:message key="label-send-notedocument-heading" />

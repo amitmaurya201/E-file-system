@@ -1,5 +1,7 @@
 <%@ include file="../init.jsp"%>
-
+<%
+	String backPageURL = themeDisplay.getURLCurrent();
+%>
 <style>
 .modal-box {
 	display: none;
@@ -111,6 +113,7 @@ a.close:hover {
 						value="<%=String.valueOf(noteDocument.getNoteDocumentId())%>" />
 					<portlet:param name="subjectCategoryValue"
 						value="<%=noteDocument.getCategoryValue()%>" />
+					<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 				</portlet:renderURL>
 
 
@@ -159,20 +162,26 @@ a.close:hover {
 
 
 <portlet:actionURL
-		name="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_ACTION_COMMAND%>"
-		var="sendNoteDocument" />
+	name="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_ACTION_COMMAND%>"
+	var="sendNoteDocument" />
 
 <!-- send popup -->
 <div id="sendPopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h4><liferay-ui:message key="label-send-notedocument-heading" /></h4>
+		<h4>
+			<liferay-ui:message key="label-send-notedocument-heading" />
+		</h4>
 	</header>
-	<aui:form action="${sendNoteDocument}" method="post" name="sendNoteDocument">
+	<aui:form action="${sendNoteDocument}" method="post"
+		name="sendNoteDocument">
 		<div class="modal-body">
 			<aui:input type="hidden" name="noteDocId" />
+			<aui:input type="hidden" name="pageURL"
+					value="<%=backPageURL%>"/>
 			<aui:input type="hidden" name="senderId" value="<%=userPostsVal%>" />
-			<aui:select label="label-send-notedocument-to" name="receiverId" id="receiverId">
+			<aui:select label="label-send-notedocument-to" name="receiverId"
+				id="receiverId">
 				<aui:option value=''>
 					<liferay-ui:message key="label-send-notedocument-default-option" />
 				</aui:option>
@@ -182,8 +191,8 @@ a.close:hover {
 
 				<aui:validator name="required" />
 			</aui:select>
-			<aui:input label="label-sent-notedocument-remark" name="remarks" id="remarks"
-				type="textarea" style="height:70px;">
+			<aui:input label="label-sent-notedocument-remark" name="remarks"
+				id="remarks" type="textarea" style="height:70px;">
 				<aui:validator name="required"></aui:validator>
 				<aui:validator name="maxLength">
 					<liferay-ui:message key="sent-notedocument-remark-maxlength" />

@@ -29,7 +29,7 @@ public class NoteDocumentSendRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		long noteDocumentId = ParamUtil.getLong(renderRequest,"noteDocumentId");
 		long noteId = ParamUtil.getLong(renderRequest,"noteId");
-
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
 		try {
 			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
@@ -37,6 +37,7 @@ public class NoteDocumentSendRenderCommand implements MVCRenderCommand {
 			renderRequest.setAttribute("userPostList", userPostList);
 			renderRequest.setAttribute("noteId", noteId);
 			renderRequest.setAttribute("noteDocumentId", noteDocument.getNoteDocumentId());
+			renderRequest.setAttribute("backPageURL", backPageURL);
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}

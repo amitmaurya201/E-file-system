@@ -30,11 +30,12 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 		logger.info("NoteDocumentInnerViewRenderCommand------>");
 		long noteDocumentId = ParamUtil.getLong(renderRequest, "noteDocumentId");
 		long noteId = ParamUtil.getLong(renderRequest, "noteId");
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		String subjectCategoryValue = ParamUtil.getString(renderRequest, "subjectCategoryValue");
 		renderRequest.setAttribute("subjectCategoryValue", subjectCategoryValue);
 		renderRequest.setAttribute("noteDocumentId", noteDocumentId);
 		renderRequest.setAttribute("noteId", noteId);
-		System.out.println("noteId------"+noteId);
+		renderRequest.setAttribute("backPageURL", backPageURL);
 		try {
 			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
 			renderRequest.setAttribute("noteDocumentObj", noteDocument);

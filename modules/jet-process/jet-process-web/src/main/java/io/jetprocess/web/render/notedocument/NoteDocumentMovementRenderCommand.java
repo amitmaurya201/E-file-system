@@ -37,6 +37,8 @@ public class NoteDocumentMovementRenderCommand implements MVCRenderCommand{
 	
 
 		logger.info("NoteDocumentMovementRenderCommand------>");
+		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
+		renderRequest.setAttribute("backPageURL", backPageURL);
 		setNoteDocumentMovementListAttributes(renderRequest);
 		setNoteDocumentMovementManagementToolbarAttributes(renderRequest, renderResponse);
 		return "/note-document/note-document-movement.jsp";
