@@ -5,6 +5,7 @@
 	Note note = (Note) renderRequest.getAttribute("noteObj");
 	NoteDocument noteDocument = (NoteDocument) renderRequest.getAttribute("noteDocumentObj");
 	String subjectcategoryValue = (String) renderRequest.getAttribute("subjectCategoryValue");
+	long noteDocumentId = (long) renderRequest.getAttribute("noteDocumentId");
 %>
 
 <portlet:resourceURL
@@ -79,15 +80,15 @@ p.ex1 {
 
 		<div class="m-3">
 			<aui:form name="addNoteDocument">
-				<div id="editor">
 					<div id="editor-head">
 
-						<span style="padding: 0 19%;"><liferay-ui:message
+						<span  style="padding: 0 19%;"><liferay-ui:message
 								key="label-add-note-last-saved" /> <fmt:formatDate type="both"
 								pattern="dd/MM/yyyy  hh:mm aa" timeZone="Asia/Calcutta"
 								value="<%=note.getModifiedDate()%>" /> </span>
 
 					</div>
+				<div id="editor">
 					<aui:input name="noteId" value="<%=note.getNoteId()%>"
 						type="hidden"></aui:input>
 					<liferay-editor:editor contents="<%=note.getContent()%>"
@@ -101,6 +102,7 @@ p.ex1 {
 </div>
 
 <aui:script>
+
 $( ".control-label" ).remove();
 var contentOnchange=" ";
 var noteContent = '<%=note.getContent()%>';
@@ -123,7 +125,7 @@ if(noteContent===''){
  function saveNoteDocument() {
 	 var content = CKEDITOR.instances["<portlet:namespace />content"].getData();
 	 
-	 if(noteContent!=contentOnchange ){
+	 if(noteContent!=content ){
 		AUI().use('aui-io-request','aui-base','io', function(A){
 			var form = A.one("#<portlet:namespace />addNoteDocument");
 			let data = CKEDITOR.instances["<portlet:namespace />content"].getData();
@@ -137,7 +139,7 @@ if(noteContent===''){
 					on : {
 					success : function() { 
 					$("#editor-head").css("background-color","green");
-					
+					$("#editor-head").load(location.href + " #editor-head"); 
 					
 					   	       	 } 
 							}
@@ -146,6 +148,8 @@ if(noteContent===''){
 				}
 }
  setInterval(saveNoteDocument, 10000);
+ 
+ 
 </aui:script>
 
 
