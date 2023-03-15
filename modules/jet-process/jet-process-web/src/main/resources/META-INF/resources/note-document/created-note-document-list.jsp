@@ -221,13 +221,20 @@ a.close:hover {
 		$('#sendNoteDocumentPopup').trigger('click');
 	
 	}
+	$('#<portlet:namespace />sendNoteDocument').submit(function() { 
+		let remarks = $('#<portlet:namespace />remarks').val();
+		let receiverId = $('#<portlet:namespace />receiverId').val();
+		if(remarks != '' && receiverId != ''){
+			$(".modal-overlay").css("opacity","");
+		} 
+	}); 
 	
 	/* ******************* Jquery Popup **************************  */
 $(function() {
 var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
-
 	$("a[data-modal-id]").click(function(e) {
 		e.preventDefault();
+		$('body').css('overflow', 'hidden');
 		$("body").append(appendthis);
 		$(".modal-overlay").fadeTo(500, 0.7);
 		//$(".js-modalbox").fadeIn(500);
