@@ -246,6 +246,7 @@ var appendthis = ("<div class='modal-overlay js-modal-close'></div>");
 		
 		$(".modal-box, .modal-overlay").fadeOut(500, function() {
 			$(".modal-overlay").remove();
+			$('body').css('overflow', 'scroll');
 			$(this).find('form').trigger('reset');
 		});
 	});
