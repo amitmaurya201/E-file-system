@@ -2766,3 +2766,173 @@ ALTER FUNCTION public.get_notedocumentmovement_list_count(bigint, text)
     OWNER TO postgres;
 
     
+    
+    -- FUNCTION: public.get_notedocument_sent_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_notedocument_sent_list(bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_notedocument_sent_list(
+	_senderid bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(notedocumentnumber character varying, subject character varying, sentby text, senton timestamp without time zone, sentto text, remarks text, currentlywith integer, currentlywithusername text) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        
+        _keyword text;
+        _offset int;
+        _limit int;
+        _orderBy text;
+        _order text;
+        _query text;
+    begin
+      
+      
+   _query=' SELECT 
+    nd.notedocumentnumber as noteDocumentNumber ,
+    nd.subject as subject , 
+	(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) as sentBy ,
+     dm.createdate as sentOn , 
+  	(SELECT concat(up1.username, ''('',up1.postmarking,'')'', up1.sectionname,'','', up1.departmentname)) AS sentTo ,
+    null as remarks , 
+    0 as currentlyWith ,
+    null as currentlywithusername 
+  	FROM PUBLIC.jet_process_notedocmovement as dm INNER JOIN public.jet_process_notedocument as nd ON dm.notedocumentid = nd.notedocumentid 
+	left outer JOIN PUBLIC.masterdata_userpost as up1 ON dm.receiverid = up1.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON dm.senderid = up2.userpostid ';
+                  
+        _keyword := '''%'||keyword||'%''';
+        
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol ='senton' OR orderByCol ='sentOn' OR orderByCol IS NULL) THEN
+--                 _orderBy :='rm.createdate';
+           
+        END IF;
+       
+         IF (orderByCol ='receiptnumber' OR orderByCol ='receiptNumber') THEN
+--                 _orderBy :='r.receiptnumber';
+           
+        END IF;
+         IF (orderByCol ='subject') THEN
+--                 _orderBy :='r.subject';
+           
+        END IF;
+        
+        IF (_orderbytype ='' OR _orderbytype IS NULL) THEN
+                _order :='desc';
+            ELSE
+                 _order :=_orderbytype;
+        END IF;
+       
+                        
+                        IF (_senderid !=0 )THEN
+                        
+                             _query := _query|| ' WHERE dm.senderid  ='||_senderid;
+                            
+                               IF (keyword IS NOT NULL) THEN  
+                                                                
+--                                      _query := _query||' AND (dm.receiptnumber ilike '||_keyword ||' OR dm.subject ilike '||_keyword ||')';
+                          
+                                     IF (_orderby !='')  THEN 
+                    
+                                        _query := _query||' order by '||_orderby;
+                                        IF (_order !='')  THEN 
+
+                                            _query := _query||' '||_order;
+                                            IF (_offset >=0)  THEN 
+
+                                                 _query := _query||' offset '||_offset;
+                                                IF (_limit >0)  THEN 
+                                                    _query := _query||' limit '||_limit;
+
+                                                  END IF;
+                                    
+                                              END IF;
+
+                                          END IF;
+
+                                     END IF;
+                        
+                              END IF;
+                        
+                         END IF;
+                     return query execute _query;
+        
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_notedocument_sent_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+    
+    
+    -- FUNCTION: public.get_notedocument_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_notedocument_list_count(
+	_createdby bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    total bigint;
+    _query text;
+    _keyword text;
+begin
+    total := 0;
+    _keyword :='''%'||keyword||'%''';
+    _query :='select COUNT(*)  
+       FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
+       INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
+       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid where nd.createdby='||_createdby;
+    IF _createdby != 0 AND _createdby IS NOT NULL THEN
+    
+        IF  keyword !='' AND keyword IS NOT NULL  THEN
+    
+            
+           EXECUTE _query||' AND (nd.notedocumentnumber ilike '||_keyword||'  OR nd.subject ilike '||_keyword||')' INTO total;
+            RETURN total;
+       
+       END IF;
+            
+            EXECUTE _query INTO total;
+            RETURN total;
+       
+       END IF;
+  RETURN total;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.get_notedocument_list_count(bigint, text)
+    OWNER TO postgres;
+
+    

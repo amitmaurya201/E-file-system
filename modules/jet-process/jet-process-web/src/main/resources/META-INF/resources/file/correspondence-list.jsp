@@ -2,51 +2,47 @@
 <%@page import="io.jetprocess.model.DocFile"%>
 <%
 	long corrFileId = (long) renderRequest.getAttribute("putInFileId");
-System.out.println("corrFileId------"+corrFileId);
+	System.out.println("corrFileId------" + corrFileId);
 
-long docFileId = (long) renderRequest.getAttribute("docFileId");
-System.out.println("docFileId------"+docFileId);
+	long docFileId = (long) renderRequest.getAttribute("docFileId");
+	System.out.println("docFileId------" + docFileId);
 
-String redirectURL = themeDisplay.getURLCurrent();
+	String redirectURL = themeDisplay.getURLCurrent();
 %>
 <style>
-
-.conformation-icon{
-	width:5vw;
-	height:5vh;
-	color:#007bff;
+.conformation-icon {
+	width: 5vw;
+	height: 5vh;
+	color: #007bff;
 }
-
 
 .btn {
-	border:none !important;
-	color:#FFFFFF !important;
-	
+	border: none !important;
+	color: #FFFFFF !important;
 }
 
-.btn-secondary{
-
-	border:1px solid #007bff !important;
-	border-radius:0px;
+.btn-secondary {
+	border: 1px solid #007bff !important;
+	border-radius: 0px;
 	background-color: white !important;
-	color:#007bff !important;
+	color: #007bff !important;
 }
-.btn-secondary:hover{
-	border:1px solid #007bff !important;
+
+.btn-secondary:hover {
+	border: 1px solid #007bff !important;
 	background-color: #007bff !important;
-	color:#FFFFFF !important;
-
+	color: #FFFFFF !important;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
 	background-color: #e6f3fa;
- 	color:black;
-	border:1px solid #39aeed;	
+	color: black;
+	border: 1px solid #39aeed;
 }
 
 .three-dots {
-	marging:0px;
-	padding-left:40px;
+	marging: 0px;
+	padding-left: 40px;
 	width: 20px;
 	height: 21px;
 	background-image: radial-gradient(circle, #343a40 2px, transparent 2px);
@@ -59,12 +55,12 @@ String redirectURL = themeDisplay.getURLCurrent();
 	top: 40% !important;
 	left: 50% !important;
 	transform: translate(-50%, -50%) !important;
-	margin:10px;
-	padding-top:0px;
-	padding-bottom:10px;
+	margin: 10px;
+	padding-top: 0px;
+	padding-bottom: 10px;
 	z-index: 1000;
-	width:500px !important ;
-	 height:510px !important ; 
+	width: 500px !important;
+	height: 510px !important;
 	background: white;
 	border-bottom: 1px solid #aaa;
 	border-radius: 4px;
@@ -74,28 +70,26 @@ String redirectURL = themeDisplay.getURLCurrent();
 }
 
 .modal-box header, .modal-box .modal-header {
-	
-	background-color:#007bff;
- 	padding: 1.25em 1.5em; 
-	
+	background-color: #007bff;
+	padding: 1.25em 1.5em;
 }
 
 .modal-box header h3, .modal-box header h4, .modal-box .modal-header h3,
 	.modal-box .modal-header h4 {
-	color:#FFFFFF;
+	color: #FFFFFF;
 	margin: 0;
-	
 }
 
 .modal-box .modal-body {
 	/* padding: 2em 1.5em; */
+	
 }
 
 .modal-box footer, .modal-box .modal-footer {
 	padding: 1.25em 1.5em;
-	padding-bottom:  1.5em; 
+	padding-bottom: 1.5em;
 	border-top: 1px solid #ddd;
-	 /* background: rgba(0, 0, 0, 0.06); */
+	/* background: rgba(0, 0, 0, 0.06); */
 	text-align: right;
 }
 
@@ -113,7 +107,7 @@ String redirectURL = themeDisplay.getURLCurrent();
 
 a.close {
 	line-height: 1;
-	 font-size: 1.5em;
+	font-size: 1.5em;
 	position: absolute;
 	top: 5%;
 	right: 2%;
@@ -122,7 +116,7 @@ a.close {
 }
 
 a.close:hover {
-	color:#FFFFFF;
+	color: #FFFFFF;
 	-webkit-transition: color 1s ease;
 	-moz-transition: color 1s ease;
 	transition: color 1s ease;
@@ -134,14 +128,35 @@ a.close:hover {
 	}
 }
 
-
 .nav-item .dropdown-menu a {
 	marging: 10px;
 	display: block !important;
 	cursor: pointer;
 }
-.lfr-search-container-wrapper a:not(.component-action):not(.btn) {
-	color: #000000 ;
+
+.lfr-search-container-wrapper
+ 
+a
+:not
+ 
+(
+.component-action
+ 
+)
+:not
+ 
+(
+.btn
+ 
+)
+{
+color
+:
+ 
+#000000
+;
+
+
 }
 .modal .close:last-child {
 	margin-right: -0.3125rem;
@@ -205,8 +220,7 @@ a.close:hover {
 		value="<%=MVCCommandNames.CORRESPONCE_FILE_RENDER%>" />
 	<portlet:param name="fileMovementId"
 		value="<%=String.valueOf(fileMovementId)%>" />
-	<portlet:param name="docFileId1"
-		value="<%=String.valueOf(docFileId)%>" />
+	<portlet:param name="docFileId1" value="<%=String.valueOf(docFileId)%>" />
 
 </portlet:renderURL>
 
@@ -270,7 +284,7 @@ a.close:hover {
 						onclick="receiptDetailPopup(${fileCorrespondenceReceiptDTO.receiptId })"
 						style="cursor: pointer">
 						${fileCorrespondenceReceiptDTO.receiptNumber } </a>
-						
+
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text property="subject"
@@ -288,37 +302,51 @@ a.close:hover {
 				<liferay-ui:search-container-column-text
 					name="label-receipt-list-remark" property="remark"
 					cssClass="hover-tips" />
+					
 
 
 
 				<liferay-ui:search-container-column-text name="Actions">
 					<!-- <div class="three-dots"></div> -->
-					
+
 					<div class="dropdown">
-  <a class="three-dots nav-link dropdown-toggle"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    
-  </a>
-  <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
-    
-    
-    <c:choose>
-	 	 <c:when test="${fileCorrespondenceReceiptDTO.isClosed()}">
-	 	 	 <c:set var="isOpen"  value=""></c:set>
-	 	 	 <c:set var="isClosed"  value="disabled"></c:set>
-	 	 </c:when>
-	 	 <c:otherwise>
-	   		 <c:set var="isOpen"  value="disabled"></c:set>
-	 	 	 <c:set var="isClosed"  value=""></c:set>
-	  	</c:otherwise>
-	</c:choose>
-      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable() })"><liferay-ui:message key="label-corr-detach" /></button>
-      <button class="dropdown-item js-open-modal ${isClosed }"  type="button" onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })"><liferay-ui:message key="label-corr-reopen" /></button>
-      <button class="dropdown-item js-open-modal ${isOpen }" type="button" onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId })"><liferay-ui:message key="label-corr-close" /></button>
-   
-  
-  </div>
-</div>
-					
+						<a class="three-dots nav-link dropdown-toggle" id="dropdownMenu2"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+						</a>
+						<div class="dropdown-menu " aria-labelledby="dropdownMenu2">
+
+
+							<c:choose>
+								<c:when test="${fileCorrespondenceReceiptDTO.isClosed()}">
+									<c:set var="isOpen" value=""></c:set>
+									<c:set var="isClosed" value="disabled"></c:set>
+								</c:when>
+								<c:otherwise>
+									<c:set var="isOpen" value="disabled"></c:set>
+									<c:set var="isClosed" value=""></c:set>
+								</c:otherwise>
+							</c:choose>
+							<button class="dropdown-item js-open-modal ${isOpen }"
+								type="button"
+								onclick="detachFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, ${fileCorrespondenceReceiptDTO.isDetachable()}, '${fileCorrespondenceReceiptDTO.receiptNumber }')">
+								<liferay-ui:message key="label-corr-detach" />
+							</button>
+							<button class="dropdown-item js-open-modal ${isClosed }"
+								type="button"
+								onclick="reopenReceiptFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, '${fileCorrespondenceReceiptDTO.receiptNumber }')">
+								<liferay-ui:message key="label-corr-reopen" />
+							</button>
+							<button class="dropdown-item js-open-modal ${isOpen }"
+								type="button"
+								onclick="closeFun(${fileCorrespondenceReceiptDTO.receiptId }, ${fileCorrespondenceReceiptDTO.receiptMovementId }, '${fileCorrespondenceReceiptDTO.receiptNumber }')">
+								<liferay-ui:message key="label-corr-close" />
+							</button>
+
+
+						</div>
+					</div>
+
 				</liferay-ui:search-container-column-text>
 
 
@@ -352,45 +380,56 @@ a.close:hover {
 <div id="popup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h4><liferay-ui:message key="heading-corr-in-file-Confirmation" /></h4>
+		<h4>
+			<liferay-ui:message key="heading-corr-in-file-Confirmation" />
+		</h4>
 	</header>
 	<aui:form action="#" method="post" name="detachReceiptForm">
-	<div class="modal-body">
+		<div class="modal-body">
 			<div class="text-center">
-			<%-- <img alt="reopen-file" title="Reopen"
+				<%-- <img alt="reopen-file" title="Reopen"
 							id='<portlet:namespace/>reopen-file'
 							src='<%=request.getContextPath() + "/image/detach.png"%>'
 							width="50px" height="50px"  /> --%>
-				<h5><liferay-ui:message key="title-corr-detach" /></h5>
-				<P><liferay-ui:message key="message-corr-detach" /><span class="receiptNumber font-weight-bold"></span></P>
+				<h5>
+					<liferay-ui:message key="title-corr-detach" />
+				</h5>
+				<P>
+					<liferay-ui:message key="message-corr-detach" />
+					<span class="receiptNumber font-weight-bold"></span>
+				</P>
 			</div>
 			<hr>
-			<aui:input type="hidden" name="receiptId" ></aui:input>
-			<aui:input type="hidden" name="receiptMovId" ></aui:input>
-			<aui:input type="hidden" name="redirectURL"  value="<%=redirectURL%>"></aui:input>
-			<span ><liferay-ui:message key="label-corr-remarks" /><span style="color:red;">*</span></span>
-			<aui:input type="textarea"  name="remarks" label="" >
+			<aui:input type="hidden" name="receiptId"></aui:input>
+			<aui:input type="hidden" name="receiptMovId"></aui:input>
+			<aui:input type="hidden" name="redirectURL" value="<%=redirectURL%>"></aui:input>
+			<span><liferay-ui:message key="label-corr-remarks" /><span
+				style="color: red;">*</span></span>
+			<aui:input type="textarea" name="remarks" label="">
 				<aui:validator name="required" />
+				<aui:validator name="maxLength">
+					<liferay-ui:message key="label-corr-remarks-maxlength" />
+				</aui:validator>
 			</aui:input>
-			
-		
-	</div>
-	<footer>
-		
-		<div class="float-right">
+
+
+		</div>
+		<footer>
+
+			<div class="float-right">
 				<div class="float-right">
-				<aui:button type="button" cssClass=""
-					value="label-detach-confirmation-button"
-					onclick="receiptDetach(true)"></aui:button>
-				<aui:button type="button" id="close-btn"
-					cssClass=" ml-2 js-modal-close"
-					value="label-detach-confirmation-cancel" data-dismiss="modal"
-					onclick="close"></aui:button>
+					<aui:button type="button" cssClass=""
+						value="label-detach-confirmation-button"
+						onclick="receiptDetach(true)"></aui:button>
+					<aui:button type="button" id="close-btn"
+						cssClass=" ml-2 js-modal-close"
+						value="label-detach-confirmation-cancel" data-dismiss="modal"
+						onclick="close"></aui:button>
+				</div>
+
 			</div>
-			
-			</div>
-	</footer>
-	
+		</footer>
+
 	</aui:form>
 </div>
 
@@ -399,48 +438,58 @@ a.close:hover {
 <!--  --------------- Receipt Close ----------------   -->
 
 <portlet:resourceURL
-	id="<%=MVCCommandNames.CLOSE_RECEIPT_RESOURCE_COMMAND %>"
+	id="<%=MVCCommandNames.CLOSE_RECEIPT_RESOURCE_COMMAND%>"
 	var="closeReceiptResourceURL">
 </portlet:resourceURL>
-	
+
 
 <div id="closePopup" class="modal-box">
 	<header>
-		<a href="#" class="js-modal-close close"  >&times;	</a>
-		<h4><liferay-ui:message key="heading-corr-in-file-Confirmation" /></h4>
+		<a href="#" class="js-modal-close close">&times; </a>
+		<h4>
+			<liferay-ui:message key="heading-corr-in-file-Confirmation" />
+		</h4>
 	</header>
 	<aui:form action="#" method="post" name="closeReceiptForm">
-	<div class="modal-body">
-		<div class="text-center">
+		<div class="modal-body">
+			<div class="text-center">
 				<%-- <img alt="reopen-file" title="Reopen"
 							id='<portlet:namespace/>reopen-file'
 							src='<%=request.getContextPath() + "/image/close.png"%>'
 							width="50px" height="50px"  /> --%>
-				<h5><liferay-ui:message key="title-corr-close" /></h5>
-				<P><liferay-ui:message key="message-corr-close" /><span class="receiptNumber font-weight-bold"></span> </P>
+				<h5>
+					<liferay-ui:message key="title-corr-close" />
+				</h5>
+				<P>
+					<liferay-ui:message key="message-corr-close" />
+					<span class="receiptNumber font-weight-bold"></span>
+				</P>
 			</div>
 			<hr>
-			<aui:input  type="hidden" name="closeReceiptId"  ></aui:input>
-			<aui:input type="hidden" name="rmId"   ></aui:input>
-			<aui:input type="hidden" name="userPostId" value="<%=userPostsVal%>" ></aui:input>
-			<span ><liferay-ui:message key="label-corr-remarks" /><span style="color:red;">*</span></span>
-			<aui:input type="textarea"  name="closingRemarks" label="" >
+			<aui:input type="hidden" name="closeReceiptId"></aui:input>
+			<aui:input type="hidden" name="rmId"></aui:input>
+			<aui:input type="hidden" name="userPostId" value="<%=userPostsVal%>"></aui:input>
+			<span><liferay-ui:message key="label-corr-remarks" /><span
+				style="color: red;">*</span></span>
+			<aui:input type="textarea" name="closingRemarks" label="">
 				<aui:validator name="required" />
+				<aui:validator name="maxLength">
+					<liferay-ui:message key="label-corr-remarks-maxlength" />
+				</aui:validator>
 			</aui:input>
-			
-		
-	</div>
+
+
+		</div>
 		<footer>
-		<div class="float-right">
+			<div class="float-right">
 				<aui:button type="button" cssClass="btn"
 					value="label-detach-confirmation-button" onclick="receiptClose()"></aui:button>
-				<aui:button type="button" 
-					cssClass="ml-2 js-modal-close"
+				<aui:button type="button" cssClass="ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
-					
+
 			</div>
-	</footer>
+		</footer>
 	</aui:form>
 </div>
 
@@ -449,63 +498,71 @@ a.close:hover {
 
 <portlet:resourceURL
 	id="<%=MVCCommandNames.CORR_RECEIPT_REOPEN_RESOURCE_COMMAND%>"
-	var="reopenReceiptResourceURL"> </portlet:resourceURL>
+	var="reopenReceiptResourceURL">
+</portlet:resourceURL>
 
 <div id="reopenPopup" class="modal-box">
 	<header>
 		<a href="#" class="js-modal-close close">&times;</a>
-		<h4><liferay-ui:message key="heading-corr-in-file-Confirmation" /></h4>
+		<h4>
+			<liferay-ui:message key="heading-corr-in-file-Confirmation" />
+		</h4>
 	</header>
 	<aui:form action="#" method="post" name="reopenReceipt">
-	<div class="modal-body">
+		<div class="modal-body">
 			<div class="text-center">
-			<!-- style="border:2px solid #007bff; padding:5px; border-radius:50%;" -->
-			<%-- <img alt="reopen-file" title="Reopen"
+				<!-- style="border:2px solid #007bff; padding:5px; border-radius:50%;" -->
+				<%-- <img alt="reopen-file" title="Reopen"
 							id='<portlet:namespace/>reopen-file'
 							src='<%=request.getContextPath() + "/image/reopen-image.png"%>'
 							width="50px" height="50px"  /> --%>
-				<h5><liferay-ui:message key="title-corr-reopen" /></h5>
-				<P><liferay-ui:message key="message-corr-reopen" /><span class="receiptNumber font-weight-bold"></span> </P>
+				<h5>
+					<liferay-ui:message key="title-corr-reopen" />
+				</h5>
+				<P>
+					<liferay-ui:message key="message-corr-reopen" />
+					<span class="receiptNumber font-weight-bold"></span>
+				</P>
 			</div>
 			<hr>
-			
-			<aui:input type="hidden" name="reopenReceiptId"  />
-			<aui:input type="hidden" name="closedReceiptId"  />
-			<aui:input  type="hidden" name="userPostId" value="<%=userPostsVal%>"/>
-			<span ><liferay-ui:message key="label-corr-remarks" /> <span style="color:red;">*</span></span>
-		 	<aui:input label="" name="reopenRemarks" id="reopenRemarks"
-					type="textarea" >
-					<aui:validator name="required"></aui:validator>
-					<aui:validator name="maxLength">
-						<liferay-ui:message key="receipt-reopen-remarks-maxlength" />
-					</aui:validator>
-				</aui:input>
-			
-	</div>
-	<footer>
-		<div class="float-right">
+
+			<aui:input type="hidden" name="reopenReceiptId" />
+			<aui:input type="hidden" name="closedReceiptId" />
+			<aui:input type="hidden" name="userPostId" value="<%=userPostsVal%>" />
+			<span><liferay-ui:message key="label-corr-remarks" /> <span
+				style="color: red;">*</span></span>
+			<aui:input label="" name="reopenRemarks" id="reopenRemarks"
+				type="textarea">
+				<aui:validator name="required"></aui:validator>
+				<aui:validator name="maxLength">
+					<liferay-ui:message key="label-corr-remarks-maxlength" />
+				</aui:validator>
+			</aui:input>
+
+		</div>
+		<footer>
+			<div class="float-right">
 				<aui:button type="button" cssClass="btn "
-					value="label-detach-confirmation-button"
-					onclick="receiptReopen()"></aui:button>
-				<aui:button type="button" 
-					cssClass="ml-2 js-modal-close"
+					value="label-detach-confirmation-button" onclick="receiptReopen()"></aui:button>
+				<aui:button type="button" cssClass="ml-2 js-modal-close"
 					value="label-detach-confirmation-cancel" data-dismiss="modal"
 					onclick="close"></aui:button>
-					
-					
+
+
 			</div>
-	</footer>
-</aui:form>
+		</footer>
+	</aui:form>
 </div>
- 
-<div class="float-right">
- </div>
+
+<div class="float-right"></div>
 
 
 <!-- ************************* Jquery Popup button. these button are trigged by js  ****************************  -->
 <a class="js-open-modal" id="detachId" hidden data-modal-id="popup"></a>
-<a class="js-open-modal" id="reopenReceiptPopup" hidden data-modal-id="reopenPopup"> </a>
-<a class="js-open-modal"  id="closeReceiptPopup" hidden data-modal-id="closePopup"> </a>
+<a class="js-open-modal" id="reopenReceiptPopup" hidden
+	data-modal-id="reopenPopup"> </a>
+<a class="js-open-modal" id="closeReceiptPopup" hidden
+	data-modal-id="closePopup"> </a>
 
 
 
@@ -597,12 +654,13 @@ function receiptDetailPopup(receiptId){
 	
 	
 	
-	function detachFun(receiptId, receiptMovementId, isDetachable){
+	function detachFun(receiptId, receiptMovementId, isDetachable,receiptNumber){
+		alert(receiptNumber);
 		console.table(receiptId,receiptMovementId, isDetachable )
 		if(isDetachable){
 			$("#<portlet:namespace />receiptId").val(receiptId);
 			$("#<portlet:namespace />receiptMovId").val(receiptMovementId);
-			$(".receiptNumber").text(" - "+receiptId);
+			$(".receiptNumber").text(" - "+receiptNumber);
 			$('#detachId').trigger('click');
 		}else{
 					swal( {
@@ -646,11 +704,11 @@ function receiptDetailPopup(receiptId){
 	
 	/* ******************* Close Rceipt  **********************  */
 	
-	function closeFun(receiptId, receiptMovementId, isDetachable){
-		
+	function closeFun(receiptId, receiptMovementId,  receiptNumber){
+		alert(receiptNumber);
 			$("#<portlet:namespace />closeReceiptId").val(receiptId);
 			$("#<portlet:namespace />rmId").val(receiptMovementId);
-			$(".receiptNumber").text(" - "+receiptId);
+			$(".receiptNumber").text(" - "+receiptNumber);
 			$('#closeReceiptPopup').trigger('click');
 				
 	}
@@ -684,12 +742,12 @@ function receiptDetailPopup(receiptId){
 	
 	/* *******************************  Receipt Reopen   ******************************  */
 	
-	function reopenReceiptFun(receiptId, receiptMovementId){
-		console.table(receiptId,receiptMovementId)
+	function reopenReceiptFun(receiptId, receiptMovementId, receiptNumber){
 		
+		console.log(receiptId,receiptMovementId, receiptNumber);
 		 	$("#<portlet:namespace />reopenReceiptId").val(receiptId);
 			$("#<portlet:namespace />closedReceiptId").val(receiptMovementId); 
-			$(".receiptNumber").text(" - "+receiptId);
+		 $(".receiptNumber").text(" - "+receiptNumber); 
 			$('#reopenReceiptPopup').trigger('click');
 		
 	}
@@ -746,6 +804,7 @@ function receiptDetailPopup(receiptId){
 	
 	
 	/* ******************* Jquery Popup **************************  */
+	
 	$(function() {
 
 	var appendthis = ("<div class='modal-overlay js-modal-close'></div>");

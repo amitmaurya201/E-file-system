@@ -180,5 +180,73 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 		}
 		return count;
 	}
+@Override
+	public List<NoteDocumentMovementDTO> getNoteDocumentSentList(long senderId, String keyword, int start,
+			int end, String orderBy, String order) {
+		logger.info("getting data----------NoteDocument sent List--------------------");
+		List<NoteDocumentMovementDTO> noteDocumentMovementList = new ArrayList<>();
+		CallableStatement prepareCall = null;
+		try {
+
+			prepareCall = con.prepareCall("select * from public.get_notedocument_sent_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, senderId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					NoteDocumentMovementDTO noteDocument = new NoteDocumentMovementDTO();
+					noteDocument.setNoteDocumentNumber(rs.getString("notedocumentnumber"));
+					noteDocument.setSubject(rs.getString("subject"));
+					noteDocument.setSentBy(rs.getString("sentby"));
+					noteDocument.setSentOn(rs.getTimestamp("senton"));
+					noteDocument.setSentTo(rs.getString("sentto"));
+					noteDocument.setRemarks(rs.getString("remarks"));
+					noteDocument.setCurrentlyWith(rs.getLong("currentlywith"));
+					noteDocument.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
+					System.out.println(noteDocument);
+					noteDocumentMovementList.add(noteDocument);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+
+		}
+
+		return noteDocumentMovementList;
+	}
+
+	@Override
+	public int getNoteDocumentSentListCount(long senderId, String keyword) {
+		logger.info("Getting NoteDocument sent List Count...");
+		int count = 0;
+		CallableStatement prepareCall = null;
+		try {
+			prepareCall = con.prepareCall("select public.get_notedocument_sent_list_count(?, ?)");
+			prepareCall.setLong(1, senderId);
+			prepareCall.setString(2, keyword);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet resultSet = prepareCall.getResultSet();
+				if (resultSet.next()) {
+					count = resultSet.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("Couldn't able to find connection" + e);
+			e.printStackTrace();
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up statement");
+		}
+		return count;
+	} 
 
 }
