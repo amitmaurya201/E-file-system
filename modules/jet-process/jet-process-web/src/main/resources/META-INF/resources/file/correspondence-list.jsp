@@ -811,6 +811,7 @@ function receiptDetailPopup(receiptId){
 
 	$("a[data-modal-id]").click(function(e) {
 		e.preventDefault();
+		$('body').css('overflow', 'hidden');
 		$("body").append(appendthis);
 		$(".modal-overlay").fadeTo(500, 0.7);
 		//$(".js-modalbox").fadeIn(500);
@@ -822,6 +823,7 @@ function receiptDetailPopup(receiptId){
 		
 		$(".modal-box, .modal-overlay").fadeOut(500, function() {
 			$(".modal-overlay").remove();
+			$('body').css('overflow', 'scroll');
 			$(this).find('form').trigger('reset');
 		});
 	});
