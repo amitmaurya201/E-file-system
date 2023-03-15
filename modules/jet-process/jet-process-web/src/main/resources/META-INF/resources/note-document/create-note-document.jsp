@@ -33,10 +33,12 @@ List<Masterdata> subCategory=(List<Masterdata>)request.getAttribute("subjectCate
 						</aui:input>
 					</div>
 				</aui:col>
-				<aui:col md="4" cssClass="">
-					<div cssClass="input-group">
-									<aui:select cssClass="form-select form-control"
-													 name="categoryId" >
+				<aui:col md="4" cssClass="col-md-4">
+					<div class="textOnInput">
+				<label><liferay-ui:message key="label-notedocument-list-subjectcategory" /></label>
+				
+									<aui:select label="" cssClass="form-select form-control"
+													 name="category" >
 													<%
 														for(Masterdata subCategoryvalue:subCategory){
 													%>
@@ -50,7 +52,7 @@ List<Masterdata> subCategory=(List<Masterdata>)request.getAttribute("subjectCate
 					<div class="textOnInput">
 						<label><liferay-ui:message
 								key="label-create-note-document-createdOn" /></label>
-						<aui:input label="" name="createdOn" id="createdOn" value="<%=simpleFormat.format(new Date()) %>">
+						<aui:input label="" name="createdOn" id="createdOn" readonly="true" value="<%=simpleFormat.format(new Date()) %>">
 						</aui:input>
 					</div>
 				</aui:col>
