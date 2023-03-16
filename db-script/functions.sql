@@ -2889,9 +2889,7 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_notedocument_sent_list_count(bigint, text, integer, integer, text, text)
-    OWNER TO postgres;
-    
+
     
     
     
