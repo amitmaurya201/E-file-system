@@ -34,7 +34,7 @@ public class NoteDocumentActionCommand implements MVCActionCommand{
 
 		  long createdBy = ParamUtil.getLong(actionRequest, "CreatedBy");
 		  String noteSubject = ParamUtil.getString(actionRequest, "noteSubject");
-		  long subjectCategory = ParamUtil.getLong(actionRequest, "categoryId");
+		  long subjectCategory = ParamUtil.getLong(actionRequest, "category");
 		  Date createdOn = ParamUtil.getDate(actionRequest, "createdOn", null);
 		  String content = ParamUtil.getString(actionRequest, "content");
           System.out.println("aasasasasas--------"+subjectCategory);
