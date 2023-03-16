@@ -30,6 +30,7 @@ List<Masterdata> subCategory=(List<Masterdata>)request.getAttribute("subjectCate
 						<label><liferay-ui:message
 								key="label-create-note-document-subject" /></label>
 						<aui:input label="" name="noteSubject" id="noteSubject">
+						<aui:validator name="required" />
 						</aui:input>
 					</div>
 				</aui:col>
@@ -39,6 +40,7 @@ List<Masterdata> subCategory=(List<Masterdata>)request.getAttribute("subjectCate
 				
 									<aui:select label="" cssClass="form-select form-control"
 													 name="category" >
+													 <option value="">Choose...</option>
 													<%
 														for(Masterdata subCategoryvalue:subCategory){
 													%>

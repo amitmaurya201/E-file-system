@@ -6,7 +6,7 @@
 	</div>
 
 	<div class="col-md-10">
-		<h1 class="text-center">Note Send List</h1>
+		<h1 class="text-center"><liferay-ui:message key="label-notedocument-sent-list-heading"></liferay-ui:message> </h1>
 
 		<clay:management-toolbar disabled="${noteDocumentCount eq 0}"
 			displayContext="${noteDocSentManagementToolbarDisplayContext}"
@@ -34,29 +34,29 @@
 						value="<%=""%>" /> --%>
 
 				<liferay-ui:search-container-column-text href="<%=noteList %>"
-					name="noteDocumentNumber" cssClass="hyperlink-css"
+					name="label-notedocument-sent-list-notedocumentnumber" cssClass="hyperlink-css"
 					value="${noteDocumentMovementDTO.noteDocumentNumber }"
 					orderableProperty="noteDocumentNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					value="${noteDocumentMovementDTO.getNoteDocumentId() }" name="noteDocumentId"
+					value="${noteDocumentMovementDTO.getNoteDocumentId() }" name="note Document Id"
 					orderableProperty="noteDocumentId" />
 
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					value="${noteDocumentMovementDTO.subject }" name="subject"
+					value="${noteDocumentMovementDTO.subject }" name="label-notedocument-sent-list-subject"
 					orderableProperty="subject" />
 
 
 
 				<liferay-ui:search-container-column-text orderable="true"
-					name="sentTO" orderableProperty="sentTo">
+					name="label-notedocument-sent-list-sentTo" orderableProperty="sentTo">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
 						timeZone="Asia/Calcutta" value="${noteDocumentMovementDTO.sentOn}" />
 				</liferay-ui:search-container-column-text>
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					value="${noteDocumentMovementDTO.sentTo }" name="sentOn"
+					value="${noteDocumentMovementDTO.sentTo }" name="label-notedocument-sent-list-createdon"
 					orderableProperty="sentOn" />
 
 
