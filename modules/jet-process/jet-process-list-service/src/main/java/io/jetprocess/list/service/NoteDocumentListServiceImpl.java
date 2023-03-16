@@ -200,6 +200,7 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 					NoteDocumentMovementDTO noteDocument = new NoteDocumentMovementDTO();
+					noteDocument.setNoteDocumentId(rs.getLong("notedocumentid"));
 					noteDocument.setNoteDocumentNumber(rs.getString("notedocumentnumber"));
 					noteDocument.setSubject(rs.getString("subject"));
 					noteDocument.setSentBy(rs.getString("sentby"));

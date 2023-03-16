@@ -3,7 +3,8 @@ package io.jetprocess.list.model;
 import java.util.Date;
 
 public class NoteDocumentMovementDTO {
-
+	
+	private long noteDocumentId;
 	private String noteDocumentNumber;
     private String subject;
     private String sentBy;
@@ -12,6 +13,29 @@ public class NoteDocumentMovementDTO {
     private String remarks;
     private long currentlyWith;
     private String currentlyWithUserName;
+	public NoteDocumentMovementDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public NoteDocumentMovementDTO(long noteDocumentId, String noteDocumentNumber, String subject, String sentBy,
+			Date sentOn, String sentTo, String remarks, long currentlyWith, String currentlyWithUserName) {
+		super();
+		this.noteDocumentId = noteDocumentId;
+		this.noteDocumentNumber = noteDocumentNumber;
+		this.subject = subject;
+		this.sentBy = sentBy;
+		this.sentOn = sentOn;
+		this.sentTo = sentTo;
+		this.remarks = remarks;
+		this.currentlyWith = currentlyWith;
+		this.currentlyWithUserName = currentlyWithUserName;
+	}
+	public long getNoteDocumentId() {
+		return noteDocumentId;
+	}
+	public void setNoteDocumentId(long noteDocumentId) {
+		this.noteDocumentId = noteDocumentId;
+	}
 	public String getNoteDocumentNumber() {
 		return noteDocumentNumber;
 	}
@@ -60,27 +84,16 @@ public class NoteDocumentMovementDTO {
 	public void setCurrentlyWithUserName(String currentlyWithUserName) {
 		this.currentlyWithUserName = currentlyWithUserName;
 	}
-	public NoteDocumentMovementDTO(String noteDocumentNumber, String subject, String sentBy, Date sentOn, String sentTo,
-			String remarks, long currentlyWith, String currentlyWithUserName) {
-		super();
-		this.noteDocumentNumber = noteDocumentNumber;
-		this.subject = subject;
-		this.sentBy = sentBy;
-		this.sentOn = sentOn;
-		this.sentTo = sentTo;
-		this.remarks = remarks;
-		this.currentlyWith = currentlyWith;
-		this.currentlyWithUserName = currentlyWithUserName;
-	}
-	public NoteDocumentMovementDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	@Override
 	public String toString() {
-		return "NoteDocumentMovementDTO [noteDocumentNumber=" + noteDocumentNumber + ", subject=" + subject
-				+ ", sentBy=" + sentBy + ", sentOn=" + sentOn + ", sentTo=" + sentTo + ", remarks=" + remarks
-				+ ", currentlyWith=" + currentlyWith + ", currentlyWithUserName=" + currentlyWithUserName + "]";
+		return "NoteDocumentMovementDTO [noteDocumentId=" + noteDocumentId + ", noteDocumentNumber="
+				+ noteDocumentNumber + ", subject=" + subject + ", sentBy=" + sentBy + ", sentOn=" + sentOn
+				+ ", sentTo=" + sentTo + ", remarks=" + remarks + ", currentlyWith=" + currentlyWith
+				+ ", currentlyWithUserName=" + currentlyWithUserName + "]";
 	}
+    
+    
+    
+    
    
 }

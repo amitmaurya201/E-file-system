@@ -2771,6 +2771,7 @@ ALTER FUNCTION public.get_notedocumentmovement_list_count(bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_notedocument_sent_list(bigint, text, integer, integer, text, text);
 
+
 CREATE OR REPLACE FUNCTION public.get_notedocument_sent_list(
 	_senderid bigint,
 	keyword text,
@@ -2778,7 +2779,7 @@ CREATE OR REPLACE FUNCTION public.get_notedocument_sent_list(
 	_end integer,
 	orderbycol text,
 	_orderbytype text)
-    RETURNS TABLE(notedocumentnumber character varying, subject character varying, sentby text, senton timestamp without time zone, sentto text, remarks text, currentlywith integer, currentlywithusername text) 
+    RETURNS TABLE(notedocumentid bigint, notedocumentnumber character varying, subject character varying, sentby text, senton timestamp without time zone, sentto text, remarks text, currentlywith integer, currentlywithusername text) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE SECURITY DEFINER PARALLEL UNSAFE
@@ -2798,7 +2799,7 @@ AS $BODY$
     begin
       
       
-   _query=' SELECT 
+   _query=' SELECT dm.notedocumentid as notedocumentid , 
     nd.notedocumentnumber as noteDocumentNumber ,
     nd.subject as subject , 
 	(SELECT concat(up2.username, ''('',up2.postmarking,'')'', up2.sectionname,'','', up2.departmentname)) as sentBy ,
@@ -2884,15 +2885,16 @@ AS $BODY$
  
 $BODY$;
 
-ALTER FUNCTION public.get_notedocument_sent_list(bigint, text, integer, integer, text, text)
+ALTER FUNCTION public.get_notedocument_sent_list_count(bigint, text, integer, integer, text, text)
     OWNER TO postgres;
+    
+    
     
     
     -- FUNCTION: public.get_notedocument_list_count(bigint, text)
 
 -- DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
-
-CREATE OR REPLACE FUNCTION public.get_notedocument_list_count(
+CREATE OR REPLACE FUNCTION public.get_notedocument_sent_list_count(
 	_createdby bigint,
 	keyword text)
     RETURNS bigint
@@ -2931,8 +2933,5 @@ begin
 END;
 
 $BODY$;
-
-ALTER FUNCTION public.get_notedocument_list_count(bigint, text)
-    OWNER TO postgres;
 
     
