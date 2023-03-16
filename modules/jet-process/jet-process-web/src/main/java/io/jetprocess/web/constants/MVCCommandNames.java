@@ -98,11 +98,12 @@ public class MVCCommandNames {
 	public static final String NOTE_DOCUMENT_SEND_ACTION_COMMAND = "/sendNoteDocument";
 	
 	public static final String NOTE_DOCUMENT_ACTION_COMMAND = "/noteDocumentActionCommand";
-	
+	  
 	public static final String NOTE_DOCUMENT_UPDATE_ACTION_COMMAND = "/noteDocumentUpdateActionCommand";
 	
 	public static final String NOTE_DOCUMENT_UPDATE_RESOURCE_COMMAND = "/noteDocumentUpdateActionCommand";
 
 	public static final String NOTE_DOCUMENT_MOVEMENT_LIST_RENDER_COMMAND = "/noteDocumentMovementRenderCommand";
 
+	public static final String NOTE_LIST_RENDER_COMMAND = "noteList";
 }
