@@ -67,6 +67,8 @@ DROP FUNCTION IF EXISTS public.get_notedocuement_inbox_list(bigint, text, intege
 
 DROP FUNCTION IF EXISTS public.get_notedocument_inbox_list_count(bigint, text);
 
+DROP FUNCTION IF EXISTS public.get_notedocument_note_list(bigint, bigint);
+
 ------------------------File-created-list-----------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
@@ -3106,3 +3108,34 @@ ALTER FUNCTION public.get_notedocument_inbox_list_count(bigint, text)
     OWNER TO postgres;
  
     
+-- FUNCTION: public.get_notedocument_note_list(bigint, bigint)
+
+CREATE OR REPLACE FUNCTION public.get_notedocument_note_list(
+	notedocumentid bigint,
+	movementid bigint)
+    RETURNS TABLE(noteid bigint, signature character varying, createdate timestamp without time zone, content text) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+	declare 
+       _query text;
+   
+    begin
+    _query :='SELECT n.noteid, n.signature, n.modifieddate ,n."content"
+              from PUBLIC.jet_process_note n inner join PUBLIC.jet_process_documentnotemap
+	      	  dnm on n.noteid = dnm.noteid';
+
+            IF (notedocumentid !=0  )THEN
+           _query=_query|| ' where dnm.notedocumentid ='||notedocumentid||' AND dnm.movementid ='||movementid;
+                return query execute _query;
+       			END IF;
+     end;
+$BODY$;
+
+ALTER FUNCTION public.get_notedocument_note_list(bigint, bigint)
+    OWNER TO postgres;
