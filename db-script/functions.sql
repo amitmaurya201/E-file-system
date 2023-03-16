@@ -63,6 +63,10 @@ DROP FUNCTION IF EXISTS public.get_notedocumentmovemen(bigint, text);
 
 DROP FUNCTION IF EXISTS public.get_notedocument_movement_list(bigint, text, integer, integer, text, text);
 
+DROP FUNCTION IF EXISTS public.get_notedocuement_inbox_list(bigint, text, integer, integer, text, text);
+
+DROP FUNCTION IF EXISTS public.get_notedocument_inbox_list_count(bigint, text);
+
 ------------------------File-created-list-----------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
@@ -2934,4 +2938,171 @@ END;
 
 $BODY$;
 
+    
+
+
+-- FUNCTION: public.get_notedocuement_inbox_list(bigint, text, integer, integer, text, text)
+
+-- DROP FUNCTION IF EXISTS public.get_notedocuement_inbox_list(bigint, text, integer, integer, text, text);
+
+CREATE OR REPLACE FUNCTION public.get_notedocuement_inbox_list(
+	receiverid bigint,
+	keyword text,
+	_start integer,
+	_end integer,
+	orderbycol text,
+	_orderbytype text)
+    RETURNS TABLE(notedocumentnumber character varying, subject character varying, sentby text, senton timestamp without time zone, sentto text, remarks character varying, currentlywith bigint, currentlywithusername text) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    ROWS 1000
+
+    SET search_path=admin, pg_temp
+AS $BODY$
+    
+    declare 
+        
+        _keyword text;
+        _offset int;
+        _limit int;
+        _orderBy text;
+        _order text;
+        _query text;
+    begin
+      
+      
+   _query='SELECT nd.notedocumentnumber as noteDocumentNumber, nd.subject as subject ,
+		(SELECT concat(up1.username,''('',  up1.postmarking,'')'',  up1.sectionname,'','', up1.departmentname)) as sentBy,
+		ndm.createdate as sentOn, null as sentTo , ndm.remarks as remarks , 
+		nd.currentlywith as currentlyWith, null as currentlyWithUserName 
+        FROM PUBLIC.jet_process_notedocument as nd  
+        JOIN PUBLIC.jet_process_notedocmovement as ndm ON ndm.notedocumentid = nd.notedocumentid        
+		JOIN PUBLIC.masterdata_userpost as up1 ON ndm.senderid = up1.userpostid';        
+        _keyword := '''%'||keyword||'%''';
+        _order :=_orderByType;
+        IF (_start <0 OR _start IS NULL) THEN
+            _offset:=0;
+        ELSE
+            _offset :=_start; 
+        END IF;
+        
+        IF (_end <=0 OR _end IS NULL) THEN
+                _limit :=4;
+            ELSE
+                _limit :=_end;
+        END IF;   
+        
+        IF (orderByCol ='' OR orderByCol ='modifieddate' OR orderByCol ='createdate' OR orderByCol ='createDate' OR orderByCol ='modifiedDate' OR orderByCol IS NULL) THEN
+                _orderBy :='ndm.modifieddate';
+           
+        END IF;
+        IF (orderByCol ='sentOn' OR orderByCol ='senton') THEN
+                _orderBy :='ndm.createdate';
+           
+        END IF;
+        
+        IF (orderByCol ='notedocumentnumber' OR orderByCol ='noteDocumentNumber' ) THEN
+                _orderBy :='nd.notedocumentnumber';
+           
+        END IF;
+        IF (orderByCol ='subject' ) THEN
+                _orderBy :='nd.subject';
+           
+        END IF;
+         IF (_orderByType ='' OR _orderByType IS NULL) THEN
+                _order :='desc';
+            ELSE
+                _order :=_orderByType;
+        END IF;
+                        IF (receiverid !=0 )THEN
+                        
+                             _query := _query|| ' and ndm.receiverid ='||receiverid;
+                            
+                               if (keyword IS NOT NULL) THEN
+                
+                                     _query := _query||' AND (notedocumentnumber ilike '||_keyword ||' OR subject ilike '||_keyword ||')';
+                          
+                                     if (_orderby !='')  THEN 
+                    
+                                        _query := _query||' order by '||_orderby;
+                                        if (_order !='')  THEN 
+
+                                                _query := _query||' '||_order;
+                                                if (_offset >=0)  THEN 
+
+                                                         _query := _query||' offset '||_offset;
+                                                        if (_limit >0)  THEN 
+                                                            _query := _query||' limit '||_limit;
+
+                                                         end if;
+
+                                                end if;
+                                                
+                                           end if;
+                                           
+                                    end if;
+                                    
+                             end if;
+                             
+                end if;
+                
+          return query execute _query;
+             
+     end;
+     
+ 
+$BODY$;
+
+ALTER FUNCTION public.get_notedocuement_inbox_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+
+
+    
+   -- FUNCTION: public.get_notedocument_inbox_list_count(bigint, text)
+
+-- DROP FUNCTION IF EXISTS public.get_notedocument_inbox_list_count(bigint, text);
+
+CREATE OR REPLACE FUNCTION public.get_notedocument_inbox_list_count(
+	receiverid bigint,
+	keyword text)
+    RETURNS bigint
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE SECURITY DEFINER PARALLEL UNSAFE
+    SET search_path=admin, pg_temp
+AS $BODY$
+declare 
+    total bigint;
+    _query text;
+    _keyword text;
+begin
+    total := 0;
+    _keyword :='''%'||keyword||'%''';
+    _query :='select COUNT(*)  
+       FROM public.jet_process_notedocmovement as ndm 
+        INNER JOIN public.jet_process_notedocument as nd ON nd.notedocumentid = ndm.notedocumentid 
+     where ndm.receiverid ='||receiverid;
+    IF receiverid != 0 AND receiverid IS NOT NULL THEN
+    
+        IF  keyword !='' AND keyword IS NOT NULL  THEN
+    
+            
+           EXECUTE _query||' AND (nd.notedocumentnumber ilike '||_keyword||'  OR nd.subject ilike '||_keyword||')' INTO total;
+            RETURN total;
+       
+       END IF;
+            
+            EXECUTE _query INTO total;
+            RETURN total;
+       
+       END IF;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.get_notedocument_inbox_list_count(bigint, text)
+    OWNER TO postgres;
+ 
     
