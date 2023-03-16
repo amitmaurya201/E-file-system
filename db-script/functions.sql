@@ -69,6 +69,8 @@ DROP FUNCTION IF EXISTS public.get_notedocument_inbox_list_count(bigint, text);
 
 DROP FUNCTION IF EXISTS public.get_notedocument_note_list(bigint, bigint);
 
+DROP FUNCTION IF EXISTS get_notedocument_sent_list_count(bigint,text)
+
 ------------------------File-created-list-----------------------------
 
 CREATE OR REPLACE FUNCTION public.get_file_created_list(
@@ -2772,11 +2774,9 @@ ALTER FUNCTION public.get_notedocumentmovement_list_count(bigint, text)
     OWNER TO postgres;
 
     
-    
-    -- FUNCTION: public.get_notedocument_sent_list(bigint, text, integer, integer, text, text)
+-- FUNCTION: public.get_notedocument_sent_list(bigint, text, integer, integer, text, text)
 
 -- DROP FUNCTION IF EXISTS public.get_notedocument_sent_list(bigint, text, integer, integer, text, text);
-
 
 CREATE OR REPLACE FUNCTION public.get_notedocument_sent_list(
 	_senderid bigint,
@@ -2832,17 +2832,18 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
+--         select * from PUBLIC.jet_process_notedocmovement
         IF (orderByCol ='' OR orderByCol ='senton' OR orderByCol ='sentOn' OR orderByCol IS NULL) THEN
---                 _orderBy :='rm.createdate';
+                 _orderBy :='dm.modifieddate';
            
         END IF;
        
-         IF (orderByCol ='receiptnumber' OR orderByCol ='receiptNumber') THEN
---                 _orderBy :='r.receiptnumber';
+         IF (orderByCol ='noteDocumentNumber' OR orderByCol ='notedocumentnumber') THEN
+                 _orderBy :='nd.notedocumentnumber';
            
         END IF;
          IF (orderByCol ='subject') THEN
---                 _orderBy :='r.subject';
+                _orderBy :='nd.subject';
            
         END IF;
         
@@ -2859,7 +2860,7 @@ AS $BODY$
                             
                                IF (keyword IS NOT NULL) THEN  
                                                                 
---                                      _query := _query||' AND (dm.receiptnumber ilike '||_keyword ||' OR dm.subject ilike '||_keyword ||')';
+                                      _query := _query||' AND (nd.notedocumentnumber ilike '||_keyword ||' OR nd.subject ilike '||_keyword ||')';
                           
                                      IF (_orderby !='')  THEN 
                     
@@ -2891,15 +2892,18 @@ AS $BODY$
  
 $BODY$;
 
+ALTER FUNCTION public.get_notedocument_sent_list(bigint, text, integer, integer, text, text)
+    OWNER TO postgres;
+
 
     
     
-    
-    -- FUNCTION: public.get_notedocument_list_count(bigint, text)
+ -- FUNCTION: public.get_notedocument_sent_list_count(bigint, text)
 
--- DROP FUNCTION IF EXISTS public.get_notedocument_list_count(bigint, text);
+-- DROP FUNCTION IF EXISTS public.get_notedocument_sent_list_count(bigint, text);
+
 CREATE OR REPLACE FUNCTION public.get_notedocument_sent_list_count(
-	_createdby bigint,
+	_senderid bigint,
 	keyword text)
     RETURNS bigint
     LANGUAGE 'plpgsql'
@@ -2915,10 +2919,10 @@ begin
     total := 0;
     _keyword :='''%'||keyword||'%''';
     _query :='select COUNT(*)  
-       FROM public.jet_process_notedocument as nd INNER JOIN public.jet_process_documentnotemap as n ON nd.notedocumentid =  n.notedocumentid
-       INNER JOIN public.jet_process_note as no ON no.noteid = n.noteid 
-       INNER JOIN public.md_category as c ON c.categorydataid = nd.subjectcategoryid where nd.createdby='||_createdby;
-    IF _createdby != 0 AND _createdby IS NOT NULL THEN
+       FROM PUBLIC.jet_process_notedocmovement as dm INNER JOIN public.jet_process_notedocument as nd ON dm.notedocumentid = nd.notedocumentid 
+	left outer JOIN PUBLIC.masterdata_userpost as up1 ON dm.receiverid = up1.userpostid
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON dm.senderid = up2.userpostid WHERE dm.senderid  ='||_senderid;
+    IF _senderid != 0 AND _senderid IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
     
@@ -2937,6 +2941,9 @@ begin
 END;
 
 $BODY$;
+
+ALTER FUNCTION public.get_notedocument_sent_list_count(bigint, text)
+    OWNER TO postgres;
 
     
 

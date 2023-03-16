@@ -50,7 +50,7 @@
 
 
 				<liferay-ui:search-container-column-text orderable="true"
-					name="label-notedocument-sent-list-sentTo" orderableProperty="sentTo">
+					name="label-notedocument-sent-list-sentTo" orderableProperty="sentOn">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
 						timeZone="Asia/Calcutta" value="${noteDocumentMovementDTO.sentOn}" />
 				</liferay-ui:search-container-column-text>
