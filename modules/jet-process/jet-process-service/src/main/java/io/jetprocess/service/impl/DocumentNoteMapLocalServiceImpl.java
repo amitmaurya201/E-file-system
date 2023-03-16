@@ -16,6 +16,7 @@ package io.jetprocess.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import io.jetprocess.model.DocumentNoteMap;
 import io.jetprocess.service.base.DocumentNoteMapLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -23,10 +24,16 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=io.jetprocess.model.DocumentNoteMap",
-	service = AopService.class
-)
-public class DocumentNoteMapLocalServiceImpl
-	extends DocumentNoteMapLocalServiceBaseImpl {
+@Component(property = "model.class.name=io.jetprocess.model.DocumentNoteMap", service = AopService.class)
+public class DocumentNoteMapLocalServiceImpl extends DocumentNoteMapLocalServiceBaseImpl {
+
+	public DocumentNoteMap saveDocumentNoteMap(long noteDocumentId, long noteId, long movementId) {
+		long documentNoteMapId = counterLocalService.increment(DocumentNoteMap.class.getName());
+		DocumentNoteMap documentNoteMap = createDocumentNoteMap(documentNoteMapId);
+		documentNoteMap.setNoteId(noteId);
+		documentNoteMap.setNoteDocumentId(noteDocumentId);
+		documentNoteMap.setMovementId(movementId);
+		addDocumentNoteMap(documentNoteMap);
+		return documentNoteMap;
+	}
 }

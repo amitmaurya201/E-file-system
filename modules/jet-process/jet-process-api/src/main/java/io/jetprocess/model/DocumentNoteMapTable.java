@@ -55,6 +55,8 @@ public class DocumentNoteMapTable extends BaseTable<DocumentNoteMapTable> {
 			"noteDocumentId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<DocumentNoteMapTable, Long> noteId = createColumn(
 		"noteId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<DocumentNoteMapTable, Long> movementId = createColumn(
+		"movementId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private DocumentNoteMapTable() {
 		super("JET_PROCESS_DocumentNoteMap", DocumentNoteMapTable::new);

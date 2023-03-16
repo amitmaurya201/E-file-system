@@ -57,6 +57,7 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="noteDocumentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="noteId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="movementId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="io.jetprocess.model.impl.FileCloseDetailImpl" table="JET_PROCESS_FileCloseDetail">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fileClosedId" type="long">

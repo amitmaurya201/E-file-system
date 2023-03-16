@@ -232,6 +232,20 @@ public interface DocumentNoteMapModel
 	 */
 	public void setNoteId(long noteId);
 
+	/**
+	 * Returns the movement ID of this document note map.
+	 *
+	 * @return the movement ID of this document note map
+	 */
+	public long getMovementId();
+
+	/**
+	 * Sets the movement ID of this document note map.
+	 *
+	 * @param movementId the movement ID of this document note map
+	 */
+	public void setMovementId(long movementId);
+
 	@Override
 	public DocumentNoteMap cloneWithOriginalValues();
 

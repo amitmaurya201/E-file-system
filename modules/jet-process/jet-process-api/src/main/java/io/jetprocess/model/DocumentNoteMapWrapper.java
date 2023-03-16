@@ -53,6 +53,7 @@ public class DocumentNoteMapWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("noteDocumentId", getNoteDocumentId());
 		attributes.put("noteId", getNoteId());
+		attributes.put("movementId", getMovementId());
 
 		return attributes;
 	}
@@ -118,6 +119,12 @@ public class DocumentNoteMapWrapper
 		if (noteId != null) {
 			setNoteId(noteId);
 		}
+
+		Long movementId = (Long)attributes.get("movementId");
+
+		if (movementId != null) {
+			setMovementId(movementId);
+		}
 	}
 
 	@Override
@@ -173,6 +180,16 @@ public class DocumentNoteMapWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the movement ID of this document note map.
+	 *
+	 * @return the movement ID of this document note map
+	 */
+	@Override
+	public long getMovementId() {
+		return model.getMovementId();
 	}
 
 	/**
@@ -298,6 +315,16 @@ public class DocumentNoteMapWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the movement ID of this document note map.
+	 *
+	 * @param movementId the movement ID of this document note map
+	 */
+	@Override
+	public void setMovementId(long movementId) {
+		model.setMovementId(movementId);
 	}
 
 	/**

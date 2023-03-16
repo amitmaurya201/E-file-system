@@ -399,6 +399,14 @@ public class DocumentNoteMapLocalServiceWrapper
 		return _documentNoteMapLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public io.jetprocess.model.DocumentNoteMap saveDocumentNoteMap(
+		long noteDocumentId, long noteId, long movementId) {
+
+		return _documentNoteMapLocalService.saveDocumentNoteMap(
+			noteDocumentId, noteId, movementId);
+	}
+
 	/**
 	 * Updates the document note map in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

@@ -37,7 +37,8 @@ create table JET_PROCESS_DocumentNoteMap (
 	createDate DATE null,
 	modifiedDate DATE null,
 	noteDocumentId LONG,
-	noteId LONG
+	noteId LONG,
+	movementId LONG
 );
 
 create table JET_PROCESS_FileCloseDetail (

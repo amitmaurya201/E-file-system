@@ -22,10 +22,11 @@ import java.util.Date;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.core.util.FileStatus;
 import io.jetprocess.core.util.MovementStatus;
-import io.jetprocess.core.util.NoteDocumentStatus;
 import io.jetprocess.model.DocumentNoteMap;
 import io.jetprocess.model.Note;
+import io.jetprocess.model.NoteDocMovement;
 import io.jetprocess.model.NoteDocument;
 import io.jetprocess.service.DocumentNoteMapLocalService;
 import io.jetprocess.service.NoteDocMovementLocalServiceUtil;
@@ -49,29 +50,22 @@ public class NoteDocumentLocalServiceImpl extends NoteDocumentLocalServiceBaseIm
 		noteDocument.setCreateDate(createdOn);
 		noteDocument.setNoteDocumentNumber(generateNoteDocumentNumber(noteDocumentId));
 		noteDocument.setCurrentlyWith(createdBy);
-		noteDocument.setCurrentState(NoteDocumentStatus.CREADTED);
+		noteDocument.setCurrentState(FileStatus.CREADTED);
 		addNoteDocument(noteDocument);
 		long noteId = counterLocalService.increment(Note.class.getName());
 		Note note = noteLocalService.createNote(noteId);
 		note.setContent(content);
 		note.setCreatedBy(createdBy);
 		noteLocalService.addNote(note);
-		long documentNoteMapId = counterLocalService.increment(DocumentNoteMap.class.getName());
-		DocumentNoteMap documentNoteMap = documentNoteMapLocalService.createDocumentNoteMap(documentNoteMapId);
-		documentNoteMap.setNoteId(noteId);
-		documentNoteMap.setNoteDocumentId(noteDocumentId);
-		documentNoteMapLocalService.addDocumentNoteMap(documentNoteMap);
-		NoteDocMovementLocalServiceUtil.saveNoteDocumentMovement(createdBy, createdBy, noteDocumentId, "", false,
+		
+		NoteDocMovement saveNoteDocumentMovement = NoteDocMovementLocalServiceUtil.saveNoteDocumentMovement(createdBy, createdBy, noteDocumentId, "", false,
 				MovementStatus.CREATED);
+		DocumentNoteMap documentNoteMap =documentNoteMapLocalService.saveDocumentNoteMap(noteDocumentId, noteId,saveNoteDocumentMovement.getMovementId());
 		return documentNoteMap;
 	}
 
 	public Note updateNoteDocument(long noteId, String content) throws PortalException {
-		System.out.println(noteId);
-		System.out.println("content" + content);
-		Note note = noteLocalService.getNote(noteId);
-		note.setContent(content);
-		noteLocalService.updateNote(note);
+		Note note = noteLocalService.editNote(noteId, content);
 		return note;
 
 	}

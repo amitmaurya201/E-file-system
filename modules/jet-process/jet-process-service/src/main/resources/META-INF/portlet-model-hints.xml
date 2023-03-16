@@ -42,6 +42,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="noteDocumentId" type="long" />
 		<field name="noteId" type="long" />
+		<field name="movementId" type="long" />
 	</model>
 	<model name="io.jetprocess.model.FileCloseDetail">
 		<field name="uuid" type="String" />

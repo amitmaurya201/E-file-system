@@ -78,7 +78,8 @@ public class DocumentNoteMapModelImpl
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"noteDocumentId", Types.BIGINT}, {"noteId", Types.BIGINT}
+		{"noteDocumentId", Types.BIGINT}, {"noteId", Types.BIGINT},
+		{"movementId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -95,10 +96,11 @@ public class DocumentNoteMapModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("noteDocumentId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("noteId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("movementId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table JET_PROCESS_DocumentNoteMap (uuid_ VARCHAR(75) null,documentNoteMapId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,noteDocumentId LONG,noteId LONG)";
+		"create table JET_PROCESS_DocumentNoteMap (uuid_ VARCHAR(75) null,documentNoteMapId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,noteDocumentId LONG,noteId LONG,movementId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table JET_PROCESS_DocumentNoteMap";
@@ -299,6 +301,11 @@ public class DocumentNoteMapModelImpl
 		attributeSetterBiConsumers.put(
 			"noteId",
 			(BiConsumer<DocumentNoteMap, Long>)DocumentNoteMap::setNoteId);
+		attributeGetterFunctions.put(
+			"movementId", DocumentNoteMap::getMovementId);
+		attributeSetterBiConsumers.put(
+			"movementId",
+			(BiConsumer<DocumentNoteMap, Long>)DocumentNoteMap::setMovementId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -516,6 +523,21 @@ public class DocumentNoteMapModelImpl
 		_noteId = noteId;
 	}
 
+	@JSON
+	@Override
+	public long getMovementId() {
+		return _movementId;
+	}
+
+	@Override
+	public void setMovementId(long movementId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_movementId = movementId;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -588,6 +610,7 @@ public class DocumentNoteMapModelImpl
 		documentNoteMapImpl.setModifiedDate(getModifiedDate());
 		documentNoteMapImpl.setNoteDocumentId(getNoteDocumentId());
 		documentNoteMapImpl.setNoteId(getNoteId());
+		documentNoteMapImpl.setMovementId(getMovementId());
 
 		documentNoteMapImpl.resetOriginalValues();
 
@@ -618,6 +641,8 @@ public class DocumentNoteMapModelImpl
 			this.<Long>getColumnOriginalValue("noteDocumentId"));
 		documentNoteMapImpl.setNoteId(
 			this.<Long>getColumnOriginalValue("noteId"));
+		documentNoteMapImpl.setMovementId(
+			this.<Long>getColumnOriginalValue("movementId"));
 
 		return documentNoteMapImpl;
 	}
@@ -742,6 +767,8 @@ public class DocumentNoteMapModelImpl
 
 		documentNoteMapCacheModel.noteId = getNoteId();
 
+		documentNoteMapCacheModel.movementId = getMovementId();
+
 		return documentNoteMapCacheModel;
 	}
 
@@ -845,6 +872,7 @@ public class DocumentNoteMapModelImpl
 	private boolean _setModifiedDate;
 	private long _noteDocumentId;
 	private long _noteId;
+	private long _movementId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -885,6 +913,7 @@ public class DocumentNoteMapModelImpl
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("noteDocumentId", _noteDocumentId);
 		_columnOriginalValues.put("noteId", _noteId);
+		_columnOriginalValues.put("movementId", _movementId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -927,6 +956,8 @@ public class DocumentNoteMapModelImpl
 		columnBitmasks.put("noteDocumentId", 256L);
 
 		columnBitmasks.put("noteId", 512L);
+
+		columnBitmasks.put("movementId", 1024L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

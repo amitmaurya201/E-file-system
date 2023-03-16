@@ -312,6 +312,9 @@ public interface DocumentNoteMapLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public DocumentNoteMap saveDocumentNoteMap(
+		long noteDocumentId, long noteId, long movementId);
+
 	/**
 	 * Updates the document note map in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

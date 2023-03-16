@@ -63,7 +63,7 @@ public class DocumentNoteMapCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -85,6 +85,8 @@ public class DocumentNoteMapCacheModel
 		sb.append(noteDocumentId);
 		sb.append(", noteId=");
 		sb.append(noteId);
+		sb.append(", movementId=");
+		sb.append(movementId);
 		sb.append("}");
 
 		return sb.toString();
@@ -129,6 +131,7 @@ public class DocumentNoteMapCacheModel
 
 		documentNoteMapImpl.setNoteDocumentId(noteDocumentId);
 		documentNoteMapImpl.setNoteId(noteId);
+		documentNoteMapImpl.setMovementId(movementId);
 
 		documentNoteMapImpl.resetOriginalValues();
 
@@ -153,6 +156,8 @@ public class DocumentNoteMapCacheModel
 		noteDocumentId = objectInput.readLong();
 
 		noteId = objectInput.readLong();
+
+		movementId = objectInput.readLong();
 	}
 
 	@Override
@@ -185,6 +190,8 @@ public class DocumentNoteMapCacheModel
 		objectOutput.writeLong(noteDocumentId);
 
 		objectOutput.writeLong(noteId);
+
+		objectOutput.writeLong(movementId);
 	}
 
 	public String uuid;
@@ -197,5 +204,6 @@ public class DocumentNoteMapCacheModel
 	public long modifiedDate;
 	public long noteDocumentId;
 	public long noteId;
+	public long movementId;
 
 }
