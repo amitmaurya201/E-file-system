@@ -334,7 +334,7 @@ html:not (#__ ):not (#___ ) .cadmin .close {
 	<!--   Creates the popup content-->
 	<div class="">
 		<button type="button" class="close" data-dismiss="modal"
-			aria-label="Close"
+			aria-label="Close" 
 			style="float: right; margin-top: -4%; font-size: 25px;">
 			<span aria-hidden="true">&times;</span>
 		</button>

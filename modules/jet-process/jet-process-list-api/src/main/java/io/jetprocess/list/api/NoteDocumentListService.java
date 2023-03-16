@@ -18,6 +18,11 @@ public interface NoteDocumentListService {
 
 	public int getNoteDocumentSentListCount(long senderId, String keyword);
 	
+    public List<NoteDocumentMovementDTO> getNoteDocumentInboxList(long receiverId, String keyword, int start, int end , String orderBy, String order);
+	
+	public int getNoteDocumentInboxListCount(long notedocumentId, String keyword);
+	
+	
 	
 
 

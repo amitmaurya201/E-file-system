@@ -248,6 +248,80 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 			logger.info("Cleaning up statement");
 		}
 		return count;
-	} 
+	}
+
+
+
+	@Override
+	public List<NoteDocumentMovementDTO> getNoteDocumentInboxList(long receiverId, String keyword, int start, int end,
+			String orderBy, String order) {
+
+
+		logger.info("Getting file inbox list");
+		List<NoteDocumentMovementDTO> noteDocumentInboxDTOList = new ArrayList<>();
+		CallableStatement prepareCall=null;
+		try {
+			 prepareCall = con.prepareCall("SELECT * from public.get_notedocuement_inbox_list(?,?,?,?,?,?)");
+			prepareCall.setLong(1, receiverId);
+			prepareCall.setString(2, keyword);
+			prepareCall.setInt(3, start);
+			prepareCall.setInt(4, end);
+			prepareCall.setString(5, orderBy);
+			prepareCall.setString(6, order);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				while (rs.next()) {
+					NoteDocumentMovementDTO noteDocumentMovementDTO = new NoteDocumentMovementDTO();
+					noteDocumentMovementDTO.setNoteDocumentNumber(rs.getString("notedocumentnumber"));
+					noteDocumentMovementDTO.setSubject(rs.getString("subject"));
+					noteDocumentMovementDTO.setSentBy(rs.getString("sentby"));
+					noteDocumentMovementDTO.setSentOn(rs.getDate("senton"));
+					noteDocumentMovementDTO.setSentTo(rs.getString("sentto"));
+					noteDocumentMovementDTO.setRemarks(rs.getString("remarks"));
+					noteDocumentMovementDTO.setCurrentlyWith(rs.getLong("currentlywith"));
+					noteDocumentMovementDTO.setCurrentlyWithUserName(rs.getString("currentlywithusername"));
+					noteDocumentInboxDTOList.add(noteDocumentMovementDTO);	
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up connection");
+		}
+		return noteDocumentInboxDTOList;		
+	}
+
+
+
+	@Override
+	public int getNoteDocumentInboxListCount(long receiverId, String keyword) {
+		logger.info("Getting file sent list count");
+		CallableStatement prepareCall=null;
+		int count = 0;
+		try {
+			
+			 prepareCall = con.prepareCall("select public.get_notedocument_inbox_list_count(?,?)");
+			prepareCall.setLong(1, receiverId);
+			prepareCall.setString(2, keyword);
+			boolean execute = prepareCall.execute();
+			if (execute) {
+				ResultSet rs = prepareCall.getResultSet();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		} finally {
+			DataAccess.cleanUp(prepareCall);
+			logger.info("Cleaning up connection");
+		}
+		return count;
+		
+	}
 
 }
