@@ -70,6 +70,14 @@ public class NoteLocalServiceWrapper
 		return _noteLocalService.createNote(noteId);
 	}
 
+	@Override
+	public io.jetprocess.model.Note createNote(
+			String content, long createdBy, boolean hasYellowNote)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _noteLocalService.createNote(content, createdBy, hasYellowNote);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -227,10 +235,11 @@ public class NoteLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Note editNote(long noteId, String content)
+	public io.jetprocess.model.Note editNote(
+			long noteId, String content, long updatedBy)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteLocalService.editNote(noteId, content);
+		return _noteLocalService.editNote(noteId, content, updatedBy);
 	}
 
 	@Override

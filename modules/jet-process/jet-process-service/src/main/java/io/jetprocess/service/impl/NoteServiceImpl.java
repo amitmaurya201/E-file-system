@@ -48,9 +48,9 @@ public class NoteServiceImpl extends NoteServiceBaseImpl {
 	}
 	
 	// Create Method for EditNote 
-	public Note editNote(long noteId, String content) throws PortalException {
+	public Note editNote(long noteId, String content, long updatedBy) throws PortalException {
 		logger.info("edit note method called");
-		return noteLocalService.editNote(noteId,content);	
+		return noteLocalService.editNote(noteId,content,updatedBy);	
 	}
 	
 	private Log logger = LogFactoryUtil.getLog(this.getClass());

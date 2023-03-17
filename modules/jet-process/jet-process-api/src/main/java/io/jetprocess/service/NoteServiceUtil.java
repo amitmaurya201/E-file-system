@@ -50,10 +50,10 @@ public class NoteServiceUtil {
 		return getService().deleteNote(noteId);
 	}
 
-	public static Note editNote(long noteId, String content)
+	public static Note editNote(long noteId, String content, long updatedBy)
 		throws PortalException {
 
-		return getService().editNote(noteId, content);
+		return getService().editNote(noteId, content, updatedBy);
 	}
 
 	/**

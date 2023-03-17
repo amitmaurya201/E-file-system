@@ -52,10 +52,11 @@ public class NoteServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.Note editNote(long noteId, String content)
+	public io.jetprocess.model.Note editNote(
+			long noteId, String content, long updatedBy)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteService.editNote(noteId, content);
+		return _noteService.editNote(noteId, content, updatedBy);
 	}
 
 	/**

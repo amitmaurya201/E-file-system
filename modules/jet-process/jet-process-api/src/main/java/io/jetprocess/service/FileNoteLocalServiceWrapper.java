@@ -54,8 +54,12 @@ public class FileNoteLocalServiceWrapper
 	}
 
 	@Override
-	public io.jetprocess.model.FileNote createFileNote() {
-		return _fileNoteLocalService.createFileNote();
+	public io.jetprocess.model.FileNote addFileNote(
+		String content, long createdBy, long fileId, long noteId,
+		long fileMovementId, boolean hasYellowNote) {
+
+		return _fileNoteLocalService.addFileNote(
+			content, createdBy, fileId, noteId, fileMovementId, hasYellowNote);
 	}
 
 	/**

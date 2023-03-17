@@ -79,7 +79,9 @@ public interface FileNoteLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public FileNote addFileNote(FileNote fileNote);
 
-	public FileNote createFileNote();
+	public FileNote addFileNote(
+		String content, long createdBy, long fileId, long noteId,
+		long fileMovementId, boolean hasYellowNote);
 
 	/**
 	 * Creates a new file note with the primary key. Does not add the file note to the database.

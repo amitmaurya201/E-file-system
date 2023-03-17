@@ -67,11 +67,13 @@ function <portlet:namespace/>greenBackgroundEditor(){
 	var editor = CKEDITOR.instances["<portlet:namespace/>green-note-content"];
 	var iframeBody=editor.document.$.body;
 	$(iframeBody).attr("style", "background-color:#bef8c7 !important");	
+	console.log(iframeBody);
 }
 function <portlet:namespace/>yellowBackgroundEditor(){
 	var editor = CKEDITOR.instances["<portlet:namespace/>yellow-note-content"];
 	var iframeBody=editor.document.$.body;
 	$(iframeBody).attr("style", "background-color:#fcffa4 !important");	
+	console.log(iframeBody);
 }
 
  function <portlet:namespace/>yellowClickHandler() {
@@ -156,10 +158,10 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 		 $("#green-note-header").css("background-color","#960018");
 	 }
 	 var fileId = $('#docFileId').val();
-	 console.log(fileId);
+
 	 var fileMovementId = $('#fileMovementId').val();
 	 var noteId = $('#greenNoteId').val();
-	 console.log("green noteId"+noteId);
+	 console.log("green note id -------"+noteId);
 	 var object = {};
 	 var jsonData = object;
 	 jsonData["createdBy"]=userPostId;
@@ -169,7 +171,7 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 	 jsonData["hasYellowNote"] = false;
 	 jsonData["fileMovementId"] =fileMovementId;
 	 var jsonObj = JSON.stringify(jsonData);
-	 console.log("test");
+
 	 $.ajax({
 		 type:"POST",
 		 url:"${portalURL}/o/jet-process-rs/v1.0/createNote?p_auth=" + Liferay.authToken,
@@ -197,10 +199,8 @@ if(noteId>0 && viewMode != 'ViewModeFromSentFile'){
 		 $("#yellow-note-header").css("background-color","#960018");
 	 }
 	 var fileId = $('#docFileId').val();
-	 console.log(fileId);
 	 var fileMovementId = $('#fileMovementId').val();
 	 var noteId = $('#yellowNoteId').val();
-	 console.log("yellow noteId"+noteId);
 	 var object = {};
 	 var jsonData = object;
 	 jsonData["createdBy"]=userPostId;

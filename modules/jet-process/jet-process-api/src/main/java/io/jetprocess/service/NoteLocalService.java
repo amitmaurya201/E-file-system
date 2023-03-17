@@ -92,6 +92,10 @@ public interface NoteLocalService
 	@Transactional(enabled = false)
 	public Note createNote(long noteId);
 
+	public Note createNote(
+			String content, long createdBy, boolean hasYellowNote)
+		throws PortalException;
+
 	/**
 	 * @throws PortalException
 	 */
@@ -204,7 +208,8 @@ public interface NoteLocalService
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
 
-	public Note editNote(long noteId, String content) throws PortalException;
+	public Note editNote(long noteId, String content, long updatedBy)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Note fetchNote(long noteId);

@@ -60,8 +60,12 @@ public class FileNoteLocalServiceUtil {
 		return getService().addFileNote(fileNote);
 	}
 
-	public static FileNote createFileNote() {
-		return getService().createFileNote();
+	public static FileNote addFileNote(
+		String content, long createdBy, long fileId, long noteId,
+		long fileMovementId, boolean hasYellowNote) {
+
+		return getService().addFileNote(
+			content, createdBy, fileId, noteId, fileMovementId, hasYellowNote);
 	}
 
 	/**

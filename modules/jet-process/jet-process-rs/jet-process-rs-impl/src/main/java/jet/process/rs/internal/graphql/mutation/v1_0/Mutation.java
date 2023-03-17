@@ -20,9 +20,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import jet.process.rs.dto.v1_0.FileRsModel;
+import jet.process.rs.dto.v1_0.NoteDocumentRsModel;
 import jet.process.rs.dto.v1_0.NoteRsModel;
 import jet.process.rs.dto.v1_0.ReceiptRsModel;
 import jet.process.rs.resource.v1_0.FileRsModelResource;
+import jet.process.rs.resource.v1_0.NoteDocumentRsModelResource;
 import jet.process.rs.resource.v1_0.NoteRsModelResource;
 import jet.process.rs.resource.v1_0.ReceiptRsModelResource;
 
@@ -41,6 +43,14 @@ public class Mutation {
 
 		_fileRsModelResourceComponentServiceObjects =
 			fileRsModelResourceComponentServiceObjects;
+	}
+
+	public static void setNoteDocumentRsModelResourceComponentServiceObjects(
+		ComponentServiceObjects<NoteDocumentRsModelResource>
+			noteDocumentRsModelResourceComponentServiceObjects) {
+
+		_noteDocumentRsModelResourceComponentServiceObjects =
+			noteDocumentRsModelResourceComponentServiceObjects;
 	}
 
 	public static void setNoteRsModelResourceComponentServiceObjects(
@@ -80,6 +90,34 @@ public class Mutation {
 			this::_populateResourceContext,
 			fileRsModelResource -> fileRsModelResource.updateDocFile(
 				fileRsModel));
+	}
+
+	@GraphQLField
+	public NoteDocumentRsModel updateNoteDocument(
+			@GraphQLName("noteDocumentRsModel") NoteDocumentRsModel
+				noteDocumentRsModel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteDocumentRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteDocumentRsModelResource ->
+				noteDocumentRsModelResource.updateNoteDocument(
+					noteDocumentRsModel));
+	}
+
+	@GraphQLField
+	public NoteDocumentRsModel createNoteDocument(
+			@GraphQLName("noteDocumentRsModel") NoteDocumentRsModel
+				noteDocumentRsModel)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_noteDocumentRsModelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			noteDocumentRsModelResource ->
+				noteDocumentRsModelResource.createNoteDocument(
+					noteDocumentRsModel));
 	}
 
 	@GraphQLField
@@ -191,6 +229,22 @@ public class Mutation {
 	}
 
 	private void _populateResourceContext(
+			NoteDocumentRsModelResource noteDocumentRsModelResource)
+		throws Exception {
+
+		noteDocumentRsModelResource.setContextAcceptLanguage(_acceptLanguage);
+		noteDocumentRsModelResource.setContextCompany(_company);
+		noteDocumentRsModelResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		noteDocumentRsModelResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		noteDocumentRsModelResource.setContextUriInfo(_uriInfo);
+		noteDocumentRsModelResource.setContextUser(_user);
+		noteDocumentRsModelResource.setGroupLocalService(_groupLocalService);
+		noteDocumentRsModelResource.setRoleLocalService(_roleLocalService);
+	}
+
+	private void _populateResourceContext(
 			NoteRsModelResource noteRsModelResource)
 		throws Exception {
 
@@ -222,6 +276,8 @@ public class Mutation {
 
 	private static ComponentServiceObjects<FileRsModelResource>
 		_fileRsModelResourceComponentServiceObjects;
+	private static ComponentServiceObjects<NoteDocumentRsModelResource>
+		_noteDocumentRsModelResourceComponentServiceObjects;
 	private static ComponentServiceObjects<NoteRsModelResource>
 		_noteRsModelResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ReceiptRsModelResource>

@@ -83,22 +83,16 @@ public class FileInnerViewRenderCommand implements MVCRenderCommand {
                 long noteId=fileNote.getNoteId();
                 Note note=noteLocalService.getNote(noteId);
                 if(note.getHasYellowNote()) {
-                    System.out.println("yellow----"+note.getContent());
                     renderRequest.setAttribute("yellowNoteContent",note.getContent());
-                    System.out.println("yellow-----"+note.getNoteId());
                     renderRequest.setAttribute("yellowNoteId", note.getNoteId());
-                    System.out.println("yellow-----"+ note.getModifiedDate());
                     renderRequest.setAttribute("yellowNoteModifiedDate", note.getModifiedDate());
                     renderRequest.setAttribute("yellowFileNoteObj", fileNote);
-                    System.out.println("yellowFileNoteObj");
+                  
                 }
                 else {
-                    System.out.println("green------"+note.getContent());
                     renderRequest.setAttribute("greenNoteContent", note.getContent());
-                    System.out.println("green------"+note.getModifiedDate());
                     renderRequest.setAttribute("modifiedDate", note.getModifiedDate());
                     renderRequest.setAttribute("greenFileNoteObj", fileNote);
-                    System.out.println("greenFileNoteObj");
                 }
             }
     }

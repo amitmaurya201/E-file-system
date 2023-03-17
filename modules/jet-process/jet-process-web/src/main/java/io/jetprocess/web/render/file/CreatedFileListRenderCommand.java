@@ -1,6 +1,7 @@
 package io.jetprocess.web.render.file;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -27,6 +28,10 @@ import io.jetprocess.list.api.FileListService;
 import io.jetprocess.list.model.FileListViewDto;
 import io.jetprocess.masterdata.service.MasterdataLocalService;
 import io.jetprocess.masterdata.service.MasterdataService;
+import io.jetprocess.model.FileNote;
+import io.jetprocess.model.Note;
+import io.jetprocess.service.FileNoteLocalService;
+import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
 import io.jetprocess.web.display.context.FileManagementToolbarDisplayContext;
@@ -43,7 +48,7 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
  		return "/file/created-file-list.jsp";
 	}
 
-	private void setCreatedFileListAttributes(RenderRequest renderRequest) {
+	private void setCreatedFileListAttributes(RenderRequest renderRequest)  {
 		logger.info("setting Created file list Attribute...");
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
@@ -88,4 +93,8 @@ public class CreatedFileListRenderCommand implements MVCRenderCommand {
 	private MasterdataLocalService masterdataLocalService;
 	@Reference
 	private Portal _portal;
+	@Reference
+	private FileNoteLocalService fileNoteLocalService;
+	@Reference
+	private NoteLocalService noteLocalService;
 }

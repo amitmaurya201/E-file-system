@@ -6,6 +6,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
+import io.jetprocess.model.FileNote;
 import io.jetprocess.model.Note;
 import io.jetprocess.service.FileNoteLocalService;
 import io.jetprocess.service.NoteLocalService;
@@ -20,19 +21,14 @@ public class NoteRsModelResourceImpl extends BaseNoteRsModelResourceImpl {
 
 	@Override
 	public NoteRsModel createNote(NoteRsModel noteRsModel) throws Exception {
-
-		Note note = noteLocalService.addNote(noteRsModel.getContent(), noteRsModel.getCreatedBy(),
-		noteRsModel.getFileId(), noteRsModel.getNoteId(), noteRsModel.getFileMovementId(),noteRsModel.getHasYellowNote());
-		long noteId = note.getNoteId();
+		FileNote fileNote = fileNoteLocalService.addFileNote(noteRsModel.getContent(), noteRsModel.getCreatedBy(),
+		noteRsModel.getFileId(), noteRsModel.getNoteId(), noteRsModel.getFileMovementId(),
+		noteRsModel.getHasYellowNote());
+		long noteId = fileNote.getNoteId();
+		System.out.println(noteId);
 		noteRsModel.setNoteId(noteId);
 		return noteRsModel;
 
-	}
-
-	@Override
-	public NoteRsModel editNote(NoteRsModel noteRsModel) throws Exception {
-		noteLocalService.editNote(noteRsModel.getNoteId(), noteRsModel.getContent());
-		return noteRsModel;
 	}
 
 	@Override
