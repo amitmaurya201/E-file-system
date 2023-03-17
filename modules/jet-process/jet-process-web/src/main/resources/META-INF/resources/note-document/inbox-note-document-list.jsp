@@ -26,23 +26,21 @@
 
 
 
-				<%-- <portlet:renderURL var="innerViewDetail">
+			 <portlet:renderURL var="inboxInnerViewDetail">
 					<portlet:param name="mvcRenderCommandName"
-						value="<%=MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND%>" />
-					<portlet:param name="noteId"
+						value="<%=MVCCommandNames.NOTE_DOCUMENT_INBOX_INNER_VIEW_RENDER_COMMAND%>" />
+					<%-- <portlet:param name="noteId"
 						value="<%=String.valueOf(noteDocument.getNoteId())%>" />
 					<portlet:param name="noteDocumentId"
 						value="<%=String.valueOf(noteDocument.getNoteDocumentId())%>" />
 					<portlet:param name="subjectCategoryValue"
-						value="<%=noteDocument.getCategoryValue()%>" />
-				</portlet:renderURL> --%>
+						value="<%=noteDocument.getCategoryValue()%>" /> --%>
+				</portlet:renderURL> 
 
 
-				<liferay-ui:search-container-column-text
+				<liferay-ui:search-container-column-text href="<%=inboxInnerViewDetail %>"
 					value="<%=noteDocument.getNoteDocumentNumber() != null ? noteDocument.getNoteDocumentNumber() : ""%>"
-					name="label-notedocument-inbox-list-notedocumentnumber"
-					cssClass="hyperlink-css" orderableProperty="noteDocumentNumber"
-					orderable="true" />
+					name="label-notedocument-inbox-list-notedocumentnumber" cssClass="hyperlink-css" orderableProperty="noteDocumentNumber" orderable="true" />
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
 					value="<%=noteDocument.getSubject() != null ? noteDocument.getSubject() : ""%>"
@@ -53,11 +51,6 @@
 					value="<%=noteDocument.getSentBy() != null ? noteDocument.getSentBy() : ""%>" />
 
                  
-             <%--     <liferay-ui:search-container-column-text cssClass="hover-tips"
-					name="label-notedocument-inbox-list-senton"
-					value="<%=noteDocument.getSentOn() != null ? noteDocument.getSentOn() : ""%>" />
-                 
-                --%>  
                
 				<liferay-ui:search-container-column-text orderable="true"
 					name="label-notedocument-inbox-list-senton"
@@ -69,17 +62,10 @@
           
 					<liferay-ui:search-container-column-text
 						name="label-notedocument-inbox-ramarks" cssClass="hover-tips bold" value="<%=noteDocument.getRemarks() != null ? noteDocument.getRemarks() : ""%>" />
-						<%-- <c:if test="${not empty fileInboxList.getRemark()}">
-							<
-						</c:if> --%><%-- 
-					</liferay-ui:search-container-column-text> --%>
-     
-
+					
 			 	<liferay-ui:search-container-column-text
 					name="label-notedocument-inbox-createdlist-actions" align="center">
-					<a id="sendnoteDocument" data-toggle="send_noteDocument"
-						data-target="#send_noteDocument" style="cursor: pointer"
-						<%-- onclick="openModal(${noteDocument.noteDocumentId})" --%>>Send</a>
+					<a href="#">Send</a>
 				</liferay-ui:search-container-column-text>
  
 			</liferay-ui:search-container-row>

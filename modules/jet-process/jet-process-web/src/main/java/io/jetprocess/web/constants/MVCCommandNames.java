@@ -106,4 +106,6 @@ public class MVCCommandNames {
 	public static final String NOTE_DOCUMENT_MOVEMENT_LIST_RENDER_COMMAND = "/noteDocumentMovementRenderCommand";
 
 	public static final String NOTE_LIST_RENDER_COMMAND = "noteList";
+	
+	public static final String NOTE_DOCUMENT_INBOX_INNER_VIEW_RENDER_COMMAND = "/noteDocumentInboxInnerViewRenderCommand";
 }
