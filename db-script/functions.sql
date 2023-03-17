@@ -69,7 +69,7 @@ DROP FUNCTION IF EXISTS public.get_notedocument_inbox_list_count(bigint, text);
 
 DROP FUNCTION IF EXISTS public.get_notedocument_note_list(bigint, bigint);
 
-DROP FUNCTION IF EXISTS get_notedocument_sent_list_count(bigint,text)
+DROP FUNCTION IF EXISTS public.get_notedocument_sent_list_count(bigint,text);
 
 ------------------------File-created-list-----------------------------
 
@@ -2816,7 +2816,7 @@ AS $BODY$
     null as currentlywithusername 
   	FROM PUBLIC.jet_process_notedocmovement as dm INNER JOIN public.jet_process_notedocument as nd ON dm.notedocumentid = nd.notedocumentid 
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON dm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON dm.senderid = up2.userpostid ';
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON dm.senderid = up2.userpostid WHERE movementtype=1 ';
                   
         _keyword := '''%'||keyword||'%''';
         
@@ -2832,7 +2832,7 @@ AS $BODY$
                 _limit :=_end;
         END IF;   
         
---         select * from PUBLIC.jet_process_notedocmovement
+
         IF (orderByCol ='' OR orderByCol ='senton' OR orderByCol ='sentOn' OR orderByCol IS NULL) THEN
                  _orderBy :='dm.modifieddate';
            
@@ -2856,7 +2856,7 @@ AS $BODY$
                         
                         IF (_senderid !=0 )THEN
                         
-                             _query := _query|| ' WHERE dm.senderid  ='||_senderid;
+                             _query := _query|| ' AND dm.senderid  ='||_senderid;
                             
                                IF (keyword IS NOT NULL) THEN  
                                                                 
@@ -2921,7 +2921,7 @@ begin
     _query :='select COUNT(*)  
        FROM PUBLIC.jet_process_notedocmovement as dm INNER JOIN public.jet_process_notedocument as nd ON dm.notedocumentid = nd.notedocumentid 
 	left outer JOIN PUBLIC.masterdata_userpost as up1 ON dm.receiverid = up1.userpostid
-	left outer JOIN PUBLIC.masterdata_userpost as up2 ON dm.senderid = up2.userpostid WHERE dm.senderid  ='||_senderid;
+	left outer JOIN PUBLIC.masterdata_userpost as up2 ON dm.senderid = up2.userpostid  WHERE dm.movementtype=1 AND  dm.senderid  ='||_senderid;
     IF _senderid != 0 AND _senderid IS NOT NULL THEN
     
         IF  keyword !='' AND keyword IS NOT NULL  THEN
