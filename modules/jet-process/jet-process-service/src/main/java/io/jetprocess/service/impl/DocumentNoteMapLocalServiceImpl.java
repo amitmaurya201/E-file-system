@@ -36,4 +36,10 @@ public class DocumentNoteMapLocalServiceImpl extends DocumentNoteMapLocalService
 		addDocumentNoteMap(documentNoteMap);
 		return documentNoteMap;
 	}
+	
+	public DocumentNoteMap getDocumentNoteMapbyMovementId(long movementId) {
+	
+		return documentNoteMapPersistence.fetchByfindByMovementId(movementId);
+		
+	}
 }

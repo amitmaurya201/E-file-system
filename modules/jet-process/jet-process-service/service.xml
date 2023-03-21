@@ -469,9 +469,12 @@
 		<column name="noteDocumentId" type="long" />
 		<column name="noteId" type="long" />
 		<column name="movementId" type="long" />
-
+	<finder return-type="DocumentNoteMap" name="findByMovementId">
+		<finder-column name="movementId"> </finder-column>
+		</finder>
 		<!-- Group Reference -->
 		<reference entity="Group" package-path="com.liferay.portal" />
+	
 
 	</entity>
 

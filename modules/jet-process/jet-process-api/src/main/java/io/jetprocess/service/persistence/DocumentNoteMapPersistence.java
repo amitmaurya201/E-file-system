@@ -391,6 +391,51 @@ public interface DocumentNoteMapPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the document note map where movementId = &#63; or throws a <code>NoSuchDocumentNoteMapException</code> if it could not be found.
+	 *
+	 * @param movementId the movement ID
+	 * @return the matching document note map
+	 * @throws NoSuchDocumentNoteMapException if a matching document note map could not be found
+	 */
+	public DocumentNoteMap findByfindByMovementId(long movementId)
+		throws NoSuchDocumentNoteMapException;
+
+	/**
+	 * Returns the document note map where movementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param movementId the movement ID
+	 * @return the matching document note map, or <code>null</code> if a matching document note map could not be found
+	 */
+	public DocumentNoteMap fetchByfindByMovementId(long movementId);
+
+	/**
+	 * Returns the document note map where movementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param movementId the movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching document note map, or <code>null</code> if a matching document note map could not be found
+	 */
+	public DocumentNoteMap fetchByfindByMovementId(
+		long movementId, boolean useFinderCache);
+
+	/**
+	 * Removes the document note map where movementId = &#63; from the database.
+	 *
+	 * @param movementId the movement ID
+	 * @return the document note map that was removed
+	 */
+	public DocumentNoteMap removeByfindByMovementId(long movementId)
+		throws NoSuchDocumentNoteMapException;
+
+	/**
+	 * Returns the number of document note maps where movementId = &#63;.
+	 *
+	 * @param movementId the movement ID
+	 * @return the number of matching document note maps
+	 */
+	public int countByfindByMovementId(long movementId);
+
+	/**
 	 * Caches the document note map in the entity cache if it is enabled.
 	 *
 	 * @param documentNoteMap the document note map

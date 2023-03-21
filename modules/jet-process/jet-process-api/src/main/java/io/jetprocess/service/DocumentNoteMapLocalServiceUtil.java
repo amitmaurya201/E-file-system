@@ -248,6 +248,12 @@ public class DocumentNoteMapLocalServiceUtil {
 		return getService().getDocumentNoteMap(documentNoteMapId);
 	}
 
+	public static DocumentNoteMap getDocumentNoteMapbyMovementId(
+		long movementId) {
+
+		return getService().getDocumentNoteMapbyMovementId(movementId);
+	}
+
 	/**
 	 * Returns the document note map matching the UUID and group.
 	 *

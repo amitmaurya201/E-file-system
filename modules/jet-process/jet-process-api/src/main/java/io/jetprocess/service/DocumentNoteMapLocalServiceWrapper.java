@@ -278,6 +278,14 @@ public class DocumentNoteMapLocalServiceWrapper
 			documentNoteMapId);
 	}
 
+	@Override
+	public io.jetprocess.model.DocumentNoteMap getDocumentNoteMapbyMovementId(
+		long movementId) {
+
+		return _documentNoteMapLocalService.getDocumentNoteMapbyMovementId(
+			movementId);
+	}
+
 	/**
 	 * Returns the document note map matching the UUID and group.
 	 *

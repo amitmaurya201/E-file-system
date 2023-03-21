@@ -3,6 +3,7 @@ create index IX_55E4699F on JET_PROCESS_DocFile (nature[$COLUMN_LENGTH:75$]);
 create index IX_1C31438 on JET_PROCESS_DocFile (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_2AF348BA on JET_PROCESS_DocFile (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_B6DFB9BD on JET_PROCESS_DocumentNoteMap (movementId);
 create index IX_B1835E53 on JET_PROCESS_DocumentNoteMap (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_EE55D95 on JET_PROCESS_DocumentNoteMap (uuid_[$COLUMN_LENGTH:75$], groupId);
 

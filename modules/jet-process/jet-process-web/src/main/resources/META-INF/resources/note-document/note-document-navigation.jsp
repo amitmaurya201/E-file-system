@@ -1,8 +1,8 @@
-<%@ include file="../init.jsp"%>
+ <%@ include file="../init.jsp"%>
 
 <%
 	long noteDocumentId = (long) renderRequest.getAttribute("noteDocumentId");
-	long noteId = (long) renderRequest.getAttribute("noteId");
+	
 	String backPageURL = (String) renderRequest.getAttribute("backPageURL");
 %>
 <style>
@@ -31,7 +31,7 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND%>" />
 	<portlet:param name="noteDocumentId" value="<%=noteDocumentId + ""%>" />
-	<portlet:param name="noteId" value="<%=noteId + ""%>" />
+	
 	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 </portlet:renderURL>
 
@@ -39,14 +39,14 @@
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.NOTE_DOCUMENT_SEND_RENDER_COMMAND%>" />
 	<portlet:param name="noteDocumentId" value="<%=noteDocumentId + ""%>" />
-	<portlet:param name="noteId" value="<%=noteId + ""%>" />
+	
 	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 </portlet:renderURL>
 <portlet:renderURL var="movement">
 	<portlet:param name="mvcRenderCommandName"
 		value="<%=MVCCommandNames.NOTE_DOCUMENT_MOVEMENT_LIST_RENDER_COMMAND%>" />
 	<portlet:param name="noteDocumentId" value="<%=noteDocumentId + ""%>" />
-	<portlet:param name="noteId" value="<%=noteId + ""%>" />
+	
 	<portlet:param name="backPageURL" value="<%=backPageURL%>" />
 </portlet:renderURL>
 

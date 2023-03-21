@@ -13,8 +13,10 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.jetprocess.model.DocumentNoteMap;
 import io.jetprocess.model.Note;
 import io.jetprocess.model.NoteDocument;
+import io.jetprocess.service.DocumentNoteMapLocalService;
 import io.jetprocess.service.NoteDocumentLocalService;
 import io.jetprocess.service.NoteLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
@@ -29,17 +31,20 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("NoteDocumentInnerViewRenderCommand------>");
 		long noteDocumentId = ParamUtil.getLong(renderRequest, "noteDocumentId");
-		long noteId = ParamUtil.getLong(renderRequest, "noteId");
+		long movementid = ParamUtil.getLong(renderRequest, "movementid");
+		DocumentNoteMap documentNoteMap =	documentNoteMapLocalService.getDocumentNoteMapbyMovementId(movementid);
+		System.out.println("noteid-----"+documentNoteMap.getNoteId());
+		
 		String backPageURL = ParamUtil.getString(renderRequest, "backPageURL");
 		String subjectCategoryValue = ParamUtil.getString(renderRequest, "subjectCategoryValue");
 		renderRequest.setAttribute("subjectCategoryValue", subjectCategoryValue);
 		renderRequest.setAttribute("noteDocumentId", noteDocumentId);
-		renderRequest.setAttribute("noteId", noteId);
+		renderRequest.setAttribute("noteId", documentNoteMap.getNoteId());
 		renderRequest.setAttribute("backPageURL", backPageURL);
 		try {
 			NoteDocument noteDocument = noteDocumentLocalService.getNoteDocument(noteDocumentId);
 			renderRequest.setAttribute("noteDocumentObj", noteDocument);
-			Note note = noteLocalService.getNote(noteId);
+			Note note = noteLocalService.getNote(documentNoteMap.getNoteId());
 			renderRequest.setAttribute("noteObj", note);
 		} catch (PortalException e) {
 			e.printStackTrace();
@@ -53,6 +58,9 @@ public class NoteDocumentInnerViewRenderCommand implements MVCRenderCommand{
 	
 	@Reference
 	private NoteLocalService noteLocalService;
+	
+	@Reference
+	private DocumentNoteMapLocalService documentNoteMapLocalService;
 	
 	private Log logger = LogFactoryUtil.getLog(NoteDocumentInnerViewRenderCommand.class);
 

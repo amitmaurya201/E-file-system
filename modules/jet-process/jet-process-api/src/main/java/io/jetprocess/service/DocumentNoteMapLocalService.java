@@ -229,6 +229,9 @@ public interface DocumentNoteMapLocalService
 	public DocumentNoteMap getDocumentNoteMap(long documentNoteMapId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DocumentNoteMap getDocumentNoteMapbyMovementId(long movementId);
+
 	/**
 	 * Returns the document note map matching the UUID and group.
 	 *

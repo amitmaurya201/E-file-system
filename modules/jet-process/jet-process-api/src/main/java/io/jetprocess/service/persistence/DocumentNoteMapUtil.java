@@ -534,6 +534,65 @@ public class DocumentNoteMapUtil {
 	}
 
 	/**
+	 * Returns the document note map where movementId = &#63; or throws a <code>NoSuchDocumentNoteMapException</code> if it could not be found.
+	 *
+	 * @param movementId the movement ID
+	 * @return the matching document note map
+	 * @throws NoSuchDocumentNoteMapException if a matching document note map could not be found
+	 */
+	public static DocumentNoteMap findByfindByMovementId(long movementId)
+		throws io.jetprocess.exception.NoSuchDocumentNoteMapException {
+
+		return getPersistence().findByfindByMovementId(movementId);
+	}
+
+	/**
+	 * Returns the document note map where movementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param movementId the movement ID
+	 * @return the matching document note map, or <code>null</code> if a matching document note map could not be found
+	 */
+	public static DocumentNoteMap fetchByfindByMovementId(long movementId) {
+		return getPersistence().fetchByfindByMovementId(movementId);
+	}
+
+	/**
+	 * Returns the document note map where movementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param movementId the movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching document note map, or <code>null</code> if a matching document note map could not be found
+	 */
+	public static DocumentNoteMap fetchByfindByMovementId(
+		long movementId, boolean useFinderCache) {
+
+		return getPersistence().fetchByfindByMovementId(
+			movementId, useFinderCache);
+	}
+
+	/**
+	 * Removes the document note map where movementId = &#63; from the database.
+	 *
+	 * @param movementId the movement ID
+	 * @return the document note map that was removed
+	 */
+	public static DocumentNoteMap removeByfindByMovementId(long movementId)
+		throws io.jetprocess.exception.NoSuchDocumentNoteMapException {
+
+		return getPersistence().removeByfindByMovementId(movementId);
+	}
+
+	/**
+	 * Returns the number of document note maps where movementId = &#63;.
+	 *
+	 * @param movementId the movement ID
+	 * @return the number of matching document note maps
+	 */
+	public static int countByfindByMovementId(long movementId) {
+		return getPersistence().countByfindByMovementId(movementId);
+	}
+
+	/**
 	 * Caches the document note map in the entity cache if it is enabled.
 	 *
 	 * @param documentNoteMap the document note map

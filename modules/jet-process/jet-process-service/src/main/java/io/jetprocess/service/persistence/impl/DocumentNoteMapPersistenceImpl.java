@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1463,6 +1465,220 @@ public class DocumentNoteMapPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"documentNoteMap.companyId = ?";
 
+	private FinderPath _finderPathFetchByfindByMovementId;
+	private FinderPath _finderPathCountByfindByMovementId;
+
+	/**
+	 * Returns the document note map where movementId = &#63; or throws a <code>NoSuchDocumentNoteMapException</code> if it could not be found.
+	 *
+	 * @param movementId the movement ID
+	 * @return the matching document note map
+	 * @throws NoSuchDocumentNoteMapException if a matching document note map could not be found
+	 */
+	@Override
+	public DocumentNoteMap findByfindByMovementId(long movementId)
+		throws NoSuchDocumentNoteMapException {
+
+		DocumentNoteMap documentNoteMap = fetchByfindByMovementId(movementId);
+
+		if (documentNoteMap == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("movementId=");
+			sb.append(movementId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchDocumentNoteMapException(sb.toString());
+		}
+
+		return documentNoteMap;
+	}
+
+	/**
+	 * Returns the document note map where movementId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param movementId the movement ID
+	 * @return the matching document note map, or <code>null</code> if a matching document note map could not be found
+	 */
+	@Override
+	public DocumentNoteMap fetchByfindByMovementId(long movementId) {
+		return fetchByfindByMovementId(movementId, true);
+	}
+
+	/**
+	 * Returns the document note map where movementId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param movementId the movement ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching document note map, or <code>null</code> if a matching document note map could not be found
+	 */
+	@Override
+	public DocumentNoteMap fetchByfindByMovementId(
+		long movementId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {movementId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByfindByMovementId, finderArgs);
+		}
+
+		if (result instanceof DocumentNoteMap) {
+			DocumentNoteMap documentNoteMap = (DocumentNoteMap)result;
+
+			if (movementId != documentNoteMap.getMovementId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_DOCUMENTNOTEMAP_WHERE);
+
+			sb.append(_FINDER_COLUMN_FINDBYMOVEMENTID_MOVEMENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(movementId);
+
+				List<DocumentNoteMap> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByfindByMovementId, finderArgs,
+							list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {movementId};
+							}
+
+							_log.warn(
+								"DocumentNoteMapPersistenceImpl.fetchByfindByMovementId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					DocumentNoteMap documentNoteMap = list.get(0);
+
+					result = documentNoteMap;
+
+					cacheResult(documentNoteMap);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (DocumentNoteMap)result;
+		}
+	}
+
+	/**
+	 * Removes the document note map where movementId = &#63; from the database.
+	 *
+	 * @param movementId the movement ID
+	 * @return the document note map that was removed
+	 */
+	@Override
+	public DocumentNoteMap removeByfindByMovementId(long movementId)
+		throws NoSuchDocumentNoteMapException {
+
+		DocumentNoteMap documentNoteMap = findByfindByMovementId(movementId);
+
+		return remove(documentNoteMap);
+	}
+
+	/**
+	 * Returns the number of document note maps where movementId = &#63;.
+	 *
+	 * @param movementId the movement ID
+	 * @return the number of matching document note maps
+	 */
+	@Override
+	public int countByfindByMovementId(long movementId) {
+		FinderPath finderPath = _finderPathCountByfindByMovementId;
+
+		Object[] finderArgs = new Object[] {movementId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_DOCUMENTNOTEMAP_WHERE);
+
+			sb.append(_FINDER_COLUMN_FINDBYMOVEMENTID_MOVEMENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(movementId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FINDBYMOVEMENTID_MOVEMENTID_2 =
+		"documentNoteMap.movementId = ?";
+
 	public DocumentNoteMapPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1495,6 +1711,10 @@ public class DocumentNoteMapPersistenceImpl
 				documentNoteMap.getUuid(), documentNoteMap.getGroupId()
 			},
 			documentNoteMap);
+
+		finderCache.putResult(
+			_finderPathFetchByfindByMovementId,
+			new Object[] {documentNoteMap.getMovementId()}, documentNoteMap);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1578,6 +1798,13 @@ public class DocumentNoteMapPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, documentNoteMapModelImpl);
+
+		args = new Object[] {documentNoteMapModelImpl.getMovementId()};
+
+		finderCache.putResult(
+			_finderPathCountByfindByMovementId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByfindByMovementId, args, documentNoteMapModelImpl);
 	}
 
 	/**
@@ -2099,6 +2326,16 @@ public class DocumentNoteMapPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByfindByMovementId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByfindByMovementId",
+			new String[] {Long.class.getName()}, new String[] {"movementId"},
+			true);
+
+		_finderPathCountByfindByMovementId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByfindByMovementId", new String[] {Long.class.getName()},
+			new String[] {"movementId"}, false);
 
 		_setDocumentNoteMapUtilPersistence(this);
 	}
