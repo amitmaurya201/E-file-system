@@ -38,9 +38,7 @@
 					value="${noteDocumentMovementDTO.noteDocumentNumber }"
 					orderableProperty="noteDocumentNumber" orderable="true" />
 
-				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					value="${noteDocumentMovementDTO.getNoteDocumentId() }" name="note Document Id"
-					orderableProperty="noteDocumentId" />
+			
 
 
 				<liferay-ui:search-container-column-text cssClass="hover-tips"
@@ -49,17 +47,17 @@
 
 
 
+
+				<liferay-ui:search-container-column-text cssClass="hover-tips"
+					value="${noteDocumentMovementDTO.sentTo }" name="label-notedocument-sent-list-sentTo"
+					orderableProperty="sentTO" />
+
+
 				<liferay-ui:search-container-column-text orderable="true"
-					name="label-notedocument-sent-list-sentTo" orderableProperty="sentOn">
+					name="label-notedocument-sent-list-createdon" orderableProperty="sentOn">
 					<fmt:formatDate type="both" pattern="dd/MM/yyyy hh:mm aa"
 						timeZone="Asia/Calcutta" value="${noteDocumentMovementDTO.sentOn}" />
 				</liferay-ui:search-container-column-text>
-
-				<liferay-ui:search-container-column-text cssClass="hover-tips"
-					value="${noteDocumentMovementDTO.sentTo }" name="label-notedocument-sent-list-createdon"
-					orderableProperty="sentOn" />
-
-
 
 
 			</liferay-ui:search-container-row>
