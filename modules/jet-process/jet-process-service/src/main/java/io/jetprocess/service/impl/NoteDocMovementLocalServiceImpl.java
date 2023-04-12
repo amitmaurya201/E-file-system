@@ -65,6 +65,6 @@ public class NoteDocMovementLocalServiceImpl extends NoteDocMovementLocalService
 		return noteDocumentMovement;
 	}
 
-	@Reference
+		@Reference
 	private NoteDocumentLocalService noteDocumentLocalService;
 }

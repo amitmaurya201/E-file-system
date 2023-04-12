@@ -406,10 +406,11 @@ public class NoteDocumentLocalServiceWrapper
 
 	@Override
 	public io.jetprocess.model.Note updateNoteDocument(
-			long noteId, String content)
+			long noteId, String content, long updatedby)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _noteDocumentLocalService.updateNoteDocument(noteId, content);
+		return _noteDocumentLocalService.updateNoteDocument(
+			noteId, content, updatedby);
 	}
 
 	/**

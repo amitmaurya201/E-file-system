@@ -263,7 +263,6 @@ $("#<portlet:namespace />generate").on('click', function(e){
     var jsonData = bindFormDataJson(formObj);
     jsonData["userPostId"] = userPostId;
     jsonData["tempFileId"] = tempFileId; 
-   console.log("tempFileId"+tempFileId);
     jsonData["groupId"] = groupId; 
     var jsonObj = JSON.stringify(jsonData);  
     if(validateForm('<portlet:namespace/>receiptForm')){
@@ -320,7 +319,6 @@ $("#<portlet:namespace />update").on('click', function(e){
 	var uploadPdfSizeCss =$("#sizeValidation").css('display');
 	var uploadFileErrorCss = $("#error").css('display');
 	var editpdfurl = $("#editpdfurl").length;
-	console.log("editpdfurl====="+editpdfurl);
     jsonData["userPostId"] = userPostId;
 	if(tempFileId!=0){
 		jsonData["tempFileId"] = tempFileId; 
@@ -444,13 +442,11 @@ $('.dropzone-wrapper').on('dragover', function(e) {
 });	
 
 $('.dropzone-wrapper').on('dragleave', function(e) {
-	console.log("leave drag area..")
 });	
 	
 $('.dropzone-wrapper').on('drop', function(e) {
 	 e.preventDefault();
 	 e.stopPropagation();
-	 console.log("drop drag area.."+e.originalEvent.dataTransfer.files[0].name)
 	 validateSize(e.originalEvent.dataTransfer.files[0])
 });
 	
@@ -483,7 +479,6 @@ function displayPreview(file){
    	 	$('#removeFileUpload').css("display", "block");
    	 	$('#targetDiv').append(embed);            	
 	}).fail(function(e) {
-		console.log(e);
 	}); 
 }
 
@@ -499,7 +494,6 @@ function validateSize(file) {
 }
 
 $(document).ready(function(){
-	/*$("#error").css('display','none');	*/
 	let url;	
 	let flag='${removeFlag}';
 	if(flag== null || flag==''){

@@ -358,10 +358,10 @@ public class NoteDocumentLocalServiceUtil {
 	}
 
 	public static io.jetprocess.model.Note updateNoteDocument(
-			long noteId, String content)
+			long noteId, String content, long updatedby)
 		throws PortalException {
 
-		return getService().updateNoteDocument(noteId, content);
+		return getService().updateNoteDocument(noteId, content, updatedby);
 	}
 
 	/**

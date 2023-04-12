@@ -67,6 +67,7 @@ public class PutInFileRenderCommand implements MVCRenderCommand {
 		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "desc");
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		 long receiptId = ParamUtil.getLong(renderRequest, "receiptId");
+		 System.out.println("receiptId------PutInFileRenderCommand---"+receiptId);
 		 String type = null;
 		 try {
 			Receipt receipt = receiptLocalService.getReceipt(receiptId);

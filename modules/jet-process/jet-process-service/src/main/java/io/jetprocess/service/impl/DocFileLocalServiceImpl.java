@@ -283,6 +283,7 @@ public class DocFileLocalServiceImpl extends DocFileLocalServiceBaseImpl {
 		return docFile;
 
 	}
+	
 
 	@Reference
 	private FileValidator fileValidator;

@@ -1,6 +1,7 @@
 package io.jetprocess.web.render.notedocument;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
@@ -25,6 +26,7 @@ import io.jetprocess.core.util.Pagination;
 import io.jetprocess.list.api.NoteDocumentListService;
 import io.jetprocess.list.model.NoteDocumentDTO;
 import io.jetprocess.list.model.NoteDocumentMovementDTO;
+import io.jetprocess.masterdata.model.UserPost;
 import io.jetprocess.masterdata.service.UserPostLocalService;
 import io.jetprocess.web.constants.JetProcessWebPortletKeys;
 import io.jetprocess.web.constants.MVCCommandNames;
@@ -40,7 +42,14 @@ public class NoteDocumentInboxRenderCommand  implements MVCRenderCommand{
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		logger.info("NoteDocumentInboxRenderCommand------->");
 		setNoteDocumentInboxListAttributes(renderRequest);
-	
+		long userPostId = UserPostUtil.getUserIdUsingSession(renderRequest);
+
+		try {
+			List<UserPost> userPostList = userPostLocalService.getUserPostExceptGivenUserPostId(userPostId);
+			renderRequest.setAttribute("userPostList", userPostList);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 		setNoteDocumentInboxListManagementToolbarAttributes(renderRequest,renderResponse);
 		return "/note-document/inbox-note-document-list.jsp";
 	}

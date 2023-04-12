@@ -320,7 +320,7 @@ public interface NoteDocumentLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public Note updateNoteDocument(long noteId, String content)
+	public Note updateNoteDocument(long noteId, String content, long updatedby)
 		throws PortalException;
 
 	/**

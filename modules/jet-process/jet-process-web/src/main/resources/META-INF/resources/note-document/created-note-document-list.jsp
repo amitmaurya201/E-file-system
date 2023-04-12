@@ -107,8 +107,8 @@ a.close:hover {
 				<portlet:renderURL var="innerViewDetail">
 					<portlet:param name="mvcRenderCommandName"
 						value="<%=MVCCommandNames.NOTE_DOCUMENT_INNER_VIEW_RENDER_COMMAND%>" />
-					<portlet:param name="noteId"
-						value="<%=String.valueOf(noteDocument.getNoteId())%>" />
+					<portlet:param name="movementid"
+						value="<%=String.valueOf(noteDocument.getMovementId())%>" />
 					<portlet:param name="noteDocumentId"
 						value="<%=String.valueOf(noteDocument.getNoteDocumentId())%>" />
 					<portlet:param name="subjectCategoryValue"

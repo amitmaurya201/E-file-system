@@ -55,6 +55,7 @@ private static Log logger = LogFactoryUtil.getLog(NoteDocumentListServiceImpl.cl
 				ResultSet rs = prepareCall.getResultSet();
 				while (rs.next()) {
 				NoteDocumentDTO noteDocument = new NoteDocumentDTO();
+				noteDocument.setMovementId(rs.getLong("movementid"));
 				noteDocument.setModifiedDate(rs.getTimestamp("modifieddate"));
 				noteDocument.setNoteId(rs.getLong("noteid"));
 				noteDocument.setCategoryValue(rs.getString("categoryvalue"));	

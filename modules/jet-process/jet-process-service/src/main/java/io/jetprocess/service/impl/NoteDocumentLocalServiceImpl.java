@@ -64,8 +64,8 @@ public class NoteDocumentLocalServiceImpl extends NoteDocumentLocalServiceBaseIm
 		return documentNoteMap;
 	}
 
-	public Note updateNoteDocument(long noteId, String content) throws PortalException {
-		Note note = noteLocalService.editNote(noteId, content,0);
+	public Note updateNoteDocument(long noteId, String content ,long updatedby) throws PortalException {
+		Note note = noteLocalService.editNote(noteId, content,updatedby);
 		return note;
 
 	}

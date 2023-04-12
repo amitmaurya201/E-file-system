@@ -57,7 +57,6 @@ public class NoteDocumentMovementRenderCommand implements MVCRenderCommand{
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 		long noteDocumentId = ParamUtil.getLong(renderRequest,"noteDocumentId");
 		long noteId = ParamUtil.getLong(renderRequest,"noteId");
-
 		int noteDocumentMovementListCount = noteDocumentListService.getNoteDocumentMovementListCount(noteDocumentId, keywords);
 		System.out.println("noteDocumentCount--->" + noteDocumentMovementListCount);
 		Map<String, Integer> paginationConfig = Pagination.getOffset(delta, currentPage, noteDocumentMovementListCount);
